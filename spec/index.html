@@ -220,7 +220,7 @@ atom    := number | 'string' | "string" | name | $token | name '(' args ')' | '(
   <li>No assignment, loops, I/O or clocks. Evaluation always terminates and is deterministic.</li>
   <li><code>+</code> concatenates if either side is a string. <code>%</code> is floored modulo. Booleans are 1/0.</li>
   <li><b>Variables</b>: <code>t</code> video time, <code>T</code> scene time, <code>p</code> scene progress 0–1, <code>sdur</code> scene duration, <code>dur</code> video duration, <code>W H</code> layout size, <code>portrait</code> 1/0, <code>layout</code> id, every option id, <code>$token</code>s, <code>PI true false</code>.</li>
-  <li><b>Functions</b>: <code>sin cos tan abs sqrt min max floor ceil round pow exp log atan2 sign clamp(v,a,b) lerp(a,b,k) step(e,x) smooth(a,b,x) fract ease(k,'name') fmt(n,digits) str rgba(r,g,b,a) mix(colorA,colorB,k) data('id', i) count('id')</code> (<code>data</code> wraps the index around the list), plus document <code>&lt;fn&gt;</code>s (arguments become variables).</li>
+  <li><b>Functions</b>: <code>sin cos tan abs sqrt min max floor ceil round pow exp log atan2 sign clamp(v,a,b) lerp(a,b,k) step(e,x) smooth(a,b,x) fract ease(k,'name') fmt(n,digits) str rgba(r,g,b,a) mix(colorA,colorB,k) data('id', i) count('id') rand(seed) noise(x)</code> (<code>rand</code> = fract(sin(seed·12.9898+78.233)·43758.5453); <code>noise</code> = smoothstep-interpolated <code>rand</code> between integers) (<code>data</code> wraps the index around the list), plus document <code>&lt;fn&gt;</code>s (arguments become variables).</li>
   <li>An unknown variable, token, string or function is an error. Validators report it (§13).</li>
 </ul>
 

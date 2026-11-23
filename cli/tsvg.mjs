@@ -116,6 +116,7 @@ async function bake() {
     ttsFor[l] = (fromFlag && fromFlag.split('=')[1]) || fromDoc || (l === 'en' ? 'kokoro:af_heart' : 'sarvam:shubh');
   }
   const voices = Object.assign({}, doc.voices);
+  const docName = basename(src.path).replace(/\.tsvg$/, ''); // clips live in voice/<doc>/<lang>/ so many documents can share a folder
   const jobs = [];
   for (const l of langs) {
     const [engine, voice] = ttsFor[l].split(':');
@@ -123,7 +124,7 @@ async function bake() {
       const say = doc.says.find((s) => s.key === ln.key); if (say.raw['src.' + l]) continue; // hand-recorded clip wins
       const v = say.raw['voice.' + l] || say.raw.voice || voice;
       const hash = createHash('sha1').update(engine + '|' + v + '|' + ln.speak).digest('hex').slice(0, 10);
-      const path = `voice/${l}/${ln.key}.${hash}.ogg`; const k = ln.key + '|' + l;
+      const path = `voice/${docName}/${l}/${ln.key}.${hash}.ogg`; const k = ln.key + '|' + l;
       if (!flag('force') && voices[k] && voices[k].hash === hash && src.has(voices[k].src)) continue;
       jobs.push({ k, key: ln.key, lang: l, engine, voice: v, text: ln.speak, hash, path });
     }
@@ -157,8 +158,8 @@ async function bake() {
   const live = new Set(doc.says.flatMap((s) => langs.map((l) => s.key + '|' + l)));
   for (const k of Object.keys(voices)) if (!live.has(k) && langs.includes(k.split('|')[1])) delete voices[k];
   const keep = new Set(Object.values(voices).map((v) => v.src));
-  const vdir = join(src.dir, 'voice');
-  if (existsSync(vdir)) for (const l of readdirSync(vdir)) for (const f of readdirSync(join(vdir, l))) { const p = `voice/${l}/${f}`; if (!keep.has(p)) unlinkSync(join(src.dir, p)); }
+  const vdir = join(src.dir, 'voice', docName); // only this document's folder is cleaned
+  if (existsSync(vdir)) for (const l of readdirSync(vdir)) for (const f of readdirSync(join(vdir, l))) { const p = `voice/${docName}/${l}/${f}`; if (!keep.has(p)) unlinkSync(join(src.dir, p)); }
   const block = '<voices>\n' + Object.entries(voices).sort().map(([k, v]) => { const [say, lang] = k.split('|'); return `    <voice say="${say}" lang="${lang}" src="${v.src}" dur="${(+v.dur).toFixed(2)}" hash="${v.hash}" engine="${v.engine}"/>`; }).join('\n') + '\n  </voices>';
   let xml = src.xml;
   if (/<voices\b[\s\S]*?<\/voices>|<voices\s*\/>/.test(xml)) xml = xml.replace(/<voices\b[\s\S]*?<\/voices>|<voices\s*\/>/, block);

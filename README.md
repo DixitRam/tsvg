@@ -50,6 +50,16 @@ node cli/tsvg.mjs export examples/demo/demo.tsvg --lang gu --layout portrait --c
 npm test
 ```
 
+Install or load from a CDN ([JSR: @panth977/tsvg](https://jsr.io/@panth977/tsvg)):
+
+```ts
+import { TSVGPlayer, TSVG, TSVGZip } from "jsr:@panth977/tsvg";            // Deno / bundlers (npx jsr add @panth977/tsvg)
+import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.2.0";     // any browser, no build
+```
+```html
+<script src="https://jsr.io/@panth977/tsvg/0.2.0/dist/tsvg.js"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
+```
+
 Embed the player:
 
 ```html

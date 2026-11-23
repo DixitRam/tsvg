@@ -73,6 +73,9 @@
     str: (x) => String(x),
     rgba: (r, g, b, a) => 'rgba(' + Math.round(r) + ',' + Math.round(g) + ',' + Math.round(b) + ',' + (a == null ? 1 : a) + ')',
     mix: (a, b, k) => lerpAny(a, b, k),
+    // deterministic pseudo-random 0…1 for a seed, and smooth 1-D value noise (same result on every engine)
+    rand: (n) => { const x = Math.sin((+n || 0) * 12.9898 + 78.233) * 43758.5453; return x - Math.floor(x); },
+    noise: (x) => { const i = Math.floor(x), f = x - i, u = f * f * (3 - 2 * f); const r = (n) => { const y = Math.sin(n * 12.9898 + 78.233) * 43758.5453; return y - Math.floor(y); }; return r(i) + (r(i + 1) - r(i)) * u; },
   };
 
   function tokenize(src) {
