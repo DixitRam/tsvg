@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TSVG 0.2 features: repeat, data, blur, morph. No audio. -->
+<tsvg version="0.2" title="Features">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait"  w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="theme" default="dark"><choice id="dark"/><choice id="light"/></option>
+  </options>
+  <themes>
+    <theme id="dark"  bg="#0e1117" fg="#eef1f7" muted="#7d879a" panel="#1a1f2b" accent="#7aa2ff" pink="#ff6b9a" good="#5fd39a" warm="#ffb35c"/>
+    <theme id="light" bg="#f6f3ec" fg="#1b1e26" muted="#6b7280" panel="#ffffff" accent="#2f5bea" pink="#d6336c" good="#178a55" warm="#d9731a"/>
+  </themes>
+  <defs>
+    <data id="sales" v="12, 28, 19, 44, 37, 61, 52, 78"/>
+    <data id="months" v="Jan, Feb, Mar, Apr, May, Jun, Jul, Aug"/>
+  </defs>
+  <timeline>
+    <!-- repeat: a 16×9 grid of dots riding a wave -->
+    <scene id="repeat" dur="5" chapter="repeat">
+      <text x="=W/2" y="120" size="64" weight="700" align="center" text="repeat"/>
+      <group x="=W/2 - 750" y="260" x.portrait="=W/2 - 450" y.portrait="400" repeat="16" as="col">
+        <circle repeat="9" as="row" x="=col*100" x.portrait="=col*60" y="=row*80 + 26*sin(T*3 - col*0.5 - row*0.3)" y.portrait="=row*120 + 26*sin(T*3 - col*0.5 - row*0.3)"
+                r="=10 + 6*sin(T*2 + col*0.4)" fill="=mix($accent, $pink, col/15)"/>
+      </group>
+    </scene>
+
+    <!-- data: a bar chart that grows, labels from data() -->
+    <scene id="data" dur="6" chapter="data">
+      <text x="=W/2" y="120" size="64" weight="700" align="center" text="data"/>
+      <group x="=W/2 - 720" y="900" x.portrait="=W/2 - 440" y.portrait="1500">
+        <line x1="-20" y1="0" x2="1460" x2.portrait="900" y2="0" stroke="$muted" sw="3"/>
+        <group repeat="=count('sales')" as="k" x="=k*180" x.portrait="=k*110">
+          <rect x="20" x.portrait="10" w="130" w.portrait="80" ay="1" r="10" h="=data('sales', k) * 8 * ease((T - k*0.25)/0.9, 'out')" fill="$accent"/>
+          <text x="85" x.portrait="50" y="=-data('sales', k)*8*ease((T - k*0.25)/0.9, 'out') - 34" size="34" weight="700" align="center" fill="$fg"
+                text="{fmt(data('sales', k) * ease((T - k*0.25)/0.9, 'out'), 0)}"/>
+          <text x="85" x.portrait="50" y="44" size="30" align="center" fill="$muted" text="{data('months', k)}"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- blur: depth of field + glow -->
+    <scene id="blur" dur="5" chapter="blur">
+      <text x="=W/2" y="120" size="64" weight="700" align="center" text="blur"/>
+      <circle x="=W/2 - 420" y="=H/2" r="160" fill="$pink" blur="=24 + 20*sin(T*2)"/>
+      <circle x="=W/2" y="=H/2" r="160" fill="$accent" blur="=max(0, 30 - T*12)"/>
+      <circle x="=W/2 + 420" y="=H/2" r="160" fill="$good" opacity="0.6" blur="40"/>
+      <circle x="=W/2 + 420" y="=H/2" r="110" fill="$good"/>
+    </scene>
+
+    <!-- morph: path data with the same commands interpolates point by point -->
+    <scene id="morph" dur="6" chapter="morph">
+      <text x="=W/2" y="120" size="64" weight="700" align="center" text="morph"/>
+      <path x="=W/2" y="=H/2" fill="$warm" stroke="$fg" sw="4"
+            d="M 0 -220 L 60 -60 L 220 0 L 60 60 L 0 220 L -60 60 L -220 0 L -60 -60 Z">
+        <keys prop="d" ease="io" v="0.5: M 0 -220 L 60 -60 L 220 0 L 60 60 L 0 220 L -60 60 L -220 0 L -60 -60 Z;
+                                    2.5: M 0 -200 L 141 -141 L 200 0 L 141 141 L 0 200 L -141 141 L -200 0 L -141 -141 Z;
+                                    4.5: M -200 -200 L 0 -200 L 200 -200 L 200 0 L 200 200 L 0 200 L -200 200 L -200 0 Z"/>
+        <keys prop="fill" v="0.5: $warm; 2.5: $accent; 4.5: $pink"/>
+      </path>
+    </scene>
+  </timeline>
+</tsvg>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
-<title>TSVG 0.1: Timeseries Scalable Vector Graphics (specification)</title>
+<title>TSVG 0.2: Timeseries Scalable Vector Graphics (specification)</title>
 <style>
   :root{--bg:#0c0e13;--panel:#151922;--line:#262c39;--fg:#e9edf5;--muted:#97a1b5;--accent:#7aa2ff;--pink:#ff6b9a;--good:#5fd39a;--warm:#ffb35c}
   *{box-sizing:border-box} html{scroll-behavior:smooth}
@@ -33,7 +33,7 @@
 <body>
 <div class="wrap">
 <aside>
-  <b style="display:block;padding:0 8px 10px">TSVG 0.1</b>
+  <b style="display:block;padding:0 8px 10px">TSVG 0.2</b>
   <a href="#intro">1. Introduction</a>
   <a href="#files">2. Files</a>
   <a href="#doc">3. Document</a>
@@ -51,8 +51,8 @@
   <a href="#future">14. Not in 0.1</a>
 </aside>
 <main>
-<h1><span>TSVG</span> 0.1: Timeseries Scalable Vector Graphics</h1>
-<div class="muted">Draft specification · 2026-11-23 · MIT · reference engine: <code>web/tsvg-core.js</code></div>
+<h1><span>TSVG</span> 0.2: Timeseries Scalable Vector Graphics</h1>
+<div class="muted">Draft specification · 0.2 · 2026-11-24 (0.1 documents play unchanged) · MIT · reference engine: <code>web/tsvg-core.js</code></div>
 <div class="hero"><a href="../playground/">▶ Playground</a><a href="https://github.com/Panth977/tsvg">GitHub</a><a href="#tools">CLI</a></div>
 
 <h2 id="intro">1. Introduction</h2>
@@ -135,6 +135,7 @@
   &lt;radial id="glow" x="0" y="0" r="330" [fx fy]&gt;&lt;stop …/&gt;&lt;/radial&gt;
   &lt;clip id="porthole"&gt;&lt;circle r="=210 + 14*sin(T*2)"/&gt;&lt;/clip&gt;
   &lt;mask id="wipe"&gt;&lt;rect w="=760*ease(T/1.6,'io')" h="280" y="-140" fill="#000"/&gt;&lt;/mask&gt;
+  &lt;data id="sales" v="12, 28, 19, 44"/&gt;          &lt;!-- 0.2: a list; numbers stay numbers, the rest are strings --&gt;
 &lt;/defs&gt;</pre>
 <p>Defs may use expressions. They are evaluated with the variables of the node that uses them, so clips and masks can animate.</p>
 
@@ -182,7 +183,8 @@
 <tr><td><code>group</code></td><td><code>x y</code> + children</td></tr>
 <tr><td><code>use</code></td><td><code>ref</code> symbol id, <code>x y</code></td></tr>
 </table>
-<p><b>Common to all:</b> <code>fill stroke sw</code> (stroke width, 0) <code>opacity</code> (multiplies down the tree) <code>rot</code> degrees <code>scale</code> (around the shape's centre; around x,y for group/use/path/text) <code>shadow clip mask blend</code>, plus timing: <code>at</code> (appears at, scene time), <code>dur</code> (visible for), <code>when</code> (expression; hidden when 0), <code>only="portrait gu"</code> (visible only if any tag is active).</p>
+<p><b>Repeat (0.2).</b> Any node may carry <code>repeat="n"</code> (number or expression, at most 10 000) and <code>as="i"</code> (default <code>i</code>). The node is drawn n times; in its own attributes and its whole subtree the variable <code>i</code> is 0…n−1 and <code>i_n</code> is n. Repeats nest, e.g. a grid is a repeated group of repeated circles.</p>
+<p><b>Common to all:</b> <code>blur</code> (0.2; Gaussian blur radius in layout units; for a group, engines may blur each child or the group layer) <code>fill stroke sw</code> (stroke width, 0) <code>opacity</code> (multiplies down the tree) <code>rot</code> degrees <code>scale</code> (around the shape's centre; around x,y for group/use/path/text) <code>shadow clip mask blend</code>, plus timing: <code>at</code> (appears at, scene time), <code>dur</code> (visible for), <code>when</code> (expression; hidden when 0), <code>only="portrait gu"</code> (visible only if any tag is active).</p>
 
 <h2 id="paint">6. Paint and effects</h2>
 <ul>
@@ -202,7 +204,7 @@
   <li>Anim times are relative to the node's own <code>at</code>, or else the nearest ancestor's <code>at</code>, or else the scene start.</li>
   <li><code>&lt;anim&gt;</code>: <code>from</code>/<code>to</code> default to the property's base value. Before <code>at</code>, the first anim of a property holds <code>from</code>; after <code>at+dur</code>, it holds <code>to</code>. Several anims on one property apply in document order. Once a later one has started, it wins.</li>
   <li><code>&lt;keys&gt;</code>: keyframes <code>time:value</code> separated by <code>;</code>. It holds the first value before the first key and the last value after the last key.</li>
-  <li>Numbers interpolate linearly through the ease. Colours interpolate per RGBA channel. Anything else switches at the end.</li>
+  <li>Numbers interpolate linearly through the ease. Colours interpolate per RGBA channel. <b>Morph (0.2):</b> two strings with the same skeleton (the same text once every number is removed, e.g. path data with the same commands) interpolate number by number, so <code>&lt;keys prop="d"&gt;</code> morphs shapes. Anything else switches at the end.</li>
   <li>Eases: <code>linear in out io back elastic step</code> (cubic in/out/in-out; see the reference engine for exact formulas).</li>
 </ul>
 
@@ -218,7 +220,7 @@ atom    := number | 'string' | "string" | name | $token | name '(' args ')' | '(
   <li>No assignment, loops, I/O or clocks. Evaluation always terminates and is deterministic.</li>
   <li><code>+</code> concatenates if either side is a string. <code>%</code> is floored modulo. Booleans are 1/0.</li>
   <li><b>Variables</b>: <code>t</code> video time, <code>T</code> scene time, <code>p</code> scene progress 0–1, <code>sdur</code> scene duration, <code>dur</code> video duration, <code>W H</code> layout size, <code>portrait</code> 1/0, <code>layout</code> id, every option id, <code>$token</code>s, <code>PI true false</code>.</li>
-  <li><b>Functions</b>: <code>sin cos tan abs sqrt min max floor ceil round pow exp log atan2 sign clamp(v,a,b) lerp(a,b,k) step(e,x) smooth(a,b,x) fract ease(k,'name') fmt(n,digits) str rgba(r,g,b,a) mix(colorA,colorB,k)</code>, plus document <code>&lt;fn&gt;</code>s (arguments become variables).</li>
+  <li><b>Functions</b>: <code>sin cos tan abs sqrt min max floor ceil round pow exp log atan2 sign clamp(v,a,b) lerp(a,b,k) step(e,x) smooth(a,b,x) fract ease(k,'name') fmt(n,digits) str rgba(r,g,b,a) mix(colorA,colorB,k) data('id', i) count('id')</code> (<code>data</code> wraps the index around the list), plus document <code>&lt;fn&gt;</code>s (arguments become variables).</li>
   <li>An unknown variable, token, string or function is an error. Validators report it (§13).</li>
 </ul>
 
@@ -241,6 +243,7 @@ atom    := number | 'string' | "string" | name | $token | name '(' args ')' | '(
 <p>Nodes draw in document order (painter's algorithm). Transforms compose down the tree: translate(x,y) for groups, then rotate/scale about the pivot.</p>
 
 <h2 id="player">11. Player requirements</h2>
+<p><b>Speed is the player's, not the document's.</b> As with any video, playback rate is applied after rendering: the timeline clock and <em>every</em> audio clip run at the same rate, with pitch preserved. A document never declares or reacts to speed.</p>
 <p>A conforming player <span class="must">MUST</span> offer: play/pause, a seekable timeline with chapter marks, back/forward 10 s, playback position and duration, captions on/off, every document option, and layout auto/explicit. It <span class="must">SHOULD</span> offer: speed, scrub previews (rendered frames, which are free here), double-tap sides to skip, pinch/scroll zoom that re-renders (never bitmap-scales), fullscreen, and keyboard shortcuts (space/k, j/l, arrows, 0–9, c, f).</p>
 
 <h2 id="conf">12. Conformance</h2>
@@ -258,9 +261,8 @@ tsvg test     [--update]         # golden frames + zip round trip</pre>
 <h2 id="future">14. Not in 0.1</h2>
 <ul>
   <li>Scene duration per language (e.g. <code>dur.gu</code>); for now, size scenes for the longest language.</li>
-  <li>Filters (blur, colour matrix), text on a path, symbol parameters, embedded raster video clips.</li>
+  <li>Colour-matrix filters, text on a path, symbol parameters, embedded raster video clips.</li>
   <li>Interactivity (choices, branches). TSVG is a video, not an app.</li>
-  <li>Pitch-preserving audio at speeds other than 1×.</li>
 </ul>
 </main>
 </div>

@@ -47,7 +47,7 @@
       if (!document.getElementById('tsvgp-css')) { const st = document.createElement('style'); st.id = 'tsvgp-css'; st.textContent = CSS; document.head.appendChild(st); }
       this.host = host; this.files = files; this.base = base || (typeof location !== 'undefined' ? location.href : ''); this.onOptions = onOptions;
       this.t = 0; this.rate = 1; this.playing = false; this.cc = true; this.layoutPref = 'auto';
-      this.zoom = 1; this.panX = 0; this.panY = 0; this.images = {}; this.buffers = {}; this.loadedFonts = new Set(); this.lines = [];
+      this.zoom = 1; this.panX = 0; this.panY = 0; this.images = {}; this.loadedFonts = new Set(); this.lines = [];
       this.el = document.createElement('div'); this.el.className = 'tsvgp'; this.el.tabIndex = 0;
       this.el.innerHTML = `<canvas class="main"></canvas><div class="zoomtag"></div><div class="big"><div>▶</div></div><div class="cc"></div>
         <div class="flash" style="left:12%">⟲ 10s</div><div class="flash" style="right:12%">10s ⟳</div>
@@ -76,13 +76,14 @@
       await Promise.race([this.loadFonts(), new Promise((r) => setTimeout(r, 3000))]);
       this.t = Math.min(this.t, doc.duration);
       this.buildMenu(); this.buildTicks(); this.syncLines(); this.draw();
+      if (this.playing) this.ensureAudio().then(() => this.syncAudio(true));
       return doc;
     }
     // .tsvgz bytes (or a URL to .tsvg / .tsvgz)
     async loadPackage(bytes) {
       const files = await root.TSVGZip.read(bytes);
       for (const u of Object.values(this.files)) if (String(u).startsWith('blob:')) URL.revokeObjectURL(u);
-      this.files = {}; this.images = {}; this.buffers = {}; this.loadedFonts = new Set();
+      this.files = {}; this.images = {}; this.loadedFonts = new Set(); if (this.clipEls) { for (const ce of this.clipEls.values()) ce.el.pause(); this.clipEls.clear(); }
       for (const [path, data] of files) if (path !== root.TSVGZip.MAIN) this.files[path] = URL.createObjectURL(new Blob([data], { type: mimeOf(path) }));
       return this.load(root.TSVGZip.text(files.get(root.TSVGZip.MAIN)));
     }
@@ -103,61 +104,74 @@
     keepOpts(doc) { const o = {}; if (this.opts) for (const op of doc.options) if (this.opts[op.id] && op.choices.some((c) => c.id === this.opts[op.id])) o[op.id] = this.opts[op.id]; return o; }
 
     // ── audio ──
+    // One <audio> element per clip, routed through WebAudio bus gains (voice / music / sfx / custom).
+    // Speed belongs to the player, like any video: every element plays at the player's rate, pitch preserved.
     async ensureAudio() {
-      if (!this.ac) {
-        this.ac = new (root.AudioContext || root.webkitAudioContext)();
-        this.master = this.ac.createGain(); this.master.connect(this.ac.destination);
-        this.buses = {}; for (const b of ['voice', 'music', 'sfx']) { const g = this.ac.createGain(); g.connect(this.master); this.buses[b] = g; }
+      const AC = root.AudioContext || root.webkitAudioContext;
+      if (!this.ac && AC) { this.ac = new AC(); this.master = this.ac.createGain(); this.master.connect(this.ac.destination); this.buses = {}; }
+      if (this.ac && this.ac.state === 'suspended') await this.ac.resume().catch(() => {});
+      this.buildClips(); this.applyMix();
+    }
+    bus(name) { if (!this.buses[name]) { const g = this.ac.createGain(); g.connect(this.master); this.buses[name] = g; } return this.buses[name]; }
+    buildClips() {
+      const want = new Map();
+      for (const c of TSVG.audioPlan(this.doc, this.opts).clips) { const path = TSVG.assetPath(this.doc, c.src); if (path) want.set(c.bus + '|' + path + '|' + c.start, Object.assign({}, c, { path })); }
+      this.clipEls = this.clipEls || new Map();
+      for (const [k, ce] of this.clipEls) if (!want.has(k)) { ce.el.pause(); this.clipEls.delete(k); }
+      for (const [k, c] of want) {
+        if (this.clipEls.has(k)) continue;
+        const url = this.url(c.path); const el = new Audio();
+        el.preload = 'auto'; el.loop = !!c.loop; el.preservesPitch = el.mozPreservesPitch = el.webkitPreservesPitch = true;
+        const local = /^(blob|data):/.test(url) || new URL(url, location.href).origin === location.origin;
+        el.src = url;
+        const ce = { el, clip: c, gain: null };
+        // cross-origin media without CORS would play silent through WebAudio: keep those on element volume
+        if (this.ac && local) { try { const src = this.ac.createMediaElementSource(el); const g = this.ac.createGain(); g.gain.value = c.vol == null ? 1 : c.vol; src.connect(g); g.connect(this.bus(c.bus)); ce.gain = g; } catch (e) {} }
+        el.addEventListener('loadedmetadata', () => this.syncLines());
+        this.clipEls.set(k, ce);
       }
-      if (this.ac.state === 'suspended') await this.ac.resume();
-      const plan = TSVG.audioPlan(this.doc, this.opts);
-      const paths = [...new Set(plan.clips.map((c) => TSVG.assetPath(this.doc, c.src)))].filter((p) => p && !this.buffers[p]);
-      await Promise.all(paths.map(async (p) => {
-        try { const r = await fetch(this.url(p)); this.buffers[p] = await this.ac.decodeAudioData(await r.arrayBuffer()); } catch (e) { console.warn('audio', p, e); }
-      }));
-      this.applyMix(); this.syncLines();
     }
     applyMix() {
-      if (!this.buses) return;
-      const mix = this.doc.mixes[this.opts.mix] || { voice: 1, music: 1, sfx: 1 };
-      for (const b in this.buses) this.buses[b].gain.setTargetAtTime(mix[b] == null ? 1 : mix[b], this.ac.currentTime, 0.05);
+      if (!this.clipEls) return;
+      const mix = this.doc.mixes[this.opts.mix] || {};
+      const gainOf = (b) => (mix[b] == null ? 1 : mix[b]);
+      if (this.ac) for (const b in this.buses) this.buses[b].gain.setTargetAtTime(gainOf(b), this.ac.currentTime, 0.05);
+      for (const ce of this.clipEls.values()) if (!ce.gain) ce.el.volume = Math.min(1, Math.max(0, (ce.clip.vol == null ? 1 : ce.clip.vol) * gainOf(ce.clip.bus)));
     }
-    clips() {
-      return TSVG.audioPlan(this.doc, this.opts).clips.map((c) => Object.assign({}, c, { buf: this.buffers[TSVG.assetPath(this.doc, c.src)] }));
-    }
-    startAudio() {
-      this.stopAudio(); if (!this.ac || this.rate !== 1) return; // pitch-correct speed change is out of scope for v0.1
-      const now = this.ac.currentTime; this.sources = [];
-      for (const c of this.clips()) {
-        if (!c.buf) continue;
-        const off = this.t - c.start; if (!c.loop && off >= c.buf.duration) continue;
-        const s = this.ac.createBufferSource(); s.buffer = c.buf; s.loop = !!c.loop;
-        const g = this.ac.createGain(); g.gain.value = c.vol; s.connect(g); g.connect(this.buses[c.bus] || this.master);
-        if (off >= 0) s.start(now, c.loop ? off % c.buf.duration : off); else s.start(now - off);
-        this.sources.push(s);
+    // keep every element where the timeline says it should be; called each frame while playing
+    syncAudio(force) {
+      if (!this.clipEls) return;
+      for (const ce of this.clipEls.values()) {
+        const el = ce.el, c = ce.clip, d = el.duration, known = isFinite(d) && d > 0;
+        let local = this.t - c.start; if (c.loop && known && local >= 0) local %= d;
+        const active = this.playing && local >= 0 && (c.loop || !known || local < d - 0.02);
+        if (!active) { if (!el.paused) el.pause(); continue; }
+        if (el.playbackRate !== this.rate) el.playbackRate = this.rate;
+        if (el.paused) { try { el.currentTime = local; } catch (e) {} el.play().catch(() => {}); }
+        else if (force || Math.abs(el.currentTime - local) > 0.2) el.currentTime = local;
       }
     }
-    stopAudio() { for (const s of this.sources || []) try { s.stop(); } catch (e) {} this.sources = []; if (root.speechSynthesis) speechSynthesis.cancel(); }
+    stopAudio() { this.syncAudio(); if (root.speechSynthesis) speechSynthesis.cancel(); }
     // spoken lines without a baked clip use on-device TTS when a voice exists for the language
     ttsCross(prev, now) {
-      if (!root.speechSynthesis || this.rate !== 1) return;
+      if (!root.speechSynthesis) return;
       const mix = this.doc.mixes[this.opts.mix]; if (mix && mix.voice === 0) return;
       for (const l of this.lines) if (!l.clip && prev < l.start && l.start <= now) {
         const v = speechSynthesis.getVoices().find((v) => v.lang.toLowerCase().startsWith(l.lang)); if (!v) continue;
-        const u = new SpeechSynthesisUtterance(l.text); u.voice = v; u.lang = v.lang; speechSynthesis.speak(u);
+        const u = new SpeechSynthesisUtterance(l.text); u.voice = v; u.lang = v.lang; u.rate = this.rate; speechSynthesis.speak(u);
       }
     }
 
     // ── transport ──
-    async play() { if (this.t >= this.doc.duration - 0.05) this.t = 0; this.playing = true; this.el.classList.add('playing'); await this.ensureAudio(); this.clock = performance.now(); this.startAudio(); this.loop(); this.ui(); }
+    async play() { if (this.t >= this.doc.duration - 0.05) this.t = 0; this.playing = true; this.el.classList.add('playing'); await this.ensureAudio(); this.clock = performance.now(); this.syncAudio(true); this.loop(); this.ui(); }
     pause() { this.playing = false; this.el.classList.remove('playing'); this.stopAudio(); this.ui(); }
     toggle() { this.playing ? this.pause() : this.play(); }
-    seek(t) { this.t = Math.min(this.doc.duration, Math.max(0, t)); if (this.playing) { this.clock = performance.now(); this.startAudio(); } this.draw(); }
+    seek(t) { this.t = Math.min(this.doc.duration, Math.max(0, t)); if (this.playing) { this.clock = performance.now(); this.syncAudio(true); } this.draw(); }
     loop() {
       if (!this.playing) return;
       const now = performance.now(); const prev = this.t;
       this.t += ((now - this.clock) / 1000) * this.rate; this.clock = now;
-      this.ttsCross(prev, this.t);
+      this.ttsCross(prev, this.t); this.syncAudio();
       if (this.t >= this.doc.duration) { this.t = this.doc.duration; this.draw(); return this.pause(); }
       this.draw(); requestAnimationFrame(() => this.loop());
     }
@@ -168,7 +182,10 @@
       const r = this.el.clientWidth / Math.max(1, this.el.clientHeight);
       return L.slice().sort((a, b) => Math.abs(Math.log(a.w / a.h / r)) - Math.abs(Math.log(b.w / b.h / r)))[0];
     }
-    syncLines() { this.lines = TSVG.sayLines(this.doc, this.opts); for (const l of this.lines) { const b = l.clip && this.buffers[TSVG.assetPath(this.doc, l.clip)]; if (b) l.dur = b.duration + 0.3; } }
+    syncLines() {
+      this.lines = TSVG.sayLines(this.doc, this.opts);
+      for (const l of this.lines) { const ce = l.clip && this.clipEls && [...this.clipEls.values()].find((x) => x.clip.path === TSVG.assetPath(this.doc, l.clip)); if (ce && isFinite(ce.el.duration)) l.dur = ce.el.duration + 0.3; }
+    }
 
     draw() {
       if (!this.doc) return;
@@ -221,8 +238,8 @@
     }
     setOption(g, c) {
       if (g === '__layout') { this.layoutPref = c; this.zoom = 1; this.panX = this.panY = 0; }
-      else if (g === '__rate') { this.rate = +c; if (this.playing) this.startAudio(); }
-      else { this.opts[g] = c; this.syncLines(); if (g === 'mix') this.applyMix(); if (this.playing) this.ensureAudio().then(() => this.playing && this.startAudio()); }
+      else if (g === '__rate') { this.rate = +c; this.syncAudio(true); }
+      else { this.opts[g] = c; this.syncLines(); if (g === 'mix') this.applyMix(); if (this.playing) this.ensureAudio().then(() => this.syncAudio(true)); }
       if (this.onOptions) this.onOptions(this.opts);
       this.buildMenu(); this.draw();
     }
@@ -285,4 +302,4 @@
     return { ogg: 'audio/ogg', opus: 'audio/ogg', mp3: 'audio/mpeg', m4a: 'audio/mp4', wav: 'audio/wav', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp', svg: 'image/svg+xml', gif: 'image/gif', ttf: 'font/ttf', otf: 'font/otf', woff: 'font/woff', woff2: 'font/woff2' }[e] || 'application/octet-stream';
   }
   root.TSVGPlayer = Player;
-})(window);
+})(typeof window !== "undefined" ? window : globalThis);

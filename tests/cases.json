@@ -1,12 +1,113 @@
 [
-  { "name": "intro-en-dark-landscape", "file": "examples/demo/demo.tsvg", "t": 3, "layout": "landscape" },
-  { "name": "zoom-detail", "file": "examples/demo/demo.tsvg", "t": 11.5, "layout": "landscape" },
-  { "name": "options-gu-light-portrait", "file": "examples/demo/demo.tsvg", "t": 19, "layout": "portrait", "opts": { "lang": "gu", "theme": "light", "mix": "speech" } },
-  { "name": "options-en-dark-landscape", "file": "examples/demo/demo.tsvg", "t": 19, "layout": "landscape" },
-  { "name": "look-mask-midwipe", "file": "examples/demo/demo.tsvg", "t": 26.2, "layout": "landscape" },
-  { "name": "look-full", "file": "examples/demo/demo.tsvg", "t": 30, "layout": "landscape" },
-  { "name": "look-gu-light-portrait", "file": "examples/demo/demo.tsvg", "t": 30, "layout": "portrait", "opts": { "lang": "gu", "theme": "light" } },
-  { "name": "function-timeline", "file": "examples/demo/demo.tsvg", "t": 38, "layout": "landscape" },
-  { "name": "outro-gu", "file": "examples/demo/demo.tsvg", "t": 47, "layout": "landscape", "opts": { "lang": "gu" } },
-  { "name": "end-frame", "file": "examples/demo/demo.tsvg", "t": 49, "layout": "portrait" }
+  {
+    "name": "intro-en-dark-landscape",
+    "file": "examples/demo/demo.tsvg",
+    "t": 3,
+    "layout": "landscape"
+  },
+  {
+    "name": "zoom-detail",
+    "file": "examples/demo/demo.tsvg",
+    "t": 11.5,
+    "layout": "landscape"
+  },
+  {
+    "name": "options-gu-light-portrait",
+    "file": "examples/demo/demo.tsvg",
+    "t": 19,
+    "layout": "portrait",
+    "opts": {
+      "lang": "gu",
+      "theme": "light",
+      "mix": "speech"
+    }
+  },
+  {
+    "name": "options-en-dark-landscape",
+    "file": "examples/demo/demo.tsvg",
+    "t": 19,
+    "layout": "landscape"
+  },
+  {
+    "name": "look-mask-midwipe",
+    "file": "examples/demo/demo.tsvg",
+    "t": 26.2,
+    "layout": "landscape"
+  },
+  {
+    "name": "look-full",
+    "file": "examples/demo/demo.tsvg",
+    "t": 30,
+    "layout": "landscape"
+  },
+  {
+    "name": "look-gu-light-portrait",
+    "file": "examples/demo/demo.tsvg",
+    "t": 30,
+    "layout": "portrait",
+    "opts": {
+      "lang": "gu",
+      "theme": "light"
+    }
+  },
+  {
+    "name": "function-timeline",
+    "file": "examples/demo/demo.tsvg",
+    "t": 38,
+    "layout": "landscape"
+  },
+  {
+    "name": "outro-gu",
+    "file": "examples/demo/demo.tsvg",
+    "t": 47,
+    "layout": "landscape",
+    "opts": {
+      "lang": "gu"
+    }
+  },
+  {
+    "name": "end-frame",
+    "file": "examples/demo/demo.tsvg",
+    "t": 49,
+    "layout": "portrait"
+  },
+  {
+    "name": "feat-repeat",
+    "file": "examples/features/features.tsvg",
+    "t": 2,
+    "layout": "landscape"
+  },
+  {
+    "name": "feat-data",
+    "file": "examples/features/features.tsvg",
+    "t": 9,
+    "layout": "landscape"
+  },
+  {
+    "name": "feat-data-portrait-light",
+    "file": "examples/features/features.tsvg",
+    "t": 9,
+    "layout": "portrait",
+    "opts": {
+      "theme": "light"
+    }
+  },
+  {
+    "name": "feat-blur",
+    "file": "examples/features/features.tsvg",
+    "t": 12.5,
+    "layout": "landscape"
+  },
+  {
+    "name": "feat-morph-mid",
+    "file": "examples/features/features.tsvg",
+    "t": 17.5,
+    "layout": "landscape"
+  },
+  {
+    "name": "feat-morph-end",
+    "file": "examples/features/features.tsvg",
+    "t": 21.5,
+    "layout": "portrait"
+  }
 ]

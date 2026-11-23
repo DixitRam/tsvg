@@ -1,12 +1,12 @@
 // TSVG core: XML parser, expression language, timeline, Canvas2D renderer and validator.
-// Reference engine for TSVG 0.1 (Timeseries Scalable Vector Graphics).
+// Reference engine for TSVG 0.2 (Timeseries Scalable Vector Graphics).
 // No dependencies, no DOM needed for parse/validate (runs in Node and browsers).
 // A frame is a pure function of (time, options): renderFrame(ctx, doc, t, opts, layout)
 // always draws the same picture. That is what makes seeking, ±10 s skip and scrub
 // thumbnails free, and what lets every native engine be tested against golden frames.
 (function (root) {
   'use strict';
-  const VERSION = '0.1';
+  const VERSION = '0.2';
 
   // ───────────────────────── XML (subset) ─────────────────────────
   // Elements, attributes, text, comments, <?…?>, <!…>, CDATA, the 5 named
@@ -116,6 +116,11 @@
           expect(')');
           return (env) => {
             const vals = args.map((a) => a(env));
+            if (name === 'data' || name === 'count') {
+              const list = env.doc && env.doc.data[vals[0]]; if (!list) throw new Error('unknown data ' + vals[0]);
+              if (name === 'count') return list.length;
+              const i = Math.floor(vals[1]); return list[((i % list.length) + list.length) % list.length];
+            }
             if (FNS[name]) return FNS[name].apply(null, vals);
             const f = env.fns && env.fns[name]; if (!f) throw new Error('unknown function ' + name + '()');
             return f(vals, env);
@@ -163,7 +168,7 @@
     const one = (name) => kids(r, name)[0];
     const doc = {
       version: r.attrs.version || VERSION, title: r.attrs.title || '', font: r.attrs.font || '', layouts: [], options: [], mixes: {}, themes: {}, strings: {},
-      fns: {}, fnSrc: {}, symbols: {}, gradients: {}, clips: {}, masks: {}, assets: {}, fonts: [], scenes: [], backdrop: [], overlay: [],
+      fns: {}, fnSrc: {}, data: {}, symbols: {}, gradients: {}, clips: {}, masks: {}, assets: {}, fonts: [], scenes: [], backdrop: [], overlay: [],
       audio: [], says: [], voices: {}, chapters: [], duration: 0, warnings: [],
     };
     for (const l of kids(one('layouts') || r, 'layout')) doc.layouts.push({ id: l.attrs.id, w: +l.attrs.w, h: +l.attrs.h });
@@ -183,6 +188,7 @@
       else if (d.name === 'linear' || d.name === 'radial') doc.gradients[id] = { type: d.name, a: d.attrs, stops: kids(d, 'stop').map((s) => s.attrs) };
       else if (d.name === 'clip') doc.clips[id] = buildNodes(d);
       else if (d.name === 'mask') doc.masks[id] = buildNodes(d);
+      else if (d.name === 'data') doc.data[id] = (d.attrs.v != null ? d.attrs.v : d.text).split(/[,\n]/).map((x) => x.trim()).filter((x) => x !== '').map((x) => (NUMERIC.test(x) ? parseFloat(x) : x.replace(/^['"]|['"]$/g, '')));
     }
     for (const a of kids(one('assets') || r)) {
       if (a.name === 'font') doc.fonts.push({ id: a.attrs.id, family: a.attrs.family || a.attrs.id, src: a.attrs.src, weight: a.attrs.weight || '1 1000', style: a.attrs.style || 'normal' });
@@ -262,10 +268,16 @@
     m = /^rgba?\(([^)]+)\)$/.exec(c); if (m) { const p = m[1].split(',').map(Number); return [p[0], p[1], p[2], p[3] == null ? 1 : p[3]]; }
     return null;
   }
+  const NUMS = /-?(?:[0-9]+\.?[0-9]*|\.[0-9]+)(?:e[-+]?[0-9]+)?/gi;
   function lerpAny(a, b, k) {
     if (typeof a === 'number' && typeof b === 'number') return a + (b - a) * k;
     const ca = parseColor(a), cb = parseColor(b);
     if (ca && cb) return 'rgba(' + [0, 1, 2].map((i) => Math.round(ca[i] + (cb[i] - ca[i]) * k)).join(',') + ',' + +(ca[3] + (cb[3] - ca[3]) * k).toFixed(3) + ')';
+    // morph: two strings with the same skeleton (e.g. path data with the same commands) interpolate number by number
+    if (typeof a === 'string' && typeof b === 'string') {
+      const na = a.match(NUMS), nb = b.match(NUMS);
+      if (na && nb && na.length === nb.length && a.replace(NUMS, '#') === b.replace(NUMS, '#')) { let i = 0; return a.replace(NUMS, () => { const v = +na[i] + (+nb[i] - +na[i]) * k; i++; return String(+v.toFixed(3)); }); }
+    }
     return k < 1 ? a : b;
   }
   function withAlpha(c, a) { const p = parseColor(c); if (!p || a >= 1) return c; return 'rgba(' + p[0] + ',' + p[1] + ',' + p[2] + ',' + +(p[3] * a).toFixed(3) + ')'; }
@@ -350,7 +362,14 @@
     const c = parts[3] || '#0008'; ctx.shadowColor = c[0] === '$' ? lookup(env, c) : c;
   }
 
+  // repeat="n" [as="i"]: draw the node n times with i = 0…n-1 (and i_n = n) in its expressions
   function drawNode(ctx, n, parentEnv) {
+    const r = n.a.repeat;
+    if (r == null) return drawOne(ctx, n, parentEnv);
+    const count = Math.min(10000, Math.max(0, Math.floor(+value(pick(n.a, 'repeat', parentEnv), parentEnv, parentEnv.doc)))); const as = n.a.as || 'i';
+    for (let k = 0; k < count; k++) drawOne(ctx, n, Object.assign({}, parentEnv, { vars: Object.assign({}, parentEnv.vars, { [as]: k, [as + '_n']: count }) }));
+  }
+  function drawOne(ctx, n, parentEnv) {
     if (!visible(n, parentEnv)) return;
     const doc = parentEnv.doc;
     const env = Object.assign({}, parentEnv, { vars: Object.assign({}, parentEnv.vars, { T0: n.a.at != null ? +value(pick(n.a, 'at', parentEnv), parentEnv, doc) : parentEnv.vars.T0 }) });
@@ -361,6 +380,8 @@
     ctx.save();
     ctx.globalAlpha *= Math.min(1, opacity);
     const blend = pick(n.a, 'blend', env); if (blend) ctx.globalCompositeOperation = blend;
+    const blur = P('blur', 0);
+    if (blur > 0 && 'filter' in ctx) { const m = ctx.getTransform(); ctx.filter = 'blur(' + (blur * Math.sqrt(Math.abs(m.a * m.d - m.b * m.c))).toFixed(2) + 'px)'; }
     const rot = P('rot', 0), scale = P('scale', 1);
     const fillRaw = P('fill', n.type === 'text' ? env.theme.fg || '#fff' : undefined);
     const strokeRaw = P('stroke'), sw = P('sw', 0);
@@ -451,9 +472,9 @@
     const mk = () => { const c = typeof OffscreenCanvas !== 'undefined' ? new OffscreenCanvas(W, H) : Object.assign(document.createElement('canvas'), { width: W, height: H }); const x = c.getContext('2d'); x.setTransform(tf); return [c, x]; };
     const [lc, lx] = mk(); const [mc, mx] = mk();
     lx.globalAlpha = ctx.globalAlpha;
-    const plain = Object.assign({}, n, { a: Object.assign({}, n.a, { mask: undefined }) });
+    const plain = Object.assign({}, n, { a: Object.assign({}, n.a, { mask: undefined, repeat: undefined }) });
     for (const k of Object.keys(plain.a)) if (k.startsWith('mask.')) delete plain.a[k];
-    drawNode(lx, plain, env);
+    drawOne(lx, plain, env);
     // the mask is drawn in the node's coordinate space (after its x/y for groups)
     if (n.type === 'group' || n.type === 'use' || n.type === 'path') mx.translate(prop(n, 'x', env, env.doc, 0), prop(n, 'y', env, env.doc, 0));
     drawNodes(mx, shapes, env);
