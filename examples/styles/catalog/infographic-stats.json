@@ -1,0 +1,11 @@
+{
+  "id": "infographic-stats",
+  "title": "Infographic stats",
+  "category": "Data & science",
+  "summary": "Food waste in numbers: big counters, plate and bin icon arrays, a donut chart and three labelled habit cards on flat colour blocks.",
+  "duration": 64,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 31
+}

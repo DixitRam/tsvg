@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: QA bug report as a video. A ticket header, environment chips, numbered repro steps beside a phone,
+     expected vs actual side by side (green / red), the root cause in code, rubber verdict stamps. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bf_emma"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="paper"><choice id="paper" label="Paper"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.2" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="paper" bg="#f3f1ec" fg="#1f2328" muted="#6a7078" panel="#ffffff" line="#dcd8cf" accent="#3b5bdb"
+           good="#1a8f4e" goodbg="#e3f5ea" bad="#d6332f" badbg="#fde7e6" warn="#d98a00" warnbg="#fff3d6" code="#1e2430"/>
+  </themes>
+  <strings>
+    <s id="title" en="BUG-218: scaling a recipe drops the egg to 0"/>
+    <s id="key" en="BUG-218"/>
+    <s id="sum" en="Scaling a recipe drops the egg to 0"/>
+    <s id="sev" en="S2 · Major"/><s id="open" en="Open"/><s id="fixed" en="Fixed"/>
+    <s id="rep" en="Reported by QA · Lena M. · 18 Nov"/>
+    <s id="envh" en="Environment"/>
+    <s id="steph" en="Steps to reproduce"/>
+    <s id="st1" en="Open the recipe “Shakshuka” (serves 2)"/>
+    <s id="st2" en="Tap Servings and set it to 3"/>
+    <s id="st3" en="Read the ingredient list"/>
+    <s id="exp" en="✓  EXPECTED"/><s id="act" en="✕  ACTUAL"/>
+    <s id="cause" en="Root cause"/>
+    <s id="retest" en="Retest on 3.4.3"/>
+    <s id="ch1" en="Report"/><s id="ch2" en="Environment"/><s id="ch3" en="Steps"/><s id="ch4" en="Expected vs actual"/><s id="ch5" en="Root cause"/><s id="ch6" en="Fix"/><s id="ch7" en="Verified"/>
+    <s id="vo1" en="Bug two one eight. When you scale a recipe, the egg quantity drops to zero. Severity two, major."/>
+    <s id="vo2" en="Environment. iPhone fifteen, iOS eighteen point one, app version three point four point two. The device language is German."/>
+    <s id="vo3" en="To reproduce. Open the shakshuka recipe, which serves two. Tap servings and set it to three. Then read the ingredient list."/>
+    <s id="vo4" en="Expected: one and a half eggs. Actual: zero eggs. Every other ingredient scales correctly."/>
+    <s id="vo5" en="The cause. The per serving amount is formatted for the locale, so German writes zero comma five. Parsing that string back gives zero."/>
+    <s id="vo6" en="Confirmed. The fix keeps the number as a number and only formats it for display. It ships in three point four point three."/>
+    <s id="vo7" en="Retested in German, English and French. All three pass. Bug two one eight is verified and closed."/>
+  </strings>
+
+  <defs>
+    <data id="envk" v="Device, OS, App, Locale, Network"/>
+    <data id="envv" v="iPhone 15, iOS 18.1, 3.4.2 (512), de-DE, Wi-Fi"/>
+    <data id="ingr" v="Tomatoes, Onion, Paprika, Egg"/>
+    <data id="q2" v="400 g, 1, 2 tsp, 1"/>
+    <data id="q3" v="600 g, 1½, 3 tsp, 1½"/>
+    <data id="q3bad" v="600 g, 1½, 3 tsp, 0"/>
+    <data id="locs" v="de-DE  ·  Deutsch, en-US  ·  English, fr-FR  ·  Français"/>
+    <!-- ticket header strip -->
+    <symbol id="hdr">
+      <rect x="0" y="0" w="1920" h="110" fill="$panel"/>
+      <rect x="0" y="110" w="1920" h="2" fill="$line"/>
+      <circle x="90" y="55" r="16" fill="$bad"/>
+      <path d="M84 49 l12 12 M96 49 l-12 12" stroke="#fff" sw="4"/>
+      <text x="126" y="55" size="30" weight="800" font="JetBrains Mono" fill="$fg" text="@key"/>
+      <text x="300" y="55" size="30" weight="600" fill="$fg" text="@sum"/>
+      <rect x="1520" y="33" w="170" h="44" r="22" fill="$warnbg"/><text x="1605" y="55" size="20" weight="800" align="center" fill="$warn" text="@sev"/>
+    </symbol>
+    <symbol id="status-open"><rect x="1710" y="33" w="120" h="44" r="22" fill="$badbg"/><text x="1770" y="55" size="20" weight="800" align="center" fill="$bad" text="@open"/></symbol>
+    <!-- a phone showing the recipe at n servings (n from the parent) -->
+    <symbol id="phone">
+      <rect x="-190" y="-380" w="380" h="760" r="56" fill="#16181d" shadow="0 30 60 #0003"/>
+      <rect x="-174" y="-364" w="348" h="728" r="44" fill="#fffdf8"/>
+      <rect x="-50" y="-352" w="100" h="24" r="12" fill="#16181d"/>
+      <rect x="-174" y="-320" w="348" h="170" fill="#f6b26b"/>
+      <circle x="0" y="-235" r="60" fill="#d64b2a"/><circle x="-18" y="-245" r="20" fill="#fff3c4"/><circle x="22" y="-222" r="16" fill="#fff3c4"/>
+      <circle x="-14" y="-248" r="8" fill="#f6b100"/><circle x="24" y="-224" r="6" fill="#f6b100"/>
+      <text x="-150" y="-112" size="30" weight="800" fill="$fg" text="Shakshuka"/>
+      <text x="-150" y="-70" size="20" fill="$muted" text="Servings"/>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="bed" src="audio/drone.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+  </assets>
+
+  <music src="bed" start="0" loop="1" vol="0.5"/>
+
+  <backdrop>
+    <!-- faint report grid -->
+    <line repeat="30" as="k" x1="0" y1="=k*40" x2="=W" y2="=k*40" stroke="#e7e3da" sw="1"/>
+  </backdrop>
+
+  <timeline>
+    <!-- 1 · the ticket -->
+    <scene id="report" dur="8" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.3" src="whoosh"/><sfx at="1.6" src="pop"/><sfx at="1.9" src="pop"/>
+      <group x="360" y="260"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="300" to="260" dur="0.6"/>
+        <rect w="1200" h="560" r="24" fill="$panel" stroke="$line" sw="2" shadow="0 24 50 #0000001a"/>
+        <rect w="14" h="560" r="7" fill="$bad"/>
+        <text x="70" y="90" size="40" weight="800" font="JetBrains Mono" fill="$bad" text="@key"/>
+        <text x="70" y="190" size="64" weight="800" maxw="1060" lh="1.15" fill="$fg" text="@sum"/>
+        <text x="70" y="300" size="30" fill="$muted" text="@rep"/>
+        <group y="400" at="1.6"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/>
+          <rect x="70" w="230" h="64" r="32" fill="$warnbg"/><text x="185" y="32" size="28" weight="800" align="center" fill="$warn" text="@sev"/>
+        </group>
+        <group y="400" at="1.9"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/>
+          <rect x="320" w="140" h="64" r="32" fill="$badbg"/><text x="390" y="32" size="28" weight="800" align="center" fill="$bad" text="@open"/>
+        </group>
+        <group y="400" at="2.2"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <rect x="480" w="230" h="64" r="32" fill="#e8ecfb"/><text x="595" y="32" size="28" weight="700" align="center" fill="$accent" text="recipes · scaler"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 2 · environment chips -->
+    <scene id="env" dur="9" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="0.8" src="blip"/><sfx at="1.1" src="blip"/><sfx at="1.4" src="blip"/><sfx at="1.7" src="blip"/><sfx at="2" src="blip"/><sfx at="5.6" src="pop"/>
+      <use ref="hdr"/><use ref="status-open"/>
+      <text x="160" y="230" size="56" weight="800" fill="$fg" text="@envh"/>
+      <group repeat="5" as="k" x="=160 + (k % 3)*540" y="=330 + floor(k/3)*220" at="=0.8 + k*0.3">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="scale" from="0.85" to="1" dur="0.35" ease="back"/>
+        <rect w="500" h="180" r="22" fill="=k == 3 &amp;&amp; T &gt; 5.6 ? $warnbg : $panel" stroke="=k == 3 &amp;&amp; T &gt; 5.6 ? $warn : $line" sw="=k == 3 &amp;&amp; T &gt; 5.6 ? 5 : 2"/>
+        <text x="36" y="56" size="26" weight="700" font="JetBrains Mono" fill="$muted" text="{data('envk', k)}"/>
+        <text x="36" y="118" size="50" weight="800" fill="$fg" text="{data('envv', k)}"/>
+      </group>
+      <group x="1240" y="560" at="5.6"><anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="x" from="1280" to="1240" dur="0.4"/>
+        <path d="M0 40 L60 40" stroke="$warn" sw="5"/>
+        <rect x="70" y="0" w="420" h="80" r="16" fill="$warn"/>
+        <text x="280" y="40" size="30" weight="800" align="center" fill="#fff" text="⚠ comma decimals"/>
+      </group>
+    </scene>
+
+    <!-- 3 · steps to reproduce, with the phone -->
+    <scene id="steps" dur="11" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="1" src="pop"/><sfx at="3.8" src="click"/><sfx at="4.3" src="click"/><sfx at="4.4" src="pop"/><sfx at="7.6" src="pop"/>
+      <use ref="hdr"/><use ref="status-open"/>
+      <text x="160" y="230" size="56" weight="800" fill="$fg" text="@steph"/>
+      <group repeat="3" as="k" x="160" y="=360 + k*150" at="=1 + (k == 0 ? 0 : k == 1 ? 2.8 : 6.6)">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="120" to="160" dur="0.4"/>
+        <rect w="980" h="120" r="20" fill="$panel" stroke="$line" sw="2"/>
+        <circle x="64" y="60" r="34" fill="$fg"/>
+        <text x="64" y="61" size="34" weight="800" align="center" fill="#fff" text="{k+1}"/>
+      </group>
+      <text x="284" y="420" size="36" weight="600" fill="$fg" text="@st1" at="1"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="284" y="570" size="36" weight="600" fill="$fg" text="@st2" at="3.8"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="284" y="720" size="36" weight="600" fill="$fg" text="@st3" at="7.6"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <group x="1500" y="610">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <use ref="phone"/>
+        <!-- servings stepper: 2 → 3 -->
+        <rect x="20" y="-92" w="150" h="48" r="24" fill="#f1ece2"/>
+        <text x="50" y="-68" size="30" weight="800" align="center" fill="$fg" text="−"/>
+        <text x="95" y="-68" size="28" weight="800" align="center" fill="$fg" text="=T &lt; 4.3 ? '2' : '3'"/>
+        <text x="140" y="-68" size="30" weight="800" align="center" fill="$fg" text="+"/>
+        <circle x="140" y="-68" r="10" fill="none" stroke="$accent" sw="4" at="4.2" dur="0.6"><anim prop="r" from="8" to="40" dur="0.6"/><anim prop="opacity" from="1" to="0" dur="0.6"/></circle>
+        <group repeat="4" as="k" y="=-10 + k*64">
+          <text x="-150" size="24" fill="$fg" text="{data('ingr', k)}"/>
+          <text x="150" size="24" weight="700" align="right" fill="=k == 3 &amp;&amp; T &gt; 4.3 ? $bad : $fg" text="{T &lt; 4.3 ? data('q2', k) : data('q3bad', k)}"/>
+          <line x1="-150" y1="30" x2="150" y2="30" stroke="#eee6d8" sw="2"/>
+        </group>
+        <rect x="-166" y="158" w="332" h="56" r="12" fill="none" stroke="$bad" sw="4" at="7.8"><anim prop="opacity" from="0" to="1" dur="0.3"/></rect>
+      </group>
+    </scene>
+
+    <!-- 4 · expected vs actual -->
+    <scene id="vs" dur="9" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="0.6" src="ding"/><sfx at="2.6" src="blip"/>
+      <use ref="hdr"/><use ref="status-open"/>
+      <group x="140" y="180" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="100" to="140" dur="0.5"/>
+        <rect w="790" h="760" r="26" fill="$goodbg" stroke="$good" sw="4"/>
+        <rect x="40" y="40" w="230" h="60" r="30" fill="$good"/><text x="155" y="70" size="28" weight="800" align="center" fill="#fff" text="@exp"/>
+        <text x="40" y="170" size="30" fill="$muted" text="Serves 3"/>
+        <group repeat="4" as="k" y="=250 + k*110">
+          <text x="40" size="40" fill="$fg" text="{data('ingr', k)}"/>
+          <text x="750" size="44" weight="800" align="right" fill="=k == 3 ? $good : $fg" text="{data('q3', k)}"/>
+          <line x1="40" y1="52" x2="750" y2="52" stroke="#bfe6cd" sw="2"/>
+        </group>
+      </group>
+      <group x="990" y="180" at="2.4">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="1030" to="990" dur="0.5"/>
+        <rect w="790" h="760" r="26" fill="$badbg" stroke="$bad" sw="4"/>
+        <rect x="40" y="40" w="210" h="60" r="30" fill="$bad"/><text x="145" y="70" size="28" weight="800" align="center" fill="#fff" text="@act"/>
+        <text x="40" y="170" size="30" fill="$muted" text="Serves 3"/>
+        <group repeat="4" as="k" y="=250 + k*110">
+          <text x="40" size="40" fill="$fg" text="{data('ingr', k)}"/>
+          <text x="750" size="44" weight="800" align="right" fill="=k == 3 ? $bad : $fg" text="{data('q3bad', k)}"/>
+          <line x1="40" y1="52" x2="750" y2="52" stroke="#f5c6c4" sw="2"/>
+        </group>
+        <ellipse x="700" y="580" rx="80" ry="54" fill="none" stroke="$bad" sw="6" at="1.2">
+          <anim prop="scale" from="1.4" to="1" dur="0.4" ease="back"/>
+        </ellipse>
+      </group>
+    </scene>
+
+    <!-- 5 · root cause in code -->
+    <scene id="cause" dur="10" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="3" src="blip"/><sfx at="6.2" src="pop"/>
+      <use ref="hdr"/><use ref="status-open"/>
+      <text x="160" y="230" size="56" weight="800" fill="$fg" text="@cause"/>
+      <group x="160" y="300"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="1600" h="420" r="22" fill="$code"/>
+        <text x="50" y="70" size="26" font="JetBrains Mono" fill="#7d8799" text="// scale.ts · line 42"/>
+        <text x="50" y="140" size="34" font="JetBrains Mono" fill="#c9d1e0" text="const per = qty / serves;          // 0.5"/>
+        <text x="50" y="210" size="34" font="JetBrains Mono" fill="#c9d1e0" text="const label = per.toLocaleString(locale); // &quot;0,5&quot;"/>
+        <rect x="30" y="250" w="1540" h="64" r="10" fill="#d6332f33" at="2.8"><anim prop="opacity" from="0" to="1" dur="0.3"/></rect>
+        <text x="50" y="282" size="34" font="JetBrains Mono" fill="#ffb4b0" text="const back = parseFloat(label);    // 0 !" at="0.3"><anim prop="reveal" from="0" to="1" dur="1.5" ease="linear"/></text>
+        <text x="50" y="352" size="34" font="JetBrains Mono" fill="#c9d1e0" text="return back * servings;            // 0 × 3 = 0"/>
+      </group>
+      <!-- the value as it flows -->
+      <group y="850" at="5.8"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="260" y="-50" w="260" h="100" r="20" fill="$panel" stroke="$line" sw="2"/><text x="390" y="0" size="44" weight="800" font="JetBrains Mono" align="center" fill="$good" text="0.5"/>
+        <path d="M540 0 H700" stroke="$fg" sw="5"><anim prop="draw" from="0" to="1" dur="0.4"/></path><path d="M690 -12 L708 0 L690 12" stroke="$fg" sw="5" fill="none"/>
+        <rect x="730" y="-50" w="260" h="100" r="20" fill="$panel" stroke="$warn" sw="3"/><text x="860" y="0" size="44" weight="800" font="JetBrains Mono" align="center" fill="$warn" text="&quot;0,5&quot;"/>
+        <path d="M1010 0 H1170" stroke="$fg" sw="5"><anim prop="draw" from="0" to="1" at="0.6" dur="0.4"/></path><path d="M1160 -12 L1178 0 L1160 12" stroke="$fg" sw="5" fill="none"/>
+        <rect x="1200" y="-50" w="260" h="100" r="20" fill="$badbg" stroke="$bad" sw="3"/><text x="1330" y="0" size="44" weight="800" font="JetBrains Mono" align="center" fill="$bad" text="0"/>
+      </group>
+    </scene>
+
+    <!-- 6 · confirmed, fixed -->
+    <scene id="fix" dur="10" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="0.5" src="click" vol="1"/><sfx at="6" src="click" vol="1"/>
+      <use ref="hdr"/>
+      <group><keys prop="opacity" v="5.6: 1; 5.8: 0"/><use ref="status-open"/></group>
+      <group at="5.8"><rect x="1710" y="33" w="120" h="44" r="22" fill="$goodbg"/><text x="1770" y="55" size="20" weight="800" align="center" fill="$good" text="@fixed"/></group>
+      <group x="160" y="260">
+        <rect w="1100" h="300" r="22" fill="$code"/>
+        <text x="40" y="60" size="26" font="JetBrains Mono" fill="#7d8799" text="fix: keep numbers numeric (#219)"/>
+        <rect x="20" y="100" w="1060" h="60" r="8" fill="#d6332f2a"/>
+        <text x="40" y="130" size="30" font="JetBrains Mono" fill="#ffb4b0" text="− const back = parseFloat(label);"/>
+        <rect x="20" y="180" w="1060" h="60" r="8" fill="#1a8f4e33" at="2"><anim prop="opacity" from="0" to="1" dur="0.3"/></rect>
+        <text x="40" y="210" size="30" font="JetBrains Mono" fill="#9be8b8" text="+ const back = per;   // format only for display" at="2"><anim prop="reveal" from="0" to="1" dur="1.4" ease="linear"/></text>
+      </group>
+      <group x="640" y="760" rot="-8" at="0.5">
+        <anim prop="scale" from="2.4" to="1" dur="0.25" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-300" y="-80" w="600" h="160" r="18" fill="none" stroke="$bad" sw="10"/>
+        <text y="0" size="80" weight="900" align="center" fill="$bad" text="CONFIRMED"/>
+      </group>
+      <group x="1480" y="720" rot="6" at="6">
+        <anim prop="scale" from="2.4" to="1" dur="0.25" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-290" y="-100" w="580" h="200" r="18" fill="#e3f5eacc" stroke="$good" sw="10"/>
+        <text y="-24" size="76" weight="900" align="center" fill="$good" text="FIXED"/>
+        <text y="46" size="34" weight="800" font="JetBrains Mono" align="center" fill="$good" text="in 3.4.3"/>
+      </group>
+    </scene>
+
+    <!-- 7 · retest matrix + verified -->
+    <scene id="verify" dur="9" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="1.2" src="ding"/><sfx at="1.8" src="ding"/><sfx at="2.4" src="ding"/><sfx at="5" src="click" vol="1"/>
+      <use ref="hdr"/>
+      <rect x="1710" y="33" w="120" h="44" r="22" fill="$goodbg"/><text x="1770" y="55" size="20" weight="800" align="center" fill="$good" text="@fixed"/>
+      <text x="160" y="230" size="56" weight="800" fill="$fg" text="@retest"/>
+      <group repeat="3" as="k" x="160" y="=330 + k*150" at="=0.8 + k*0.6">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect w="1000" h="120" r="20" fill="$panel" stroke="$line" sw="2"/>
+        <text x="40" y="60" size="36" weight="600" fill="$fg" text="{data('locs', k)}"/>
+        <text x="760" y="60" size="34" weight="800" font="JetBrains Mono" align="right" fill="$fg" text="Egg = 1½"/>
+        <group x="900" y="60" at="0.4"><anim prop="scale" from="0" to="1" dur="0.3" ease="back"/>
+          <circle r="34" fill="$good"/><path d="M-15 0 l10 10 l20 -20" stroke="#fff" sw="6" fill="none"/>
+        </group>
+      </group>
+      <group x="1480" y="560" rot="-10" at="5">
+        <anim prop="scale" from="2.6" to="1" dur="0.25" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <circle r="210" fill="none" stroke="$good" sw="12"/>
+        <circle r="180" fill="none" stroke="$good" sw="4"/>
+        <text y="-10" size="64" weight="900" align="center" fill="$good" text="VERIFIED"/>
+        <text y="60" size="30" weight="800" font="JetBrains Mono" align="center" fill="$good" text="BUG-218 · closed"/>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/qa-bug-walkthrough/en/vo1.97c6643dbb.ogg" dur="5.71" hash="97c6643dbb" engine="kokoro:bf_emma"/>
+    <voice say="vo2" lang="en" src="voice/qa-bug-walkthrough/en/vo2.c0fc0d03d8.ogg" dur="7.91" hash="c0fc0d03d8" engine="kokoro:bf_emma"/>
+    <voice say="vo3" lang="en" src="voice/qa-bug-walkthrough/en/vo3.7017f0d3a9.ogg" dur="7.21" hash="7017f0d3a9" engine="kokoro:bf_emma"/>
+    <voice say="vo4" lang="en" src="voice/qa-bug-walkthrough/en/vo4.40d2e46b98.ogg" dur="5.51" hash="40d2e46b98" engine="kokoro:bf_emma"/>
+    <voice say="vo5" lang="en" src="voice/qa-bug-walkthrough/en/vo5.fd4918672c.ogg" dur="7.81" hash="fd4918672c" engine="kokoro:bf_emma"/>
+    <voice say="vo6" lang="en" src="voice/qa-bug-walkthrough/en/vo6.98312bd4ba.ogg" dur="6.61" hash="98312bd4ba" engine="kokoro:bf_emma"/>
+    <voice say="vo7" lang="en" src="voice/qa-bug-walkthrough/en/vo7.26479696e6.ogg" dur="5.91" hash="26479696e6" engine="kokoro:bf_emma"/>
+  </voices>
+</tsvg>

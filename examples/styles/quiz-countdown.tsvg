@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: quiz show. Question card, four answers, a countdown ring, the answer revealed with a pop, a running score. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/><layout id="portrait" w="1080" h="1920"/></layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" default="show"><choice id="show" label="Game show"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.3" sfx="0.8"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="show" bg="#1a0838" fg="#ffffff" muted="#c9b8f0" gold="#ffc93c" hot="#ff3d7f" mint="#3ce0a0"/></themes>
+  <strings>
+    <s id="title" en="SPACE QUIZ"/>
+    <s id="tag" en="3 questions · 5 seconds each"/>
+    <s id="ready" en="READY?"/>
+    <s id="ch0" en="Intro"/>
+    <s id="chE" en="Final score"/>
+    <s id="score" en="SCORE"/>
+    <s id="final" en="FINAL SCORE"/>
+    <s id="perfect" en="Perfect round!"/>
+    <s id="next" en="Next round: the Moon"/>
+    <s id="vo0" en="Welcome to Space Quiz! Three questions, five seconds each. Ready? Let us go."/>
+    <s id="voE" en="That is the round! How many did you get? Come back next week for more."/>
+    <s id="L" en="ABCD"/>
+    <s id="timeup" en="TIME!"/>
+    <s id="q0" en="Which planet has the most moons?"/>
+    <s id="f0" en="146 known moons and counting"/>
+    <s id="vq0" en="Question one. Which planet has the most moons?"/>
+    <s id="va0" en="It is Saturn, with more than a hundred and forty known moons."/>
+    <s id="n0" en="QUESTION 1 / 3"/>
+    <s id="chq0" en="Question 1"/>
+    <s id="cha0" en="Answer 1"/>
+    <s id="o00" en="Jupiter"/>
+    <s id="o01" en="Saturn"/>
+    <s id="o02" en="Uranus"/>
+    <s id="o03" en="Neptune"/>
+    <s id="q1" en="How long does sunlight take to reach Earth?"/>
+    <s id="f1" en="You see the Sun as it was 8 minutes ago"/>
+    <s id="vq1" en="Question two. How long does sunlight take to reach the Earth?"/>
+    <s id="va1" en="About eight minutes. You always see the Sun as it was eight minutes ago."/>
+    <s id="n1" en="QUESTION 2 / 3"/>
+    <s id="chq1" en="Question 2"/>
+    <s id="cha1" en="Answer 2"/>
+    <s id="o10" en="8 seconds"/>
+    <s id="o11" en="8 hours"/>
+    <s id="o12" en="8 minutes"/>
+    <s id="o13" en="8 days"/>
+    <s id="q2" en="Which is the hottest planet in our solar system?"/>
+    <s id="f2" en="Thick clouds trap the heat: about 465 °C"/>
+    <s id="vq2" en="Final question. Which is the hottest planet in our solar system?"/>
+    <s id="va2" en="Venus! Its thick clouds trap the heat, so it is even hotter than Mercury."/>
+    <s id="n2" en="QUESTION 3 / 3"/>
+    <s id="chq2" en="Question 3"/>
+    <s id="cha2" en="Answer 3"/>
+    <s id="o20" en="Mercury"/>
+    <s id="o21" en="Mars"/>
+    <s id="o22" en="Jupiter"/>
+    <s id="o23" en="Venus"/>
+    <s id="letA" en="A"/>
+    <s id="letB" en="B"/>
+    <s id="letC" en="C"/>
+    <s id="letD" en="D"/>
+  </strings>
+  <defs>
+    <radial id="stage" x="=W/2" y="=H*0.35" r="=max(W, H)*0.8"><stop at="0" color="#5b23b8"/><stop at="0.6" color="#2a0d5c"/><stop at="1" color="#12052a"/></radial>
+    <linear id="beam" x1="0" y1="0" x2="0" y2="1400"><stop at="0" color="#ffffff" opacity="0.18"/><stop at="1" color="#ffffff" opacity="0"/></linear>
+    <linear id="cardG" x1="0" y1="-200" x2="0" y2="200"><stop at="0" color="#ffffff"/><stop at="1" color="#e6dcff"/></linear>
+    <linear id="optG" x1="0" y1="-62" x2="0" y2="62"><stop at="0" color="#6a35d6"/><stop at="1" color="#3d1790"/></linear>
+    <linear id="okG" x1="0" y1="-62" x2="0" y2="62"><stop at="0" color="#3ce0a0"/><stop at="1" color="#0f9e68"/></linear>
+    <linear id="gold" x1="0" y1="-110" x2="0" y2="110"><stop at="0" color="#fff1a6"/><stop at="0.5" color="#ffc93c"/><stop at="1" color="#ff8a00"/></linear>
+  </defs>
+  <assets>
+    <asset id="pulse" src="audio/pulse.ogg"/><asset id="click" src="audio/click.ogg"/><asset id="ding" src="audio/ding.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Anton" src="fonts/Anton.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="pulse" loop="1" vol="0.7"/>
+  <backdrop>
+    <rect w="=W" h="=H" fill="url(#stage)"/>
+    <group repeat="2" as="s" x="=s == 0 ? W*0.15 : W*0.85" y="-40">
+      <path d="M -30 0 L 30 0 L 260 1400 L -260 1400 Z" fill="url(#beam)" rot="=(s == 0 ? 1 : -1)*(18 + 14*sin(t*0.6 + s*2))"/>
+    </group>
+    <circle repeat="40" as="k" x="=rand(k)*W" y="=rand(k+50)*H" r="=1.5 + rand(k+9)*2.5" fill="#ffffff" opacity="=0.25 + 0.35*sin(t*2 + k)"/>
+    <rect x="0" y="=H - 30" w="=W" h="30" fill="$hot" opacity="0.5" blur="20"/>
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="7" chapter="@ch0">
+      <say at="0.4" text="@vo0"/>
+      <sfx at="0.2" src="whoosh"/><sfx at="4.6" src="ding"/>
+      <group x="960" y="400" x.portrait="540" y.portrait="760"><anim prop="scale" from="0.2" to="1" dur="0.8" ease="back"/>
+        <text x="0" y="0" size="230" size.portrait="190" font="Anton" align="center" fill="url(#gold)" text="@title" shadow="0 12 0 #1d0b3d"/>
+      </group>
+      <text x="960" y="580" x.portrait="540" y.portrait="930" size="48" weight="600" align="center" fill="$fg" text="@tag" at="1.2"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group x="960" y="790" x.portrait="540" y.portrait="1200" at="4.4"><anim prop="scale" from="1.8" to="1" dur="0.5" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.2"/>
+        <rect x="-220" y="-70" w="440" h="140" r="70" fill="$hot" shadow="0 0 40 $hot"/><text x="0" y="4" size="84" font="Anton" align="center" fill="#fff" text="@ready"/></group>
+    </scene>
+    <scene id="q1" dur="11" chapter="@chq0">
+      <say at="0.6" text="@vq0"/>
+      <sfx at="0.3" src="whoosh"/>
+      
+      <group x="120" y="60" x.portrait="60" y.portrait="110"><rect w="420" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/><text x="210" y="41" size="40" font="Anton" align="center" fill="$fg" text="@n0"/></group>
+      <group x="1800" y="60" x.portrait="1020" y.portrait="110"><rect x="-320" w="320" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/>
+        <text x="-286" y="41" size="40" font="Anton" fill="$muted" text="@score"/><text x="-44" y="41" size="52" font="Anton" align="right" fill="$gold" text="0"/></group>
+      <group x="960" y="330" x.portrait="540" y.portrait="520"><anim prop="scale" from="0.6" to="1" dur="0.5" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="-760" y="-130" w="1520" h="260" x.portrait="-480" y.portrait="-220" w.portrait="960" h.portrait="440" r="36" fill="url(#cardG)" stroke="#ffffff55" sw="3" shadow="0 24 60 #0008"/>
+        <text x="0" y="0" size="68" size.portrait="66" weight="800" align="center" maxw="1400" maxw.portrait="860" lh="1.15" fill="#1d0b3d" text="@q0"/>
+      </group>
+      <group x="590" y="600" x.portrait="540" y.portrait="860"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letA"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o00"/>
+        
+      </group><group x="1330" y="600" x.portrait="540" y.portrait="1020"><anim prop="opacity" from="0" to="1" at="1.65" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letB"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o01"/>
+        
+      </group><group x="590" y="770" x.portrait="540" y.portrait="1180"><anim prop="opacity" from="0" to="1" at="1.9" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letC"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o02"/>
+        
+      </group><group x="1330" y="770" x.portrait="540" y.portrait="1340"><anim prop="opacity" from="0" to="1" at="2.15" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letD"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o03"/>
+        
+      </group>
+      
+      <group x="960" y="930" x.portrait="540" y.portrait="1610" at="3.4"><anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+        <circle r="96" fill="#1a0a36" stroke="#ffffff33" sw="3"/>
+        <circle r="84" from="0" to="=360*clamp(1 - (T - 4)/5, 0, 1)" fill="=T &lt; 7 ? $gold : $hot"/>
+        <circle r="66" fill="#1a0a36"/>
+        <text x="0" y="4" size="72" font="Anton" align="center" fill="$fg" text="{T &lt; 9 ? ceil(5*clamp(1 - (T - 4)/5, 0, 1)) : ''}" scale="=1 + 0.25*max(0, 1 - fract(T - 4)*4)*step(4, T)*step(T, 9)"/>
+        <text x="0" y="4" size="44" font="Anton" align="center" fill="$hot" text="@timeup" when="=T &gt;= 9"/>
+      </group>
+      <sfx at="4" src="click"/><sfx at="5" src="click"/><sfx at="6" src="click"/><sfx at="7" src="click"/><sfx at="8" src="click"/><sfx at="9" src="whoosh"/>
+    </scene>
+    <scene id="a1" dur="6" chapter="@cha0">
+      <say at="0.9" text="@va0"/>
+      <sfx at="0.2" src="ding"/><sfx at="0.3" src="pop"/>
+      
+      <group x="120" y="60" x.portrait="60" y.portrait="110"><rect w="420" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/><text x="210" y="41" size="40" font="Anton" align="center" fill="$fg" text="@n0"/></group>
+      <group x="1800" y="60" x.portrait="1020" y.portrait="110"><rect x="-320" w="320" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/>
+        <text x="-286" y="41" size="40" font="Anton" fill="$muted" text="@score"/><text x="-44" y="41" size="52" font="Anton" align="right" fill="$gold" text="{T &lt; 0.6 ? 0 : 1}"/></group>
+      <group x="960" y="330" x.portrait="540" y.portrait="520">
+        <rect x="-760" y="-130" w="1520" h="260" x.portrait="-480" y.portrait="-220" w.portrait="960" h.portrait="440" r="36" fill="url(#cardG)" stroke="#ffffff55" sw="3" shadow="0 24 60 #0008"/>
+        <text x="0" y="0" size="68" size.portrait="66" weight="800" align="center" maxw="1400" maxw.portrait="860" lh="1.15" fill="#1d0b3d" text="@q0"/>
+      </group>
+      <group x="590" y="600" x.portrait="540" y.portrait="860"><anim prop="opacity" from="1" to="0.35" at="0.2" dur="0.4"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="#ffffff14" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letA"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o00"/>
+        
+      </group><group x="1330" y="600" x.portrait="540" y.portrait="1020"><anim prop="scale" from="1" to="1.12" at="0.2" dur="0.25" ease="out"/><anim prop="scale" from="1.12" to="1" at="0.45" dur="0.35" ease="back"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#okG)" stroke="#c9ffd9" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="#ffffff"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letB"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o01"/>
+        <path x="270" x.portrait="370" d="M -26 0 L -6 20 L 28 -22" stroke="#ffffff" sw="10" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="0.35"/></path>
+      </group><group x="590" y="770" x.portrait="540" y.portrait="1180"><anim prop="opacity" from="1" to="0.35" at="0.2" dur="0.4"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="#ffffff14" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letC"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o02"/>
+        
+      </group><group x="1330" y="770" x.portrait="540" y.portrait="1340"><anim prop="opacity" from="1" to="0.35" at="0.2" dur="0.4"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="#ffffff14" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letD"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o03"/>
+        
+      </group>
+      <group x="1330" y="600" x.portrait="540" y.portrait="1020" at="0.2" dur="2.2">
+        <rect repeat="36" as="k" x="=cos(rand(k)*2*PI)*(120 + rand(k+1)*420)*ease((T-0.2)/1.2,'out')" y="=sin(rand(k)*2*PI)*(80 + rand(k+1)*260)*ease((T-0.2)/1.2,'out') + 300*pow(max(0, T - 0.6), 2)*0.6" w="16" h="10" rot="=T*400*rand(k+3)" fill="=rand(k+4) &lt; 0.33 ? $gold : rand(k+4) &lt; 0.66 ? $hot : $mint" opacity="=clamp(2.2 - T, 0, 1)"/>
+      </group>
+      <group x="960" y="930" x.portrait="540" y.portrait="1610" at="0.9"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="scale" from="0.8" to="1" dur="0.4" ease="back"/>
+        <rect x="-560" y="-50" w="1120" h="100" x.portrait="-480" w.portrait="960" r="50" fill="#ffffff" shadow="0 10 30 #0006"/>
+        <text x="0" y="2" size="40" size.portrait="36" weight="700" align="center" fill="#1d0b3d" text="@f0"/></group>
+    </scene>
+    <scene id="q2" dur="11" chapter="@chq1">
+      <say at="0.6" text="@vq1"/>
+      <sfx at="0.3" src="whoosh"/>
+      
+      <group x="120" y="60" x.portrait="60" y.portrait="110"><rect w="420" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/><text x="210" y="41" size="40" font="Anton" align="center" fill="$fg" text="@n1"/></group>
+      <group x="1800" y="60" x.portrait="1020" y.portrait="110"><rect x="-320" w="320" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/>
+        <text x="-286" y="41" size="40" font="Anton" fill="$muted" text="@score"/><text x="-44" y="41" size="52" font="Anton" align="right" fill="$gold" text="1"/></group>
+      <group x="960" y="330" x.portrait="540" y.portrait="520"><anim prop="scale" from="0.6" to="1" dur="0.5" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="-760" y="-130" w="1520" h="260" x.portrait="-480" y.portrait="-220" w.portrait="960" h.portrait="440" r="36" fill="url(#cardG)" stroke="#ffffff55" sw="3" shadow="0 24 60 #0008"/>
+        <text x="0" y="0" size="68" size.portrait="66" weight="800" align="center" maxw="1400" maxw.portrait="860" lh="1.15" fill="#1d0b3d" text="@q1"/>
+      </group>
+      <group x="590" y="600" x.portrait="540" y.portrait="860"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letA"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o10"/>
+        
+      </group><group x="1330" y="600" x.portrait="540" y.portrait="1020"><anim prop="opacity" from="0" to="1" at="1.65" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letB"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o11"/>
+        
+      </group><group x="590" y="770" x.portrait="540" y.portrait="1180"><anim prop="opacity" from="0" to="1" at="1.9" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letC"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o12"/>
+        
+      </group><group x="1330" y="770" x.portrait="540" y.portrait="1340"><anim prop="opacity" from="0" to="1" at="2.15" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letD"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o13"/>
+        
+      </group>
+      
+      <group x="960" y="930" x.portrait="540" y.portrait="1610" at="3.4"><anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+        <circle r="96" fill="#1a0a36" stroke="#ffffff33" sw="3"/>
+        <circle r="84" from="0" to="=360*clamp(1 - (T - 4)/5, 0, 1)" fill="=T &lt; 7 ? $gold : $hot"/>
+        <circle r="66" fill="#1a0a36"/>
+        <text x="0" y="4" size="72" font="Anton" align="center" fill="$fg" text="{T &lt; 9 ? ceil(5*clamp(1 - (T - 4)/5, 0, 1)) : ''}" scale="=1 + 0.25*max(0, 1 - fract(T - 4)*4)*step(4, T)*step(T, 9)"/>
+        <text x="0" y="4" size="44" font="Anton" align="center" fill="$hot" text="@timeup" when="=T &gt;= 9"/>
+      </group>
+      <sfx at="4" src="click"/><sfx at="5" src="click"/><sfx at="6" src="click"/><sfx at="7" src="click"/><sfx at="8" src="click"/><sfx at="9" src="whoosh"/>
+    </scene>
+    <scene id="a2" dur="7" chapter="@cha1">
+      <say at="0.9" text="@va1"/>
+      <sfx at="0.2" src="ding"/><sfx at="0.3" src="pop"/>
+      
+      <group x="120" y="60" x.portrait="60" y.portrait="110"><rect w="420" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/><text x="210" y="41" size="40" font="Anton" align="center" fill="$fg" text="@n1"/></group>
+      <group x="1800" y="60" x.portrait="1020" y.portrait="110"><rect x="-320" w="320" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/>
+        <text x="-286" y="41" size="40" font="Anton" fill="$muted" text="@score"/><text x="-44" y="41" size="52" font="Anton" align="right" fill="$gold" text="{T &lt; 0.6 ? 1 : 2}"/></group>
+      <group x="960" y="330" x.portrait="540" y.portrait="520">
+        <rect x="-760" y="-130" w="1520" h="260" x.portrait="-480" y.portrait="-220" w.portrait="960" h.portrait="440" r="36" fill="url(#cardG)" stroke="#ffffff55" sw="3" shadow="0 24 60 #0008"/>
+        <text x="0" y="0" size="68" size.portrait="66" weight="800" align="center" maxw="1400" maxw.portrait="860" lh="1.15" fill="#1d0b3d" text="@q1"/>
+      </group>
+      <group x="590" y="600" x.portrait="540" y.portrait="860"><anim prop="opacity" from="1" to="0.35" at="0.2" dur="0.4"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="#ffffff14" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letA"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o10"/>
+        
+      </group><group x="1330" y="600" x.portrait="540" y.portrait="1020"><anim prop="opacity" from="1" to="0.35" at="0.2" dur="0.4"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="#ffffff14" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letB"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o11"/>
+        
+      </group><group x="590" y="770" x.portrait="540" y.portrait="1180"><anim prop="scale" from="1" to="1.12" at="0.2" dur="0.25" ease="out"/><anim prop="scale" from="1.12" to="1" at="0.45" dur="0.35" ease="back"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#okG)" stroke="#c9ffd9" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="#ffffff"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letC"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o12"/>
+        <path x="270" x.portrait="370" d="M -26 0 L -6 20 L 28 -22" stroke="#ffffff" sw="10" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="0.35"/></path>
+      </group><group x="1330" y="770" x.portrait="540" y.portrait="1340"><anim prop="opacity" from="1" to="0.35" at="0.2" dur="0.4"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="#ffffff14" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letD"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o13"/>
+        
+      </group>
+      <group x="590" y="770" x.portrait="540" y.portrait="1180" at="0.2" dur="2.2">
+        <rect repeat="36" as="k" x="=cos(rand(k)*2*PI)*(120 + rand(k+1)*420)*ease((T-0.2)/1.2,'out')" y="=sin(rand(k)*2*PI)*(80 + rand(k+1)*260)*ease((T-0.2)/1.2,'out') + 300*pow(max(0, T - 0.6), 2)*0.6" w="16" h="10" rot="=T*400*rand(k+3)" fill="=rand(k+4) &lt; 0.33 ? $gold : rand(k+4) &lt; 0.66 ? $hot : $mint" opacity="=clamp(2.2 - T, 0, 1)"/>
+      </group>
+      <group x="960" y="930" x.portrait="540" y.portrait="1610" at="0.9"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="scale" from="0.8" to="1" dur="0.4" ease="back"/>
+        <rect x="-560" y="-50" w="1120" h="100" x.portrait="-480" w.portrait="960" r="50" fill="#ffffff" shadow="0 10 30 #0006"/>
+        <text x="0" y="2" size="40" size.portrait="36" weight="700" align="center" fill="#1d0b3d" text="@f1"/></group>
+    </scene>
+    <scene id="q3" dur="11" chapter="@chq2">
+      <say at="0.6" text="@vq2"/>
+      <sfx at="0.3" src="whoosh"/>
+      
+      <group x="120" y="60" x.portrait="60" y.portrait="110"><rect w="420" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/><text x="210" y="41" size="40" font="Anton" align="center" fill="$fg" text="@n2"/></group>
+      <group x="1800" y="60" x.portrait="1020" y.portrait="110"><rect x="-320" w="320" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/>
+        <text x="-286" y="41" size="40" font="Anton" fill="$muted" text="@score"/><text x="-44" y="41" size="52" font="Anton" align="right" fill="$gold" text="2"/></group>
+      <group x="960" y="330" x.portrait="540" y.portrait="520"><anim prop="scale" from="0.6" to="1" dur="0.5" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="-760" y="-130" w="1520" h="260" x.portrait="-480" y.portrait="-220" w.portrait="960" h.portrait="440" r="36" fill="url(#cardG)" stroke="#ffffff55" sw="3" shadow="0 24 60 #0008"/>
+        <text x="0" y="0" size="68" size.portrait="66" weight="800" align="center" maxw="1400" maxw.portrait="860" lh="1.15" fill="#1d0b3d" text="@q2"/>
+      </group>
+      <group x="590" y="600" x.portrait="540" y.portrait="860"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letA"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o20"/>
+        
+      </group><group x="1330" y="600" x.portrait="540" y.portrait="1020"><anim prop="opacity" from="0" to="1" at="1.65" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letB"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o21"/>
+        
+      </group><group x="590" y="770" x.portrait="540" y.portrait="1180"><anim prop="opacity" from="0" to="1" at="1.9" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letC"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o22"/>
+        
+      </group><group x="1330" y="770" x.portrait="540" y.portrait="1340"><anim prop="opacity" from="0" to="1" at="2.15" dur="0.3"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#optG)" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letD"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o23"/>
+        
+      </group>
+      
+      <group x="960" y="930" x.portrait="540" y.portrait="1610" at="3.4"><anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+        <circle r="96" fill="#1a0a36" stroke="#ffffff33" sw="3"/>
+        <circle r="84" from="0" to="=360*clamp(1 - (T - 4)/5, 0, 1)" fill="=T &lt; 7 ? $gold : $hot"/>
+        <circle r="66" fill="#1a0a36"/>
+        <text x="0" y="4" size="72" font="Anton" align="center" fill="$fg" text="{T &lt; 9 ? ceil(5*clamp(1 - (T - 4)/5, 0, 1)) : ''}" scale="=1 + 0.25*max(0, 1 - fract(T - 4)*4)*step(4, T)*step(T, 9)"/>
+        <text x="0" y="4" size="44" font="Anton" align="center" fill="$hot" text="@timeup" when="=T &gt;= 9"/>
+      </group>
+      <sfx at="4" src="click"/><sfx at="5" src="click"/><sfx at="6" src="click"/><sfx at="7" src="click"/><sfx at="8" src="click"/><sfx at="9" src="whoosh"/>
+    </scene>
+    <scene id="a3" dur="7" chapter="@cha2">
+      <say at="0.9" text="@va2"/>
+      <sfx at="0.2" src="ding"/><sfx at="0.3" src="pop"/>
+      
+      <group x="120" y="60" x.portrait="60" y.portrait="110"><rect w="420" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/><text x="210" y="41" size="40" font="Anton" align="center" fill="$fg" text="@n2"/></group>
+      <group x="1800" y="60" x.portrait="1020" y.portrait="110"><rect x="-320" w="320" h="80" r="40" fill="#ffffff1a" stroke="#ffffff40" sw="2"/>
+        <text x="-286" y="41" size="40" font="Anton" fill="$muted" text="@score"/><text x="-44" y="41" size="52" font="Anton" align="right" fill="$gold" text="{T &lt; 0.6 ? 2 : 3}"/></group>
+      <group x="960" y="330" x.portrait="540" y.portrait="520">
+        <rect x="-760" y="-130" w="1520" h="260" x.portrait="-480" y.portrait="-220" w.portrait="960" h.portrait="440" r="36" fill="url(#cardG)" stroke="#ffffff55" sw="3" shadow="0 24 60 #0008"/>
+        <text x="0" y="0" size="68" size.portrait="66" weight="800" align="center" maxw="1400" maxw.portrait="860" lh="1.15" fill="#1d0b3d" text="@q2"/>
+      </group>
+      <group x="590" y="600" x.portrait="540" y.portrait="860"><anim prop="opacity" from="1" to="0.35" at="0.2" dur="0.4"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="#ffffff14" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letA"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o20"/>
+        
+      </group><group x="1330" y="600" x.portrait="540" y.portrait="1020"><anim prop="opacity" from="1" to="0.35" at="0.2" dur="0.4"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="#ffffff14" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letB"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o21"/>
+        
+      </group><group x="590" y="770" x.portrait="540" y.portrait="1180"><anim prop="opacity" from="1" to="0.35" at="0.2" dur="0.4"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="#ffffff14" stroke="#ffffff55" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="$gold"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letC"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o22"/>
+        
+      </group><group x="1330" y="770" x.portrait="540" y.portrait="1340"><anim prop="scale" from="1" to="1.12" at="0.2" dur="0.25" ease="out"/><anim prop="scale" from="1.12" to="1" at="0.45" dur="0.35" ease="back"/>
+        <rect x="-340" y="-62" w="680" h="124" x.portrait="-440" w.portrait="880" r="62" fill="url(#okG)" stroke="#c9ffd9" sw="3" shadow="0 10 24 #0006"/>
+        <circle x="-276" x.portrait="-376" r="44" fill="#ffffff"/>
+        <text x="-276" x.portrait="-376" y="2" size="48" font="Anton" align="center" fill="#1d0b3d" text="@letD"/>
+        <text x="-200" x.portrait="-300" y="2" size="50" weight="700" fill="$fg" text="@o23"/>
+        <path x="270" x.portrait="370" d="M -26 0 L -6 20 L 28 -22" stroke="#ffffff" sw="10" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="0.35"/></path>
+      </group>
+      <group x="1330" y="770" x.portrait="540" y.portrait="1340" at="0.2" dur="2.2">
+        <rect repeat="36" as="k" x="=cos(rand(k)*2*PI)*(120 + rand(k+1)*420)*ease((T-0.2)/1.2,'out')" y="=sin(rand(k)*2*PI)*(80 + rand(k+1)*260)*ease((T-0.2)/1.2,'out') + 300*pow(max(0, T - 0.6), 2)*0.6" w="16" h="10" rot="=T*400*rand(k+3)" fill="=rand(k+4) &lt; 0.33 ? $gold : rand(k+4) &lt; 0.66 ? $hot : $mint" opacity="=clamp(2.2 - T, 0, 1)"/>
+      </group>
+      <group x="960" y="930" x.portrait="540" y.portrait="1610" at="0.9"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="scale" from="0.8" to="1" dur="0.4" ease="back"/>
+        <rect x="-560" y="-50" w="1120" h="100" x.portrait="-480" w.portrait="960" r="50" fill="#ffffff" shadow="0 10 30 #0006"/>
+        <text x="0" y="2" size="40" size.portrait="36" weight="700" align="center" fill="#1d0b3d" text="@f2"/></group>
+    </scene>
+    <scene id="final" dur="7" chapter="@chE">
+      <say at="0.4" text="@voE"/>
+      <sfx at="0.6" src="ding"/>
+      <group x="960" y="460" x.portrait="540" y.portrait="820"><anim prop="scale" from="0.5" to="1" dur="0.6" ease="back"/>
+        <rect x="-460" y="-260" w="920" h="520" r="48" fill="url(#cardG)" shadow="0 30 70 #0009"/>
+        <text x="0" y="-160" size="54" font="Anton" align="center" fill="#5b2bb5" text="@final"/>
+        <text x="0" y="10" size="220" font="Anton" align="center" fill="#1d0b3d" text="{fmt(3*ease((T-0.3)/1.2,'out'), 0)}/3"/>
+        <path x="-110" y="170" d="M 0 -44 L 13 -14 L 44 -12 L 20 9 L 27 40 L 0 23 L -27 40 L -20 9 L -44 -12 L -13 -14 Z" fill="$gold" stroke="#1d0b3d" sw="3" at="1.2"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/></path><path x="0" y="170" d="M 0 -44 L 13 -14 L 44 -12 L 20 9 L 27 40 L 0 23 L -27 40 L -20 9 L -44 -12 L -13 -14 Z" fill="$gold" stroke="#1d0b3d" sw="3" at="1.45"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/></path><path x="110" y="170" d="M 0 -44 L 13 -14 L 44 -12 L 20 9 L 27 40 L 0 23 L -27 40 L -20 9 L -44 -12 L -13 -14 Z" fill="$gold" stroke="#1d0b3d" sw="3" at="1.7"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/></path>
+      </group>
+      <text x="960" y="840" x.portrait="540" y.portrait="1260" size="56" weight="800" align="center" fill="$gold" text="@perfect" at="2"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="960" y="930" x.portrait="540" y.portrait="1360" size="40" align="center" fill="$fg" text="@next" at="2.6"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <group x="960" y="300" x.portrait="540" y.portrait="600" at="0.2" dur="2.2">
+        <rect repeat="36" as="k" x="=cos(rand(k)*2*PI)*(120 + rand(k+1)*420)*ease((T-0.2)/1.2,'out')" y="=sin(rand(k)*2*PI)*(80 + rand(k+1)*260)*ease((T-0.2)/1.2,'out') + 300*pow(max(0, T - 0.6), 2)*0.6" w="16" h="10" rot="=T*400*rand(k+3)" fill="=rand(k+4) &lt; 0.33 ? $gold : rand(k+4) &lt; 0.66 ? $hot : $mint" opacity="=clamp(2.2 - T, 0, 1)"/>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="va0" lang="en" src="voice/quiz-countdown/en/va0.61a085338d.ogg" dur="3.71" hash="61a085338d" engine="kokoro:am_michael"/>
+    <voice say="va1" lang="en" src="voice/quiz-countdown/en/va1.57ea0a547b.ogg" dur="4.31" hash="57ea0a547b" engine="kokoro:am_michael"/>
+    <voice say="va2" lang="en" src="voice/quiz-countdown/en/va2.b5feb2430f.ogg" dur="5.21" hash="b5feb2430f" engine="kokoro:am_michael"/>
+    <voice say="vo0" lang="en" src="voice/quiz-countdown/en/vo0.b8e4976d1c.ogg" dur="5.41" hash="b8e4976d1c" engine="kokoro:am_michael"/>
+    <voice say="voE" lang="en" src="voice/quiz-countdown/en/voE.a4b301b47b.ogg" dur="4.41" hash="a4b301b47b" engine="kokoro:am_michael"/>
+    <voice say="vq0" lang="en" src="voice/quiz-countdown/en/vq0.24dc5ec060.ogg" dur="3.11" hash="24dc5ec060" engine="kokoro:am_michael"/>
+    <voice say="vq1" lang="en" src="voice/quiz-countdown/en/vq1.b0af2067e0.ogg" dur="3.81" hash="b0af2067e0" engine="kokoro:am_michael"/>
+    <voice say="vq2" lang="en" src="voice/quiz-countdown/en/vq2.a2b673c84a.ogg" dur="4.41" hash="a2b673c84a" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

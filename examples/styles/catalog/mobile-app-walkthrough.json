@@ -1,0 +1,12 @@
+{
+  "id": "mobile-app-walkthrough",
+  "title": "Mobile app walkthrough",
+  "category": "Product & software",
+  "summary": "A vector phone holds a real screenshot and vector screens: taps with ripples, slides, a bottom sheet and a turn to landscape.",
+  "duration": 55.5,
+  "layouts": [
+    "landscape",
+    "portrait"
+  ],
+  "thumbT": 30
+}

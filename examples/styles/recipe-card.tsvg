@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: overhead recipe card. Photo + vector ingredient checklist + step cards with countdown rings. Warm kitchen palette. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_bella"/></option>
+    <option id="mix" label="Audio" default="full">
+      <choice id="full" label="Full"/><choice id="speech" label="Speech only"/><choice id="ambient" label="Music only"/>
+    </option>
+    <option id="theme" label="Theme" default="kitchen"><choice id="kitchen" label="Kitchen"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.28" sfx="0.6"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.6" sfx="0.6"/>
+  </mixes>
+  <themes>
+    <theme id="kitchen" bg="#e9d8bd" fg="#3b2a20" muted="#8a6f5a" panel="#fffaf1" card="#fff6e6" accent="#c8553d" turmeric="#e9a23b" leaf="#5b8c51" chilli="#b8322a" wood="#c99a6a" wood2="#b5845a" ink="#3b2a20"/>
+  </themes>
+  <strings>
+    <s id="title" en="Gujarati Dal"/>
+    <s id="kicker" en="Thali staple"/>
+    <s id="meta1" en="35 min"/>
+    <s id="meta2" en="Serves 4"/>
+    <s id="meta3" en="Easy"/>
+    <s id="hand" en="Sweet, sour, a little spicy!"/>
+    <s id="ch1" en="The dish"/><s id="ch2" en="Ingredients"/><s id="ch3" en="Cook the dal"/><s id="ch4" en="Simmer"/><s id="ch5" en="Tadka"/><s id="ch6" en="Pour and rest"/><s id="ch7" en="Serve"/>
+    <s id="ingH" en="You will need"/>
+    <s id="step1" en="STEP 1/4"/><s id="step2" en="STEP 2/4"/><s id="step3" en="STEP 3/4"/><s id="step4" en="STEP 4/4"/>
+    <s id="s1t" en="Cook the dal"/>
+    <s id="s1b" en="Rinse the toor dal. Add 1½ cups water and the turmeric. Pressure-cook for 3 whistles."/>
+    <s id="s2t" en="Whisk and simmer"/>
+    <s id="s2b" en="Whisk smooth. Add 1½ cups water, tomato, jaggery, kokum and ginger-chilli paste."/>
+    <s id="s3t" en="Make the tadka"/>
+    <s id="s3b" en="Heat the ghee. Mustard and cumin until they crackle, then curry leaves and hing."/>
+    <s id="s4t" en="Pour and rest"/>
+    <s id="s4b" en="Pour the sizzling tadka over the dal. Cover and let it rest."/>
+    <s id="srvT" en="Serve hot"/>
+    <s id="srvB" en="With rice, rotli and a little pickle"/>
+    <s id="tip" en="Tip: taste and balance. Sweet, then sour, then salt."/>
+    <s id="pair" en="Best with steamed rice"/>
+    <s id="timer" en="timer"/>
+    <s id="done" en="done!"/>
+    <s id="vo1" en="Gujarati dal is sweet, sour and gently spiced: the heart of every thali. About thirty-five minutes, and it serves four."/>
+    <s id="vo2" en="You need toor dal, a tomato, jaggery, kokum, ginger-chilli paste, turmeric, ghee, mustard and cumin seeds, curry leaves, a pinch of hing, and coriander."/>
+    <s id="vo3" en="Rinse the dal, add water and turmeric, and pressure-cook it for three whistles, about twelve minutes."/>
+    <s id="vo4" en="Whisk it smooth and add more water, then the tomato, jaggery, kokum and ginger-chilli paste. Simmer for ten minutes."/>
+    <s id="vo5" en="For the tadka, heat the ghee and add mustard and cumin. When they crackle, add curry leaves and hing."/>
+    <s id="vo6" en="Pour the sizzling tadka over the dal, cover it, and let it rest for two minutes so the flavours settle."/>
+    <s id="vo7" en="Finish with fresh coriander, and serve it hot with rice, rotli and a little pickle."/>
+  </strings>
+  <defs>
+    <data id="ing" v="Toor dal, Tomato, Jaggery, Kokum, Ginger-chilli paste, Turmeric, Ghee, Mustard + cumin, Curry leaves + hing, Coriander"/>
+    <data id="qty" v="½ cup, 1 chopped, 1 tbsp, 3 pieces, 1 tsp, ¼ tsp, 1 tbsp, ½ tsp each, 8 + a pinch, a handful"/>
+    <data id="dot" v="#f2c14a, #d8402e, #a0642a, #7b2d4f, #c9b25a, #e9a23b, #f6e3a0, #3b2a20, #4f7f3f, #6aa35a"/>
+    <fn id="clock" args="s">floor(max(0,s)/60) + ':' + (floor(max(0,s))%60 &lt; 10 ? '0' : '') + floor(max(0,s))%60</fn>
+    <linear id="shade" x1="0" y1="0" x2="0" y2="1080"><stop at="0" color="#1a0f08" opacity="0.15"/><stop at="0.55" color="#1a0f08" opacity="0.35"/><stop at="1" color="#1a0f08" opacity="0.88"/></linear>
+    <radial id="oil" x="0" y="0" r="300"><stop at="0" color="#4a4038"/><stop at="0.8" color="#2c2622"/><stop at="1" color="#1d1915"/></radial>
+    <radial id="golden" x="0" y="0" r="300"><stop at="0" color="#f0c25a"/><stop at="0.85" color="#d99a2b"/><stop at="1" color="#8a5a1a"/></radial>
+    <clip id="plate"><circle r="330"/></clip>
+    <clip id="bigPlate"><circle r="400"/></clip>
+    <linear id="shadeL" x1="0" y1="0" x2="1100" y2="0"><stop at="0" color="#1a0f08" opacity="0.75"/><stop at="0.7" color="#1a0f08" opacity="0.45"/><stop at="1" color="#1a0f08" opacity="0"/></linear>
+    <mask id="titleWipe"><rect x="-20" y="-120" w="=1400*ease((T-0.4)/1.2,'io')" h="240" fill="#000"/></mask>
+  </defs>
+  <assets>
+    <asset id="food" src="images/food.jpg"/>
+    <asset id="bed" src="audio/bright.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
+    <font family="Caveat" src="fonts/Caveat.ttf"/>
+  </assets>
+  <music src="bed" loop="1" vol="0.7"/>
+
+  <!-- wooden table seen from above -->
+  <backdrop>
+    <rect w="=W" h="=H" fill="$wood"/>
+    <rect repeat="12" as="k" x="0" y="=k*92" w="=W" h="90" fill="=mix($wood, $wood2, 0.25 + 0.5*rand(k+3))"/>
+    <path repeat="14" as="g" x="0" y="=40 + g*78" d="M 0 0 C 400 18, 800 -14, 1200 6 S 1700 -10, 1920 4" stroke="#8a5a3a" sw="2" fill="none" opacity="0.18"/>
+  </backdrop>
+
+  <timeline>
+    <!-- 1 · hero photo + title -->
+    <scene id="hero" dur="8.5" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.2" src="whoosh"/>
+      <rect w="1100" h="=H" fill="url(#shadeL)"/>
+      <!-- the plate, overhead (crop of the photo's thali) -->
+      <group x="1440" y="540" rot="=-4 + T*1.2">
+        <anim prop="scale" from="1.1" to="1" dur="8.5" ease="linear"/>
+        <circle r="430" fill="#00000055" blur="40" y="26"/>
+        <circle r="430" fill="#e9e3d8"/>
+        <circle r="404" fill="#cfc8bb"/>
+        <image src="food" x="-1708" y="-400" w="3588" h="2050" fit="fill" clip="url(#bigPlate)"/>
+        <circle r="400" fill="none" stroke="#ffffff" sw="8" opacity="0.5"/>
+      </group>
+      <group x="120" y="640">
+        <rect x="0" y="-150" w="290" h="56" r="28" fill="$accent" at="0.3">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        </rect>
+        <text x="145" y="-122" size="28" weight="700" align="center" fill="#fff" text="@kicker" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+        <group mask="url(#titleWipe)">
+          <text x="0" y="0" size="150" weight="800" font="Playfair Display" fill="#fffaf1" text="@title" shadow="0 6 24 #0008"/>
+        </group>
+        <group y="150" at="1.6">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <group repeat="3" as="m" x="=m*250">
+            <rect w="230" h="66" r="33" fill="#fffaf1" opacity="0.95"/>
+            <circle x="38" y="33" r="14" fill="=m==0 ? $accent : m==1 ? $leaf : $turmeric"/>
+            <text x="64" y="33" size="30" weight="600" fill="$ink" text="@meta1" when="=m==0"/>
+            <text x="64" y="33" size="30" weight="600" fill="$ink" text="@meta2" when="=m==1"/>
+            <text x="64" y="33" size="30" weight="600" fill="$ink" text="@meta3" when="=m==2"/>
+          </group>
+        </group>
+      </group>
+      <text x="470" y="330" size="64" font="Caveat" weight="700" fill="#fff3c4" rot="-6" align="center" text="@hand" at="2.6">
+        <anim prop="reveal" from="0" to="1" dur="1.2" ease="linear"/>
+      </text>
+      <path x="720" y="330" d="M 0 0 C 60 -40, 140 -40, 200 0" stroke="#fff3c4" sw="5" fill="none" at="3.6">
+        <anim prop="draw" from="0" to="1" dur="0.6"/>
+      </path>
+    </scene>
+
+    <!-- 2 · ingredient checklist -->
+    <scene id="ingredients" dur="12" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="1.6" src="click"/><sfx at="2.4" src="click"/><sfx at="3.1" src="click"/><sfx at="3.8" src="click"/><sfx at="1.3" src="whoosh"/><sfx at="4.6" src="click"/>
+      <sfx at="5.3" src="click"/><sfx at="6.0" src="click"/><sfx at="6.8" src="click"/><sfx at="7.6" src="click"/><sfx at="8.4" src="click"/>
+      <!-- the bowl photo, on the left -->
+      <group x="470" y="540">
+        <anim prop="x" from="300" to="470" dur="0.8" ease="out"/>
+        <circle r="360" fill="#00000033" blur="30" y="20"/>
+        <circle r="350" fill="#f4efe6"/>
+        <group rot="=T*2"><image src="food" x="-1408" y="-330" w="2957" h="1690" fit="fill" clip="url(#plate)"/></group>
+        <circle r="340" fill="none" stroke="#ffffff" sw="10" opacity="0.6"/>
+      </group>
+      <!-- the card -->
+      <group x="960" y="90">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <anim prop="y" from="140" to="90" dur="0.6"/>
+        <rect w="860" h="900" r="22" fill="$card" shadow="0 24 50 #3b2a2066"/>
+        <rect w="860" h="16" r="8" fill="$accent"/>
+        <text x="60" y="90" size="60" font="Playfair Display" weight="700" fill="$ink" text="@ingH"/>
+        <line x1="60" y1="140" x2="800" y2="140" stroke="$muted" sw="2" opacity="0.4"/>
+        <group repeat="=count('ing')" as="i" y="=200 + i*72">
+          <rect x="60" y="-20" w="40" h="40" r="9" fill="=T > 1.5 + i*0.76 ? $leaf : '#ffffff'" stroke="$muted" sw="3"/>
+          <path x="60" y="-20" d="M 9 21 L 17 29 L 32 11" stroke="#fff" sw="5" fill="none" at="=1.5 + i*0.76">
+            <anim prop="draw" from="0" to="1" dur="0.25"/>
+          </path>
+          <circle x="140" y="0" r="15" fill="=data('dot', i)" stroke="#3b2a2033" sw="2"/>
+          <text x="180" y="0" size="38" weight="600" fill="=T > 1.5 + i*0.76 ? $muted : $ink" text="{data('ing', i)}"/>
+          <rect x="178" y="0" h="3" fill="$muted" w="=T > 1.5 + i*0.76 ? 300*ease((T-1.5-i*0.76)/0.3,'out') : 0" opacity="0.6"/>
+          <text x="800" y="0" size="34" align="right" fill="$accent" weight="600" text="{data('qty', i)}"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 3 · step 1: rinse and pressure-cook (12:00) -->
+    <scene id="cook" dur="9.5" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="7.6" src="ding"/>
+      <!-- sieve + water, left -->
+      <group x="560" y="560">
+        <anim prop="scale" from="0.9" to="1" dur="0.7" ease="back"/>
+        <circle r="380" fill="#00000026" blur="26" y="16"/>
+        <circle r="360" fill="#c9ccd1"/>
+        <circle r="330" fill="#9da3ab"/>
+        <group repeat="18" as="gx">
+          <circle repeat="18" as="gy" x="=-306 + gx*36" y="=-306 + gy*36" r="=((gx*36-306)^2 + (gy*36-306)^2 &lt; 300^2) ? 4 : 0" fill="#7d838b"/>
+        </group>
+        <ellipse repeat="160" as="f" x="=230*sqrt(rand(f*3+1))*cos(rand(f*7+2)*6.283)" y="=230*sqrt(rand(f*3+1))*sin(rand(f*7+2)*6.283) + 4*sin(T*3+f)" rx="9" ry="8" rot="=rand(f)*180" fill="=mix('#f4c64e', '#e3a92c', rand(f+9))"/>
+        <!-- running water (stops at 4 s) -->
+        <ellipse repeat="26" as="d" x="=-160 + rand(d*5)*320" y="=-380 + fract(T*0.9 + rand(d))*560" rx="6" ry="16" fill="#7fc4ef" opacity="=T &lt; 4 ? 0.75 : 0"/>
+        <rect x="-450" y="-30" w="120" h="60" r="30" fill="#c9ccd1" rot="-8"/>
+      </group>
+      <!-- step card, right -->
+      <group x="1060" y="190">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1140" to="1060" dur="0.6"/>
+        <rect w="760" h="700" r="26" fill="$card" shadow="0 24 50 #3b2a2066"/>
+        <rect x="56" y="54" w="170" h="56" r="28" fill="$accent"/>
+        <text x="141" y="82" size="28" weight="800" fill="#fff" align="center" text="@step1"/>
+        <text x="56" y="180" size="66" font="Playfair Display" weight="700" fill="$ink" text="@s1t"/>
+        <text x="56" y="285" size="34" maxw="640" lh="1.4" fill="$muted" text="@s1b"/>
+        <!-- countdown ring: 2:00 compressed into the scene -->
+        <group x="380" y="530">
+          <circle r="110" fill="none" stroke="#e8dcc8" sw="22"/>
+          <path d="M 0 -110 A 110 110 0 1 1 0 110 A 110 110 0 1 1 0 -110" stroke="=T > 7.6 ? $leaf : $accent" sw="22" fill="none" draw="=1 - clamp((T-2.5)/5.1, 0, 1)"/>
+          <text y="-8" size="56" weight="800" fill="$ink" align="center" font="Inter" text="@done" when="=T > 7.6"/>
+          <text y="-8" size="56" weight="800" fill="$ink" align="center" font="Inter" text="=clock(720*(1 - clamp((T-2.5)/5.1, 0, 1)))" when="=!(T > 7.6)"/>
+          <text y="44" size="24" fill="$muted" align="center" text="@timer"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 4 · step 2: tempering in the pan -->
+    <scene id="simmer" dur="9" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="1.6" src="pop"/><sfx at="2.6" src="pop"/><sfx at="3.2" src="pop"/>
+      <sfx at="7.8" src="ding"/>
+      <!-- a deep pot: dal turns from pale to golden, bubbles, tomato, jaggery and kokum drop in -->
+      <group x="560" y="560">
+        <rect x="-470" y="-30" w="110" h="60" r="30" fill="#8d9299"/>
+        <rect x="360" y="-30" w="110" h="60" r="30" fill="#8d9299"/>
+        <circle r="350" fill="#00000033" blur="24" y="18"/>
+        <circle r="350" fill="#b9bec5"/>
+        <circle r="322" fill="#8d9299"/>
+        <circle r="310" fill="=mix('#f1dc9a', '#e9b23a', clamp((T-1)/4, 0, 1))"/>
+        <circle r="310" fill="url(#golden)" opacity="=0.5*clamp((T-3)/3, 0, 1)"/>
+        <!-- simmer bubbles -->
+        <circle repeat="34" as="b" x="=270*sqrt(rand(b+3))*cos(rand(b+50)*6.283)" y="=270*sqrt(rand(b+3))*sin(rand(b+50)*6.283)" r="=16*fract(T*0.8 + rand(b+9))" fill="none" stroke="#fff6d8" sw="3" opacity="=0.8*(1 - fract(T*0.8 + rand(b+9)))"/>
+        <!-- tomato chunks -->
+        <rect repeat="14" as="k" x="=-200 + rand(k*3+1)*400" y="=-200 + rand(k*5+2)*400 + 4*sin(T*2 + k)" w="30" h="26" r="6" rot="=rand(k)*90" fill="#d8402e" stroke="#a02818" sw="2" at="=1.6 + k*0.05">
+          <anim prop="scale" from="0" to="1" dur="0.3" ease="back"/>
+        </rect>
+        <!-- jaggery -->
+        <rect x="70" y="-60" w="70" h="56" r="10" rot="14" fill="#a0642a" stroke="#6e4118" sw="3" at="2.6">
+          <anim prop="scale" from="0" to="1" dur="0.35" ease="back"/>
+          <anim prop="opacity" from="1" to="0.25" at="2" dur="3"/>
+        </rect>
+        <!-- kokum -->
+        <path repeat="3" as="k" x="=-120 + k*110" y="=110 - k*30" rot="=k*50" d="M -30 0 C -30 -26, 30 -26, 30 0 C 20 16, -20 16, -30 0 Z" fill="#7b2d4f" stroke="#4e1730" sw="2" at="=3.2 + k*0.12">
+          <anim prop="scale" from="0" to="1" dur="0.35" ease="back"/>
+        </path>
+        <path repeat="3" as="w" x="=-120 + w*120" y="-360" d="M 0 60 C -20 30, 20 10, 0 -20 C -20 -50, 20 -70, 0 -100" stroke="#fff" sw="8" fill="none" opacity="=0.25 + 0.15*sin(T*2 + w)" blur="6"/>
+      </group>
+      <group x="1060" y="190">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1140" to="1060" dur="0.6"/>
+        <rect w="760" h="700" r="26" fill="$card" shadow="0 24 50 #3b2a2066"/>
+        <rect x="56" y="54" w="170" h="56" r="28" fill="$accent"/>
+        <text x="141" y="82" size="28" weight="800" fill="#fff" align="center" text="@step2"/>
+        <text x="56" y="180" size="66" font="Playfair Display" weight="700" fill="$ink" text="@s2t"/>
+        <text x="56" y="285" size="34" maxw="640" lh="1.4" fill="$muted" text="@s2b"/>
+        <group x="380" y="530">
+          <circle r="110" fill="none" stroke="#e8dcc8" sw="22"/>
+          <path d="M 0 -110 A 110 110 0 1 1 0 110 A 110 110 0 1 1 0 -110" stroke="=T > 7.8 ? $leaf : $turmeric" sw="22" fill="none" draw="=1 - clamp((T-2.6)/5.2, 0, 1)"/>
+          <text y="-8" size="56" weight="800" fill="$ink" align="center" text="@done" when="=T > 7.8"/>
+          <text y="-8" size="56" weight="800" fill="$ink" align="center" text="=clock(600*(1 - clamp((T-2.6)/5.2, 0, 1)))" when="=!(T > 7.8)"/>
+          <text y="44" size="24" fill="$muted" align="center" text="@timer"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 5 · step 3: tadka -->
+    <scene id="tadka" dur="9" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="1.7" src="pop"/><sfx at="2.1" src="pop"/><sfx at="2.6" src="pop"/><sfx at="3.0" src="pop"/><sfx at="3.7" src="pop"/>
+      <sfx at="7.8" src="ding"/>
+      <!-- small tadka pan: ghee, mustard + cumin crackling, curry leaves, hing -->
+      <group x="560" y="560">
+        <rect x="270" y="-30" w="330" h="60" r="30" fill="#2a2420" rot="-12"/>
+        <circle r="320" fill="#00000033" blur="24" y="18"/>
+        <circle r="320" fill="#3a3430"/>
+        <circle r="284" fill="url(#oil)"/>
+        <circle r="284" fill="#c98f2a" opacity="=0.55*clamp(T/0.8, 0, 1)"/>
+        <!-- mustard seeds jump -->
+        <circle repeat="60" as="s" x="=240*sqrt(rand(s+1))*cos(rand(s+40)*6.283)" y="=240*sqrt(rand(s+1))*sin(rand(s+40)*6.283) - 16*abs(sin(T*9 + s*1.7))*(T > 1.6 ? 1 : 0)" r="6" fill="#1b1410" stroke="#5a4636" sw="2" at="0.9">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        </circle>
+        <!-- cumin -->
+        <ellipse repeat="40" as="c" x="=240*sqrt(rand(c+91))*cos(rand(c+20)*6.283)" y="=240*sqrt(rand(c+91))*sin(rand(c+20)*6.283)" rx="9" ry="3.5" rot="=rand(c)*180" fill="#7a5a36" at="1.1">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        </ellipse>
+        <!-- curry leaves -->
+        <path repeat="8" as="c" x="=180*cos(c*0.785 + 0.3)" y="=180*sin(c*0.785 + 0.3)" rot="=c*45" d="M 0 -34 C 22 -14, 22 14, 0 34 C -22 14, -22 -14, 0 -34 Z" fill="#3f7a35" stroke="#2c5a25" sw="2" at="=4.4 + c*0.06">
+          <anim prop="scale" from="0" to="1" dur="0.35" ease="back"/>
+        </path>
+        <!-- hing dusting -->
+        <circle repeat="60" as="d" x="=-50 + rand(d+200)*100 + 110*sin(rand(d+9)*6.283)*clamp((T-5.6)*1.2, 0, 1)" y="=-400 + clamp((T-5.4 - rand(d)*0.5)*900, 0, 400 + 160*(rand(d+3)-0.5))" r="4" fill="#efe3c6" at="5.4" opacity="=T &lt; 7.8 ? 1 : 0"/>
+        <!-- sizzle sparks -->
+        <circle repeat="12" as="k" x="=260*cos(k*0.52 + T)" y="=260*sin(k*0.52 + T) - 40*fract(T*2 + k*0.3)" r="3" fill="#fff3c4" opacity="=(T > 1.6)*(1 - fract(T*2 + k*0.3))"/>
+      </group>
+      <group x="1060" y="190">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1140" to="1060" dur="0.6"/>
+        <rect w="760" h="700" r="26" fill="$card" shadow="0 24 50 #3b2a2066"/>
+        <rect x="56" y="54" w="170" h="56" r="28" fill="$accent"/>
+        <text x="141" y="82" size="28" weight="800" fill="#fff" align="center" text="@step3"/>
+        <text x="56" y="180" size="66" font="Playfair Display" weight="700" fill="$ink" text="@s3t"/>
+        <text x="56" y="285" size="34" maxw="640" lh="1.4" fill="$muted" text="@s3b"/>
+        <group x="380" y="530">
+          <circle r="110" fill="none" stroke="#e8dcc8" sw="22"/>
+          <path d="M 0 -110 A 110 110 0 1 1 0 110 A 110 110 0 1 1 0 -110" stroke="=T > 7.8 ? $leaf : $accent" sw="22" fill="none" draw="=1 - clamp((T-2.4)/5.4, 0, 1)"/>
+          <text y="-8" size="56" weight="800" fill="$ink" align="center" text="@done" when="=T > 7.8"/>
+          <text y="-8" size="56" weight="800" fill="$ink" align="center" text="=clock(30*(1 - clamp((T-2.4)/5.4, 0, 1)))" when="=!(T > 7.8)"/>
+          <text y="44" size="24" fill="$muted" align="center" text="@timer"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 6 · step 4: pour the tadka, rest -->
+    <scene id="pour" dur="9.5" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="1.3" src="whoosh"/><sfx at="4.6" src="click"/>
+      <sfx at="8.2" src="ding"/>
+      <!-- the dal pot; the tadka ladle tips in, seeds pour, lid on -->
+      <group x="560" y="560">
+        <rect x="-470" y="-30" w="110" h="60" r="30" fill="#8d9299"/>
+        <rect x="360" y="-30" w="110" h="60" r="30" fill="#8d9299"/>
+        <circle r="350" fill="#00000033" blur="24" y="18"/>
+        <circle r="350" fill="#b9bec5"/>
+        <circle r="322" fill="#8d9299"/>
+        <circle r="310" fill="url(#golden)"/>
+        <circle repeat="20" as="b" x="=260*sqrt(rand(b+3))*cos(rand(b+50)*6.283)" y="=260*sqrt(rand(b+3))*sin(rand(b+50)*6.283)" r="=12*fract(T*0.7 + rand(b+9))" fill="none" stroke="#fff6d8" sw="3" opacity="=0.6*(1 - fract(T*0.7 + rand(b+9)))"/>
+        <!-- seeds land and spread -->
+        <circle repeat="70" as="s" x="=(30 + 220*sqrt(rand(s+5))*clamp((T-1.6)/1.2, 0, 1))*cos(rand(s+70)*6.283)" y="=(30 + 220*sqrt(rand(s+5))*clamp((T-1.6)/1.2, 0, 1))*sin(rand(s+70)*6.283)" r="5" fill="#2a1d12" at="=1.3 + rand(s)*0.5"/>
+        <path repeat="8" as="c" x="=(40 + 150*clamp((T-1.8)/1.2, 0, 1))*cos(c*0.785 + 0.3)" y="=(40 + 150*clamp((T-1.8)/1.2, 0, 1))*sin(c*0.785 + 0.3)" rot="=c*45" d="M 0 -30 C 20 -12, 20 12, 0 30 C -20 12, -20 -12, 0 -30 Z" fill="#2f6a28" at="1.8"/>
+        <!-- ghee sheen -->
+        <circle r="=60 + 160*clamp((T-1.4)/1.5, 0, 1)" fill="#fff0b0" opacity="=0.25*clamp((T-1.4)*2, 0, 1)" blur="20"/>
+        <!-- ladle tips in, then leaves -->
+        <group x="=180 - 40*ease(T/0.8,'out') + 500*ease(clamp((T-3)/0.8, 0, 1),'in')" y="-260" rot="=-50*ease(clamp((T-0.8)/0.6, 0, 1),'io')" at="0">
+          <rect x="60" y="-16" w="320" h="32" r="16" fill="#2a2420"/>
+          <circle r="80" fill="#3a3430"/>
+          <circle r="64" fill="#5a4636"/>
+        </group>
+        <!-- falling stream -->
+        <rect x="70" y="=-220" w="16" h="=220*clamp((T-1.1)/0.3, 0, 1)" r="8" fill="#e8b84a" opacity="=T &lt; 2.8 ? 0.9 : 0"/>
+        <group at="4.4">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <anim prop="scale" from="1.25" to="1" dur="0.3" ease="out"/>
+          <circle r="345" fill="#dfeaf2" opacity="0.28" stroke="#9fb2bf" sw="10"/>
+          <ellipse x="-120" y="-150" rx="90" ry="26" rot="-35" fill="#fff" opacity="0.5"/>
+          <circle r="44" fill="#2a2420"/>
+          <path repeat="3" as="w" x="=-90 + w*90" y="=-250 - 30*fract(T*0.5 + w*0.3)" d="M 0 40 C -16 20, 16 0, 0 -20 C -16 -40, 16 -60, 0 -80" stroke="#fff" sw="7" fill="none" opacity="=0.5*(1 - fract(T*0.5 + w*0.3))" blur="4"/>
+        </group>
+      </group>
+      <group x="1060" y="190">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1140" to="1060" dur="0.6"/>
+        <rect w="760" h="700" r="26" fill="$card" shadow="0 24 50 #3b2a2066"/>
+        <rect x="56" y="54" w="170" h="56" r="28" fill="$accent"/>
+        <text x="141" y="82" size="28" weight="800" fill="#fff" align="center" text="@step4"/>
+        <text x="56" y="180" size="66" font="Playfair Display" weight="700" fill="$ink" text="@s4t"/>
+        <text x="56" y="285" size="34" maxw="640" lh="1.4" fill="$muted" text="@s4b"/>
+        <group x="380" y="530">
+          <circle r="110" fill="none" stroke="#e8dcc8" sw="22"/>
+          <path d="M 0 -110 A 110 110 0 1 1 0 110 A 110 110 0 1 1 0 -110" stroke="=T > 8.2 ? $leaf : $accent" sw="22" fill="none" draw="=1 - clamp((T-4.6)/3.6, 0, 1)"/>
+          <text y="-8" size="56" weight="800" fill="$ink" align="center" text="@done" when="=T > 8.2"/>
+          <text y="-8" size="56" weight="800" fill="$ink" align="center" text="=clock(120*(1 - clamp((T-4.6)/3.6, 0, 1)))" when="=!(T > 8.2)"/>
+          <text y="44" size="24" fill="$muted" align="center" text="@timer"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 7 · serve -->
+    <scene id="serve" dur="8.5" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group x="620" y="540">
+        <anim prop="scale" from="0.85" to="1" dur="0.9" ease="back"/>
+        <circle r="400" fill="#00000040" blur="34" y="24"/>
+        <circle r="400" fill="#f4efe6"/>
+        <circle r="372" fill="#e9e1d3"/>
+        <image src="food" x="-1100" y="-330" w="2957" h="1690" fit="fill" clip="url(#plate)" scale="1.05"/>
+        <!-- coriander falling on -->
+        <path repeat="22" as="c" x="=-220 + rand(c*3+1)*440" y="=-220 + rand(c*5+2)*440 - 400*(1 - ease(clamp((T - 2.4 - rand(c)*0.8)/0.5, 0, 1), 'out'))" rot="=rand(c)*360"
+              d="M 0 -14 C 12 -6, 12 6, 0 14 C -12 6, -12 -6, 0 -14 Z" fill="#4f9a3a" at="2.4"/>
+        <!-- lemon wedge -->
+        <group x="300" y="250" at="1.4">
+          <anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+          <circle r="80" from="200" to="380" fill="#f2d64b" stroke="#c9a82c" sw="6"/>
+          <circle r="62" from="200" to="380" fill="#fbef9a"/>
+        </group>
+      </group>
+      <group x="1180" y="250">
+        <text x="0" y="0" size="110" font="Playfair Display" weight="800" fill="$ink" text="@srvT">
+          <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        </text>
+        <text x="0" y="100" size="40" fill="$ink" opacity="0.8" text="@srvB" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+        <!-- tip sticky note -->
+        <group x="20" y="210" rot="-2" at="3">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <anim prop="y" from="250" to="210" dur="0.5" ease="back"/>
+          <rect w="600" h="230" fill="#fff3a8" shadow="0 14 26 #3b2a2055"/>
+          <rect x="230" y="-18" w="140" h="40" fill="#ffffff" opacity="0.55" rot="3"/>
+          <text x="40" y="115" size="46" font="Caveat" weight="700" maxw="520" lh="1.15" fill="$ink" text="@tip"/>
+        </group>
+        <!-- chai pairing -->
+        <group x="20" y="560" at="5">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <rect w="600" h="100" r="50" fill="$card" shadow="0 10 20 #3b2a2044"/>
+          <group x="62" y="50">
+            <rect x="-26" y="-20" w="52" h="46" r="10" fill="#a8623a"/>
+            <circle x="30" y="2" r="12" fill="none" stroke="#a8623a" sw="6"/>
+            <path repeat="2" as="w" x="=-10 + w*18" y="-30" d="M 0 0 C -8 -10, 8 -16, 0 -28" stroke="$muted" sw="4" fill="none" opacity="=0.4 + 0.3*sin(T*3 + w)"/>
+          </group>
+          <text x="120" y="50" size="38" weight="600" fill="$ink" text="@pair"/>
+        </group>
+      </group>
+    </scene>
+  </timeline>
+  <voices>
+    <voice say="vo1" lang="en" src="voice/recipe-card/en/vo1.8b35d7fd1b.ogg" dur="8.01" hash="8b35d7fd1b" engine="kokoro:af_bella"/>
+    <voice say="vo2" lang="en" src="voice/recipe-card/en/vo2.82b4fee595.ogg" dur="10.51" hash="82b4fee595" engine="kokoro:af_bella"/>
+    <voice say="vo3" lang="en" src="voice/recipe-card/en/vo3.4eca2c7045.ogg" dur="6.01" hash="4eca2c7045" engine="kokoro:af_bella"/>
+    <voice say="vo4" lang="en" src="voice/recipe-card/en/vo4.bdaaa48227.ogg" dur="7.61" hash="bdaaa48227" engine="kokoro:af_bella"/>
+    <voice say="vo5" lang="en" src="voice/recipe-card/en/vo5.f78ca3400f.ogg" dur="6.11" hash="f78ca3400f" engine="kokoro:af_bella"/>
+    <voice say="vo6" lang="en" src="voice/recipe-card/en/vo6.7e42200eba.ogg" dur="6.01" hash="7e42200eba" engine="kokoro:af_bella"/>
+    <voice say="vo7" lang="en" src="voice/recipe-card/en/vo7.c3a174731f.ogg" dur="5.01" hash="c3a174731f" engine="kokoro:af_bella"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Customer testimonials: review cards, star ratings filling, initials avatars, rating summary bars. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait" w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.3" sfx="0.5"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="warm" bg="#f4efe6" fg="#1d1b18" muted="#7a7368" panel="#ffffff" track="#e7e0d4" gold="#f5a524" brand="#1f6f5c" brand2="#3f9b7f" brandsoft="#dcece6" warn="#d97757"/></themes>
+  <strings>
+    <s id="title" en="What homeowners say about Brightside Solar"/>
+    <s id="brand" en="Brightside Solar"/>
+    <s id="headline" en="Rooftop solar, rated by the people who live under it"/>
+    <s id="outof" en="out of 5"/>
+    <s id="kicker" en="REAL REVIEWS · VERIFIED INSTALLS"/>
+    <s id="verified" en="Verified install"/>
+    <s id="sumtitle" en="2,000 reviews at a glance"/>
+    <s id="replies" en="We reply to every review under 4 stars"/>
+    <s id="ctatitle" en="See if your roof qualifies"/>
+    <s id="ctabtn" en="Book a free roof check"/>
+    <s id="ctasub" en="15-minute visit · no obligation · read every review first"/>
+    <s id="vo_intro" en="Two thousand homeowners have rated their Brightside rooftop solar install. Here is what they told us, in their own words."/>
+    <s id="ch_intro" en="Ratings"/>
+    <s id="vo_r1" en="Priya in Ahmedabad gave us five stars. Her bill dropped from four thousand two hundred rupees to six hundred in the first month."/>
+    <s id="ch_r1" en="Priya Shah"/>
+    <s id="vo_r2" en="Daniel in Pune liked that we showed him the shading report before quoting. No pressure, and no surprises."/>
+    <s id="ch_r2" en="Daniel Okafor"/>
+    <s id="vo_r3" en="Meera in Bengaluru gave four stars. The install was smooth, but the power company paperwork ran three weeks late."/>
+    <s id="ch_r3" en="Meera Iyer"/>
+    <s id="vo_r4" en="And the Mehtas in Surat say that after two monsoons, the panels still look brand new."/>
+    <s id="ch_r4" en="Rahul &amp; Anjali Mehta"/>
+    <s id="vo_summary" en="Across every review, the average is four point eight. Eighty-four percent are five stars, and we reply to every one below four."/>
+    <s id="ch_summary" en="Summary"/>
+    <s id="vo_cta" en="Thinking about solar? Book a free roof check, and read every review before you decide."/>
+    <s id="ch_cta" en="Book a check"/>
+  </strings>
+  <defs>
+    <data id="avi" v="PS, DO, MI, RM, KN"/>
+    <data id="avc" v="#f97316, #6366f1, #a855f7, #10b981, #0ea5e9"/>
+    <data id="bs" v="5,4,3,2,1"/>
+    <data id="bc" v="1684,236,58,14,8"/>
+    <data id="bp" v="84.2,11.8,2.9,0.7,0.4"/>
+    <radial id="blob" x="0" y="0" r="420"><stop at="0" color="#f5a524" opacity="0.28"/><stop at="1" color="#f5a524" opacity="0"/></radial>
+    <radial id="blob2" x="0" y="0" r="480"><stop at="0" color="#3f9b7f" opacity="0.22"/><stop at="1" color="#3f9b7f" opacity="0"/></radial>
+    <linear id="avr1" x1="-60" y1="-60" x2="60" y2="60"><stop at="0" color="#f97316"/><stop at="1" color="#ef4444"/></linear>
+    <linear id="avr2" x1="-60" y1="-60" x2="60" y2="60"><stop at="0" color="#0ea5e9"/><stop at="1" color="#6366f1"/></linear>
+    <linear id="avr3" x1="-60" y1="-60" x2="60" y2="60"><stop at="0" color="#a855f7"/><stop at="1" color="#ec4899"/></linear>
+    <linear id="avr4" x1="-60" y1="-60" x2="60" y2="60"><stop at="0" color="#10b981"/><stop at="1" color="#0d9488"/></linear>
+    <clip id="sc0"><rect x="-38" y="-40" h="80" w="=394.4*ease((T-1.6)/1.3,'out')"/></clip>
+    <clip id="sc1"><rect x="-26" y="-28" h="56" w="=295.2*ease((T-1.8)/1.3,'out')"/></clip>
+    <clip id="sc2"><rect x="-30" y="-32" h="64" w="=316.0*ease((T-0.9)/1.3,'out')"/></clip>
+    <clip id="sc3"><rect x="-30" y="-32" h="64" w="=316.0*ease((T-0.9)/1.3,'out')"/></clip>
+    <clip id="sc4"><rect x="-30" y="-32" h="64" w="=252.0*ease((T-0.9)/1.3,'out')"/></clip>
+    <clip id="sc5"><rect x="-30" y="-32" h="64" w="=316.0*ease((T-0.9)/1.3,'out')"/></clip>
+  </defs>
+  <assets>
+    <asset id="pad" src="audio/pad.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="ding" src="audio/ding.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/><font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.8"/>
+  <backdrop>
+    <circle x="=W*0.12 + 40*sin(t*0.2)" y="=H*0.15" r="420" fill="url(#blob)"/>
+    <circle x="=W*0.9" y="=H*0.88 + 50*sin(t*0.17)" r="480" fill="url(#blob2)"/>
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="9.31" chapter="@ch_intro">
+      <say at="0.4" text="@vo_intro"/>
+      <sfx at="0.05" src="pop"/>
+      <group>
+        <anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+      <group x="=W/2" y="250" y.portrait="420">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <circle x="-230" r="34" fill="$brand"/><circle x="-230" r="14" fill="$gold"/>
+        <path repeat="8" as="k" x="-230" rot="=k*45 + T*20" d="M 0 -46 L 0 -58" stroke="$gold" sw="6"/>
+        <text x="-180" size="46" weight="800" fill="$fg" text="@brand"/>
+      </group>
+      <text x="=W/2" y="430" y.portrait="640" size="84" size.portrait="76" weight="800" align="center" maxw="1500" maxw.portrait="900" lh="1.15" fill="$fg" text="@headline" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="y" from="=portrait ? 680 : 470" to="=portrait ? 640 : 430" dur="0.7"/>
+      </text>
+      <group x="=W/2" y="720" y.portrait="1100" at="1.2">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect x="-430" y="-150" w="860" h="300" r="40" fill="$panel" shadow="0 30 60 #0000001f"/>
+        <text x="-250" y="-10" size="170" weight="800" align="center" fill="$fg" text="{fmt(4.8*ease((T-1.4)/1.4,'out'), 1)}"/>
+        <text x="-250" y="90" size="30" align="center" fill="$muted" text="@outof"/>
+        <group x="-70" y="-40" >
+          <path repeat="5" as="s" x="=s*84" d="M 0.0 -34.0 L 9.0 -12.4 L 32.3 -10.5 L 14.6 4.7 L 20.0 27.5 L 0.0 15.3 L -20.0 27.5 L -14.6 4.7 L -32.3 -10.5 L -9.0 -12.4 Z" fill="$track"/>
+          <group clip="url(#sc0)"><path repeat="5" as="s" x="=s*84" d="M 0.0 -34.0 L 9.0 -12.4 L 32.3 -10.5 L 14.6 4.7 L 20.0 27.5 L 0.0 15.3 L -20.0 27.5 L -14.6 4.7 L -32.3 -10.5 L -9.0 -12.4 Z" fill="$gold"/></group>
+        </group>
+        <text x="-70" y="60" size="34" weight="600" fill="$fg" text="{fmt(2000*ease((T-1.4)/1.6,'out'), 0)} verified reviews"/>
+      </group>
+      <group repeat="5" as="k" x="=W/2 - 160 + k*80" y="980" y.portrait="1520" at="=2.4 + k*0.12">
+        <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+        <circle r="44" fill="$panel"/><circle r="38" fill="=data('avc', k)"/>
+        <text size="28" weight="800" align="center" y="1" fill="#fff" text="{data('avi', k)}"/>
+      </group>
+      </group>
+    </scene>
+    <scene id="r1" dur="9.61" chapter="@ch_r1">
+      <say at="0.4" text="@vo_r1"/>
+      <sfx at="0.05" src="whoosh"/>
+      <sfx at="1.9" src="ding"/>
+      <group>
+        <anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+      <text x="=W/2" y="150" y.portrait="230" size="34" weight="700" align="center" fill="$muted" text="@kicker">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group repeat="4" as="d" x="=W/2 - 66 + d*44" y="225" y.portrait="310">
+        <circle r="=d == 0 ? 12 : 8" fill="=d == 0 ? $brand : $track"/>
+      </group>
+      <group x="=W/2 + 40" y="560" x.portrait="=W/2 + 30" y.portrait="1090" rot="4" opacity="0.55">
+        <rect x="-620" y="-270" w="1240" h="590" x.portrait="-460" y.portrait="-450" w.portrait="920" h.portrait="900" r="36" fill="$panel" shadow="0 20 50 #0000001a"/>
+      </group>
+      <group x="340" y="300" x.portrait="80" y.portrait="640">
+        <anim prop="x" from="=W + 200" to="=portrait ? 80 : 340" dur="0.7" ease="out"/>
+        <anim prop="rot" from="6" to="0" dur="0.7" ease="out"/>
+        <anim prop="x" from="=portrait ? 80 : 340" to="-1400" at="=sdur-0.45" dur="0.4" ease="in"/>
+        <rect w="1240" h="590" w.portrait="920" h.portrait="900" r="36" fill="$panel" shadow="0 30 60 #0000002a"/>
+        <rect w="12" h="510" y="40" h.portrait="820" r="6" fill="url(#avr1)"/>
+        <group x="120" y="110"><circle r="64" fill="$panel"/><circle r="58" fill="url(#avr1)"/>
+          <text size="45" weight="800" align="center" y="2" fill="#fff" text="PS"/></group>
+        <text x="210" y="88" size="44" weight="800" fill="$fg" text="Priya Shah"/>
+        <text x="210" y="140" size="30" fill="$muted" text="Ahmedabad · 5 kW system"/>
+        <group x="900" y="104" x.portrait="236" y.portrait="220">
+          <path repeat="5" as="s" x="=s*64" d="M 0.0 -26.0 L 6.9 -9.5 L 24.7 -8.0 L 11.1 3.6 L 15.3 21.0 L 0.0 11.7 L -15.3 21.0 L -11.1 3.6 L -24.7 -8.0 L -6.9 -9.5 Z" fill="$track"/>
+          <group clip="url(#sc2)"><path repeat="5" as="s" x="=s*64" d="M 0.0 -26.0 L 6.9 -9.5 L 24.7 -8.0 L 11.1 3.6 L 15.3 21.0 L 0.0 11.7 L -15.3 21.0 L -11.1 3.6 L -24.7 -8.0 L -6.9 -9.5 Z" fill="$gold"/></group>
+        </group>
+        <text x="1182" y="158" x.portrait="580" y.portrait="222" align="right" align.portrait="left" size="28" weight="700" fill="$muted" text="5.0 / 5" at="1.6"/>
+        <text x="50" y="300" x.portrait="40" y.portrait="420" size="200" weight="800" font="Playfair Display" fill="url(#avr1)" opacity="0.22" text="“"/>
+        <text only="landscape" x="180" y="250" size="46" fill="$fg" text="Our electricity bill went from ₹4,200 to ₹600 in"><anim prop="reveal" from="0" to="1" at="0.60" dur="1.09" ease="linear"/></text>
+        <text only="landscape" x="180" y="312" size="46" fill="$fg" text="the first month. The crew finished the whole"><anim prop="reveal" from="0" to="1" at="1.71" dur="0.99" ease="linear"/></text>
+        <text only="landscape" x="180" y="374" size="46" fill="$fg" text="roof in a single day."><anim prop="reveal" from="0" to="1" at="2.73" dur="0.47" ease="linear"/></text>
+        <text only="portrait" x="110" y="480" size="46" fill="$fg" text="Our electricity bill went from ₹4,200"><anim prop="reveal" from="0" to="1" at="0.60" dur="0.84" ease="linear"/></text>
+        <text only="portrait" x="110" y="548" size="46" fill="$fg" text="to ₹600 in the first month. The crew"><anim prop="reveal" from="0" to="1" at="1.46" dur="0.81" ease="linear"/></text>
+        <text only="portrait" x="110" y="616" size="46" fill="$fg" text="finished the whole roof in a single"><anim prop="reveal" from="0" to="1" at="2.30" dur="0.79" ease="linear"/></text>
+        <text only="portrait" x="110" y="684" size="46" fill="$fg" text="day."><anim prop="reveal" from="0" to="1" at="3.11" dur="0.09" ease="linear"/></text>
+        <group x="110" y="528" y.portrait="830" at="2.6">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <circle x="14" r="16" fill="$brand"/><path d="M 6 0 L 12 7 L 23 -6" stroke="#fff" sw="4" fill="none"/>
+          <text x="44" size="28" weight="600" fill="$brand" text="@verified"/>
+          <text x="330" size="28" fill="$muted" text="· March 2026"/>
+        </group>
+      </group>
+      </group>
+    </scene>
+    <scene id="r2" dur="8.41" chapter="@ch_r2">
+      <say at="0.4" text="@vo_r2"/>
+      <sfx at="0.05" src="whoosh"/>
+      <sfx at="1.9" src="ding"/>
+      <group>
+        <anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+      <text x="=W/2" y="150" y.portrait="230" size="34" weight="700" align="center" fill="$muted" text="@kicker">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group repeat="4" as="d" x="=W/2 - 66 + d*44" y="225" y.portrait="310">
+        <circle r="=d == 1 ? 12 : 8" fill="=d == 1 ? $brand : $track"/>
+      </group>
+      <group x="=W/2 + 40" y="560" x.portrait="=W/2 + 30" y.portrait="1090" rot="4" opacity="0.55">
+        <rect x="-620" y="-270" w="1240" h="590" x.portrait="-460" y.portrait="-450" w.portrait="920" h.portrait="900" r="36" fill="$panel" shadow="0 20 50 #0000001a"/>
+      </group>
+      <group x="340" y="300" x.portrait="80" y.portrait="640">
+        <anim prop="x" from="=W + 200" to="=portrait ? 80 : 340" dur="0.7" ease="out"/>
+        <anim prop="rot" from="6" to="0" dur="0.7" ease="out"/>
+        <anim prop="x" from="=portrait ? 80 : 340" to="-1400" at="=sdur-0.45" dur="0.4" ease="in"/>
+        <rect w="1240" h="590" w.portrait="920" h.portrait="900" r="36" fill="$panel" shadow="0 30 60 #0000002a"/>
+        <rect w="12" h="510" y="40" h.portrait="820" r="6" fill="url(#avr2)"/>
+        <group x="120" y="110"><circle r="64" fill="$panel"/><circle r="58" fill="url(#avr2)"/>
+          <text size="45" weight="800" align="center" y="2" fill="#fff" text="DO"/></group>
+        <text x="210" y="88" size="44" weight="800" fill="$fg" text="Daniel Okafor"/>
+        <text x="210" y="140" size="30" fill="$muted" text="Pune · 3 kW system"/>
+        <group x="900" y="104" x.portrait="236" y.portrait="220">
+          <path repeat="5" as="s" x="=s*64" d="M 0.0 -26.0 L 6.9 -9.5 L 24.7 -8.0 L 11.1 3.6 L 15.3 21.0 L 0.0 11.7 L -15.3 21.0 L -11.1 3.6 L -24.7 -8.0 L -6.9 -9.5 Z" fill="$track"/>
+          <group clip="url(#sc3)"><path repeat="5" as="s" x="=s*64" d="M 0.0 -26.0 L 6.9 -9.5 L 24.7 -8.0 L 11.1 3.6 L 15.3 21.0 L 0.0 11.7 L -15.3 21.0 L -11.1 3.6 L -24.7 -8.0 L -6.9 -9.5 Z" fill="$gold"/></group>
+        </group>
+        <text x="1182" y="158" x.portrait="580" y.portrait="222" align="right" align.portrait="left" size="28" weight="700" fill="$muted" text="5.0 / 5" at="1.6"/>
+        <text x="50" y="300" x.portrait="40" y.portrait="420" size="200" weight="800" font="Playfair Display" fill="url(#avr2)" opacity="0.22" text="“"/>
+        <text only="landscape" x="180" y="250" size="46" fill="$fg" text="They showed me the shading report before"><anim prop="reveal" from="0" to="1" at="0.60" dur="0.91" ease="linear"/></text>
+        <text only="landscape" x="180" y="312" size="46" fill="$fg" text="quoting. No pressure, no surprises, and the app"><anim prop="reveal" from="0" to="1" at="1.54" dur="1.07" ease="linear"/></text>
+        <text only="landscape" x="180" y="374" size="46" fill="$fg" text="shows every unit we make."><anim prop="reveal" from="0" to="1" at="2.63" dur="0.57" ease="linear"/></text>
+        <text only="portrait" x="110" y="480" size="46" fill="$fg" text="They showed me the shading report"><anim prop="reveal" from="0" to="1" at="0.60" dur="0.75" ease="linear"/></text>
+        <text only="portrait" x="110" y="548" size="46" fill="$fg" text="before quoting. No pressure, no"><anim prop="reveal" from="0" to="1" at="1.38" dur="0.71" ease="linear"/></text>
+        <text only="portrait" x="110" y="616" size="46" fill="$fg" text="surprises, and the app shows every"><anim prop="reveal" from="0" to="1" at="2.11" dur="0.78" ease="linear"/></text>
+        <text only="portrait" x="110" y="684" size="46" fill="$fg" text="unit we make."><anim prop="reveal" from="0" to="1" at="2.90" dur="0.30" ease="linear"/></text>
+        <group x="110" y="528" y.portrait="830" at="2.6">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <circle x="14" r="16" fill="$brand"/><path d="M 6 0 L 12 7 L 23 -6" stroke="#fff" sw="4" fill="none"/>
+          <text x="44" size="28" weight="600" fill="$brand" text="@verified"/>
+          <text x="330" size="28" fill="$muted" text="· May 2026"/>
+        </group>
+      </group>
+      </group>
+    </scene>
+    <scene id="r3" dur="9.21" chapter="@ch_r3">
+      <say at="0.4" text="@vo_r3"/>
+      <sfx at="0.05" src="whoosh"/>
+      <sfx at="1.9" src="ding"/>
+      <group>
+        <anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+      <text x="=W/2" y="150" y.portrait="230" size="34" weight="700" align="center" fill="$muted" text="@kicker">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group repeat="4" as="d" x="=W/2 - 66 + d*44" y="225" y.portrait="310">
+        <circle r="=d == 2 ? 12 : 8" fill="=d == 2 ? $brand : $track"/>
+      </group>
+      <group x="=W/2 + 40" y="560" x.portrait="=W/2 + 30" y.portrait="1090" rot="4" opacity="0.55">
+        <rect x="-620" y="-270" w="1240" h="590" x.portrait="-460" y.portrait="-450" w.portrait="920" h.portrait="900" r="36" fill="$panel" shadow="0 20 50 #0000001a"/>
+      </group>
+      <group x="340" y="300" x.portrait="80" y.portrait="640">
+        <anim prop="x" from="=W + 200" to="=portrait ? 80 : 340" dur="0.7" ease="out"/>
+        <anim prop="rot" from="6" to="0" dur="0.7" ease="out"/>
+        <anim prop="x" from="=portrait ? 80 : 340" to="-1400" at="=sdur-0.45" dur="0.4" ease="in"/>
+        <rect w="1240" h="590" w.portrait="920" h.portrait="900" r="36" fill="$panel" shadow="0 30 60 #0000002a"/>
+        <rect w="12" h="510" y="40" h.portrait="820" r="6" fill="url(#avr3)"/>
+        <group x="120" y="110"><circle r="64" fill="$panel"/><circle r="58" fill="url(#avr3)"/>
+          <text size="45" weight="800" align="center" y="2" fill="#fff" text="MI"/></group>
+        <text x="210" y="88" size="44" weight="800" fill="$fg" text="Meera Iyer"/>
+        <text x="210" y="140" size="30" fill="$muted" text="Bengaluru · 4 kW system"/>
+        <group x="900" y="104" x.portrait="236" y.portrait="220">
+          <path repeat="5" as="s" x="=s*64" d="M 0.0 -26.0 L 6.9 -9.5 L 24.7 -8.0 L 11.1 3.6 L 15.3 21.0 L 0.0 11.7 L -15.3 21.0 L -11.1 3.6 L -24.7 -8.0 L -6.9 -9.5 Z" fill="$track"/>
+          <group clip="url(#sc4)"><path repeat="5" as="s" x="=s*64" d="M 0.0 -26.0 L 6.9 -9.5 L 24.7 -8.0 L 11.1 3.6 L 15.3 21.0 L 0.0 11.7 L -15.3 21.0 L -11.1 3.6 L -24.7 -8.0 L -6.9 -9.5 Z" fill="$gold"/></group>
+        </group>
+        <text x="1182" y="158" x.portrait="580" y.portrait="222" align="right" align.portrait="left" size="28" weight="700" fill="$muted" text="4.0 / 5" at="1.6"/>
+        <text x="50" y="300" x.portrait="40" y.portrait="420" size="200" weight="800" font="Playfair Display" fill="url(#avr3)" opacity="0.22" text="“"/>
+        <text only="landscape" x="180" y="250" size="46" fill="$fg" text="Install was smooth. The power company"><anim prop="reveal" from="0" to="1" at="0.60" dur="0.76" ease="linear"/></text>
+        <text only="landscape" x="180" y="312" size="46" fill="$fg" text="paperwork took three weeks longer than"><anim prop="reveal" from="0" to="1" at="1.38" dur="0.78" ease="linear"/></text>
+        <text only="landscape" x="180" y="374" size="46" fill="$fg" text="promised, but support kept me updated every"><anim prop="reveal" from="0" to="1" at="2.19" dur="0.89" ease="linear"/></text>
+        <text only="landscape" x="180" y="436" size="46" fill="$fg" text="step."><anim prop="reveal" from="0" to="1" at="3.10" dur="0.10" ease="linear"/></text>
+        <text only="portrait" x="110" y="480" size="46" fill="$fg" text="Install was smooth. The power"><anim prop="reveal" from="0" to="1" at="0.60" dur="0.60" ease="linear"/></text>
+        <text only="portrait" x="110" y="548" size="46" fill="$fg" text="company paperwork took three"><anim prop="reveal" from="0" to="1" at="1.22" dur="0.58" ease="linear"/></text>
+        <text only="portrait" x="110" y="616" size="46" fill="$fg" text="weeks longer than promised, but"><anim prop="reveal" from="0" to="1" at="1.82" dur="0.64" ease="linear"/></text>
+        <text only="portrait" x="110" y="684" size="46" fill="$fg" text="support kept me updated every step."><anim prop="reveal" from="0" to="1" at="2.48" dur="0.72" ease="linear"/></text>
+        <group x="110" y="528" y.portrait="830" at="2.6">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <circle x="14" r="16" fill="$brand"/><path d="M 6 0 L 12 7 L 23 -6" stroke="#fff" sw="4" fill="none"/>
+          <text x="44" size="28" weight="600" fill="$brand" text="@verified"/>
+          <text x="330" size="28" fill="$muted" text="· July 2026"/>
+        </group>
+      </group>
+      </group>
+    </scene>
+    <scene id="r4" dur="6.81" chapter="@ch_r4">
+      <say at="0.4" text="@vo_r4"/>
+      <sfx at="0.05" src="whoosh"/>
+      <sfx at="1.9" src="ding"/>
+      <group>
+        <anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+      <text x="=W/2" y="150" y.portrait="230" size="34" weight="700" align="center" fill="$muted" text="@kicker">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group repeat="4" as="d" x="=W/2 - 66 + d*44" y="225" y.portrait="310">
+        <circle r="=d == 3 ? 12 : 8" fill="=d == 3 ? $brand : $track"/>
+      </group>
+      
+      <group x="340" y="300" x.portrait="80" y.portrait="640">
+        <anim prop="x" from="=W + 200" to="=portrait ? 80 : 340" dur="0.7" ease="out"/>
+        <anim prop="rot" from="6" to="0" dur="0.7" ease="out"/>
+        <anim prop="x" from="=portrait ? 80 : 340" to="-1400" at="=sdur-0.45" dur="0.4" ease="in"/>
+        <rect w="1240" h="590" w.portrait="920" h.portrait="900" r="36" fill="$panel" shadow="0 30 60 #0000002a"/>
+        <rect w="12" h="510" y="40" h.portrait="820" r="6" fill="url(#avr4)"/>
+        <group x="120" y="110"><circle r="64" fill="$panel"/><circle r="58" fill="url(#avr4)"/>
+          <text size="45" weight="800" align="center" y="2" fill="#fff" text="RM"/></group>
+        <text x="210" y="88" size="44" weight="800" fill="$fg" text="Rahul &amp; Anjali Mehta"/>
+        <text x="210" y="140" size="30" fill="$muted" text="Surat · 6 kW system"/>
+        <group x="900" y="104" x.portrait="236" y.portrait="220">
+          <path repeat="5" as="s" x="=s*64" d="M 0.0 -26.0 L 6.9 -9.5 L 24.7 -8.0 L 11.1 3.6 L 15.3 21.0 L 0.0 11.7 L -15.3 21.0 L -11.1 3.6 L -24.7 -8.0 L -6.9 -9.5 Z" fill="$track"/>
+          <group clip="url(#sc5)"><path repeat="5" as="s" x="=s*64" d="M 0.0 -26.0 L 6.9 -9.5 L 24.7 -8.0 L 11.1 3.6 L 15.3 21.0 L 0.0 11.7 L -15.3 21.0 L -11.1 3.6 L -24.7 -8.0 L -6.9 -9.5 Z" fill="$gold"/></group>
+        </group>
+        <text x="1182" y="158" x.portrait="580" y.portrait="222" align="right" align.portrait="left" size="28" weight="700" fill="$muted" text="5.0 / 5" at="1.6"/>
+        <text x="50" y="300" x.portrait="40" y.portrait="420" size="200" weight="800" font="Playfair Display" fill="url(#avr4)" opacity="0.22" text="“"/>
+        <text only="landscape" x="180" y="250" size="46" fill="$fg" text="Two monsoons in and the panels still look brand"><anim prop="reveal" from="0" to="1" at="0.60" dur="1.26" ease="linear"/></text>
+        <text only="landscape" x="180" y="312" size="46" fill="$fg" text="new. The yearly cleaning visit alone is worth it."><anim prop="reveal" from="0" to="1" at="1.89" dur="1.31" ease="linear"/></text>
+        <text only="portrait" x="110" y="480" size="46" fill="$fg" text="Two monsoons in and the panels still"><anim prop="reveal" from="0" to="1" at="0.60" dur="0.96" ease="linear"/></text>
+        <text only="portrait" x="110" y="548" size="46" fill="$fg" text="look brand new. The yearly cleaning"><anim prop="reveal" from="0" to="1" at="1.59" dur="0.94" ease="linear"/></text>
+        <text only="portrait" x="110" y="616" size="46" fill="$fg" text="visit alone is worth it."><anim prop="reveal" from="0" to="1" at="2.56" dur="0.64" ease="linear"/></text>
+        <group x="110" y="528" y.portrait="830" at="2.6">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <circle x="14" r="16" fill="$brand"/><path d="M 6 0 L 12 7 L 23 -6" stroke="#fff" sw="4" fill="none"/>
+          <text x="44" size="28" weight="600" fill="$brand" text="@verified"/>
+          <text x="330" size="28" fill="$muted" text="· August 2026"/>
+        </group>
+      </group>
+      </group>
+    </scene>
+    <scene id="summary" dur="9.81" chapter="@ch_summary">
+      <say at="0.4" text="@vo_summary"/>
+      <sfx at="0.05" src="pop"/>
+      <group>
+        <anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+      <text x="=W/2" y="140" y.portrait="230" size="64" weight="800" align="center" fill="$fg" text="@sumtitle"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group x="440" y="560" x.portrait="=W/2" y.portrait="640">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <circle r="210" fill="$panel" shadow="0 30 60 #0000001f"/>
+        <circle r="180" fill="none" stroke="$track" sw="26"/>
+        <path d="=('M 0 -180 A 180 180 0 ' + (ease((T-0.3)/1.6,'out')*0.958 &gt; 0.5 ? 1 : 0) + ' 1 ' + fmt(180*sin(6.2832*0.958*ease((T-0.3)/1.6,'out')),2) + ' ' + fmt(-180*cos(6.2832*0.958*ease((T-0.3)/1.6,'out')),2))" stroke="$gold" sw="26" fill="none"/>
+        <text y="-20" size="130" weight="800" align="center" fill="$fg" text="{fmt(4.8*ease((T-0.3)/1.6,'out'),1)}"/>
+        <text y="70" size="32" align="center" fill="$muted" text="@outof"/>
+      </group>
+      <group x="820" y="330" x.portrait="110" y.portrait="960">
+        <group repeat="5" as="k" y="=k*110" at="=0.5 + k*0.15">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <text x="0" size="40" weight="800" fill="$fg" text="{data('bs', k)}"/>
+          <path x="44" y="-2" d="M 0.0 -18.0 L 4.8 -6.6 L 17.1 -5.6 L 7.7 2.5 L 10.6 14.6 L 0.0 8.1 L -10.6 14.6 L -7.7 2.5 L -17.1 -5.6 L -4.8 -6.6 Z" fill="$gold"/>
+          <rect x="90" y="-22" w="760" w.portrait="620" h="44" r="22" fill="$track"/>
+          <rect x="90" y="-22" w="=max(44, (portrait ? 620 : 760)*data('bp', k)/100*ease((T-0.7-k*0.15)/1.2,'out'))" h="44" r="22" fill="=k == 0 ? $brand : k == 1 ? $brand2 : k &lt; 3 ? $gold : $warn"/>
+          <text x="=portrait ? 730 : 870" size="34" weight="700" fill="$fg" text="{fmt(data('bp', k)*ease((T-0.7-k*0.15)/1.2,'out'), data('bp', k) &lt; 2 ? 1 : 0)}%"/>
+          <text x="=portrait ? 860 : 1000" size="30" fill="$muted" text="{data('bc', k)}" only="landscape"/>
+        </group>
+        <group y="590" at="3.4"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <rect x="0" y="-36" w="760" h="72" r="36" fill="$brandsoft"/>
+          <text x="30" size="30" weight="600" fill="$brand" text="@replies"/>
+        </group>
+      </group>
+      </group>
+    </scene>
+    <scene id="cta" dur="6.91" chapter="@ch_cta">
+      <say at="0.4" text="@vo_cta"/>
+      <sfx at="0.05" src="pop"/>
+      <group>
+        <anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+      <group x="=W/2" y="330" y.portrait="560">
+        <group repeat="4" as="k" x="=-120 + k*80" at="=0.2 + k*0.1">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <circle r="52" fill="$panel"/><circle r="46" fill="=data('avc', k)"/>
+          <text size="32" weight="800" align="center" y="1" fill="#fff" text="{data('avi', k)}"/>
+        </group>
+        <group x="210"><circle r="52" fill="$panel"/><circle r="46" fill="$fg"/><text size="28" weight="800" align="center" fill="$bg" text="+2k"/></group>
+      </group>
+      <text x="=W/2" y="530" y.portrait="820" size="92" size.portrait="80" weight="800" align="center" maxw.portrait="900" lh="1.15" fill="$fg" text="@ctatitle" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+      </text>
+      <group x="=W/2" y="720" y.portrait="1150" at="1.2" scale="=1 + 0.04*sin(T*4)">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect x="-330" y="-60" w="660" h="120" r="60" fill="$brand" shadow="0 20 40 #1f6f5c55"/>
+        <text size="44" weight="800" align="center" fill="#fff" text="@ctabtn"/>
+      </group>
+      <text x="=W/2" y="860" y.portrait="1320" size="32" align="center" fill="$muted" text="@ctasub" at="1.8"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group x="=W/2 - 128" y="960" y.portrait="1440">
+          <path repeat="5" as="s" x="=s*64" d="M 0.0 -22.0 L 5.8 -8.0 L 20.9 -6.8 L 9.4 3.1 L 12.9 17.8 L 0.0 9.9 L -12.9 17.8 L -9.4 3.1 L -20.9 -6.8 L -5.8 -8.0 Z" fill="$track"/>
+          <group clip="url(#sc1)"><path repeat="5" as="s" x="=s*64" d="M 0.0 -22.0 L 5.8 -8.0 L 20.9 -6.8 L 9.4 3.1 L 12.9 17.8 L 0.0 9.9 L -12.9 17.8 L -9.4 3.1 L -20.9 -6.8 L -5.8 -8.0 Z" fill="$gold"/></group>
+        </group>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_cta" lang="en" src="voice/testimonial-cards/en/vo_cta.a341a29456.ogg" dur="4.91" hash="a341a29456" engine="kokoro:af_heart"/>
+    <voice say="vo_intro" lang="en" src="voice/testimonial-cards/en/vo_intro.5d17c42cc1.ogg" dur="7.31" hash="5d17c42cc1" engine="kokoro:af_heart"/>
+    <voice say="vo_r1" lang="en" src="voice/testimonial-cards/en/vo_r1.7465282f75.ogg" dur="7.61" hash="7465282f75" engine="kokoro:af_heart"/>
+    <voice say="vo_r2" lang="en" src="voice/testimonial-cards/en/vo_r2.84d3999451.ogg" dur="6.41" hash="84d3999451" engine="kokoro:af_heart"/>
+    <voice say="vo_r3" lang="en" src="voice/testimonial-cards/en/vo_r3.ecf1f6879d.ogg" dur="7.21" hash="ecf1f6879d" engine="kokoro:af_heart"/>
+    <voice say="vo_r4" lang="en" src="voice/testimonial-cards/en/vo_r4.c91ea8d316.ogg" dur="4.81" hash="c91ea8d316" engine="kokoro:af_heart"/>
+    <voice say="vo_summary" lang="en" src="voice/testimonial-cards/en/vo_summary.f7415137f0.ogg" dur="7.81" hash="f7415137f0" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: line chart reveal (climate / finance explainer). The line draws left to right through a
+     growing clip, a shaded area follows it, annotations pop in when the line reaches them. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bf_emma"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="dark"><choice id="dark" label="Dark"/><choice id="light" label="Light"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.3" sfx="0.6"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="dark" bg="#0b1424" fg="#eaf0f8" muted="#7f8ca3" grid="#1c2a40" panel="#122038" hot="#ff5a4e" cool="#4ea3ff" gold="#ffc857"/>
+    <theme id="light" bg="#f4f6fa" fg="#0e1a2b" muted="#5f6b7e" grid="#dde3ec" panel="#ffffff" hot="#d93a2f" cool="#2a78d6" gold="#c98a00"/>
+  </themes>
+
+  <strings>
+    <s id="title" en="How fast is the planet warming?"/>
+    <s id="kick" en="CLIMATE · EXPLAINED"/>
+    <s id="sub" en="Global surface temperature vs. the 1951–1980 average, five-year steps"/>
+    <s id="ylab" en="°C vs. 1951–1980"/>
+    <s id="src" en="Rounded from public global temperature records. Illustrative."/>
+    <s id="ch1" en="Intro"/><s id="ch2" en="1880–1940"/><s id="ch3" en="1940–1980"/><s id="ch4" en="1980–2024"/>
+    <s id="ch5" en="The record"/><s id="ch6" en="The pace"/><s id="ch7" en="Takeaway"/>
+    <s id="a1" en="Natural wobble around a flat baseline"/>
+    <s id="a2" en="A plateau: post-war smog reflected sunlight"/>
+    <s id="a3" en="Clean-air rules + rising CO₂: the climb begins"/>
+    <s id="a4" en="2024: +1.28 °C, hottest year on record"/>
+    <s id="paris" en="1.5 °C goal"/>
+    <s id="r1" en="0.2 °C"/>
+    <s id="r2" en="per decade since 1980"/>
+    <s id="r3" en="At this pace the 1.5 °C line is crossed around the early 2030s."/>
+    <s id="o1" en="Every point above zero is warmer than the mid-century normal."/>
+    <s id="o2" en="The ten hottest years? The last ten."/>
+    <s id="vo1" en="How fast is the planet warming? Let's draw it, one line, from the first reliable records to today."/>
+    <s id="vo2" en="For the first sixty years, temperatures wobble up and down around a flat line. Nothing stands out."/>
+    <s id="vo3" en="After the war, the line goes sideways. Smog from booming industry reflected some sunlight away."/>
+    <s id="vo4" en="Then clean air rules cut the smog, carbon dioxide keeps rising, and the climb begins. It hasn't stopped."/>
+    <s id="vo5" en="2024 lands at about one point three degrees above the mid-century average. The hottest year on record."/>
+    <s id="vo6" en="Since 1980 the rise is about point two degrees per decade. At that pace, we cross one and a half degrees in the early 2030s."/>
+    <s id="vo7" en="Every point above zero is warmer than the mid-century normal. And the ten hottest years on record are the last ten."/>
+  </strings>
+
+  <defs>
+    <data id="a" v="-0.17,-0.25,-0.3,-0.25,-0.2,-0.28,-0.4,-0.27,-0.25,-0.2,-0.13,-0.15,0.05,0.0,-0.15,-0.1,-0.03,-0.08,0.02,-0.01,0.26,0.12,0.45,0.45,0.4,0.67,0.72,0.9,1.01,1.28"/>
+    <!-- reveal progress 0..1 across the three history scenes (scene starts 7, 16.5, 26, 37) -->
+    <fn id="pr">t &lt; 16.5 ? 0.41*ease((t - 7.5)/8, 'io') : t &lt; 26 ? 0.41 + 0.28*ease((t - 16.5)/8.5, 'io') : 0.69 + 0.31*ease((t - 26)/9.5, 'io')</fn>
+    <fn id="hx">200 + pr()*1520</fn>
+    <fn id="hy">880 - (lerp(data('a', floor(pr()*29)), data('a', min(29, floor(pr()*29) + 1)), fract(pr()*29)) + 0.5)*300</fn>
+    <fn id="hv">lerp(data('a', floor(pr()*29)), data('a', min(29, floor(pr()*29) + 1)), fract(pr()*29))</fn>
+    <clip id="rev"><rect x="0" y="0" w="=hx()" h="1080"/></clip>
+    <linear id="area" x1="0" y1="346" x2="0" y2="880">
+      <stop at="0" color="$hot" opacity="0.55"/><stop at="0.715" color="$hot" opacity="0.06"/>
+      <stop at="0.725" color="$cool" opacity="0.06"/><stop at="1" color="$cool" opacity="0.5"/>
+    </linear>
+    <linear id="stroke" x1="200" y1="0" x2="1720" y2="0">
+      <stop at="0" color="$cool"/><stop at="0.6" color="#c9a0ff"/><stop at="1" color="$hot"/>
+    </linear>
+    <radial id="halo" x="0" y="0" r="40"><stop at="0" color="$hot" opacity="0.7"/><stop at="1" color="$hot" opacity="0"/></radial>
+
+    <symbol id="chart">
+      <text x="200" y="88" size="22" weight="700" fill="$gold" text="@kick" font="Space Grotesk"/>
+      <text x="200" y="138" size="50" weight="700" fill="$fg" text="@title" font="Space Grotesk"/>
+      <text x="200" y="190" size="26" fill="$muted" text="@sub"/>
+      <!-- horizontal grid every 0.5 °C -->
+      <group repeat="5" as="g">
+        <line x1="200" x2="1720" y1="=880 - g*150" y2="=880 - g*150" stroke="=g == 1 ? $muted : $grid" sw="=g == 1 ? 3 : 2"/>
+        <text x="180" y="=880 - g*150" size="22" align="right" fill="$muted" font="JetBrains Mono" text="{g == 1 ? '0' : fmt(g*0.5 - 0.5, 1)}"/>
+      </group>
+      <!-- 1.5 °C goal: a dashed line built from repeated short segments -->
+      <line repeat="48" as="d" x1="=200 + d*32" x2="=200 + d*32 + 16" y1="280" y2="280" stroke="$gold" sw="3" opacity="0.8"/>
+      <text x="1720" y="252" size="24" weight="700" align="right" fill="$gold" text="@paris"/>
+      <!-- decade ticks -->
+      <group repeat="7" as="k">
+        <line x1="=200 + k*20*1520/145" x2="=200 + k*20*1520/145" y1="880" y2="894" stroke="$muted" sw="2"/>
+        <text x="=200 + k*20*1520/145" y="922" size="22" align="center" fill="$muted" font="JetBrains Mono" text="{1880 + k*20}"/>
+      </group>
+      <text x="1720" y="922" size="22" align="right" fill="$muted" font="JetBrains Mono" text="2024"/>
+      <text x="200" y="250" size="20" fill="$muted" text="@ylab"/>
+      <!-- the reveal -->
+      <group clip="url(#rev)">
+        <path d="M 200.0 781.0 L 252.4 805.0 L 304.8 820.0 L 357.2 805.0 L 409.7 790.0 L 462.1 814.0 L 514.5 850.0 L 566.9 811.0 L 619.3 805.0 L 671.7 790.0 L 724.1 769.0 L 776.6 775.0 L 829.0 715.0 L 881.4 730.0 L 933.8 775.0 L 986.2 760.0 L 1038.6 739.0 L 1091.0 754.0 L 1143.4 724.0 L 1195.9 733.0 L 1248.3 652.0 L 1300.7 694.0 L 1353.1 595.0 L 1405.5 595.0 L 1457.9 610.0 L 1510.3 529.0 L 1562.8 514.0 L 1615.2 460.0 L 1667.6 427.0 L 1720.0 346.0 L 1720.0 730.0 L 200.0 730.0 Z" fill="url(#area)"/>
+        <path d="M 200.0 781.0 L 252.4 805.0 L 304.8 820.0 L 357.2 805.0 L 409.7 790.0 L 462.1 814.0 L 514.5 850.0 L 566.9 811.0 L 619.3 805.0 L 671.7 790.0 L 724.1 769.0 L 776.6 775.0 L 829.0 715.0 L 881.4 730.0 L 933.8 775.0 L 986.2 760.0 L 1038.6 739.0 L 1091.0 754.0 L 1143.4 724.0 L 1195.9 733.0 L 1248.3 652.0 L 1300.7 694.0 L 1353.1 595.0 L 1405.5 595.0 L 1457.9 610.0 L 1510.3 529.0 L 1562.8 514.0 L 1615.2 460.0 L 1667.6 427.0 L 1720.0 346.0" fill="none" stroke="url(#stroke)" sw="6"/>
+      </group>
+      <!-- moving head + live value -->
+      <group x="=hx()" y="=hy()" when="pr() &gt; 0.001">
+        <circle r="=36 + 6*sin(t*5)" fill="url(#halo)"/>
+        <circle r="10" fill="$fg" stroke="=hv() &gt; 0 ? $hot : $cool" sw="5"/>
+        <line x1="0" y1="18" x2="0" y2="=880 - hy()" stroke="$muted" sw="1.5" opacity="0.5"/>
+      </group>
+      <group x="=min(hx(), 1640)" y="=hy() - 64" when="pr() &gt; 0.001 &amp;&amp; pr() &lt; 0.999">
+        <rect x="-74" y="-24" w="148" h="48" r="10" fill="$panel" stroke="$grid" sw="2"/>
+        <text y="1" size="26" weight="700" align="center" font="JetBrains Mono" fill="=hv() &gt; 0 ? $hot : $cool" text="{hv() &gt;= 0 ? '+' : ''}{fmt(hv(), 2)}"/>
+      </group>
+      <text x="200" y="1000" size="20" fill="$muted" text="@src"/>
+    </symbol>
+
+    <!-- an annotation: dot on the curve, leader, card -->
+    <symbol id="pin"><circle r="12" fill="none" stroke="$gold" sw="4"/><circle r="4" fill="$gold"/></symbol>
+  </defs>
+
+  <assets>
+    <asset id="pad" src="audio/pad.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+  </assets>
+
+  <music src="pad" start="0" loop="1" vol="0.8"/>
+
+  <timeline>
+    <!-- 1 · intro: axes draw in -->
+    <scene id="intro" dur="7" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group opacity="=ease((T - 0.8)/1.2, 'out')"><use ref="chart"/></group>
+      <group opacity="=1 - ease((T - 4.6)/1, 'io')">
+        <rect x="0" y="0" w="=W" h="=H" fill="$bg" opacity="0.88"/>
+        <text x="=W/2" y="430" size="28" weight="700" align="center" fill="$gold" font="Space Grotesk" text="@kick">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        </text>
+        <text x="=W/2" y="520" size="96" weight="700" align="center" fill="$fg" font="Space Grotesk" text="@title">
+          <anim prop="reveal" from="0" to="1" dur="1.4" ease="linear"/>
+        </text>
+        <rect x="=W/2" y="600" ax="0.5" w="0" h="8" r="4" fill="url(#stroke)" at="1.4">
+          <anim prop="w" from="0" to="900" dur="1.2" ease="io"/>
+        </rect>
+      </group>
+    </scene>
+
+    <!-- 2 · 1880–1940 -->
+    <scene id="early" dur="9.5" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <use ref="chart"/>
+      <group at="5">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <sfx at="0" src="pop"/>
+        <rect x="200" y="770" w="560" h="100" r="0" fill="$cool" opacity="0.08"/>
+        <line x1="420" y1="760" x2="420" y2="600" stroke="$gold" sw="2"/>
+        <use ref="pin" x="420" y="760"/>
+        <group x="260" y="540">
+          <rect w="560" h="64" r="12" fill="$panel" stroke="$gold" sw="2" shadow="0 10 30 #0006"/>
+          <text x="22" y="32" size="26" weight="600" fill="$fg" text="@a1"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 3 · 1940–1980 -->
+    <scene id="plateau" dur="9.5" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <use ref="chart"/>
+      <group at="4.5">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <sfx at="0" src="pop"/>
+        <line x1="829" y1="700" x2="1196" y2="700" stroke="$gold" sw="3"/>
+        <line x1="829" y1="688" x2="829" y2="712" stroke="$gold" sw="3"/>
+        <line x1="1196" y1="688" x2="1196" y2="712" stroke="$gold" sw="3"/>
+        <line x1="1012" y1="690" x2="1012" y2="580" stroke="$gold" sw="2"/>
+        <group x="720" y="516">
+          <rect w="620" h="64" r="12" fill="$panel" stroke="$gold" sw="2" shadow="0 10 30 #0006"/>
+          <text x="22" y="32" size="26" weight="600" fill="$fg" text="@a2"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 4 · 1980–2024 -->
+    <scene id="climb" dur="11" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <use ref="chart"/>
+      <group at="3">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <sfx at="0" src="pop"/>
+        <line x1="1248" y1="640" x2="1110" y2="420" stroke="$gold" sw="2"/>
+        <use ref="pin" x="1248" y="652"/>
+        <group x="560" y="356">
+          <rect w="640" h="64" r="12" fill="$panel" stroke="$gold" sw="2" shadow="0 10 30 #0006"/>
+          <text x="22" y="32" size="26" weight="600" fill="$fg" text="@a3"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 5 · the record -->
+    <scene id="record" dur="9" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="1.2" src="ding"/>
+      <use ref="chart"/>
+      <group x="1720" y="346" at="1">
+        <circle r="=24 + 40*fract(T*0.6)" fill="none" stroke="$hot" sw="4" opacity="=1 - fract(T*0.6)"/>
+        <circle r="13" fill="$hot"/>
+      </group>
+      <group x="1080" y="350" at="1.2">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="scale" from="0.85" to="1" dur="0.5" ease="back"/>
+        <rect w="580" h="80" r="14" fill="$hot" shadow="0 14 40 #0007"/>
+        <text x="290" y="40" size="30" weight="700" align="center" fill="#ffffff" text="@a4"/>
+      </group>
+      <!-- the ten hottest years glow -->
+      <rect x="1615" y="300" w="110" h="580" fill="$hot" opacity="=0.10 + 0.05*sin(T*3)" at="3"/>
+    </scene>
+
+    <!-- 6 · the pace -->
+    <scene id="pace" dur="11" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <use ref="chart"/>
+      <!-- trend line 1980→2024 extended to the 1.5 line -->
+      <path d="M 1248 680 L 1720 360 L 1840 278" stroke="$gold" sw="4" fill="none" at="1">
+        <anim prop="draw" from="0" to="1" dur="1.6" ease="io"/>
+      </path>
+      <circle x="1840" y="278" r="12" fill="$gold" at="2.6">
+        <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+      </circle>
+      <group x="300" y="300" at="1.4">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect w="740" h="260" r="18" fill="$panel" shadow="0 16 40 #0007"/>
+        <text x="40" y="84" size="96" weight="700" fill="$gold" font="Space Grotesk" text="@r1"/>
+        <text x="340" y="96" size="30" fill="$fg" text="@r2"/>
+        <text x="40" y="190" size="30" maxw="660" fill="$muted" text="@r3" at="4"/>
+      </group>
+    </scene>
+
+    <!-- 7 · takeaway -->
+    <scene id="outro" dur="9" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <group opacity="0.1"><use ref="chart"/></group>
+      <!-- warming stripes summary under the headline -->
+      <group x="=W/2 - 760" y="700">
+        <rect repeat="30" as="k" x="=k*1520/30" y="0" w="=1520/30 + 1" h="=180*ease((T - 1 - k*0.03)/0.6, 'out')"
+              fill="=data('a', k) &gt; 0 ? mix('#fbe0dc', $hot, clamp(data('a', k)/1.2, 0, 1)) : mix('#dbe9fb', $cool, clamp(-data('a', k)/0.4, 0, 1))"/>
+      </group>
+      <text x="=W/2" y="360" size="60" weight="700" align="center" maxw="1500" fill="$fg" font="Space Grotesk" text="@o1">
+        <anim prop="opacity" from="0" to="1" dur="0.7"/>
+      </text>
+      <text x="=W/2" y="520" size="52" weight="700" align="center" fill="$hot" font="Space Grotesk" text="@o2" at="3.4">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <anim prop="scale" from="1.15" to="1" dur="0.6" ease="back"/>
+      </text>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/line-chart-reveal/en/vo1.f7af0c3e5b.ogg" dur="5.71" hash="f7af0c3e5b" engine="kokoro:bf_emma"/>
+    <voice say="vo2" lang="en" src="voice/line-chart-reveal/en/vo2.8f0a75561f.ogg" dur="5.51" hash="8f0a75561f" engine="kokoro:bf_emma"/>
+    <voice say="vo3" lang="en" src="voice/line-chart-reveal/en/vo3.cb2f5c04cc.ogg" dur="5.61" hash="cb2f5c04cc" engine="kokoro:bf_emma"/>
+    <voice say="vo4" lang="en" src="voice/line-chart-reveal/en/vo4.d3eee01a00.ogg" dur="6.71" hash="d3eee01a00" engine="kokoro:bf_emma"/>
+    <voice say="vo5" lang="en" src="voice/line-chart-reveal/en/vo5.d7620f5808.ogg" dur="6.71" hash="d7620f5808" engine="kokoro:bf_emma"/>
+    <voice say="vo6" lang="en" src="voice/line-chart-reveal/en/vo6.abe5831560.ogg" dur="8.81" hash="abe5831560" engine="kokoro:bf_emma"/>
+    <voice say="vo7" lang="en" src="voice/line-chart-reveal/en/vo7.fcdac886bf.ogg" dur="6.21" hash="fcdac886bf" engine="kokoro:bf_emma"/>
+  </voices>
+</tsvg>

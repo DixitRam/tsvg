@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: system architecture explainer. A blueprint grid, component boxes that pop in, arrows that draw on,
+     glowing packets that ride the arrows (straight, quadratic and cubic paths via <fn>s), and a camera that
+     zooms into one service and opens it up. The diagram is one symbol driven by video time t. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="blueprint"><choice id="blueprint" label="Blueprint"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.22" sfx="0.5"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="blueprint" bg="#0a1222" fg="#e8eefc" muted="#8193b8" panel="#101c33" grid="#13213d" edge="#4b6191"
+           c1="#7dd3fc" c2="#a78bfa" c3="#34d399" c4="#fbbf24" c5="#f472b6" c6="#fb923c"/>
+  </themes>
+  <strings>
+    <s id="title" en="Architecture: what happens when you place an order"/>
+    <s id="t1" en="Placing an order"/><s id="t1b" en="from tap to kitchen, one request at a time"/>
+    <s id="ch1" en="Overview"/><s id="ch2" en="Request"/><s id="ch3" en="Write"/><s id="ch4" en="Inside the service"/><s id="ch5" en="Fan-out"/><s id="ch6" en="Back to the phone"/><s id="ch7" en="Big picture"/>
+    <s id="cap2" en="POST /orders"/><s id="cap3" en="one row per order"/>
+    <s id="zt" en="Order service · the outbox pattern"/>
+    <s id="z1" en="request"/><s id="z2" en="one transaction"/><s id="z3" en="relay"/>
+    <s id="cap5" en="one event, three consumers"/><s id="cap6" en="push: “Order confirmed”"/>
+    <s id="sum" en="Sync at the edge. Async inside."/>
+    <s id="lg1" en="synchronous call"/><s id="lg2" en="event"/><s id="lg3" en="notification"/>
+    <s id="vo1" en="What happens when you tap place order? Let's follow one order through the system."/>
+    <s id="vo2" en="The app sends the order to the API gateway, which checks who you are, then hands it to the order service."/>
+    <s id="vo3" en="The order service writes the order to Postgres. That write is the moment the order exists."/>
+    <s id="vo4" en="One transaction saves the order and an outbox row together. A relay then publishes that row as an event. A crash loses nothing."/>
+    <s id="vo5" en="The event lands on the orders topic. Payments, kitchen and notifications each read it, on their own time."/>
+    <s id="vo6" en="When the kitchen accepts, notifications sends a push back to the phone. Order confirmed."/>
+    <s id="vo7" en="So: synchronous at the edge, where the user waits. Asynchronous inside, where the work fans out."/>
+  </strings>
+
+  <defs>
+    <fn id="qb" args="a,c,b,u">(1-u)*(1-u)*a + 2*(1-u)*u*c + u*u*b</fn>
+    <fn id="cb" args="a,b,c,d,u">(1-u)*(1-u)*(1-u)*a + 3*(1-u)*(1-u)*u*b + 3*(1-u)*u*u*c + u*u*u*d</fn>
+    <symbol id="diagram">
+      <path d="M290 540 L430 540" stroke="$edge" sw="4" fill="none" draw="=ease((t - 9.5)/0.8, 'io')"/>
+      <circle x="430" y="540" r="7" fill="$edge" opacity="=clamp((t - 9.5 - 0.8)/0.2, 0, 1)"/>
+      <path d="M650 540 L790 540" stroke="$edge" sw="4" fill="none" draw="=ease((t - 11.0)/0.8, 'io')"/>
+      <circle x="790" y="540" r="7" fill="$edge" opacity="=clamp((t - 11.0 - 0.8)/0.2, 0, 1)"/>
+      <path d="M900 600 L900 732" stroke="$edge" sw="4" fill="none" draw="=ease((t - 18.5)/0.8, 'io')"/>
+      <circle x="900" y="732" r="7" fill="$edge" opacity="=clamp((t - 18.5 - 0.8)/0.2, 0, 1)"/>
+      <path d="M1010 540 L1140 540" stroke="$edge" sw="4" fill="none" draw="=ease((t - 37.5)/0.8, 'io')"/>
+      <circle x="1140" y="540" r="7" fill="$edge" opacity="=clamp((t - 37.5 - 0.8)/0.2, 0, 1)"/>
+      <path d="M1380 540 Q1460 280 1530 280" stroke="$edge" sw="4" fill="none" draw="=ease((t - 39.5)/0.8, 'io')"/>
+      <circle x="1530" y="280" r="7" fill="$edge" opacity="=clamp((t - 39.5 - 0.8)/0.2, 0, 1)"/>
+      <path d="M1380 540 L1530 540" stroke="$edge" sw="4" fill="none" draw="=ease((t - 39.6)/0.8, 'io')"/>
+      <circle x="1530" y="540" r="7" fill="$edge" opacity="=clamp((t - 39.6 - 0.8)/0.2, 0, 1)"/>
+      <path d="M1380 540 Q1460 800 1530 800" stroke="$edge" sw="4" fill="none" draw="=ease((t - 39.7)/0.8, 'io')"/>
+      <circle x="1530" y="800" r="7" fill="$edge" opacity="=clamp((t - 39.7 - 0.8)/0.2, 0, 1)"/>
+      <path d="M1640 860 C1640 1030 180 1030 180 600" stroke="$c6" sw="4" fill="none" draw="=ease((t - 46.0)/0.8, 'io')"/>
+      <circle x="180" y="600" r="7" fill="$c6" opacity="=clamp((t - 46.0 - 0.8)/0.2, 0, 1)"/>
+      <group x="900" y="800" opacity="=clamp((t - 18.0)/0.5, 0, 1)">
+    <rect x="-110" y="-60" w="220" h="120" fill="$panel"/>
+    <ellipse y="60" rx="110" ry="24" fill="$panel" stroke="$c4" sw="3"/>
+    <line x1="-110" y1="-60" x2="-110" y2="60" stroke="$c4" sw="3"/><line x1="110" y1="-60" x2="110" y2="60" stroke="$c4" sw="3"/>
+    <rect x="-108" y="-60" w="216" h="118" fill="$panel"/>
+    <ellipse y="-60" rx="110" ry="24" fill="#1a2744" stroke="$c4" sw="3"/>
+    <text y="6" size="26" weight="800" align="center" fill="$fg" text="Postgres"/>
+    <text y="40" size="16" font="JetBrains Mono" align="center" fill="$muted" text="orders · outbox"/>
+  </group>
+      <group x="180" y="540" opacity="=clamp((t - 1.0)/0.5, 0, 1)" scale="=0.85 + 0.15*ease((t - 1.0)/0.5, 'back')">
+    <rect x="-110.0" y="-60.0" w="220" h="120" r="16" fill="$panel" stroke="$c1" sw="3" shadow="0 0 24 #7dd3fc55"/>
+    <rect x="-110.0" y="-60.0" w="10" h="120" r="5" fill="$c1"/>
+    <text x="0" y="-12" size="26" weight="800" align="center" fill="$fg" text="Mobile app"/>
+    <text x="0" y="24" size="16" font="JetBrains Mono" align="center" fill="$muted" text="iOS · Android"/>
+  </group>
+      <group x="540" y="540" opacity="=clamp((t - 9.0)/0.5, 0, 1)" scale="=0.85 + 0.15*ease((t - 9.0)/0.5, 'back')">
+    <rect x="-110.0" y="-60.0" w="220" h="120" r="16" fill="$panel" stroke="$c2" sw="3" shadow="0 0 24 #a78bfa55"/>
+    <rect x="-110.0" y="-60.0" w="10" h="120" r="5" fill="$c2"/>
+    <text x="0" y="-12" size="26" weight="800" align="center" fill="$fg" text="API gateway"/>
+    <text x="0" y="24" size="16" font="JetBrains Mono" align="center" fill="$muted" text="auth · rate limit"/>
+  </group>
+      <group x="900" y="540" opacity="=clamp((t - 10.5)/0.5, 0, 1)" scale="=0.85 + 0.15*ease((t - 10.5)/0.5, 'back')">
+    <rect x="-110.0" y="-60.0" w="220" h="120" r="16" fill="$panel" stroke="$c3" sw="3" shadow="0 0 24 #34d39955"/>
+    <rect x="-110.0" y="-60.0" w="10" h="120" r="5" fill="$c3"/>
+    <text x="0" y="-12" size="26" weight="800" align="center" fill="$fg" text="Order service"/>
+    <text x="0" y="24" size="16" font="JetBrains Mono" align="center" fill="$muted" text="Go · 3 pods"/>
+  </group>
+      <group x="1260" y="540" opacity="=clamp((t - 37.0)/0.5, 0, 1)" scale="=0.85 + 0.15*ease((t - 37.0)/0.5, 'back')">
+    <rect x="-120.0" y="-50.0" w="240" h="100" r="16" fill="$panel" stroke="$c5" sw="3" shadow="0 0 24 #f472b655"/>
+    <rect x="-120.0" y="-50.0" w="10" h="100" r="5" fill="$c5"/>
+    <text x="0" y="-12" size="26" weight="800" align="center" fill="$fg" text="orders topic"/>
+    <text x="0" y="24" size="16" font="JetBrains Mono" align="center" fill="$muted" text="Kafka · 6 partitions"/>
+  </group>
+      <group x="1640" y="280" opacity="=clamp((t - 38.5)/0.5, 0, 1)" scale="=0.85 + 0.15*ease((t - 38.5)/0.5, 'back')">
+    <rect x="-110.0" y="-60.0" w="220" h="120" r="16" fill="$panel" stroke="$c3" sw="3" shadow="0 0 24 #34d39955"/>
+    <rect x="-110.0" y="-60.0" w="10" h="120" r="5" fill="$c3"/>
+    <text x="0" y="-12" size="26" weight="800" align="center" fill="$fg" text="Payments"/>
+    <text x="0" y="24" size="16" font="JetBrains Mono" align="center" fill="$muted" text="charges the card"/>
+  </group>
+      <group x="1640" y="540" opacity="=clamp((t - 38.8)/0.5, 0, 1)" scale="=0.85 + 0.15*ease((t - 38.8)/0.5, 'back')">
+    <rect x="-110.0" y="-60.0" w="220" h="120" r="16" fill="$panel" stroke="$c3" sw="3" shadow="0 0 24 #34d39955"/>
+    <rect x="-110.0" y="-60.0" w="10" h="120" r="5" fill="$c3"/>
+    <text x="0" y="-12" size="26" weight="800" align="center" fill="$fg" text="Kitchen"/>
+    <text x="0" y="24" size="16" font="JetBrains Mono" align="center" fill="$muted" text="restaurant tickets"/>
+  </group>
+      <group x="1640" y="800" opacity="=clamp((t - 39.1)/0.5, 0, 1)" scale="=0.85 + 0.15*ease((t - 39.1)/0.5, 'back')">
+    <rect x="-110.0" y="-60.0" w="220" h="120" r="16" fill="$panel" stroke="$c3" sw="3" shadow="0 0 24 #34d39955"/>
+    <rect x="-110.0" y="-60.0" w="10" h="120" r="5" fill="$c3"/>
+    <text x="0" y="-12" size="26" weight="800" align="center" fill="$fg" text="Notifications"/>
+    <text x="0" y="24" size="16" font="JetBrains Mono" align="center" fill="$muted" text="push · SMS"/>
+  </group>
+      <rect repeat="6" as="k" x="=1158 + k*36" y="572" w="28" h="10" r="3" fill="$c5" opacity="=0.4 + 0.6*(fract(t*0.7 + k/6) &lt; 0.5 ? 1 : 0)" when="=t &gt;= 37.5"/>
+      <circle x="=lerp(290, 430, fract((t - 12.0)/2.0))" y="=lerp(540, 540, fract((t - 12.0)/2.0))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 12.0 &amp;&amp; t &lt; 15.0"/>
+      <circle x="=lerp(650, 790, fract((t - 13.0)/2.0))" y="=lerp(540, 540, fract((t - 13.0)/2.0))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 13.0 &amp;&amp; t &lt; 16.0"/>
+      <circle x="=lerp(900, 900, fract((t - 19.5)/1.6))" y="=lerp(600, 732, fract((t - 19.5)/1.6))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 19.5 &amp;&amp; t &lt; 25.0"/>
+      <circle x="=lerp(1010, 1140, fract((t - 38.2)/1.4))" y="=lerp(540, 540, fract((t - 38.2)/1.4))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 38.2 &amp;&amp; t &lt; 45.0"/>
+      <circle x="=qb(1380, 1460, 1530, fract((t - 40.4)/1.4))" y="=qb(540, 280, 280, fract((t - 40.4)/1.4))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 40.4 &amp;&amp; t &lt; 45.0"/>
+      <circle x="=lerp(1380, 1530, fract((t - 40.6)/1.4))" y="=lerp(540, 540, fract((t - 40.6)/1.4))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 40.6 &amp;&amp; t &lt; 45.0"/>
+      <circle x="=qb(1380, 1460, 1530, fract((t - 40.8)/1.4))" y="=qb(540, 800, 800, fract((t - 40.8)/1.4))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 40.8 &amp;&amp; t &lt; 45.0"/>
+      <circle x="=cb(1640, 1640, 180, 180, fract((t - 47.0)/2.6))" y="=cb(860, 1030, 1030, 600, fract((t - 47.0)/2.6))" r="9" fill="$c6" shadow="0 0 16 #fb923c" when="=t &gt;= 47.0 &amp;&amp; t &lt; 53.0"/>
+      <circle x="=lerp(290, 430, fract((t - 54.0)/1.8))" y="=lerp(540, 540, fract((t - 54.0)/1.8))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 54.0 &amp;&amp; t &lt; 99"/>
+      <circle x="=lerp(650, 790, fract((t - 54.2)/1.8))" y="=lerp(540, 540, fract((t - 54.2)/1.8))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 54.2 &amp;&amp; t &lt; 99"/>
+      <circle x="=lerp(900, 900, fract((t - 54.4)/1.8))" y="=lerp(600, 732, fract((t - 54.4)/1.8))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 54.4 &amp;&amp; t &lt; 99"/>
+      <circle x="=lerp(1010, 1140, fract((t - 54.6)/1.8))" y="=lerp(540, 540, fract((t - 54.6)/1.8))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 54.6 &amp;&amp; t &lt; 99"/>
+      <circle x="=qb(1380, 1460, 1530, fract((t - 54.8)/1.8))" y="=qb(540, 280, 280, fract((t - 54.8)/1.8))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 54.8 &amp;&amp; t &lt; 99"/>
+      <circle x="=lerp(1380, 1530, fract((t - 55.0)/1.8))" y="=lerp(540, 540, fract((t - 55.0)/1.8))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 55.0 &amp;&amp; t &lt; 99"/>
+      <circle x="=qb(1380, 1460, 1530, fract((t - 55.2)/1.8))" y="=qb(540, 800, 800, fract((t - 55.2)/1.8))" r="9" fill="#ffffff" shadow="0 0 16 #ffffff" when="=t &gt;= 55.2 &amp;&amp; t &lt; 99"/>
+      <circle x="=cb(1640, 1640, 180, 180, fract((t - 55.4)/3.0))" y="=cb(860, 1030, 1030, 600, fract((t - 55.4)/3.0))" r="9" fill="$c6" shadow="0 0 16 #fb923c" when="=t &gt;= 55.4 &amp;&amp; t &lt; 99"/>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="bed" src="audio/drone.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+  </assets>
+
+  <music src="bed" start="0" loop="1" vol="0.6"/>
+
+  <backdrop>
+    <line repeat="25" as="k" x1="=k*80" y1="0" x2="=k*80" y2="=H" stroke="$grid" sw="=k % 4 == 0 ? 2 : 1"/>
+    <line repeat="14" as="k" x1="0" y1="=k*80" x2="=W" y2="=k*80" stroke="$grid" sw="=k % 4 == 0 ? 2 : 1"/>
+  </backdrop>
+
+  <timeline>
+    <scene id="intro" dur="8" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="1" src="pop"/>
+      <use ref="diagram"/>
+      <group x="960" y="230" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <text size="84" weight="800" align="center" fill="$fg" text="@t1"/>
+        <text y="80" size="32" font="JetBrains Mono" align="center" fill="$muted" text="@t1b"/>
+      </group>
+      <!-- a finger tap on the app box -->
+      <circle x="180" y="540" r="10" fill="none" stroke="$c1" sw="4" at="3" dur="0.8"><anim prop="r" from="10" to="110" dur="0.8"/><anim prop="opacity" from="1" to="0" dur="0.8"/></circle>
+    </scene>
+
+    <scene id="request" dur="9" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="1" src="pop"/><sfx at="2.5" src="pop"/><sfx at="4" src="whoosh"/>
+      <use ref="diagram"/>
+      <group x="360" y="470" at="4"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="-90" y="-22" w="180" h="44" r="22" fill="$c1"/><text size="20" weight="800" font="JetBrains Mono" align="center" fill="#0a1222" text="@cap2"/>
+      </group>
+      <group x="540" y="690" at="1.6"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <text size="20" font="JetBrains Mono" align="center" fill="$c2" text="✓ token   ✓ 12 req/s"/>
+      </group>
+    </scene>
+
+    <scene id="write" dur="9" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="1" src="pop"/><sfx at="2.6" src="blip"/>
+      <use ref="diagram"/>
+      <group x="1020" y="660" at="2.6"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="0" y="-22" w="250" h="44" r="22" fill="$c4"/><text x="125" size="19" weight="800" font="JetBrains Mono" align="center" fill="#0a1222" text="@cap3"/>
+      </group>
+    </scene>
+
+    <!-- zoom into the order service -->
+    <scene id="inside" dur="10" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="0.2" src="whoosh"/><sfx at="9" src="whoosh"/>
+      <group x="0" y="0" scale="1">
+        <keys prop="x" ease="io" v="0: 0; 1.2: -3090; 8.8: -3090; 9.8: 0"/>
+        <keys prop="y" ease="io" v="0: 0; 1.2: -1890; 8.8: -1890; 9.8: 0"/>
+        <keys prop="scale" ease="io" v="0: 1; 1.2: 4.5; 8.8: 4.5; 9.8: 1"/>
+        <use ref="diagram"/>
+      </group>
+      <!-- the box opens into a detail panel -->
+      <group x="960" y="540" at="1">
+        <keys prop="opacity" v="0: 0; 0.4: 1; 7.6: 1; 7.9: 0"/>
+        <keys prop="scale" ease="out" v="0: 0.8; 0.5: 1"/>
+        <rect x="-760" y="-380" w="1520" h="760" r="28" fill="$panel" stroke="$c3" sw="4" shadow="0 0 60 #34d39944"/>
+        <text x="-700" y="-310" size="40" weight="800" fill="$fg" text="@zt"/>
+        <!-- request -->
+        <rect x="-700" y="-140" w="300" h="140" r="18" fill="#0d1729" stroke="$c1" sw="3"/>
+        <text x="-550" y="-90" size="22" weight="700" align="center" fill="$c1" text="@z1"/>
+        <text x="-550" y="-45" size="20" font="JetBrains Mono" align="center" fill="$fg" text="POST /orders"/>
+        <!-- the transaction -->
+        <rect x="-300" y="-230" w="600" h="320" r="18" fill="#0d1729" stroke="$c4" sw="3"/>
+        <text x="-270" y="-195" size="22" weight="700" fill="$c4" text="@z2"/>
+        <text x="-270" y="-140" size="24" font="JetBrains Mono" fill="$muted" text="BEGIN;" at="1.6"><anim prop="reveal" from="0" to="1" dur="0.4" ease="linear"/></text>
+        <text x="-270" y="-90" size="24" font="JetBrains Mono" fill="$fg" text="INSERT INTO orders …;" at="2.2"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text>
+        <text x="-270" y="-40" size="24" font="JetBrains Mono" fill="$c5" text="INSERT INTO outbox …;" at="3.2"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text>
+        <text x="-270" y="10" size="24" font="JetBrains Mono" fill="$c3" text="COMMIT;" at="4.2"><anim prop="reveal" from="0" to="1" dur="0.4" ease="linear"/></text>
+        <path d="M-400 -70 L-300 -70" stroke="$edge" sw="4"/>
+        <!-- relay -->
+        <rect x="380" y="-140" w="300" h="140" r="18" fill="#0d1729" stroke="$c5" sw="3"/>
+        <text x="530" y="-90" size="22" weight="700" align="center" fill="$c5" text="@z3"/>
+        <text x="530" y="-45" size="20" font="JetBrains Mono" align="center" fill="$fg" text="→ orders topic"/>
+        <path d="M300 -70 L380 -70" stroke="$edge" sw="4"/>
+        <!-- packets through the pipeline -->
+        <circle x="=lerp(-550, -300, clamp((T - 1.2)/0.5, 0, 1))" y="-70" r="11" fill="#fff" shadow="0 0 16 #fff" when="=T &gt; 1.2 &amp;&amp; T &lt; 1.8"/>
+        <circle x="=lerp(300, 530, clamp((T - 5)/0.8, 0, 1))" y="-70" r="11" fill="$c5" shadow="0 0 16 #f472b6" when="=T &gt; 5 &amp;&amp; T &lt; 7.6"/>
+        <!-- crash-safe note -->
+        <group y="230" at="5.4"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <rect x="-420" y="-40" w="840" h="80" r="40" fill="#34d39922"/>
+          <text size="28" weight="700" align="center" fill="$c3" text="saved together → published at least once"/>
+        </group>
+      </group>
+    </scene>
+
+    <scene id="fanout" dur="9" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="1" src="pop"/><sfx at="2.5" src="pop"/><sfx at="2.8" src="pop"/><sfx at="3.1" src="pop"/>
+      <use ref="diagram"/>
+      <group x="1260" y="420" at="4"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="-170" y="-22" w="340" h="44" r="22" fill="$c5"/><text size="19" weight="800" font="JetBrains Mono" align="center" fill="#0a1222" text="@cap5"/>
+      </group>
+    </scene>
+
+    <scene id="push" dur="9" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="1" src="whoosh"/><sfx at="4.6" src="ding"/>
+      <use ref="diagram"/>
+      <group x="910" y="1040" at="2"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="-170" y="-24" w="340" h="48" r="24" fill="$c6"/><text size="20" weight="800" align="center" fill="#0a1222" text="@cap6"/>
+      </group>
+      <!-- the phone buzzes -->
+      <group x="180" y="540" at="4.6" dur="1.4" rot="=6*sin(T*60)*clamp(1 - (T - 4.6)/1.4, 0, 1)">
+        <rect x="-118" y="-68" w="236" h="136" r="20" fill="none" stroke="$c6" sw="5"/>
+      </group>
+    </scene>
+
+    <scene id="overview" dur="7.5" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <use ref="diagram"/>
+      <group x="960" y="150" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <text size="60" weight="800" align="center" fill="$fg" text="@sum"/>
+      </group>
+      <group x="90" y="80" at="1.6"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <circle r="9" fill="#ffffff"/><text x="22" size="20" fill="$muted" text="@lg1"/>
+        <circle x="270" r="9" fill="$c5"/><text x="292" size="20" fill="$muted" text="@lg2"/>
+        <circle x="410" r="9" fill="$c6"/><text x="432" size="20" fill="$muted" text="@lg3"/>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/architecture-diagram/en/vo1.659d06fbda.ogg" dur="4.31" hash="659d06fbda" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/architecture-diagram/en/vo2.6a5d358cc4.ogg" dur="6.21" hash="6a5d358cc4" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/architecture-diagram/en/vo3.080923dcdf.ogg" dur="5.21" hash="080923dcdf" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/architecture-diagram/en/vo4.a53e37b63c.ogg" dur="8.21" hash="a53e37b63c" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/architecture-diagram/en/vo5.ea3abda5b1.ogg" dur="6.51" hash="ea3abda5b1" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/architecture-diagram/en/vo6.05420dc0e3.ogg" dur="5.01" hash="05420dc0e3" engine="kokoro:af_heart"/>
+    <voice say="vo7" lang="en" src="voice/architecture-diagram/en/vo7.d95687a375.ogg" dur="5.71" hash="d95687a375" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

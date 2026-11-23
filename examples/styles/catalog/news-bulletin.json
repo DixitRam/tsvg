@@ -1,0 +1,11 @@
+{
+  "id": "news-bulletin",
+  "title": "TV news bulletin",
+  "category": "Explainer",
+  "summary": "Breaking-news sting, headline bar, LIVE badge, on-air clock, lower thirds, data graphic and a scrolling ticker on a fictional heat story.",
+  "duration": 64,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 14
+}

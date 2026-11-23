@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: collage newsroom explainer. Paper texture, cut-out photos with white borders, tape and
+     drop shadows, torn clippings, a highlighter sweeping over wire copy, red marker circles and
+     arrows, a map pin, stop-motion jitter. Torn edges are generated paths. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_sarah"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.25" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="paper" bg="#e9e1d0" fg="#1c1a17" ink="#1c1a17" red="#d7261e" hi="#ffe14d" tape="#efe6c8" note="#ffd84a" clip="#f7f3ea" mute="#6b6359"/>
+  </themes>
+
+  <strings>
+    <s id="title" en="The robots are already here"/>
+    <s id="kick" en="EXPLAINER"/>
+    <s id="h1" en="THE ROBOTS ARE"/>
+    <s id="h2" en="ALREADY HERE"/>
+    <s id="ch1" en="Intro"/><s id="ch2" en="The record"/><s id="ch3" en="Where"/><s id="ch4" en="Density"/><s id="ch5" en="The jobs"/><s id="ch6" en="The question"/>
+    <s id="mast" en="THE DAILY LEDGER · BUSINESS"/>
+    <s id="dh" en="Factories put 541,000 new robots to work"/>
+    <s id="w1" en="GENEVA (Wire) - Factories worldwide put"/>
+    <s id="w2" en="541,000 new industrial robots to work in"/>
+    <s id="w3" en="2023, the second-highest year on record."/>
+    <s id="w4" en="Asia took seven in every ten of them."/>
+    <s id="a1" en="that's ~1,500 a day!"/>
+    <s id="n1" en="South Korea:"/>
+    <s id="n2" en="1,012 robots per"/>
+    <s id="n3" en="10,000 factory workers"/>
+    <s id="n4" en="(world average: 162)"/>
+    <s id="bt" en="ROBOTS PER 10,000 FACTORY WORKERS, 2023"/>
+    <s id="avg" en="world average"/>
+    <s id="b1" en="S. KOREA"/><s id="b2" en="SINGAPORE"/><s id="b3" en="CHINA"/><s id="b4" en="GERMANY"/><s id="b5" en="JAPAN"/><s id="b6" en="USA"/>
+    <s id="pc" en="the new job: robot technician"/>
+    <s id="j1" en="Every new line needs people to"/>
+    <s id="j2" en="install, program and repair it."/>
+    <s id="j3" en="hiring!"/>
+    <s id="q1" en="WHO TRAINS THE PEOPLE"/>
+    <s id="q2" en="WHO TRAIN THE ROBOTS?"/>
+    <s id="stamp" en="NEXT WEEK"/>
+    <s id="src" en="Figures: international robotics federation report, 2024 (rounded)."/>
+    <s id="vo1" en="You've probably never met one, but the robots are already here. Here's how fast factories are bringing them in."/>
+    <s id="vo2" en="In 2023, factories around the world put five hundred and forty one thousand new industrial robots to work. That's the second highest year ever."/>
+    <s id="vo3" en="And they're not spread evenly. South Korea now has over a thousand robots for every ten thousand factory workers. The world average is one sixty two."/>
+    <s id="vo4" en="Singapore, China and Germany follow. The United States, for all its tech, sits well behind at about three hundred."/>
+    <s id="vo5" en="But robots don't run themselves. Every new line needs people to install, program and repair it. Jobs that barely existed twenty years ago."/>
+    <s id="vo6" en="Which leaves the real question: who trains the people who train the robots? More on that next week."/>
+  </strings>
+
+  <defs>
+    <!-- stop-motion jitter: a new random offset 6 times a second -->
+    <fn id="jit" args="s">(rand(floor(t*6) + s*17) - 0.5)*2</fn>
+    <data id="dv" v="1012, 770, 470, 429, 419, 295"/>
+    <data id="dc" v="#e86f4f, #5aa0c8, #e9b949, #7fb069, #c98bb9, #9a8f7f"/>
+    <clip id="tornmap"><path d="M 0 5 L 20 2 L 40 -4 L 60 -1 L 80 1 L 100 4 L 120 -1 L 140 1 L 160 4 L 180 3 L 200 5 L 220 -0 L 240 2 L 260 -3 L 280 2 L 300 3 L 320 2 L 340 2 L 360 -3 L 380 4 L 400 5 L 420 5 L 440 0 L 460 3 L 480 -2 L 500 4 L 520 4 L 540 -2 L 560 -5 L 580 -1 L 600 1 L 620 3 L 640 -0 L 660 -5 L 680 3 L 700 -5 L 720 3 L 740 -4 L 759 0 L 762 20 L 757 40 L 757 60 L 760 80 L 762 100 L 762 120 L 761 140 L 763 160 L 760 180 L 763 200 L 757 220 L 758 240 L 760 260 L 758 280 L 762 300 L 761 320 L 760 340 L 762 360 L 760 380 L 759 400 L 759 420 L 762 440 L 763 460 L 760 465 L 740 476 L 720 478 L 700 470 L 680 471 L 660 465 L 640 471 L 620 470 L 600 472 L 580 461 L 560 478 L 540 470 L 520 468 L 500 475 L 480 471 L 460 470 L 440 473 L 420 462 L 400 471 L 380 468 L 360 478 L 340 478 L 320 466 L 300 470 L 280 463 L 260 469 L 240 476 L 220 477 L 200 470 L 180 467 L 160 464 L 140 472 L 120 478 L 100 463 L 80 475 L 60 461 L 40 464 L 20 465 L 1 470 L -1 450 L -1 430 L 1 410 L -3 390 L 2 370 L -3 350 L 0 330 L -2 310 L -2 290 L 0 270 L -0 250 L -1 230 L -1 210 L 0 190 L -2 170 L -2 150 L 1 130 L 1 110 L 0 90 L 3 70 L 1 50 L 3 30 L -2 10 Z"/></clip>
+    <linear id="tapeg" x1="0" y1="0" x2="0" y2="40"><stop at="0" color="#f4ecd2" opacity="0.85"/><stop at="1" color="#e3d6ae" opacity="0.85"/></linear>
+    <radial id="pinsh" x="0" y="0" r="22"><stop at="0" color="#000" opacity="0.35"/><stop at="1" color="#000" opacity="0"/></radial>
+    <symbol id="tape"><rect x="-60" y="-18" w="120" h="36" fill="url(#tapeg)" shadow="0 2 4 #0002"/></symbol>
+    <symbol id="pin">
+      <path d="M 0 0 C -10 -18 -26 -30 -26 -50 C -26 -66 -14 -78 0 -78 C 14 -78 26 -66 26 -50 C 26 -30 10 -18 0 0 Z" fill="$red" stroke="#8a120c" sw="2" shadow="4 8 10 #0006"/>
+      <circle y="-50" r="10" fill="#ffffff"/>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="paper" src="images/paper.jpg"/>
+    <asset id="factory" src="images/factory.jpg"/>
+    <asset id="city" src="images/city.jpg"/>
+    <asset id="map" src="images/oldmap.jpg"/>
+    <asset id="desk" src="images/workspace.jpg"/>
+    <asset id="bright" src="audio/bright.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="typing" src="audio/typing.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Anton" src="fonts/Anton.ttf"/>
+    <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
+    <font family="Caveat" src="fonts/Caveat.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+  </assets>
+
+  <music src="bright" start="0" loop="1" vol="0.5"/>
+
+  <backdrop>
+    <image src="paper" x="0" y="0" w="1920" h="1080"/>
+    <!-- faint newsprint rules -->
+    <line repeat="12" as="k" x1="0" x2="1920" y1="=60 + k*90" y2="=60 + k*90" stroke="#bfb39b" sw="1" opacity="0.35"/>
+    <text x="1860" y="1050" size="20" align="right" fill="$mute" text="@src"/>
+  </backdrop>
+
+  <timeline>
+    <!-- 1 · title collage -->
+    <scene id="intro" dur="8.5" chapter="@ch1">
+      <say at="0.6" text="@vo1"/>
+      <sfx at="0.2" src="whoosh"/><sfx at="1.2" src="click"/><sfx at="1.6" src="click"/>
+      <!-- city cut-out, behind -->
+      <group x="1330" y="140" rot="=7 + 0.5*jit(1)" at="0.4">
+        <anim prop="x" from="2100" to="1330" dur="0.5" ease="out"/>
+        <rect w="520" h="330" fill="#ffffff" shadow="6 12 18 #0005"/>
+        <image src="city" x="14" y="14" w="492" h="302"/>
+        <use ref="tape" x="260" y="0" rot="-4"/>
+      </group>
+      <!-- factory cut-out -->
+      <group x="160" y="130" rot="=-4 + 0.5*jit(2)">
+        <anim prop="scale" from="1.15" to="1" dur="0.4" ease="out"/>
+        <anim prop="opacity" from="0" to="1" dur="0.2"/>
+        <rect w="980" h="600" fill="#ffffff" shadow="8 16 24 #0006"/>
+        <image src="factory" x="18" y="18" w="944" h="564"/>
+        <use ref="tape" x="40" y="10" rot="-35"/>
+        <use ref="tape" x="940" y="590" rot="-35"/>
+      </group>
+      <!-- headline strips, slapped on one by one -->
+      <group x="600" y="640" rot="=2 + 0.4*jit(3)" at="1.2">
+        <anim prop="scale" from="1.3" to="1" dur="0.2" ease="out"/>
+        <path d="M 0 -0 L 22 1 L 44 4 L 66 -0 L 88 0 L 110 1 L 132 -3 L 154 0 L 176 1 L 198 3 L 220 -4 L 242 -2 L 264 -4 L 286 3 L 308 2 L 330 -4 L 352 5 L 374 4 L 396 1 L 418 1 L 440 -3 L 462 -5 L 484 0 L 506 -4 L 528 -3 L 550 -2 L 572 -5 L 594 -0 L 616 -1 L 638 3 L 660 0 L 682 1 L 704 -0 L 726 2 L 748 -0 L 770 -2 L 792 5 L 814 5 L 836 3 L 858 2 L 880 -2 L 902 -3 L 924 -2 L 946 -4 L 968 3 L 990 -1 L 1012 3 L 1034 -1 L 1056 4 L 1078 3 L 1100 -5 L 1122 -3 L 1144 4 L 1166 -0 L 1183 0 L 1179 22 L 1177 44 L 1181 66 L 1182 88 L 1179 110 L 1177 132 L 1180 147 L 1158 157 L 1136 154 L 1114 144 L 1092 146 L 1070 144 L 1048 143 L 1026 155 L 1004 145 L 982 151 L 960 149 L 938 145 L 916 154 L 894 144 L 872 152 L 850 144 L 828 149 L 806 145 L 784 146 L 762 158 L 740 155 L 718 147 L 696 156 L 674 145 L 652 148 L 630 156 L 608 152 L 586 144 L 564 158 L 542 145 L 520 146 L 498 154 L 476 147 L 454 147 L 432 143 L 410 143 L 388 151 L 366 146 L 344 152 L 322 148 L 300 149 L 278 157 L 256 150 L 234 151 L 212 156 L 190 145 L 168 144 L 146 157 L 124 155 L 102 146 L 80 145 L 58 154 L 36 157 L 14 145 L 3 150 L 2 128 L 1 106 L -1 84 L -3 62 L -3 40 L 3 18 Z" fill="#111111" shadow="6 10 14 #0006"/>
+        <text x="590" y="78" size="112" weight="400" align="center" fill="#ffffff" font="Anton" text="@h1"/>
+      </group>
+      <group x="760" y="800" rot="=-2 + 0.4*jit(4)" at="1.6">
+        <anim prop="scale" from="1.3" to="1" dur="0.2" ease="out"/>
+        <path d="M 0 -0 L 22 1 L 44 4 L 66 -0 L 88 0 L 110 1 L 132 -3 L 154 0 L 176 1 L 198 3 L 220 -4 L 242 -2 L 264 -4 L 286 3 L 308 2 L 330 -4 L 352 5 L 374 4 L 396 1 L 418 1 L 440 -3 L 462 -5 L 484 0 L 506 -4 L 528 -3 L 550 -2 L 572 -5 L 594 -0 L 616 -1 L 638 3 L 660 0 L 682 1 L 704 -0 L 726 2 L 748 -0 L 770 -2 L 792 5 L 814 5 L 836 3 L 858 2 L 880 -2 L 902 -3 L 924 -2 L 946 -4 L 968 3 L 990 -1 L 1012 3 L 1034 -1 L 1056 4 L 1078 3 L 1100 -5 L 1122 -3 L 1144 4 L 1166 -0 L 1183 0 L 1179 22 L 1177 44 L 1181 66 L 1182 88 L 1179 110 L 1177 132 L 1180 147 L 1158 157 L 1136 154 L 1114 144 L 1092 146 L 1070 144 L 1048 143 L 1026 155 L 1004 145 L 982 151 L 960 149 L 938 145 L 916 154 L 894 144 L 872 152 L 850 144 L 828 149 L 806 145 L 784 146 L 762 158 L 740 155 L 718 147 L 696 156 L 674 145 L 652 148 L 630 156 L 608 152 L 586 144 L 564 158 L 542 145 L 520 146 L 498 154 L 476 147 L 454 147 L 432 143 L 410 143 L 388 151 L 366 146 L 344 152 L 322 148 L 300 149 L 278 157 L 256 150 L 234 151 L 212 156 L 190 145 L 168 144 L 146 157 L 124 155 L 102 146 L 80 145 L 58 154 L 36 157 L 14 145 L 3 150 L 2 128 L 1 106 L -1 84 L -3 62 L -3 40 L 3 18 Z" fill="$red" shadow="6 10 14 #0006" scale="0.9"/>
+        <text x="530" y="70" size="104" weight="400" align="center" fill="#ffffff" font="Anton" text="@h2"/>
+      </group>
+      <!-- stamp -->
+      <group x="1560" y="560" rot="-12" at="2.4">
+        <anim prop="scale" from="2" to="1" dur="0.25" ease="out"/>
+        <anim prop="opacity" from="0" to="0.9" dur="0.25"/>
+        <rect x="-170" y="-48" w="340" h="96" r="8" fill="none" stroke="$red" sw="7"/>
+        <text y="2" size="58" weight="400" align="center" fill="$red" font="Anton" text="@kick"/>
+      </group>
+    </scene>
+
+    <!-- 2 · the wire-copy clipping with a highlighter -->
+    <scene id="record" dur="11" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="0.3" src="typing"/>
+      <group x="300" y="200" rot="=-1.5 + 0.3*jit(5)">
+        <anim prop="y" from="1200" to="200" dur="0.5" ease="out"/>
+        <path d="M 0 -2 L 20 2 L 40 -2 L 60 3 L 80 1 L 100 -2 L 120 -3 L 140 2 L 160 -4 L 180 -2 L 200 0 L 220 3 L 240 1 L 260 -2 L 280 4 L 300 -2 L 320 -4 L 340 -2 L 360 -0 L 380 -4 L 400 -3 L 420 -1 L 440 1 L 460 -3 L 480 -1 L 500 3 L 520 4 L 540 1 L 560 2 L 580 1 L 600 -3 L 620 -4 L 640 -4 L 660 3 L 680 2 L 700 4 L 720 -4 L 740 1 L 760 -0 L 780 2 L 800 -2 L 820 4 L 840 -4 L 860 0 L 880 2 L 900 3 L 920 2 L 940 2 L 960 2 L 982 0 L 979 20 L 981 40 L 982 60 L 982 80 L 980 100 L 982 120 L 982 140 L 980 160 L 981 180 L 979 200 L 980 220 L 981 240 L 978 260 L 981 280 L 983 300 L 982 320 L 981 340 L 979 360 L 981 380 L 980 400 L 980 420 L 982 440 L 978 460 L 981 480 L 977 500 L 981 520 L 980 540 L 978 560 L 981 580 L 980 600 L 980 622 L 960 626 L 940 617 L 920 613 L 900 617 L 880 622 L 860 616 L 840 615 L 820 626 L 800 622 L 780 619 L 760 625 L 740 618 L 720 622 L 700 616 L 680 619 L 660 624 L 640 626 L 620 625 L 600 618 L 580 621 L 560 617 L 540 615 L 520 620 L 500 625 L 480 625 L 460 623 L 440 626 L 420 617 L 400 615 L 380 619 L 360 617 L 340 616 L 320 619 L 300 622 L 280 620 L 260 617 L 240 625 L 220 627 L 200 619 L 180 614 L 160 613 L 140 625 L 120 614 L 100 623 L 80 621 L 60 617 L 40 624 L 20 613 L -2 620 L -0 600 L -3 580 L 2 560 L -1 540 L -2 520 L -3 500 L 1 480 L -0 460 L 1 440 L 1 420 L 2 400 L 3 380 L 1 360 L -2 340 L -0 320 L -2 300 L -3 280 L -0 260 L 1 240 L -2 220 L -1 200 L -1 180 L 1 160 L 0 140 L 1 120 L 1 100 L -1 80 L 2 60 L 2 40 L -2 20 Z" fill="$clip" shadow="8 14 22 #0005"/>
+        <text x="40" y="50" size="24" weight="700" fill="$mute" font="Playfair Display" text="@mast"/>
+        <line x1="40" y1="78" x2="940" y2="78" stroke="$ink" sw="2"/>
+        <text x="40" y="145" size="46" weight="800" fill="$ink" font="Playfair Display" text="@dh"/>
+        <line x1="40" y1="200" x2="940" y2="200" stroke="$ink" sw="1" opacity="0.5"/>
+        <!-- highlighter strokes (behind the type), monospace so widths are known: 18 units per char -->
+        <group blend="multiply">
+          <rect x="36" y="300" w="=134*ease((T - 2.4)/0.5, 'out')" h="44" r="4" fill="$hi" opacity="0.85" rot="-0.6"/>
+          <rect x="216" y="370" w="=530*ease((T - 4.6)/0.9, 'out')" h="44" r="4" fill="$hi" opacity="0.85" rot="0.4"/>
+          <rect x="216" y="440" w="=332*ease((T - 7.6)/0.7, 'out')" h="44" r="4" fill="$hi" opacity="0.85" rot="-0.4"/>
+        </group>
+        <text x="40" y="252" size="30" fill="$ink" font="JetBrains Mono" text="@w1"/>
+        <text x="40" y="322" size="30" fill="$ink" font="JetBrains Mono" text="@w2"/>
+        <text x="40" y="392" size="30" fill="$ink" font="JetBrains Mono" text="@w3"/>
+        <text x="40" y="462" size="30" fill="$ink" font="JetBrains Mono" text="@w4"/>
+        <!-- red marker circle around the number -->
+        <path x="104" y="322" d="M -22 -58 L -11 -60 L 0 -62 L 11 -62 L 22 -59 L 33 -56 L 40 -47 L 50 -43 L 59 -37 L 64 -28 L 70 -19 L 68 -9 L 71 0 L 69 9 L 68 19 L 64 28 L 56 35 L 50 43 L 42 49 L 34 57 L 23 60 L 11 60 L 0 63 L -11 60 L -23 60 L -32 54 L -41 48 L -53 45 L -58 36 L -64 28 L -72 20 L -74 10 L -72 0 L -75 -10 L -70 -20 L -67 -29 L -58 -36 L -54 -46 L -44 -52 L -35 -59 L -24 -62 L -11 -62 L -0 -63 L 11 -61 L 22 -59 L 33 -55 L 43 -51" fill="none" stroke="$red" sw="6" scale="1">
+          <anim prop="draw" from="0" to="1" at="3" dur="0.7" ease="io"/>
+        </path>
+      </group>
+      <!-- handwritten aside + arrow -->
+      <group x="1360" y="330" at="3.6" rot="-6">
+        <anim prop="opacity" from="0" to="1" dur="0.2"/>
+        <text x="0" y="0" size="64" weight="700" fill="$red" font="Caveat" text="@a1">
+          <anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/>
+        </text>
+      </group>
+      <path d="M 1390 390 C 1400 900 240 900 322 572" fill="none" stroke="$red" sw="6" at="4.2">
+        <anim prop="draw" from="0" to="1" dur="0.6" ease="io"/>
+      </path>
+      <path d="M 300 594 L 322 570 L 346 590" fill="none" stroke="$red" sw="6" at="4.8">
+        <anim prop="draw" from="0" to="1" dur="0.2"/>
+      </path>
+    </scene>
+
+    <!-- 3 · the map clipping with a pin -->
+    <scene id="where" dur="11" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="1.6" src="pop"/>
+      <group x="180" y="250" rot="=2 + 0.3*jit(6)">
+        <anim prop="x" from="-900" to="180" dur="0.5" ease="out"/>
+        <path d="M 0 5 L 20 2 L 40 -4 L 60 -1 L 80 1 L 100 4 L 120 -1 L 140 1 L 160 4 L 180 3 L 200 5 L 220 -0 L 240 2 L 260 -3 L 280 2 L 300 3 L 320 2 L 340 2 L 360 -3 L 380 4 L 400 5 L 420 5 L 440 0 L 460 3 L 480 -2 L 500 4 L 520 4 L 540 -2 L 560 -5 L 580 -1 L 600 1 L 620 3 L 640 -0 L 660 -5 L 680 3 L 700 -5 L 720 3 L 740 -4 L 759 0 L 762 20 L 757 40 L 757 60 L 760 80 L 762 100 L 762 120 L 761 140 L 763 160 L 760 180 L 763 200 L 757 220 L 758 240 L 760 260 L 758 280 L 762 300 L 761 320 L 760 340 L 762 360 L 760 380 L 759 400 L 759 420 L 762 440 L 763 460 L 760 465 L 740 476 L 720 478 L 700 470 L 680 471 L 660 465 L 640 471 L 620 470 L 600 472 L 580 461 L 560 478 L 540 470 L 520 468 L 500 475 L 480 471 L 460 470 L 440 473 L 420 462 L 400 471 L 380 468 L 360 478 L 340 478 L 320 466 L 300 470 L 280 463 L 260 469 L 240 476 L 220 477 L 200 470 L 180 467 L 160 464 L 140 472 L 120 478 L 100 463 L 80 475 L 60 461 L 40 464 L 20 465 L 1 470 L -1 450 L -1 430 L 1 410 L -3 390 L 2 370 L -3 350 L 0 330 L -2 310 L -2 290 L 0 270 L -0 250 L -1 230 L -1 210 L 0 190 L -2 170 L -2 150 L 1 130 L 1 110 L 0 90 L 3 70 L 1 50 L 3 30 L -2 10 Z" fill="#ffffff" shadow="8 14 22 #0005" scale="1.03"/>
+        <group clip="url(#tornmap)">
+          <image src="map" x="-1280" y="-240" w="2150" h="1229"/>
+        </group>
+        <use ref="tape" x="380" y="0" rot="3"/>
+        <!-- the pin drops on Korea -->
+        <ellipse x="480" y="270" rx="=20*ease((T - 1.6)/0.3, 'out')" ry="7" fill="url(#pinsh)"/>
+        <use ref="pin" x="480" y="270" at="1.2">
+          <anim prop="y" from="-200" to="270" dur="0.5" ease="back"/>
+        </use>
+        <path x="480" y="220" d="M -36 -65 L -19 -72 L 0 -68 L 19 -71 L 36 -65 L 54 -62 L 74 -59 L 84 -49 L 99 -42 L 108 -32 L 115 -22 L 120 -11 L 119 0 L 124 11 L 113 21 L 107 32 L 96 41 L 85 50 L 72 58 L 58 66 L 38 68 L 19 69 L 0 71 L -20 74 L -37 67 L -57 65 L -73 58 L -89 52 L -100 42 L -113 34 L -119 23 L -125 12 L -130 0 L -125 -12 L -117 -22 L -109 -32 L -106 -45 L -89 -52 L -73 -58 L -60 -68 L -40 -71 L -20 -75 L -0 -77 L 20 -72 L 39 -70 L 60 -68 L 73 -59" fill="none" stroke="$red" sw="5" scale="0.9">
+          <anim prop="draw" from="0" to="1" at="2.2" dur="0.7"/>
+        </path>
+      </group>
+      <!-- sticky note -->
+      <group x="1130" y="300" rot="=-3 + 0.3*jit(7)" at="3">
+        <anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/>
+        <anim prop="opacity" from="0" to="1" dur="0.2"/>
+        <rect w="580" h="470" fill="$note" shadow="6 14 20 #0005"/>
+        <rect y="0" w="580" h="50" fill="#000" opacity="0.06"/>
+        <text x="40" y="110" size="64" weight="700" fill="$ink" font="Caveat" text="@n1"/>
+        <text x="40" y="200" size="72" weight="700" fill="$red" font="Caveat" text="@n2"/>
+        <text x="40" y="280" size="60" weight="700" fill="$ink" font="Caveat" text="@n3"/>
+        <text x="40" y="390" size="52" weight="600" fill="$mute" font="Caveat" text="@n4" at="4.5">
+          <anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/>
+        </text>
+      </group>
+      <path d="M 1120 420 C 1000 380 860 420 730 500" fill="none" stroke="$red" sw="6" at="3.4">
+        <anim prop="draw" from="0" to="1" dur="0.6" ease="io"/>
+      </path>
+      <path d="M 750 470 L 726 503 L 765 510" fill="none" stroke="$red" sw="6" at="4">
+        <anim prop="draw" from="0" to="1" dur="0.2"/>
+      </path>
+    </scene>
+
+    <!-- 4 · paper-strip bars with label-maker tags -->
+    <scene id="density" dur="9.5" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="0.6" src="click"/><sfx at="1.0" src="click"/><sfx at="1.4" src="click"/>
+      <group x="140" y="130" rot="-1">
+        <rect w="1000" h="64" fill="#111111"/>
+        <text x="24" y="33" size="34" weight="700" fill="#ffffff" font="JetBrains Mono" text="@bt"/>
+      </group>
+      <group repeat="6" as="k" x="420" y="=270 + k*118" rot="=(rand(k + 3) - 0.5)*2 + 0.3*jit(k + 9)" at="=0.5 + k*0.35">
+        <anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <!-- paper strip -->
+        <rect x="0" y="-38" w="=data('dv', k)*1.3*ease((T - 0.5 - k*0.35)/0.5, 'out')" h="76" fill="=data('dc', k)" shadow="4 8 10 #0004"/>
+        <path x="=data('dv', k)*1.3*ease((T - 0.5 - k*0.35)/0.5, 'out')" d="M 0 -38 L 10 -26 L 2 -14 L 12 -2 L 3 10 L 11 24 L 0 38 Z" fill="=data('dc', k)"/>
+        <!-- value written on the strip -->
+        <text x="=data('dv', k)*1.3*ease((T - 0.5 - k*0.35)/0.5, 'out') + 40" y="2" size="60" weight="700" fill="$ink" font="Caveat" text="{fmt(data('dv', k), 0)}"/>
+        <!-- label-maker tag -->
+        <rect x="-300" y="-26" w="270" h="52" r="4" fill="#111111"/>
+        <text x="-165" y="1" size="30" weight="700" align="center" fill="#ffffff" font="JetBrains Mono" text="@b1" when="k == 0"/>
+        <text x="-165" y="1" size="30" weight="700" align="center" fill="#ffffff" font="JetBrains Mono" text="@b2" when="k == 1"/>
+        <text x="-165" y="1" size="30" weight="700" align="center" fill="#ffffff" font="JetBrains Mono" text="@b3" when="k == 2"/>
+        <text x="-165" y="1" size="30" weight="700" align="center" fill="#ffffff" font="JetBrains Mono" text="@b4" when="k == 3"/>
+        <text x="-165" y="1" size="30" weight="700" align="center" fill="#ffffff" font="JetBrains Mono" text="@b5" when="k == 4"/>
+        <text x="-165" y="1" size="30" weight="700" align="center" fill="#ffffff" font="JetBrains Mono" text="@b6" when="k == 5"/>
+      </group>
+      <!-- world average: a hand-drawn red line -->
+      <path x="=420 + 162*1.3" y="0" d="M 0 220 C 3 400 -3 600 2 960" fill="none" stroke="$red" sw="5" at="3">
+        <anim prop="draw" from="0" to="1" dur="0.6" ease="io"/>
+      </path>
+      <text x="=420 + 162*1.3 + 14" y="985" size="48" weight="700" fill="$red" font="Caveat" text="@avg" at="3.4">
+        <anim prop="reveal" from="0" to="1" dur="0.5" ease="linear"/>
+      </text>
+      <!-- the US bar gets circled -->
+      <path x="=420 + 295*1.3 + 70" y="860" d="M -22 -58 L -11 -60 L 0 -62 L 11 -62 L 22 -59 L 33 -56 L 40 -47 L 50 -43 L 59 -37 L 64 -28 L 70 -19 L 68 -9 L 71 0 L 69 9 L 68 19 L 64 28 L 56 35 L 50 43 L 42 49 L 34 57 L 23 60 L 11 60 L 0 63 L -11 60 L -23 60 L -32 54 L -41 48 L -53 45 L -58 36 L -64 28 L -72 20 L -74 10 L -72 0 L -75 -10 L -70 -20 L -67 -29 L -58 -36 L -54 -46 L -44 -52 L -35 -59 L -24 -62 L -11 -62 L -0 -63 L 11 -61 L 22 -59 L 33 -55 L 43 -51" fill="none" stroke="$red" sw="5" at="6">
+        <anim prop="draw" from="0" to="1" dur="0.6"/>
+      </path>
+    </scene>
+
+    <!-- 5 · the jobs: polaroid + note -->
+    <scene id="jobs" dur="10.5" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <group x="180" y="150" rot="=-5 + 0.4*jit(11)">
+        <anim prop="y" from="1200" to="150" dur="0.5" ease="out"/>
+        <rect w="760" h="560" fill="#ffffff" shadow="8 16 24 #0006"/>
+        <image src="factory" x="26" y="26" w="708" h="430"/>
+        <text x="380" y="508" size="52" weight="700" align="center" fill="$ink" font="Caveat" text="@pc"/>
+      </group>
+      <group x="900" y="640" rot="=6 + 0.4*jit(12)" at="1.4">
+        <anim prop="x" from="2100" to="900" dur="0.45" ease="out"/>
+        <rect w="520" h="340" fill="#ffffff" shadow="8 16 24 #0006"/>
+        <image src="desk" x="16" y="16" w="488" h="308"/>
+        <use ref="tape" x="260" y="0" rot="5"/>
+      </group>
+      <group x="1160" y="230" rot="=2 + 0.3*jit(13)" at="2.4">
+        <anim prop="opacity" from="0" to="1" dur="0.2"/>
+        <anim prop="scale" from="1.2" to="1" dur="0.3" ease="out"/>
+        <path d="M 0 2 L 20 3 L 40 3 L 60 -2 L 80 -2 L 100 4 L 120 -2 L 140 4 L 160 3 L 180 -3 L 200 -2 L 220 2 L 240 -2 L 260 -3 L 280 3 L 300 -1 L 320 2 L 340 -3 L 360 -1 L 380 2 L 400 -4 L 420 -3 L 440 2 L 460 3 L 480 4 L 500 -3 L 520 0 L 540 2 L 560 0 L 580 2 L 600 -3 L 618 0 L 618 20 L 617 40 L 620 60 L 620 80 L 620 100 L 618 120 L 618 140 L 618 160 L 622 180 L 623 200 L 620 226 L 600 214 L 580 214 L 560 226 L 540 219 L 520 224 L 500 218 L 480 220 L 460 220 L 440 219 L 420 221 L 400 213 L 380 223 L 360 225 L 340 216 L 320 219 L 300 223 L 280 219 L 260 216 L 240 215 L 220 220 L 200 213 L 180 226 L 160 224 L 140 223 L 120 225 L 100 222 L 80 219 L 60 221 L 40 220 L 20 227 L 2 220 L -1 200 L 2 180 L 1 160 L 2 140 L 2 120 L -1 100 L 2 80 L 2 60 L 1 40 L 1 20 Z" fill="$clip" shadow="6 12 18 #0005"/>
+        <group blend="multiply">
+          <rect x="177" y="119" w="=126*ease((T - 5.4)/0.5, 'out')" h="42" r="4" fill="$hi" opacity="0.85"/>
+        </group>
+        <text x="30" y="80" size="28" fill="$ink" font="JetBrains Mono" text="@j1"/>
+        <text x="30" y="140" size="28" fill="$ink" font="JetBrains Mono" text="@j2"/>
+      </group>
+      <group x="1500" y="560" rot="-8" at="6.5">
+        <anim prop="opacity" from="0" to="1" dur="0.2"/>
+        <text size="90" weight="700" fill="$red" font="Caveat" text="@j3">
+          <anim prop="reveal" from="0" to="1" dur="0.5" ease="linear"/>
+        </text>
+        <path d="M -130 60 C -40 80 80 76 170 50" fill="none" stroke="$red" sw="6">
+          <anim prop="draw" from="0" to="1" at="0.5" dur="0.4"/>
+        </path>
+      </group>
+    </scene>
+
+    <!-- 6 · the question -->
+    <scene id="question" dur="8.5" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="0.5" src="click"/><sfx at="1.0" src="click"/><sfx at="4.4" src="pop"/>
+      <group x="240" y="300" rot="=-2 + 0.4*jit(14)" at="0.5">
+        <anim prop="scale" from="1.3" to="1" dur="0.2" ease="out"/>
+        <path d="M 0 3 L 22 -1 L 44 2 L 66 -5 L 88 -2 L 110 -0 L 132 -5 L 154 -2 L 176 1 L 198 1 L 220 -3 L 242 5 L 264 2 L 286 -2 L 308 2 L 330 1 L 352 0 L 374 -1 L 396 5 L 418 2 L 440 2 L 462 3 L 484 5 L 506 -5 L 528 1 L 550 3 L 572 -3 L 594 -1 L 616 -5 L 638 -3 L 660 -1 L 682 -4 L 704 -3 L 726 4 L 748 1 L 770 0 L 792 5 L 814 1 L 836 5 L 858 1 L 880 3 L 902 -5 L 924 1 L 946 3 L 968 -5 L 990 5 L 1012 -4 L 1034 -0 L 1056 -4 L 1078 -0 L 1100 1 L 1122 -5 L 1144 5 L 1166 -1 L 1188 0 L 1210 1 L 1232 -1 L 1254 -2 L 1276 2 L 1298 1 L 1320 -2 L 1342 2 L 1364 -2 L 1386 -5 L 1398 0 L 1397 22 L 1398 44 L 1402 66 L 1399 88 L 1403 110 L 1402 132 L 1397 154 L 1404 176 L 1403 198 L 1397 220 L 1400 237 L 1378 229 L 1356 230 L 1334 239 L 1312 225 L 1290 230 L 1268 238 L 1246 234 L 1224 229 L 1202 239 L 1180 236 L 1158 232 L 1136 223 L 1114 232 L 1092 229 L 1070 225 L 1048 222 L 1026 231 L 1004 223 L 982 229 L 960 233 L 938 229 L 916 226 L 894 231 L 872 229 L 850 235 L 828 231 L 806 239 L 784 238 L 762 234 L 740 225 L 718 223 L 696 237 L 674 235 L 652 232 L 630 227 L 608 226 L 586 233 L 564 231 L 542 232 L 520 232 L 498 235 L 476 224 L 454 225 L 432 239 L 410 237 L 388 237 L 366 222 L 344 222 L 322 226 L 300 229 L 278 232 L 256 223 L 234 231 L 212 222 L 190 223 L 168 233 L 146 231 L 124 232 L 102 228 L 80 230 L 58 225 L 36 227 L 14 234 L 2 230 L -3 208 L -3 186 L 2 164 L 1 142 L 2 120 L -2 98 L -1 76 L -2 54 L 2 32 L -1 10 Z" fill="#111111" shadow="6 10 14 #0006"/>
+        <text x="700" y="120" size="130" weight="400" align="center" fill="#ffffff" font="Anton" text="@q1"/>
+      </group>
+      <group x="300" y="560" rot="=1.5 + 0.4*jit(15)" at="1">
+        <anim prop="scale" from="1.3" to="1" dur="0.2" ease="out"/>
+        <path d="M 0 3 L 22 -1 L 44 2 L 66 -5 L 88 -2 L 110 -0 L 132 -5 L 154 -2 L 176 1 L 198 1 L 220 -3 L 242 5 L 264 2 L 286 -2 L 308 2 L 330 1 L 352 0 L 374 -1 L 396 5 L 418 2 L 440 2 L 462 3 L 484 5 L 506 -5 L 528 1 L 550 3 L 572 -3 L 594 -1 L 616 -5 L 638 -3 L 660 -1 L 682 -4 L 704 -3 L 726 4 L 748 1 L 770 0 L 792 5 L 814 1 L 836 5 L 858 1 L 880 3 L 902 -5 L 924 1 L 946 3 L 968 -5 L 990 5 L 1012 -4 L 1034 -0 L 1056 -4 L 1078 -0 L 1100 1 L 1122 -5 L 1144 5 L 1166 -1 L 1188 0 L 1210 1 L 1232 -1 L 1254 -2 L 1276 2 L 1298 1 L 1320 -2 L 1342 2 L 1364 -2 L 1386 -5 L 1398 0 L 1397 22 L 1398 44 L 1402 66 L 1399 88 L 1403 110 L 1402 132 L 1397 154 L 1404 176 L 1403 198 L 1397 220 L 1400 237 L 1378 229 L 1356 230 L 1334 239 L 1312 225 L 1290 230 L 1268 238 L 1246 234 L 1224 229 L 1202 239 L 1180 236 L 1158 232 L 1136 223 L 1114 232 L 1092 229 L 1070 225 L 1048 222 L 1026 231 L 1004 223 L 982 229 L 960 233 L 938 229 L 916 226 L 894 231 L 872 229 L 850 235 L 828 231 L 806 239 L 784 238 L 762 234 L 740 225 L 718 223 L 696 237 L 674 235 L 652 232 L 630 227 L 608 226 L 586 233 L 564 231 L 542 232 L 520 232 L 498 235 L 476 224 L 454 225 L 432 239 L 410 237 L 388 237 L 366 222 L 344 222 L 322 226 L 300 229 L 278 232 L 256 223 L 234 231 L 212 222 L 190 223 L 168 233 L 146 231 L 124 232 L 102 228 L 80 230 L 58 225 L 36 227 L 14 234 L 2 230 L -3 208 L -3 186 L 2 164 L 1 142 L 2 120 L -2 98 L -1 76 L -2 54 L 2 32 L -1 10 Z" fill="$red" shadow="6 10 14 #0006"/>
+        <text x="700" y="120" size="130" weight="400" align="center" fill="#ffffff" font="Anton" text="@q2"/>
+      </group>
+      <group x="1560" y="880" rot="-10" at="4.4">
+        <anim prop="scale" from="2.2" to="1" dur="0.25" ease="out"/>
+        <anim prop="opacity" from="0" to="0.9" dur="0.25"/>
+        <rect x="-190" y="-50" w="380" h="100" r="8" fill="none" stroke="$red" sw="7"/>
+        <text y="2" size="60" weight="400" align="center" fill="$red" font="Anton" text="@stamp"/>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/collage-newsroom/en/vo1.885f91efcf.ogg" dur="6.21" hash="885f91efcf" engine="kokoro:af_sarah"/>
+    <voice say="vo2" lang="en" src="voice/collage-newsroom/en/vo2.5ae1717697.ogg" dur="9.91" hash="5ae1717697" engine="kokoro:af_sarah"/>
+    <voice say="vo3" lang="en" src="voice/collage-newsroom/en/vo3.d54872ff21.ogg" dur="9.31" hash="d54872ff21" engine="kokoro:af_sarah"/>
+    <voice say="vo4" lang="en" src="voice/collage-newsroom/en/vo4.dcb84f2ca7.ogg" dur="7.01" hash="dcb84f2ca7" engine="kokoro:af_sarah"/>
+    <voice say="vo5" lang="en" src="voice/collage-newsroom/en/vo5.726a78c6e6.ogg" dur="8.91" hash="726a78c6e6" engine="kokoro:af_sarah"/>
+    <voice say="vo6" lang="en" src="voice/collage-newsroom/en/vo6.b986511c07.ogg" dur="5.41" hash="b986511c07" engine="kokoro:af_sarah"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Podcast audiogram: cover art, live waveform (repeat + noise), pull quote, episode title. Two speakers. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait" w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.22" sfx="0.6"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="night" bg="#100d1c" fg="#ffffff" muted="#a7a3c2" accent="#ffb347"/></themes>
+  <strings>
+    <s id="title" en="Night Shift, Ep. 47: How your brain takes out the trash"/>
+    <s id="show" en="NIGHT SHIFT"/>
+    <s id="tag" en="a podcast about sleep"/>
+    <s id="ep" en="EPISODE 47"/>
+    <s id="eptitle" en="How your brain takes out the trash"/>
+    <s id="listen" en="Full episode on every podcast app"/>
+    <s id="vo_q1" en="Welcome back to Night Shift. Today: what your brain is actually doing while you sleep."/>
+    <s id="vo_q2" en="During deep sleep, the fluid around your brain cells starts to pulse in slow waves, almost like a rinse cycle."/>
+    <s id="vo_q3" en="Wait. So sleep is literally a cleaning shift? That changes how I think about staying up late."/>
+    <s id="vo_q4" en="The spaces between cells open up, and waste proteins get washed out much faster than when you're awake."/>
+    <s id="vo_q5" en="So what happens when we cut it short, night after night?"/>
+    <s id="vo_q6" en="The trash piles up. One bad night won't hurt you, but a habit of short sleep is something your brain really notices."/>
+    <s id="vo_q7" en="The full episode is out now. Search for Night Shift, episode forty seven, wherever you listen."/>
+    <s id="ch_q1" en="Welcome"/>
+    <s id="ch_q2" en="Rinse cycle"/>
+    <s id="ch_q3" en="A cleaning shift"/>
+    <s id="ch_q4" en="Wider channels"/>
+    <s id="ch_q5" en="Cutting it short"/>
+    <s id="ch_q6" en="The trash piles up"/>
+    <s id="ch_q7" en="Listen"/>
+  </strings>
+  <defs>
+    <linear id="wave" x1="0" y1="0" x2="920" y2="0"><stop at="0" color="#ffb347"/><stop at="0.5" color="#ff6f91"/><stop at="1" color="#7fd1ff"/></linear>
+    <linear id="coverShade" x1="0" y1="0" x2="0" y2="600"><stop at="0" color="#1b1240" opacity="0.1"/><stop at="1" color="#1b1240" opacity="0.92"/></linear>
+    <radial id="glow" x="0" y="0" r="700"><stop at="0" color="#5b3fd1" opacity="0.45"/><stop at="1" color="#5b3fd1" opacity="0"/></radial>
+    <clip id="coverClip"><rect w="600" h="600" r="28"/></clip>
+    <clip id="moonCut"><circle r="80"/></clip>
+  </defs>
+  <assets>
+    <asset id="nebula" src="images/nebula.jpg"/><asset id="pad" src="audio/pad.ogg"/><asset id="blip" src="audio/blip.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/><font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/><font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.9"/>
+  <backdrop>
+    <image src="nebula" x="0" y="0" w="=W" h="=H" blur="60" opacity="0.35"/>
+    <rect w="=W" h="=H" fill="#100d1ccc"/>
+    <circle x="460" y="500" x.portrait="540" y.portrait="500" r="700" fill="url(#glow)" scale="=1 + 0.05*sin(t*0.7)"/>
+    <!-- cover art (square, persistent) -->
+    <group x="160" y="200" x.portrait="240" y.portrait="160" scale.portrait="1">
+      <group scale.portrait="1">
+        <rect w="600" h="600" r="28" fill="#000" shadow="0 30 60 #000a"/>
+        <group clip="url(#coverClip)">
+          <image src="nebula" x="=-40 - 20*sin(t*0.1)" y="-40" w="760" h="680"/>
+          <rect w="600" h="600" fill="url(#coverShade)"/>
+          <circle repeat="40" as="k" x="=600*rand(k)" y="=380*rand(k+50)" r="=1.5 + 2.5*rand(k+9)" fill="#fff" opacity="=0.4 + 0.6*noise(t*1.5 + k)"/>
+          <group x="430" y="150">
+            <circle r="80" fill="#fff4d6" shadow="0 0 50 #fff4d6"/>
+            <circle x="34" y="-22" r="72" fill="#2a1d5c"/>
+          </group>
+          <text x="48" y="440" font="Space Grotesk" size="88" weight="700" fill="#fff" text="@show"/>
+          <text x="52" y="512" size="30" weight="500" fill="#ffd9a1" text="@tag"/>
+          <rect x="52" y="548" w="150" h="6" r="3" fill="#ffb347"/>
+        </group>
+        <rect w="600" h="600" r="28" fill="none" stroke="#ffffff22" sw="2"/>
+      </group>
+    </group>
+    <text x="460" y="880" x.portrait="540" y.portrait="830" only="landscape" size="28" align="center" fill="$muted" text="@listen"/>
+    <!-- episode header -->
+    <group x="860" y="236" x.portrait="80" y.portrait="830" only="landscape">
+      <text size="26" weight="800" fill="$accent" text="@ep"/>
+      <text y="56" size="44" weight="700" fill="#fff" maxw="940" text="@eptitle"/>
+    </group>
+    <group x="=W/2" y="830" only="portrait">
+      <text size="26" weight="800" align="center" fill="$accent" text="@ep"/>
+      <text y="52" size="40" weight="700" align="center" fill="#fff" text="@eptitle"/>
+    </group>
+  </backdrop>
+  <timeline>
+    <scene id="q1" dur="6.91" chapter="@ch_q1">
+      <say at="0.5" text="@vo_q1" voice="af_heart"/>
+      <!-- speaker chip -->
+      <group x="860" y="400" x.portrait="80" y.portrait="990" opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <circle x="34" r="34" fill="#ffb347"/>
+        <circle x="34" r="=34 + 10*smooth(0.4, 0.7, T) * (1 - smooth(5.21, 5.61, T))*noise(T*5)" fill="none" stroke="#ffb347" sw="3" opacity="0.6"/>
+        <text x="34" y="1" size="26" weight="800" align="center" fill="#14121f" text="MO"/>
+        <text x="88" y="-12" size="32" weight="700" fill="#fff" text="Maya Okafor"/>
+        <text x="88" y="22" size="24" fill="$muted" text="Host"/>
+      </group>
+      <!-- pull quote: dim full text + word-by-word bright reveal -->
+      <group opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <text x="900" y="534" x.portrait="100" y.portrait="1219" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="Welcome back to Night Shift."/>
+        <text x="900" y="534" x.portrait="100" y.portrait="1219" font="Playfair Display" size="62" weight="600" fill="#fff" text="Welcome back to Night Shift."><keys prop="reveal" ease="step" v="0: 0; 0.65: 0.2857; 1.05: 0.4643; 1.31: 0.5714; 1.47: 0.7857; 1.78: 1.0000"/></text>
+        <text x="900" y="615" x.portrait="100" y.portrait="1300" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="Today: what your brain is"/>
+        <text x="900" y="615" x.portrait="100" y.portrait="1300" font="Playfair Display" size="62" weight="600" fill="#fff" text="Today: what your brain is"><keys prop="reveal" ease="step" v="0: 0; 2.19: 0.2800; 2.59: 0.4800; 2.85: 0.6800; 3.11: 0.9200; 3.42: 1.0000"/></text>
+        <text x="900" y="696" x.portrait="100" y.portrait="1381" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="actually doing while you sleep."/>
+        <text x="900" y="696" x.portrait="100" y.portrait="1381" font="Playfair Display" size="62" weight="600" fill="#fff" text="actually doing while you sleep."><keys prop="reveal" ease="step" v="0: 0; 3.58: 0.2903; 4.03: 0.4839; 4.33: 0.6774; 4.64: 0.8065; 4.85: 1.0000"/></text>
+        <text x="842" y="568" x.portrait="42" y.portrait="1253" font="Playfair Display" size="110" weight="700" fill="#ffb347" text="“"/>
+      </group>
+      <!-- waveform -->
+      <group x="860" y="885" x.portrait="80" y.portrait="1610">
+        <rect repeat="56" as="i" x="=i*16.4" w="9" r="4.5" ay="0.5" fill="url(#wave)"
+              h="=8 + (14 + 140*smooth(0.4, 0.7, T) * (1 - smooth(5.21, 5.61, T))*noise(T*7 + i*0.9)*(0.55 + 0.45*sin(i*0.31 + T*2))) * (0.45 + 0.55*noise(i*0.5 + T*0.8))"/>
+      </group>
+    </scene>
+    <scene id="q2" dur="9.11" chapter="@ch_q2">
+      <say at="0.5" text="@vo_q2" voice="am_michael"/>
+      <!-- speaker chip -->
+      <group x="860" y="400" x.portrait="80" y.portrait="990" opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <circle x="34" r="34" fill="#7fd1ff"/>
+        <circle x="34" r="=34 + 10*smooth(0.4, 0.7, T) * (1 - smooth(7.41, 7.81, T))*noise(T*5)" fill="none" stroke="#7fd1ff" sw="3" opacity="0.6"/>
+        <text x="34" y="1" size="26" weight="800" align="center" fill="#14121f" text="LB"/>
+        <text x="88" y="-12" size="32" weight="700" fill="#fff" text="Dr. Leo Brandt"/>
+        <text x="88" y="22" size="24" fill="$muted" text="Sleep researcher"/>
+      </group>
+      <!-- pull quote: dim full text + word-by-word bright reveal -->
+      <group opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <text x="900" y="510" x.portrait="100" y.portrait="1195" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="During deep sleep, the fluid around"/>
+        <text x="900" y="510" x.portrait="100" y.portrait="1195" font="Playfair Display" size="54" weight="600" fill="#fff" text="During deep sleep, the fluid around"><keys prop="reveal" ease="step" v="0: 0; 0.65: 0.2000; 1.06: 0.3429; 1.36: 0.5429; 1.83: 0.6571; 2.08: 0.8286; 2.44: 1.0000"/></text>
+        <text x="900" y="580" x.portrait="100" y.portrait="1265" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="your brain cells starts to pulse in"/>
+        <text x="900" y="580" x.portrait="100" y.portrait="1265" font="Playfair Display" size="54" weight="600" fill="#fff" text="your brain cells starts to pulse in"><keys prop="reveal" ease="step" v="0: 0; 2.84: 0.1429; 3.15: 0.3143; 3.50: 0.4857; 3.86: 0.6857; 4.26: 0.7714; 4.46: 0.9429; 4.81: 1.0000"/></text>
+        <text x="900" y="650" x.portrait="100" y.portrait="1335" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="slow waves, almost like a rinse"/>
+        <text x="900" y="650" x.portrait="100" y.portrait="1335" font="Playfair Display" size="54" weight="600" fill="#fff" text="slow waves, almost like a rinse"><keys prop="reveal" ease="step" v="0: 0; 5.01: 0.1613; 5.31: 0.3871; 5.78: 0.6129; 6.19: 0.7742; 6.49: 0.8387; 6.63: 1.0000"/></text>
+        <text x="900" y="720" x.portrait="100" y.portrait="1405" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="cycle."/>
+        <text x="900" y="720" x.portrait="100" y.portrait="1405" font="Playfair Display" size="54" weight="600" fill="#fff" text="cycle."><keys prop="reveal" ease="step" v="0: 0; 6.99: 1.0000"/></text>
+        <text x="842" y="544" x.portrait="42" y.portrait="1229" font="Playfair Display" size="110" weight="700" fill="#7fd1ff" text="“"/>
+      </group>
+      <!-- waveform -->
+      <group x="860" y="885" x.portrait="80" y.portrait="1610">
+        <rect repeat="56" as="i" x="=i*16.4" w="9" r="4.5" ay="0.5" fill="url(#wave)"
+              h="=8 + (14 + 140*smooth(0.4, 0.7, T) * (1 - smooth(7.41, 7.81, T))*noise(T*7 + i*0.9)*(0.55 + 0.45*sin(i*0.31 + T*2))) * (0.45 + 0.55*noise(i*0.5 + T*0.8))"/>
+      </group>
+    </scene>
+    <scene id="q3" dur="7.31" chapter="@ch_q3">
+      <say at="0.5" text="@vo_q3" voice="af_heart"/>
+      <!-- speaker chip -->
+      <group x="860" y="400" x.portrait="80" y.portrait="990" opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <circle x="34" r="34" fill="#ffb347"/>
+        <circle x="34" r="=34 + 10*smooth(0.4, 0.7, T) * (1 - smooth(5.61, 6.01, T))*noise(T*5)" fill="none" stroke="#ffb347" sw="3" opacity="0.6"/>
+        <text x="34" y="1" size="26" weight="800" align="center" fill="#14121f" text="MO"/>
+        <text x="88" y="-12" size="32" weight="700" fill="#fff" text="Maya Okafor"/>
+        <text x="88" y="22" size="24" fill="$muted" text="Host"/>
+      </group>
+      <!-- pull quote: dim full text + word-by-word bright reveal -->
+      <group opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <text x="900" y="494" x.portrait="100" y.portrait="1179" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="Wait. So sleep is literally a"/>
+        <text x="900" y="494" x.portrait="100" y.portrait="1179" font="Playfair Display" size="62" weight="600" fill="#fff" text="Wait. So sleep is literally a"><keys prop="reveal" ease="step" v="0: 0; 0.65: 0.2069; 1.01: 0.3103; 1.18: 0.5172; 1.49: 0.6207; 1.65: 0.9655; 2.15: 1.0000"/></text>
+        <text x="900" y="575" x.portrait="100" y.portrait="1260" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="cleaning shift? That changes"/>
+        <text x="900" y="575" x.portrait="100" y.portrait="1260" font="Playfair Display" size="62" weight="600" fill="#fff" text="cleaning shift? That changes"><keys prop="reveal" ease="step" v="0: 0; 2.27: 0.3214; 2.71: 0.5714; 3.12: 0.7500; 3.38: 1.0000"/></text>
+        <text x="900" y="655" x.portrait="100" y.portrait="1340" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="how I think about staying up"/>
+        <text x="900" y="655" x.portrait="100" y.portrait="1340" font="Playfair Display" size="62" weight="600" fill="#fff" text="how I think about staying up"><keys prop="reveal" ease="step" v="0: 0; 3.78: 0.1429; 4.00: 0.2143; 4.12: 0.4286; 4.42: 0.6429; 4.73: 0.9286; 5.13: 1.0000"/></text>
+        <text x="900" y="736" x.portrait="100" y.portrait="1421" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="late."/>
+        <text x="900" y="736" x.portrait="100" y.portrait="1421" font="Playfair Display" size="62" weight="600" fill="#fff" text="late."><keys prop="reveal" ease="step" v="0: 0; 5.30: 1.0000"/></text>
+        <text x="842" y="528" x.portrait="42" y.portrait="1213" font="Playfair Display" size="110" weight="700" fill="#ffb347" text="“"/>
+      </group>
+      <!-- waveform -->
+      <group x="860" y="885" x.portrait="80" y.portrait="1610">
+        <rect repeat="56" as="i" x="=i*16.4" w="9" r="4.5" ay="0.5" fill="url(#wave)"
+              h="=8 + (14 + 140*smooth(0.4, 0.7, T) * (1 - smooth(5.61, 6.01, T))*noise(T*7 + i*0.9)*(0.55 + 0.45*sin(i*0.31 + T*2))) * (0.45 + 0.55*noise(i*0.5 + T*0.8))"/>
+      </group>
+    </scene>
+    <scene id="q4" dur="8.51" chapter="@ch_q4">
+      <say at="0.5" text="@vo_q4" voice="am_michael"/>
+      <!-- speaker chip -->
+      <group x="860" y="400" x.portrait="80" y.portrait="990" opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <circle x="34" r="34" fill="#7fd1ff"/>
+        <circle x="34" r="=34 + 10*smooth(0.4, 0.7, T) * (1 - smooth(6.81, 7.21, T))*noise(T*5)" fill="none" stroke="#7fd1ff" sw="3" opacity="0.6"/>
+        <text x="34" y="1" size="26" weight="800" align="center" fill="#14121f" text="LB"/>
+        <text x="88" y="-12" size="32" weight="700" fill="#fff" text="Dr. Leo Brandt"/>
+        <text x="88" y="22" size="24" fill="$muted" text="Sleep researcher"/>
+      </group>
+      <!-- pull quote: dim full text + word-by-word bright reveal -->
+      <group opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <text x="900" y="510" x.portrait="100" y.portrait="1195" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="The spaces between cells open up,"/>
+        <text x="900" y="510" x.portrait="100" y.portrait="1195" font="Playfair Display" size="54" weight="600" fill="#fff" text="The spaces between cells open up,"><keys prop="reveal" ease="step" v="0: 0; 0.65: 0.1212; 0.90: 0.3333; 1.30: 0.5758; 1.76: 0.7576; 2.11: 0.9091; 2.41: 1.0000"/></text>
+        <text x="900" y="580" x.portrait="100" y.portrait="1265" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="and waste proteins get washed out"/>
+        <text x="900" y="580" x.portrait="100" y.portrait="1265" font="Playfair Display" size="54" weight="600" fill="#fff" text="and waste proteins get washed out"><keys prop="reveal" ease="step" v="0: 0; 2.72: 0.1212; 2.97: 0.3030; 3.32: 0.5758; 3.84: 0.6970; 4.08: 0.9091; 4.49: 1.0000"/></text>
+        <text x="900" y="650" x.portrait="100" y.portrait="1335" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="much faster than when you're"/>
+        <text x="900" y="650" x.portrait="100" y.portrait="1335" font="Playfair Display" size="54" weight="600" fill="#fff" text="much faster than when you're"><keys prop="reveal" ease="step" v="0: 0; 4.73: 0.1786; 5.03: 0.4286; 5.44: 0.6071; 5.74: 0.7857; 6.04: 1.0000"/></text>
+        <text x="900" y="720" x.portrait="100" y.portrait="1405" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="awake."/>
+        <text x="900" y="720" x.portrait="100" y.portrait="1405" font="Playfair Display" size="54" weight="600" fill="#fff" text="awake."><keys prop="reveal" ease="step" v="0: 0; 6.39: 1.0000"/></text>
+        <text x="842" y="544" x.portrait="42" y.portrait="1229" font="Playfair Display" size="110" weight="700" fill="#7fd1ff" text="“"/>
+      </group>
+      <!-- waveform -->
+      <group x="860" y="885" x.portrait="80" y.portrait="1610">
+        <rect repeat="56" as="i" x="=i*16.4" w="9" r="4.5" ay="0.5" fill="url(#wave)"
+              h="=8 + (14 + 140*smooth(0.4, 0.7, T) * (1 - smooth(6.81, 7.21, T))*noise(T*7 + i*0.9)*(0.55 + 0.45*sin(i*0.31 + T*2))) * (0.45 + 0.55*noise(i*0.5 + T*0.8))"/>
+      </group>
+    </scene>
+    <scene id="q5" dur="6" chapter="@ch_q5">
+      <say at="0.5" text="@vo_q5" voice="af_heart"/>
+      <!-- speaker chip -->
+      <group x="860" y="400" x.portrait="80" y.portrait="990" opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <circle x="34" r="34" fill="#ffb347"/>
+        <circle x="34" r="=34 + 10*smooth(0.4, 0.7, T) * (1 - smooth(3.02, 3.42, T))*noise(T*5)" fill="none" stroke="#ffb347" sw="3" opacity="0.6"/>
+        <text x="34" y="1" size="26" weight="800" align="center" fill="#14121f" text="MO"/>
+        <text x="88" y="-12" size="32" weight="700" fill="#fff" text="Maya Okafor"/>
+        <text x="88" y="22" size="24" fill="$muted" text="Host"/>
+      </group>
+      <!-- pull quote: dim full text + word-by-word bright reveal -->
+      <group opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <text x="900" y="575" x.portrait="100" y.portrait="1260" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="So what happens when we cut"/>
+        <text x="900" y="575" x.portrait="100" y.portrait="1260" font="Playfair Display" size="62" weight="600" fill="#fff" text="So what happens when we cut"><keys prop="reveal" ease="step" v="0: 0; 0.65: 0.1111; 0.78: 0.2963; 0.99: 0.5926; 1.30: 0.7778; 1.51: 0.8889; 1.64: 1.0000"/></text>
+        <text x="900" y="655" x.portrait="100" y.portrait="1340" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="it short, night after night?"/>
+        <text x="900" y="655" x.portrait="100" y.portrait="1340" font="Playfair Display" size="62" weight="600" fill="#fff" text="it short, night after night?"><keys prop="reveal" ease="step" v="0: 0; 1.81: 0.1071; 1.94: 0.3571; 2.26: 0.5714; 2.51: 0.7857; 2.75: 1.0000"/></text>
+        <text x="842" y="609" x.portrait="42" y.portrait="1294" font="Playfair Display" size="110" weight="700" fill="#ffb347" text="“"/>
+      </group>
+      <!-- waveform -->
+      <group x="860" y="885" x.portrait="80" y.portrait="1610">
+        <rect repeat="56" as="i" x="=i*16.4" w="9" r="4.5" ay="0.5" fill="url(#wave)"
+              h="=8 + (14 + 140*smooth(0.4, 0.7, T) * (1 - smooth(3.02, 3.42, T))*noise(T*7 + i*0.9)*(0.55 + 0.45*sin(i*0.31 + T*2))) * (0.45 + 0.55*noise(i*0.5 + T*0.8))"/>
+      </group>
+    </scene>
+    <scene id="q6" dur="9.51" chapter="@ch_q6">
+      <say at="0.5" text="@vo_q6" voice="am_michael"/>
+      <!-- speaker chip -->
+      <group x="860" y="400" x.portrait="80" y.portrait="990" opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <circle x="34" r="34" fill="#7fd1ff"/>
+        <circle x="34" r="=34 + 10*smooth(0.4, 0.7, T) * (1 - smooth(7.81, 8.21, T))*noise(T*5)" fill="none" stroke="#7fd1ff" sw="3" opacity="0.6"/>
+        <text x="34" y="1" size="26" weight="800" align="center" fill="#14121f" text="LB"/>
+        <text x="88" y="-12" size="32" weight="700" fill="#fff" text="Dr. Leo Brandt"/>
+        <text x="88" y="22" size="24" fill="$muted" text="Sleep researcher"/>
+      </group>
+      <!-- pull quote: dim full text + word-by-word bright reveal -->
+      <group opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <text x="900" y="510" x.portrait="100" y.portrait="1195" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="The trash piles up. One bad night"/>
+        <text x="900" y="510" x.portrait="100" y.portrait="1195" font="Playfair Display" size="54" weight="600" fill="#fff" text="The trash piles up. One bad night"><keys prop="reveal" ease="step" v="0: 0; 0.65: 0.1212; 0.90: 0.3030; 1.26: 0.4848; 1.62: 0.6061; 1.93: 0.7273; 2.18: 0.8485; 2.43: 1.0000"/></text>
+        <text x="900" y="580" x.portrait="100" y.portrait="1265" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="won't hurt you, but a habit of short"/>
+        <text x="900" y="580" x.portrait="100" y.portrait="1265" font="Playfair Display" size="54" weight="600" fill="#fff" text="won't hurt you, but a habit of short"><keys prop="reveal" ease="step" v="0: 0; 2.79: 0.1667; 3.09: 0.3056; 3.40: 0.4444; 3.77: 0.5556; 4.02: 0.6111; 4.16: 0.7778; 4.52: 0.8611; 4.71: 1.0000"/></text>
+        <text x="900" y="650" x.portrait="100" y.portrait="1335" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="sleep is something your brain"/>
+        <text x="900" y="650" x.portrait="100" y.portrait="1335" font="Playfair Display" size="54" weight="600" fill="#fff" text="sleep is something your brain"><keys prop="reveal" ease="step" v="0: 0; 5.07: 0.2069; 5.43: 0.3103; 5.62: 0.6552; 6.20: 0.8276; 6.50: 1.0000"/></text>
+        <text x="900" y="720" x.portrait="100" y.portrait="1405" font="Playfair Display" size="54" weight="600" fill="#ffffff38" text="really notices."/>
+        <text x="900" y="720" x.portrait="100" y.portrait="1405" font="Playfair Display" size="54" weight="600" fill="#fff" text="really notices."><keys prop="reveal" ease="step" v="0: 0; 6.86: 0.4667; 7.27: 1.0000"/></text>
+        <text x="842" y="544" x.portrait="42" y.portrait="1229" font="Playfair Display" size="110" weight="700" fill="#7fd1ff" text="“"/>
+      </group>
+      <!-- waveform -->
+      <group x="860" y="885" x.portrait="80" y.portrait="1610">
+        <rect repeat="56" as="i" x="=i*16.4" w="9" r="4.5" ay="0.5" fill="url(#wave)"
+              h="=8 + (14 + 140*smooth(0.4, 0.7, T) * (1 - smooth(7.81, 8.21, T))*noise(T*7 + i*0.9)*(0.55 + 0.45*sin(i*0.31 + T*2))) * (0.45 + 0.55*noise(i*0.5 + T*0.8))"/>
+      </group>
+    </scene>
+    <scene id="q7" dur="7.51" chapter="@ch_q7">
+      <say at="0.5" text="@vo_q7" voice="af_heart"/>
+      <!-- speaker chip -->
+      <group x="860" y="400" x.portrait="80" y.portrait="990" opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <circle x="34" r="34" fill="#ffb347"/>
+        <circle x="34" r="=34 + 10*smooth(0.4, 0.7, T) * (1 - smooth(5.81, 6.21, T))*noise(T*5)" fill="none" stroke="#ffb347" sw="3" opacity="0.6"/>
+        <text x="34" y="1" size="26" weight="800" align="center" fill="#14121f" text="MO"/>
+        <text x="88" y="-12" size="32" weight="700" fill="#fff" text="Maya Okafor"/>
+        <text x="88" y="22" size="24" fill="$muted" text="Host"/>
+      </group>
+      <!-- pull quote: dim full text + word-by-word bright reveal -->
+      <group opacity="=min(1, T/0.35, (sdur - T)/0.35)">
+        <text x="900" y="494" x.portrait="100" y.portrait="1179" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="The full episode is out now."/>
+        <text x="900" y="494" x.portrait="100" y.portrait="1179" font="Playfair Display" size="62" weight="600" fill="#fff" text="The full episode is out now."><keys prop="reveal" ease="step" v="0: 0; 0.65: 0.1429; 0.87: 0.3214; 1.14: 0.6071; 1.55: 0.7143; 1.72: 0.8571; 1.94: 1.0000"/></text>
+        <text x="900" y="575" x.portrait="100" y.portrait="1260" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="Search for Night Shift, episode"/>
+        <text x="900" y="575" x.portrait="100" y.portrait="1260" font="Playfair Display" size="62" weight="600" fill="#fff" text="Search for Night Shift, episode"><keys prop="reveal" ease="step" v="0: 0; 2.26: 0.2258; 2.62: 0.3548; 2.84: 0.5484; 3.15: 0.7742; 3.57: 1.0000"/></text>
+        <text x="900" y="655" x.portrait="100" y.portrait="1340" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="forty seven, wherever you"/>
+        <text x="900" y="655" x.portrait="100" y.portrait="1340" font="Playfair Display" size="62" weight="600" fill="#fff" text="forty seven, wherever you"><keys prop="reveal" ease="step" v="0: 0; 3.98: 0.2400; 4.30: 0.5200; 4.72: 0.8800; 5.17: 1.0000"/></text>
+        <text x="900" y="736" x.portrait="100" y.portrait="1421" font="Playfair Display" size="62" weight="600" fill="#ffffff38" text="listen."/>
+        <text x="900" y="736" x.portrait="100" y.portrait="1421" font="Playfair Display" size="62" weight="600" fill="#fff" text="listen."><keys prop="reveal" ease="step" v="0: 0; 5.39: 1.0000"/></text>
+        <text x="842" y="528" x.portrait="42" y.portrait="1213" font="Playfair Display" size="110" weight="700" fill="#ffb347" text="“"/>
+      </group>
+      <!-- waveform -->
+      <group x="860" y="885" x.portrait="80" y.portrait="1610">
+        <rect repeat="56" as="i" x="=i*16.4" w="9" r="4.5" ay="0.5" fill="url(#wave)"
+              h="=8 + (14 + 140*smooth(0.4, 0.7, T) * (1 - smooth(5.81, 6.21, T))*noise(T*7 + i*0.9)*(0.55 + 0.45*sin(i*0.31 + T*2))) * (0.45 + 0.55*noise(i*0.5 + T*0.8))"/>
+      </group>
+    </scene>
+  </timeline>
+  <overlay>
+    <group x="860" y="980" x.portrait="80" y.portrait="1760">
+      <rect w="920" h="8" r="4" fill="#ffffff22"/>
+      <rect w="=920*t/dur" h="8" r="4" fill="$accent"/>
+      <circle x="=920*t/dur" y="4" r="11" fill="#fff"/>
+      <text y="44" size="26" fill="$muted" text="{fmt(floor((1384 + t)/60),0)}:{floor((1384 + t)%60) &lt; 10 ? '0' : ''}{fmt(floor((1384+t)%60),0)}"/>
+      <text x="920" y="44" size="26" align="right" fill="$muted" text="48:12"/>
+    </group>
+  </overlay>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_q1" lang="en" src="voice/podcast-audiogram/en/vo_q1.f5dca7a814.ogg" dur="5.01" hash="f5dca7a814" engine="kokoro:af_heart"/>
+    <voice say="vo_q2" lang="en" src="voice/podcast-audiogram/en/vo_q2.5f19f582a3.ogg" dur="7.21" hash="5f19f582a3" engine="kokoro:am_michael"/>
+    <voice say="vo_q3" lang="en" src="voice/podcast-audiogram/en/vo_q3.baea068d46.ogg" dur="5.41" hash="baea068d46" engine="kokoro:af_heart"/>
+    <voice say="vo_q4" lang="en" src="voice/podcast-audiogram/en/vo_q4.38392de7fd.ogg" dur="6.61" hash="38392de7fd" engine="kokoro:am_michael"/>
+    <voice say="vo_q5" lang="en" src="voice/podcast-audiogram/en/vo_q5.b168aaa929.ogg" dur="2.82" hash="b168aaa929" engine="kokoro:af_heart"/>
+    <voice say="vo_q6" lang="en" src="voice/podcast-audiogram/en/vo_q6.65492bd056.ogg" dur="7.61" hash="65492bd056" engine="kokoro:am_michael"/>
+    <voice say="vo_q7" lang="en" src="voice/podcast-audiogram/en/vo_q7.7731fb8e88.ogg" dur="5.61" hash="7731fb8e88" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

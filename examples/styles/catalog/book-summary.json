@@ -1,0 +1,11 @@
+{
+  "id": "book-summary",
+  "title": "Book summary",
+  "category": "Education",
+  "summary": "The Art of War in a minute: vector cover opens, pages turn, one idea per spread with a drawn icon and quote, takeaways.",
+  "duration": 68.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 22
+}

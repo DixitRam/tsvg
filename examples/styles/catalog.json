@@ -1,0 +1,734 @@
+[
+ {
+  "id": "product-screenshot-tour",
+  "title": "Product screenshot tour",
+  "category": "Product & software",
+  "summary": "Real screenshots in a browser frame: camera zooms into regions, a spotlight dims the rest, highlight boxes and callout pills with arrows.",
+  "duration": 58.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 14,
+  "style": "Product & software"
+ },
+ {
+  "id": "screencast-cursor",
+  "title": "Screencast tutorial",
+  "category": "Product & software",
+  "summary": "Screen-recording look: a vector cursor glides and clicks with ripples, typed input, a dropdown, drag and drop, REC badge and step captions.",
+  "duration": 60.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 30,
+  "style": "Product & software"
+ },
+ {
+  "id": "feature-onboarding",
+  "title": "App onboarding carousel",
+  "category": "Product & software",
+  "summary": "Onboarding pages: big friendly illustrations, a title and one line, stretching page dots, Skip/Next and swipe transitions.",
+  "duration": 54.5,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 18,
+  "style": "Product & software"
+ },
+ {
+  "id": "release-notes",
+  "title": "Release notes",
+  "category": "Product & software",
+  "summary": "What's new in v0.2: a version badge, a changelog with NEW/IMPROVED/FIXED chips, a live demo per entry and a before/after wipe.",
+  "duration": 56.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 20,
+  "style": "Product & software"
+ },
+ {
+  "id": "qa-bug-walkthrough",
+  "title": "QA bug walkthrough",
+  "category": "Product & software",
+  "summary": "A bug report as a video: ticket header, environment chips, repro steps beside a phone, expected vs actual, root cause and verdict stamps.",
+  "duration": 66,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 33,
+  "style": "Product & software"
+ },
+ {
+  "id": "mobile-app-walkthrough",
+  "title": "Mobile app walkthrough",
+  "category": "Product & software",
+  "summary": "A vector phone holds a real screenshot and vector screens: taps with ripples, slides, a bottom sheet and a turn to landscape.",
+  "duration": 55.5,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 30,
+  "style": "Product & software"
+ },
+ {
+  "id": "dashboard-kpi-tour",
+  "title": "Dashboard KPI tour",
+  "category": "Product & software",
+  "summary": "Analytics dashboard: KPI cards count up, sparklines and a 30-day line draw, bars grow, and a spotlight focuses one panel at a time.",
+  "duration": 57.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 20,
+  "style": "Business & reporting"
+ },
+ {
+  "id": "code-walkthrough",
+  "title": "Code walkthrough",
+  "category": "Product & software",
+  "summary": "An editor in JetBrains Mono with token colours, a moving line highlight, annotations beside lines and a unified diff that pushes lines down.",
+  "duration": 62,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 41,
+  "style": "Developer & engineering"
+ },
+ {
+  "id": "terminal-cli-demo",
+  "title": "Terminal CLI demo",
+  "category": "Product & software",
+  "summary": "Terminal recording: typed commands with a block cursor, output lines, progress bars and a success tick; modern or retro green CRT theme.",
+  "duration": 63,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 55,
+  "style": "Developer & engineering"
+ },
+ {
+  "id": "architecture-diagram",
+  "title": "Architecture diagram",
+  "category": "Product & software",
+  "summary": "Blueprint system diagram: services pop in, arrows draw on, packets flow along curves, and the camera zooms into one service to open it up.",
+  "duration": 61.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 59,
+  "style": "Developer & engineering"
+ },
+ {
+  "id": "math-animation-dark",
+  "title": "Dark maths animation",
+  "category": "Education & science",
+  "summary": "Axes draw on, a sine curve traces, a tangent slides and the slope becomes cosine; coloured equation terms and path morphs.",
+  "duration": 57,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 21.2,
+  "style": "education"
+ },
+ {
+  "id": "whiteboard-drawing",
+  "title": "Whiteboard drawing",
+  "category": "Education & science",
+  "summary": "Marker doodles draw stroke by stroke with handwritten notes: how habits stick, from cue to routine to reward.",
+  "duration": 66,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 17,
+  "style": "education"
+ },
+ {
+  "id": "chalkboard-lesson",
+  "title": "Chalkboard lesson",
+  "category": "Education & science",
+  "summary": "Green board, dusty chalk handwriting, pie diagrams, underlines and a circled answer: adding fractions step by step.",
+  "duration": 69,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 59,
+  "style": "education"
+ },
+ {
+  "id": "science-diagram",
+  "title": "Labelled science diagram",
+  "category": "Education & science",
+  "summary": "The water cycle built up part by part: numbered callouts with leader lines, flow arrows, rain and rivers in motion.",
+  "duration": 62,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 60,
+  "style": "education"
+ },
+ {
+  "id": "physics-simulation",
+  "title": "Physics simulation",
+  "category": "Education & science",
+  "summary": "Live motion from equations: a projectile with trace and vectors, a launch-angle sweep, pendulums with energy bars.",
+  "duration": 66,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 24,
+  "style": "education"
+ },
+ {
+  "id": "probability-visual",
+  "title": "Probability visual",
+  "category": "Education & science",
+  "summary": "Coin grid with a live heads counter, dice combinations and histograms that grow from flat into a bell curve.",
+  "duration": 66,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 38,
+  "style": "data"
+ },
+ {
+  "id": "quiz-countdown",
+  "title": "Quiz countdown",
+  "category": "Education & science",
+  "summary": "Game-show quiz: question card, four answers, a countdown ring, a pop reveal with confetti and a running score.",
+  "duration": 67,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 19,
+  "style": "entertainment"
+ },
+ {
+  "id": "flashcards-bilingual",
+  "title": "Bilingual flashcards (EN → GU)",
+  "category": "Education & science",
+  "summary": "English → Gujarati flashcards that flip to word, pronunciation and an example sentence; English or Gujarati captions.",
+  "duration": 68,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 15,
+  "style": "language"
+ },
+ {
+  "id": "step-by-step-howto",
+  "title": "Step-by-step how-to",
+  "category": "Education & science",
+  "summary": "Six numbered steps on a progress rail: terminal and browser illustrations, checklist ticks, light and dark themes.",
+  "duration": 66,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 39,
+  "style": "tutorial"
+ },
+ {
+  "id": "mind-map",
+  "title": "Mind map",
+  "category": "Education & science",
+  "summary": "A trip plan as a mind map: coloured branches grow from a central topic while the camera travels branch to branch.",
+  "duration": 62,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 64,
+  "style": "education"
+ },
+ {
+  "id": "collage-newsroom",
+  "title": "Collage newsroom",
+  "category": "News & data",
+  "summary": "Paper-texture collage: cut-out photos with tape, torn clippings, a highlighter over wire copy, red marker circles and a map pin.",
+  "duration": 59,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 4.5,
+  "style": "Storytelling"
+ },
+ {
+  "id": "bar-chart-race",
+  "title": "Bar chart race",
+  "category": "News & data",
+  "summary": "Ten countries' solar output 2015–2024: ranked bars slide past each other, driven by data() and a soft-rank <fn>, with a year counter.",
+  "duration": 60,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 36.5,
+  "style": "Data & science"
+ },
+ {
+  "id": "line-chart-reveal",
+  "title": "Line chart reveal",
+  "category": "News & data",
+  "summary": "Global temperature 1880–2024: the line draws through a growing clip, a shaded area follows, annotations pop in, warming stripes close.",
+  "duration": 66,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 40,
+  "style": "Data & science"
+ },
+ {
+  "id": "infographic-stats",
+  "title": "Infographic stats",
+  "category": "News & data",
+  "summary": "Food waste in numbers: big counters, plate and bin icon arrays, a donut chart and three labelled habit cards on flat colour blocks.",
+  "duration": 64,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 31,
+  "style": "Data & science"
+ },
+ {
+  "id": "map-route",
+  "title": "Map route",
+  "category": "News & data",
+  "summary": "A 1497 sea voyage on an antique map: the camera pans and zooms leg by leg as a dotted route and ship marker advance, with distance cards.",
+  "duration": 69.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 66,
+  "style": "Explainer"
+ },
+ {
+  "id": "history-timeline",
+  "title": "History timeline",
+  "category": "News & data",
+  "summary": "Two centuries of electricity: the camera pans along a dated line, photo and animated-icon cards rise in, a year counter follows.",
+  "duration": 60.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 40,
+  "style": "Storytelling"
+ },
+ {
+  "id": "documentary-ken-burns",
+  "title": "Documentary (Ken Burns)",
+  "category": "News & data",
+  "summary": "The vanishing night sky: slow pans and zooms on photos, cross-fades, letterbox, film grain, serif lower thirds and a drone bed.",
+  "duration": 60.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 24,
+  "style": "Storytelling"
+ },
+ {
+  "id": "news-bulletin",
+  "title": "TV news bulletin",
+  "category": "News & data",
+  "summary": "Breaking-news sting, headline bar, LIVE badge, on-air clock, lower thirds, data graphic and a scrolling ticker on a fictional heat story.",
+  "duration": 64,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 14,
+  "style": "Explainer"
+ },
+ {
+  "id": "weather-report",
+  "title": "Weather report",
+  "category": "News & data",
+  "summary": "Weekend forecast: a stylised region map with temperature bubbles, animated sun/cloud/rain/storm icons, a radar band, wind and a 5-day strip.",
+  "duration": 57.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 13,
+  "style": "Explainer"
+ },
+ {
+  "id": "market-recap",
+  "title": "Market recap",
+  "category": "News & data",
+  "summary": "Closing bell for fictional indices: green/red tiles with sparklines, data-driven candlesticks, gainers, losers, sector heatmap and ticker.",
+  "duration": 62.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 25,
+  "style": "Business & reporting"
+ },
+ {
+  "id": "flat-vector-science",
+  "title": "Flat vector science explainer",
+  "category": "Design aesthetics",
+  "summary": "Bright flat-vector space scene with cute round characters explains why Earth has seasons: tilt, not distance.",
+  "duration": 61,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 4,
+  "style": "Illustration"
+ },
+ {
+  "id": "isometric-explainer",
+  "title": "Isometric explainer",
+  "category": "Design aesthetics",
+  "summary": "Isometric blocks assemble a tiny cloud city and follow one photo backup from phone to edge servers.",
+  "duration": 55,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 5,
+  "style": "Illustration"
+ },
+ {
+  "id": "paper-cutout",
+  "title": "Paper cut-out stop motion",
+  "category": "Design aesthetics",
+  "summary": "Layered paper cut-outs with drop shadows and 8 fps jitter walk through making masala chai for two.",
+  "duration": 58,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 4,
+  "style": "Handmade"
+ },
+ {
+  "id": "retro-synthwave",
+  "title": "Retro synthwave",
+  "category": "Design aesthetics",
+  "summary": "Neon perspective grid, striped sunset sun, chrome type and VHS scanlines explain a synth: oscillator, filter, envelope.",
+  "duration": 56,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 3.5,
+  "style": "Retro"
+ },
+ {
+  "id": "swiss-minimal",
+  "title": "Swiss minimal typography",
+  "category": "Design aesthetics",
+  "summary": "Strict 12-column grid, huge bold sans and one red accent show why transit maps trade distance for clarity.",
+  "duration": 57.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 3,
+  "style": "Typography"
+ },
+ {
+  "id": "neon-glow",
+  "title": "Neon sign glow",
+  "category": "Design aesthetics",
+  "summary": "Flickering neon tubes on a brick wall explain how a neon sign glows: glass, gas, voltage and colour.",
+  "duration": 68,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 4,
+  "style": "Retro"
+ },
+ {
+  "id": "blueprint-technical",
+  "title": "Blueprint technical drawing",
+  "category": "Design aesthetics",
+  "summary": "White line drawings, dimension lines and callouts on a blueprint grid work out bicycle gear ratios.",
+  "duration": 65,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 6,
+  "style": "Technical"
+ },
+ {
+  "id": "glitch-tech",
+  "title": "Cyber glitch tech",
+  "category": "Design aesthetics",
+  "summary": "RGB-split, band-sliced type, data rain and scanlines explain why passwords leak and how passkeys fix it.",
+  "duration": 62,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 4.6,
+  "style": "Tech"
+ },
+ {
+  "id": "sketchnote-doodle",
+  "title": "Sketchnote doodle",
+  "category": "Design aesthetics",
+  "summary": "Hand-drawn wobbly boxes, arrows, sticky notes and highlighter on dotted paper: how to run a good team retro.",
+  "duration": 66,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 6,
+  "style": "Handmade"
+ },
+ {
+  "id": "kinetic-typography",
+  "title": "Kinetic typography",
+  "category": "Design aesthetics",
+  "summary": "Big condensed words fly in as they are spoken, with colour flips per line: packing for a week in one bag.",
+  "duration": 53.6,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 3.5,
+  "style": "Typography"
+ },
+ {
+  "id": "social-short-vertical",
+  "title": "Vertical social short",
+  "category": "Marketing & social",
+  "summary": "Portrait-first reel: a one-second hook, word-by-word highlighted captions, quick colour cuts, vector stickers and a top progress bar.",
+  "duration": 51.6,
+  "layouts": [
+   "portrait",
+   "landscape"
+  ],
+  "thumbT": 25,
+  "style": "Social"
+ },
+ {
+  "id": "podcast-audiogram",
+  "title": "Podcast audiogram",
+  "category": "Marketing & social",
+  "summary": "Square cover art, a live waveform driven by noise, two speakers and a pull quote that lights up word by word.",
+  "duration": 54.9,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 13,
+  "style": "Audio & social"
+ },
+ {
+  "id": "lyric-karaoke",
+  "title": "Lyric / karaoke video",
+  "category": "Marketing & social",
+  "summary": "A spoken poem with a gold sweep across the current line, the next line previewed, over a night sea with a sweeping lighthouse beam.",
+  "duration": 52.9,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 7,
+  "style": "Audio & social"
+ },
+ {
+  "id": "quote-cards",
+  "title": "Quote cards",
+  "category": "Marketing & social",
+  "summary": "Elegant serif quotes on slowly zooming photos with a frosted-glass card, author line and fade-through-black card transitions.",
+  "duration": 56,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 12,
+  "style": "Social & short-form"
+ },
+ {
+  "id": "listicle-countdown",
+  "title": "Top-5 countdown listicle",
+  "category": "Marketing & social",
+  "summary": "Big numbers counting 5 to 1, an illustrated item per entry with a stat bar, and a #1 reveal with rays and confetti.",
+  "duration": 68.1,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 56,
+  "style": "Social & short-form"
+ },
+ {
+  "id": "promo-ad-spot",
+  "title": "Product promo ad",
+  "category": "Marketing & social",
+  "summary": "Punchy product spot: vector logo burst, feature punches cut on a 120 BPM beat, animated gauges and a pulsing price/CTA end card.",
+  "duration": 53.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 52,
+  "style": "Marketing"
+ },
+ {
+  "id": "event-countdown",
+  "title": "Event announcement countdown",
+  "category": "Marketing & social",
+  "summary": "Save-the-date event promo: gradient title, calendar and venue cards, a live flip-clock countdown, speaker avatars, agenda and register CTA.",
+  "duration": 55.2,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 22.95,
+  "style": "Marketing"
+ },
+ {
+  "id": "testimonial-cards",
+  "title": "Customer testimonials",
+  "category": "Marketing & social",
+  "summary": "Review cards slide in with initials avatars, star ratings that fill, typed quotes, then a rating summary bar chart and CTA.",
+  "duration": 60.1,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 16,
+  "style": "Marketing"
+ },
+ {
+  "id": "pitch-deck-metrics",
+  "title": "Pitch deck video",
+  "category": "Marketing & social",
+  "summary": "Slide-style startup pitch: problem, solution, TAM/SAM/SOM, a traction chart that draws itself, team, and a use-of-funds donut.",
+  "duration": 69.9,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 44,
+  "style": "Business"
+ },
+ {
+  "id": "keynote-slideshow",
+  "title": "Keynote slideshow",
+  "category": "Marketing & social",
+  "summary": "Conference-talk slides: big gradient titles, numbered bullet build-ins, Ken Burns photo slides, a bar chart and push/fade transitions.",
+  "duration": 58.6,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 35,
+  "style": "Presentation"
+ },
+ {
+  "id": "recipe-card",
+  "title": "Recipe card",
+  "category": "Practical & everyday",
+  "summary": "Overhead kitchen recipe: thali photo, ingredient checklist ticking off, step cards with countdown-ring timers. Gujarati dal.",
+  "duration": 66,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 25,
+  "style": "Food & lifestyle"
+ },
+ {
+  "id": "comparison-versus",
+  "title": "Versus comparison",
+  "category": "Practical & everyday",
+  "summary": "Split-screen A vs B: electric vs petrol scooter over five rounds, bars per side, a winner badge per row, running score.",
+  "duration": 63,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 51,
+  "style": "Comparison"
+ },
+ {
+  "id": "before-after-slider",
+  "title": "Before / after slider",
+  "category": "Practical & everyday",
+  "summary": "A vertical slider sweeps a clip between two states: cluttered vs clean settings page, results card, hazy vs edited photo.",
+  "duration": 63.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 20,
+  "style": "Design & product"
+ },
+ {
+  "id": "flowchart-decision",
+  "title": "Decision-tree flowchart",
+  "category": "Practical & everyday",
+  "summary": "Blueprint decision tree: diamonds and yes/no branches draw on, a token walks a real bug through it, the outcome lights up.",
+  "duration": 65.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 46,
+  "style": "Explainer"
+ },
+ {
+  "id": "kanban-status-report",
+  "title": "Kanban status report",
+  "category": "Practical & everyday",
+  "summary": "Sprint status on a kanban board: cards slide between columns, burndown with projection, risks callout, one ask.",
+  "duration": 62.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 18.5,
+  "style": "Business & reporting"
+ },
+ {
+  "id": "sports-tactics",
+  "title": "Sports tactics board",
+  "category": "Practical & everyday",
+  "summary": "Football tactics: vector pitch, player dots on keyed paths, run and pass arrows drawing on, highlighted zones, camera zoom.",
+  "duration": 61.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 48.5,
+  "style": "Sports"
+ },
+ {
+  "id": "meditation-breathing",
+  "title": "Guided breathing",
+  "category": "Practical & everyday",
+  "summary": "Calm 4-4-6 breathing guide: soft gradient, a circle that grows and shrinks with the breath, phase arc and counts.",
+  "duration": 69.5,
+  "layouts": [
+   "landscape",
+   "portrait"
+  ],
+  "thumbT": 21,
+  "style": "Wellness"
+ },
+ {
+  "id": "book-summary",
+  "title": "Book summary",
+  "category": "Practical & everyday",
+  "summary": "The Art of War in a minute: vector cover opens, pages turn, one idea per spread with a drawn icon and quote, takeaways.",
+  "duration": 68.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 22,
+  "style": "Education"
+ },
+ {
+  "id": "pictogram-people",
+  "title": "Pictogram people",
+  "category": "Practical & everyday",
+  "summary": "Herd immunity with 100 icon people: infection spreading, 70 immune, outbreak fizzling, people regrouping, threshold chart.",
+  "duration": 66,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 15,
+  "style": "Data & science"
+ },
+ {
+  "id": "comic-storyboard",
+  "title": "Comic storyboard",
+  "category": "Practical & everyday",
+  "summary": "Six-panel comic revealed panel by panel with a moving camera: speech bubbles, captions, halftone dots, POP! lettering.",
+  "duration": 55.5,
+  "layouts": [
+   "landscape"
+  ],
+  "thumbT": 50,
+  "style": "Storytelling"
+ }
+]

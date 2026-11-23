@@ -1,0 +1,11 @@
+{
+  "id": "sports-tactics",
+  "title": "Sports tactics board",
+  "category": "Sports",
+  "summary": "Football tactics: vector pitch, player dots on keyed paths, run and pass arrows drawing on, highlighted zones, camera zoom.",
+  "duration": 61.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 48.5
+}

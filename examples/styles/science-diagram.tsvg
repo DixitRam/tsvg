@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: labelled science diagram. Parts appear one by one with callouts, leader lines and flow arrows. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bf_emma"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" default="textbook"><choice id="textbook" label="Textbook"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.25" sfx="0.5"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="textbook" bg="#eef5f8" fg="#1d3347" line="#1d3347" muted="#4c6275" accent="#e0663a" sun="#ffc83d" vapour="#e0663a" water="#2f7fc1" rain="#3b82c4" leaf="#4fa64a"/></themes>
+  <strings>
+    <s id="title" en="The water cycle"/>
+    <s id="sub" en="How every drop keeps moving"/>
+    <s id="ch1" en="Overview"/>
+    <s id="ch2" en="Evaporation"/>
+    <s id="ch3" en="Condensation"/>
+    <s id="ch4" en="Precipitation"/>
+    <s id="ch5" en="Collection"/>
+    <s id="ch6" en="Transpiration"/>
+    <s id="ch7" en="The cycle"/>
+    <s id="l1" en="Evaporation"/>
+    <s id="l2" en="Condensation"/>
+    <s id="l3" en="Precipitation"/>
+    <s id="l4" en="Collection"/>
+    <s id="l5" en="Transpiration"/>
+    <s id="gw" en="groundwater"/>
+    <s id="sun" en="Sun"/>
+    <s id="ocean" en="Ocean"/>
+    <s id="d1" en="Warm water becomes vapour"/>
+    <s id="d2" en="Vapour cools into clouds"/>
+    <s id="d3" en="Falls as rain or snow"/>
+    <s id="d4" en="Water flows back to the sea"/>
+    <s id="d5" en="Leaves give off vapour"/>
+    <s id="fig" en="Fig. 1 · The water cycle"/>
+    <s id="again" en="The same water, again and again."/>
+    <s id="n1" en="1"/>
+    <s id="n2" en="2"/>
+    <s id="n3" en="3"/>
+    <s id="n4" en="4"/>
+    <s id="n5" en="5"/>
+    <s id="vo1" en="Every drop of water on Earth is on a journey. Here is the water cycle, one stage at a time."/>
+    <s id="vo2" en="The sun warms the ocean. Water at the surface turns into vapour, and rises into the air."/>
+    <s id="vo3" en="High up, the air is cold. The vapour condenses into tiny droplets, which gather as clouds."/>
+    <s id="vo4" en="When the droplets grow heavy, they fall as rain, or as snow on the mountain tops."/>
+    <s id="vo5" en="Rivers and groundwater carry that water downhill, back to the sea."/>
+    <s id="vo6" en="Plants return water too. They draw it up from the soil, and release it from their leaves."/>
+    <s id="vo7" en="Round and round it goes. The water you drink today may once have rained on dinosaurs."/>
+  </strings>
+  <defs>
+    <linear id="sky" x1="0" y1="0" x2="0" y2="900"><stop at="0" color="#bfe0f3"/><stop at="1" color="#f3f9fb"/></linear>
+    <linear id="sea" x1="0" y1="820" x2="0" y2="1080"><stop at="0" color="#3f93cf"/><stop at="1" color="#1f5f99"/></linear>
+    <linear id="land" x1="0" y1="380" x2="0" y2="920"><stop at="0" color="#a8b48a"/><stop at="0.45" color="#8fc06d"/><stop at="1" color="#6aa152"/></linear>
+    <radial id="sunG" x="-20" y="-20" r="110"><stop at="0" color="#fff1a8"/><stop at="1" color="#ffc23a"/></radial>
+  </defs>
+  <assets>
+    <asset id="pad" src="audio/pad.ogg"/><asset id="pop" src="audio/pop.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.7"/>
+  <backdrop>
+      <rect w="1920" h="1080" fill="url(#sky)"/>
+      <rect x="0" y="820" w="980" h="260" fill="url(#sea)"/>
+      <path d="M 0 822 Q 40 810 80 822 T 160 822 T 240 822 T 320 822 T 400 822 T 480 822 T 560 822 T 640 822 T 720 822 T 800 822 T 880 822 T 960 822" stroke="#e8f6ff" sw="4" fill="none" x="=-40 + 40*fract(t/3)"/>
+      <path d="M 720 840 Q 820 800 940 808 L 1120 792 L 1300 600 L 1450 380 L 1560 560 L 1700 470 L 1920 690 L 1920 1080 L 720 1080 Z" fill="url(#land)" stroke="$line" sw="3"/>
+      <rect x="720" y="920" w="1200" h="160" fill="#8b6a4a"/>
+      <path d="M 720 920 L 1920 920" stroke="$line" sw="3"/>
+      <circle repeat="40" as="k" x="=740 + rand(k)*1160" y="=940 + rand(k+3)*120" r="=3 + rand(k+1)*4" fill="#6e5238"/>
+      <text x="200" y="900" size="34" weight="700" fill="#e8f6ff" text="@ocean"/>
+  </backdrop>
+  <overlay>
+    <text x="1880" y="1050" size="24" align="right" fill="#f4ead8" text="@fig"/>
+  </overlay>
+  <timeline>
+    <scene id="overview" dur="8" chapter="@ch1">
+      <say at="0.4" text="@vo1"/>
+      <sfx at="2.4" src="pop"/>
+      <group at="-30"><group x="230" y="190"><group rot="=t*8"><group rot="0"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="30"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="60"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="90"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="120"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="150"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="180"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="210"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="240"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="270"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="300"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="330"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group></group>
+        <circle r="92" fill="url(#sunG)" stroke="#e0a21a" sw="3"/></group>
+        <text x="230" y="358" size="30" weight="700" align="center" fill="$line" text="@sun"/></group>
+      <group x="1360" y="140"><anim prop="opacity" from="0" to="1" dur="0.8"/><rect x="-330" y="-70" w="660" h="170" r="22" fill="#ffffffdd" stroke="$line" sw="2.5" shadow="0 10 24 #1c2b3a33"/>
+        <text x="0" y="-8" size="72" weight="800" align="center" fill="$line" text="@title"/><text x="0" y="60" size="32" align="center" fill="$muted" text="@sub"/></group>
+    </scene>
+    <scene id="evap" dur="9" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="2.4" src="pop"/>
+      <group at="-30"><group x="230" y="190"><group rot="=t*8"><group rot="0"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="30"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="60"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="90"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="120"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="150"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="180"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="210"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="240"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="270"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="300"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="330"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group></group>
+        <circle r="92" fill="url(#sunG)" stroke="#e0a21a" sw="3"/></group>
+        <text x="230" y="358" size="30" weight="700" align="center" fill="$line" text="@sun"/></group>
+      <group at="0"><path d="M 300 790 C 322 740 278 700 300 650 S 278 560 300 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.6" dur="1.4" ease="io"/></path><path d="M 311.3 458.9 L 300 440 L 288.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="1.9" dur="0.15"/></path><path d="M 430 790 C 452 740 408 700 430 650 S 408 560 430 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.95" dur="1.4" ease="io"/></path><path d="M 441.3 458.9 L 430 440 L 418.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.2499999999999996" dur="0.15"/></path><path d="M 560 790 C 582 740 538 700 560 650 S 538 560 560 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="1.2999999999999998" dur="1.4" ease="io"/></path><path d="M 571.3 458.9 L 560 440 L 548.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.5999999999999996" dur="0.15"/></path>
+        <circle repeat="14" as="k" x="=300 + (k%3)*130 + 18*sin(t*2 + k)" y="=790 - fract(t*0.25 + rand(k))*360" r="=5 + rand(k+3)*5" fill="$vapour" opacity="=0.7*(1 - fract(t*0.25 + rand(k)))"/>
+        <group>
+        <circle x="560" y="560" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.2" dur="0.2"/></circle>
+        <line x1="560" y1="560" x2="640" y2="480" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.2" dur="0.5" ease="io"/></line>
+        <group x="640" y="422"><anim prop="opacity" from="0" to="1" at="2.6500000000000004" dur="0.4"/><anim prop="y" from="440" to="422" at="2.6500000000000004" dur="0.4"/>
+          <rect w="400" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n1"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l1"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d1"/>
+        </group>
+      </group></group>
+      
+      
+      
+      
+    </scene>
+    <scene id="cond" dur="9" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="2.4" src="pop"/>
+      <group at="-30"><group x="230" y="190"><group rot="=t*8"><group rot="0"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="30"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="60"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="90"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="120"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="150"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="180"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="210"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="240"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="270"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="300"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="330"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group></group>
+        <circle r="92" fill="url(#sunG)" stroke="#e0a21a" sw="3"/></group>
+        <text x="230" y="358" size="30" weight="700" align="center" fill="$line" text="@sun"/></group>
+      <group at="-30"><path d="M 300 790 C 322 740 278 700 300 650 S 278 560 300 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.6" dur="1.4" ease="io"/></path><path d="M 311.3 458.9 L 300 440 L 288.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="1.9" dur="0.15"/></path><path d="M 430 790 C 452 740 408 700 430 650 S 408 560 430 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.95" dur="1.4" ease="io"/></path><path d="M 441.3 458.9 L 430 440 L 418.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.2499999999999996" dur="0.15"/></path><path d="M 560 790 C 582 740 538 700 560 650 S 538 560 560 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="1.2999999999999998" dur="1.4" ease="io"/></path><path d="M 571.3 458.9 L 560 440 L 548.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.5999999999999996" dur="0.15"/></path>
+        <circle repeat="14" as="k" x="=300 + (k%3)*130 + 18*sin(t*2 + k)" y="=790 - fract(t*0.25 + rand(k))*360" r="=5 + rand(k+3)*5" fill="$vapour" opacity="=0.7*(1 - fract(t*0.25 + rand(k)))"/>
+        <group>
+        <circle x="560" y="560" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.2" dur="0.2"/></circle>
+        <line x1="560" y1="560" x2="640" y2="480" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.2" dur="0.5" ease="io"/></line>
+        <group x="640" y="422"><anim prop="opacity" from="0" to="1" at="2.6500000000000004" dur="0.4"/><anim prop="y" from="440" to="422" at="2.6500000000000004" dur="0.4"/>
+          <rect w="400" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n1"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l1"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d1"/>
+        </group>
+      </group></group>
+      <group at="0"><group x="700" y="250"><anim prop="opacity" from="0" to="1" at="0.5" dur="0.8"/><anim prop="scale" from="0.6" to="1" at="0.5" dur="1.4" ease="back"/><group x="0" y="0" scale="0.9"><ellipse x="0" y="20" rx="150" ry="52" fill="#ffffff" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#ffffff" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#ffffff" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#ffffff" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#ffffff"/><circle x="10" y="-26" r="72" fill="#ffffff"/></group></group>
+        <group x="=sin(t*0.3)*14"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.8"/><group x="1270" y="230" scale="1.15"><ellipse x="0" y="20" rx="150" ry="52" fill="#e9eef3" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#e9eef3" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#e9eef3" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#e9eef3" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#e9eef3"/><circle x="10" y="-26" r="72" fill="#e9eef3"/></group></group>
+        <path d="M 860 250 Q 980 200 1080 230" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="2.2" dur="0.8" ease="io"/></path><path d="M 1058.9 236.1 L 1080 230 L 1064.7 214.2" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.9" dur="0.15"/></path>
+        <group>
+        <circle x="700" y="175" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.8" dur="0.2"/></circle>
+        <line x1="700" y1="175" x2="880" y2="110" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.8" dur="0.5" ease="io"/></line>
+        <group x="880" y="52"><anim prop="opacity" from="0" to="1" at="3.25" dur="0.4"/><anim prop="y" from="70" to="52" at="3.25" dur="0.4"/>
+          <rect w="386" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n2"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l2"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d2"/>
+        </group>
+      </group></group>
+      
+      
+      
+    </scene>
+    <scene id="precip" dur="9" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="2.4" src="pop"/>
+      <group at="-30"><group x="230" y="190"><group rot="=t*8"><group rot="0"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="30"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="60"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="90"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="120"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="150"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="180"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="210"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="240"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="270"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="300"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="330"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group></group>
+        <circle r="92" fill="url(#sunG)" stroke="#e0a21a" sw="3"/></group>
+        <text x="230" y="358" size="30" weight="700" align="center" fill="$line" text="@sun"/></group>
+      <group at="-30"><path d="M 300 790 C 322 740 278 700 300 650 S 278 560 300 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.6" dur="1.4" ease="io"/></path><path d="M 311.3 458.9 L 300 440 L 288.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="1.9" dur="0.15"/></path><path d="M 430 790 C 452 740 408 700 430 650 S 408 560 430 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.95" dur="1.4" ease="io"/></path><path d="M 441.3 458.9 L 430 440 L 418.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.2499999999999996" dur="0.15"/></path><path d="M 560 790 C 582 740 538 700 560 650 S 538 560 560 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="1.2999999999999998" dur="1.4" ease="io"/></path><path d="M 571.3 458.9 L 560 440 L 548.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.5999999999999996" dur="0.15"/></path>
+        <circle repeat="14" as="k" x="=300 + (k%3)*130 + 18*sin(t*2 + k)" y="=790 - fract(t*0.25 + rand(k))*360" r="=5 + rand(k+3)*5" fill="$vapour" opacity="=0.7*(1 - fract(t*0.25 + rand(k)))"/>
+        <group>
+        <circle x="560" y="560" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.2" dur="0.2"/></circle>
+        <line x1="560" y1="560" x2="640" y2="480" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.2" dur="0.5" ease="io"/></line>
+        <group x="640" y="422"><anim prop="opacity" from="0" to="1" at="2.6500000000000004" dur="0.4"/><anim prop="y" from="440" to="422" at="2.6500000000000004" dur="0.4"/>
+          <rect w="400" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n1"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l1"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d1"/>
+        </group>
+      </group></group>
+      <group at="-30"><group x="700" y="250"><anim prop="opacity" from="0" to="1" at="0.5" dur="0.8"/><anim prop="scale" from="0.6" to="1" at="0.5" dur="1.4" ease="back"/><group x="0" y="0" scale="0.9"><ellipse x="0" y="20" rx="150" ry="52" fill="#ffffff" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#ffffff" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#ffffff" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#ffffff" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#ffffff"/><circle x="10" y="-26" r="72" fill="#ffffff"/></group></group>
+        <group x="=sin(t*0.3)*14"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.8"/><group x="1270" y="230" scale="1.15"><ellipse x="0" y="20" rx="150" ry="52" fill="#e9eef3" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#e9eef3" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#e9eef3" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#e9eef3" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#e9eef3"/><circle x="10" y="-26" r="72" fill="#e9eef3"/></group></group>
+        <path d="M 860 250 Q 980 200 1080 230" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="2.2" dur="0.8" ease="io"/></path><path d="M 1058.9 236.1 L 1080 230 L 1064.7 214.2" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.9" dur="0.15"/></path>
+        <group>
+        <circle x="700" y="175" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.8" dur="0.2"/></circle>
+        <line x1="700" y1="175" x2="880" y2="110" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.8" dur="0.5" ease="io"/></line>
+        <group x="880" y="52"><anim prop="opacity" from="0" to="1" at="3.25" dur="0.4"/><anim prop="y" from="70" to="52" at="3.25" dur="0.4"/>
+          <rect w="386" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n2"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l2"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d2"/>
+        </group>
+      </group></group>
+      <group at="0"><group><anim prop="opacity" from="0" to="1" at="0.4" dur="0.6"/>
+          <line repeat="46" as="k" x1="=1140 + rand(k)*280 - 0.2*fract(t*1.1 + rand(k+9))*220" y1="=320 + fract(t*1.1 + rand(k+9))*220" x2="=1134 + rand(k)*280 - 0.2*fract(t*1.1 + rand(k+9))*220" y2="=346 + fract(t*1.1 + rand(k+9))*220" stroke="$rain" sw="4"/>
+          <circle repeat="16" as="k" x="=1640 + rand(k+2)*130 + 10*sin(t*2+k)" y="=330 + fract(t*0.4 + rand(k+5))*150" r="6" fill="#fff" stroke="#9db4c8" sw="1.5"/>
+        </group>
+        <path d="M 1405 445 L 1450 380 L 1495 445 L 1472 436 L 1452 455 L 1430 434 Z" fill="#ffffff" stroke="$line" sw="2.5"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.6"/></path>
+        <path d="M 1662 515 L 1700 470 L 1742 520 L 1718 510 L 1700 528 L 1682 508 Z" fill="#ffffff" stroke="$line" sw="2.5"><anim prop="opacity" from="0" to="1" at="1.6" dur="0.6"/></path>
+        <group>
+        <circle x="1330" y="420" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2" dur="0.2"/></circle>
+        <line x1="1330" y1="420" x2="1480" y2="250" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2" dur="0.5" ease="io"/></line>
+        <group x="1480" y="192"><anim prop="opacity" from="0" to="1" at="2.45" dur="0.4"/><anim prop="y" from="210" to="192" at="2.45" dur="0.4"/>
+          <rect w="373" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n3"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l3"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d3"/>
+        </group>
+      </group></group>
+      
+      
+    </scene>
+    <scene id="coll" dur="9" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="2.4" src="pop"/>
+      <group at="-30"><group x="230" y="190"><group rot="=t*8"><group rot="0"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="30"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="60"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="90"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="120"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="150"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="180"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="210"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="240"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="270"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="300"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="330"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group></group>
+        <circle r="92" fill="url(#sunG)" stroke="#e0a21a" sw="3"/></group>
+        <text x="230" y="358" size="30" weight="700" align="center" fill="$line" text="@sun"/></group>
+      <group at="-30"><path d="M 300 790 C 322 740 278 700 300 650 S 278 560 300 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.6" dur="1.4" ease="io"/></path><path d="M 311.3 458.9 L 300 440 L 288.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="1.9" dur="0.15"/></path><path d="M 430 790 C 452 740 408 700 430 650 S 408 560 430 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.95" dur="1.4" ease="io"/></path><path d="M 441.3 458.9 L 430 440 L 418.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.2499999999999996" dur="0.15"/></path><path d="M 560 790 C 582 740 538 700 560 650 S 538 560 560 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="1.2999999999999998" dur="1.4" ease="io"/></path><path d="M 571.3 458.9 L 560 440 L 548.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.5999999999999996" dur="0.15"/></path>
+        <circle repeat="14" as="k" x="=300 + (k%3)*130 + 18*sin(t*2 + k)" y="=790 - fract(t*0.25 + rand(k))*360" r="=5 + rand(k+3)*5" fill="$vapour" opacity="=0.7*(1 - fract(t*0.25 + rand(k)))"/>
+        <group>
+        <circle x="560" y="560" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.2" dur="0.2"/></circle>
+        <line x1="560" y1="560" x2="640" y2="480" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.2" dur="0.5" ease="io"/></line>
+        <group x="640" y="422"><anim prop="opacity" from="0" to="1" at="2.6500000000000004" dur="0.4"/><anim prop="y" from="440" to="422" at="2.6500000000000004" dur="0.4"/>
+          <rect w="400" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n1"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l1"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d1"/>
+        </group>
+      </group></group>
+      <group at="-30"><group x="700" y="250"><anim prop="opacity" from="0" to="1" at="0.5" dur="0.8"/><anim prop="scale" from="0.6" to="1" at="0.5" dur="1.4" ease="back"/><group x="0" y="0" scale="0.9"><ellipse x="0" y="20" rx="150" ry="52" fill="#ffffff" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#ffffff" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#ffffff" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#ffffff" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#ffffff"/><circle x="10" y="-26" r="72" fill="#ffffff"/></group></group>
+        <group x="=sin(t*0.3)*14"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.8"/><group x="1270" y="230" scale="1.15"><ellipse x="0" y="20" rx="150" ry="52" fill="#e9eef3" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#e9eef3" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#e9eef3" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#e9eef3" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#e9eef3"/><circle x="10" y="-26" r="72" fill="#e9eef3"/></group></group>
+        <path d="M 860 250 Q 980 200 1080 230" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="2.2" dur="0.8" ease="io"/></path><path d="M 1058.9 236.1 L 1080 230 L 1064.7 214.2" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.9" dur="0.15"/></path>
+        <group>
+        <circle x="700" y="175" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.8" dur="0.2"/></circle>
+        <line x1="700" y1="175" x2="880" y2="110" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.8" dur="0.5" ease="io"/></line>
+        <group x="880" y="52"><anim prop="opacity" from="0" to="1" at="3.25" dur="0.4"/><anim prop="y" from="70" to="52" at="3.25" dur="0.4"/>
+          <rect w="386" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n2"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l2"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d2"/>
+        </group>
+      </group></group>
+      <group at="-30"><group><anim prop="opacity" from="0" to="1" at="0.4" dur="0.6"/>
+          <line repeat="46" as="k" x1="=1140 + rand(k)*280 - 0.2*fract(t*1.1 + rand(k+9))*220" y1="=320 + fract(t*1.1 + rand(k+9))*220" x2="=1134 + rand(k)*280 - 0.2*fract(t*1.1 + rand(k+9))*220" y2="=346 + fract(t*1.1 + rand(k+9))*220" stroke="$rain" sw="4"/>
+          <circle repeat="16" as="k" x="=1640 + rand(k+2)*130 + 10*sin(t*2+k)" y="=330 + fract(t*0.4 + rand(k+5))*150" r="6" fill="#fff" stroke="#9db4c8" sw="1.5"/>
+        </group>
+        <path d="M 1405 445 L 1450 380 L 1495 445 L 1472 436 L 1452 455 L 1430 434 Z" fill="#ffffff" stroke="$line" sw="2.5"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.6"/></path>
+        <path d="M 1662 515 L 1700 470 L 1742 520 L 1718 510 L 1700 528 L 1682 508 Z" fill="#ffffff" stroke="$line" sw="2.5"><anim prop="opacity" from="0" to="1" at="1.6" dur="0.6"/></path>
+        <group>
+        <circle x="1330" y="420" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2" dur="0.2"/></circle>
+        <line x1="1330" y1="420" x2="1480" y2="250" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2" dur="0.5" ease="io"/></line>
+        <group x="1480" y="192"><anim prop="opacity" from="0" to="1" at="2.45" dur="0.4"/><anim prop="y" from="210" to="192" at="2.45" dur="0.4"/>
+          <rect w="373" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n3"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l3"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d3"/>
+        </group>
+      </group></group>
+      <group at="0"><path d="M 1440 470 C 1400 560 1330 600 1260 640 S 1120 720 1000 760 S 860 820 780 840" stroke="$water" sw="16" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="2.2" ease="io"/></path>
+        <path d="M 1440 470 C 1400 560 1330 600 1260 640 S 1120 720 1000 760 S 860 820 780 840" stroke="#bfe3ff" sw="5" fill="none" draw="=fract(t/2.2)" opacity="0.8"><anim prop="opacity" from="0" to="0.8" at="2.6" dur="0.3"/></path>
+        <group><anim prop="opacity" from="0" to="1" at="2.4" dur="0.5"/>
+          <path d="M 1500 975 L 860 975" stroke="$water" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="2.4" dur="1.6" ease="io"/></path><path d="M 878.9 963.7 L 860 975 L 878.9 986.3" stroke="$water" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="3.9" dur="0.15"/></path>
+          <text x="1180" y="1030" size="30" weight="600" align="center" fill="#f4ead8" text="@gw"/>
+        </group>
+        <group>
+        <circle x="1300" y="620" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="3" dur="0.2"/></circle>
+        <line x1="1300" y1="620" x2="1480" y2="650" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="3" dur="0.5" ease="io"/></line>
+        <group x="1480" y="592"><anim prop="opacity" from="0" to="1" at="3.45" dur="0.4"/><anim prop="y" from="610" to="592" at="3.45" dur="0.4"/>
+          <rect w="428" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n4"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l4"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d4"/>
+        </group>
+      </group></group>
+      
+    </scene>
+    <scene id="transp" dur="9" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="2.4" src="pop"/>
+      <group at="-30"><group x="230" y="190"><group rot="=t*8"><group rot="0"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="30"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="60"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="90"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="120"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="150"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="180"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="210"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="240"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="270"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="300"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="330"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group></group>
+        <circle r="92" fill="url(#sunG)" stroke="#e0a21a" sw="3"/></group>
+        <text x="230" y="358" size="30" weight="700" align="center" fill="$line" text="@sun"/></group>
+      <group at="-30"><path d="M 300 790 C 322 740 278 700 300 650 S 278 560 300 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.6" dur="1.4" ease="io"/></path><path d="M 311.3 458.9 L 300 440 L 288.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="1.9" dur="0.15"/></path><path d="M 430 790 C 452 740 408 700 430 650 S 408 560 430 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.95" dur="1.4" ease="io"/></path><path d="M 441.3 458.9 L 430 440 L 418.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.2499999999999996" dur="0.15"/></path><path d="M 560 790 C 582 740 538 700 560 650 S 538 560 560 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="1.2999999999999998" dur="1.4" ease="io"/></path><path d="M 571.3 458.9 L 560 440 L 548.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.5999999999999996" dur="0.15"/></path>
+        <circle repeat="14" as="k" x="=300 + (k%3)*130 + 18*sin(t*2 + k)" y="=790 - fract(t*0.25 + rand(k))*360" r="=5 + rand(k+3)*5" fill="$vapour" opacity="=0.7*(1 - fract(t*0.25 + rand(k)))"/>
+        <group>
+        <circle x="560" y="560" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.2" dur="0.2"/></circle>
+        <line x1="560" y1="560" x2="640" y2="480" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.2" dur="0.5" ease="io"/></line>
+        <group x="640" y="422"><anim prop="opacity" from="0" to="1" at="2.6500000000000004" dur="0.4"/><anim prop="y" from="440" to="422" at="2.6500000000000004" dur="0.4"/>
+          <rect w="400" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n1"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l1"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d1"/>
+        </group>
+      </group></group>
+      <group at="-30"><group x="700" y="250"><anim prop="opacity" from="0" to="1" at="0.5" dur="0.8"/><anim prop="scale" from="0.6" to="1" at="0.5" dur="1.4" ease="back"/><group x="0" y="0" scale="0.9"><ellipse x="0" y="20" rx="150" ry="52" fill="#ffffff" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#ffffff" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#ffffff" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#ffffff" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#ffffff"/><circle x="10" y="-26" r="72" fill="#ffffff"/></group></group>
+        <group x="=sin(t*0.3)*14"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.8"/><group x="1270" y="230" scale="1.15"><ellipse x="0" y="20" rx="150" ry="52" fill="#e9eef3" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#e9eef3" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#e9eef3" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#e9eef3" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#e9eef3"/><circle x="10" y="-26" r="72" fill="#e9eef3"/></group></group>
+        <path d="M 860 250 Q 980 200 1080 230" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="2.2" dur="0.8" ease="io"/></path><path d="M 1058.9 236.1 L 1080 230 L 1064.7 214.2" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.9" dur="0.15"/></path>
+        <group>
+        <circle x="700" y="175" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.8" dur="0.2"/></circle>
+        <line x1="700" y1="175" x2="880" y2="110" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.8" dur="0.5" ease="io"/></line>
+        <group x="880" y="52"><anim prop="opacity" from="0" to="1" at="3.25" dur="0.4"/><anim prop="y" from="70" to="52" at="3.25" dur="0.4"/>
+          <rect w="386" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n2"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l2"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d2"/>
+        </group>
+      </group></group>
+      <group at="-30"><group><anim prop="opacity" from="0" to="1" at="0.4" dur="0.6"/>
+          <line repeat="46" as="k" x1="=1140 + rand(k)*280 - 0.2*fract(t*1.1 + rand(k+9))*220" y1="=320 + fract(t*1.1 + rand(k+9))*220" x2="=1134 + rand(k)*280 - 0.2*fract(t*1.1 + rand(k+9))*220" y2="=346 + fract(t*1.1 + rand(k+9))*220" stroke="$rain" sw="4"/>
+          <circle repeat="16" as="k" x="=1640 + rand(k+2)*130 + 10*sin(t*2+k)" y="=330 + fract(t*0.4 + rand(k+5))*150" r="6" fill="#fff" stroke="#9db4c8" sw="1.5"/>
+        </group>
+        <path d="M 1405 445 L 1450 380 L 1495 445 L 1472 436 L 1452 455 L 1430 434 Z" fill="#ffffff" stroke="$line" sw="2.5"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.6"/></path>
+        <path d="M 1662 515 L 1700 470 L 1742 520 L 1718 510 L 1700 528 L 1682 508 Z" fill="#ffffff" stroke="$line" sw="2.5"><anim prop="opacity" from="0" to="1" at="1.6" dur="0.6"/></path>
+        <group>
+        <circle x="1330" y="420" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2" dur="0.2"/></circle>
+        <line x1="1330" y1="420" x2="1480" y2="250" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2" dur="0.5" ease="io"/></line>
+        <group x="1480" y="192"><anim prop="opacity" from="0" to="1" at="2.45" dur="0.4"/><anim prop="y" from="210" to="192" at="2.45" dur="0.4"/>
+          <rect w="373" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n3"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l3"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d3"/>
+        </group>
+      </group></group>
+      <group at="-30"><path d="M 1440 470 C 1400 560 1330 600 1260 640 S 1120 720 1000 760 S 860 820 780 840" stroke="$water" sw="16" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="2.2" ease="io"/></path>
+        <path d="M 1440 470 C 1400 560 1330 600 1260 640 S 1120 720 1000 760 S 860 820 780 840" stroke="#bfe3ff" sw="5" fill="none" draw="=fract(t/2.2)" opacity="0.8"><anim prop="opacity" from="0" to="0.8" at="2.6" dur="0.3"/></path>
+        <group><anim prop="opacity" from="0" to="1" at="2.4" dur="0.5"/>
+          <path d="M 1500 975 L 860 975" stroke="$water" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="2.4" dur="1.6" ease="io"/></path><path d="M 878.9 963.7 L 860 975 L 878.9 986.3" stroke="$water" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="3.9" dur="0.15"/></path>
+          <text x="1180" y="1030" size="30" weight="600" align="center" fill="#f4ead8" text="@gw"/>
+        </group>
+        <group>
+        <circle x="1300" y="620" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="3" dur="0.2"/></circle>
+        <line x1="1300" y1="620" x2="1480" y2="650" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="3" dur="0.5" ease="io"/></line>
+        <group x="1480" y="592"><anim prop="opacity" from="0" to="1" at="3.45" dur="0.4"/><anim prop="y" from="610" to="592" at="3.45" dur="0.4"/>
+          <rect w="428" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n4"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l4"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d4"/>
+        </group>
+      </group></group>
+      <group at="0"><group x="1010" y="800"><anim prop="scale" from="0" to="1" at="0.3" dur="0.6" ease="back"/><rect x="-8" y="-50" w="16" h="52" fill="#7a5233" stroke="$line" sw="2.5"/><circle y="-82" r="46" fill="$leaf" stroke="$line" sw="3"/><circle x="-14" y="-96" r="14" fill="#8fcf72"/></group><group x="1105" y="788"><anim prop="scale" from="0" to="1" at="0.55" dur="0.6" ease="back"/><rect x="-8" y="-50" w="16" h="52" fill="#7a5233" stroke="$line" sw="2.5"/><circle y="-82" r="46" fill="$leaf" stroke="$line" sw="3"/><circle x="-14" y="-96" r="14" fill="#8fcf72"/></group><group x="1190" y="770"><anim prop="scale" from="0" to="1" at="0.8" dur="0.6" ease="back"/><rect x="-8" y="-50" w="16" h="52" fill="#7a5233" stroke="$line" sw="2.5"/><circle y="-82" r="46" fill="$leaf" stroke="$line" sw="3"/><circle x="-14" y="-96" r="14" fill="#8fcf72"/></group>
+        <path d="M 1010 700 C 1028 660 992 610 1010 570" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="1.4" dur="1" ease="io"/></path><path d="M 1021.3 588.9 L 1010 570 L 998.7 588.9" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.3" dur="0.15"/></path><path d="M 1105 690 C 1123 660 1087 610 1105 570" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="1.7" dur="1" ease="io"/></path><path d="M 1116.3 588.9 L 1105 570 L 1093.7 588.9" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.6" dur="0.15"/></path><path d="M 1190 680 C 1208 660 1172 610 1190 570" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="2" dur="1" ease="io"/></path><path d="M 1201.3 588.9 L 1190 570 L 1178.7 588.9" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.9" dur="0.15"/></path>
+        <group>
+        <circle x="1105" y="700" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.8" dur="0.2"/></circle>
+        <line x1="1105" y1="700" x2="1240" y2="860" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.8" dur="0.5" ease="io"/></line>
+        <group x="1240" y="802"><anim prop="opacity" from="0" to="1" at="3.25" dur="0.4"/><anim prop="y" from="820" to="802" at="3.25" dur="0.4"/>
+          <rect w="373" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n5"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l5"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d5"/>
+        </group>
+      </group></group>
+    </scene>
+    <scene id="cycle" dur="9" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="2.4" src="pop"/>
+      <group at="-30"><group x="230" y="190"><group rot="=t*8"><group rot="0"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="30"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="60"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="90"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="120"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="150"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="180"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="210"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="240"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="270"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="300"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group><group rot="330"><rect x="-6" y="-150" w="12" h="42" r="6" fill="$sun"/></group></group>
+        <circle r="92" fill="url(#sunG)" stroke="#e0a21a" sw="3"/></group>
+        <text x="230" y="358" size="30" weight="700" align="center" fill="$line" text="@sun"/></group>
+      <group at="-30"><path d="M 300 790 C 322 740 278 700 300 650 S 278 560 300 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.6" dur="1.4" ease="io"/></path><path d="M 311.3 458.9 L 300 440 L 288.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="1.9" dur="0.15"/></path><path d="M 430 790 C 452 740 408 700 430 650 S 408 560 430 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.95" dur="1.4" ease="io"/></path><path d="M 441.3 458.9 L 430 440 L 418.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.2499999999999996" dur="0.15"/></path><path d="M 560 790 C 582 740 538 700 560 650 S 538 560 560 440" stroke="$vapour" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="1.2999999999999998" dur="1.4" ease="io"/></path><path d="M 571.3 458.9 L 560 440 L 548.7 458.9" stroke="$vapour" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="2.5999999999999996" dur="0.15"/></path>
+        <circle repeat="14" as="k" x="=300 + (k%3)*130 + 18*sin(t*2 + k)" y="=790 - fract(t*0.25 + rand(k))*360" r="=5 + rand(k+3)*5" fill="$vapour" opacity="=0.7*(1 - fract(t*0.25 + rand(k)))"/>
+        <group>
+        <circle x="560" y="560" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.2" dur="0.2"/></circle>
+        <line x1="560" y1="560" x2="640" y2="480" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.2" dur="0.5" ease="io"/></line>
+        <group x="640" y="422"><anim prop="opacity" from="0" to="1" at="2.6500000000000004" dur="0.4"/><anim prop="y" from="440" to="422" at="2.6500000000000004" dur="0.4"/>
+          <rect w="400" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n1"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l1"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d1"/>
+        </group>
+      </group></group>
+      <group at="-30"><group x="700" y="250"><anim prop="opacity" from="0" to="1" at="0.5" dur="0.8"/><anim prop="scale" from="0.6" to="1" at="0.5" dur="1.4" ease="back"/><group x="0" y="0" scale="0.9"><ellipse x="0" y="20" rx="150" ry="52" fill="#ffffff" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#ffffff" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#ffffff" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#ffffff" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#ffffff"/><circle x="10" y="-26" r="72" fill="#ffffff"/></group></group>
+        <group x="=sin(t*0.3)*14"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.8"/><group x="1270" y="230" scale="1.15"><ellipse x="0" y="20" rx="150" ry="52" fill="#e9eef3" stroke="$line" sw="3"/><circle x="-70" y="0" r="58" fill="#e9eef3" stroke="$line" sw="3"/><circle x="10" y="-30" r="78" fill="#e9eef3" stroke="$line" sw="3"/><circle x="85" y="0" r="55" fill="#e9eef3" stroke="$line" sw="3"/><ellipse x="0" y="22" rx="146" ry="48" fill="#e9eef3"/><circle x="10" y="-26" r="72" fill="#e9eef3"/></group></group>
+        <path d="M 860 250 Q 980 200 1080 230" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="2.2" dur="0.8" ease="io"/></path><path d="M 1058.9 236.1 L 1080 230 L 1064.7 214.2" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.9" dur="0.15"/></path>
+        <group>
+        <circle x="700" y="175" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.8" dur="0.2"/></circle>
+        <line x1="700" y1="175" x2="880" y2="110" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.8" dur="0.5" ease="io"/></line>
+        <group x="880" y="52"><anim prop="opacity" from="0" to="1" at="3.25" dur="0.4"/><anim prop="y" from="70" to="52" at="3.25" dur="0.4"/>
+          <rect w="386" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n2"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l2"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d2"/>
+        </group>
+      </group></group>
+      <group at="-30"><group><anim prop="opacity" from="0" to="1" at="0.4" dur="0.6"/>
+          <line repeat="46" as="k" x1="=1140 + rand(k)*280 - 0.2*fract(t*1.1 + rand(k+9))*220" y1="=320 + fract(t*1.1 + rand(k+9))*220" x2="=1134 + rand(k)*280 - 0.2*fract(t*1.1 + rand(k+9))*220" y2="=346 + fract(t*1.1 + rand(k+9))*220" stroke="$rain" sw="4"/>
+          <circle repeat="16" as="k" x="=1640 + rand(k+2)*130 + 10*sin(t*2+k)" y="=330 + fract(t*0.4 + rand(k+5))*150" r="6" fill="#fff" stroke="#9db4c8" sw="1.5"/>
+        </group>
+        <path d="M 1405 445 L 1450 380 L 1495 445 L 1472 436 L 1452 455 L 1430 434 Z" fill="#ffffff" stroke="$line" sw="2.5"><anim prop="opacity" from="0" to="1" at="1.4" dur="0.6"/></path>
+        <path d="M 1662 515 L 1700 470 L 1742 520 L 1718 510 L 1700 528 L 1682 508 Z" fill="#ffffff" stroke="$line" sw="2.5"><anim prop="opacity" from="0" to="1" at="1.6" dur="0.6"/></path>
+        <group>
+        <circle x="1330" y="420" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2" dur="0.2"/></circle>
+        <line x1="1330" y1="420" x2="1480" y2="250" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2" dur="0.5" ease="io"/></line>
+        <group x="1480" y="192"><anim prop="opacity" from="0" to="1" at="2.45" dur="0.4"/><anim prop="y" from="210" to="192" at="2.45" dur="0.4"/>
+          <rect w="373" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n3"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l3"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d3"/>
+        </group>
+      </group></group>
+      <group at="-30"><path d="M 1440 470 C 1400 560 1330 600 1260 640 S 1120 720 1000 760 S 860 820 780 840" stroke="$water" sw="16" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="2.2" ease="io"/></path>
+        <path d="M 1440 470 C 1400 560 1330 600 1260 640 S 1120 720 1000 760 S 860 820 780 840" stroke="#bfe3ff" sw="5" fill="none" draw="=fract(t/2.2)" opacity="0.8"><anim prop="opacity" from="0" to="0.8" at="2.6" dur="0.3"/></path>
+        <group><anim prop="opacity" from="0" to="1" at="2.4" dur="0.5"/>
+          <path d="M 1500 975 L 860 975" stroke="$water" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="2.4" dur="1.6" ease="io"/></path><path d="M 878.9 963.7 L 860 975 L 878.9 986.3" stroke="$water" sw="6" fill="none"><anim prop="opacity" from="0" to="1" at="3.9" dur="0.15"/></path>
+          <text x="1180" y="1030" size="30" weight="600" align="center" fill="#f4ead8" text="@gw"/>
+        </group>
+        <group>
+        <circle x="1300" y="620" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="3" dur="0.2"/></circle>
+        <line x1="1300" y1="620" x2="1480" y2="650" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="3" dur="0.5" ease="io"/></line>
+        <group x="1480" y="592"><anim prop="opacity" from="0" to="1" at="3.45" dur="0.4"/><anim prop="y" from="610" to="592" at="3.45" dur="0.4"/>
+          <rect w="428" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n4"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l4"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d4"/>
+        </group>
+      </group></group>
+      <group at="-30"><group x="1010" y="800"><anim prop="scale" from="0" to="1" at="0.3" dur="0.6" ease="back"/><rect x="-8" y="-50" w="16" h="52" fill="#7a5233" stroke="$line" sw="2.5"/><circle y="-82" r="46" fill="$leaf" stroke="$line" sw="3"/><circle x="-14" y="-96" r="14" fill="#8fcf72"/></group><group x="1105" y="788"><anim prop="scale" from="0" to="1" at="0.55" dur="0.6" ease="back"/><rect x="-8" y="-50" w="16" h="52" fill="#7a5233" stroke="$line" sw="2.5"/><circle y="-82" r="46" fill="$leaf" stroke="$line" sw="3"/><circle x="-14" y="-96" r="14" fill="#8fcf72"/></group><group x="1190" y="770"><anim prop="scale" from="0" to="1" at="0.8" dur="0.6" ease="back"/><rect x="-8" y="-50" w="16" h="52" fill="#7a5233" stroke="$line" sw="2.5"/><circle y="-82" r="46" fill="$leaf" stroke="$line" sw="3"/><circle x="-14" y="-96" r="14" fill="#8fcf72"/></group>
+        <path d="M 1010 700 C 1028 660 992 610 1010 570" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="1.4" dur="1" ease="io"/></path><path d="M 1021.3 588.9 L 1010 570 L 998.7 588.9" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.3" dur="0.15"/></path><path d="M 1105 690 C 1123 660 1087 610 1105 570" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="1.7" dur="1" ease="io"/></path><path d="M 1116.3 588.9 L 1105 570 L 1093.7 588.9" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.6" dur="0.15"/></path><path d="M 1190 680 C 1208 660 1172 610 1190 570" stroke="$vapour" sw="5" fill="none"><anim prop="draw" from="0" to="1" at="2" dur="1" ease="io"/></path><path d="M 1201.3 588.9 L 1190 570 L 1178.7 588.9" stroke="$vapour" sw="5" fill="none"><anim prop="opacity" from="0" to="1" at="2.9" dur="0.15"/></path>
+        <group>
+        <circle x="1105" y="700" r="9" fill="$line"><anim prop="opacity" from="0" to="1" at="2.8" dur="0.2"/></circle>
+        <line x1="1105" y1="700" x2="1240" y2="860" stroke="$line" sw="3"><anim prop="draw" from="0" to="1" at="2.8" dur="0.5" ease="io"/></line>
+        <group x="1240" y="802"><anim prop="opacity" from="0" to="1" at="3.25" dur="0.4"/><anim prop="y" from="820" to="802" at="3.25" dur="0.4"/>
+          <rect w="373" h="116" r="16" fill="#ffffffee" stroke="$line" sw="2.5" shadow="0 8 18 #1c2b3a33"/>
+          <circle x="44" y="40" r="24" fill="$accent"/><text x="44" y="41" size="30" weight="800" align="center" fill="#fff" text="@n5"/>
+          <text x="82" y="40" size="34" weight="700" fill="$line" text="@l5"/>
+          <text x="24" y="88" size="26" fill="$muted" text="@d5"/>
+        </group>
+      </group></group>
+      <group><anim prop="opacity" from="0" to="1" at="1" dur="0.6"/>
+        <rect x="50" y="990" w="660" h="64" r="32" fill="$line" opacity="0.9"/>
+        <text x="380" y="1022" size="34" weight="700" align="center" fill="#fff" text="@again"/>
+      </group>
+      
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/science-diagram/en/vo1.42fc124f0a.ogg" dur="5.31" hash="42fc124f0a" engine="kokoro:bf_emma"/>
+    <voice say="vo2" lang="en" src="voice/science-diagram/en/vo2.284bacfe29.ogg" dur="5.31" hash="284bacfe29" engine="kokoro:bf_emma"/>
+    <voice say="vo3" lang="en" src="voice/science-diagram/en/vo3.6d80c8c816.ogg" dur="5.51" hash="6d80c8c816" engine="kokoro:bf_emma"/>
+    <voice say="vo4" lang="en" src="voice/science-diagram/en/vo4.61c0587e88.ogg" dur="4.61" hash="61c0587e88" engine="kokoro:bf_emma"/>
+    <voice say="vo5" lang="en" src="voice/science-diagram/en/vo5.457639d4dd.ogg" dur="3.61" hash="457639d4dd" engine="kokoro:bf_emma"/>
+    <voice say="vo6" lang="en" src="voice/science-diagram/en/vo6.6d49f3938f.ogg" dur="4.61" hash="6d49f3938f" engine="kokoro:bf_emma"/>
+    <voice say="vo7" lang="en" src="voice/science-diagram/en/vo7.6c7e09f539.ogg" dur="4.91" hash="6c7e09f539" engine="kokoro:bf_emma"/>
+  </voices>
+</tsvg>

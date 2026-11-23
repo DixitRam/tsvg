@@ -1,0 +1,11 @@
+{
+  "id": "glitch-tech",
+  "title": "Cyber glitch tech",
+  "category": "Tech",
+  "summary": "RGB-split, band-sliced type, data rain and scanlines explain why passwords leak and how passkeys fix it.",
+  "duration": 62.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 4.6
+}

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Product promo ad: logo reveal, feature punches cut on a 120 BPM beat, price/CTA end card. -->
+<tsvg version="0.2" title="@title" font="Space Grotesk, Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/><choice id="music" label="Music only"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.45" sfx="0.7"/><mix id="speech" voice="1" music="0" sfx="0"/><mix id="music" voice="0" music="0.8" sfx="0.8"/></mixes>
+  <themes><theme id="main" bg="#0b0b0d" fg="#ffffff" muted="#ffffffaa" accent="#ff7a1a"/></themes>
+  <strings>
+    <s id="title" en="PocketPress launch spot"/>
+    <s id="brand" en="POCKETPRESS"/>
+    <s id="tag" en="Real espresso. Anywhere."/>
+    <s id="p1" en="NO CORD."/><s id="p2" en="NO PODS."/><s id="p3" en="NO COMPROMISE."/>
+    <s id="k_bar" en="PRESSURE"/><s id="bar1" en="20 BAR"/><s id="bar2" en="ONE HAND"/><s id="bar3" en="Cafe-grade crema from a manual pump. No outlet needed."/>
+    <s id="k_heat" en="SELF-HEATING"/><s id="heat1" en="HOT WATER"/><s id="heat2" en="IN 90 SEC"/><s id="heat_l" en="to 93 °C"/>
+    <s id="k_size" en="PORTABLE"/><s id="size1" en="15 CM"/><s id="size2" en="340 G"/><s id="size3" en="Fits a jacket pocket"/>
+    <s id="k_batt" en="BATTERY"/><s id="batt1" en="SHOTS PER CHARGE"/><s id="batt2" en="USB-C fast charge · 2 h to full"/>
+    <s id="price_k" en="Launch price · limited batch"/><s id="cta" en="ORDER NOW"/><s id="ship" en="Free shipping · 30-day returns"/>
+    <s id="vo_logo" en="Meet PocketPress. Real espresso, anywhere you go."/>
+    <s id="ch_logo" en="Logo"/>
+    <s id="vo_punch" en="No cord. No pods. No compromise."/>
+    <s id="ch_punch" en="No cord"/>
+    <s id="vo_bar" en="Twenty bars of pressure, the same as a cafe machine, from one hand pump."/>
+    <s id="ch_bar" en="20 bar"/>
+    <s id="vo_heat" en="It heats its own water in ninety seconds. Just add coffee."/>
+    <s id="ch_heat" en="90 seconds"/>
+    <s id="vo_size" en="Fifteen centimetres. Three hundred and forty grams. It fits in a jacket pocket."/>
+    <s id="ch_size" en="Pocket size"/>
+    <s id="vo_batt" en="Charge it over USB-C, then pull thirty shots before you plug in again."/>
+    <s id="ch_batt" en="30 shots"/>
+    <s id="vo_price" en="PocketPress. Eighty-nine dollars at launch. Order today and shipping is free."/>
+    <s id="ch_price" en="Order"/>
+    <s id="vo_logo_say" en="Meet Pocket Press. Real espresso, anywhere you go."/>
+    <s id="vo_price_say" en="Pocket Press. Eighty-nine dollars at launch. Order today and shipping is free."/>
+  </strings>
+  <defs>
+    <linear id="metal" x1="-90" y1="0" x2="90" y2="0"><stop at="0" color="#2a2a30"/><stop at="0.35" color="#5a5a64"/><stop at="0.6" color="#2f2f36"/><stop at="1" color="#141418"/></linear>
+    <linear id="heat" x1="-300" y1="0" x2="300" y2="0"><stop at="0" color="#ffb347"/><stop at="1" color="#ff3d1a"/></linear>
+    <radial id="endbg" x="=W*0.25" y="=H/2" r="1300"><stop at="0" color="#2a1408"/><stop at="1" color="#0b0b0d"/></radial>
+    <radial id="vig" x="=W/2" y="=H/2" r="1200"><stop at="0.5" color="#000" opacity="0"/><stop at="1" color="#000" opacity="0.6"/></radial>
+    <fn id="arc" args="r,a0,a1">'M ' + r*sin(a0*PI/180) + ' ' + (0-r*cos(a0*PI/180)) + ' A ' + r + ' ' + r + ' 0 ' + (a1 - a0 &gt; 180 ? 1 : 0) + ' 1 ' + r*sin(a1*PI/180) + ' ' + (0-r*cos(a1*PI/180))</fn>
+    <mask id="wipe"><rect x="-700" y="-120" w="=1400*ease((T-0.9)/0.6,'io')" h="240" fill="#000"/></mask>
+    <symbol id="device">
+      <ellipse y="250" rx="120" ry="22" fill="#000" opacity="0.5" blur="10"/>
+      <rect x="-90" y="-230" w="180" h="460" r="44" fill="url(#metal)"/>
+      <rect x="-90" y="-230" w="180" h="460" r="44" fill="none" stroke="#ffffff22" sw="3"/>
+      <rect x="-60" y="-215" w="26" h="420" r="13" fill="#ffffff26"/>
+      <rect x="-100" y="-270" w="200" h="80" r="26" fill="#1b1b1f" stroke="#ffffff22" sw="3"/>
+      <rect x="-90" y="-60" w="180" h="18" fill="#ff7a1a"/>
+      <circle y="-230" r="22" fill="#ff7a1a"/>
+      <text y="80" size="22" weight="700" font="Space Grotesk" align="center" fill="#ffffff88" text="P/P"/>
+    </symbol>
+    <symbol id="mark">
+      <circle r="90" fill="none" stroke="#ff7a1a" sw="14"/>
+      <path d="M 0 -52 C 30 -14 44 8 44 28 C 44 54 24 70 0 70 C -24 70 -44 54 -44 28 C -44 8 -30 -14 0 -52 Z" fill="#ff7a1a" y="-10"/>
+    </symbol>
+  </defs>
+  <assets>
+    <asset id="pulse" src="audio/pulse.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="ding" src="audio/ding.ogg"/><asset id="click" src="audio/click.ogg"/>
+    <font family="Anton" src="fonts/Anton.ttf"/><font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+  </assets>
+  <music src="pulse" loop="1" vol="0.9"/>
+  <timeline>
+    <scene id="logo" dur="7" chapter="@ch_logo">
+      <say at="0.5" text="@vo_logo" speak="@vo_logo_say"/>
+      <sfx at="0" src="whoosh"/>
+      <group opacity="0.07">
+        <rect repeat="9" as="k" x="=fract(T*0.25 + k/9)*2600 - 500" y="-300" w="=60 + 50*rand(k)" h="1700" rot="24" fill="#ff7a1a"/>
+      </group>
+      <rect x="30" y="30" w="=W-60" h="=H-60" r="8" fill="none" stroke="#ff7a1a" sw="=2 + 8*pow(1 - fract(t*2), 4)" opacity="=0.25 + 0.5*pow(1 - fract(t*2), 4)"/>
+      <circle x="=W/2" y="=H/2 - 40" r="=40 + 900*ease((T-0.2)/0.7,'out')" fill="none" stroke="#ff7a1a" sw="=40*(1-ease((T-0.2)/0.7,'out'))" opacity="=1-ease((T-0.2)/0.9,'linear')"/>
+      <circle repeat="24" as="k" x="=W/2 + cos(k*0.2618)*(80 + 520*ease((T-0.3)/0.9,'out'))" y="=H/2 - 40 + sin(k*0.2618)*(80 + 520*ease((T-0.3)/0.9,'out'))" r="=10*(1-ease((T-0.3)/1.2,'linear'))" fill="#ff7a1a"/>
+      <group x="=W/2" y="=H/2 - 120" at="0.3">
+        <anim prop="scale" from="0" to="1" dur="0.6" ease="back"/>
+        <group rot="=-360*(1-ease((T-0.3)/0.8,'out'))"><use ref="mark"/></group>
+      </group>
+      <group x="=W/2" y="=H/2 + 70" mask="url(#wipe)">
+        <text font="Anton" size="140" align="center" fill="#fff" text="@brand" scale="=1 + 0.03*pow(1 - fract(t*2), 4)"/>
+      </group>
+      <text x="=W/2" y="=H/2 + 190" size="46" font="Space Grotesk" weight="500" align="center" fill="#ffffffcc" text="@tag" at="2.2">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="=H/2 + 230" to="=H/2 + 190" dur="0.4"/>
+      </text>
+      <rect w="=W" h="=H" fill="#ff7a1a"><anim prop="opacity" from="0.9" to="0" dur="0.18" ease="linear"/></rect>
+    </scene>
+    <scene id="punch" dur="6.5" chapter="@ch_punch">
+      <say at="0.5" text="@vo_punch"/>
+      <sfx at="0" src="whoosh"/><sfx at="0.65" src="pop"/><sfx at="1.39" src="pop"/><sfx at="2.12" src="pop"/>
+      <group opacity="0.07">
+        <rect repeat="9" as="k" x="=fract(T*0.25 + k/9)*2600 - 500" y="-300" w="=60 + 50*rand(k)" h="1700" rot="24" fill="#ff7a1a"/>
+      </group>
+      <rect x="30" y="30" w="=W-60" h="=H-60" r="8" fill="none" stroke="#ff7a1a" sw="=2 + 8*pow(1 - fract(t*2), 4)" opacity="=0.25 + 0.5*pow(1 - fract(t*2), 4)"/>
+      
+      <text x="180" y="330" font="Anton" size="210" fill="#fff" text="@p1" at="0.65" >
+        <anim prop="scale" from="1.6" to="1" dur="0.22" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.12"/>
+      </text>
+      
+      <text x="180" y="560" font="Anton" size="210" fill="#fff" text="@p2" at="1.39" >
+        <anim prop="scale" from="1.6" to="1" dur="0.22" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.12"/>
+      </text>
+      
+      <text x="180" y="790" font="Anton" size="190" fill="#ff7a1a" text="@p3" at="2.12" >
+        <anim prop="scale" from="1.6" to="1" dur="0.22" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.12"/>
+      </text>
+      <group x="1640" y="560" at="0.2">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <group rot="=-8 + 3*sin(T*2)" scale="=1 + 0.04*pow(1 - fract(t*2), 4)"><use ref="device" scale="1.25"/></group>
+      </group>
+      <rect w="=W" h="=H" fill="#ff7a1a"><anim prop="opacity" from="0.9" to="0" dur="0.18" ease="linear"/></rect>
+    </scene>
+    <scene id="bar" dur="8" chapter="@ch_bar">
+      <say at="0.5" text="@vo_bar"/>
+      <sfx at="0" src="whoosh"/>
+      <group opacity="0.07">
+        <rect repeat="9" as="k" x="=fract(T*0.25 + k/9)*2600 - 500" y="-300" w="=60 + 50*rand(k)" h="1700" rot="24" fill="#ff7a1a"/>
+      </group>
+      <rect x="30" y="30" w="=W-60" h="=H-60" r="8" fill="none" stroke="#ff7a1a" sw="=2 + 8*pow(1 - fract(t*2), 4)" opacity="=0.25 + 0.5*pow(1 - fract(t*2), 4)"/>
+      
+      <group x="140" y="150"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect w="12" h="44" y="-22" fill="#ff7a1a"/>
+        <text x="32" size="42" weight="700" font="Space Grotesk" fill="#ffffffaa" text="@k_bar"/>
+      </group>
+      <group x="660" y="600">
+        <circle r="330" fill="#16161a" stroke="#ffffff14" sw="4"/>
+        <path d="=arc(290, -120, 120)" fill="none" stroke="#2a2a30" sw="36"/>
+        <path d="M -251 145 A 290 290 0 1 1 251 145" fill="none" stroke="url(#heat)" sw="36"><anim prop="draw" from="0" to="1" at="0.4" dur="1.8" ease="io"/></path>
+        <line repeat="11" as="k" x1="=cos((-210 + k*24)*PI/180)*230" y1="=sin((-210 + k*24)*PI/180)*230" x2="=cos((-210 + k*24)*PI/180)*200" y2="=sin((-210 + k*24)*PI/180)*200" stroke="#ffffff66" sw="6"/>
+        <group rot="=-120 + 240*ease((T-0.4)/1.8,'io') + 2*sin(T*30)*step(2.2,T)">
+          <path d="M -14 0 L 0 -250 L 14 0 Z" fill="#fff"/>
+        </group>
+        <circle r="34" fill="#ff7a1a"/>
+        <text y="170" font="Anton" size="140" align="center" fill="#fff" text="{fmt(20*ease((T-0.4)/1.8,'io'),0)}"/>
+        <text y="250" size="38" weight="700" font="Space Grotesk" align="center" fill="#ffffff88" text="BAR"/>
+      </group>
+      
+      <text x="1100" y="470" font="Anton" size="150" fill="#fff" text="@bar1" at="1" >
+        <anim prop="scale" from="1.6" to="1" dur="0.22" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.12"/>
+      </text>
+      
+      <text x="1100" y="640" font="Anton" size="150" fill="#ff7a1a" text="@bar2" at="2.2" >
+        <anim prop="scale" from="1.6" to="1" dur="0.22" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.12"/>
+      </text>
+      <text x="1104" y="790" size="40" weight="500" font="Space Grotesk" maxw="700" fill="#ffffffaa" text="@bar3" at="3.2"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <rect w="=W" h="=H" fill="#ff7a1a"><anim prop="opacity" from="0.9" to="0" dur="0.18" ease="linear"/></rect>
+    </scene>
+    <scene id="heat" dur="7.5" chapter="@ch_heat">
+      <say at="0.5" text="@vo_heat"/>
+      <sfx at="0" src="whoosh"/>
+      <group opacity="0.07">
+        <rect repeat="9" as="k" x="=fract(T*0.25 + k/9)*2600 - 500" y="-300" w="=60 + 50*rand(k)" h="1700" rot="24" fill="#ff7a1a"/>
+      </group>
+      <rect x="30" y="30" w="=W-60" h="=H-60" r="8" fill="none" stroke="#ff7a1a" sw="=2 + 8*pow(1 - fract(t*2), 4)" opacity="=0.25 + 0.5*pow(1 - fract(t*2), 4)"/>
+      
+      <group x="140" y="150"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect w="12" h="44" y="-22" fill="#ff7a1a"/>
+        <text x="32" size="42" weight="700" font="Space Grotesk" fill="#ffffffaa" text="@k_heat"/>
+      </group>
+      <group x="1320" y="560">
+        <circle r="300" fill="none" stroke="#24242a" sw="40"/>
+        <path d="=arc(300, 0, 0.01 + 359.98*ease((T-0.3)/3,'linear'))" fill="none" stroke="url(#heat)" sw="40"/>
+        <circle x="=300*sin(359.98*ease((T-0.3)/3,'linear')*PI/180)" y="=-300*cos(359.98*ease((T-0.3)/3,'linear')*PI/180)" r="30" fill="#fff" shadow="0 0 20 #ff7a1a"/>
+        <text font="Anton" size="240" align="center" y="-10" fill="#fff" text="{fmt(90*ease((T-0.3)/3,'linear'),0)}s"/>
+        <text size="40" weight="700" font="Space Grotesk" align="center" y="140" fill="#ffffff88" text="@heat_l"/>
+        <path repeat="3" as="k" x="=-60 + k*60" y="-170" d="M 0 0 C -18 -24 18 -44 0 -70" stroke="#ffffff88" sw="8" fill="none" opacity="=0.3 + 0.6*fract(T*0.8 + k*0.3)" at="3.3"/>
+      </group>
+      
+      <text x="150" y="470" font="Anton" size="170" fill="#fff" text="@heat1" at="0.6" >
+        <anim prop="scale" from="1.6" to="1" dur="0.22" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.12"/>
+      </text>
+      
+      <text x="150" y="660" font="Anton" size="170" fill="#ff7a1a" text="@heat2" at="2.8" >
+        <anim prop="scale" from="1.6" to="1" dur="0.22" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.12"/>
+      </text>
+      <rect w="=W" h="=H" fill="#ff7a1a"><anim prop="opacity" from="0.9" to="0" dur="0.18" ease="linear"/></rect>
+    </scene>
+    <scene id="size" dur="8" chapter="@ch_size">
+      <say at="0.5" text="@vo_size"/>
+      <sfx at="0" src="whoosh"/>
+      <group opacity="0.07">
+        <rect repeat="9" as="k" x="=fract(T*0.25 + k/9)*2600 - 500" y="-300" w="=60 + 50*rand(k)" h="1700" rot="24" fill="#ff7a1a"/>
+      </group>
+      <rect x="30" y="30" w="=W-60" h="=H-60" r="8" fill="none" stroke="#ff7a1a" sw="=2 + 8*pow(1 - fract(t*2), 4)" opacity="=0.25 + 0.5*pow(1 - fract(t*2), 4)"/>
+      
+      <group x="140" y="150"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect w="12" h="44" y="-22" fill="#ff7a1a"/>
+        <text x="32" size="42" weight="700" font="Space Grotesk" fill="#ffffffaa" text="@k_size"/>
+      </group>
+      <group x="620" y="580">
+        <anim prop="scale" from="0.8" to="1" dur="0.5" ease="back"/>
+        <use ref="device"/>
+        <line x1="-190" y1="-270" x2="-190" y2="230" stroke="#ff7a1a" sw="5" at="0.6"><anim prop="draw" from="0" to="1" dur="0.6"/></line>
+        <line x1="-210" y1="-270" x2="-170" y2="-270" stroke="#ff7a1a" sw="5" at="0.6"/><line x1="-210" y1="230" x2="-170" y2="230" stroke="#ff7a1a" sw="5" at="0.6"/>
+        <text x="-230" y="-20" size="40" weight="700" font="Space Grotesk" align="right" fill="#ff7a1a" text="15 cm" at="1"/>
+      </group>
+      
+      <text x="1000" y="420" font="Anton" size="160" fill="#fff" text="@size1" at="0.6" >
+        <anim prop="scale" from="1.6" to="1" dur="0.22" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.12"/>
+      </text>
+      
+      <text x="1000" y="600" font="Anton" size="160" fill="#ff7a1a" text="@size2" at="2.6" >
+        <anim prop="scale" from="1.6" to="1" dur="0.22" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.12"/>
+      </text>
+      <group x="1000" y="770" at="4.2"><anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="x" from="1040" to="1000" dur="0.3"/>
+        <rect y="-50" w="640" h="100" r="50" fill="#ffffff14" stroke="#ffffff33" sw="3"/>
+        <text x="320" size="42" weight="700" font="Space Grotesk" align="center" fill="#fff" text="@size3"/>
+      </group>
+      <rect w="=W" h="=H" fill="#ff7a1a"><anim prop="opacity" from="0.9" to="0" dur="0.18" ease="linear"/></rect>
+    </scene>
+    <scene id="batt" dur="7.5" chapter="@ch_batt">
+      <say at="0.5" text="@vo_batt"/>
+      <sfx at="0" src="whoosh"/>
+      <group opacity="0.07">
+        <rect repeat="9" as="k" x="=fract(T*0.25 + k/9)*2600 - 500" y="-300" w="=60 + 50*rand(k)" h="1700" rot="24" fill="#ff7a1a"/>
+      </group>
+      <rect x="30" y="30" w="=W-60" h="=H-60" r="8" fill="none" stroke="#ff7a1a" sw="=2 + 8*pow(1 - fract(t*2), 4)" opacity="=0.25 + 0.5*pow(1 - fract(t*2), 4)"/>
+      
+      <group x="140" y="150"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect w="12" h="44" y="-22" fill="#ff7a1a"/>
+        <text x="32" size="42" weight="700" font="Space Grotesk" fill="#ffffffaa" text="@k_batt"/>
+      </group>
+      <group x="300" y="420">
+        <rect w="760" h="300" r="40" fill="none" stroke="#fff" sw="14"/>
+        <rect x="770" y="100" w="40" h="100" r="12" fill="#fff"/>
+        <rect repeat="10" as="k" x="=30 + k*71" y="30" w="58" h="240" r="10" fill="=k &lt; 10*ease((T-0.4)/2.6,'linear') ? (k &lt; 2 ? '#ff4d4d' : '#ff7a1a') : '#ffffff14'"/>
+        <path d="M 400 70 L 340 160 L 390 160 L 360 240 L 440 130 L 388 130 Z" fill="#fff" stroke="#0b0b0d" sw="8" opacity="=0.6 + 0.4*pow(1 - fract(t*2), 4)"/>
+      </group>
+      <text x="1240" y="540" font="Anton" size="300" fill="#fff" text="{fmt(30*ease((T-0.4)/2.6,'out'),0)}"/>
+      <text x="1250" y="720" size="54" weight="700" font="Space Grotesk" fill="#ff7a1a" text="@batt1"/>
+      <text x="300" y="830" size="44" weight="500" font="Space Grotesk" fill="#ffffffaa" text="@batt2" at="2"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <rect w="=W" h="=H" fill="#ff7a1a"><anim prop="opacity" from="0.9" to="0" dur="0.18" ease="linear"/></rect>
+    </scene>
+    <scene id="price" dur="9" chapter="@ch_price">
+      <say at="0.5" text="@vo_price" speak="@vo_price_say"/>
+      <sfx at="0" src="whoosh"/><sfx at="1" src="ding"/><sfx at="2.5" src="click"/>
+      <group opacity="0.04">
+        <rect repeat="9" as="k" x="=fract(T*0.25 + k/9)*2600 - 500" y="-300" w="=60 + 50*rand(k)" h="1700" rot="24" fill="#ff7a1a"/>
+      </group>
+      <rect x="30" y="30" w="=W-60" h="=H-60" r="8" fill="none" stroke="#ff7a1a" sw="=2 + 8*pow(1 - fract(t*2), 4)" opacity="=0.25 + 0.5*pow(1 - fract(t*2), 4)"/>
+      <rect w="=W" h="=H" fill="url(#endbg)"/>
+      <group x="430" y="560"><anim prop="x" from="300" to="430" dur="0.6" ease="out"/>
+        <circle r="300" fill="#ff7a1a" opacity="=0.16 + 0.1*pow(1 - fract(t*2), 4)"/>
+        <group rot="-6"><use ref="device" scale="1.15"/></group>
+      </group>
+      <group x="880" y="200"><use ref="mark" scale="0.5"/><text x="70" y="0" font="Anton" size="70" fill="#fff" text="@brand"/></group>
+      <text x="880" y="340" size="44" weight="500" font="Space Grotesk" fill="#ffffffaa" text="@price_k" at="0.5"><anim prop="opacity" from="0" to="1" dur="0.3"/></text>
+      <group x="880" y="520" at="1">
+        <anim prop="scale" from="1.8" to="1" dur="0.3" ease="out"/>
+        <text font="Anton" size="250" fill="#fff" text="$89"/>
+      </group>
+      <group x="1330" y="470" at="1.5"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <text font="Anton" size="90" fill="#ffffff66" text="$129"/>
+        <line x1="-10" y1="0" x2="190" y2="-10" stroke="#ff4d4d" sw="10"><anim prop="draw" from="0" to="1" at="0.3" dur="0.3"/></line>
+      </group>
+      <group x="1100" y="790" at="2.5" scale="=1 + 0.05*pow(1 - fract(t*2), 4)">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="-220" y="-62" w="440" h="124" r="62" fill="#ff7a1a" shadow="=('0 0 ' + (20 + 50*pow(1 - fract(t*2), 4)) + ' #ff7a1a')"/>
+        <text font="Anton" size="64" align="center" y="2" fill="#0b0b0d" text="@cta"/>
+      </group>
+      <text x="1100" y="910" size="36" weight="500" font="Space Grotesk" align="center" fill="#ffffffaa" text="@ship" at="3.2"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <rect w="=W" h="=H" fill="#ff7a1a"><anim prop="opacity" from="0.9" to="0" dur="0.18" ease="linear"/></rect>
+    </scene>
+  </timeline>
+  <overlay>
+    <rect w="=W" h="=H" fill="url(#vig)"/>
+  </overlay>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_bar" lang="en" src="voice/promo-ad-spot/en/vo_bar.754fdb7a3d.ogg" dur="4.91" hash="754fdb7a3d" engine="kokoro:am_michael"/>
+    <voice say="vo_batt" lang="en" src="voice/promo-ad-spot/en/vo_batt.91f3f9a8d3.ogg" dur="5.21" hash="91f3f9a8d3" engine="kokoro:am_michael"/>
+    <voice say="vo_heat" lang="en" src="voice/promo-ad-spot/en/vo_heat.a39eda17a2.ogg" dur="4.11" hash="a39eda17a2" engine="kokoro:am_michael"/>
+    <voice say="vo_logo" lang="en" src="voice/promo-ad-spot/en/vo_logo.b2d91d6cef.ogg" dur="3.71" hash="b2d91d6cef" engine="kokoro:am_michael"/>
+    <voice say="vo_price" lang="en" src="voice/promo-ad-spot/en/vo_price.7e9a8fdddd.ogg" dur="5.11" hash="7e9a8fdddd" engine="kokoro:am_michael"/>
+    <voice say="vo_punch" lang="en" src="voice/promo-ad-spot/en/vo_punch.13e8bf7712.ogg" dur="2.76" hash="13e8bf7712" engine="kokoro:am_michael"/>
+    <voice say="vo_size" lang="en" src="voice/promo-ad-spot/en/vo_size.478ea23530.ogg" dur="5.41" hash="478ea23530" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

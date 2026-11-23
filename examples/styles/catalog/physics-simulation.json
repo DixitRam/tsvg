@@ -1,0 +1,11 @@
+{
+  "id": "physics-simulation",
+  "title": "Physics simulation",
+  "category": "education",
+  "summary": "Live motion from equations: a projectile with trace and vectors, a launch-angle sweep, pendulums with energy bars.",
+  "duration": 66,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 24
+}

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: "What's new" release notes. A version badge, a changelog list with NEW / IMPROVED / FIXED chips
+     (the current entry lights up), a live demo panel per entry, and a before → after wipe for the fix. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_adam"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="dark"><choice id="dark" label="Dark"/><choice id="light" label="Light"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.25" sfx="0.6"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="dark" bg="#0b0d14" fg="#f1f3fa" muted="#8a92a8" panel="#151926" line="#242a3b" accent="#8b7dff" new="#34d399" imp="#60a5fa" fix="#fb923c" pink="#f472b6"/>
+    <theme id="light" bg="#f7f7fb" fg="#141622" muted="#5f667a" panel="#ffffff" line="#e3e5ee" accent="#5b4cf0" new="#059669" imp="#2563eb" fix="#ea580c" pink="#db2777"/>
+  </themes>
+  <strings>
+    <s id="title" en="What's new in TSVG 0.2"/>
+    <s id="whatsnew" en="What's new"/>
+    <s id="ver" en="v0.2"/>
+    <s id="date" en="Released 24 November 2026 · 6 changes"/>
+    <s id="NEW" en="NEW"/><s id="IMP" en="IMPROVED"/><s id="FIX" en="FIXED"/>
+    <s id="before" en="BEFORE"/><s id="after" en="AFTER"/>
+    <s id="upd" en="Update today"/>
+    <s id="ch1" en="v0.2"/><s id="ch2" en="repeat"/><s id="ch3" en="data"/><s id="ch4" en="blur + morph"/><s id="ch5" en="Player"/><s id="ch6" en="Fixes"/><s id="ch7" en="Summary"/>
+    <s id="vo1" en="Here is what's new in TSVG version zero point two. Three new features, one improvement and two fixes."/>
+    <s id="vo1_say" en="Here is what's new in T. S. V. G. version zero point two. Three new features, one improvement and two fixes."/>
+    <s id="vo2" en="New: repeat. Put repeat on any node and it is drawn n times, with its index in every expression."/>
+    <s id="vo3" en="New: data. Keep a list of numbers or labels in defs, and read it in charts and captions."/>
+    <s id="vo4" en="New: blur for depth and glow, and shapes that morph point by point between keyframes."/>
+    <s id="vo5" en="Improved: hover the player's timeline to see real frame previews, drawn on demand."/>
+    <s id="vo6" en="Fixed: variable fonts now render at the right weight, and captions no longer clip in portrait."/>
+    <s id="vo7" en="That is version zero point two. Update today, and tell us what you build."/>
+  </strings>
+
+  <defs>
+    <linear id="badge" x1="-200" y1="0" x2="200" y2="0"><stop at="0" color="$accent"/><stop at="1" color="$pink"/></linear>
+    <radial id="halo" x="0" y="0" r="420"><stop at="0" color="$accent" opacity="0.35"/><stop at="1" color="$accent" opacity="0"/></radial>
+    <data id="bars" v="12, 28, 19, 44, 37, 61, 52, 78"/>
+    <data id="mon" v="Jan, Feb, Mar, Apr, May, Jun, Jul, Aug"/>
+    <!-- before/after wipe: the "before" layer is clipped to the left of the divider -->
+    <clip id="beforeClip"><rect x="0" y="0" w="=clamp(700*(1 - ease((T-2.2)/2.4,'io')), 0, 700) + 0*T" h="360"/></clip>
+    <!-- the changelog, the current row lit by the scene -->
+    <symbol id="list">
+      <group repeat="6" as="k" y="=330 + k*100">
+        <rect x="120" y="-24" w="=k &lt; 3 ? 110 : k == 3 ? 170 : 120" h="48" r="24"
+              fill="=k &lt; 3 ? '#34d39926' : k == 3 ? '#60a5fa26' : '#fb923c26'"/>
+        <text x="=120 + (k &lt; 3 ? 55 : k == 3 ? 85 : 60)" y="1" size="20" weight="800" align="center"
+              fill="=k &lt; 3 ? $new : k == 3 ? $imp : $fix" text="=k &lt; 3 ? 'NEW' : k == 3 ? 'IMPROVED' : 'FIXED'"/>
+        <text x="320" size="30" weight="600" fill="$fg" text="{data('items', k)}"/>
+      </group>
+    </symbol>
+    <data id="items" v="repeat: draw any node n times, data(): lists for charts and labels, Blur and shapes that morph, Scrub previews in the player, Variable fonts at the right weight, Captions no longer clip in portrait"/>
+    <!-- the frame around every demo -->
+    <symbol id="panel">
+      <rect x="1040" y="220" w="760" h="700" r="28" fill="$panel" stroke="$line" sw="2" shadow="0 30 60 #0006"/>
+      <circle x="1080" y="256" r="7" fill="$line"/><circle x="1104" y="256" r="7" fill="$line"/><circle x="1128" y="256" r="7" fill="$line"/>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="bed" src="audio/pulse.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+  </assets>
+
+  <music src="bed" start="0" loop="1" vol="0.6"/>
+
+  <backdrop>
+    <circle x="=1500 + 60*sin(t*0.2)" y="160" r="420" fill="url(#halo)"/>
+    <line repeat="24" as="k" x1="=k*84" y1="0" x2="=k*84" y2="=H" stroke="$line" sw="1" opacity="0.35"/>
+  </backdrop>
+
+  <timeline>
+    <!-- 1 · hero: version badge -->
+    <scene id="hero" dur="8" chapter="@ch1">
+      <say at="0.5" text="@vo1" speak="@vo1_say"/>
+      <sfx at="0.3" src="whoosh"/><sfx at="1.1" src="ding"/>
+      <text x="=W/2" y="300" size="40" weight="700" align="center" fill="$muted" text="@whatsnew"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group x="=W/2" y="500" at="0.6">
+        <anim prop="scale" from="0.3" to="1" dur="0.9" ease="back"/>
+        <rect x="-260" y="-130" w="520" h="260" r="70" fill="url(#badge)" shadow="0 30 80 #8b7dff66"/>
+        <text y="4" size="170" weight="900" align="center" fill="#fff" text="@ver"/>
+      </group>
+      <!-- sparkles -->
+      <path repeat="7" as="i" at="=1 + i*0.15" x="=W/2 + 400*cos(i*0.9 + 0.3)" y="=500 + 170*sin(i*0.9 + 0.3)"
+            d="M0 -22 Q3 -3 22 0 Q3 3 0 22 Q-3 3 -22 0 Q-3 -3 0 -22 Z" fill="=i % 2 ? $pink : $new"
+            scale="=0.6 + 0.4*sin(T*3 + i)" rot="=T*40"/>
+      <text x="=W/2" y="720" size="36" align="center" fill="$muted" text="@date" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group x="=W/2 - 330" y="810" at="2.2">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="200" h="56" r="28" fill="#34d39926"/><text x="100" y="28" size="24" weight="800" align="center" fill="$new" text="3 NEW"/>
+        <rect x="230" w="200" h="56" r="28" fill="#60a5fa26"/><text x="330" y="28" size="24" weight="800" align="center" fill="$imp" text="1 IMPROVED"/>
+        <rect x="460" w="200" h="56" r="28" fill="#fb923c26"/><text x="560" y="28" size="24" weight="800" align="center" fill="$fix" text="2 FIXED"/>
+      </group>
+    </scene>
+
+    <!-- 2 · NEW repeat -->
+    <scene id="repeat" dur="8" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group x="120" y="150"><rect w="150" h="60" r="30" fill="url(#badge)"/><text x="75" y="30" size="28" weight="900" align="center" fill="#fff" text="@ver"/></group>
+      <text x="300" y="180" size="48" weight="800" fill="$fg" text="@whatsnew"/>
+      <rect x="100" y="=330 - 40" w="900" h="80" r="18" fill="$panel" stroke="$new" sw="2"><anim prop="opacity" from="0" to="1" dur="0.4"/></rect>
+      <group opacity="1"><use ref="list"/></group>
+      <rect x="100" y="380" w="900" h="560" fill="$bg" opacity="0.55"/>
+      <use ref="panel"><anim prop="opacity" from="0" to="1" dur="0.5"/></use>
+      <text x="1080" y="320" size="28" font="JetBrains Mono" fill="$new" text="&lt;circle repeat=&quot;16&quot; …/&gt;" at="0.6"><anim prop="reveal" from="0" to="1" dur="1" ease="linear"/></text>
+      <group x="1100" y="420" at="1.6">
+        <group repeat="10" as="c">
+          <circle repeat="6" as="r" x="=c*70" y="=r*80 + 18*sin(T*3 - c*0.5 - r*0.3)" r="=12 + 5*sin(T*2 + c*0.4)"
+                  fill="=mix($new, $accent, c/9)" opacity="=clamp((T - 1.6)*3 - (c + r)*0.15, 0, 1)"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 3 · NEW data -->
+    <scene id="data" dur="8" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group x="120" y="150"><rect w="150" h="60" r="30" fill="url(#badge)"/><text x="75" y="30" size="28" weight="900" align="center" fill="#fff" text="@ver"/></group>
+      <text x="300" y="180" size="48" weight="800" fill="$fg" text="@whatsnew"/>
+      <rect x="100" y="390" w="900" h="80" r="18" fill="$panel" stroke="$new" sw="2"/>
+      <use ref="list"/>
+      <rect x="100" y="280" w="900" h="100" fill="$bg" opacity="0.55"/>
+      <rect x="100" y="480" w="900" h="460" fill="$bg" opacity="0.55"/>
+      <use ref="panel"/>
+      <text x="1080" y="320" size="26" font="JetBrains Mono" fill="$new" text="&lt;data id=&quot;sales&quot; v=&quot;12, 28, …&quot;/&gt;" at="0.6"><anim prop="reveal" from="0" to="1" dur="1" ease="linear"/></text>
+      <group x="1110" y="840">
+        <line x1="-10" y1="0" x2="640" y2="0" stroke="$line" sw="3"/>
+        <group repeat="=count('bars')" as="k" x="=k*80">
+          <rect x="8" w="56" ay="1" r="8" h="=data('bars', k)*5.6*ease((T - 1.6 - k*0.15)/0.8, 'out')" fill="=mix($imp, $new, k/7)"/>
+          <text x="36" y="=-data('bars', k)*5.6*ease((T - 1.6 - k*0.15)/0.8, 'out') - 22" size="22" weight="700" align="center" fill="$fg"
+                text="{fmt(data('bars', k)*ease((T - 1.6 - k*0.15)/0.8, 'out'), 0)}" at="1.6"/>
+          <text x="36" y="30" size="20" align="center" fill="$muted" text="{data('mon', k)}"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 4 · NEW blur + morph -->
+    <scene id="morph" dur="8" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group x="120" y="150"><rect w="150" h="60" r="30" fill="url(#badge)"/><text x="75" y="30" size="28" weight="900" align="center" fill="#fff" text="@ver"/></group>
+      <text x="300" y="180" size="48" weight="800" fill="$fg" text="@whatsnew"/>
+      <rect x="100" y="490" w="900" h="80" r="18" fill="$panel" stroke="$new" sw="2"/>
+      <use ref="list"/>
+      <rect x="100" y="280" w="900" h="200" fill="$bg" opacity="0.55"/>
+      <rect x="100" y="580" w="900" h="360" fill="$bg" opacity="0.55"/>
+      <use ref="panel"/>
+      <text x="1080" y="320" size="26" font="JetBrains Mono" fill="$new" text="blur=&quot;24&quot;   &lt;keys prop=&quot;d&quot; …/&gt;" at="0.6"><anim prop="reveal" from="0" to="1" dur="1" ease="linear"/></text>
+      <circle x="1240" y="600" r="110" fill="$pink" blur="=4 + 30*(0.5 + 0.5*sin(T*2))"/>
+      <circle x="1240" y="600" r="60" fill="#fff" opacity="0.85" blur="=max(0, 40 - T*10)"/>
+      <path x="1600" y="600" fill="$accent" d="M 0 -150 L 42 -42 L 150 0 L 42 42 L 0 150 L -42 42 L -150 0 L -42 -42 Z">
+        <keys prop="d" ease="io" v="1.5: M 0 -150 L 42 -42 L 150 0 L 42 42 L 0 150 L -42 42 L -150 0 L -42 -42 Z;
+                                    3.5: M 0 -130 L 92 -92 L 130 0 L 92 92 L 0 130 L -92 92 L -130 0 L -92 -92 Z;
+                                    5.5: M -120 -120 L 0 -120 L 120 -120 L 120 0 L 120 120 L 0 120 L -120 120 L -120 0 Z"/>
+        <keys prop="fill" v="1.5: $accent; 3.5: $new; 5.5: $fix"/>
+      </path>
+      <text x="1240" y="820" size="24" weight="700" align="center" fill="$muted" text="blur"/>
+      <text x="1600" y="820" size="24" weight="700" align="center" fill="$muted" text="morph"/>
+    </scene>
+
+    <!-- 5 · IMPROVED scrub previews -->
+    <scene id="scrub" dur="8" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group x="120" y="150"><rect w="150" h="60" r="30" fill="url(#badge)"/><text x="75" y="30" size="28" weight="900" align="center" fill="#fff" text="@ver"/></group>
+      <text x="300" y="180" size="48" weight="800" fill="$fg" text="@whatsnew"/>
+      <rect x="100" y="590" w="900" h="80" r="18" fill="$panel" stroke="$imp" sw="2"/>
+      <use ref="list"/>
+      <rect x="100" y="280" w="900" h="300" fill="$bg" opacity="0.55"/>
+      <rect x="100" y="680" w="900" h="260" fill="$bg" opacity="0.55"/>
+      <use ref="panel"/>
+      <!-- a mini player -->
+      <rect x="1090" y="300" w="660" h="372" r="14" fill="#05060a"/>
+      <text x="1420" y="486" size="64" weight="900" align="center" fill="url(#badge)" text="TSVG"/>
+      <rect x="1110" y="760" w="620" h="8" r="4" fill="$line"/>
+      <rect x="1110" y="760" w="250" h="8" r="4" fill="#ef4444"/>
+      <circle x="=1110 + 120 + 440*ease((T-1.4)/4,'io')" y="764" r="0"/>
+      <group x="=1110 + 120 + 440*ease((T-1.4)/4,'io')" y="764" at="1.2">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <line x1="0" y1="-14" x2="0" y2="14" stroke="#fff" sw="3"/>
+        <!-- the preview: the frame at the hovered time -->
+        <rect x="-110" y="-180" w="220" h="140" r="10" fill="#05060a" stroke="#fff" sw="3"/>
+        <circle x="=-60 + 120*ease((T-1.4)/4,'io')" y="-118" r="=18 + 10*sin(T*4)" fill="=mix($accent, $new, ease((T-1.4)/4,'io'))"/>
+        <text y="-60" size="18" weight="700" font="JetBrains Mono" align="center" fill="#fff" text="0:{fmt(14 + 30*ease((T-1.4)/4,'io'),0)}"/>
+      </group>
+      <text x="1420" y="840" size="26" align="center" fill="$muted" text="hover → real frame, drawn on demand"/>
+    </scene>
+
+    <!-- 6 · FIXED: before → after wipe -->
+    <scene id="fixes" dur="9" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="0.2" src="whoosh"/><sfx at="2.2" src="blip"/>
+      <group x="120" y="150"><rect w="150" h="60" r="30" fill="url(#badge)"/><text x="75" y="30" size="28" weight="900" align="center" fill="#fff" text="@ver"/></group>
+      <text x="300" y="180" size="48" weight="800" fill="$fg" text="@whatsnew"/>
+      <rect x="100" y="690" w="900" h="180" r="18" fill="$panel" stroke="$fix" sw="2"/>
+      <use ref="list"/>
+      <rect x="100" y="280" w="900" h="400" fill="$bg" opacity="0.55"/>
+      <use ref="panel"/>
+      <group x="1070" y="380">
+        <!-- after -->
+        <rect w="700" h="360" r="16" fill="#fff7ed"/>
+        <text x="350" y="160" size="110" weight="800" align="center" fill="#1c1917" text="Bold 800"/>
+        <rect x="520" y="20" w="160" h="44" r="22" fill="$fix"/><text x="600" y="42" size="22" weight="800" align="center" fill="#fff" text="@after"/>
+        <!-- before (clipped to the left of the divider) -->
+        <group clip="url(#beforeClip)">
+          <rect w="700" h="360" r="16" fill="#e7e5e4"/>
+          <text x="350" y="160" size="110" weight="200" align="center" fill="#78716c" text="Bold 800"/>
+          <rect x="20" y="20" w="160" h="44" r="22" fill="#78716c"/><text x="100" y="42" size="22" weight="800" align="center" fill="#fff" text="@before"/>
+        </group>
+        <line x1="=clamp(700*(1 - ease((T-2.2)/2.4,'io')), 0, 700)" y1="0" x2="=clamp(700*(1 - ease((T-2.2)/2.4,'io')), 0, 700)" y2="360" stroke="#fff" sw="6"/>
+        <circle x="=clamp(700*(1 - ease((T-2.2)/2.4,'io')), 0, 700)" y="180" r="26" fill="#fff" shadow="0 6 14 #0005"/>
+        <text x="=clamp(700*(1 - ease((T-2.2)/2.4,'io')), 0, 700)" y="181" size="22" weight="800" align="center" fill="#1c1917" text="↔"/>
+        <text x="350" y="300" size="26" weight="600" align="center" fill="#57534e" text="font-weight 800, variable font"/>
+      </group>
+    </scene>
+
+    <!-- 7 · summary -->
+    <scene id="summary" dur="7.5" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="0.3" src="ding"/>
+      <group x="120" y="150"><rect w="150" h="60" r="30" fill="url(#badge)"/><text x="75" y="30" size="28" weight="900" align="center" fill="#fff" text="@ver"/></group>
+      <text x="300" y="180" size="48" weight="800" fill="$fg" text="@whatsnew"/>
+      <use ref="list"/>
+      <group repeat="6" as="k" x="1030" y="=330 + k*100" at="=0.4 + k*0.15">
+        <anim prop="scale" from="0" to="1" dur="0.3" ease="back"/>
+        <circle r="20" fill="$new"/><path d="M-9 0 l6 6 l12 -12" stroke="#fff" sw="4" fill="none"/>
+      </group>
+      <group x="1200" y="420" at="1.6">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect w="600" h="260" r="28" fill="$panel" stroke="$line" sw="2" shadow="0 30 60 #0006"/>
+        <text x="300" y="70" size="44" weight="800" align="center" fill="$fg" text="@upd"/>
+        <rect x="40" y="120" w="520" h="80" r="16" fill="#05060a"/>
+        <text x="70" y="160" size="30" font="JetBrains Mono" fill="$new" text="$ npm i tsvg@0.2.1" at="2"><anim prop="reveal" from="0" to="1" dur="1.2" ease="linear"/></text>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/release-notes/en/vo1.434ae5f9f9.ogg" dur="6.91" hash="434ae5f9f9" engine="kokoro:am_adam"/>
+    <voice say="vo2" lang="en" src="voice/release-notes/en/vo2.ccdef99a58.ogg" dur="5.71" hash="ccdef99a58" engine="kokoro:am_adam"/>
+    <voice say="vo3" lang="en" src="voice/release-notes/en/vo3.d9ce4031ed.ogg" dur="5.11" hash="d9ce4031ed" engine="kokoro:am_adam"/>
+    <voice say="vo4" lang="en" src="voice/release-notes/en/vo4.6cc66e38ee.ogg" dur="4.71" hash="6cc66e38ee" engine="kokoro:am_adam"/>
+    <voice say="vo5" lang="en" src="voice/release-notes/en/vo5.f9b7b445d8.ogg" dur="5.01" hash="f9b7b445d8" engine="kokoro:am_adam"/>
+    <voice say="vo6" lang="en" src="voice/release-notes/en/vo6.65729edd87.ogg" dur="5.31" hash="65729edd87" engine="kokoro:am_adam"/>
+    <voice say="vo7" lang="en" src="voice/release-notes/en/vo7.c0c608263a.ogg" dur="4.11" hash="c0c608263a" engine="kokoro:am_adam"/>
+  </voices>
+</tsvg>

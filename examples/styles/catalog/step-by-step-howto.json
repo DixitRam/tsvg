@@ -1,0 +1,11 @@
+{
+  "id": "step-by-step-howto",
+  "title": "Step-by-step how-to",
+  "category": "tutorial",
+  "summary": "Six numbered steps on a progress rail: terminal and browser illustrations, checklist ticks, light and dark themes.",
+  "duration": 66,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 39
+}

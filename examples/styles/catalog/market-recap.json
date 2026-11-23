@@ -1,0 +1,11 @@
+{
+  "id": "market-recap",
+  "title": "Market recap",
+  "category": "Business & reporting",
+  "summary": "Closing bell for fictional indices: green/red tiles with sparklines, data-driven candlesticks, gainers, losers, sector heatmap and ticker.",
+  "duration": 62.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 25
+}

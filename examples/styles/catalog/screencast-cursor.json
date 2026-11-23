@@ -1,0 +1,11 @@
+{
+  "id": "screencast-cursor",
+  "title": "Screencast tutorial",
+  "category": "Product & software",
+  "summary": "Screen-recording look: a vector cursor glides and clicks with ripples, typed input, a dropdown, drag and drop, REC badge and step captions.",
+  "duration": 60.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 30
+}

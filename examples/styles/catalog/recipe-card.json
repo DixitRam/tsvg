@@ -1,0 +1,11 @@
+{
+  "id": "recipe-card",
+  "title": "Recipe card",
+  "category": "Food & lifestyle",
+  "summary": "Overhead kitchen recipe: thali photo, ingredient checklist ticking off, step cards with countdown-ring timers. Gujarati dal.",
+  "duration": 66.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 25
+}

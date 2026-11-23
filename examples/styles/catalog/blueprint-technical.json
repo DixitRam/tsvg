@@ -1,0 +1,11 @@
+{
+  "id": "blueprint-technical",
+  "title": "Blueprint technical drawing",
+  "category": "Technical",
+  "summary": "White line drawings, dimension lines and callouts on a blueprint grid work out bicycle gear ratios.",
+  "duration": 65.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 6
+}

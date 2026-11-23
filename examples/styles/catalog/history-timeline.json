@@ -1,0 +1,11 @@
+{
+  "id": "history-timeline",
+  "title": "History timeline",
+  "category": "Storytelling",
+  "summary": "Two centuries of electricity: the camera pans along a dated line, photo and animated-icon cards rise in, a year counter follows.",
+  "duration": 60.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 40
+}

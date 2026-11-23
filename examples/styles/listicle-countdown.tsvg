@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Top-5 countdown listicle: big numbers 5 to 1, illustrated items, stat bars, a #1 reveal with confetti. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait" w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.3" sfx="0.6"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="main" bg="#0d1b3e" fg="#fff" muted="#ffffffaa" accent="#FFD23F"/></themes>
+  <strings>
+    <s id="title" en="5 ANIMALS THAT LIVE THE LONGEST"/>
+    <s id="sub" en="#1 MIGHT NEVER DIE"/>
+    <s id="drum" en="AND NUMBER ONE…"/>
+    <s id="k_lives" en="LIVES UP TO"/>
+    <s id="k_years" en="YEARS"/>
+    <s id="k_maybe" en="FOREVER?"/>
+    <s id="k_human" en="you (73)"/>
+    <s id="k_550" en="550 yrs"/>
+    <s id="out1" en="WHICH ONE SURPRISED YOU?"/>
+    <s id="follow" en="FOLLOW FOR MORE"/>
+    <s id="name_n5" en="Galápagos giant tortoise"/>
+    <s id="fact_n5" en="Jonathan hatched around 1832 and still grazes on St Helena."/>
+    <s id="name_n4" en="Bowhead whale"/>
+    <s id="fact_n4" en="Old harpoon tips found in living whales date back to the 1800s."/>
+    <s id="name_n3" en="Greenland shark"/>
+    <s id="fact_n3" en="Eye-lens dating. It grows about one centimetre a year."/>
+    <s id="name_n2" en="Ocean quahog clam"/>
+    <s id="fact_n2" en="A clam nicknamed Ming had 507 growth rings, counted like a tree."/>
+    <s id="name_n1" en="Immortal jellyfish"/>
+    <s id="fact_n1" en="Old or hurt, it turns back into a polyp and starts life again."/>
+    <s id="vo_intro" en="Five animals that outlive everyone you know. Counting down to the one that may never die at all."/>
+    <s id="vo_n5" en="Number five. The Galápagos giant tortoise. One named Jonathan hatched around eighteen thirty-two, and he is still munching grass today."/>
+    <s id="vo_n4" en="Number four. The bowhead whale. Old harpoon tips found in living whales show that some pass two hundred years."/>
+    <s id="vo_n3" en="Number three. The Greenland shark. Eye lens dating puts the oldest one at around four hundred years. It grows just one centimetre a year."/>
+    <s id="vo_n2" en="Number two. The ocean quahog clam. One nicknamed Ming had five hundred and seven growth rings, counted like a tree."/>
+    <s id="vo_n1" en="And number one. The immortal jellyfish. When it gets old or hurt, it turns back into a baby polyp, and starts its life all over again."/>
+    <s id="vo_outro" en="Which one surprised you most? Follow for the next top five."/>
+    <s id="ch_intro" en="Intro"/>
+    <s id="ch_n5" en="#5 Galápagos giant tortoise"/>
+    <s id="ch_n4" en="#4 Bowhead whale"/>
+    <s id="ch_n3" en="#3 Greenland shark"/>
+    <s id="ch_n2" en="#2 Ocean quahog clam"/>
+    <s id="ch_n1" en="#1 Immortal jellyfish"/>
+    <s id="ch_outro" en="Outro"/>
+  </strings>
+  <defs>
+    <linear id="bg" x1="0" y1="0" x2="=W*0.3" y2="=H"><stop at="0" color="#0d1b3e"/><stop at="1" color="#155e75"/></linear>
+    <linear id="bar" x1="0" y1="0" x2="800" y2="0"><stop at="0" color="#FFD23F"/><stop at="1" color="#FF5A5F"/></linear>
+    <linear id="gold" x1="-170" y1="-170" x2="170" y2="170"><stop at="0" color="#fff3b0"/><stop at="0.5" color="#FFD23F"/><stop at="1" color="#ff9f1c"/></linear>
+    <radial id="spot" x="=W/2" y="=H/2" r="440"><stop at="0" color="#fff" opacity="0.25"/><stop at="1" color="#fff" opacity="0"/></radial>
+    <radial id="jelly" x="0" y="-60" r="170"><stop at="0" color="#fff0f7"/><stop at="1" color="#ff7ab8" opacity="0.85"/></radial>
+    <radial id="pool_n5" x="0" y="-80" r="340"><stop at="0" color="#a5d6a7"/><stop at="1" color="#2e7d32"/></radial>
+    <radial id="pool_n4" x="0" y="-80" r="340"><stop at="0" color="#7fb3e6"/><stop at="1" color="#1e3a5f"/></radial>
+    <radial id="pool_n3" x="0" y="-80" r="340"><stop at="0" color="#b0bec5"/><stop at="1" color="#37474f"/></radial>
+    <radial id="pool_n2" x="0" y="-80" r="340"><stop at="0" color="#ffe0b2"/><stop at="1" color="#8d6e63"/></radial>
+    <radial id="pool_n1" x="0" y="-80" r="340"><stop at="0" color="#f8bbd0"/><stop at="1" color="#ad1457"/></radial>
+    <clip id="porthole"><circle r="292"/></clip>
+    <data id="confetti" v="#FFD23F, #FF5A5F, #4ECDC4, #ffffff, #A78BFA, #7CFF6B"/>
+    <data id="pool" v="#2e7d32, #1e3a5f, #37474f, #8d6e63, #ad1457"/>
+    <data id="short" v="Tortoise, Whale, Shark, Clam, Jellyfish"/>
+  </defs>
+  <assets>
+    <asset id="bright" src="audio/bright.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="ding" src="audio/ding.ogg"/><asset id="pop" src="audio/pop.ogg"/>
+    <font family="Anton" src="fonts/Anton.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="bright" loop="1" vol="0.8"/>
+  <timeline>
+    <scene id="intro" dur="8.01" chapter="@ch_intro">
+      <say at="0.5" text="@vo_intro"/>
+      <sfx at="0.05" src="whoosh"/>
+      <rect w="=W" h="=H" fill="url(#bg)"/>
+      <circle repeat="6" as="k" x="=W*rand(k+20) + 40*sin(T*0.3 + k)" y="=H*rand(k+30)" r="=120 + 160*rand(k+40)" fill="#ffffff" opacity="0.035"/>
+      <group x="=W/2" y="=H/2 - 170" y.portrait="=H/2 - 220">
+        <text font="Anton" size="150" size.portrait="130" maxw="1400" maxw.portrait="900" lh="1.0" align="center" fill="#fff" text="@title" shadow="0 10 0 #0006">
+          <anim prop="scale" from="1.8" to="1" dur="0.4" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.2"/>
+        </text>
+        <group y="230" y.portrait="260" at="0.6" rot="-3">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <rect x="-430" y="-50" w="860" h="100" r="16" fill="#FF5A5F" shadow="0 10 0 #0005"/>
+          <text font="Anton" size="60" align="center" y="2" fill="#fff" text="@sub"/>
+        </group>
+        <text repeat="5" as="k" x="=(k-2)*170" y="420" y.portrait="560" font="Anton" size="110" align="center" fill="=k == 4 ? '#FFD23F' : '#ffffff66'" text="{5-k}" at="=1.2 + k*0.25">
+          <anim prop="scale" from="2" to="1" dur="0.3" ease="out"/>
+        </text>
+      </group>
+      <rect w="=W" h="=H" fill="#fff" opacity="=0.7*(1 - smooth(0, 0.18, T))"/>
+    </scene>
+    <scene id="n5" dur="11.01" chapter="@ch_n5">
+      <say at="0.5" text="@vo_n5"/>
+      <sfx at="0.05" src="whoosh"/>
+      <rect w="=W" h="=H" fill="url(#bg)"/>
+      <circle repeat="6" as="k" x="=W*rand(k+20) + 40*sin(T*0.3 + k)" y="=H*rand(k+30)" r="=120 + 160*rand(k+40)" fill="#ffffff" opacity="0.035"/>
+      <group x="=W/2 - 260" y="60" y.portrait="110">
+        <rect repeat="5" as="k" x="=k*110" w="90" h="56" r="28" fill="=(5-k) == 5 ? '#FFD23F' : (5-k) &gt; 5 ? '#ffffff55' : '#ffffff18'" stroke="#ffffff55" sw="2"/>
+        <text repeat="5" as="k" x="=k*110 + 45" y="30" size="32" font="Anton" align="center" fill="=(5-k) == 5 ? '#1a1a2e' : '#ffffff'" text="#{5-k}"/>
+      </group>
+      
+      <group at="0">
+        <group x="560" y="600" x.portrait="540" y.portrait="800">
+          <anim prop="scale" from="0.2" to="1" at="0.55" dur="0.6" ease="back"/>
+          <anim prop="opacity" from="0" to="1" at="0.55" dur="0.3"/>
+          <circle r="300" fill="url(#pool_n5)" stroke="#fff" sw="10" shadow="0 30 60 #0007"/>
+          <group clip="url(#porthole)">
+            <circle repeat="14" as="k" x="=-250 + 500*rand(k)" y="=280 - 600*fract(T*0.25 + rand(k+3))" r="=5 + 10*rand(k+1)" fill="none" stroke="#ffffff66" sw="3"/>
+            <group scale="1.15">
+          <path d="M -170 40 C -170 -120 170 -120 170 40 Z" fill="#6d8b3a" stroke="#3e5220" sw="8"/>
+          <path d="M -110 40 L -80 -40 L 0 -80 L 80 -40 L 110 40 M -80 -40 L 0 0 L 80 -40 M 0 -80 L 0 0 L 0 40" stroke="#3e5220" sw="7" fill="none"/>
+          <rect x="-140" y="30" w="50" h="80" r="20" fill="#8a7a5c"/><rect x="90" y="30" w="50" h="80" r="20" fill="#8a7a5c"/>
+          <group x="=140 + 8*sin(T*1.5)" y="=-10 + 6*sin(T*1.5)"><rect x="-30" y="-14" w="80" h="34" r="16" fill="#8a7a5c"/><circle x="56" y="-10" r="34" fill="#8a7a5c"/><circle x="66" y="-20" r="6" fill="#222"/></group>
+          <path d="M 120 120 L 140 60 L 160 120 M 150 120 L 175 70 L 190 120" stroke="#7cc46a" sw="8" fill="none"/>
+            </group>
+          </group>
+        </group>
+        <group x="=W/2" y="=H/2" scale="1">
+          <keys prop="x" v="0: =W/2; 0.5: =W/2; 1.0: =portrait ? 250 : 300"/>
+          <keys prop="y" v="0: =H/2; 0.5: =H/2; 1.0: =portrait ? 540 : 330"/>
+          <keys prop="scale" v="0: 2.4; 0.18: 1.6; 0.5: 1.6; 1.0: 0.62"/>
+          <circle r="170" fill="#FFD23F" stroke="#fff" sw="10" shadow="0 16 0 #0006"/>
+          <text font="Anton" size="210" align="center" y="10" fill="#1a1a2e" text="#5"/>
+        </group>
+      </group>
+      <group x="1020" y="300" x.portrait="100" y.portrait="1230" at="0.9">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1080" from.portrait="160" to="1020" to.portrait="100" dur="0.5" ease="out"/>
+        <text y="0" size="34" weight="800" fill="#FFD23F" text="@k_lives"/>
+        <text y="105" font="Anton" size="150" fill="#fff" text="{fmt(190*ease((T-1.4)/1.4,'out'), 0)} " shadow="0 8 0 #0005"/>
+        <text x="250" y="125" font="Anton" size="64" fill="#FFD23F" text="@k_years"/>
+        <text y="240" size="62" weight="800" fill="#fff" text="@name_n5"/>
+        <text y="330" size="38" maxw="800" maxw.portrait="880" lh="1.3" fill="#ffffffcc" text="@fact_n5"/>
+        <group y="460" at="0.5">
+          <rect w="800" w.portrait="880" h="26" r="13" fill="#ffffff26"/>
+          <rect w="=(portrait ? 880 : 800) * 190/550*ease((T-0.5)/1.4,'out')" h="26" r="13" fill="url(#bar)"/>
+          <line x1="=(portrait ? 880 : 800)*73/550" x2="=(portrait ? 880 : 800)*73/550" y1="-14" y2="40" stroke="#fff" sw="4"/>
+          <text x="=(portrait ? 880 : 800)*73/550" y="70" size="26" weight="700" align="center" fill="#ffffffaa" text="@k_human"/>
+          <text x="=portrait ? 880 : 800" y="70" size="26" weight="700" align="right" fill="#ffffffaa" text="@k_550"/>
+        </group>
+      </group>
+      <rect w="=W" h="=H" fill="#fff" opacity="=0.7*(1 - smooth(0, 0.18, T))"/>
+    </scene>
+    <scene id="n4" dur="9.11" chapter="@ch_n4">
+      <say at="0.5" text="@vo_n4"/>
+      <sfx at="0.05" src="whoosh"/>
+      <rect w="=W" h="=H" fill="url(#bg)"/>
+      <circle repeat="6" as="k" x="=W*rand(k+20) + 40*sin(T*0.3 + k)" y="=H*rand(k+30)" r="=120 + 160*rand(k+40)" fill="#ffffff" opacity="0.035"/>
+      <group x="=W/2 - 260" y="60" y.portrait="110">
+        <rect repeat="5" as="k" x="=k*110" w="90" h="56" r="28" fill="=(5-k) == 4 ? '#FFD23F' : (5-k) &gt; 4 ? '#ffffff55' : '#ffffff18'" stroke="#ffffff55" sw="2"/>
+        <text repeat="5" as="k" x="=k*110 + 45" y="30" size="32" font="Anton" align="center" fill="=(5-k) == 4 ? '#1a1a2e' : '#ffffff'" text="#{5-k}"/>
+      </group>
+      
+      <group at="0">
+        <group x="560" y="600" x.portrait="540" y.portrait="800">
+          <anim prop="scale" from="0.2" to="1" at="0.55" dur="0.6" ease="back"/>
+          <anim prop="opacity" from="0" to="1" at="0.55" dur="0.3"/>
+          <circle r="300" fill="url(#pool_n4)" stroke="#fff" sw="10" shadow="0 30 60 #0007"/>
+          <group clip="url(#porthole)">
+            <circle repeat="14" as="k" x="=-250 + 500*rand(k)" y="=280 - 600*fract(T*0.25 + rand(k+3))" r="=5 + 10*rand(k+1)" fill="none" stroke="#ffffff66" sw="3"/>
+            <group scale="1.15">
+          <group rot="=4*sin(T*0.9)">
+            <path d="M -220 0 C -220 -110 60 -120 140 -50 C 180 -20 200 10 230 -40 L 260 -90 L 250 0 L 270 70 L 220 30 C 180 80 80 110 -60 100 C -170 92 -220 60 -220 0 Z" fill="#26323d" stroke="#0e1419" sw="6"/>
+            <path d="M -220 20 C -200 70 -140 96 -60 98 C -110 70 -170 60 -220 20 Z" fill="#e9eef2"/>
+            <circle x="-120" y="-20" r="9" fill="#e9eef2"/>
+          </group>
+          <path repeat="2" as="k" x="=-150 + k*30" y="-110" d="M 0 0 C -10 -40 -40 -60 -60 -70 M 0 0 C 10 -40 40 -60 60 -70" stroke="#d8f0ff" sw="8" fill="none" opacity="=0.4 + 0.6*fract(T*0.8)"/>
+            </group>
+          </group>
+        </group>
+        <group x="=W/2" y="=H/2" scale="1">
+          <keys prop="x" v="0: =W/2; 0.5: =W/2; 1.0: =portrait ? 250 : 300"/>
+          <keys prop="y" v="0: =H/2; 0.5: =H/2; 1.0: =portrait ? 540 : 330"/>
+          <keys prop="scale" v="0: 2.4; 0.18: 1.6; 0.5: 1.6; 1.0: 0.62"/>
+          <circle r="170" fill="#FFD23F" stroke="#fff" sw="10" shadow="0 16 0 #0006"/>
+          <text font="Anton" size="210" align="center" y="10" fill="#1a1a2e" text="#4"/>
+        </group>
+      </group>
+      <group x="1020" y="300" x.portrait="100" y.portrait="1230" at="0.9">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1080" from.portrait="160" to="1020" to.portrait="100" dur="0.5" ease="out"/>
+        <text y="0" size="34" weight="800" fill="#FFD23F" text="@k_lives"/>
+        <text y="105" font="Anton" size="150" fill="#fff" text="{fmt(211*ease((T-1.4)/1.4,'out'), 0)} " shadow="0 8 0 #0005"/>
+        <text x="250" y="125" font="Anton" size="64" fill="#FFD23F" text="@k_years"/>
+        <text y="240" size="62" weight="800" fill="#fff" text="@name_n4"/>
+        <text y="330" size="38" maxw="800" maxw.portrait="880" lh="1.3" fill="#ffffffcc" text="@fact_n4"/>
+        <group y="460" at="0.5">
+          <rect w="800" w.portrait="880" h="26" r="13" fill="#ffffff26"/>
+          <rect w="=(portrait ? 880 : 800) * 211/550*ease((T-0.5)/1.4,'out')" h="26" r="13" fill="url(#bar)"/>
+          <line x1="=(portrait ? 880 : 800)*73/550" x2="=(portrait ? 880 : 800)*73/550" y1="-14" y2="40" stroke="#fff" sw="4"/>
+          <text x="=(portrait ? 880 : 800)*73/550" y="70" size="26" weight="700" align="center" fill="#ffffffaa" text="@k_human"/>
+          <text x="=portrait ? 880 : 800" y="70" size="26" weight="700" align="right" fill="#ffffffaa" text="@k_550"/>
+        </group>
+      </group>
+      <rect w="=W" h="=H" fill="#fff" opacity="=0.7*(1 - smooth(0, 0.18, T))"/>
+    </scene>
+    <scene id="n3" dur="11.51" chapter="@ch_n3">
+      <say at="0.5" text="@vo_n3"/>
+      <sfx at="0.05" src="whoosh"/>
+      <rect w="=W" h="=H" fill="url(#bg)"/>
+      <circle repeat="6" as="k" x="=W*rand(k+20) + 40*sin(T*0.3 + k)" y="=H*rand(k+30)" r="=120 + 160*rand(k+40)" fill="#ffffff" opacity="0.035"/>
+      <group x="=W/2 - 260" y="60" y.portrait="110">
+        <rect repeat="5" as="k" x="=k*110" w="90" h="56" r="28" fill="=(5-k) == 3 ? '#FFD23F' : (5-k) &gt; 3 ? '#ffffff55' : '#ffffff18'" stroke="#ffffff55" sw="2"/>
+        <text repeat="5" as="k" x="=k*110 + 45" y="30" size="32" font="Anton" align="center" fill="=(5-k) == 3 ? '#1a1a2e' : '#ffffff'" text="#{5-k}"/>
+      </group>
+      
+      <group at="0">
+        <group x="560" y="600" x.portrait="540" y.portrait="800">
+          <anim prop="scale" from="0.2" to="1" at="0.55" dur="0.6" ease="back"/>
+          <anim prop="opacity" from="0" to="1" at="0.55" dur="0.3"/>
+          <circle r="300" fill="url(#pool_n3)" stroke="#fff" sw="10" shadow="0 30 60 #0007"/>
+          <group clip="url(#porthole)">
+            <circle repeat="14" as="k" x="=-250 + 500*rand(k)" y="=280 - 600*fract(T*0.25 + rand(k+3))" r="=5 + 10*rand(k+1)" fill="none" stroke="#ffffff66" sw="3"/>
+            <group scale="1.15">
+          <group x="=20*sin(T*0.7)" rot="=3*sin(T*0.7)">
+            <path d="M -250 0 C -180 -80 80 -80 170 -20 L 250 -90 L 230 0 L 250 80 L 170 20 C 80 70 -180 70 -250 0 Z" fill="#5d6b74" stroke="#2e373d" sw="6"/>
+            <path d="M -40 -50 L 0 -120 L 30 -48 Z" fill="#4b575f"/><path d="M -40 40 L -10 100 L 20 42 Z" fill="#4b575f"/>
+            <path d="M -250 0 C -180 50 60 60 170 20" stroke="#8a989f" sw="5" fill="none"/>
+            <circle x="-200" y="-12" r="9" fill="#cfe8ff"/>
+            <path d="M -170 -10 L -165 15 M -155 -12 L -150 15 M -140 -14 L -135 15" stroke="#2e373d" sw="4"/>
+          </group>
+            </group>
+          </group>
+        </group>
+        <group x="=W/2" y="=H/2" scale="1">
+          <keys prop="x" v="0: =W/2; 0.5: =W/2; 1.0: =portrait ? 250 : 300"/>
+          <keys prop="y" v="0: =H/2; 0.5: =H/2; 1.0: =portrait ? 540 : 330"/>
+          <keys prop="scale" v="0: 2.4; 0.18: 1.6; 0.5: 1.6; 1.0: 0.62"/>
+          <circle r="170" fill="#FFD23F" stroke="#fff" sw="10" shadow="0 16 0 #0006"/>
+          <text font="Anton" size="210" align="center" y="10" fill="#1a1a2e" text="#3"/>
+        </group>
+      </group>
+      <group x="1020" y="300" x.portrait="100" y.portrait="1230" at="0.9">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1080" from.portrait="160" to="1020" to.portrait="100" dur="0.5" ease="out"/>
+        <text y="0" size="34" weight="800" fill="#FFD23F" text="@k_lives"/>
+        <text y="105" font="Anton" size="150" fill="#fff" text="{fmt(392*ease((T-1.4)/1.4,'out'), 0)} " shadow="0 8 0 #0005"/>
+        <text x="250" y="125" font="Anton" size="64" fill="#FFD23F" text="@k_years"/>
+        <text y="240" size="62" weight="800" fill="#fff" text="@name_n3"/>
+        <text y="330" size="38" maxw="800" maxw.portrait="880" lh="1.3" fill="#ffffffcc" text="@fact_n3"/>
+        <group y="460" at="0.5">
+          <rect w="800" w.portrait="880" h="26" r="13" fill="#ffffff26"/>
+          <rect w="=(portrait ? 880 : 800) * 392/550*ease((T-0.5)/1.4,'out')" h="26" r="13" fill="url(#bar)"/>
+          <line x1="=(portrait ? 880 : 800)*73/550" x2="=(portrait ? 880 : 800)*73/550" y1="-14" y2="40" stroke="#fff" sw="4"/>
+          <text x="=(portrait ? 880 : 800)*73/550" y="70" size="26" weight="700" align="center" fill="#ffffffaa" text="@k_human"/>
+          <text x="=portrait ? 880 : 800" y="70" size="26" weight="700" align="right" fill="#ffffffaa" text="@k_550"/>
+        </group>
+      </group>
+      <rect w="=W" h="=H" fill="#fff" opacity="=0.7*(1 - smooth(0, 0.18, T))"/>
+    </scene>
+    <scene id="n2" dur="9.71" chapter="@ch_n2">
+      <say at="0.5" text="@vo_n2"/>
+      <sfx at="0.05" src="whoosh"/>
+      <rect w="=W" h="=H" fill="url(#bg)"/>
+      <circle repeat="6" as="k" x="=W*rand(k+20) + 40*sin(T*0.3 + k)" y="=H*rand(k+30)" r="=120 + 160*rand(k+40)" fill="#ffffff" opacity="0.035"/>
+      <group x="=W/2 - 260" y="60" y.portrait="110">
+        <rect repeat="5" as="k" x="=k*110" w="90" h="56" r="28" fill="=(5-k) == 2 ? '#FFD23F' : (5-k) &gt; 2 ? '#ffffff55' : '#ffffff18'" stroke="#ffffff55" sw="2"/>
+        <text repeat="5" as="k" x="=k*110 + 45" y="30" size="32" font="Anton" align="center" fill="=(5-k) == 2 ? '#1a1a2e' : '#ffffff'" text="#{5-k}"/>
+      </group>
+      
+      <group at="0">
+        <group x="560" y="600" x.portrait="540" y.portrait="800">
+          <anim prop="scale" from="0.2" to="1" at="0.55" dur="0.6" ease="back"/>
+          <anim prop="opacity" from="0" to="1" at="0.55" dur="0.3"/>
+          <circle r="300" fill="url(#pool_n2)" stroke="#fff" sw="10" shadow="0 30 60 #0007"/>
+          <group clip="url(#porthole)">
+            <circle repeat="14" as="k" x="=-250 + 500*rand(k)" y="=280 - 600*fract(T*0.25 + rand(k+3))" r="=5 + 10*rand(k+1)" fill="none" stroke="#ffffff66" sw="3"/>
+            <group scale="1.15">
+          <path d="M -200 60 C -200 -150 200 -150 200 60 Z" fill="#c9a27e" stroke="#6b4e34" sw="8"/>
+          <path repeat="=clamp(floor(T*6), 1, 11)" as="k" d="=('M ' + (-185 + k*15) + ' 60 C ' + (-185 + k*15) + ' ' + (-135 + k*13) + ' ' + (185 - k*15) + ' ' + (-135 + k*13) + ' ' + (185 - k*15) + ' 60')" stroke="#6b4e34" sw="3" fill="none" opacity="0.7"/>
+          <rect x="-210" y="56" w="420" h="22" r="11" fill="#6b4e34"/>
+          <path d="M -200 78 C -180 130 180 130 200 78 Z" fill="#b48c68" stroke="#6b4e34" sw="6"/>
+            </group>
+          </group>
+        </group>
+        <group x="=W/2" y="=H/2" scale="1">
+          <keys prop="x" v="0: =W/2; 0.5: =W/2; 1.0: =portrait ? 250 : 300"/>
+          <keys prop="y" v="0: =H/2; 0.5: =H/2; 1.0: =portrait ? 540 : 330"/>
+          <keys prop="scale" v="0: 2.4; 0.18: 1.6; 0.5: 1.6; 1.0: 0.62"/>
+          <circle r="170" fill="#FFD23F" stroke="#fff" sw="10" shadow="0 16 0 #0006"/>
+          <text font="Anton" size="210" align="center" y="10" fill="#1a1a2e" text="#2"/>
+        </group>
+      </group>
+      <group x="1020" y="300" x.portrait="100" y.portrait="1230" at="0.9">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1080" from.portrait="160" to="1020" to.portrait="100" dur="0.5" ease="out"/>
+        <text y="0" size="34" weight="800" fill="#FFD23F" text="@k_lives"/>
+        <text y="105" font="Anton" size="150" fill="#fff" text="{fmt(507*ease((T-1.4)/1.4,'out'), 0)} " shadow="0 8 0 #0005"/>
+        <text x="250" y="125" font="Anton" size="64" fill="#FFD23F" text="@k_years"/>
+        <text y="240" size="62" weight="800" fill="#fff" text="@name_n2"/>
+        <text y="330" size="38" maxw="800" maxw.portrait="880" lh="1.3" fill="#ffffffcc" text="@fact_n2"/>
+        <group y="460" at="0.5">
+          <rect w="800" w.portrait="880" h="26" r="13" fill="#ffffff26"/>
+          <rect w="=(portrait ? 880 : 800) * 507/550*ease((T-0.5)/1.4,'out')" h="26" r="13" fill="url(#bar)"/>
+          <line x1="=(portrait ? 880 : 800)*73/550" x2="=(portrait ? 880 : 800)*73/550" y1="-14" y2="40" stroke="#fff" sw="4"/>
+          <text x="=(portrait ? 880 : 800)*73/550" y="70" size="26" weight="700" align="center" fill="#ffffffaa" text="@k_human"/>
+          <text x="=portrait ? 880 : 800" y="70" size="26" weight="700" align="right" fill="#ffffffaa" text="@k_550"/>
+        </group>
+      </group>
+      <rect w="=W" h="=H" fill="#fff" opacity="=0.7*(1 - smooth(0, 0.18, T))"/>
+    </scene>
+    <scene id="n1" dur="13.21" chapter="@ch_n1">
+      <say at="2.7" text="@vo_n1"/>
+      <sfx at="2.2" src="ding"/>
+      <sfx at="2.3" src="pop"/><sfx at="2.5" src="pop"/>
+      <rect w="=W" h="=H" fill="url(#bg)"/>
+      <circle repeat="6" as="k" x="=W*rand(k+20) + 40*sin(T*0.3 + k)" y="=H*rand(k+30)" r="=120 + 160*rand(k+40)" fill="#ffffff" opacity="0.035"/>
+      <group x="=W/2 - 260" y="60" y.portrait="110">
+        <rect repeat="5" as="k" x="=k*110" w="90" h="56" r="28" fill="=(5-k) == 1 ? '#FFD23F' : (5-k) &gt; 1 ? '#ffffff55' : '#ffffff18'" stroke="#ffffff55" sw="2"/>
+        <text repeat="5" as="k" x="=k*110 + 45" y="30" size="32" font="Anton" align="center" fill="=(5-k) == 1 ? '#1a1a2e' : '#ffffff'" text="#{5-k}"/>
+      </group>
+      
+      <group at="0" dur="2.3000000000000003">
+        <circle x="=W/2" y="=H/2" r="=420 + 20*sin(T*8)" fill="url(#spot)"/>
+        <text x="=W/2" y="=H/2" size="96" size.portrait="84" font="Anton" align="center" fill="#fff" text="@drum" opacity="=0.85 + 0.15*sin(T*14)">
+          <anim prop="scale" from="0.9" to="1.1" dur="2.2" ease="linear"/>
+        </text>
+      </group>
+      <group x="=W/2" y="=H/2" at="2.2">
+        <path repeat="16" as="k" d="M 0 0 L 1400 -110 L 1400 110 Z" rot="=k*22.5 + T*12" fill="#ffffff" opacity="0.06"/>
+      </group>
+      <group at="2.2">
+        <group x="560" y="600" x.portrait="540" y.portrait="800">
+          <anim prop="scale" from="0.2" to="1" at="0.55" dur="0.6" ease="back"/>
+          <anim prop="opacity" from="0" to="1" at="0.55" dur="0.3"/>
+          <circle r="300" fill="url(#pool_n1)" stroke="#fff" sw="10" shadow="0 30 60 #0007"/>
+          <group clip="url(#porthole)">
+            <circle repeat="14" as="k" x="=-250 + 500*rand(k)" y="=280 - 600*fract(T*0.25 + rand(k+3))" r="=5 + 10*rand(k+1)" fill="none" stroke="#ffffff66" sw="3"/>
+            <group scale="1.15">
+          <group y="=-30 + 18*sin(T*1.6)">
+            <path d="=('M -150 0 C -150 ' + (-170 - 20*sin(T*3.2)) + ' 150 ' + (-170 - 20*sin(T*3.2)) + ' 150 0 C 100 ' + (24 + 8*sin(T*3.2)) + ' -100 ' + (24 + 8*sin(T*3.2)) + ' -150 0 Z')" fill="url(#jelly)" stroke="#ffd6ea" sw="5" shadow="0 0 40 #ff80c0"/>
+            <path repeat="7" as="k" d="=('M ' + (-105 + k*35) + ' 14 C ' + (-125 + k*35 + 30*sin(T*2 + k)) + ' 80 ' + (-85 + k*35 - 30*sin(T*2 + k)) + ' 150 ' + (-105 + k*35 + 20*sin(T*2.4 + k)) + ' 230')" stroke="#ffc1e0" sw="6" fill="none" opacity="0.85"/>
+            <circle repeat="4" as="k" x="=-60 + k*40" y="-60" r="14" fill="#fff" opacity="0.35"/>
+          </group>
+            </group>
+          </group>
+        </group>
+        <group x="=W/2" y="=H/2" scale="1">
+          <keys prop="x" v="0: =W/2; 0.5: =W/2; 1.0: =portrait ? 250 : 300"/>
+          <keys prop="y" v="0: =H/2; 0.5: =H/2; 1.0: =portrait ? 540 : 330"/>
+          <keys prop="scale" v="0: 2.4; 0.18: 1.6; 0.5: 1.6; 1.0: 0.62"/>
+          <circle r="170" fill="url(#gold)" stroke="#fff" sw="10" shadow="0 16 0 #0006"/>
+          <text font="Anton" size="210" align="center" y="10" fill="#1a1a2e" text="#1"/>
+        </group>
+      </group>
+      <group x="1020" y="300" x.portrait="100" y.portrait="1230" at="3.1">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1080" from.portrait="160" to="1020" to.portrait="100" dur="0.5" ease="out"/>
+        <text y="0" size="34" weight="800" fill="#FFD23F" text="@k_lives"/>
+        <text y="105" font="Anton" size="150" fill="#fff" text="∞" shadow="0 8 0 #0005"/>
+        <text x="110" y="125" font="Anton" size="64" fill="#FFD23F" text="@k_maybe"/>
+        <text y="240" size="62" weight="800" fill="#fff" text="@name_n1"/>
+        <text y="330" size="38" maxw="800" maxw.portrait="880" lh="1.3" fill="#ffffffcc" text="@fact_n1"/>
+        <group y="460" at="0.5">
+          <rect w="800" w.portrait="880" h="26" r="13" fill="#ffffff26"/>
+          <rect w="=(portrait ? 880 : 800) * min(1.08, ease((T-0.5)/2,'out')*1.08)" h="26" r="13" fill="url(#bar)"/>
+          <line x1="=(portrait ? 880 : 800)*73/550" x2="=(portrait ? 880 : 800)*73/550" y1="-14" y2="40" stroke="#fff" sw="4"/>
+          <text x="=(portrait ? 880 : 800)*73/550" y="70" size="26" weight="700" align="center" fill="#ffffffaa" text="@k_human"/>
+          <text x="=portrait ? 880 : 800" y="70" size="26" weight="700" align="right" fill="#ffffffaa" text="@k_550"/>
+        </group>
+      </group>
+      <rect repeat="140" as="k" at="2.2" x="=W*rand(k) + 60*sin((T-2.2)*3 + k)" y="=-60 + (H+120)*fract(((T-2.2)*(260 + 380*rand(k+7)) - 1100*rand(k+11))/(H+120))"
+            w="=14 + 10*rand(k+2)" h="=24 + 12*rand(k+3)" ax="0.5" ay="0.5" r="3" rot="=k*37 + (T-2.2)*(160 + 300*rand(k+5))"
+            fill="=data('confetti', k)"/>
+      <rect w="=W" h="=H" fill="#fff" opacity="=0.7*(1 - smooth(0, 0.18, T))"/>
+    </scene>
+    <scene id="outro" dur="5.51" chapter="@ch_outro">
+      <say at="0.5" text="@vo_outro"/>
+      <sfx at="0.05" src="whoosh"/>
+      <rect w="=W" h="=H" fill="url(#bg)"/>
+      <circle repeat="6" as="k" x="=W*rand(k+20) + 40*sin(T*0.3 + k)" y="=H*rand(k+30)" r="=120 + 160*rand(k+40)" fill="#ffffff" opacity="0.035"/>
+      <text x="=W/2" y="=H/2 - 120" y.portrait="=H/2 - 220" font="Anton" size="120" size.portrait="110" maxw.portrait="900" lh="1.05" align="center" fill="#fff" text="@out1">
+        <anim prop="scale" from="1.6" to="1" dur="0.4"/>
+      </text>
+      <group x="=W/2 - 440" y="=H/2 + 60" x.portrait="=W/2 - 440" y.portrait="=H/2">
+        <group repeat="5" as="k" x="=(k%5)*220" x.portrait="=(k%3)*330 + (k &gt;= 3 ? 165 : 0)" y.portrait="=k &gt;= 3 ? 240 : 0" at="=0.4 + k*0.15">
+          <anim prop="scale" from="0" to="1" dur="0.35" ease="back"/>
+          <circle x="0" y="0" r="90" fill="=data('pool', k)" stroke="#fff" sw="6"/>
+          <text font="Anton" size="80" align="center" y="4" fill="#fff" text="#{5-k}"/>
+          <text y="130" size="26" weight="700" align="center" fill="#ffffffcc" text="{data('short', k)}"/>
+        </group>
+      </group>
+      <group x="=W/2" y="=H - 150" y.portrait="=H - 400" scale="=1 + 0.05*sin(T*6)" at="1.4">
+        <rect x="-240" y="-56" w="480" h="112" r="56" fill="#FF5A5F" shadow="0 0 40 #ff5a5faa"/>
+        <text font="Anton" size="58" align="center" y="2" fill="#fff" text="@follow"/>
+      </group>
+      <rect w="=W" h="=H" fill="#fff" opacity="=0.7*(1 - smooth(0, 0.18, T))"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_intro" lang="en" src="voice/listicle-countdown/en/vo_intro.726403da9e.ogg" dur="6.31" hash="726403da9e" engine="kokoro:am_michael"/>
+    <voice say="vo_n1" lang="en" src="voice/listicle-countdown/en/vo_n1.75d1a50966.ogg" dur="9.31" hash="75d1a50966" engine="kokoro:am_michael"/>
+    <voice say="vo_n2" lang="en" src="voice/listicle-countdown/en/vo_n2.39cdd256b1.ogg" dur="8.01" hash="39cdd256b1" engine="kokoro:am_michael"/>
+    <voice say="vo_n3" lang="en" src="voice/listicle-countdown/en/vo_n3.415cdf845c.ogg" dur="9.81" hash="415cdf845c" engine="kokoro:am_michael"/>
+    <voice say="vo_n4" lang="en" src="voice/listicle-countdown/en/vo_n4.73e925e45a.ogg" dur="7.41" hash="73e925e45a" engine="kokoro:am_michael"/>
+    <voice say="vo_n5" lang="en" src="voice/listicle-countdown/en/vo_n5.20015643af.ogg" dur="9.31" hash="20015643af" engine="kokoro:am_michael"/>
+    <voice say="vo_outro" lang="en" src="voice/listicle-countdown/en/vo_outro.33100d8af2.ogg" dur="3.81" hash="33100d8af2" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: animated book summary. A vector cover, pages turning (a morphing page polygon), one idea per spread with an icon, a takeaway list. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bm_lewis"/></option>
+    <option id="mix" label="Audio" default="full">
+      <choice id="full" label="Full"/><choice id="speech" label="Speech only"/>
+    </option>
+    <option id="theme" label="Theme" default="study"><choice id="study" label="Study"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.3" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="study" bg="#1c1410" fg="#f6efe2" muted="#8c7a66" ink="#2b2420" ink2="#4a3f37" seal="#a8322b" gold="#c9a14a" cover="#7d1f1a" cover2="#5a1512" desk="#3a2a20"/>
+  </themes>
+  <strings>
+    <s id="title" en="The Art of War in a minute"/>
+    <s id="bT1" en="THE ART"/><s id="bT2" en="OF WAR"/><s id="bA" en="SUN TZU"/>
+    <s id="series" en="BOOK IN A MINUTE"/>
+    <s id="ch0" en="The book"/><s id="ch1" en="Inside"/><s id="ch6" en="Takeaways"/><s id="ch7" en="Read it"/>
+    <s id="contents" en="Contents"/>
+    <s id="stat1" en="13"/><s id="stat1b" en="chapters"/>
+    <s id="stat2" en="~6,000"/><s id="stat2b" en="words"/>
+    <s id="stat3" en="4"/><s id="stat3b" en="ideas worth keeping"/>
+    <s id="trans" en="Lionel Giles translation, 1910 · public domain"/>
+    <s id="takeH" en="In short"/>
+    <s id="t1" en="Plan first"/><s id="t2" en="Know both sides"/><s id="t3" en="Skip the needless fight"/><s id="t4" en="Adapt like water"/>
+    <s id="outro" en="Read it in an afternoon."/>
+    <s id="i1kick" en="IDEA 1 · CHAPTER I"/>
+    <s id="i1title" en="Plan before you act"/>
+    <s id="i1body" en="Before any campaign, weigh five things: purpose, timing, ground, leadership and discipline."/>
+    <s id="i1quote" en="“The general who wins a battle makes many calculations in his temple ere the battle is fought.”"/>
+    <s id="i1cite" en="Chapter I · Laying Plans"/>
+    <s id="i1num" en="I"/>
+    <s id="vo_i1" en="Idea one: plan before you act. The winner does the calculations before the battle, not during it."/>
+    <s id="i2kick" en="IDEA 2 · CHAPTER III"/>
+    <s id="i2title" en="Know yourself, know them"/>
+    <s id="i2body" en="Most defeats come from a blind spot: misjudging your own strength, or the other side's."/>
+    <s id="i2quote" en="“If you know the enemy and know yourself, you need not fear the result of a hundred battles.”"/>
+    <s id="i2cite" en="Chapter III · Attack by Stratagem"/>
+    <s id="i2num" en="II"/>
+    <s id="vo_i2" en="Idea two: know yourself, and know the other side. Most defeats come from a blind spot on one of the two."/>
+    <s id="i3kick" en="IDEA 3 · CHAPTER III"/>
+    <s id="i3title" en="Win without fighting"/>
+    <s id="i3body" en="The best victory costs nothing. Outmanoeuvre, persuade, or make the conflict pointless."/>
+    <s id="i3quote" en="“Supreme excellence consists in breaking the enemy's resistance without fighting.”"/>
+    <s id="i3cite" en="Chapter III · Attack by Stratagem"/>
+    <s id="i3num" en="III"/>
+    <s id="vo_i3" en="Idea three: the best victory is the one you never have to fight. Outmanoeuvre, persuade, or make the conflict pointless."/>
+    <s id="i4kick" en="IDEA 4 · CHAPTER VI"/>
+    <s id="i4title" en="Be like water"/>
+    <s id="i4body" en="Plans meet reality. Stay flexible and let the situation shape your next move."/>
+    <s id="i4quote" en="“Water shapes its course according to the nature of the ground over which it flows.”"/>
+    <s id="i4cite" en="Chapter VI · Weak Points and Strong"/>
+    <s id="i4num" en="IV"/>
+    <s id="vo_i4" en="Idea four: be like water. Plans meet reality, so let the ground shape your next move."/>
+    <s id="vo1" en="The Art of War, by Sun Tzu. Two and a half thousand years old, and still quoted in boardrooms today."/>
+    <s id="vo2" en="It's short: thirteen chapters, about six thousand words. Here are four ideas worth keeping."/>
+    <s id="vo7" en="So, in short: plan first, know both sides, skip the fight you don't need, and adapt as you go."/>
+    <s id="vo8" en="You can read the whole book in an afternoon. It's worth it."/>
+  </strings>
+  <defs>
+    <!-- a page turning about the spine (x = 960): k = 0 lies on the right, k = 1 on the left -->
+    <fn id="flipd" args="k">'M 960 140 L ' + (960 + 730*cos(PI*k)) + ' ' + (140 - 34*sin(PI*k)) + ' L ' + (960 + 730*cos(PI*k)) + ' ' + (960 + 14*sin(PI*k)) + ' L 960 960 Z'</fn>
+    <fn id="coverd" args="k">'M 960 130 L ' + (960 + 745*cos(PI*k)) + ' ' + (130 - 40*sin(PI*k)) + ' L ' + (960 + 745*cos(PI*k)) + ' ' + (970 + 16*sin(PI*k)) + ' L 960 970 Z'</fn>
+    <radial id="deskG" x="960" y="540" r="1200"><stop at="0" color="$desk"/><stop at="1" color="#120c09"/></radial>
+    <linear id="spineL" x1="900" y1="0" x2="960" y2="0"><stop at="0" color="#000" opacity="0"/><stop at="1" color="#000" opacity="0.22"/></linear>
+    <linear id="spineR" x1="960" y1="0" x2="1010" y2="0"><stop at="0" color="#000" opacity="0.18"/><stop at="1" color="#000" opacity="0"/></linear>
+    <linear id="coverG" x1="960" y1="130" x2="1705" y2="970"><stop at="0" color="$cover"/><stop at="1" color="$cover2"/></linear>
+    <clip id="leftPage"><rect x="230" y="140" w="730" h="820"/></clip>
+    <clip id="rightPage"><rect x="960" y="140" w="730" h="820"/></clip>
+    <!-- the open book: paper pages, page-edge stack, spine shadow -->
+    <symbol id="openbook">
+      <rect x="210" y="150" w="1500" h="830" r="10" fill="#000" opacity="0.45" blur="24"/>
+      <rect x="222" y="146" w="1476" h="822" r="6" fill="#d9cfbd"/>
+      <rect x="226" y="143" w="1468" h="822" r="6" fill="#e6dccb"/>
+      <group clip="url(#leftPage)"><image src="paper" x="230" y="140" w="730" h="820"/></group>
+      <group clip="url(#rightPage)"><image src="paper" x="960" y="140" w="730" h="820"/></group>
+      <rect x="230" y="140" w="1460" h="820" fill="#f2e6cc" opacity="0.35"/>
+      <rect x="900" y="140" w="60" h="820" fill="url(#spineL)"/>
+      <rect x="960" y="140" w="50" h="820" fill="url(#spineR)"/>
+    </symbol>
+    <!-- the cover, front face -->
+    <symbol id="front">
+      <rect x="960" y="130" w="745" h="840" r="10" fill="url(#coverG)" shadow="0 30 60 #000a"/>
+      <rect x="960" y="130" w="40" h="840" fill="#000" opacity="0.25"/>
+      <rect x="1040" y="180" w="625" h="740" r="6" fill="none" stroke="$gold" sw="4"/>
+      <rect x="1054" y="194" w="597" h="712" r="4" fill="none" stroke="$gold" sw="1.5"/>
+      <text x="1352" y="330" size="28" weight="700" align="center" fill="$gold" text="@series"/>
+      <text x="1352" y="470" size="96" font="Playfair Display" weight="800" align="center" fill="#f3dca0" text="@bT1"/>
+      <text x="1352" y="580" size="96" font="Playfair Display" weight="800" align="center" fill="#f3dca0" text="@bT2"/>
+      <line x1="1272" y1="650" x2="1432" y2="650" stroke="$gold" sw="3"/>
+      <text x="1352" y="710" size="36" weight="600" align="center" fill="$gold" text="@bA"/>
+      <!-- seal -->
+      <group x="1352" y="830">
+        <rect x="-40" y="-40" w="80" h="80" r="6" fill="$seal" stroke="#f3dca0" sw="2"/>
+        <path d="M -22 -20 L 22 -20 M 0 -20 L 0 24 M -20 4 L 20 4 M -22 24 L 22 24" stroke="#f3dca0" sw="5" fill="none"/>
+      </group>
+    </symbol>
+  </defs>
+  <assets>
+    <asset id="paper" src="images/paper.jpg"/>
+    <asset id="bed" src="audio/pad.ogg"/>
+    <asset id="flip" src="audio/whoosh.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
+  </assets>
+  <music src="bed" loop="1" vol="0.8"/>
+
+  <backdrop>
+    <rect w="1920" h="1080" fill="url(#deskG)"/>
+    <line repeat="22" as="k" x1="0" y1="=k*52 + 10*sin(k)" x2="1920" y2="=k*52 + 10*cos(k)" stroke="#000" sw="2" opacity="0.08"/>
+  </backdrop>
+
+  <timeline>
+    <!-- cover -->
+    <scene id="cover" dur="8.5" chapter="@ch0">
+      <say at="0.6" text="@vo1"/>
+      <group x="-372" y="=10*sin(T*0.8)" rot="=-2 + 1.5*sin(T*0.5)">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+        <!-- page edges peeking out -->
+        <rect x="970" y="138" w="728" h="826" r="6" fill="#e6dccb"/>
+        <line repeat="6" as="k" x1="1690" y1="=150 + k*3" x2="1690" y2="=950 - k*3" stroke="#bfb29b" sw="1"/>
+        <use ref="front"/>
+        <!-- moving sheen -->
+        <rect x="=900 + 1000*fract((T - 1)/4)" y="120" w="60" h="860" fill="#ffffff" opacity="0.07" rot="12"/>
+      </group>
+    </scene>
+
+    <!-- the cover opens, pages riffle -->
+    <scene id="open" dur="8.5" chapter="@ch1">
+      <say at="0.8" text="@vo2"/>
+      <sfx at="0.4" src="flip"/><sfx at="2.4" src="flip"/><sfx at="2.9" src="flip"/>
+      <group x="=-372*(1 - ease(clamp(T/1.4, 0, 1), 'io'))">
+        <group clip="url(#rightPage)" when="=ease(clamp(T/1.4, 0, 1), 'io') &lt; 0.5"><use ref="openbook"/></group>
+        <use ref="openbook" when="=ease(clamp(T/1.4, 0, 1), 'io') >= 0.5"/>
+        <!-- inside cover on the left once it has turned -->
+        <rect x="215" y="130" w="745" h="840" r="10" fill="$cover2" when="=T > 1.4 + 0"/>
+        <rect x="230" y="140" w="730" h="820" fill="#efe3c9" when="=T > 1.4"/>
+        <text x="595" y="300" size="40" font="Playfair Display" italic="1" align="center" fill="$ink" text="@contents" when="=T > 3.4" opacity="=clamp((T - 3.4)*2, 0, 1)"/>
+        <text repeat="13" as="c" x="320" y="=380 + c*42" size="22" fill="$ink2" text="{c+1}." when="=T > 3.4" opacity="=clamp((T - 3.5 - c*0.05)*3, 0, 1)"/>
+        <rect repeat="13" as="c" x="370" y="=372 + c*42" w="=220 + 200*rand(c+4)" h="14" r="7" fill="$ink" opacity="=0.15*clamp((T - 3.5 - c*0.05)*3, 0, 1)" when="=T > 3.4"/>
+        <!-- right page: stats -->
+        <group x="1325" opacity="=clamp((T - 3.6)*2, 0, 1)">
+          <group repeat="3" as="k" y="=330 + k*210">
+            <text y="0" size="100" font="Playfair Display" weight="800" align="center" fill="=k==2 ? $seal : $ink" text="@stat1" when="=k==0"/>
+            <text y="0" size="100" font="Playfair Display" weight="800" align="center" fill="$ink" text="@stat2" when="=k==1"/>
+            <text y="0" size="100" font="Playfair Display" weight="800" align="center" fill="$seal" text="@stat3" when="=k==2"/>
+            <text y="74" size="28" align="center" fill="$ink2" text="@stat1b" when="=k==0"/>
+            <text y="74" size="28" align="center" fill="$ink2" text="@stat2b" when="=k==1"/>
+            <text y="74" size="28" align="center" fill="$ink2" text="@stat3b" when="=k==2"/>
+          </group>
+          <text y="920" size="18" align="center" fill="$muted" text="@trans"/>
+        </group>
+        <!-- two quick page riffles -->
+        <path d="=flipd(ease(clamp((T - 2.2)/0.7, 0, 1), 'io'))" fill="=mix('#f4efe4', '#cbbfa8', sin(PI*ease(clamp((T - 2.2)/0.7, 0, 1), 'io')))" when="=T > 2.2 &amp;&amp; T &lt; 2.9" shadow="0 10 30 #0005"/>
+        <path d="=flipd(ease(clamp((T - 2.7)/0.7, 0, 1), 'io'))" fill="=mix('#f4efe4', '#cbbfa8', sin(PI*ease(clamp((T - 2.7)/0.7, 0, 1), 'io')))" when="=T > 2.7 &amp;&amp; T &lt; 3.4" shadow="0 10 30 #0005"/>
+        <!-- the cover swinging open: front face while k < 0.5, inside face after -->
+        <path d="=coverd(ease(clamp(T/1.4, 0, 1), 'io'))" fill="=ease(clamp(T/1.4, 0, 1), 'io') &lt; 0.5 ? mix($cover, '#3a0d0a', ease(clamp(T/1.4, 0, 1), 'io')*1.6) : $cover2" when="=T &lt; 1.4" shadow="0 20 40 #0007"/>
+      </group>
+    </scene>
+
+    <!-- idea 1 -->
+    <scene id="idea1" dur="9" chapter="@i1title">
+      <say at="0.9" text="@vo_i1"/>
+      <sfx at="0.05" src="flip"/>
+      <use ref="openbook"/>
+      <!-- left page: numeral + icon -->
+      <group opacity="=clamp((T - 0.9)*4, 0, 1)">
+        <text x="595" y="250" size="26" weight="700" align="center" fill="$seal" text="@i1kick"/>
+        <text x="595" y="360" size="150" font="Playfair Display" weight="700" align="center" fill="$ink" opacity="0.12" text="@i1num"/>
+        <group x="595" y="640">
+          <circle r="110" fill="none" stroke="$ink" sw="5"><anim prop="opacity" from="0" to="1" at="1" dur="0.4"/></circle>
+          <circle r="92" fill="none" stroke="$ink" sw="2" opacity="0.5"/>
+          <line repeat="8" as="k" x1="=96*sin(k*PI/4)" y1="=-96*cos(k*PI/4)" x2="=(k%2==0 ? 76 : 86)*sin(k*PI/4)" y2="=-(k%2==0 ? 76 : 86)*cos(k*PI/4)" stroke="$ink" sw="4"/>
+          <group rot="=20 + 25*sin(T*1.3)*exp(-T*0.25)">
+            <path d="M 0 -70 L 16 0 L 0 70 L -16 0 Z" fill="$seal"/>
+            <path d="M 0 0 L 16 0 L 0 70 L -16 0 Z" fill="$ink"/>
+            <circle r="7" fill="$gold"/>
+          </group>
+        </group>
+      </group>
+      <!-- right page: the idea -->
+      <group opacity="=clamp((T - 1.0)*3, 0, 1)">
+        <text x="1030" y="250" size="50" font="Playfair Display" weight="700" fill="$ink" text="@i1title"/>
+        <line x1="1030" y1="300" x2="1130" y2="300" stroke="$seal" sw="5"/>
+        <text x="1030" y="400" size="31" maxw="590" lh="1.45" fill="$ink2" text="@i1body" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+        <group at="3.2">
+          <anim prop="opacity" from="0" to="1" dur="0.8"/>
+          <rect x="1030" y="560" w="6" h="230" r="3" fill="$gold"/>
+          <text x="1060" y="660" size="31" font="Playfair Display" italic="1" maxw="570" lh="1.4" fill="$ink" text="@i1quote"/>
+          <text x="1060" y="830" size="22" weight="600" fill="$muted" text="@i1cite"/>
+        </group>
+        <text x="1620" y="930" size="20" fill="$muted" align="right" text="{12 + 1*14}"/>
+      </group>
+      <!-- the turning page -->
+      <path d="=flipd(ease(clamp(T/1.0, 0, 1), 'io'))" fill="=mix('#f4efe4', '#cbbfa8', sin(PI*ease(clamp(T/1.0, 0, 1), 'io')))" stroke="#00000022" sw="1" when="=T &lt; 1.0" shadow="0 10 30 #0005"/>
+    </scene>
+    <!-- idea 2 -->
+    <scene id="idea2" dur="9" chapter="@i2title">
+      <say at="0.9" text="@vo_i2"/>
+      <sfx at="0.05" src="flip"/>
+      <use ref="openbook"/>
+      <!-- left page: numeral + icon -->
+      <group opacity="=clamp((T - 0.9)*4, 0, 1)">
+        <text x="595" y="250" size="26" weight="700" align="center" fill="$seal" text="@i2kick"/>
+        <text x="595" y="360" size="150" font="Playfair Display" weight="700" align="center" fill="$ink" opacity="0.12" text="@i2num"/>
+        <group x="595" y="640">
+          <path d="M -130 0 Q 0 -100 130 0 Q 0 100 -130 0 Z" fill="none" stroke="$ink" sw="6"><anim prop="draw" from="0" to="1" at="1" dur="1.2"/></path>
+          <circle x="=14*sin(T*0.9)" r="42" fill="$seal" opacity="=clamp((T-1.8)*3, 0, 1)"/>
+          <circle x="=14*sin(T*0.9)" r="18" fill="$ink" opacity="=clamp((T-1.8)*3, 0, 1)"/>
+          <circle x="=14*sin(T*0.9) + 10" y="-12" r="6" fill="#fff" opacity="=clamp((T-1.8)*3, 0, 1)"/>
+          <path repeat="5" as="k" d="M 0 -70 L 0 -95" x="=(k-2)*40" rot="=(k-2)*14" stroke="$ink" sw="5" fill="none" opacity="=clamp((T-2)*3, 0, 1)"/>
+        </group>
+      </group>
+      <!-- right page: the idea -->
+      <group opacity="=clamp((T - 1.0)*3, 0, 1)">
+        <text x="1030" y="250" size="50" font="Playfair Display" weight="700" fill="$ink" text="@i2title"/>
+        <line x1="1030" y1="300" x2="1130" y2="300" stroke="$seal" sw="5"/>
+        <text x="1030" y="400" size="31" maxw="590" lh="1.45" fill="$ink2" text="@i2body" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+        <group at="3.2">
+          <anim prop="opacity" from="0" to="1" dur="0.8"/>
+          <rect x="1030" y="560" w="6" h="230" r="3" fill="$gold"/>
+          <text x="1060" y="660" size="31" font="Playfair Display" italic="1" maxw="570" lh="1.4" fill="$ink" text="@i2quote"/>
+          <text x="1060" y="830" size="22" weight="600" fill="$muted" text="@i2cite"/>
+        </group>
+        <text x="1620" y="930" size="20" fill="$muted" align="right" text="{12 + 2*14}"/>
+      </group>
+      <!-- the turning page -->
+      <path d="=flipd(ease(clamp(T/1.0, 0, 1), 'io'))" fill="=mix('#f4efe4', '#cbbfa8', sin(PI*ease(clamp(T/1.0, 0, 1), 'io')))" stroke="#00000022" sw="1" when="=T &lt; 1.0" shadow="0 10 30 #0005"/>
+    </scene>
+    <!-- idea 3 -->
+    <scene id="idea3" dur="9" chapter="@i3title">
+      <say at="0.9" text="@vo_i3"/>
+      <sfx at="0.05" src="flip"/>
+      <use ref="openbook"/>
+      <!-- left page: numeral + icon -->
+      <group opacity="=clamp((T - 0.9)*4, 0, 1)">
+        <text x="595" y="250" size="26" weight="700" align="center" fill="$seal" text="@i3kick"/>
+        <text x="595" y="360" size="150" font="Playfair Display" weight="700" align="center" fill="$ink" opacity="0.12" text="@i3num"/>
+        <group x="595" y="640">
+          <group rot="-35">
+            <path d="M 0 -120 L 14 -96 L 14 50 L -14 50 L -14 -96 Z" fill="none" stroke="$ink" sw="5"><anim prop="draw" from="0" to="1" at="1" dur="1"/></path>
+            <rect x="-46" y="50" w="92" h="16" r="6" fill="$ink" opacity="=clamp((T-1.6)*3, 0, 1)"/>
+            <rect x="-9" y="66" w="18" h="50" r="6" fill="$gold" opacity="=clamp((T-1.6)*3, 0, 1)"/>
+          </group>
+          <circle r="135" fill="none" stroke="$seal" sw="10" opacity="0.9"><anim prop="opacity" from="0" to="0.9" at="2.2" dur="0.4"/></circle>
+          <line x1="-95" y1="95" x2="95" y2="-95" stroke="$seal" sw="10" at="2.4"><anim prop="draw" from="0" to="1" dur="0.4"/></line>
+        </group>
+      </group>
+      <!-- right page: the idea -->
+      <group opacity="=clamp((T - 1.0)*3, 0, 1)">
+        <text x="1030" y="250" size="50" font="Playfair Display" weight="700" fill="$ink" text="@i3title"/>
+        <line x1="1030" y1="300" x2="1130" y2="300" stroke="$seal" sw="5"/>
+        <text x="1030" y="400" size="31" maxw="590" lh="1.45" fill="$ink2" text="@i3body" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+        <group at="3.2">
+          <anim prop="opacity" from="0" to="1" dur="0.8"/>
+          <rect x="1030" y="560" w="6" h="230" r="3" fill="$gold"/>
+          <text x="1060" y="660" size="31" font="Playfair Display" italic="1" maxw="570" lh="1.4" fill="$ink" text="@i3quote"/>
+          <text x="1060" y="830" size="22" weight="600" fill="$muted" text="@i3cite"/>
+        </group>
+        <text x="1620" y="930" size="20" fill="$muted" align="right" text="{12 + 3*14}"/>
+      </group>
+      <!-- the turning page -->
+      <path d="=flipd(ease(clamp(T/1.0, 0, 1), 'io'))" fill="=mix('#f4efe4', '#cbbfa8', sin(PI*ease(clamp(T/1.0, 0, 1), 'io')))" stroke="#00000022" sw="1" when="=T &lt; 1.0" shadow="0 10 30 #0005"/>
+    </scene>
+    <!-- idea 4 -->
+    <scene id="idea4" dur="9" chapter="@i4title">
+      <say at="0.9" text="@vo_i4"/>
+      <sfx at="0.05" src="flip"/>
+      <use ref="openbook"/>
+      <!-- left page: numeral + icon -->
+      <group opacity="=clamp((T - 0.9)*4, 0, 1)">
+        <text x="595" y="250" size="26" weight="700" align="center" fill="$seal" text="@i4kick"/>
+        <text x="595" y="360" size="150" font="Playfair Display" weight="700" align="center" fill="$ink" opacity="0.12" text="@i4num"/>
+        <group x="595" y="640">
+          <path repeat="3" as="k" y="=(k-1)*60" d="M -140 0 C -110 -30, -80 -30, -50 0 S 10 30, 40 0 S 100 -30, 140 0" stroke="=k==1 ? $seal : $ink" sw="7" fill="none" x="=10*sin(T*1.5 + k)">
+            <anim prop="draw" from="0" to="1" at="=1 + k*0.3" dur="1"/>
+          </path>
+        </group>
+      </group>
+      <!-- right page: the idea -->
+      <group opacity="=clamp((T - 1.0)*3, 0, 1)">
+        <text x="1030" y="250" size="50" font="Playfair Display" weight="700" fill="$ink" text="@i4title"/>
+        <line x1="1030" y1="300" x2="1130" y2="300" stroke="$seal" sw="5"/>
+        <text x="1030" y="400" size="31" maxw="590" lh="1.45" fill="$ink2" text="@i4body" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+        <group at="3.2">
+          <anim prop="opacity" from="0" to="1" dur="0.8"/>
+          <rect x="1030" y="560" w="6" h="230" r="3" fill="$gold"/>
+          <text x="1060" y="660" size="31" font="Playfair Display" italic="1" maxw="570" lh="1.4" fill="$ink" text="@i4quote"/>
+          <text x="1060" y="830" size="22" weight="600" fill="$muted" text="@i4cite"/>
+        </group>
+        <text x="1620" y="930" size="20" fill="$muted" align="right" text="{12 + 4*14}"/>
+      </group>
+      <!-- the turning page -->
+      <path d="=flipd(ease(clamp(T/1.0, 0, 1), 'io'))" fill="=mix('#f4efe4', '#cbbfa8', sin(PI*ease(clamp(T/1.0, 0, 1), 'io')))" stroke="#00000022" sw="1" when="=T &lt; 1.0" shadow="0 10 30 #0005"/>
+    </scene>
+
+    <!-- takeaways -->
+    <scene id="takeaways" dur="9" chapter="@ch6">
+      <say at="0.9" text="@vo7"/>
+      <sfx at="0.05" src="flip"/><sfx at="1.6" src="click"/><sfx at="2.8" src="click"/><sfx at="4.1" src="click"/><sfx at="5.4" src="click"/>
+      <use ref="openbook"/>
+      <group opacity="=clamp((T - 0.9)*4, 0, 1)">
+        <text x="595" y="520" size="96" font="Playfair Display" italic="1" align="center" fill="$ink" text="@takeH"/>
+        <line x1="535" y1="600" x2="655" y2="600" stroke="$seal" sw="5"/>
+      </group>
+      <group repeat="4" as="k" x="1040" y="=300 + k*150" opacity="=clamp((T - 1.2 - k*1.25)*3, 0, 1)">
+        <rect x="0" y="-30" w="60" h="60" r="12" fill="none" stroke="$ink" sw="4"/>
+        <path d="M 12 0 L 26 14 L 50 -14" stroke="$seal" sw="7" fill="none" draw="=clamp((T - 1.5 - k*1.25)/0.4, 0, 1)"/>
+        <text x="90" y="0" size="44" font="Playfair Display" weight="700" fill="$ink" text="@t1" when="=k==0"/>
+        <text x="90" y="0" size="44" font="Playfair Display" weight="700" fill="$ink" text="@t2" when="=k==1"/>
+        <text x="90" y="0" size="44" font="Playfair Display" weight="700" fill="$ink" text="@t3" when="=k==2"/>
+        <text x="90" y="0" size="44" font="Playfair Display" weight="700" fill="$ink" text="@t4" when="=k==3"/>
+      </group>
+      <path d="=flipd(ease(clamp(T/1.0, 0, 1), 'io'))" fill="=mix('#f4efe4', '#cbbfa8', sin(PI*ease(clamp(T/1.0, 0, 1), 'io')))" stroke="#00000022" sw="1" when="=T &lt; 1.0" shadow="0 10 30 #0005"/>
+    </scene>
+
+    <!-- the book closes -->
+    <scene id="outro" dur="6.5" chapter="@ch7">
+      <say at="1.4" text="@vo8"/>
+      <sfx at="0.2" src="flip"/>
+      <group x="=-372*ease(clamp((T - 1.2)/1, 0, 1), 'io')" y="=-60*ease(clamp((T - 1.2)/1, 0, 1), 'io')">
+        <group when="=T &lt; 1.2"><use ref="openbook"/></group>
+        <!-- cover swinging shut from the left -->
+        <path d="=coverd(1 - ease(clamp(T/1.2, 0, 1), 'io'))" fill="=ease(clamp(T/1.2, 0, 1), 'io') &lt; 0.5 ? $cover2 : mix('#3a0d0a', $cover, ease(clamp(T/1.2, 0, 1), 'io'))" when="=T &lt; 1.2" shadow="0 20 40 #0007"/>
+        <group when="=T >= 1.2">
+          <rect x="970" y="138" w="728" h="826" r="6" fill="#e6dccb"/>
+          <use ref="front"/>
+        </group>
+      </group>
+      <text x="960" y="1010" size="44" font="Playfair Display" italic="1" align="center" fill="$fg" text="@outro" at="2.2">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+      </text>
+    </scene>
+  </timeline>
+  <voices>
+    <voice say="vo1" lang="en" src="voice/book-summary/en/vo1.05bf22bd47.ogg" dur="6.41" hash="05bf22bd47" engine="kokoro:bm_lewis"/>
+    <voice say="vo2" lang="en" src="voice/book-summary/en/vo2.e5e2c624c7.ogg" dur="6.21" hash="e5e2c624c7" engine="kokoro:bm_lewis"/>
+    <voice say="vo7" lang="en" src="voice/book-summary/en/vo7.c51d575358.ogg" dur="6.31" hash="c51d575358" engine="kokoro:bm_lewis"/>
+    <voice say="vo8" lang="en" src="voice/book-summary/en/vo8.e3a71c64dd.ogg" dur="3.31" hash="e3a71c64dd" engine="kokoro:bm_lewis"/>
+    <voice say="vo_i1" lang="en" src="voice/book-summary/en/vo_i1.ed3a72adfc.ogg" dur="6.41" hash="ed3a72adfc" engine="kokoro:bm_lewis"/>
+    <voice say="vo_i2" lang="en" src="voice/book-summary/en/vo_i2.72223fa769.ogg" dur="7.01" hash="72223fa769" engine="kokoro:bm_lewis"/>
+    <voice say="vo_i3" lang="en" src="voice/book-summary/en/vo_i3.f2e7bb88c6.ogg" dur="7.81" hash="f2e7bb88c6" engine="kokoro:bm_lewis"/>
+    <voice say="vo_i4" lang="en" src="voice/book-summary/en/vo_i4.26714b8e2d.ogg" dur="5.91" hash="26714b8e2d" engine="kokoro:bm_lewis"/>
+  </voices>
+</tsvg>

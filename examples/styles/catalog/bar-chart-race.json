@@ -1,0 +1,11 @@
+{
+  "id": "bar-chart-race",
+  "title": "Bar chart race",
+  "category": "Data & science",
+  "summary": "Ten countries' solar output 2015\u20132024: ranked bars slide past each other, driven by data() and a soft-rank <fn>, with a year counter.",
+  "duration": 60,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 36.5
+}

@@ -1,0 +1,11 @@
+{
+  "id": "neon-glow",
+  "title": "Neon sign glow",
+  "category": "Retro",
+  "summary": "Flickering neon tubes on a brick wall explain how a neon sign glows: glass, gas, voltage and colour.",
+  "duration": 68.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 4
+}

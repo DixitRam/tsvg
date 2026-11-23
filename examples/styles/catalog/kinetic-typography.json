@@ -1,0 +1,12 @@
+{
+  "id": "kinetic-typography",
+  "title": "Kinetic typography",
+  "category": "Typography",
+  "summary": "Big condensed words fly in as they are spoken, with colour flips per line: packing for a week in one bag.",
+  "duration": 53.6,
+  "layouts": [
+    "landscape",
+    "portrait"
+  ],
+  "thumbT": 3.5
+}

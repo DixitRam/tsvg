@@ -1,0 +1,11 @@
+{
+  "id": "release-notes",
+  "title": "Release notes",
+  "category": "Product & software",
+  "summary": "What's new in v0.2: a version badge, a changelog with NEW/IMPROVED/FIXED chips, a live demo per entry and a before/after wipe.",
+  "duration": 56.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 20
+}

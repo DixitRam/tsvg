@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: pictogram people. 100 icon people (circle + rounded rect) via repeat; colour groups show proportions; people move between groups. Infection timings precomputed into <data>. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_bella"/></option>
+    <option id="mix" label="Audio" default="full">
+      <choice id="full" label="Full"/><choice id="speech" label="Speech only"/>
+    </option>
+    <option id="theme" label="Theme" default="light"><choice id="light" label="Light"/><choice id="dark" label="Dark"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.25" sfx="0.5"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="light" bg="#f6f4ef" fg="#1f2937" muted="#6b7280" grey="#b4bac4" red="#ef4444" blue="#2f74e8" purple="#9b4dea" panel="#ffffff" line="#e3e0d8"/>
+    <theme id="dark" bg="#12151c" fg="#eef1f6" muted="#8d96a8" grey="#4a5263" red="#ff5c5c" blue="#4d90ff" purple="#b77bff" panel="#1b1f29" line="#2a303c"/>
+  </themes>
+  <strings>
+    <s id="title" en="How herd immunity works"/>
+    <s id="sub" en="A town of 100 people"/>
+    <s id="ch1" en="100 people"/><s id="ch2" en="No immunity"/><s id="ch3" en="70 immune"/><s id="ch4" en="The outbreak fizzles"/><s id="ch5" en="The threshold"/><s id="ch6" en="Who it protects"/><s id="ch7" en="Outro"/>
+    <s id="lgS" en="susceptible"/><s id="lgI" en="infected"/><s id="lgV" en="immune"/><s id="lgP" en="can't be vaccinated"/>
+    <s id="h2" en="Nobody immune"/>
+    <s id="infected" en="infected"/>
+    <s id="each3" en="each case infects about 3 others"/>
+    <s id="h3" en="Rewind: 70 of 100 immune"/>
+    <s id="immune" en="immune"/>
+    <s id="via" en="through vaccination or past infection"/>
+    <s id="h4" en="Same virus, same town"/>
+    <s id="fizz" en="Each case now infects fewer than 1 other. It fizzles out."/>
+    <s id="h5" en="The tipping point"/>
+    <s id="gI" en="Immune · 70"/><s id="gS" en="Not immune · 30"/>
+    <s id="ax1" en="% of town immune"/><s id="ax2" en="share who catch it"/>
+    <s id="thr" en="≈ 67%"/><s id="thrL" en="threshold for R = 3"/>
+    <s id="we" en="we are here"/>
+    <s id="h6" en="Who it protects"/>
+    <s id="p6a" en="5 people can't be vaccinated"/>
+    <s id="p6b" en="Newborns, some patients, people on certain treatments."/>
+    <s id="p6c" en="The immune people around them keep the virus away."/>
+    <s id="out1" en="Immunity is a team sport."/>
+    <s id="note" en="Simplified model · R = 3 · illustrative numbers"/>
+    <s id="vo1" en="Imagine a town of one hundred people, and a new virus arrives. What decides how far it spreads?"/>
+    <s id="vo2" en="If nobody is immune, each sick person passes it to about three others. Within weeks, most of the town has caught it."/>
+    <s id="vo3" en="Now rewind. This time, seventy of the hundred are immune, through vaccination or past infection."/>
+    <s id="vo4" en="The virus arrives again, but most people it meets are immune. Each case now infects fewer than one other, and the outbreak fizzles out."/>
+    <s id="vo5" en="For a virus that spreads to three people, the tipping point is about two in three immune. Above that line, the chains break."/>
+    <s id="vo6" en="And that protects the people who can't be vaccinated, like newborns, because the virus never reaches them."/>
+    <s id="vo7" en="Herd immunity isn't about one person. It's about how many of us stand between the virus and everyone else."/>
+  </strings>
+  <defs>
+    <data id="inf2" v="7.54, 6.73, 5.89, 5.15, 999.0, 5.1, 999.0, 999.0, 7.5, 999.0, 8.04, 999.0, 999.0, 4.23, 3.63, 4.24, 5.03, 6.09, 6.73, 999.0, 6.0, 5.19, 4.58, 3.53, 2.97, 3.61, 4.44, 999.0, 7.57, 8.16, 5.33, 4.41, 3.64, 2.88, 2.0, 3.08, 3.67, 4.24, 8.31, 8.92, 5.76, 999.0, 2.96, 2.19, 1.26, 2.16, 3.04, 999.0, 8.9, 9.7, 6.83, 999.0, 3.61, 3.0, 2.08, 3.05, 999.0, 10.5, 9.7, 10.52, 5.89, 5.2, 4.43, 3.61, 3.08, 999.0, 12.02, 11.05, 10.28, 999.0, 6.66, 5.82, 5.14, 4.45, 3.84, 999.0, 12.85, 11.78, 11.11, 11.9, 7.32, 6.53, 6.0, 5.0, 999.0, 14.24, 13.44, 12.77, 11.99, 12.64, 8.09, 7.46, 6.59, 7.24, 15.48, 15.09, 14.09, 13.34, 12.53, 13.52"/>
+    <data id="inf4" v="999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 1.5, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 2.6, 3.7, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0, 999.0"/>
+    <data id="cnt2" v="0, 0, 0, 0, 0, 0, 1, 1, 2, 5, 5, 5, 9, 13, 13, 20, 21, 24, 28, 29, 30, 36, 37, 37, 43, 44, 44, 49, 50, 51, 54, 56, 56, 59, 60, 60, 62, 62, 62, 64, 64, 64, 66, 67, 67, 69, 69, 69"/>
+    <data id="cnt4" v="0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3"/>
+    <data id="vac" v="0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1, 1, 1"/>
+    <data id="vord" v="0, 58, 1, 68, 26, 19, 53, 14, 59, 62, 0, 0, 48, 0, 20, 0, 69, 25, 65, 67, 0, 0, 0, 22, 17, 0, 0, 49, 28, 0, 24, 30, 42, 52, 37, 61, 31, 40, 27, 7, 2, 54, 0, 0, 0, 38, 55, 51, 0, 0, 0, 0, 8, 6, 4, 0, 44, 21, 46, 0, 0, 0, 13, 5, 10, 43, 50, 16, 34, 45, 18, 39, 3, 56, 66, 35, 12, 29, 0, 0, 60, 15, 0, 0, 0, 0, 23, 63, 41, 0, 57, 11, 33, 0, 36, 9, 0, 64, 32, 47"/>
+    <data id="gx" v="620, 140, 196, 252, 308, 364, 420, 476, 140, 196, 676, 732, 252, 620, 308, 676, 364, 420, 476, 140, 732, 620, 676, 196, 252, 732, 620, 308, 364, 676, 420, 476, 140, 196, 252, 308, 364, 420, 476, 140, 196, 252, 732, 620, 676, 308, 364, 420, 476, 732, 620, 676, 140, 196, 252, 732, 308, 364, 420, 620, 676, 732, 476, 140, 196, 252, 308, 364, 420, 476, 140, 196, 252, 308, 364, 420, 476, 140, 620, 676, 196, 252, 732, 620, 676, 732, 308, 364, 420, 620, 476, 140, 196, 676, 252, 308, 732, 364, 420, 476"/>
+    <data id="gy" v="230, 230, 230, 230, 230, 230, 230, 230, 302, 302, 230, 230, 302, 302, 302, 302, 302, 302, 302, 374, 302, 374, 374, 374, 374, 374, 446, 374, 374, 446, 374, 374, 446, 446, 446, 446, 446, 446, 446, 518, 518, 518, 446, 518, 518, 518, 518, 518, 518, 518, 590, 590, 590, 590, 590, 590, 590, 590, 590, 662, 662, 662, 590, 662, 662, 662, 662, 662, 662, 662, 734, 734, 734, 734, 734, 734, 734, 806, 734, 734, 806, 806, 734, 806, 806, 806, 806, 806, 806, 878, 806, 878, 878, 878, 878, 878, 878, 878, 878, 878"/>
+    <data id="vul" v="0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"/>
+    <fn id="px" args="p">170 + (p%10)*66</fn>
+    <fn id="py" args="p">215 + floor(p/10)*78</fn>
+    <fn id="pop" args="a">T > a ? 1 + 0.45*max(0, 1 - (T - a)*3) : 1</fn>
+    <fn id="vacT" args="p">1.4 + data('vord', p)*0.045</fn>
+    <fn id="mv">ease(clamp((T - 0.6)/1.6, 0, 1), 'io')</fn>
+    <fn id="back">ease(clamp(T/1.0, 0, 1), 'io')</fn>
+  </defs>
+  <assets>
+    <asset id="bed" src="audio/bright.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+  </assets>
+  <music src="bed" loop="1" vol="0.5"/>
+
+  <timeline>
+    <!-- 1 · a town of 100 -->
+    <scene id="town" dur="8" chapter="@ch1">
+      <say at="0.4" text="@vo1"/>
+      <sfx at="0.6" src="whoosh"/>
+      <group repeat="100" as="p" x="=px(p)" y="=py(p)" opacity="=clamp((T - 0.3 - (p%10 + floor(p/10))*0.05)*4, 0, 1)" scale="=0.6 + 0.4*ease(clamp((T - 0.3 - (p%10 + floor(p/10))*0.05)*3, 0, 1), 'back')">
+        <circle y="-24" r="12" fill="$grey"/>
+        <rect x="-15" y="-8" w="30" h="36" r="11" fill="$grey"/>
+      </group>
+      <text x="960" y="320" size="72" maxw="880" font="Space Grotesk" weight="700" fill="$fg" text="@title" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+      <text x="960" y="470" size="40" fill="$muted" text="@sub" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+      <group x="960" y="600" at="2.2">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <group repeat="3" as="k" x="=k*220">
+          <circle y="-12" r="9" fill="=k==0 ? $grey : k==1 ? $red : k==2 ? $blue : $purple"/>
+          <rect x="-11" y="-2" w="22" h="24" r="8" fill="=k==0 ? $grey : k==1 ? $red : k==2 ? $blue : $purple"/>
+        </group>
+        <text x="24" y="0" size="24" fill="$muted" text="@lgS"/>
+        <text x="244" y="0" size="24" fill="$muted" text="@lgI"/>
+        <text x="464" y="0" size="24" fill="$muted" text="@lgV"/>
+      </group>
+    </scene>
+
+    <!-- 2 · no immunity: it sweeps through -->
+    <scene id="noimm" dur="10.5" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="1.2" src="pop"/><sfx at="2" src="blip"/><sfx at="2.8" src="blip"/><sfx at="3.6" src="blip"/><sfx at="4.4" src="blip"/><sfx at="5.2" src="blip"/>
+      <group repeat="100" as="p" x="=px(p)" y="=py(p)" scale="=pop(data('inf2', p))">
+        <circle r="30" fill="$red" opacity="=T > data('inf2', p) ? 0.25*max(0, 1 - (T - data('inf2', p))*1.5) : 0" scale="=1 + (T - data('inf2', p))"/>
+        <circle y="-24" r="12" fill="=T > data('inf2', p) ? $red : $grey"/>
+        <rect x="-15" y="-8" w="30" h="36" r="11" fill="=T > data('inf2', p) ? $red : $grey"/>
+      </group>
+      <group x="960" y="230">
+        <text size="56" font="Space Grotesk" weight="700" fill="$fg" text="@h2"/>
+        <text y="80" size="30" fill="$muted" text="@each3"/>
+        <text y="270" size="200" font="Space Grotesk" weight="700" fill="$red" text="{data('cnt2', min(47, floor(T*4)))}"/>
+        <text x="=data('cnt2', min(47, floor(T*4))) >= 10 ? 260 : 140" y="300" size="44" fill="$muted" text="@infected"/>
+        <rect y="430" w="760" h="40" r="20" fill="$grey"/>
+        <rect y="430" h="40" r="20" w="=max(40, 7.6*data('cnt2', min(47, floor(T*4))))" fill="$red"/>
+      </group>
+    </scene>
+
+    <!-- 3 · rewind, 70 immune -->
+    <scene id="vacc" dur="9" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="0.2" src="whoosh"/><sfx at="2" src="ding"/>
+      <group repeat="100" as="p" x="=px(p)" y="=py(p)" scale="=data('vac', p) ? pop(vacT(p)) : 1">
+        <circle y="-24" r="12" fill="=data('vac', p) &amp;&amp; T > vacT(p) ? $blue : $grey"/>
+        <rect x="-15" y="-8" w="30" h="36" r="11" fill="=data('vac', p) &amp;&amp; T > vacT(p) ? $blue : $grey"/>
+        <!-- little shield -->
+        <path x="17" y="-34" d="M 0 -9 L 8 -6 L 8 1 C 8 6, 4 9, 0 11 C -4 9, -8 6, -8 1 L -8 -6 Z" fill="$blue" stroke="$bg" sw="2" opacity="=data('vac', p) &amp;&amp; T > vacT(p) ? 1 : 0"/>
+      </group>
+      <group x="960" y="230">
+        <text size="56" font="Space Grotesk" weight="700" fill="$fg" text="@h3"/>
+        <text y="80" size="30" fill="$muted" text="@via"/>
+        <text y="270" size="200" font="Space Grotesk" weight="700" fill="$blue" text="{floor(70*clamp((T - 1.4)/3.2, 0, 1))}"/>
+        <text x="260" y="300" size="44" fill="$muted" text="@immune"/>
+        <rect y="430" w="760" h="40" r="20" fill="$grey"/>
+        <rect y="430" h="40" r="20" w="=max(40, 532*clamp((T - 1.4)/3.2, 0, 1))" fill="$blue"/>
+      </group>
+    </scene>
+
+    <!-- 4 · the outbreak fizzles -->
+    <scene id="blocked" dur="10.5" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="1.5" src="pop"/><sfx at="2.6" src="blip"/><sfx at="3.7" src="blip"/><sfx at="7" src="ding"/>
+      <group repeat="100" as="p" x="=px(p)" y="=py(p)" scale="=pop(data('inf4', p))">
+        <circle r="30" fill="$red" opacity="=T > data('inf4', p) ? 0.25*max(0, 1 - (T - data('inf4', p))*1.5) : 0" scale="=1 + (T - data('inf4', p))"/>
+        <circle y="-24" r="12" fill="=T > data('inf4', p) ? $red : data('vac', p) ? $blue : $grey"/>
+        <rect x="-15" y="-8" w="30" h="36" r="11" fill="=T > data('inf4', p) ? $red : data('vac', p) ? $blue : $grey"/>
+        <path x="17" y="-34" d="M 0 -9 L 8 -6 L 8 1 C 8 6, 4 9, 0 11 C -4 9, -8 6, -8 1 L -8 -6 Z" fill="$blue" stroke="$bg" sw="2" opacity="=data('vac', p)"/>
+      </group>
+      <group x="960" y="230">
+        <text size="56" font="Space Grotesk" weight="700" fill="$fg" text="@h4"/>
+        <text y="270" size="200" font="Space Grotesk" weight="700" fill="$red" text="{data('cnt4', min(47, floor(T*4)))}"/>
+        <text x="140" y="300" size="44" fill="$muted" text="@infected"/>
+        <rect y="430" w="760" h="40" r="20" fill="$grey"/>
+        <rect y="430" w="532" h="40" r="20" fill="$blue"/>
+        <rect x="532" y="430" h="40" w="=7.6*data('cnt4', min(47, floor(T*4)))" fill="$red"/>
+        <text y="580" size="34" maxw="760" lh="1.35" weight="600" fill="$fg" text="@fizz" at="6.6"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+      </group>
+    </scene>
+
+    <!-- 5 · people regroup; the threshold curve -->
+    <scene id="threshold" dur="10.5" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="0.6" src="whoosh"/><sfx at="6.2" src="ding"/>
+      <group repeat="100" as="p" x="=lerp(px(p), data('gx', p), mv())" y="=lerp(py(p), data('gy', p), mv())">
+        <circle y="-24" r="12" fill="=data('vac', p) ? $blue : $grey"/>
+        <rect x="-15" y="-8" w="30" h="36" r="11" fill="=data('vac', p) ? $blue : $grey"/>
+      </group>
+      <text x="308" y="150" size="30" weight="700" align="center" fill="$blue" text="@gI" opacity="=clamp((T - 2)*3, 0, 1)"/>
+      <text x="676" y="150" size="30" weight="700" align="center" fill="$muted" text="@gS" opacity="=clamp((T - 2)*3, 0, 1)"/>
+      <!-- chart -->
+      <group opacity="=clamp((T - 2.2)*2, 0, 1)">
+        <text x="960" y="150" size="48" font="Space Grotesk" weight="700" fill="$fg" text="@h5"/>
+        <line x1="960" y1="860" x2="1740" y2="860" stroke="$muted" sw="3"/>
+        <line x1="960" y1="860" x2="960" y2="280" stroke="$muted" sw="3"/>
+        <text x="1350" y="910" size="24" align="center" fill="$muted" text="@ax1"/>
+        <text x="975" y="260" size="24" fill="$muted" text="@ax2"/>
+        <text repeat="6" as="k" x="=960 + k*152" y="884" size="18" align="center" fill="$muted" text="{k*20}"/>
+        <path d="M 960.0 333.3 L 975.2 346.2 L 990.4 359.1 L 1005.6 372.2 L 1020.8 385.3 L 1036.0 398.5 L 1051.2 411.9 L 1066.4 425.3 L 1081.6 438.9 L 1096.8 452.6 L 1112.0 466.4 L 1127.2 480.3 L 1142.4 494.5 L 1157.6 508.7 L 1172.8 523.1 L 1188.0 537.8 L 1203.2 552.5 L 1218.4 567.5 L 1233.6 582.8 L 1248.8 598.2 L 1264.0 613.9 L 1279.2 629.9 L 1294.4 646.1 L 1309.6 662.7 L 1324.8 679.6 L 1340.0 696.8 L 1355.2 714.5 L 1370.4 732.5 L 1385.6 751.1 L 1400.8 770.1 L 1416.0 789.7 L 1431.2 810.0 L 1446.4 830.9 L 1461.6 852.5 L 1476.8 860.0 L 1492.0 860.0 L 1507.2 860.0 L 1522.4 860.0 L 1537.6 860.0 L 1552.8 860.0 L 1568.0 860.0 L 1583.2 860.0 L 1598.4 860.0 L 1613.6 860.0 L 1628.8 860.0 L 1644.0 860.0 L 1659.2 860.0 L 1674.4 860.0 L 1689.6 860.0 L 1704.8 860.0 L 1720.0 860.0" stroke="$red" sw="6" fill="none" draw="=clamp((T - 2.8)/2, 0, 1)"/>
+        <!-- threshold -->
+        <line repeat="14" as="q" x1="1467" y1="=300 + q*40" x2="1467" y2="=320 + q*40" stroke="$fg" sw="3" opacity="=clamp((T - 4.8)*3, 0, 1)"/>
+        <group x="1480" y="330" opacity="=clamp((T - 5)*3, 0, 1)">
+          <text size="40" font="Space Grotesk" weight="700" fill="$fg" text="@thr"/>
+          <text y="44" size="22" fill="$muted" text="@thrL"/>
+        </group>
+        <!-- we are here (70%) -->
+        <group x="1492" y="858" at="6.2">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <circle r="16" fill="$blue" stroke="$bg" sw="4"/>
+          <rect x="16" y="-90" w="190" h="44" r="22" fill="$blue"/>
+          <text x="111" y="-68" size="22" weight="700" align="center" fill="#fff" text="@we"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 6 · the protected -->
+    <scene id="protect" dur="9" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="1.2" src="pop"/>
+      <group repeat="100" as="p" x="=lerp(data('gx', p), px(p), back())" y="=lerp(data('gy', p), py(p), back())">
+        <circle r="38" fill="$purple" opacity="=data('vul', p) ? 0.2 + 0.12*sin(T*4) : 0"/>
+        <circle y="-24" r="12" fill="=data('vul', p) &amp;&amp; T > 1.2 ? $purple : data('vac', p) ? $blue : $grey"/>
+        <rect x="-15" y="-8" w="30" h="36" r="11" fill="=data('vul', p) &amp;&amp; T > 1.2 ? $purple : data('vac', p) ? $blue : $grey"/>
+      </group>
+      <group x="960" y="260">
+        <text size="56" font="Space Grotesk" weight="700" fill="$fg" text="@h6"/>
+        <group y="130" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <rect w="760" h="300" r="24" fill="$panel" shadow="0 12 30 #0001"/>
+          <rect w="10" h="300" r="5" fill="$purple"/>
+          <text x="44" y="70" size="40" weight="700" fill="$purple" text="@p6a"/>
+          <text x="44" y="150" size="28" maxw="680" lh="1.35" fill="$muted" text="@p6b"/>
+          <text x="44" y="240" size="28" maxw="680" lh="1.35" fill="$fg" text="@p6c" at="3.5"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 7 · outro -->
+    <scene id="outro" dur="8.5" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <group repeat="100" as="p" x="=px(p) + 480" y="=py(p) - 40" scale="=1 + 0.12*sin(T*3 - (p%10)*0.4 - floor(p/10)*0.4)">
+        <circle y="-24" r="12" fill="=data('vul', p) ? $purple : data('vac', p) ? $blue : $grey"/>
+        <rect x="-15" y="-8" w="30" h="36" r="11" fill="=data('vul', p) ? $purple : data('vac', p) ? $blue : $grey"/>
+      </group>
+      <rect x="0" y="930" w="1920" h="150" fill="$bg" opacity="0.9"/>
+      <text x="960" y="980" size="60" font="Space Grotesk" weight="700" align="center" fill="$fg" text="@out1" at="1"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+      <text x="960" y="1045" size="22" align="center" fill="$muted" text="@note" at="2"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+    </scene>
+  </timeline>
+  <voices>
+    <voice say="vo1" lang="en" src="voice/pictogram-people/en/vo1.d0786a4daf.ogg" dur="6.41" hash="d0786a4daf" engine="kokoro:af_bella"/>
+    <voice say="vo2" lang="en" src="voice/pictogram-people/en/vo2.201a81af6e.ogg" dur="7.31" hash="201a81af6e" engine="kokoro:af_bella"/>
+    <voice say="vo3" lang="en" src="voice/pictogram-people/en/vo3.37a9560dcc.ogg" dur="6.51" hash="37a9560dcc" engine="kokoro:af_bella"/>
+    <voice say="vo4" lang="en" src="voice/pictogram-people/en/vo4.ac011e0460.ogg" dur="8.41" hash="ac011e0460" engine="kokoro:af_bella"/>
+    <voice say="vo5" lang="en" src="voice/pictogram-people/en/vo5.5e1981d966.ogg" dur="7.61" hash="5e1981d966" engine="kokoro:af_bella"/>
+    <voice say="vo6" lang="en" src="voice/pictogram-people/en/vo6.5f85e6843b.ogg" dur="6.21" hash="5f85e6843b" engine="kokoro:af_bella"/>
+    <voice say="vo7" lang="en" src="voice/pictogram-people/en/vo7.dacd48ca74.ogg" dur="6.31" hash="dacd48ca74" engine="kokoro:af_bella"/>
+  </voices>
+</tsvg>

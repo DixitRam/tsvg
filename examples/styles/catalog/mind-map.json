@@ -1,0 +1,12 @@
+{
+  "id": "mind-map",
+  "title": "Mind map",
+  "category": "education",
+  "summary": "A trip plan as a mind map: coloured branches grow from a central topic while the camera travels branch to branch.",
+  "duration": 62,
+  "layouts": [
+    "landscape",
+    "portrait"
+  ],
+  "thumbT": 64
+}

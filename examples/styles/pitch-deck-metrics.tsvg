@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Startup pitch deck: slide chrome, problem → ask, growing traction chart, team, use-of-funds donut. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.25" sfx="0.5"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="corporate" bg="#f7f8fa" fg="#0b1f3a" navy="#0b1f3a" muted="#5b6b80" slate="#8a97a8" panel="#ffffff" rule="#e3e7ee" teal="#0fb5a6" teal2="#5eead4" tealsoft="#d9f5f2" coral="#f0715a"/></themes>
+  <strings>
+    <s id="title" en="GridLeaf seed pitch"/>
+    <s id="brand" en="GridLeaf"/>
+    <s id="round" en="Seed round · 2026"/>
+    <s id="confidential" en="Confidential · for discussion"/>
+    <s id="tag" en="Fresh greens grown on the roof of the store that sells them"/>
+    <s id="seedchip" en="Seed deck · 8 slides"/>
+    <s id="farm" en="Farm, 3 states away"/>
+    <s id="store" en="City store shelf"/>
+    <s id="p1" en="average distance travelled"/>
+    <s id="p2" en="shelf life lost in transit"/>
+    <s id="p3" en="of greens thrown away"/>
+    <s id="s1" en="Bolt-on unit"/>
+    <s id="s1d" en="A 40 m² hydroponic module craned onto the roof in one night."/>
+    <s id="s2" en="Cut at 9:00"/>
+    <s id="s2d" en="Store staff harvest each morning from a tablet pick list."/>
+    <s id="s3" en="Shelf by 10:00"/>
+    <s id="s3d" en="One lift ride down. Zero cold chain, zero trucks."/>
+    <s id="water" en="95% less water · no pesticides · 18 harvests a year"/>
+    <s id="tam" en="TAM"/>
+    <s id="tamd" en="Fresh leafy greens, global retail"/>
+    <s id="sam" en="SAM"/>
+    <s id="samd" en="Urban grocery chains in 12 launch cities"/>
+    <s id="som" en="SOM"/>
+    <s id="somd" en="5-year target: 600 roofs"/>
+    <s id="mrr" en="monthly recurring revenue"/>
+    <s id="stores" en="store roofs live"/>
+    <s id="mom" en="avg. monthly growth"/>
+    <s id="modelline" en="Store pays a flat monthly fee per roof, we run the farm"/>
+    <s id="fee" en="$7,200 / mo"/>
+    <s id="gm" en="gross margin per roof"/>
+    <s id="payback" en="hardware payback"/>
+    <s id="contract" en="standard contract length"/>
+    <s id="seed" en="seed round"/>
+    <s id="u1" en="Build 30 more roofs"/>
+    <s id="u2" en="Grow-tech R&amp;D"/>
+    <s id="u3" en="Team &amp; city launches"/>
+    <s id="milestone" en="40 roofs · break-even in 18 months"/>
+    <s id="vo_title" en="GridLeaf grows fresh greens on the roof of the store that sells them."/>
+    <s id="ch_title" en="Title"/>
+    <s id="vo_problem" en="City lettuce travels about two thousand four hundred kilometres. It loses half its shelf life on the way, and a third is thrown out."/>
+    <s id="ch_problem" en="PROBLEM"/>
+    <s id="k_problem" en="PROBLEM"/>
+    <s id="t_problem" en="City greens are old before they reach the shelf"/>
+    <s id="vo_solution" en="Our hydroponic units bolt onto the store roof. Greens are cut at nine and shelved by ten, with ninety-five percent less water."/>
+    <s id="ch_solution" en="SOLUTION"/>
+    <s id="k_solution" en="SOLUTION"/>
+    <s id="t_solution" en="Grow it on the store’s own roof"/>
+    <s id="vo_market" en="Leafy greens are a thirty-eight billion dollar market. Grocers in our twelve launch cities spend four point two billion of it."/>
+    <s id="ch_market" en="MARKET"/>
+    <s id="k_market" en="MARKET"/>
+    <s id="t_market" en="A $38B category, starting city by city"/>
+    <s id="vo_traction" en="We are live on eleven roofs. Monthly revenue grew from four thousand to eighty-six thousand dollars in fourteen months."/>
+    <s id="ch_traction" en="TRACTION"/>
+    <s id="k_traction" en="TRACTION"/>
+    <s id="t_traction" en="Monthly revenue, last 14 months"/>
+    <s id="vo_model" en="Stores pay a flat monthly fee per roof. Gross margin is sixty-two percent, with a fourteen month payback."/>
+    <s id="ch_model" en="BUSINESS MODEL"/>
+    <s id="k_model" en="BUSINESS MODEL"/>
+    <s id="t_model" en="Farms as a service"/>
+    <s id="vo_team" en="Our team has run grocery operations, built greenhouse controls, and scaled last-mile delivery."/>
+    <s id="ch_team" en="TEAM"/>
+    <s id="k_team" en="TEAM"/>
+    <s id="t_team" en="Operators who have done this before"/>
+    <s id="vo_ask" en="We are raising three million dollars to reach forty roofs and break even within eighteen months."/>
+    <s id="ch_ask" en="THE ASK"/>
+    <s id="k_ask" en="THE ASK"/>
+    <s id="t_ask" en="Raising $3M seed"/>
+  </strings>
+  <defs>
+    <data id="rev" v="4,6,9,12,15,19,24,30,36,44,52,61,73,86"/>
+    <data id="mo" v="Oct, Nov, Dec, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov"/>
+    <linear id="area" x1="0" y1="403.1111111111111" x2="0" y2="900"><stop at="0" color="#0fb5a6" opacity="0.35"/><stop at="1" color="#0fb5a6" opacity="0"/></linear>
+    <linear id="tint" x1="1000" y1="0" x2="1920" y2="0"><stop at="0" color="#f7f8fa"/><stop at="0.25" color="#0b1f3a" opacity="0.35"/><stop at="1" color="#0fb5a6" opacity="0.45"/></linear>
+  </defs>
+  <assets>
+    <asset id="city" src="images/city.jpg"/>
+    <asset id="pad" src="audio/pad.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="click" src="audio/click.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.7"/>
+  <timeline>
+    <scene id="title" dur="6" chapter="@ch_title">
+      <say at="0.4" text="@vo_title"/>
+      <sfx at="0" src="click"/>
+      <group x="140" y="90">
+        <path d="M 0 18 C 0 -6 22 -18 40 -18 C 40 6 22 18 0 18 Z" fill="$teal"/><path d="M 4 14 L 28 -8" stroke="#fff" sw="3"/>
+        <text x="56" size="30" weight="800" fill="$navy" text="@brand"/>
+      </group>
+      <text x="=W - 140" y="90" size="26" weight="600" align="right" fill="$muted" text="@round"/>
+      <line x1="140" x2="=W-140" y1="1000" y2="1000" stroke="$rule" sw="2"/>
+      <line x1="140" x2="345" y1="1000" y2="1000" stroke="$teal" sw="4"/>
+      <text x="140" y="1035" size="24" fill="$muted" text="@confidential"/>
+      <text x="=W - 140" y="1035" size="24" weight="700" align="right" fill="$navy" text="01 / 08"/>
+      <group>
+        <anim prop="x" from="160" to="0" dur="0.55" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="0" to="-160" at="=sdur-0.4" dur="0.4" ease="in"/><anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+        <image src="city" x="1000" y="0" w="920" h="1080" opacity="0.95">
+          <anim prop="scale" from="1.08" to="1" dur="=sdur" ease="linear"/>
+        </image>
+        <rect x="1000" y="0" w="920" h="1080" fill="url(#tint)"/>
+        <group x="1460" y="540">
+          <circle r="=150 + 6*sin(T*2)" fill="#ffffff22"/>
+          <path d="M -80 60 C -80 -40 0 -100 90 -100 C 90 0 20 70 -80 60 Z" fill="#fff"><anim prop="scale" from="0" to="1" at="0.4" dur="0.7" ease="back"/></path>
+          <path d="M -60 40 L 40 -50" stroke="$teal" sw="8" fill="none"><anim prop="draw" from="0" to="1" at="1" dur="0.6"/></path>
+        </group>
+        <text x="140" y="400" size="150" weight="800" fill="$navy" text="@brand"><anim prop="reveal" from="0" to="1" dur="0.7" ease="linear"/></text>
+        <text x="140" y="540" size="52" maxw="780" lh="1.25" fill="$muted" text="@tag" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+        <group x="140" y="720" at="1.6"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <rect w="380" h="72" r="36" fill="$navy"/><text x="190" y="37" size="30" weight="700" align="center" fill="#fff" text="@seedchip"/>
+        </group>
+      </group>
+    </scene>
+    <scene id="problem" dur="10.06" chapter="@ch_problem">
+      <say at="0.4" text="@vo_problem"/>
+      <sfx at="0" src="whoosh"/>
+      <group x="140" y="90">
+        <path d="M 0 18 C 0 -6 22 -18 40 -18 C 40 6 22 18 0 18 Z" fill="$teal"/><path d="M 4 14 L 28 -8" stroke="#fff" sw="3"/>
+        <text x="56" size="30" weight="800" fill="$navy" text="@brand"/>
+      </group>
+      <text x="=W - 140" y="90" size="26" weight="600" align="right" fill="$muted" text="@round"/>
+      <line x1="140" x2="=W-140" y1="1000" y2="1000" stroke="$rule" sw="2"/>
+      <line x1="140" x2="550" y1="1000" y2="1000" stroke="$teal" sw="4"/>
+      <text x="140" y="1035" size="24" fill="$muted" text="@confidential"/>
+      <text x="=W - 140" y="1035" size="24" weight="700" align="right" fill="$navy" text="02 / 08"/>
+      <group>
+        <anim prop="x" from="160" to="0" dur="0.55" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="0" to="-160" at="=sdur-0.4" dur="0.4" ease="in"/><anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+        <text x="140" y="190" size="28" weight="800" fill="$teal" text="@k_problem"/>
+        <text x="140" y="262" size="66" weight="800" fill="$navy" text="@t_problem"/>
+        <rect x="140" y="312" w="0" h="6" r="3" fill="$teal"><anim prop="w" from="0" to="120" at="0.3" dur="0.6" ease="io"/></rect>
+        <group x="140" y="400">
+          <rect w="1640" h="160" r="20" fill="$panel" stroke="$rule" sw="2"/>
+          <circle x="80" y="80" r="22" fill="$navy"/>
+          <path d="M 80 80 L 1560 80" stroke="$rule" sw="6" fill="none"/>
+          <path d="M 80 80 L 1560 80" stroke="$coral" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.6" dur="2.4" ease="io"/></path>
+          <circle x="1560" y="80" r="22" fill="$coral"/>
+          <group x="=80 + 1480*ease((T-0.6)/2.4,'io')" y="80">
+            <rect x="-46" y="-30" w="92" h="56" r="10" fill="$navy"/><rect x="30" y="-14" w="34" h="40" r="6" fill="$navy"/>
+            <circle x="-24" y="30" r="12" fill="$slate"/><circle x="40" y="30" r="12" fill="$slate"/>
+          </group>
+          <text x="80" y="134" size="26" fill="$muted" text="@farm"/>
+          <text x="1560" y="134" size="26" align="right" fill="$muted" text="@store"/>
+        </group>
+        
+        <group x="140" y="640" at="0.8">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="680" to="640" dur="0.6"/>
+          <rect w="520" h="230" r="20" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <rect w="8" h="230" r="4" fill="$navy"/>
+          <text x="48" y="100" size="84" weight="800" fill="$navy" text="{fmt(2400*ease((T-0.8)/1.6,'out'),0)} km"/>
+          <text x="48" y="170" size="30" maxw="440" fill="$muted" text="@p1"/>
+        </group>
+        
+        <group x="700" y="640" at="1.6">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="680" to="640" dur="0.6"/>
+          <rect w="520" h="230" r="20" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <rect w="8" h="230" r="4" fill="$coral"/>
+          <text x="48" y="100" size="84" weight="800" fill="$coral" text="-{fmt(50*ease((T-1.6)/1.4,'out'),0)}%"/>
+          <text x="48" y="170" size="30" maxw="440" fill="$muted" text="@p2"/>
+        </group>
+        
+        <group x="1260" y="640" at="2.4">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="680" to="640" dur="0.6"/>
+          <rect w="520" h="230" r="20" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <rect w="8" h="230" r="4" fill="$coral"/>
+          <text x="48" y="100" size="84" weight="800" fill="$coral" text="{fmt(30*ease((T-2.4)/1.4,'out'),0)}%"/>
+          <text x="48" y="170" size="30" maxw="440" fill="$muted" text="@p3"/>
+        </group>
+      </group>
+    </scene>
+    <scene id="solution" dur="10.26" chapter="@ch_solution">
+      <say at="0.4" text="@vo_solution"/>
+      <sfx at="0" src="whoosh"/>
+      <group x="140" y="90">
+        <path d="M 0 18 C 0 -6 22 -18 40 -18 C 40 6 22 18 0 18 Z" fill="$teal"/><path d="M 4 14 L 28 -8" stroke="#fff" sw="3"/>
+        <text x="56" size="30" weight="800" fill="$navy" text="@brand"/>
+      </group>
+      <text x="=W - 140" y="90" size="26" weight="600" align="right" fill="$muted" text="@round"/>
+      <line x1="140" x2="=W-140" y1="1000" y2="1000" stroke="$rule" sw="2"/>
+      <line x1="140" x2="755" y1="1000" y2="1000" stroke="$teal" sw="4"/>
+      <text x="140" y="1035" size="24" fill="$muted" text="@confidential"/>
+      <text x="=W - 140" y="1035" size="24" weight="700" align="right" fill="$navy" text="03 / 08"/>
+      <group>
+        <anim prop="x" from="160" to="0" dur="0.55" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="0" to="-160" at="=sdur-0.4" dur="0.4" ease="in"/><anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+        <text x="140" y="190" size="28" weight="800" fill="$teal" text="@k_solution"/>
+        <text x="140" y="262" size="66" weight="800" fill="$navy" text="@t_solution"/>
+        <rect x="140" y="312" w="0" h="6" r="3" fill="$teal"><anim prop="w" from="0" to="120" at="0.3" dur="0.6" ease="io"/></rect>
+        
+        <group x="140" y="420" at="0.5">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="180" to="140" dur="0.6"/>
+          <rect w="480" h="470" r="24" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <circle x="90" y="100" r="50" fill="$tealsoft"/>
+          <text x="90" y="102" size="44" weight="800" align="center" fill="$teal" text="1"/>
+          <text x="40" y="220" size="44" weight="800" fill="$navy" text="@s1"/>
+          <text x="40" y="320" size="30" maxw="400" lh="1.35" fill="$muted" text="@s1d"/>
+        </group>
+        <path x="625" y="655" d="M 0 0 L 80 0 M 60 -18 L 80 0 L 60 18" stroke="$teal" sw="6" fill="none" at="1.1"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+        <group x="720" y="420" at="1.4">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="760" to="720" dur="0.6"/>
+          <rect w="480" h="470" r="24" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <circle x="90" y="100" r="50" fill="$tealsoft"/>
+          <text x="90" y="102" size="44" weight="800" align="center" fill="$teal" text="2"/>
+          <text x="40" y="220" size="44" weight="800" fill="$navy" text="@s2"/>
+          <text x="40" y="320" size="30" maxw="400" lh="1.35" fill="$muted" text="@s2d"/>
+        </group>
+        <path x="1205" y="655" d="M 0 0 L 80 0 M 60 -18 L 80 0 L 60 18" stroke="$teal" sw="6" fill="none" at="2"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+        <group x="1300" y="420" at="2.3">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="1340" to="1300" dur="0.6"/>
+          <rect w="480" h="470" r="24" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <circle x="90" y="100" r="50" fill="$tealsoft"/>
+          <text x="90" y="102" size="44" weight="800" align="center" fill="$teal" text="3"/>
+          <text x="40" y="220" size="44" weight="800" fill="$navy" text="@s3"/>
+          <text x="40" y="320" size="30" maxw="400" lh="1.35" fill="$muted" text="@s3d"/>
+        </group>
+        <group x="140" y="935" at="3.4"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <text size="34" weight="700" fill="$teal" text="@water"/>
+        </group>
+      </group>
+    </scene>
+    <scene id="market" dur="9.76" chapter="@ch_market">
+      <say at="0.4" text="@vo_market"/>
+      <sfx at="0" src="whoosh"/>
+      <group x="140" y="90">
+        <path d="M 0 18 C 0 -6 22 -18 40 -18 C 40 6 22 18 0 18 Z" fill="$teal"/><path d="M 4 14 L 28 -8" stroke="#fff" sw="3"/>
+        <text x="56" size="30" weight="800" fill="$navy" text="@brand"/>
+      </group>
+      <text x="=W - 140" y="90" size="26" weight="600" align="right" fill="$muted" text="@round"/>
+      <line x1="140" x2="=W-140" y1="1000" y2="1000" stroke="$rule" sw="2"/>
+      <line x1="140" x2="960" y1="1000" y2="1000" stroke="$teal" sw="4"/>
+      <text x="140" y="1035" size="24" fill="$muted" text="@confidential"/>
+      <text x="=W - 140" y="1035" size="24" weight="700" align="right" fill="$navy" text="04 / 08"/>
+      <group>
+        <anim prop="x" from="160" to="0" dur="0.55" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="0" to="-160" at="=sdur-0.4" dur="0.4" ease="in"/><anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+        <text x="140" y="190" size="28" weight="800" fill="$teal" text="@k_market"/>
+        <text x="140" y="262" size="66" weight="800" fill="$navy" text="@t_market"/>
+        <rect x="140" y="312" w="0" h="6" r="3" fill="$teal"><anim prop="w" from="0" to="120" at="0.3" dur="0.6" ease="io"/></rect>
+        
+        <circle x="560" y="670" r="300" fill="$navy" opacity="0.14" at="0.3"><anim prop="scale" from="0.6" to="1" dur="0.7" ease="back"/><anim prop="opacity" from="0" to="0.14" dur="0.5"/></circle>
+        <circle x="560" y="770" r="200" fill="$teal" opacity="0.35" at="1"><anim prop="scale" from="0.6" to="1" dur="0.7" ease="back"/><anim prop="opacity" from="0" to="0.35" dur="0.5"/></circle>
+        <circle x="560" y="878" r="92" fill="$coral" opacity="0.9" at="1.7"><anim prop="scale" from="0.6" to="1" dur="0.7" ease="back"/><anim prop="opacity" from="0" to="0.9" dur="0.5"/></circle>
+        
+        <group at="0.5"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <line x1="560" y1="440" x2="1040" y2="440" stroke="$rule" sw="3"/>
+          <circle x="560" y="440" r="8" fill="$navy"/>
+          <text x="1060" y="440" size="76" weight="800" fill="$navy" text="$38B"/>
+          <text x="1340" y="418" size="30" weight="800" fill="$navy" text="@tam"/>
+          <text x="1340" y="458" size="26" maxw="520" fill="$muted" text="@tamd"/>
+        </group>
+        <group at="1.2"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <line x1="560" y1="660" x2="1040" y2="660" stroke="$rule" sw="3"/>
+          <circle x="560" y="660" r="8" fill="$teal"/>
+          <text x="1060" y="660" size="76" weight="800" fill="$teal" text="$4.2B"/>
+          <text x="1340" y="638" size="30" weight="800" fill="$navy" text="@sam"/>
+          <text x="1340" y="678" size="26" maxw="520" fill="$muted" text="@samd"/>
+        </group>
+        <group at="1.9"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <line x1="560" y1="878" x2="1040" y2="878" stroke="$rule" sw="3"/>
+          <circle x="560" y="878" r="8" fill="$coral"/>
+          <text x="1060" y="878" size="76" weight="800" fill="$coral" text="$310M"/>
+          <text x="1340" y="856" size="30" weight="800" fill="$navy" text="@som"/>
+          <text x="1340" y="896" size="26" maxw="520" fill="$muted" text="@somd"/>
+        </group>
+      </group>
+    </scene>
+    <scene id="traction" dur="9.56" chapter="@ch_traction">
+      <say at="0.4" text="@vo_traction"/>
+      <sfx at="0" src="whoosh"/>
+      <group x="140" y="90">
+        <path d="M 0 18 C 0 -6 22 -18 40 -18 C 40 6 22 18 0 18 Z" fill="$teal"/><path d="M 4 14 L 28 -8" stroke="#fff" sw="3"/>
+        <text x="56" size="30" weight="800" fill="$navy" text="@brand"/>
+      </group>
+      <text x="=W - 140" y="90" size="26" weight="600" align="right" fill="$muted" text="@round"/>
+      <line x1="140" x2="=W-140" y1="1000" y2="1000" stroke="$rule" sw="2"/>
+      <line x1="140" x2="1165" y1="1000" y2="1000" stroke="$teal" sw="4"/>
+      <text x="140" y="1035" size="24" fill="$muted" text="@confidential"/>
+      <text x="=W - 140" y="1035" size="24" weight="700" align="right" fill="$navy" text="05 / 08"/>
+      <group>
+        <anim prop="x" from="160" to="0" dur="0.55" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="0" to="-160" at="=sdur-0.4" dur="0.4" ease="in"/><anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+        <text x="140" y="190" size="28" weight="800" fill="$teal" text="@k_traction"/>
+        <text x="140" y="262" size="66" weight="800" fill="$navy" text="@t_traction"/>
+        <rect x="140" y="312" w="0" h="6" r="3" fill="$teal"><anim prop="w" from="0" to="120" at="0.3" dur="0.6" ease="io"/></rect>
+        <group>
+          <line repeat="4" as="g" x1="140" x2="1140" y1="=900 - g*173.33333333333334" y2="=900 - g*173.33333333333334" stroke="$rule" sw="2"/>
+          <text repeat="4" as="g" x="120" y="=900 - g*173.33333333333334" size="24" align="right" fill="$muted" text="${fmt(g*30,0)}k"/>
+          <text repeat="14" as="m" x="=140 + m*76.92307692307692" y="936" size="22" align="center" fill="$muted" text="{data('mo', m)}"/>
+          <path d="M 140.0 876.9 L 216.9 865.3 L 293.8 848.0 L 370.8 830.7 L 447.7 813.3 L 524.6 790.2 L 601.5 761.3 L 678.5 726.7 L 755.4 692.0 L 832.3 645.8 L 909.2 599.6 L 986.2 547.6 L 1063.1 478.2 L 1140.0 403.1 L 1140 900 L 140 900 Z" fill="url(#area)" at="2.2"><anim prop="opacity" from="0" to="1" dur="0.8"/></path>
+          <path d="M 140.0 876.9 L 216.9 865.3 L 293.8 848.0 L 370.8 830.7 L 447.7 813.3 L 524.6 790.2 L 601.5 761.3 L 678.5 726.7 L 755.4 692.0 L 832.3 645.8 L 909.2 599.6 L 986.2 547.6 L 1063.1 478.2 L 1140.0 403.1" stroke="$teal" sw="7" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="2.2" ease="io"/></path>
+          <circle repeat="14" as="m" x="=140 + m*76.92307692307692" y="=900 - data('rev', m)*5.777777777777778" r="9" fill="$panel" stroke="$teal" sw="5" when="=ease((T-0.4)/2.2,'io') &gt;= m/13 - 0.01"/>
+          <group x="1140" y="403.1111111111111" at="2.6"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+            <circle r="=16 + 6*sin(T*4)" fill="$teal" opacity="0.25"/><circle r="10" fill="$teal"/>
+          </group>
+        </group>
+        
+        <group x="1280" y="380" at="0.6">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="420" to="380" dur="0.6"/>
+          <rect w="500" h="180" r="20" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <rect w="8" h="180" r="4" fill="$teal"/>
+          <text x="48" y="72" size="68" weight="800" fill="$teal" text="${fmt(86*ease((T-0.6)/2,'out'),0)}k"/>
+          <text x="48" y="136" size="30" maxw="420" fill="$muted" text="@mrr"/>
+        </group>
+        
+        <group x="1280" y="590" at="1.4">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="630" to="590" dur="0.6"/>
+          <rect w="500" h="180" r="20" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <rect w="8" h="180" r="4" fill="$navy"/>
+          <text x="48" y="72" size="68" weight="800" fill="$navy" text="11"/>
+          <text x="48" y="136" size="30" maxw="420" fill="$muted" text="@stores"/>
+        </group>
+        
+        <group x="1280" y="800" at="1.8">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="840" to="800" dur="0.6"/>
+          <rect w="500" h="180" r="20" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <rect w="8" h="180" r="4" fill="$teal"/>
+          <text x="48" y="72" size="68" weight="800" fill="$teal" text="+21%"/>
+          <text x="48" y="136" size="30" maxw="420" fill="$muted" text="@mom"/>
+        </group>
+      </group>
+    </scene>
+    <scene id="model" dur="8.86" chapter="@ch_model">
+      <say at="0.4" text="@vo_model"/>
+      <sfx at="0" src="whoosh"/>
+      <group x="140" y="90">
+        <path d="M 0 18 C 0 -6 22 -18 40 -18 C 40 6 22 18 0 18 Z" fill="$teal"/><path d="M 4 14 L 28 -8" stroke="#fff" sw="3"/>
+        <text x="56" size="30" weight="800" fill="$navy" text="@brand"/>
+      </group>
+      <text x="=W - 140" y="90" size="26" weight="600" align="right" fill="$muted" text="@round"/>
+      <line x1="140" x2="=W-140" y1="1000" y2="1000" stroke="$rule" sw="2"/>
+      <line x1="140" x2="1370" y1="1000" y2="1000" stroke="$teal" sw="4"/>
+      <text x="140" y="1035" size="24" fill="$muted" text="@confidential"/>
+      <text x="=W - 140" y="1035" size="24" weight="700" align="right" fill="$navy" text="06 / 08"/>
+      <group>
+        <anim prop="x" from="160" to="0" dur="0.55" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="0" to="-160" at="=sdur-0.4" dur="0.4" ease="in"/><anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+        <text x="140" y="190" size="28" weight="800" fill="$teal" text="@k_model"/>
+        <text x="140" y="262" size="66" weight="800" fill="$navy" text="@t_model"/>
+        <rect x="140" y="312" w="0" h="6" r="3" fill="$teal"><anim prop="w" from="0" to="120" at="0.3" dur="0.6" ease="io"/></rect>
+        <group x="140" y="400">
+          <rect w="1640" h="150" r="20" fill="$navy"/>
+          <text x="60" y="75" size="40" weight="700" fill="#fff" text="@modelline"/>
+          <text x="1580" y="75" size="56" weight="800" align="right" fill="$teal2" text="@fee"/>
+        </group>
+        
+        <group x="140" y="620" at="0.8">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="660" to="620" dur="0.6"/>
+          <rect w="520" h="230" r="20" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <rect w="8" h="230" r="4" fill="$teal"/>
+          <text x="48" y="100" size="84" weight="800" fill="$teal" text="{fmt(62*ease((T-0.8)/1.4,'out'),0)}%"/>
+          <text x="48" y="170" size="30" maxw="440" fill="$muted" text="@gm"/>
+        </group>
+        
+        <group x="700" y="620" at="1.5">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="660" to="620" dur="0.6"/>
+          <rect w="520" h="230" r="20" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <rect w="8" h="230" r="4" fill="$navy"/>
+          <text x="48" y="100" size="84" weight="800" fill="$navy" text="{fmt(14*ease((T-1.5)/1.4,'out'),0)} mo"/>
+          <text x="48" y="170" size="30" maxw="440" fill="$muted" text="@payback"/>
+        </group>
+        
+        <group x="1260" y="620" at="2.2">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="660" to="620" dur="0.6"/>
+          <rect w="520" h="230" r="20" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <rect w="8" h="230" r="4" fill="$navy"/>
+          <text x="48" y="100" size="84" weight="800" fill="$navy" text="{fmt(5*ease((T-2.2)/1.2,'out'),0)} yr"/>
+          <text x="48" y="170" size="30" maxw="440" fill="$muted" text="@contract"/>
+        </group>
+      </group>
+    </scene>
+    <scene id="team" dur="8.06" chapter="@ch_team">
+      <say at="0.4" text="@vo_team"/>
+      <sfx at="0" src="whoosh"/>
+      <group x="140" y="90">
+        <path d="M 0 18 C 0 -6 22 -18 40 -18 C 40 6 22 18 0 18 Z" fill="$teal"/><path d="M 4 14 L 28 -8" stroke="#fff" sw="3"/>
+        <text x="56" size="30" weight="800" fill="$navy" text="@brand"/>
+      </group>
+      <text x="=W - 140" y="90" size="26" weight="600" align="right" fill="$muted" text="@round"/>
+      <line x1="140" x2="=W-140" y1="1000" y2="1000" stroke="$rule" sw="2"/>
+      <line x1="140" x2="1575" y1="1000" y2="1000" stroke="$teal" sw="4"/>
+      <text x="140" y="1035" size="24" fill="$muted" text="@confidential"/>
+      <text x="=W - 140" y="1035" size="24" weight="700" align="right" fill="$navy" text="07 / 08"/>
+      <group>
+        <anim prop="x" from="160" to="0" dur="0.55" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="0" to="-160" at="=sdur-0.4" dur="0.4" ease="in"/><anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+        <text x="140" y="190" size="28" weight="800" fill="$teal" text="@k_team"/>
+        <text x="140" y="262" size="66" weight="800" fill="$navy" text="@t_team"/>
+        <rect x="140" y="312" w="0" h="6" r="3" fill="$teal"><anim prop="w" from="0" to="120" at="0.3" dur="0.6" ease="io"/></rect>
+        <group x="140" y="400" at="0.4">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="440" to="400" dur="0.6"/>
+          <rect w="380" h="500" r="24" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <circle x="190" y="130" r="82" fill="#0fb5a6"/><circle x="190" y="130" r="82" fill="#0b7f8c" from="0" to="=200*ease((T-0.6)/1,'out')"/>
+          <text x="190" y="133" size="60" weight="800" align="center" fill="#fff" text="AR"/>
+          <text x="190" y="270" size="36" weight="800" align="center" fill="$navy" text="Ananya Rao"/>
+          <text x="190" y="318" size="28" weight="700" align="center" fill="$teal" text="CEO"/>
+          <text x="190" y="410" size="26" maxw="310" lh="1.35" align="center" fill="$muted" text="Ran ops for a 120-store grocery chain"/>
+        </group>
+        <group x="560" y="400" at="0.75">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="440" to="400" dur="0.6"/>
+          <rect w="380" h="500" r="24" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <circle x="190" y="130" r="82" fill="#3b6fd8"/><circle x="190" y="130" r="82" fill="#0b1f3a" from="0" to="=200*ease((T-0.95)/1,'out')"/>
+          <text x="190" y="133" size="60" weight="800" align="center" fill="#fff" text="TV"/>
+          <text x="190" y="270" size="36" weight="800" align="center" fill="$navy" text="Tomás Vidal"/>
+          <text x="190" y="318" size="28" weight="700" align="center" fill="$teal" text="CTO"/>
+          <text x="190" y="410" size="26" maxw="310" lh="1.35" align="center" fill="$muted" text="Built climate controls for two greenhouse startups"/>
+        </group>
+        <group x="980" y="400" at="1.1">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="440" to="400" dur="0.6"/>
+          <rect w="380" h="500" r="24" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <circle x="190" y="130" r="82" fill="#f0715a"/><circle x="190" y="130" r="82" fill="#c2410c" from="0" to="=200*ease((T-1.2999999999999998)/1,'out')"/>
+          <text x="190" y="133" size="60" weight="800" align="center" fill="#fff" text="KM"/>
+          <text x="190" y="270" size="36" weight="800" align="center" fill="$navy" text="Kenji Mori"/>
+          <text x="190" y="318" size="28" weight="700" align="center" fill="$teal" text="Head of Growing"/>
+          <text x="190" y="410" size="26" maxw="310" lh="1.35" align="center" fill="$muted" text="Plant scientist, 9 years in hydroponics"/>
+        </group>
+        <group x="1400" y="400" at="1.4499999999999997">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="440" to="400" dur="0.6"/>
+          <rect w="380" h="500" r="24" fill="$panel" stroke="$rule" sw="2" shadow="0 16 40 #0b1f3a12"/>
+          <circle x="190" y="130" r="82" fill="#8b5cf6"/><circle x="190" y="130" r="82" fill="#4c1d95" from="0" to="=200*ease((T-1.65)/1,'out')"/>
+          <text x="190" y="133" size="60" weight="800" align="center" fill="#fff" text="ZO"/>
+          <text x="190" y="270" size="36" weight="800" align="center" fill="$navy" text="Zainab Okoye"/>
+          <text x="190" y="318" size="28" weight="700" align="center" fill="$teal" text="COO"/>
+          <text x="190" y="410" size="26" maxw="310" lh="1.35" align="center" fill="$muted" text="Scaled last-mile delivery to 30 cities"/>
+        </group>
+      </group>
+    </scene>
+    <scene id="ask" dur="7.36" chapter="@ch_ask">
+      <say at="0.4" text="@vo_ask"/>
+      <sfx at="0" src="whoosh"/>
+      <group x="140" y="90">
+        <path d="M 0 18 C 0 -6 22 -18 40 -18 C 40 6 22 18 0 18 Z" fill="$teal"/><path d="M 4 14 L 28 -8" stroke="#fff" sw="3"/>
+        <text x="56" size="30" weight="800" fill="$navy" text="@brand"/>
+      </group>
+      <text x="=W - 140" y="90" size="26" weight="600" align="right" fill="$muted" text="@round"/>
+      <line x1="140" x2="=W-140" y1="1000" y2="1000" stroke="$rule" sw="2"/>
+      <line x1="140" x2="1780" y1="1000" y2="1000" stroke="$teal" sw="4"/>
+      <text x="140" y="1035" size="24" fill="$muted" text="@confidential"/>
+      <text x="=W - 140" y="1035" size="24" weight="700" align="right" fill="$navy" text="08 / 08"/>
+      <group>
+        <anim prop="x" from="160" to="0" dur="0.55" ease="out"/><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="0" to="-160" at="=sdur-0.4" dur="0.4" ease="in"/><anim prop="opacity" from="1" to="0" at="=sdur-0.4" dur="0.4" ease="in"/>
+        <text x="140" y="190" size="28" weight="800" fill="$teal" text="@k_ask"/>
+        <text x="140" y="262" size="66" weight="800" fill="$navy" text="@t_ask"/>
+        <rect x="140" y="312" w="0" h="6" r="3" fill="$teal"><anim prop="w" from="0" to="120" at="0.3" dur="0.6" ease="io"/></rect>
+        <group x="560" y="640">
+          <circle r="250" fill="$rule"/>
+          <circle r="250" fill="$teal" from="0" to="=0 + 162*ease((T-0.4)/0.7,'out')" at="0.4"/>
+          <circle r="250" fill="$navy" from="162" to="=162 + 108*ease((T-0.9)/0.7,'out')" at="0.9"/>
+          <circle r="250" fill="$coral" from="270" to="=270 + 90*ease((T-1.4)/0.7,'out')" at="1.4"/>
+          <circle r="165" fill="$bg"/>
+          <text y="-20" size="96" weight="800" align="center" fill="$navy" text="$3M"/>
+          <text y="50" size="30" align="center" fill="$muted" text="@seed"/>
+        </group>
+        
+        <group x="1000" y="430" at="0.4"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <rect y="-24" w="48" h="48" r="10" fill="$teal"/>
+          <text x="80" size="48" weight="800" fill="$teal" text="45%"/>
+          <text x="220" size="32" fill="$navy" text="@u1"/>
+        </group>
+        <group x="1000" y="550" at="0.9"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <rect y="-24" w="48" h="48" r="10" fill="$navy"/>
+          <text x="80" size="48" weight="800" fill="$navy" text="30%"/>
+          <text x="220" size="32" fill="$navy" text="@u2"/>
+        </group>
+        <group x="1000" y="670" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <rect y="-24" w="48" h="48" r="10" fill="$coral"/>
+          <text x="80" size="48" weight="800" fill="$coral" text="25%"/>
+          <text x="220" size="32" fill="$navy" text="@u3"/>
+        </group>
+        <group x="1000" y="850" at="2.4"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <rect w="780" h="96" r="48" fill="$navy"/>
+          <text x="390" y="48" size="32" weight="700" align="center" fill="#fff" text="@milestone"/>
+        </group>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_ask" lang="en" src="voice/pitch-deck-metrics/en/vo_ask.ced1ca64b3.ogg" dur="6.01" hash="ced1ca64b3" engine="kokoro:am_michael"/>
+    <voice say="vo_market" lang="en" src="voice/pitch-deck-metrics/en/vo_market.a5c07b2bb0.ogg" dur="8.41" hash="a5c07b2bb0" engine="kokoro:am_michael"/>
+    <voice say="vo_model" lang="en" src="voice/pitch-deck-metrics/en/vo_model.f1a92e3ea4.ogg" dur="7.51" hash="f1a92e3ea4" engine="kokoro:am_michael"/>
+    <voice say="vo_problem" lang="en" src="voice/pitch-deck-metrics/en/vo_problem.1935ab7f2b.ogg" dur="8.71" hash="1935ab7f2b" engine="kokoro:am_michael"/>
+    <voice say="vo_solution" lang="en" src="voice/pitch-deck-metrics/en/vo_solution.fc6f167552.ogg" dur="8.91" hash="fc6f167552" engine="kokoro:am_michael"/>
+    <voice say="vo_team" lang="en" src="voice/pitch-deck-metrics/en/vo_team.b1b18eb6a5.ogg" dur="6.71" hash="b1b18eb6a5" engine="kokoro:am_michael"/>
+    <voice say="vo_title" lang="en" src="voice/pitch-deck-metrics/en/vo_title.c9974a3e04.ogg" dur="4.21" hash="c9974a3e04" engine="kokoro:am_michael"/>
+    <voice say="vo_traction" lang="en" src="voice/pitch-deck-metrics/en/vo_traction.e4d3631e5b.ogg" dur="8.21" hash="e4d3631e5b" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,11 @@
+{
+  "id": "science-diagram",
+  "title": "Labelled science diagram",
+  "category": "education",
+  "summary": "The water cycle built up part by part: numbered callouts with leader lines, flow arrows, rain and rivers in motion.",
+  "duration": 62,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 60
+}

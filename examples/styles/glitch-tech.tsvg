@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.2" title="@title" font="Space Grotesk">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_adam"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full (voice + music + sfx)"/><choice id="speech" label="Speech only"/><choice id="ambient" label="No voice"/></option>
+    <option id="theme" label="Theme" default="dark"><choice id="dark" label="Dark"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.35" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.6" sfx="0.7"/>
+  </mixes>
+  <themes>
+    <theme id="dark" bg="#05060a" fg="#eafcff" muted="#7d8b99" accent="#00f0ff"/>
+  </themes>
+  <strings>
+    <s id="title" en="Why passwords leak"/>
+    <s id="ch1" en="Leaked"/>
+    <s id="ch2" en="Breaches"/>
+    <s id="ch3" en="Stuffing"/>
+    <s id="ch4" en="Codes"/>
+    <s id="ch5" en="Phishing"/>
+    <s id="ch6" en="Passkeys"/>
+    <s id="ch7" en="Fix"/>
+    <s id="t1" en="YOUR PASSWORD"/>
+    <s id="t2" en="IS ALREADY OUT THERE"/>
+    <s id="h2" en="BREACH DUMP"/>
+    <s id="leaked" en="RECORDS LEAKED THIS YEAR"/>
+    <s id="h3" en="CREDENTIAL STUFFING"/>
+    <s id="h4" en="ONE-TIME CODE"/>
+    <s id="h5" en="PHISHING PROXY"/>
+    <s id="fake" en="FAKE LOGIN"/>
+    <s id="h6" en="PASSKEY"/>
+    <s id="bound" en="SIGNED FOR ONE DOMAIN ONLY"/>
+    <s id="o1" en="USE PASSKEYS"/>
+    <s id="o2" en="nothing to reuse · nothing to phish"/>
+    <s id="u" en="YOU"/>
+    <s id="real" en="REAL SITE"/>
+    <s id="vo_intro" en="Your password is probably already out there. Here is why, and what actually fixes it."/>
+    <s id="vo_dump" en="Every year, billions of logins leak from hacked websites, and they are sold in bulk."/>
+    <s id="vo_stuff" en="Attackers replay those passwords on other sites. Reuse one, and a single leak unlocks everything."/>
+    <s id="vo_otp" en="A one-time code helps, because the stolen password alone is no longer enough."/>
+    <s id="vo_proxy" en="But a fake login page can ask for the code too, and relay it to the real site within seconds."/>
+    <s id="vo_pass" en="Passkeys fix this. The key never leaves your device, and it only answers the real domain."/>
+    <s id="vo_outro" en="Nothing to reuse, nothing to phish. Turn on passkeys."/>
+  </strings>
+  <defs>
+
+    <data id="users" v="maya.k,j.ortiz,rahul88,lena_v,sam.p,ana.r,kofi.a,mei.l,tom_b,ivy.c,omar.s,zoe.w,raj.p,eva.m,li.h,noah.g,priya.d,leo.t"/><data id="domains" v="mail.example,web.example,shop.example,post.example"/><data id="hashes" v="5f4dcc3b5aa765d6,e99a18c428cb38d5,25d55ad283aa400a,d8578edf8458ce06,fcea920f7412b5da,827ccb0eea8a706c,96e79218965eb72c,0d107d09f5bbe40c,6cb75f652a9b52798"/>
+    <data id="glyphs" v="0,1,7,A,F,3,9,X,#,$,%,&amp;,Z,K,4,2,8,E,C,B"/>
+    <clip id="dumpclip"><rect x="130" y="280" w="960" h="640"/></clip>
+    <clip id="band24"><rect x="-2000" y="=-71.5 + b*24" w="4000" h="24"/></clip>
+    <clip id="band26"><rect x="-2000" y="=-78 + b*26" w="4000" h="26"/></clip>
+    <clip id="band14"><rect x="-2000" y="=-41.6 + b*14" w="4000" h="14"/></clip>
+    <clip id="band22"><rect x="-2000" y="=-65 + b*22" w="4000" h="22"/></clip>
+    <clip id="band20"><rect x="-2000" y="=-58.5 + b*20" w="4000" h="20"/></clip>
+  </defs>
+  <assets>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+    <font family="VT323" src="fonts/VT323.ttf"/>
+    <asset id="drone" src="audio/drone.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+
+  </assets>
+  <music src="drone" start="0" loop="1" vol="0.7"/>
+  <backdrop>
+
+    <group opacity="0.22">
+      <group repeat="48" as="c" x="=c*40 + 10" y="=-200 + fract(t*(0.08 + 0.12*rand(c*3)) + rand(c))*1480 - 200">
+        <text repeat="14" as="r" y="=r*-34" size="34" font="VT323" align="center" fill="=r == 0 ? '#d8fff0' : '#00ff9c'" opacity="=1 - r/14" text="{data('glyphs', floor(rand(c*13 + r*7 + floor(t*6))*20))}"/>
+      </group>
+    </group>
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="8" chapter="@ch1">
+      <say at="0.5" text="@vo_intro"/>
+
+      <sfx at="0.2" src="whoosh"/><sfx at="1.2" src="blip"/>
+      
+      <group x="960" y="430" at="0">
+        <anim prop="opacity" from="0" to="1" dur="0.4" ease="step"/>
+        <text x="=-6 - 14*step(0.82, rand(floor(T*12) + 1))" size="120" weight="700" align="center" text="@t1" fill="#ff3355" opacity="0.8" blend="screen"/>
+        <text x="=6 + 14*step(0.82, rand(floor(T*12) + 10))" size="120" weight="700" align="center" text="@t1" fill="#00f0ff" opacity="0.8" blend="screen"/>
+        <group repeat="6" as="b" clip="url(#band26)" x="=40*(rand(floor(T*12)*7 + b + 1) - 0.5)*2*step(0.75, rand(floor(T*12) + 4))">
+          <text y="=0" size="120" weight="700" align="center" text="@t1" fill="#eafcff"/>
+        </group>
+      </group>
+      
+      <group x="960" y="590" at="0.8">
+        <anim prop="opacity" from="0" to="1" dur="0.4" ease="step"/>
+        <text x="=-6 - 14*step(0.82, rand(floor(T*12) + 5))" size="90" weight="700" align="center" text="@t2" fill="#ff3355" opacity="0.8" blend="screen"/>
+        <text x="=6 + 14*step(0.82, rand(floor(T*12) + 14))" size="90" weight="700" align="center" text="@t2" fill="#00f0ff" opacity="0.8" blend="screen"/>
+        <group repeat="6" as="b" clip="url(#band20)" x="=40*(rand(floor(T*12)*7 + b + 5) - 0.5)*2*step(0.75, rand(floor(T*12) + 8))">
+          <text y="=0" size="90" weight="700" align="center" text="@t2" fill="#ff2bd6"/>
+        </group>
+      </group>
+      <rect x="=660 + 600*rand(floor(T*10))" y="=300 + 400*rand(floor(T*10) + 4)" w="=80 + 300*rand(floor(T*10)+2)" h="8" fill="#00f0ff" opacity="=0.8*step(0.7, rand(floor(T*12) + 11))"/>
+    </scene>
+    <scene id="dump" dur="9" chapter="@ch2">
+      <say at="0.5" text="@vo_dump"/>
+
+      
+      <group x="120" y="150" at="0">
+        <anim prop="opacity" from="0" to="1" dur="0.4" ease="step"/>
+        <text x="=-6 - 14*step(0.82, rand(floor(T*12) + 21))" size="64" weight="700" align="left" text="@h2" fill="#ff3355" opacity="0.8" blend="screen"/>
+        <text x="=6 + 14*step(0.82, rand(floor(T*12) + 30))" size="64" weight="700" align="left" text="@h2" fill="#00f0ff" opacity="0.8" blend="screen"/>
+        <group repeat="6" as="b" clip="url(#band14)" x="=40*(rand(floor(T*12)*7 + b + 21) - 0.5)*2*step(0.75, rand(floor(T*12) + 24))">
+          <text y="=0" size="64" weight="700" align="left" text="@h2" fill="#eafcff"/>
+        </group>
+      </group>
+      
+      <group x="120" y="230" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.2" ease="step"/>
+        <rect w="1000" h="700" fill="#070b12e6" stroke="#00ff9c" sw="2" shadow="0 0 20 #00ff9c55"/>
+        <rect w="1000" h="44" fill="#00ff9c22"/>
+        <circle x="24" y="22" r="7" fill="#ff3355"/><circle x="48" y="22" r="7" fill="#ffd23f"/><circle x="72" y="22" r="7" fill="#00ff9c"/>
+        <text x="100" y="22" size="24" font="JetBrains Mono" fill="#00ff9c" text="dump_2026.csv — 41 GB"/>
+      </group>
+      <group clip="url(#dumpclip)" at="0.3">
+        <text repeat="18" as="r" x="150" y="=310 + r*36 - fract(T*1.5)*36" size="26" font="JetBrains Mono" fill="#00ff9c" opacity="=0.5 + 0.5*(r % 3 == 0)"
+          text="{data('users', r + floor(T*1.5))}@{data('domains', r*3 + floor(T*1.5))}  :  {data('hashes', r*7 + floor(T*1.5))}"/>
+      </group>
+      <group x="1560" y="520" at="1.5"><anim prop="opacity" from="0" to="1" dur="0.2" ease="step"/>
+        <text size="130" weight="700" align="center" fill="#ff2bd6" text="{fmt(2.6*ease((T-1.5)/2.5,'out'), 1)} B" shadow="0 0 30 #ff2bd6"/>
+        <text y="110" size="30" font="JetBrains Mono" align="center" fill="#eafcff" text="@leaked"/>
+      </group>
+    </scene>
+    <scene id="stuff" dur="10" chapter="@ch3">
+      <say at="0.5" text="@vo_stuff"/>
+
+      <sfx at="1.4" src="click"/><sfx at="2.4" src="click"/><sfx at="3.4" src="click"/><sfx at="4.4" src="click"/>
+      
+      <group x="120" y="150" at="0">
+        <anim prop="opacity" from="0" to="1" dur="0.4" ease="step"/>
+        <text x="=-6 - 14*step(0.82, rand(floor(T*12) + 31))" size="64" weight="700" align="left" text="@h3" fill="#ff3355" opacity="0.8" blend="screen"/>
+        <text x="=6 + 14*step(0.82, rand(floor(T*12) + 40))" size="64" weight="700" align="left" text="@h3" fill="#00f0ff" opacity="0.8" blend="screen"/>
+        <group repeat="6" as="b" clip="url(#band14)" x="=40*(rand(floor(T*12)*7 + b + 31) - 0.5)*2*step(0.75, rand(floor(T*12) + 34))">
+          <text y="=0" size="64" weight="700" align="left" text="@h3" fill="#eafcff"/>
+        </group>
+      </group>
+      
+      <group x="120" y="260" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.2" ease="step"/>
+        <rect w="640" h="260" fill="#070b12e6" stroke="#ff2bd6" sw="2" shadow="0 0 20 #ff2bd655"/>
+        <rect w="640" h="44" fill="#ff2bd622"/>
+        <circle x="24" y="22" r="7" fill="#ff3355"/><circle x="48" y="22" r="7" fill="#ffd23f"/><circle x="72" y="22" r="7" fill="#00ff9c"/>
+        <text x="100" y="22" size="24" font="JetBrains Mono" fill="#ff2bd6" text="combo.txt"/>
+      </group>
+      <text x="150" y="360" size="32" font="JetBrains Mono" fill="#eafcff" text="maya.k@mail.example" at="0.6"><anim prop="reveal" from="0" to="1" dur="0.4" ease="linear"/></text>
+      <text x="150" y="420" size="32" font="JetBrains Mono" fill="#ff2bd6" text="pw: sunflower2019" at="0.9"><anim prop="reveal" from="0" to="1" dur="0.4" ease="linear"/></text>
+      
+      <group x="1000" y="280" at="1.2"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect w="780" h="84" fill="#070b12e6" stroke="#ff3355" sw="2"/>
+        <text x="30" y="42" size="32" font="JetBrains Mono" fill="#eafcff" text="mail.example"/>
+        <text x="750" y="42" size="30" font="JetBrains Mono" align="right" fill="#ff3355" text="ACCESS GRANTED" at="0.3"/>
+      </group>
+      <path d="M 760 390 C 880 390 880 322 1000 322" fill="none" stroke="#ff2bd6" sw="2" opacity="0.6" at="1.2"><anim prop="draw" from="0" to="1" dur="0.3"/></path>
+      <group x="1000" y="390" at="1.7"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect w="780" h="84" fill="#070b12e6" stroke="#33414f" sw="2"/>
+        <text x="30" y="42" size="32" font="JetBrains Mono" fill="#eafcff" text="shop.example"/>
+        <text x="750" y="42" size="30" font="JetBrains Mono" align="right" fill="#5d6b7a" text="denied" at="0.3"/>
+      </group>
+      <path d="M 760 390 C 880 390 880 432 1000 432" fill="none" stroke="#ff2bd6" sw="2" opacity="0.6" at="1.7"><anim prop="draw" from="0" to="1" dur="0.3"/></path>
+      <group x="1000" y="500" at="2.2"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect w="780" h="84" fill="#070b12e6" stroke="#ff3355" sw="2"/>
+        <text x="30" y="42" size="32" font="JetBrains Mono" fill="#eafcff" text="bank.example"/>
+        <text x="750" y="42" size="30" font="JetBrains Mono" align="right" fill="#ff3355" text="ACCESS GRANTED" at="0.3"/>
+      </group>
+      <path d="M 760 390 C 880 390 880 542 1000 542" fill="none" stroke="#ff2bd6" sw="2" opacity="0.6" at="2.2"><anim prop="draw" from="0" to="1" dur="0.3"/></path>
+      <group x="1000" y="610" at="2.7"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect w="780" h="84" fill="#070b12e6" stroke="#33414f" sw="2"/>
+        <text x="30" y="42" size="32" font="JetBrains Mono" fill="#eafcff" text="cloud.example"/>
+        <text x="750" y="42" size="30" font="JetBrains Mono" align="right" fill="#5d6b7a" text="denied" at="0.3"/>
+      </group>
+      <path d="M 760 390 C 880 390 880 652 1000 652" fill="none" stroke="#ff2bd6" sw="2" opacity="0.6" at="2.7"><anim prop="draw" from="0" to="1" dur="0.3"/></path>
+      <group x="1000" y="720" at="3.2"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect w="780" h="84" fill="#070b12e6" stroke="#ff3355" sw="2"/>
+        <text x="30" y="42" size="32" font="JetBrains Mono" fill="#eafcff" text="social.example"/>
+        <text x="750" y="42" size="30" font="JetBrains Mono" align="right" fill="#ff3355" text="ACCESS GRANTED" at="0.3"/>
+      </group>
+      <path d="M 760 390 C 880 390 880 762 1000 762" fill="none" stroke="#ff2bd6" sw="2" opacity="0.6" at="3.2"><anim prop="draw" from="0" to="1" dur="0.3"/></path>
+      <group x="1000" y="830" at="3.7"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect w="780" h="84" fill="#070b12e6" stroke="#33414f" sw="2"/>
+        <text x="30" y="42" size="32" font="JetBrains Mono" fill="#eafcff" text="games.example"/>
+        <text x="750" y="42" size="30" font="JetBrains Mono" align="right" fill="#5d6b7a" text="denied" at="0.3"/>
+      </group>
+      <path d="M 760 390 C 880 390 880 872 1000 872" fill="none" stroke="#ff2bd6" sw="2" opacity="0.6" at="3.7"><anim prop="draw" from="0" to="1" dur="0.3"/></path>
+    </scene>
+    <scene id="otp" dur="8" chapter="@ch4">
+      <say at="0.5" text="@vo_otp"/>
+
+      <sfx at="1" src="blip"/>
+      
+      <group x="120" y="150" at="0">
+        <anim prop="opacity" from="0" to="1" dur="0.4" ease="step"/>
+        <text x="=-6 - 14*step(0.82, rand(floor(T*12) + 41))" size="64" weight="700" align="left" text="@h4" fill="#ff3355" opacity="0.8" blend="screen"/>
+        <text x="=6 + 14*step(0.82, rand(floor(T*12) + 50))" size="64" weight="700" align="left" text="@h4" fill="#00f0ff" opacity="0.8" blend="screen"/>
+        <group repeat="6" as="b" clip="url(#band14)" x="=40*(rand(floor(T*12)*7 + b + 41) - 0.5)*2*step(0.75, rand(floor(T*12) + 44))">
+          <text y="=0" size="64" weight="700" align="left" text="@h4" fill="#eafcff"/>
+        </group>
+      </group>
+      <group x="960" y="600">
+        <rect x="-190" y="-340" w="380" h="680" r="48" fill="#0b1220" stroke="#00f0ff" sw="4" shadow="0 0 30 #00f0ff66"/>
+        <rect x="-160" y="-290" w="320" h="560" r="20" fill="#0f1a2c"/>
+        <text y="-150" size="30" font="JetBrains Mono" align="center" fill="#00f0ff" text="verification code"/>
+        <text y="-40" size="72" font="JetBrains Mono" weight="700" align="center" fill="#eafcff" text="{floor(T*0.25) % 2 ? '904 116' : '372 851'}" at="0.8"><anim prop="reveal" from="0" to="1" dur="0.6" ease="linear"/></text>
+        <rect x="-130" y="40" w="=260*(1 - fract(T*0.25))" h="10" r="5" fill="#00ff9c"/>
+        <text y="120" size="26" font="JetBrains Mono" align="center" fill="#7d8b99" text="expires in {30 - floor(fract(T*0.25)*30)} s"/>
+      </group>
+      <group x="1450" y="560" at="2.4"><anim prop="scale" from="0" to="1" dur="0.3" ease="back"/>
+        <path d="M 0 -150 L 120 -100 L 120 10 C 120 90 60 140 0 170 C -60 140 -120 90 -120 10 L -120 -100 Z" fill="#00ff9c22" stroke="#00ff9c" sw="5" shadow="0 0 24 #00ff9c"/>
+        <path d="M -50 10 L -10 50 L 60 -40" fill="none" stroke="#00ff9c" sw="10"/>
+      </group>
+      <text x="300" y="450" size="34" font="JetBrains Mono" fill="#ff3355" text="password ✓ (stolen)" at="0.6"><anim prop="reveal" from="0" to="1" dur="0.4" ease="linear"/></text>
+      <text x="300" y="520" size="34" font="JetBrains Mono" fill="#00ff9c" text="+ code ✗" at="1.6"><anim prop="reveal" from="0" to="1" dur="0.4" ease="linear"/></text>
+    </scene>
+    <scene id="proxy" dur="10" chapter="@ch5">
+      <say at="0.5" text="@vo_proxy"/>
+
+      <sfx at="2" src="whoosh"/><sfx at="4" src="blip"/>
+      
+      <group x="120" y="150" at="0">
+        <anim prop="opacity" from="0" to="1" dur="0.4" ease="step"/>
+        <text x="=-6 - 14*step(0.82, rand(floor(T*12) + 51))" size="64" weight="700" align="left" text="@h5" fill="#ff3355" opacity="0.8" blend="screen"/>
+        <text x="=6 + 14*step(0.82, rand(floor(T*12) + 60))" size="64" weight="700" align="left" text="@h5" fill="#00f0ff" opacity="0.8" blend="screen"/>
+        <group repeat="6" as="b" clip="url(#band14)" x="=40*(rand(floor(T*12)*7 + b + 51) - 0.5)*2*step(0.75, rand(floor(T*12) + 54))">
+          <text y="=0" size="64" weight="700" align="left" text="@h5" fill="#eafcff"/>
+        </group>
+      </group>
+      
+      <group x="300" y="560" at="0.4"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect x="-200" y="-150" w="400" h="300" fill="#070b12e6" stroke="#00f0ff" sw="3" shadow="0 0 24 #00f0ff55"/>
+        <text y="-90" size="44" weight="700" align="center" fill="#00f0ff" text="@u"/>
+        <rect x="-150" y="-20" w="300" h="50" fill="#ffffff10" stroke="#ffffff33" sw="1"/><rect x="-150" y="50" w="300" h="50" fill="#ffffff10" stroke="#ffffff33" sw="1"/>
+      </group>
+      <group x="960" y="560" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect x="-200" y="-150" w="400" h="300" fill="#070b12e6" stroke="#ff3355" sw="3" shadow="0 0 24 #ff335555"/>
+        <text y="-90" size="44" weight="700" align="center" fill="#ff3355" text="@fake"/>
+        <rect x="-150" y="-20" w="300" h="50" fill="#ffffff10" stroke="#ffffff33" sw="1"/><rect x="-150" y="50" w="300" h="50" fill="#ffffff10" stroke="#ffffff33" sw="1"/>
+      </group>
+      <group x="1620" y="560" at="1.2000000000000002"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect x="-200" y="-150" w="400" h="300" fill="#070b12e6" stroke="#00ff9c" sw="3" shadow="0 0 24 #00ff9c55"/>
+        <text y="-90" size="44" weight="700" align="center" fill="#00ff9c" text="@real"/>
+        <rect x="-150" y="-20" w="300" h="50" fill="#ffffff10" stroke="#ffffff33" sw="1"/><rect x="-150" y="50" w="300" h="50" fill="#ffffff10" stroke="#ffffff33" sw="1"/>
+      </group>
+      <group x="=960 + 10*(rand(floor(T*12)) - 0.5)*step(0.6, rand(floor(T*12) + 55))" y="375" at="1.2" opacity="=0.6 + 0.4*step(0.5, rand(floor(T*12) + 57))">
+        <text size="30" font="JetBrains Mono" align="center" fill="#ff3355" text="bank-login.example"/></group>
+      <text x="1620" y="375" size="30" font="JetBrains Mono" align="center" fill="#00ff9c" text="bank.example" at="1.6"/>
+      
+      <group at="2">
+        <line x1="500" y1="560" x2="760" y2="560" stroke="#ff3355" sw="4" draw="=ease((T-2)/0.5,'out')" shadow="0 0 12 #ff3355"/>
+        <path d="M 760 560 L 736 546 L 736 574 Z" fill="#ff3355" at="0.5"/>
+        <text x="630" y="520" size="26" font="JetBrains Mono" align="center" fill="#eafcff" text="pw + 372 851" at="0.3"/>
+      </group>
+      <group at="3.4">
+        <line x1="1160" y1="560" x2="1420" y2="560" stroke="#ff3355" sw="4" draw="=ease((T-3.4)/0.5,'out')" shadow="0 0 12 #ff3355"/>
+        <path d="M 1420 560 L 1396 546 L 1396 574 Z" fill="#ff3355" at="0.5"/>
+        <text x="1290" y="520" size="26" font="JetBrains Mono" align="center" fill="#eafcff" text="pw + 372 851" at="0.3"/>
+      </group>
+      <text x="960" y="840" size="40" font="JetBrains Mono" align="center" fill="#ff3355" text="relayed in 0.8 s" at="4.6"><anim prop="reveal" from="0" to="1" dur="0.6" ease="linear"/></text>
+    </scene>
+    <scene id="pass" dur="10" chapter="@ch6">
+      <say at="0.5" text="@vo_pass"/>
+
+      <sfx at="1.2" src="ding"/><sfx at="4" src="click"/>
+      
+      <group x="120" y="150" at="0">
+        <anim prop="opacity" from="0" to="1" dur="0.4" ease="step"/>
+        <text x="=-6 - 14*step(0.82, rand(floor(T*12) + 61))" size="64" weight="700" align="left" text="@h6" fill="#ff3355" opacity="0.8" blend="screen"/>
+        <text x="=6 + 14*step(0.82, rand(floor(T*12) + 70))" size="64" weight="700" align="left" text="@h6" fill="#00f0ff" opacity="0.8" blend="screen"/>
+        <group repeat="6" as="b" clip="url(#band14)" x="=40*(rand(floor(T*12)*7 + b + 61) - 0.5)*2*step(0.75, rand(floor(T*12) + 64))">
+          <text y="=0" size="64" weight="700" align="left" text="@h6" fill="#eafcff"/>
+        </group>
+      </group>
+      <group x="420" y="560" at="0.4"><anim prop="opacity" from="0" to="1" dur="0.2" ease="step"/>
+        <circle r="150" fill="#00f0ff11" stroke="#00f0ff" sw="4" shadow="0 0 30 #00f0ff"/>
+        <circle x="-40" y="-10" r="46" fill="none" stroke="#eafcff" sw="12"/>
+        <path d="M 2 -10 L 110 -10 L 110 30 M 70 -10 L 70 22" fill="none" stroke="#eafcff" sw="12"/>
+        <text y="210" size="30" font="JetBrains Mono" align="center" fill="#00f0ff" text="private key · stays on device"/>
+      </group>
+      
+      <group x="900" y="420" at="1.2"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect w="900" h="130" fill="#070b12e6" stroke="#00ff9c" sw="3" shadow="0 0 20 #00ff9c55"/>
+        <text x="40" y="45" size="40" font="JetBrains Mono" weight="700" fill="#eafcff" text="bank.example"/>
+        <text x="40" y="95" size="32" font="JetBrains Mono" fill="#00ff9c" text="✓ signed" at="0.5"><anim prop="reveal" from="0" to="1" dur="0.4" ease="linear"/></text>
+      </group>
+      <line x1="570" y1="560" x2="900" y2="485" stroke="#00ff9c" sw="3" at="1.2" draw="=ease((T-1.2)/0.4,'out')"/>
+      <group x="900" y="700" at="3.6"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <rect w="900" h="130" fill="#070b12e6" stroke="#ff3355" sw="3" shadow="0 0 20 #ff335555"/>
+        <text x="40" y="45" size="40" font="JetBrains Mono" weight="700" fill="#eafcff" text="bank-login.example"/>
+        <text x="40" y="95" size="32" font="JetBrains Mono" fill="#ff3355" text="✗ no key for this domain" at="0.5"><anim prop="reveal" from="0" to="1" dur="0.4" ease="linear"/></text>
+      </group>
+      <line x1="570" y1="560" x2="900" y2="765" stroke="#ff3355" sw="3" at="3.6" draw="=ease((T-3.6)/0.4,'out')"/>
+      <text x="1350" y="940" size="30" font="JetBrains Mono" align="center" fill="#00f0ff" text="@bound" at="5"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text>
+    </scene>
+    <scene id="outro" dur="7" chapter="@ch7">
+      <say at="0.5" text="@vo_outro"/>
+
+      <sfx at="0.2" src="whoosh"/>
+      
+      <group x="960" y="480" at="0">
+        <anim prop="opacity" from="0" to="1" dur="0.4" ease="step"/>
+        <text x="=-6 - 14*step(0.82, rand(floor(T*12) + 71))" size="110" weight="700" align="center" text="@o1" fill="#ff3355" opacity="0.8" blend="screen"/>
+        <text x="=6 + 14*step(0.82, rand(floor(T*12) + 80))" size="110" weight="700" align="center" text="@o1" fill="#00f0ff" opacity="0.8" blend="screen"/>
+        <group repeat="6" as="b" clip="url(#band24)" x="=40*(rand(floor(T*12)*7 + b + 71) - 0.5)*2*step(0.75, rand(floor(T*12) + 74))">
+          <text y="=0" size="110" weight="700" align="center" text="@o1" fill="#00ff9c"/>
+        </group>
+      </group>
+      <text x="960" y="640" size="40" font="JetBrains Mono" align="center" fill="#00f0ff" text="@o2" at="1"><anim prop="reveal" from="0" to="1" dur="1.2" ease="linear"/></text>
+    </scene>
+  </timeline>
+  <overlay>
+
+    <rect repeat="270" as="k" y="=k*4" w="1920" h="2" fill="#000" opacity="0.25"/>
+    <rect y="=rand(floor(t*8))*1080" w="1920" h="=4 + 30*rand(floor(t*8)+1)" fill="#00f0ff" opacity="=0.12*step(0.8, rand(floor(t*8)+2))" blend="screen"/>
+  </overlay>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_dump" lang="en" src="voice/glitch-tech/en/vo_dump.0d0b407a7e.ogg" dur="4.61" hash="0d0b407a7e" engine="kokoro:am_adam"/>
+    <voice say="vo_intro" lang="en" src="voice/glitch-tech/en/vo_intro.13eb011090.ogg" dur="4.81" hash="13eb011090" engine="kokoro:am_adam"/>
+    <voice say="vo_otp" lang="en" src="voice/glitch-tech/en/vo_otp.04a6eb30a0.ogg" dur="4.71" hash="04a6eb30a0" engine="kokoro:am_adam"/>
+    <voice say="vo_outro" lang="en" src="voice/glitch-tech/en/vo_outro.47c9117660.ogg" dur="3.31" hash="47c9117660" engine="kokoro:am_adam"/>
+    <voice say="vo_pass" lang="en" src="voice/glitch-tech/en/vo_pass.9221ceccec.ogg" dur="5.11" hash="9221ceccec" engine="kokoro:am_adam"/>
+    <voice say="vo_proxy" lang="en" src="voice/glitch-tech/en/vo_proxy.9d6d733c87.ogg" dur="5.41" hash="9d6d733c87" engine="kokoro:am_adam"/>
+    <voice say="vo_stuff" lang="en" src="voice/glitch-tech/en/vo_stuff.9554b75a45.ogg" dur="5.91" hash="9554b75a45" engine="kokoro:am_adam"/>
+  </voices>
+</tsvg>

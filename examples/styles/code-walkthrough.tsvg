@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: code walkthrough. An editor panel in JetBrains Mono with token colours (one text node per token at
+     column × 0.6 em), a highlight bar that moves between lines, annotations that pop out beside them,
+     and a unified diff (− / +) where following lines slide down to make room. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="night"><choice id="night" label="Night"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.18" sfx="0.5"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="night" bg="#070a12" fg="#e6ebf5" muted="#7f8aa3" panel="#0f1422" bar="#151b2d" line="#1f2740" accent="#82aaff" note="#ffcb6b" good="#4ade80" bad="#f87171"/>
+  </themes>
+  <strings>
+    <s id="title" en="Code walkthrough: debounce() in TypeScript"/>
+    <s id="file" en="debounce.ts"/>
+    <s id="h1" en="debounce()"/><s id="h1b" en="Wait until the typing stops. Explained line by line."/>
+    <s id="a2" en="A generic T keeps the caller's argument types."/>
+    <s id="a2b" en="wait defaults to 300 ms."/>
+    <s id="a3" en="One timer, shared by every call through the closure."/>
+    <s id="a4" en="Each call cancels the pending run…"/>
+    <s id="a4b" en="…and schedules a fresh one."/>
+    <s id="ks" en="keystrokes"/><s id="fires" en="fn() runs once"/>
+    <s id="a5" en="Diff: give the returned function a cancel(), so a closing screen can drop the pending call."/>
+    <s id="a6" en="Usage"/>
+    <s id="a6b" en="Save the draft 500 ms after the last key, and never after unmount."/>
+    <s id="r1" en="One timer in a closure"/><s id="r2" en="Clear, then set again"/><s id="r3" en="Expose cancel() for cleanup"/>
+    <s id="ch1" en="Intro"/><s id="ch2" en="Signature"/><s id="ch3" en="The timer"/><s id="ch4" en="The returned function"/><s id="ch5" en="Diff: cancel()"/><s id="ch6" en="Usage"/><s id="ch7" en="Recap"/>
+    <s id="vo1" en="Let's read a debounce function, line by line. It waits until a burst of calls stops, then runs once."/>
+    <s id="vo2" en="The signature. A generic T keeps the caller's argument types, and wait defaults to three hundred milliseconds."/>
+    <s id="vo3" en="Line five holds a single timer. Every call shares it, through the closure."/>
+    <s id="vo4" en="The returned function does two things. It clears the pending timer, then schedules a new one. So only the last call in a burst survives."/>
+    <s id="vo5" en="Now a small change. We name the function run, attach a cancel method, and return it. A closing screen can now drop the pending call."/>
+    <s id="vo6" en="In use: save the draft five hundred milliseconds after the last key, and cancel when the screen unmounts."/>
+    <s id="vo7" en="One timer in a closure. Clear, then set again. And expose cancel for cleanup."/>
+  </strings>
+
+  <defs>
+    <data id="keys" v="20, 70, 110, 160, 210"/>
+    <fn id="lastKey" args="p">p &gt;= 210 ? 210 : p &gt;= 160 ? 160 : p &gt;= 110 ? 110 : p &gt;= 70 ? 70 : 20</fn>
+    <!-- code types in line by line (scene 1) -->
+    <mask id="codeIn"><rect x="0" y="0" w="1920" h="=180 + 600*ease((T - 0.3)/2.2, 'io')" fill="#000"/></mask>
+    <mask id="useIn"><rect x="1240" y="380" w="=640*clamp((T - 0.8)/1.4, 0, 1)" h="150" fill="#000"/></mask>
+    <symbol id="code">
+  <group y="215" opacity="1"><text x="210.0" size="28" font="JetBrains Mono" fill="#c792ea" text="export"/><text x="327.6" size="28" font="JetBrains Mono" fill="#c792ea" text="function"/><text x="478.8" size="28" font="JetBrains Mono" fill="#82aaff" text="debounce"/><text x="613.2" size="28" font="JetBrains Mono" fill="#89ddff" text="&lt;"/><text x="630.0" size="28" font="JetBrains Mono" fill="#ffcb6b" text="T"/><text x="663.6" size="28" font="JetBrains Mono" fill="#c792ea" text="extends"/><text x="798.0" size="28" font="JetBrains Mono" fill="#ffcb6b" text="unknown"/><text x="915.6" size="28" font="JetBrains Mono" fill="#89ddff" text="["/><text x="932.4" size="28" font="JetBrains Mono" fill="#89ddff" text="]"/><text x="949.2" size="28" font="JetBrains Mono" fill="#89ddff" text="&gt;"/><text x="966.0" size="28" font="JetBrains Mono" fill="#89ddff" text="("/></group>
+  <group y="265" opacity="1"><text x="243.6" size="28" font="JetBrains Mono" fill="#82aaff" text="fn"/><text x="277.2" size="28" font="JetBrains Mono" fill="#89ddff" text=":"/><text x="310.8" size="28" font="JetBrains Mono" fill="#89ddff" text="("/><text x="327.6" size="28" font="JetBrains Mono" fill="#89ddff" text="..."/><text x="378.0" size="28" font="JetBrains Mono" fill="#d6deeb" text="args"/><text x="445.20000000000005" size="28" font="JetBrains Mono" fill="#89ddff" text=":"/><text x="478.8" size="28" font="JetBrains Mono" fill="#ffcb6b" text="T"/><text x="495.6" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="529.2" size="28" font="JetBrains Mono" fill="#89ddff" text="{'=&gt;'}"/><text x="579.6" size="28" font="JetBrains Mono" fill="#ffcb6b" text="void"/><text x="646.8" size="28" font="JetBrains Mono" fill="#89ddff" text=","/></group>
+  <group y="315" opacity="1"><text x="243.6" size="28" font="JetBrains Mono" fill="#d6deeb" text="wait"/><text x="327.6" size="28" font="JetBrains Mono" fill="#89ddff" text="{'='}"/><text x="361.20000000000005" size="28" font="JetBrains Mono" fill="#f78c6c" text="300"/><text x="411.6" size="28" font="JetBrains Mono" fill="#89ddff" text=","/></group>
+  <group y="365" opacity="1"><text x="210.0" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="243.6" size="28" font="JetBrains Mono" fill="#89ddff" text="{"/></group>
+  <group y="415" opacity="1"><text x="243.6" size="28" font="JetBrains Mono" fill="#c792ea" text="let"/><text x="310.8" size="28" font="JetBrains Mono" fill="#d6deeb" text="timer"/><text x="394.8" size="28" font="JetBrains Mono" fill="#89ddff" text=":"/><text x="428.4" size="28" font="JetBrains Mono" fill="#ffcb6b" text="ReturnType"/><text x="596.4000000000001" size="28" font="JetBrains Mono" fill="#89ddff" text="&lt;"/><text x="613.2" size="28" font="JetBrains Mono" fill="#c792ea" text="typeof"/><text x="730.8000000000001" size="28" font="JetBrains Mono" fill="#82aaff" text="setTimeout"/><text x="898.8000000000001" size="28" font="JetBrains Mono" fill="#89ddff" text="&gt;"/><text x="932.4" size="28" font="JetBrains Mono" fill="#89ddff" text="|"/><text x="966.0" size="28" font="JetBrains Mono" fill="#ffcb6b" text="undefined"/><text x="1117.2" size="28" font="JetBrains Mono" fill="#89ddff" text=";"/></group>
+  <group y="465" opacity="1"></group>
+  <rect x="170" y="491" w="1010" h="48" fill="#f43f5e2e" opacity="=clamp((t-37)/0.3,0,1)"/>
+  <text x="186" y="515" size="26" font="JetBrains Mono" fill="#f87171" text="−" opacity="=clamp((t-37)/0.3,0,1)"/>
+  <group y="515" opacity="=1 - 0.45*clamp((t-37)/0.3,0,1)"><text x="243.6" size="28" font="JetBrains Mono" fill="#c792ea" text="return"/><text x="361.20000000000005" size="28" font="JetBrains Mono" fill="#89ddff" text="("/><text x="378.0" size="28" font="JetBrains Mono" fill="#89ddff" text="..."/><text x="428.4" size="28" font="JetBrains Mono" fill="#d6deeb" text="args"/><text x="495.6" size="28" font="JetBrains Mono" fill="#89ddff" text=":"/><text x="529.2" size="28" font="JetBrains Mono" fill="#ffcb6b" text="T"/><text x="546.0" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="579.6" size="28" font="JetBrains Mono" fill="#89ddff" text="{'=&gt;'}"/><text x="630.0" size="28" font="JetBrains Mono" fill="#89ddff" text="{"/></group>
+  <line x1="210" y1="515" x2="=210+436.8*clamp((t-37.2)/0.5,0,1)" y2="515" stroke="#f87171" sw="2" opacity="=t &gt;= 37.2 ? 1 : 0"/>
+  <group y="=565 + 50*ease((t - 37)/0.6, 'io')" opacity="1"><text x="277.2" size="28" font="JetBrains Mono" fill="#82aaff" text="clearTimeout"/><text x="478.8" size="28" font="JetBrains Mono" fill="#89ddff" text="("/><text x="495.6" size="28" font="JetBrains Mono" fill="#d6deeb" text="timer"/><text x="579.6" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="596.4000000000001" size="28" font="JetBrains Mono" fill="#89ddff" text=";"/></group>
+  <group y="=615 + 50*ease((t - 37)/0.6, 'io')" opacity="1"><text x="277.2" size="28" font="JetBrains Mono" fill="#d6deeb" text="timer"/><text x="378.0" size="28" font="JetBrains Mono" fill="#89ddff" text="{'='}"/><text x="411.6" size="28" font="JetBrains Mono" fill="#82aaff" text="setTimeout"/><text x="579.6" size="28" font="JetBrains Mono" fill="#89ddff" text="("/><text x="596.4000000000001" size="28" font="JetBrains Mono" fill="#89ddff" text="("/><text x="613.2" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="646.8" size="28" font="JetBrains Mono" fill="#89ddff" text="{'=&gt;'}"/><text x="697.2" size="28" font="JetBrains Mono" fill="#82aaff" text="fn"/><text x="730.8000000000001" size="28" font="JetBrains Mono" fill="#89ddff" text="("/><text x="747.6" size="28" font="JetBrains Mono" fill="#89ddff" text="..."/><text x="798.0" size="28" font="JetBrains Mono" fill="#d6deeb" text="args"/><text x="865.2" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="882.0" size="28" font="JetBrains Mono" fill="#89ddff" text=","/><text x="915.6" size="28" font="JetBrains Mono" fill="#d6deeb" text="wait"/><text x="982.8000000000001" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="999.6" size="28" font="JetBrains Mono" fill="#89ddff" text=";"/></group>
+  <group y="=665 + 50*ease((t - 37)/0.6, 'io')" opacity="1"><text x="243.6" size="28" font="JetBrains Mono" fill="#89ddff" text="}"/><text x="260.4" size="28" font="JetBrains Mono" fill="#89ddff" text=";"/></group>
+  <group y="=715 + 150*ease((t - 37)/0.6, 'io')" opacity="1"><text x="210.0" size="28" font="JetBrains Mono" fill="#89ddff" text="}"/></group>
+  <text repeat="14" as="r" x="150" y="=215+r*50" size="24" font="JetBrains Mono" align="right" fill="#4b5566" text="{r+1}" opacity="=r &lt; 11 || t &gt;= 37.4 ? 1 : 0"/>
+  <group opacity="=clamp((t-37.4)/0.4,0,1)">
+    <rect x="170" y="541" w="1010" h="48" fill="#22c55e2e"/>
+    <text x="186" y="565" size="26" font="JetBrains Mono" fill="#4ade80" text="+"/>
+    <group y="565"><text x="243.6" size="28" font="JetBrains Mono" fill="#c792ea" text="const"/><text x="344.4" size="28" font="JetBrains Mono" fill="#82aaff" text="run"/><text x="411.6" size="28" font="JetBrains Mono" fill="#89ddff" text="{'='}"/><text x="445.20000000000005" size="28" font="JetBrains Mono" fill="#89ddff" text="("/><text x="462.0" size="28" font="JetBrains Mono" fill="#89ddff" text="..."/><text x="512.4000000000001" size="28" font="JetBrains Mono" fill="#d6deeb" text="args"/><text x="579.6" size="28" font="JetBrains Mono" fill="#89ddff" text=":"/><text x="613.2" size="28" font="JetBrains Mono" fill="#ffcb6b" text="T"/><text x="630.0" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="663.6" size="28" font="JetBrains Mono" fill="#89ddff" text="{'=&gt;'}"/><text x="714.0" size="28" font="JetBrains Mono" fill="#89ddff" text="{"/></group>
+  </group>
+  <group opacity="=clamp((t-37.9)/0.4,0,1)">
+    <rect x="170" y="741" w="1010" h="48" fill="#22c55e2e"/>
+    <text x="186" y="765" size="26" font="JetBrains Mono" fill="#4ade80" text="+"/>
+    <group y="765"><text x="243.6" size="28" font="JetBrains Mono" fill="#82aaff" text="run"/><text x="294.0" size="28" font="JetBrains Mono" fill="#89ddff" text="."/><text x="310.8" size="28" font="JetBrains Mono" fill="#82aaff" text="cancel"/><text x="428.4" size="28" font="JetBrains Mono" fill="#89ddff" text="{'='}"/><text x="462.0" size="28" font="JetBrains Mono" fill="#89ddff" text="("/><text x="478.8" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="512.4000000000001" size="28" font="JetBrains Mono" fill="#89ddff" text="{'=&gt;'}"/><text x="562.8" size="28" font="JetBrains Mono" fill="#82aaff" text="clearTimeout"/><text x="764.4" size="28" font="JetBrains Mono" fill="#89ddff" text="("/><text x="781.2" size="28" font="JetBrains Mono" fill="#d6deeb" text="timer"/><text x="865.2" size="28" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="882.0" size="28" font="JetBrains Mono" fill="#89ddff" text=";"/></group>
+  </group>
+  <group opacity="=clamp((t-38.4)/0.4,0,1)">
+    <rect x="170" y="791" w="1010" h="48" fill="#22c55e2e"/>
+    <text x="186" y="815" size="26" font="JetBrains Mono" fill="#4ade80" text="+"/>
+    <group y="815"><text x="243.6" size="28" font="JetBrains Mono" fill="#c792ea" text="return"/><text x="361.20000000000005" size="28" font="JetBrains Mono" fill="#82aaff" text="run"/><text x="411.6" size="28" font="JetBrains Mono" fill="#89ddff" text=";"/></group>
+  </group>
+</symbol>
+    <symbol id="editor">
+      <rect x="80" y="110" w="1100" h="860" r="18" fill="$panel" stroke="$line" sw="2" shadow="0 30 70 #000a"/>
+      <rect x="80" y="110" w="1100" h="54" r="18" fill="$bar"/><rect x="80" y="146" w="1100" h="18" fill="$bar"/>
+      <circle x="112" y="137" r="7" fill="#ff5f57"/><circle x="136" y="137" r="7" fill="#febc2e"/><circle x="160" y="137" r="7" fill="#28c840"/>
+      <rect x="196" y="118" w="200" h="46" r="10" fill="$panel"/>
+      <rect x="214" y="131" w="22" h="20" r="4" fill="#3178c6"/><text x="225" y="141" size="11" weight="800" align="center" fill="#fff" text="TS"/>
+      <text x="248" y="141" size="20" fill="$fg" text="@file"/>
+      <rect x="80" y="164" w="90" h="806" fill="#0c101c"/>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="bed" src="audio/pad.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="typing" src="audio/typing.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+  </assets>
+
+  <music src="bed" start="0" loop="1" vol="0.6"/>
+
+  <timeline>
+    <!-- 1 · intro -->
+    <scene id="intro" dur="8" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group><anim prop="opacity" from="0" to="1" dur="0.6"/><use ref="editor"/></group>
+      <group mask="url(#codeIn)"><use ref="code"/></group>
+      <group x="1240" y="420" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="x" from="1280" to="1240" dur="0.6"/>
+        <text y="0" size="96" weight="800" font="JetBrains Mono" fill="$accent" text="@h1"/>
+        <text y="110" size="36" maxw="600" lh="1.3" fill="$muted" text="@h1b"/>
+      </group>
+    </scene>
+
+    <!-- 2 · the signature, lines 1-4 -->
+    <scene id="sig" dur="9" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="0.6" src="blip"/><sfx at="4.2" src="blip"/>
+      <use ref="editor"/>
+      <rect x="170" y="190" w="1010" h="200" fill="#82aaff14"><keys prop="y" ease="io" v="3.8: 190; 4.4: 290"/><keys prop="h" ease="io" v="3.8: 200; 4.4: 50"/></rect>
+      <rect x="170" y="190" w="5" h="200" fill="$accent"><keys prop="y" ease="io" v="3.8: 190; 4.4: 290"/><keys prop="h" ease="io" v="3.8: 200; 4.4: 50"/></rect>
+      <use ref="code"/>
+      <group at="0.6"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <path d="M1050 215 C 1150 215, 1150 260, 1240 260" stroke="$note" sw="3" fill="none"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+        <rect x="1240" y="200" w="600" h="120" r="18" fill="$bar" stroke="$note" sw="2"/>
+        <text x="1270" y="260" size="32" maxw="540" lh="1.25" fill="$fg" text="@a2"/>
+      </group>
+      <group at="4.2"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="20" to="0" dur="0.4"/>
+        <path d="M420 315 L1150 315 C 1200 315, 1200 420, 1240 420" stroke="$note" sw="3" fill="none"><anim prop="draw" from="0" to="1" dur="0.5"/></path>
+        <rect x="1240" y="380" w="600" h="80" r="18" fill="$bar" stroke="$note" sw="2"/>
+        <text x="1270" y="420" size="32" fill="$fg" text="@a2b"/>
+      </group>
+    </scene>
+
+    <!-- 3 · line 5, the timer -->
+    <scene id="timer" dur="8" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="0.8" src="blip"/>
+      <use ref="editor"/>
+      <rect x="170" y="290" w="1010" h="50" fill="#82aaff14"><keys prop="y" ease="io" v="0: 290; 0.6: 390"/></rect>
+      <rect x="170" y="290" w="5" h="50" fill="$accent"><keys prop="y" ease="io" v="0: 290; 0.6: 390"/></rect>
+      <use ref="code"/>
+      <group at="0.8"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="30" to="0" dur="0.4"/>
+        <path d="M1150 415 L1240 415" stroke="$note" sw="3"/>
+        <rect x="1240" y="355" w="600" h="120" r="18" fill="$bar" stroke="$note" sw="2"/>
+        <text x="1270" y="415" size="32" maxw="540" lh="1.25" fill="$fg" text="@a3"/>
+      </group>
+      <!-- the closure: three calls point at one timer -->
+      <group x="1540" y="680" at="2.4"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <circle r="60" fill="none" stroke="$note" sw="4"/>
+        <path d="M0 -36 V0 L24 16" stroke="$note" sw="5" fill="none" rot="=T*90"/>
+        <text y="100" size="24" font="JetBrains Mono" align="center" fill="$note" text="timer"/>
+        <group repeat="3" as="k" x="=-220 + k*220" y="200">
+          <rect x="-70" y="-26" w="140" h="52" r="12" fill="$bar" stroke="$line" sw="2"/>
+          <text size="22" font="JetBrains Mono" align="center" fill="$accent" text="call {k+1}"/>
+          <line x1="0" y1="-26" x2="=(220 - k*220)*0.7" y2="-120" stroke="$muted" sw="2" draw="=ease((T - 2.8 - k*0.3)/0.4,'out')"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 4 · the returned function, lines 7-10 -->
+    <scene id="body" dur="11" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="1" src="blip"/><sfx at="3" src="blip"/><sfx at="5" src="typing" vol="0.6"/><sfx at="7.2" src="pop"/>
+      <use ref="editor"/>
+      <rect x="170" y="390" w="1010" h="50" fill="#82aaff14"><keys prop="y" ease="io" v="0: 390; 0.6: 540; 2.6: 540; 3.2: 590"/><keys prop="h" ease="io" v="0: 50; 0.6: 50"/></rect>
+      <rect x="170" y="390" w="5" h="50" fill="$accent"><keys prop="y" ease="io" v="0: 390; 0.6: 540; 2.6: 540; 3.2: 590"/></rect>
+      <use ref="code"/>
+      <group at="1"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <path d="M630 565 L1150 565 C 1200 565, 1200 540, 1240 540" stroke="$note" sw="3" fill="none"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+        <rect x="1240" y="500" w="600" h="80" r="18" fill="$bar" stroke="$note" sw="2"/>
+        <text x="1270" y="540" size="30" fill="$fg" text="@a4"/>
+      </group>
+      <group at="3.2"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <path d="M1070 615 L1150 615 C 1200 615, 1200 640, 1240 640" stroke="$note" sw="3" fill="none"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+        <rect x="1240" y="600" w="600" h="80" r="18" fill="$bar" stroke="$note" sw="2"/>
+        <text x="1270" y="640" size="30" fill="$fg" text="@a4b"/>
+      </group>
+      <!-- a burst of keystrokes; the timer restarts each time and fires once after the quiet -->
+      <group x="1240" y="820" at="4.6"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="0" y="-90" w="600" h="250" r="18" fill="$bar"/>
+        <text x="24" y="-50" size="22" weight="600" fill="$muted" text="@ks"/>
+        <line x1="24" y1="40" x2="576" y2="40" stroke="$line" sw="3"/>
+        <circle repeat="5" as="k" x="=24 + data('keys', k)" y="40" r="11" fill="$accent" when="=24 + 110*(T - 4.8) &gt;= 24 + data('keys', k)"/>
+        <rect x="=24 + lastKey(110*(T - 4.8))" y="58" h="14" r="7" w="=min(max(0, 110*(T - 4.8) - lastKey(110*(T - 4.8))), 90)" fill="$note" when="=T &gt; 4.8"/>
+        <line x1="=24 + min(110*(T - 4.8), 552)" y1="0" x2="=24 + min(110*(T - 4.8), 552)" y2="80" stroke="$fg" sw="2" when="=T &gt; 4.8"/>
+        <group when="=110*(T - 4.8) &gt;= 400" x="=24 + 400" y="40"><anim prop="scale" from="0" to="1" dur="0.3" ease="back" at="=0"/>
+          <circle r="22" fill="$good"/>
+          <text y="-46" size="22" weight="700" font="JetBrains Mono" align="center" fill="$good" text="@fires"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 5 · the diff -->
+    <scene id="diff" dur="11" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="1" src="whoosh"/><sfx at="1.4" src="pop"/><sfx at="1.9" src="pop"/><sfx at="2.4" src="pop"/>
+      <use ref="editor"/>
+      <use ref="code"/>
+      <group at="3"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="30" to="0" dur="0.4"/>
+        <rect x="1240" y="520" w="600" h="200" r="18" fill="$bar" stroke="$good" sw="2"/>
+        <rect x="1270" y="550" w="140" h="38" r="19" fill="#22c55e2e"/><text x="1340" y="569" size="20" weight="800" align="center" fill="$good" text="+3 −1"/>
+        <text x="1270" y="650" size="28" maxw="540" lh="1.3" fill="$fg" text="@a5"/>
+        <path d="M1240 620 C 1200 620, 1200 765, 1180 765" stroke="$good" sw="3" fill="none"/>
+      </group>
+    </scene>
+
+    <!-- 6 · usage -->
+    <scene id="usage" dur="8" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="0.6" src="typing" vol="0.6"/>
+      <use ref="editor"/>
+      <use ref="code"/>
+      <group at="0.4"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="30" to="0" dur="0.5"/>
+        <rect x="1240" y="300" w="620" h="260" r="18" fill="$panel" stroke="$line" sw="2" shadow="0 20 50 #000a"/>
+        <text x="1270" y="350" size="22" weight="700" fill="$muted" text="@a6"/>
+        <group mask="url(#useIn)">
+<text x="1270.0" y="420" size="22" font="JetBrains Mono" fill="#c792ea" text="const"/><text x="1349.2" y="420" size="22" font="JetBrains Mono" fill="#82aaff" text="save"/><text x="1415.2" y="420" size="22" font="JetBrains Mono" fill="#89ddff" text="{'='}"/><text x="1441.6" y="420" size="22" font="JetBrains Mono" fill="#82aaff" text="debounce"/><text x="1547.2" y="420" size="22" font="JetBrains Mono" fill="#89ddff" text="("/><text x="1560.4" y="420" size="22" font="JetBrains Mono" fill="#82aaff" text="saveDraft"/><text x="1679.2" y="420" size="22" font="JetBrains Mono" fill="#89ddff" text=","/><text x="1705.6" y="420" size="22" font="JetBrains Mono" fill="#f78c6c" text="500"/><text x="1745.2" y="420" size="22" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="1758.4" y="420" size="22" font="JetBrains Mono" fill="#89ddff" text=";"/>
+<text x="1270.0" y="464" size="22" font="JetBrains Mono" fill="#d6deeb" text="input"/><text x="1336.0" y="464" size="22" font="JetBrains Mono" fill="#89ddff" text="."/><text x="1349.2" y="464" size="22" font="JetBrains Mono" fill="#82aaff" text="on"/><text x="1375.6" y="464" size="22" font="JetBrains Mono" fill="#89ddff" text="("/><text x="1388.8" y="464" size="22" font="JetBrains Mono" fill="#89ddff" text="&quot;"/><text x="1402.0" y="464" size="22" font="JetBrains Mono" fill="#d6deeb" text="keyup"/><text x="1468.0" y="464" size="22" font="JetBrains Mono" fill="#89ddff" text="&quot;"/><text x="1481.2" y="464" size="22" font="JetBrains Mono" fill="#89ddff" text=","/><text x="1507.6" y="464" size="22" font="JetBrains Mono" fill="#82aaff" text="save"/><text x="1560.4" y="464" size="22" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="1573.6" y="464" size="22" font="JetBrains Mono" fill="#89ddff" text=";"/>
+<text x="1270.0" y="508" size="22" font="JetBrains Mono" fill="#82aaff" text="onUnmount"/><text x="1388.8" y="508" size="22" font="JetBrains Mono" fill="#89ddff" text="("/><text x="1402.0" y="508" size="22" font="JetBrains Mono" fill="#82aaff" text="save"/><text x="1454.8" y="508" size="22" font="JetBrains Mono" fill="#89ddff" text="."/><text x="1468.0" y="508" size="22" font="JetBrains Mono" fill="#82aaff" text="cancel"/><text x="1547.2" y="508" size="22" font="JetBrains Mono" fill="#89ddff" text=")"/><text x="1560.4" y="508" size="22" font="JetBrains Mono" fill="#89ddff" text=";"/>
+        </group>
+        <text x="1240" y="640" size="30" maxw="600" lh="1.3" fill="$fg" text="@a6b" at="2.4"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      </group>
+    </scene>
+
+    <!-- 7 · recap -->
+    <scene id="recap" dur="7" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="0.6" src="pop"/><sfx at="1.4" src="pop"/><sfx at="2.2" src="pop"/>
+      <use ref="editor"/>
+      <use ref="code"/>
+      <rect x="80" y="110" w="1100" h="860" r="18" fill="#070a12" opacity="0.55"/>
+      <group repeat="3" as="k" x="1240" y="=360 + k*130" at="=0.6 + k*0.8">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="x" from="1270" to="1240" dur="0.4"/>
+        <rect y="-50" w="600" h="100" r="18" fill="$bar" stroke="$line" sw="2"/>
+        <text x="40" y="0" size="34" weight="800" font="JetBrains Mono" fill="$note" text="{k+1}"/>
+      </group>
+      <text x="1320" y="360" size="32" weight="600" fill="$fg" text="@r1" at="0.6"/>
+      <text x="1320" y="490" size="32" weight="600" fill="$fg" text="@r2" at="1.4"/>
+      <text x="1320" y="620" size="32" weight="600" fill="$fg" text="@r3" at="2.2"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/code-walkthrough/en/vo1.8f594d4788.ogg" dur="7.01" hash="8f594d4788" engine="kokoro:am_michael"/>
+    <voice say="vo2" lang="en" src="voice/code-walkthrough/en/vo2.da89542411.ogg" dur="7.21" hash="da89542411" engine="kokoro:am_michael"/>
+    <voice say="vo3" lang="en" src="voice/code-walkthrough/en/vo3.c364d4431c.ogg" dur="4.91" hash="c364d4431c" engine="kokoro:am_michael"/>
+    <voice say="vo4" lang="en" src="voice/code-walkthrough/en/vo4.7c2bd92a65.ogg" dur="9.21" hash="7c2bd92a65" engine="kokoro:am_michael"/>
+    <voice say="vo5" lang="en" src="voice/code-walkthrough/en/vo5.dabff9afb6.ogg" dur="9.11" hash="dabff9afb6" engine="kokoro:am_michael"/>
+    <voice say="vo6" lang="en" src="voice/code-walkthrough/en/vo6.a683b67f46.ogg" dur="7.11" hash="a683b67f46" engine="kokoro:am_michael"/>
+    <voice say="vo7" lang="en" src="voice/code-walkthrough/en/vo7.a09db8de9a.ogg" dur="5.21" hash="a09db8de9a" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

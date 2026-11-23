@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: terminal recording. A terminal window, a prompt, commands typed character by character (text reveal)
+     with a block cursor, output lines that appear, progress bars, and a success tick.
+     Two looks from one file: a modern dark terminal (JetBrains Mono) and a retro green CRT (VT323, scanlines).
+     Both fonts advance 21.6 units per character here (36 × 0.6 and 54 × 0.4), so the cursor maths is shared. -->
+<tsvg version="0.2" title="@title" font="JetBrains Mono">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_adam"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="dark"><choice id="dark" label="Modern"/><choice id="retro" label="Retro CRT"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.15" sfx="0.6"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="dark" bg="#0a0c10" fg="#e6edf3" muted="#8b949e" path="#79c0ff" ok="#3fb950" warn="#d29922" bar="#21262d" win="#0d1117" top="#161b22" line="#30363d" chip="#3fb95022" glow="#00000000"/>
+    <theme id="retro" bg="#020702" fg="#7dff9a" muted="#3fae5a" path="#b6ffc6" ok="#7dff9a" warn="#d8ff6a" bar="#0c2a12" win="#031106" top="#0a1f0e" line="#145a24" chip="#7dff9a22" glow="#7dff9a55"/>
+  </themes>
+  <strings>
+    <s id="title" en="Terminal demo: the tsvg CLI"/>
+    <s id="k1" en="$ tsvg  ·  CLI demo"/>
+    <s id="wt" en="panth@studio: ~/videos — zsh"/>
+    <s id="ch1" en="Install"/><s id="ch2" en="validate"/><s id="ch3" en="bake"/><s id="ch4" en="render"/><s id="ch5" en="pack"/><s id="ch6" en="export"/><s id="ch7" en="help"/>
+    <s id="vo1" en="Install the TSVG command line tool with npm. One global package."/>
+    <s id="vo1_say" en="Install the T. S. V. G. command line tool with npm. One global package."/>
+    <s id="vo2" en="Validate checks every variant of your video. Warnings here just mean the voices aren't recorded yet."/>
+    <s id="vo3" en="Bake records each narration line with a local voice model, and writes the clips back into the file."/>
+    <s id="vo4" en="Render draws any single frame, at any time, in any layout. Here, twelve seconds in, portrait."/>
+    <s id="vo5" en="Pack zips the video with its fonts, images and audio into one file you can share."/>
+    <s id="vo6" en="And export turns it into an M P 4, with burned-in captions, for apps that only play video."/>
+    <s id="vo7" en="Five commands. Validate, bake, render, pack, and export."/>
+  </strings>
+
+  <defs>
+    <symbol id="win">
+      <rect x="160" y="80" w="1600" h="920" r="16" fill="$win" stroke="$line" sw="2" shadow="0 30 80 $glow"/>
+      <rect x="160" y="80" w="1600" h="52" r="16" fill="$top"/><rect x="160" y="116" w="1600" h="16" fill="$top"/>
+      <circle x="196" y="106" r="8" fill="#ff5f57" when="=theme != 'retro'"/><circle x="222" y="106" r="8" fill="#febc2e" when="=theme != 'retro'"/><circle x="248" y="106" r="8" fill="#28c840" when="=theme != 'retro'"/>
+      <text x="960" y="106" size="20" size.retro="30" font="JetBrains Mono" font.retro="VT323" align="center" fill="$muted" text="@wt"/>
+      <!-- CRT: scanlines + vignette (retro only) -->
+      <group only="retro">
+        <rect repeat="230" as="k" x="160" y="=132 + k*4" w="1600" h="1.5" fill="#000000" opacity="0.35"/>
+        <rect x="160" y="=132 + fract(t*0.15)*868" w="1600" h="60" fill="#7dff9a" opacity="0.04"/>
+      </group>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="bed" src="audio/drone.ogg"/>
+    <asset id="typing" src="audio/typing.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+    <font family="VT323" src="fonts/VT323.ttf"/>
+  </assets>
+
+  <music src="bed" start="0" loop="1" vol="0.5"/>
+
+  <timeline>
+    <scene id="install" dur="8" chapter="@ch1">
+      <say at="0.4" text="@vo1" speak="@vo1_say"/>
+      <sfx at="3.2" src="blip"/>
+      <use ref="win"/>
+      <text x="210.0" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/>
+      <text x="447.6" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="npm install -g tsvg" at="1.0"><anim prop="reveal" from="0" to="1" dur="1.4" ease="linear"/></text>
+      <sfx at="1.0" src="typing" vol="0.5"/>
+      <text x="210.0" y="258" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="added 3 packages in 2s" at="3.2"/>
+      <text x="210.0" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/>
+      <text x="447.6" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="tsvg --version" at="4.4"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text>
+      <sfx at="4.4" src="typing" vol="0.5"/>
+      <text x="210.0" y="374" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="0.2.1" at="5.6"/>
+      <rect x="=210 + 21.6*(11 + 19*clamp((T - 1.0)/1.4, 0, 1))" y="179" w="21.6" h="42" fill="$fg" opacity="0.85" at="0.4" dur="2.3"/>
+      <rect x="=210 + 21.6*(11 + 14*clamp((T - 4.4)/0.8, 0, 1))" y="295" w="21.6" h="42" fill="$fg" opacity="0.85" at="3.8000000000000003" dur="1.7000000000000002"/>
+      <group at="6.199999999999999"><text x="210.0" y="432" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="432" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/><rect x="447.6" y="411" w="21.6" h="42" fill="$fg" opacity="=fract(T*1.1) &lt; 0.55 ? 0.85 : 0"/></group>
+      <group x="1660" y="260" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect x="-330" y="-40" w="330" h="80" r="40" fill="$chip"/><text x="-165" y="0" size="28" weight="800" align="center" fill="$ok" text="@k1"/></group>
+    </scene>
+
+    <scene id="validate" dur="9" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="3.8" src="blip"/>
+      <use ref="win"/>
+      <text x="210.0" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/>
+      <text x="447.6" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="tsvg validate intro.tsvg" at="0.8"><anim prop="reveal" from="0" to="1" dur="1.4" ease="linear"/></text>
+      <sfx at="0.8" src="typing" vol="0.5"/>
+      <text x="210.0" y="258" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$warn" text="warn  say vo1 [en]: no recorded clip — run `tsvg bake`" at="2.8"/>
+      <text x="210.0" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$warn" text="warn  say vo2 [en]: no recorded clip — run `tsvg bake`" at="3.0"/>
+      <text x="210.0" y="374" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$warn" text="warn  say vo3 [en]: no recorded clip — run `tsvg bake`" at="3.2"/>
+      <text x="210.0" y="490" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="ok · 41.5s · 6 scenes · 4 variants · 0 errors · 6 warnings" at="3.8"/>
+      <rect x="=210 + 21.6*(11 + 24*clamp((T - 0.8)/1.4, 0, 1))" y="179" w="21.6" h="42" fill="$fg" opacity="0.85" at="0.20000000000000007" dur="2.3"/>
+      <group at="4.3999999999999995"><text x="210.0" y="548" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="548" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/><rect x="447.6" y="527" w="21.6" h="42" fill="$fg" opacity="=fract(T*1.1) &lt; 0.55 ? 0.85 : 0"/></group>
+    </scene>
+
+    <scene id="bake" dur="11" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="7.5" src="ding"/>
+      <use ref="win"/>
+      <text x="210.0" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/>
+      <text x="447.6" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="tsvg bake intro.tsvg" at="0.8"><anim prop="reveal" from="0" to="1" dur="1.2" ease="linear"/></text>
+      <sfx at="0.8" src="typing" vol="0.5"/>
+      <text x="210.0" y="258" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="bake: 6 line(s) to record · en=kokoro:af_heart" at="2.4"/>
+      <group at="3.0"><text x="210.0" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="recording"/><rect x="555.6" y="304" w="864.0" h="24" r="4" fill="$bar"/><rect x="555.6" y="304" w="=864.0*clamp((T - 3.0)/4.2, 0, 1)" h="24" r="4" fill="$ok"/><text x="1441.2" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="{fmt(100*clamp((T - 3.0)/4.2, 0, 1), 0)}%"/></group>
+      <text x="210.0" y="374" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="bake: done · 6 clips in &lt;voices&gt;" at="7.5"/>
+      <text x="210.0" y="432" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="ok · 41.5s · 6 scenes · 4 variants · 0 errors · 0 warnings" at="7.8"/>
+      <rect x="=210 + 21.6*(11 + 20*clamp((T - 0.8)/1.2, 0, 1))" y="179" w="21.6" h="42" fill="$fg" opacity="0.85" at="0.20000000000000007" dur="2.1"/>
+      <group at="8.4"><text x="210.0" y="490" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="490" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/><rect x="447.6" y="469" w="21.6" h="42" fill="$fg" opacity="=fract(T*1.1) &lt; 0.55 ? 0.85 : 0"/></group>
+    </scene>
+
+    <scene id="render" dur="9" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="3.6" src="pop"/>
+      <use ref="win"/>
+      <text x="210.0" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/>
+      <text x="447.6" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="tsvg render intro.tsvg -t 12 --layout portrait -o frame.png" at="0.8"><anim prop="reveal" from="0" to="1" dur="2.2" ease="linear"/></text>
+      <sfx at="0.8" src="typing" vol="0.5"/>
+      <text x="210.0" y="258" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="frame.png" at="3.6"/>
+      <rect x="=210 + 21.6*(11 + 59*clamp((T - 0.8)/2.2, 0, 1))" y="179" w="21.6" h="42" fill="$fg" opacity="0.85" at="0.20000000000000007" dur="3.1"/>
+      <group at="4.2"><text x="210.0" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/><rect x="447.6" y="295" w="21.6" h="42" fill="$fg" opacity="=fract(T*1.1) &lt; 0.55 ? 0.85 : 0"/></group>
+      <!-- the rendered frame, previewed inline -->
+      <group x="210" y="420" at="4"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="scale" from="0.9" to="1" dur="0.5" ease="back"/>
+        <rect w="270" h="480" r="16" fill="#0e1117" stroke="$line" sw="3"/>
+        <circle x="135" y="170" r="70" fill="none" stroke="#7aa2ff" sw="8"/>
+        <path d="M85 170 C100 130 120 210 135 170 S170 130 185 170" stroke="#5fd39a" sw="5" fill="none"/>
+        <text x="135" y="300" size="30" weight="800" font="Inter" align="center" fill="#ff6b9a" text="One file."/>
+        <rect x="40" y="350" w="190" h="40" r="8" fill="#1a1f2b"/><rect x="40" y="400" w="190" h="40" r="8" fill="#1a1f2b"/>
+        <text x="300" y="30" size="24" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="1080×1920 · t = 12 s"/>
+      </group>
+    </scene>
+
+    <scene id="pack" dur="9" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="4.6" src="blip"/>
+      <use ref="win"/>
+      <text x="210.0" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/>
+      <text x="447.6" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="tsvg pack intro.tsvg -o intro.tsvgz" at="0.8"><anim prop="reveal" from="0" to="1" dur="1.6" ease="linear"/></text>
+      <sfx at="0.8" src="typing" vol="0.5"/>
+      <text x="210.0" y="258" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="intro.tsvgz" at="3.0"/>
+      <text x="210.0" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="├── main.tsvg              18 KB" at="3.3"/>
+      <text x="210.0" y="374" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="├── fonts/Inter.ttf       304 KB" at="3.5"/>
+      <text x="210.0" y="432" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="├── images/fractal.jpg    211 KB" at="3.7"/>
+      <text x="210.0" y="490" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="├── audio/pad.ogg         402 KB" at="3.9"/>
+      <text x="210.0" y="548" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="└── voice/intro/en/ (6)   190 KB" at="4.1"/>
+      <text x="210.0" y="606" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="packed 14 files · 1.1 MB" at="4.6"/>
+      <rect x="=210 + 21.6*(11 + 35*clamp((T - 0.8)/1.6, 0, 1))" y="179" w="21.6" h="42" fill="$fg" opacity="0.85" at="0.20000000000000007" dur="2.5"/>
+      <group at="5.199999999999999"><text x="210.0" y="664" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="664" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/><rect x="447.6" y="643" w="21.6" h="42" fill="$fg" opacity="=fract(T*1.1) &lt; 0.55 ? 0.85 : 0"/></group>
+    </scene>
+
+    <scene id="export" dur="10" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="7.4" src="ding"/>
+      <use ref="win"/>
+      <text x="210.0" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/>
+      <text x="447.6" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="tsvg export intro.tsvgz --captions -o intro.mp4" at="0.8"><anim prop="reveal" from="0" to="1" dur="2.0" ease="linear"/></text>
+      <sfx at="0.8" src="typing" vol="0.5"/>
+      <text x="210.0" y="258" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="export: 1245 frames · 1920×1080 @ 30 fps · landscape" at="3.2"/>
+      <group at="3.6"><text x="210.0" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$muted" text="frames"/><rect x="555.6" y="304" w="864.0" h="24" r="4" fill="$bar"/><rect x="555.6" y="304" w="=864.0*clamp((T - 3.6)/3.6, 0, 1)" h="24" r="4" fill="$ok"/><text x="1441.2" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="{fmt(100*clamp((T - 3.6)/3.6, 0, 1), 0)}%"/></group>
+      <text x="210.0" y="374" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="intro.mp4 · 4.2 MB · 9 audio clips" at="7.4"/>
+      <rect x="=210 + 21.6*(11 + 47*clamp((T - 0.8)/2.0, 0, 1))" y="179" w="21.6" h="42" fill="$fg" opacity="0.85" at="0.20000000000000007" dur="2.9"/>
+      <group at="8.0"><text x="210.0" y="432" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="432" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/><rect x="447.6" y="411" w="21.6" h="42" fill="$fg" opacity="=fract(T*1.1) &lt; 0.55 ? 0.85 : 0"/></group>
+      <group x="1500" y="680" at="7.5"><anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+        <circle r="110" fill="$ok" shadow="0 0 50 $ok"/>
+        <path d="M-50 0 L-14 36 L56 -40" stroke="$bg" sw="22" fill="none"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+      </group>
+    </scene>
+
+    <scene id="help" dur="7" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <use ref="win"/>
+      <text x="210.0" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/>
+      <text x="447.6" y="200" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="tsvg --help" at="0.6"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text>
+      <sfx at="0.6" src="typing" vol="0.5"/>
+      <text x="210.0" y="258" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="validate   check a file, every variant" at="1.8"/>
+      <text x="210.0" y="316" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="bake       record the narration (Kokoro, Sarvam)" at="2.0"/>
+      <text x="210.0" y="374" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="render     one frame to PNG" at="2.2"/>
+      <text x="210.0" y="432" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="pack       one .tsvgz with every asset" at="2.4"/>
+      <text x="210.0" y="490" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$fg" text="export     MP4, with captions if you like" at="2.6"/>
+      <rect x="=210 + 21.6*(11 + 11*clamp((T - 0.6)/0.8, 0, 1))" y="179" w="21.6" h="42" fill="$fg" opacity="0.85" at="0.0" dur="1.7000000000000002"/>
+      <group at="3.2"><text x="210.0" y="548" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$path" text="~/videos"/><text x="404.4" y="548" size="36" size.retro="54" font="JetBrains Mono" font.retro="VT323" fill="$ok" text="{'$'}"/><rect x="447.6" y="527" w="21.6" h="42" fill="$fg" opacity="=fract(T*1.1) &lt; 0.55 ? 0.85 : 0"/></group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/terminal-cli-demo/en/vo1.833306a160.ogg" dur="5.31" hash="833306a160" engine="kokoro:am_adam"/>
+    <voice say="vo2" lang="en" src="voice/terminal-cli-demo/en/vo2.7748fcfde8.ogg" dur="5.71" hash="7748fcfde8" engine="kokoro:am_adam"/>
+    <voice say="vo3" lang="en" src="voice/terminal-cli-demo/en/vo3.7404f4fb7f.ogg" dur="5.41" hash="7404f4fb7f" engine="kokoro:am_adam"/>
+    <voice say="vo4" lang="en" src="voice/terminal-cli-demo/en/vo4.196f8f2eb4.ogg" dur="5.41" hash="196f8f2eb4" engine="kokoro:am_adam"/>
+    <voice say="vo5" lang="en" src="voice/terminal-cli-demo/en/vo5.a0aa89abd6.ogg" dur="4.81" hash="a0aa89abd6" engine="kokoro:am_adam"/>
+    <voice say="vo6" lang="en" src="voice/terminal-cli-demo/en/vo6.4c3748b2fb.ogg" dur="5.51" hash="4c3748b2fb" engine="kokoro:am_adam"/>
+    <voice say="vo7" lang="en" src="voice/terminal-cli-demo/en/vo7.cdc96ea2bb.ogg" dur="3.61" hash="cdc96ea2bb" engine="kokoro:am_adam"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bf_emma"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full (voice + music + sfx)"/><choice id="speech" label="Speech only"/><choice id="ambient" label="No voice"/></option>
+    <option id="theme" label="Theme" default="kraft"><choice id="kraft" label="Kraft"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.35" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.6" sfx="0.7"/>
+  </mixes>
+  <themes>
+    <theme id="kraft" bg="#e9d8b4" fg="#3b2a20" muted="#7a6248" accent="#d64933"/>
+  </themes>
+  <strings>
+    <s id="title" en="Masala chai, step by step"/>
+    <s id="ch1" en="Chai"/>
+    <s id="ch2" en="Ingredients"/>
+    <s id="ch3" en="Crush"/>
+    <s id="ch4" en="Boil"/>
+    <s id="ch5" en="Milk"/>
+    <s id="ch6" en="Strain"/>
+    <s id="ch7" en="Serve"/>
+    <s id="sub" en="for two, roadside style"/>
+    <s id="i_water" en="1 cup water"/>
+    <s id="i_milk" en="1 cup milk"/>
+    <s id="i_tea" en="2 tsp tea"/>
+    <s id="i_ginger" en="thumb of ginger"/>
+    <s id="i_card" en="2 cardamom"/>
+    <s id="i_sugar" en="2 tsp sugar"/>
+    <s id="crush" en="crush!"/>
+    <s id="boil_t" en="2 min"/>
+    <s id="tea_in" en="+ tea"/>
+    <s id="rise" en="let it rise twice"/>
+    <s id="strain" en="strain &amp; pour"/>
+    <s id="out1" en="CHAI TIME"/>
+    <s id="out2" en="made by hand, shared by two"/>
+    <s id="vo_intro" en="Let us make masala chai for two, the way a roadside stall makes it."/>
+    <s id="vo_ingr" en="You need water, milk, black tea, a thumb of ginger, two cardamom pods and a little sugar."/>
+    <s id="vo_crush" en="First, crush the ginger and cardamom. Bruising them lets the oils out."/>
+    <s id="vo_boil" en="Boil a cup of water with the spices for two minutes, then add the tea."/>
+    <s id="vo_milk" en="Pour in the milk and sugar. Let it rise twice, so the chai turns strong and creamy."/>
+    <s id="vo_strain" en="Strain it into two cups, and serve it hot."/>
+    <s id="vo_outro" en="That is chai. Share it with someone."/>
+  </strings>
+  <defs>
+<clip id="cupclip"><path d="M -110 -90 L 110 -90 L 90 80 C 80 110 -80 110 -90 80 Z"/></clip>
+  </defs>
+  <assets>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Anton" src="fonts/Anton.ttf"/>
+    <font family="Caveat" src="fonts/Caveat.ttf"/>
+    <asset id="bright" src="audio/bright.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="paper" src="images/paper.jpg"/>
+  </assets>
+  <music src="bright" start="0" loop="1" vol="0.6"/>
+  <backdrop>
+
+    <image src="paper" x="0" y="0" w="1920" h="1080" opacity="0.55"/>
+    <rect w="1920" h="1080" fill="#e9d8b4" opacity="0.35"/>
+    <path x="=0 + 2*(rand(floor(t*8)*1.31 + 1) - 0.5)" d="M 0 980 L 120 960 L 260 990 L 420 965 L 600 985 L 780 960 L 980 990 L 1180 962 L 1380 988 L 1560 965 L 1760 990 L 1920 970 L 1920 1080 L 0 1080 Z" fill="#c9a77a" shadow="0 -4 2 #0000002a"/>
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="7" chapter="@ch1">
+      <say at="0.5" text="@vo_intro"/>
+
+      <sfx at="0.3" src="pop"/><sfx at="0.9" src="pop"/>
+      <group x="=330 + 4*(rand(floor(t*8)*1.31 + 10) - 0.5)" y="=330 + 4*(rand(floor(t*8)*1.31 + 30) - 0.5)" rot="=-5 + 4*(rand(floor(t*8)*2.17 + 50) - 0.5)" at="0.20">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-58.5" y="-93" w="117" h="186" fill="#d64933" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="6" size="150" align="center" font="Anton" fill="#fbf3e4" text="M"/></group><group x="=457 + 4*(rand(floor(t*8)*1.31 + 11) - 0.5)" y="=330 + 4*(rand(floor(t*8)*1.31 + 31) - 0.5)" rot="=-1 + 4*(rand(floor(t*8)*2.17 + 51) - 0.5)" at="0.28">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-58.5" y="-93" w="117" h="186" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="6" size="150" align="center" font="Anton" fill="#264653" text="A"/></group><group x="=584 + 4*(rand(floor(t*8)*1.31 + 12) - 0.5)" y="=330 + 4*(rand(floor(t*8)*1.31 + 32) - 0.5)" rot="=3 + 4*(rand(floor(t*8)*2.17 + 52) - 0.5)" at="0.36">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-58.5" y="-93" w="117" h="186" fill="#e9b44c" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="6" size="150" align="center" font="Anton" fill="#6b3e26" text="S"/></group><group x="=711 + 4*(rand(floor(t*8)*1.31 + 13) - 0.5)" y="=330 + 4*(rand(floor(t*8)*1.31 + 33) - 0.5)" rot="=-4 + 4*(rand(floor(t*8)*2.17 + 53) - 0.5)" at="0.44">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-58.5" y="-93" w="117" h="186" fill="#2a9d8f" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="6" size="150" align="center" font="Anton" fill="#fbf3e4" text="A"/></group><group x="=838 + 4*(rand(floor(t*8)*1.31 + 14) - 0.5)" y="=330 + 4*(rand(floor(t*8)*1.31 + 34) - 0.5)" rot="=0 + 4*(rand(floor(t*8)*2.17 + 54) - 0.5)" at="0.52">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-58.5" y="-93" w="117" h="186" fill="#264653" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="6" size="150" align="center" font="Anton" fill="#e9b44c" text="L"/></group><group x="=965 + 4*(rand(floor(t*8)*1.31 + 15) - 0.5)" y="=330 + 4*(rand(floor(t*8)*1.31 + 35) - 0.5)" rot="=4 + 4*(rand(floor(t*8)*2.17 + 55) - 0.5)" at="0.60">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-58.5" y="-93" w="117" h="186" fill="#d64933" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="6" size="150" align="center" font="Anton" fill="#fbf3e4" text="A"/></group>
+      <group x="=330 + 4*(rand(floor(t*8)*1.31 + 40) - 0.5)" y="=560 + 4*(rand(floor(t*8)*1.31 + 60) - 0.5)" rot="=-5 + 4*(rand(floor(t*8)*2.17 + 80) - 0.5)" at="0.80">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-74.10000000000001" y="-117.8" w="148.20000000000002" h="235.6" fill="#2a9d8f" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="7.6000000000000005" size="190" align="center" font="Anton" fill="#fbf3e4" text="C"/></group><group x="=488.20000000000005 + 4*(rand(floor(t*8)*1.31 + 41) - 0.5)" y="=560 + 4*(rand(floor(t*8)*1.31 + 61) - 0.5)" rot="=-1 + 4*(rand(floor(t*8)*2.17 + 81) - 0.5)" at="0.88">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-74.10000000000001" y="-117.8" w="148.20000000000002" h="235.6" fill="#d64933" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="7.6000000000000005" size="190" align="center" font="Anton" fill="#fbf3e4" text="H"/></group><group x="=646.4000000000001 + 4*(rand(floor(t*8)*1.31 + 42) - 0.5)" y="=560 + 4*(rand(floor(t*8)*1.31 + 62) - 0.5)" rot="=3 + 4*(rand(floor(t*8)*2.17 + 82) - 0.5)" at="0.96">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-74.10000000000001" y="-117.8" w="148.20000000000002" h="235.6" fill="#e9b44c" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="7.6000000000000005" size="190" align="center" font="Anton" fill="#6b3e26" text="A"/></group><group x="=804.6 + 4*(rand(floor(t*8)*1.31 + 43) - 0.5)" y="=560 + 4*(rand(floor(t*8)*1.31 + 63) - 0.5)" rot="=-4 + 4*(rand(floor(t*8)*2.17 + 83) - 0.5)" at="1.04">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-74.10000000000001" y="-117.8" w="148.20000000000002" h="235.6" fill="#264653" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="7.6000000000000005" size="190" align="center" font="Anton" fill="#e9b44c" text="I"/></group>
+      <group x="=400 + 3*(rand(floor(t*8)*1.31 + 70) - 0.5)" y="=760 + 3*(rand(floor(t*8)*1.31 + 120) - 0.5)" rot="=-3 + 2.5*(rand(floor(t*8)*2.17 + 160) - 0.5)" at="1.6"><rect x="-20" y="-40" w="560" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/><text x="260" y="0" size="58" font="Caveat" weight="700" align="center" fill="#6b3e26" text="@sub"/></group>
+      <group x="1400" y="640" scale="2"><group x="=0 + 3*(rand(floor(t*8)*1.31 + 90) - 0.5)" y="=0 + 3*(rand(floor(t*8)*1.31 + 140) - 0.5)" rot="=4 + 2.5*(rand(floor(t*8)*2.17 + 180) - 0.5)" at="0.5"><anim prop="scale" from="0" to="1" dur="0.25" ease="step"/><anim prop="scale" from="0.6" to="1" at="0.12" dur="0.25" ease="back"/><group y="-110"><path repeat="3" as="k" x="=(k-1)*44" y="=-fract(T*0.6 + k*0.33)*60" opacity="=0.85*(1 - fract(T*0.6 + k*0.33))" d="M 0 0 C -24 -50 24 -100 0 -150 C -14 -176 8 -200 0 -200" fill="none" stroke="#fbf3e4" sw="16"/></group>
+        <path d="M 90 -40 C 160 -40 160 60 80 60" fill="none" stroke="#fbf3e4" sw="22" shadow="5 8 2 #0000004d"/>
+        <path d="M -110 -90 L 110 -90 L 90 80 C 80 110 -80 110 -90 80 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <rect x="-100" y="=-80 + 150*(1 - (0.8))" w="200" h="=150*(0.8)" fill="#6b3e26" clip="url(#cupclip)"/>
+        <path d="M -105 -40 L 105 -40 L 100 -10 L -100 -10 Z" fill="#d64933"/>
+        <ellipse x="0" y="-90" rx="110" ry="18" fill="#efe2c6"/></group></group>
+      <group x="=1700 + 3*(rand(floor(t*8)*1.31 + 120) - 0.5)" y="=260 + 3*(rand(floor(t*8)*1.31 + 170) - 0.5)" rot="=12 + 2.5*(rand(floor(t*8)*2.17 + 210) - 0.5)" at="1.2"><path d="M 0 -50 L 14 -14 L 52 -12 L 22 12 L 32 50 L 0 28 L -32 50 L -22 12 L -52 -12 L -14 -14 Z" fill="#e9b44c" shadow="5 8 2 #0000004d"/></group>
+    </scene>
+    <scene id="ingr" dur="10" chapter="@ch2">
+      <say at="0.5" text="@vo_ingr"/>
+
+      <sfx at="0.6" src="pop"/><sfx at="1.5" src="pop"/><sfx at="2.4" src="pop"/><sfx at="3.3" src="pop"/><sfx at="4.2" src="pop"/><sfx at="5.1" src="pop"/>
+      <group x="=330 + 3*(rand(floor(t*8)*1.31 + 200) - 0.5)" y="=330 + 3*(rand(floor(t*8)*1.31 + 250) - 0.5)" rot="=-4 + 2.5*(rand(floor(t*8)*2.17 + 290) - 0.5)" at="0.6"><anim prop="scale" from="0" to="1" dur="0.25" ease="step"/><anim prop="scale" from="0.6" to="1" at="0.12" dur="0.25" ease="back"/><path d="M 0 -110 C 60 -30 90 20 90 60 C 90 115 -90 115 -90 60 C -90 20 -60 -30 0 -110 Z" fill="#5fa8d3" shadow="5 8 2 #0000004d"/><ellipse x="-30" y="40" rx="16" ry="30" fill="#bfe0f2"/></group>
+      
+      <group x="=330 + 3*(rand(floor(t*8)*1.31 + 210) - 0.5)" y="=500 + 3*(rand(floor(t*8)*1.31 + 217) - 0.5)" rot="=3 + 2.5*(rand(floor(t*8)*2.17 + 213) - 0.5)" at="0.8">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-130" y="-40" w="260" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-108" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@i_water"/>
+      </group>
+      <group x="=960 + 3*(rand(floor(t*8)*1.31 + 220) - 0.5)" y="=320 + 3*(rand(floor(t*8)*1.31 + 270) - 0.5)" rot="=3 + 2.5*(rand(floor(t*8)*2.17 + 310) - 0.5)" at="1.5"><anim prop="scale" from="0" to="1" dur="0.25" ease="step"/><anim prop="scale" from="0.6" to="1" at="0.12" dur="0.25" ease="back"/><path d="M -70 -120 L 70 -120 L 70 -160 L -70 -160 Z" fill="#2a9d8f" shadow="5 8 2 #0000004d"/><path d="M -80 -120 L 80 -120 L 80 120 L -80 120 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/><rect x="-80" y="-40" w="160" h="70" fill="#5fa8d3"/><path d="M -70 -160 L 0 -210 L 70 -160 Z" fill="#efe2c6" shadow="5 8 2 #0000004d"/></group>
+      
+      <group x="=960 + 3*(rand(floor(t*8)*1.31 + 230) - 0.5)" y="=500 + 3*(rand(floor(t*8)*1.31 + 237) - 0.5)" rot="=-2 + 2.5*(rand(floor(t*8)*2.17 + 233) - 0.5)" at="1.7">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-130" y="-40" w="260" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-108" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@i_milk"/>
+      </group>
+      <group x="=1590 + 3*(rand(floor(t*8)*1.31 + 240) - 0.5)" y="=330 + 3*(rand(floor(t*8)*1.31 + 290) - 0.5)" rot="=-3 + 2.5*(rand(floor(t*8)*2.17 + 330) - 0.5)" at="2.4"><anim prop="scale" from="0" to="1" dur="0.25" ease="step"/><anim prop="scale" from="0.6" to="1" at="0.12" dur="0.25" ease="back"/><rect x="-90" y="-120" w="180" h="240" r="20" fill="#2a9d8f" shadow="5 8 2 #0000004d"/><rect x="-100" y="-150" w="200" h="50" r="10" fill="#e9b44c" shadow="5 8 2 #0000004d"/><rect x="-70" y="-50" w="140" h="90" fill="#fbf3e4"/><text y="-5" size="52" font="Anton" align="center" fill="#d64933" text="TEA"/></group>
+      
+      <group x="=1590 + 3*(rand(floor(t*8)*1.31 + 250) - 0.5)" y="=500 + 3*(rand(floor(t*8)*1.31 + 257) - 0.5)" rot="=2 + 2.5*(rand(floor(t*8)*2.17 + 253) - 0.5)" at="2.6">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-130" y="-40" w="260" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-108" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@i_tea"/>
+      </group>
+      <group x="=330 + 3*(rand(floor(t*8)*1.31 + 260) - 0.5)" y="=760 + 3*(rand(floor(t*8)*1.31 + 310) - 0.5)" rot="=6 + 2.5*(rand(floor(t*8)*2.17 + 350) - 0.5)" at="3.3"><anim prop="scale" from="0" to="1" dur="0.25" ease="step"/><anim prop="scale" from="0.6" to="1" at="0.12" dur="0.25" ease="back"/><path d="M -120 10 C -130 -40 -80 -60 -50 -40 C -40 -90 10 -90 20 -50 C 50 -80 110 -60 100 -10 C 140 0 130 60 80 60 C 30 80 -40 70 -80 60 C -130 60 -130 30 -120 10 Z" fill="#d9a35f" shadow="5 8 2 #0000004d"/><path d="M -60 10 C -20 0 30 20 60 0" stroke="#b07a3a" sw="5" fill="none"/></group>
+      
+      <group x="=330 + 3*(rand(floor(t*8)*1.31 + 270) - 0.5)" y="=920 + 3*(rand(floor(t*8)*1.31 + 277) - 0.5)" rot="=-3 + 2.5*(rand(floor(t*8)*2.17 + 273) - 0.5)" at="3.5">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-165" y="-40" w="330" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-143" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@i_ginger"/>
+      </group>
+      <group x="=960 + 3*(rand(floor(t*8)*1.31 + 280) - 0.5)" y="=760 + 3*(rand(floor(t*8)*1.31 + 330) - 0.5)" rot="=-8 + 2.5*(rand(floor(t*8)*2.17 + 370) - 0.5)" at="4.2"><anim prop="scale" from="0" to="1" dur="0.25" ease="step"/><anim prop="scale" from="0.6" to="1" at="0.12" dur="0.25" ease="back"/><ellipse x="-50" rx="70" ry="34" fill="#6a994e" shadow="5 8 2 #0000004d"/><ellipse x="60" y="10" rx="70" ry="34" fill="#83b366" shadow="5 8 2 #0000004d" rot="20"/><path d="M -110 0 L 10 0" stroke="#4d7a36" sw="4"/></group>
+      
+      <group x="=960 + 3*(rand(floor(t*8)*1.31 + 290) - 0.5)" y="=920 + 3*(rand(floor(t*8)*1.31 + 297) - 0.5)" rot="=2 + 2.5*(rand(floor(t*8)*2.17 + 293) - 0.5)" at="4.4">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-150" y="-40" w="300" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-128" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@i_card"/>
+      </group>
+      <group x="=1590 + 3*(rand(floor(t*8)*1.31 + 300) - 0.5)" y="=760 + 3*(rand(floor(t*8)*1.31 + 350) - 0.5)" rot="=3 + 2.5*(rand(floor(t*8)*2.17 + 390) - 0.5)" at="5.1"><anim prop="scale" from="0" to="1" dur="0.25" ease="step"/><anim prop="scale" from="0.6" to="1" at="0.12" dur="0.25" ease="back"/><rect x="-70" y="-20" w="64" h="64" fill="#ffffff" shadow="5 8 2 #0000004d"/><rect x="10" y="-20" w="64" h="64" fill="#ffffff" shadow="5 8 2 #0000004d"/><rect x="-30" y="-90" w="64" h="64" fill="#ffffff" shadow="5 8 2 #0000004d"/></group>
+      
+      <group x="=1590 + 3*(rand(floor(t*8)*1.31 + 310) - 0.5)" y="=920 + 3*(rand(floor(t*8)*1.31 + 317) - 0.5)" rot="=-2 + 2.5*(rand(floor(t*8)*2.17 + 313) - 0.5)" at="5.3">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-130" y="-40" w="260" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-108" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@i_sugar"/>
+      </group>
+    </scene>
+    <scene id="crush" dur="7.5" chapter="@ch3">
+      <say at="0.5" text="@vo_crush"/>
+
+      <sfx at="1.2" src="click"/><sfx at="2.0" src="click"/><sfx at="2.8" src="click"/><sfx at="3.6" src="click"/>
+      <group x="=760 + 3*(rand(floor(t*8)*1.31 + 400) - 0.5)" y="=700 + 3*(rand(floor(t*8)*1.31 + 450) - 0.5)" rot="=0 + 2.5*(rand(floor(t*8)*2.17 + 490) - 0.5)" >
+        <path d="M -260 -60 L 260 -60 C 250 120 140 200 0 200 C -140 200 -250 120 -260 -60 Z" fill="#d64933" shadow="5 8 2 #0000004d"/>
+        <rect x="-280" y="-90" w="560" h="40" r="20" fill="#b83a27" shadow="5 8 2 #0000004d"/>
+        <rect x="-90" y="200" w="180" h="50" fill="#b83a27" shadow="5 8 2 #0000004d"/></group>
+      <group x="820" y="=420 - 160*abs(sin((T-1)*PI*1.25))*step(1, T)*(1 - step(4.2, T))" rot="-18">
+        <path d="M -40 -300 L 40 -300 L 60 60 C 60 100 -60 100 -60 60 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/></group>
+      <path x="=760 + -210*ease((T-1.2)/1.2,'out')" y="=560 - 120*sin(clamp((T-1.2)/1.2,0,1)*PI)" rot="=T*100" d="M -16 -12 L 18 -16 L 12 16 L -14 12 Z" fill="#6a994e" at="1.2" dur="1.2" shadow="5 8 2 #0000004d"/><path x="=760 + -150*ease((T-1.2)/1.2,'out')" y="=560 - 180*sin(clamp((T-1.2)/1.2,0,1)*PI)" rot="=T*140" d="M -16 -12 L 18 -16 L 12 16 L -14 12 Z" fill="#d9a35f" at="1.2" dur="1.2" shadow="5 8 2 #0000004d"/><path x="=760 + -90*ease((T-1.2)/1.2,'out')" y="=560 - 240*sin(clamp((T-1.2)/1.2,0,1)*PI)" rot="=T*180" d="M -16 -12 L 18 -16 L 12 16 L -14 12 Z" fill="#6a994e" at="1.2" dur="1.2" shadow="5 8 2 #0000004d"/><path x="=760 + -30*ease((T-1.2)/1.2,'out')" y="=560 - 120*sin(clamp((T-1.2)/1.2,0,1)*PI)" rot="=T*220" d="M -16 -12 L 18 -16 L 12 16 L -14 12 Z" fill="#d9a35f" at="1.2" dur="1.2" shadow="5 8 2 #0000004d"/><path x="=760 + 30*ease((T-1.2)/1.2,'out')" y="=560 - 180*sin(clamp((T-1.2)/1.2,0,1)*PI)" rot="=T*260" d="M -16 -12 L 18 -16 L 12 16 L -14 12 Z" fill="#6a994e" at="1.2" dur="1.2" shadow="5 8 2 #0000004d"/><path x="=760 + 90*ease((T-1.2)/1.2,'out')" y="=560 - 240*sin(clamp((T-1.2)/1.2,0,1)*PI)" rot="=T*300" d="M -16 -12 L 18 -16 L 12 16 L -14 12 Z" fill="#d9a35f" at="1.2" dur="1.2" shadow="5 8 2 #0000004d"/><path x="=760 + 150*ease((T-1.2)/1.2,'out')" y="=560 - 120*sin(clamp((T-1.2)/1.2,0,1)*PI)" rot="=T*340" d="M -16 -12 L 18 -16 L 12 16 L -14 12 Z" fill="#6a994e" at="1.2" dur="1.2" shadow="5 8 2 #0000004d"/><path x="=760 + 210*ease((T-1.2)/1.2,'out')" y="=560 - 180*sin(clamp((T-1.2)/1.2,0,1)*PI)" rot="=T*380" d="M -16 -12 L 18 -16 L 12 16 L -14 12 Z" fill="#d9a35f" at="1.2" dur="1.2" shadow="5 8 2 #0000004d"/>
+      <group x="=1250 + 4*(rand(floor(t*8)*1.31 + 500) - 0.5)" y="=360 + 4*(rand(floor(t*8)*1.31 + 520) - 0.5)" rot="=-5 + 4*(rand(floor(t*8)*2.17 + 540) - 0.5)" at="1.30">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#d64933" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#fbf3e4" text="C"/></group><group x="=1361.4 + 4*(rand(floor(t*8)*1.31 + 501) - 0.5)" y="=360 + 4*(rand(floor(t*8)*1.31 + 521) - 0.5)" rot="=-1 + 4*(rand(floor(t*8)*2.17 + 541) - 0.5)" at="1.38">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#264653" text="R"/></group><group x="=1472.8 + 4*(rand(floor(t*8)*1.31 + 502) - 0.5)" y="=360 + 4*(rand(floor(t*8)*1.31 + 522) - 0.5)" rot="=3 + 4*(rand(floor(t*8)*2.17 + 542) - 0.5)" at="1.46">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#e9b44c" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#6b3e26" text="U"/></group><group x="=1584.2 + 4*(rand(floor(t*8)*1.31 + 503) - 0.5)" y="=360 + 4*(rand(floor(t*8)*1.31 + 523) - 0.5)" rot="=-4 + 4*(rand(floor(t*8)*2.17 + 543) - 0.5)" at="1.54">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#2a9d8f" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#fbf3e4" text="S"/></group><group x="=1695.6 + 4*(rand(floor(t*8)*1.31 + 504) - 0.5)" y="=360 + 4*(rand(floor(t*8)*1.31 + 524) - 0.5)" rot="=0 + 4*(rand(floor(t*8)*2.17 + 544) - 0.5)" at="1.62">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#264653" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#e9b44c" text="H"/></group><group x="=1807 + 4*(rand(floor(t*8)*1.31 + 505) - 0.5)" y="=360 + 4*(rand(floor(t*8)*1.31 + 525) - 0.5)" rot="=4 + 4*(rand(floor(t*8)*2.17 + 545) - 0.5)" at="1.70">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#d64933" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#fbf3e4" text="!"/></group>
+      
+      <group x="=1480 + 3*(rand(floor(t*8)*1.31 + 520) - 0.5)" y="=620 + 3*(rand(floor(t*8)*1.31 + 527) - 0.5)" rot="=4 + 2.5*(rand(floor(t*8)*2.17 + 523) - 0.5)" at="2.4">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-165" y="-40" w="330" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-143" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@i_ginger"/>
+      </group>
+      
+      <group x="=1460 + 3*(rand(floor(t*8)*1.31 + 530) - 0.5)" y="=760 + 3*(rand(floor(t*8)*1.31 + 537) - 0.5)" rot="=-3 + 2.5*(rand(floor(t*8)*2.17 + 533) - 0.5)" at="2.8">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-150" y="-40" w="300" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-128" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@i_card"/>
+      </group>
+    </scene>
+    <scene id="boil" dur="10" chapter="@ch4">
+      <say at="0.5" text="@vo_boil"/>
+
+      <sfx at="0.4" src="whoosh"/><sfx at="5.6" src="pop"/>
+      <group x="760" y="880"><rect x="-330" y="0" w="660" h="60" fill="#264653" shadow="5 8 2 #0000004d"/><rect x="-260" y="-12" w="520" h="16" fill="#3a3a3a"/><group y="-12" at="0.3"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/><group><path x="-120" y="0" scale="=0.9*(0.85 + 0.3*rand(floor(t*8) + 0))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#d64933" shadow="5 8 2 #0000004d"/><path x="-40" y="0" scale="=1.2*(0.85 + 0.3*rand(floor(t*8) + 3))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#e9b44c" shadow="5 8 2 #0000004d"/><path x="40" y="0" scale="=1.1*(0.85 + 0.3*rand(floor(t*8) + 6))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#d64933" shadow="5 8 2 #0000004d"/><path x="120" y="0" scale="=0.9*(0.85 + 0.3*rand(floor(t*8) + 9))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#e9b44c" shadow="5 8 2 #0000004d"/><path x="0" y="0" scale="=0.8*(0.85 + 0.3*rand(floor(t*8) + 12))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/></group></group></group>
+      <group x="=760 + 3*(rand(floor(t*8)*1.31 + 600) - 0.5)" y="=660 + 3*(rand(floor(t*8)*1.31 + 650) - 0.5)" rot="=0 + 2.5*(rand(floor(t*8)*2.17 + 690) - 0.5)" >
+        <rect x="-300" y="-20" w="140" h="34" r="10" fill="#3a3a3a" shadow="5 8 2 #0000004d"/>
+        <path d="M -200 -60 L 200 -60 L 180 150 C 170 190 -170 190 -180 150 Z" fill="#8a8f98" shadow="5 8 2 #0000004d"/>
+        <path d="M -190 -10 L 190 -10 L 186 30 L -186 30 Z" fill="#6c717a"/>
+        <ellipse x="0" y="-60" rx="200" ry="40" fill="=mix('#b7d4e8', '#7a4a2a', ease((T-5.6)/2,'io'))"/>
+        <ellipse x="0" y="-60" rx="200" ry="40" fill="none" stroke="#5d6169" sw="10"/>
+        <circle repeat="8" as="k" x="=-150 + k*42" y="=-60 - 6*abs(sin(T*6 + k))" r="=8 + 6*abs(sin(T*4 + k*1.7))" fill="#ffffff" opacity="0.8"/>
+        <group y="-90"><path repeat="3" as="k" x="=(k-1)*44" y="=-fract(T*0.6 + k*0.33)*60" opacity="=0.85*(1 - fract(T*0.6 + k*0.33))" d="M 0 0 C -24 -40 24 -80 0 -120 C -14 -140.8 8 -160 0 -160" fill="none" stroke="#fbf3e4" sw="16"/></group></group>
+      <path x="=760 + -80" y="=lerp(120, 560, ease((T - 1)/0.8, 'in'))" rot="=T*90" d="M -20 -14 L 22 -18 L 16 18 L -18 14 Z" fill="#d9a35f" at="1" dur="0.8" shadow="5 8 2 #0000004d"/><path x="=760 + 0" y="=lerp(120, 560, ease((T - 1.4)/0.8, 'in'))" rot="=T*90" d="M -20 -14 L 22 -18 L 16 18 L -18 14 Z" fill="#6a994e" at="1.4" dur="0.8" shadow="5 8 2 #0000004d"/><path x="=760 + 80" y="=lerp(120, 560, ease((T - 1.8)/0.8, 'in'))" rot="=T*90" d="M -20 -14 L 22 -18 L 16 18 L -18 14 Z" fill="#d9a35f" at="1.8" dur="0.8" shadow="5 8 2 #0000004d"/>
+      <group x="1520" y="520" at="2"><anim prop="scale" from="0" to="1" dur="0.3" ease="back"/>
+        <group x="=0 + 3*(rand(floor(t*8)*1.31 + 620) - 0.5)" y="=0 + 3*(rand(floor(t*8)*1.31 + 670) - 0.5)" rot="=4 + 2.5*(rand(floor(t*8)*2.17 + 710) - 0.5)" ><circle r="150" fill="#fbf3e4" shadow="5 8 2 #0000004d"/><circle r="120" fill="#e9b44c" from="0" to="=360*clamp((T-2)/3.4, 0, 1)"/><rect x="-6" y="-120" w="12" h="120" r="6" fill="#6b3e26" rot="=360*clamp((T-2)/3.4, 0, 1)"/><circle r="16" fill="#6b3e26"/></group>
+        
+      <group x="=0 + 3*(rand(floor(t*8)*1.31 + 630) - 0.5)" y="=210 + 3*(rand(floor(t*8)*1.31 + 637) - 0.5)" rot="=-3 + 2.5*(rand(floor(t*8)*2.17 + 633) - 0.5)" at="0.2">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-100" y="-40" w="200" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-78" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@boil_t"/>
+      </group></group>
+      <group x="=1080 + 3*(rand(floor(t*8)*1.31 + 640) - 0.5)" y="=170 + 3*(rand(floor(t*8)*1.31 + 690) - 0.5)" rot="=-6 + 2.5*(rand(floor(t*8)*2.17 + 730) - 0.5)" at="5.4"><rect x="-90" y="-70" w="180" h="140" r="16" fill="#2a9d8f" shadow="5 8 2 #0000004d"/><rect x="-60" y="-30" w="120" h="70" fill="#fbf3e4"/><text y="5" size="44" font="Anton" align="center" fill="#d64933" text="TEA"/></group>
+      
+      <group x="=1080 + 3*(rand(floor(t*8)*1.31 + 650) - 0.5)" y="=300 + 3*(rand(floor(t*8)*1.31 + 657) - 0.5)" rot="=3 + 2.5*(rand(floor(t*8)*2.17 + 653) - 0.5)" at="5.6">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-90" y="-40" w="180" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-68" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@tea_in"/>
+      </group>
+    </scene>
+    <scene id="milk" dur="10" chapter="@ch5">
+      <say at="0.5" text="@vo_milk"/>
+
+      <sfx at="0.8" src="whoosh"/><sfx at="5" src="ding"/>
+      <group x="760" y="880"><rect x="-330" y="0" w="660" h="60" fill="#264653" shadow="5 8 2 #0000004d"/><rect x="-260" y="-12" w="520" h="16" fill="#3a3a3a"/><group y="-12"><group><path x="-120" y="0" scale="=0.9*(0.85 + 0.3*rand(floor(t*8) + 0))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#d64933" shadow="5 8 2 #0000004d"/><path x="-40" y="0" scale="=1.2*(0.85 + 0.3*rand(floor(t*8) + 3))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#e9b44c" shadow="5 8 2 #0000004d"/><path x="40" y="0" scale="=1.1*(0.85 + 0.3*rand(floor(t*8) + 6))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#d64933" shadow="5 8 2 #0000004d"/><path x="120" y="0" scale="=0.9*(0.85 + 0.3*rand(floor(t*8) + 9))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#e9b44c" shadow="5 8 2 #0000004d"/><path x="0" y="0" scale="=0.8*(0.85 + 0.3*rand(floor(t*8) + 12))" d="M -40 0 C -40 -40 -10 -70 0 -120 C 10 -70 40 -40 40 0 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/></group></group></group>
+      <group x="760" y="=660 - 30*step(4.6, T)*abs(sin((T-4.6)*PI*0.8))"><group x="=0 + 3*(rand(floor(t*8)*1.31 + 700) - 0.5)" y="=0 + 3*(rand(floor(t*8)*1.31 + 750) - 0.5)" rot="=0 + 2.5*(rand(floor(t*8)*2.17 + 790) - 0.5)" >
+        <rect x="-300" y="-20" w="140" h="34" r="10" fill="#3a3a3a" shadow="5 8 2 #0000004d"/>
+        <path d="M -200 -60 L 200 -60 L 180 150 C 170 190 -170 190 -180 150 Z" fill="#8a8f98" shadow="5 8 2 #0000004d"/>
+        <path d="M -190 -10 L 190 -10 L 186 30 L -186 30 Z" fill="#6c717a"/>
+        <ellipse x="0" y="-60" rx="200" ry="40" fill="=mix('#7a4a2a', '#c8925c', ease((T-1)/3,'io'))"/>
+        <ellipse x="0" y="-60" rx="200" ry="40" fill="none" stroke="#5d6169" sw="10"/>
+        <ellipse y="=-60 - 34*step(4.6, T)*abs(sin((T-4.6)*PI*0.8))" rx="=190*step(4.6, T)" ry="30" fill="#e8c9a0" opacity="0.9"/>
+        <circle repeat="10" as="k" x="=-170 + k*38" y="=-62 - 30*step(4.6, T)*abs(sin((T-4.6)*PI*0.8)) - 4*abs(sin(T*6 + k))" r="=10 + 6*abs(sin(T*3 + k*1.3))" fill="#f5e6cf"/></group></group>
+      <group x="1120" y="230" rot="=-lerp(0, 70, ease((T-0.6)/0.8,'out'))">
+        <path d="M -70 -120 L 70 -120 L 70 -160 L -70 -160 Z" fill="#2a9d8f" shadow="5 8 2 #0000004d"/><path d="M -80 -120 L 80 -120 L 80 120 L -80 120 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/><rect x="-80" y="-40" w="160" h="70" fill="#5fa8d3"/><path d="M -70 -160 L 0 -210 L 70 -160 Z" fill="#efe2c6"/></group>
+      <rect x="=930 + 6*(rand(floor(t*8)) - 0.5)" y="150" w="34" h="=420*clamp((T-1.3)/0.4, 0, 1)" r="16" fill="#fbf3e4" at="1.3" dur="2.6" shadow="5 8 2 #0000004d"/>
+      
+      <group x="=1500 + 3*(rand(floor(t*8)*1.31 + 720) - 0.5)" y="=640 + 3*(rand(floor(t*8)*1.31 + 727) - 0.5)" rot="=-4 + 2.5*(rand(floor(t*8)*2.17 + 723) - 0.5)" at="4.6">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-210" y="-40" w="420" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-188" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@rise"/>
+      </group>
+      <text x="1500" y="800" size="160" font="Anton" align="center" fill="#d64933" text="=step(5.6, T) ? '2×' : '1×'" at="4.8" rot="-6"/>
+    </scene>
+    <scene id="strain" dur="7.5" chapter="@ch6">
+      <say at="0.5" text="@vo_strain"/>
+
+      <sfx at="0.6" src="whoosh"/>
+      <group x="=lerp(700, 960, ease((T-0.2)/0.8,'io'))" y="300" rot="=lerp(0, -40, ease((T-0.6)/0.6,'io'))"><group x="=0 + 3*(rand(floor(t*8)*1.31 + 800) - 0.5)" y="=0 + 3*(rand(floor(t*8)*1.31 + 850) - 0.5)" rot="=0 + 2.5*(rand(floor(t*8)*2.17 + 890) - 0.5)" >
+        <rect x="-300" y="-20" w="140" h="34" r="10" fill="#3a3a3a" shadow="5 8 2 #0000004d"/>
+        <path d="M -200 -60 L 200 -60 L 180 150 C 170 190 -170 190 -180 150 Z" fill="#8a8f98" shadow="5 8 2 #0000004d"/>
+        <path d="M -190 -10 L 190 -10 L 186 30 L -186 30 Z" fill="#6c717a"/>
+        <ellipse x="0" y="-60" rx="200" ry="40" fill="#c8925c"/>
+        <ellipse x="0" y="-60" rx="200" ry="40" fill="none" stroke="#5d6169" sw="10"/></group></group>
+      <rect x="=760 + 4*(rand(floor(t*8)) - 0.5)" y="400" w="26" h="=280*clamp((T-1.2)/0.3,0,1)" r="13" fill="#c8925c" at="1.2" dur="2.4"/>
+      <rect x="=1130 + 4*(rand(floor(t*8)+3) - 0.5)" y="400" w="26" h="=280*clamp((T-3.4)/0.3,0,1)" r="13" fill="#c8925c" at="3.4" dur="2.4"/>
+      <group x="=960 + 3*(rand(floor(t*8)*1.31 + 820) - 0.5)" y="=410 + 3*(rand(floor(t*8)*1.31 + 870) - 0.5)" rot="=0 + 2.5*(rand(floor(t*8)*2.17 + 910) - 0.5)" ><ellipse rx="260" ry="34" fill="#5d6169" shadow="5 8 2 #0000004d"/><ellipse rx="230" ry="24" fill="#b5b9c1"/><rect x="260" y="-12" w="170" h="24" r="12" fill="#6b3e26" shadow="5 8 2 #0000004d"/></group>
+      <group x="=780 + 3*(rand(floor(t*8)*1.31 + 840) - 0.5)" y="=800 + 3*(rand(floor(t*8)*1.31 + 890) - 0.5)" rot="=-2 + 2.5*(rand(floor(t*8)*2.17 + 930) - 0.5)" scale="1.3">
+        <path d="M 90 -40 C 160 -40 160 60 80 60" fill="none" stroke="#fbf3e4" sw="22" shadow="5 8 2 #0000004d"/>
+        <path d="M -110 -90 L 110 -90 L 90 80 C 80 110 -80 110 -90 80 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <rect x="-100" y="=-80 + 150*(1 - (clamp((T-1.4)/2, 0, 0.85)))" w="200" h="=150*(clamp((T-1.4)/2, 0, 0.85))" fill="#c8925c" clip="url(#cupclip)"/>
+        <path d="M -105 -40 L 105 -40 L 100 -10 L -100 -10 Z" fill="#d64933"/>
+        <ellipse x="0" y="-90" rx="110" ry="18" fill="#efe2c6"/></group>
+      <group x="=1150 + 3*(rand(floor(t*8)*1.31 + 860) - 0.5)" y="=800 + 3*(rand(floor(t*8)*1.31 + 910) - 0.5)" rot="=3 + 2.5*(rand(floor(t*8)*2.17 + 950) - 0.5)" scale="1.3">
+        <path d="M 90 -40 C 160 -40 160 60 80 60" fill="none" stroke="#fbf3e4" sw="22" shadow="5 8 2 #0000004d"/>
+        <path d="M -110 -90 L 110 -90 L 90 80 C 80 110 -80 110 -90 80 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <rect x="-100" y="=-80 + 150*(1 - (clamp((T-3.6)/2, 0, 0.85)))" w="200" h="=150*(clamp((T-3.6)/2, 0, 0.85))" fill="#c8925c" clip="url(#cupclip)"/>
+        <path d="M -105 -40 L 105 -40 L 100 -10 L -100 -10 Z" fill="#d64933"/>
+        <ellipse x="0" y="-90" rx="110" ry="18" fill="#efe2c6"/></group>
+      
+      <group x="=1580 + 3*(rand(floor(t*8)*1.31 + 880) - 0.5)" y="=330 + 3*(rand(floor(t*8)*1.31 + 887) - 0.5)" rot="=4 + 2.5*(rand(floor(t*8)*2.17 + 883) - 0.5)" at="0.8">
+        <anim prop="opacity" from="0" to="1" dur="0.1"/>
+        <rect x="-165" y="-40" w="330" h="80" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <circle x="-143" y="0" r="9" fill="#e9d8b4"/>
+        <text x="12" y="0" size="54" align="center" font="Caveat" weight="700" fill="#3b2a20" text="@strain"/>
+      </group>
+    </scene>
+    <scene id="outro" dur="6" chapter="@ch7">
+      <say at="0.5" text="@vo_outro"/>
+
+      <sfx at="1.0" src="ding"/>
+      <group x="=lerp(560, 760, ease((T-0.4)/0.6,'back'))" y="660" rot="=lerp(0, 12, ease((T-0.4)/0.6,'back'))" scale="1.6"><group y="-110"><path repeat="3" as="k" x="=(k-1)*44" y="=-fract(T*0.6 + k*0.33)*60" opacity="=0.85*(1 - fract(T*0.6 + k*0.33))" d="M 0 0 C -24 -42.5 24 -85 0 -127.5 C -14 -149.6 8 -170 0 -170" fill="none" stroke="#fbf3e4" sw="16"/></group>
+        <path d="M 90 -40 C 160 -40 160 60 80 60" fill="none" stroke="#fbf3e4" sw="22" shadow="5 8 2 #0000004d"/>
+        <path d="M -110 -90 L 110 -90 L 90 80 C 80 110 -80 110 -90 80 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <rect x="-100" y="=-80 + 150*(1 - (0.8))" w="200" h="=150*(0.8)" fill="#c8925c" clip="url(#cupclip)"/>
+        <path d="M -105 -40 L 105 -40 L 100 -10 L -100 -10 Z" fill="#d64933"/>
+        <ellipse x="0" y="-90" rx="110" ry="18" fill="#efe2c6"/></group>
+      <group x="=lerp(1360, 1160, ease((T-0.4)/0.6,'back'))" y="660" rot="=lerp(0, -12, ease((T-0.4)/0.6,'back'))" scale="1.6"><group y="-110"><path repeat="3" as="k" x="=(k-1)*44" y="=-fract(T*0.6 + k*0.33)*60" opacity="=0.85*(1 - fract(T*0.6 + k*0.33))" d="M 0 0 C -24 -42.5 24 -85 0 -127.5 C -14 -149.6 8 -170 0 -170" fill="none" stroke="#fbf3e4" sw="16"/></group>
+        <path d="M 90 -40 C 160 -40 160 60 80 60" fill="none" stroke="#fbf3e4" sw="22" shadow="5 8 2 #0000004d"/>
+        <path d="M -110 -90 L 110 -90 L 90 80 C 80 110 -80 110 -90 80 Z" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <rect x="-100" y="=-80 + 150*(1 - (0.8))" w="200" h="=150*(0.8)" fill="#c8925c" clip="url(#cupclip)"/>
+        <path d="M -105 -40 L 105 -40 L 100 -10 L -100 -10 Z" fill="#d64933"/>
+        <ellipse x="0" y="-90" rx="110" ry="18" fill="#efe2c6"/></group>
+      <group x="=960 + 3*(rand(floor(t*8)*1.31 + 900) - 0.5)" y="=380 + 3*(rand(floor(t*8)*1.31 + 950) - 0.5)" rot="=0 + 2.5*(rand(floor(t*8)*2.17 + 990) - 0.5)" at="1" scale="1.2"><path d="M 0 -60 L 14 -20 L 56 -20 L 22 6 L 34 48 L 0 22 L -34 48 L -22 6 L -56 -20 L -14 -20 Z" fill="#e9b44c" shadow="5 8 2 #0000004d"/></group>
+      <group x="=515 + 4*(rand(floor(t*8)*1.31 + 920) - 0.5)" y="=180 + 4*(rand(floor(t*8)*1.31 + 940) - 0.5)" rot="=-5 + 4*(rand(floor(t*8)*2.17 + 960) - 0.5)" at="1.40">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#d64933" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#fbf3e4" text="C"/></group><group x="=626.4 + 4*(rand(floor(t*8)*1.31 + 921) - 0.5)" y="=180 + 4*(rand(floor(t*8)*1.31 + 941) - 0.5)" rot="=-1 + 4*(rand(floor(t*8)*2.17 + 961) - 0.5)" at="1.48">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#264653" text="H"/></group><group x="=737.8 + 4*(rand(floor(t*8)*1.31 + 922) - 0.5)" y="=180 + 4*(rand(floor(t*8)*1.31 + 942) - 0.5)" rot="=3 + 4*(rand(floor(t*8)*2.17 + 962) - 0.5)" at="1.56">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#e9b44c" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#6b3e26" text="A"/></group><group x="=849.2 + 4*(rand(floor(t*8)*1.31 + 923) - 0.5)" y="=180 + 4*(rand(floor(t*8)*1.31 + 943) - 0.5)" rot="=-4 + 4*(rand(floor(t*8)*2.17 + 963) - 0.5)" at="1.64">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#2a9d8f" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#fbf3e4" text="I"/></group><group x="=1072 + 4*(rand(floor(t*8)*1.31 + 925) - 0.5)" y="=180 + 4*(rand(floor(t*8)*1.31 + 945) - 0.5)" rot="=4 + 4*(rand(floor(t*8)*2.17 + 965) - 0.5)" at="1.80">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#d64933" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#fbf3e4" text="T"/></group><group x="=1183.4 + 4*(rand(floor(t*8)*1.31 + 926) - 0.5)" y="=180 + 4*(rand(floor(t*8)*1.31 + 946) - 0.5)" rot="=-3 + 4*(rand(floor(t*8)*2.17 + 966) - 0.5)" at="1.88">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#fbf3e4" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#264653" text="I"/></group><group x="=1294.8000000000002 + 4*(rand(floor(t*8)*1.31 + 927) - 0.5)" y="=180 + 4*(rand(floor(t*8)*1.31 + 947) - 0.5)" rot="=1 + 4*(rand(floor(t*8)*2.17 + 967) - 0.5)" at="1.96">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#e9b44c" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#6b3e26" text="M"/></group><group x="=1406.2 + 4*(rand(floor(t*8)*1.31 + 928) - 0.5)" y="=180 + 4*(rand(floor(t*8)*1.31 + 948) - 0.5)" rot="=5 + 4*(rand(floor(t*8)*2.17 + 968) - 0.5)" at="2.04">
+        <anim prop="scale" from="1.6" to="1" dur="0.25" ease="step"/>
+        <rect x="-50.7" y="-80.6" w="101.4" h="161.2" fill="#2a9d8f" shadow="5 8 2 #0000004d"/>
+        <text x="0" y="5.2" size="130" align="center" font="Anton" fill="#fbf3e4" text="E"/></group>
+      <group x="=960 + 3*(rand(floor(t*8)*1.31 + 940) - 0.5)" y="=970 + 3*(rand(floor(t*8)*1.31 + 990) - 0.5)" rot="=-1 + 2.5*(rand(floor(t*8)*2.17 + 1030) - 0.5)" at="2.2"><rect x="-360" y="-44" w="720" h="88" fill="#fbf3e4" shadow="5 8 2 #0000004d"/><text y="0" size="58" font="Caveat" weight="700" align="center" fill="#6b3e26" text="@out2"/></group>
+    </scene>
+  </timeline>
+  <overlay>
+
+  </overlay>
+  <voices>
+    <voice say="vo_boil" lang="en" src="voice/paper-cutout/en/vo_boil.4dae5d5fd1.ogg" dur="3.71" hash="4dae5d5fd1" engine="kokoro:bf_emma"/>
+    <voice say="vo_crush" lang="en" src="voice/paper-cutout/en/vo_crush.bed7f5ae3f.ogg" dur="4.21" hash="bed7f5ae3f" engine="kokoro:bf_emma"/>
+    <voice say="vo_ingr" lang="en" src="voice/paper-cutout/en/vo_ingr.0bb6bae90a.ogg" dur="5.11" hash="0bb6bae90a" engine="kokoro:bf_emma"/>
+    <voice say="vo_intro" lang="en" src="voice/paper-cutout/en/vo_intro.c2019c9c42.ogg" dur="4.11" hash="c2019c9c42" engine="kokoro:bf_emma"/>
+    <voice say="vo_milk" lang="en" src="voice/paper-cutout/en/vo_milk.3f0246677c.ogg" dur="4.71" hash="3f0246677c" engine="kokoro:bf_emma"/>
+    <voice say="vo_outro" lang="en" src="voice/paper-cutout/en/vo_outro.0ede5ca537.ogg" dur="1.88" hash="0ede5ca537" engine="kokoro:bf_emma"/>
+    <voice say="vo_strain" lang="en" src="voice/paper-cutout/en/vo_strain.4128c2e508.ogg" dur="2.35" hash="4128c2e508" engine="kokoro:bf_emma"/>
+  </voices>
+</tsvg>

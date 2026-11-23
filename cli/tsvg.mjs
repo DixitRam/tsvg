@@ -130,7 +130,7 @@ async function bake() {
     }
   }
   console.log(`bake: ${jobs.length} line(s) to record · ${langs.map((l) => l + '=' + ttsFor[l]).join(' ')}`);
-  const tmp = join(src.dir, '.tsvg-bake'); mkdirSync(tmp, { recursive: true });
+  const tmp = join(src.dir, '.tsvg-bake-' + basename(src.path) + '-' + process.pid); mkdirSync(tmp, { recursive: true }); // per run: bakes can run side by side
   const kok = jobs.filter((j) => j.engine === 'kokoro');
   if (kok.length) {
     const py = process.env.TSVG_PYTHON || join(process.env.HOME, '.cache/explainer-video/py/venv/bin/python');

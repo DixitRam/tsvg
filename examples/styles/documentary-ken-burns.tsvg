@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: documentary with the Ken Burns effect. Slow pans and zooms on photos, cross-fades
+     (each scene fades in over the last frame of the previous photo), letterbox bars, film grain,
+     serif lower thirds and a drone bed. -->
+<tsvg version="0.2" title="@title" font="Playfair Display, Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bm_daniel"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/><choice id="ambient" label="No voice"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.45" sfx="0.5"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.8" sfx="0.5"/>
+  </mixes>
+  <themes>
+    <theme id="film" bg="#000000" fg="#f3eee4" muted="#b8b0a2" gold="#d9b46a"/>
+  </themes>
+
+  <strings>
+    <s id="title" en="The Last Dark Places"/>
+    <s id="sub" en="a short film about the night sky"/>
+    <s id="ch1" en="Title"/><s id="ch2" en="The glow"/><s id="ch3" en="The hidden galaxy"/><s id="ch4" en="Always on"/>
+    <s id="ch5" en="The reserves"/><s id="ch6" en="Turning it down"/>
+    <s id="l2a" en="80%"/><s id="l2b" en="of people live under a light-polluted sky"/>
+    <s id="l3a" en="1 in 3"/><s id="l3b" en="people can no longer see the Milky Way from home"/>
+    <s id="l4a" en="+10% a year"/><s id="l4b" en="growth in night-sky brightness seen by citizen scientists, 2011–2022"/>
+    <s id="l5a" en="200+"/><s id="l5b" en="certified dark-sky places now protect the night"/>
+    <s id="end1" en="We can still turn the lights down."/>
+    <s id="src" en="Sources: world atlas of artificial sky brightness (2016); citizen-science sky survey (2023); dark-sky place registry."/>
+    <s id="vo1" en="For almost all of human history, every night ended in the same view: a sky full of stars."/>
+    <s id="vo2" en="Today, eight in ten people live under a sky washed out by artificial light. In many cities, the night never truly falls."/>
+    <s id="vo3" en="The Milky Way, the band of our own galaxy, is now hidden from roughly one person in three, even on a clear night."/>
+    <s id="vo4" en="Factories, roads and screens stay lit around the clock. Volunteers measuring the sky found it brightening by about ten percent a year."/>
+    <s id="vo5" en="Yet in remote valleys, some communities have chosen darkness. More than two hundred places now protect the night by law."/>
+    <s id="vo6" en="The stars haven't gone anywhere. We have only drowned them out. And we can still turn the lights down."/>
+  </strings>
+
+  <defs>
+    <linear id="fadeL" x1="0" y1="0" x2="1100" y2="0"><stop at="0" color="#000000" opacity="0.75"/><stop at="1" color="#000000" opacity="0"/></linear>
+    <radial id="vig" x="960" y="540" r="1150"><stop at="0.5" color="#000000" opacity="0"/><stop at="1" color="#000000" opacity="0.7"/></radial>
+    <linear id="rule" x1="0" y1="0" x2="300" y2="0"><stop at="0" color="$gold"/><stop at="1" color="$gold" opacity="0"/></linear>
+    <!-- a lower third: big figure, rule, line of text -->
+  </defs>
+
+  <assets>
+    <asset id="nebula" src="images/nebula.jpg"/>
+    <asset id="city" src="images/city.jpg"/>
+    <asset id="factory" src="images/factory.jpg"/>
+    <asset id="mountains" src="images/mountains.jpg"/>
+    <asset id="drone" src="audio/drone.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+
+  <music src="drone" start="0" loop="1" vol="0.9"/>
+
+  <overlay>
+    <rect x="0" y="0" w="1920" h="1080" fill="url(#vig)"/>
+    <!-- film grain: specks that change 12 times a second -->
+    <group opacity="0.5">
+      <circle repeat="70" as="g" x="=1920*rand(g*3.1 + floor(t*12))" y="=1080*rand(g*7.7 + floor(t*12) + 0.5)" r="=0.8 + 1.6*rand(g + floor(t*12))" fill="=rand(g*1.3 + floor(t*12)) &gt; 0.5 ? '#ffffff55' : '#00000066'"/>
+    </group>
+    <!-- letterbox (2.39:1) -->
+    <rect x="0" y="0" w="1920" h="138" fill="#000000"/>
+    <rect x="0" y="942" w="1920" h="138" fill="#000000"/>
+    <text x="1840" y="1012" size="18" align="right" fill="#7d776c" font="Inter" text="@src" when="t &gt; 9"/>
+    <!-- fade from / to black -->
+    <rect x="0" y="0" w="1920" h="1080" fill="#000000" opacity="=max(1 - t/1.5, smooth(dur - 2, dur, t))"/>
+  </overlay>
+
+  <timeline>
+    <!-- 1 · title over a slow push into the galaxy -->
+    <scene id="title" dur="9" chapter="@ch1">
+      <say at="1.2" text="@vo1"/>
+      <image src="nebula" x="960" y="540" ax="0.5" ay="0.5" w="1920" h="1080" scale="=1.05 + 0.10*p" rot="=2*p"/>
+      <text x="960" y="500" size="110" weight="400" align="center" fill="$fg" text="@title" at="1.5" shadow="0 0 30 #000000">
+        <anim prop="opacity" from="0" to="1" dur="2"/>
+        <anim prop="opacity" from="1" to="0" at="5.5" dur="1.5"/>
+      </text>
+      <rect x="960" y="590" ax="0.5" w="0" h="2" fill="$gold" at="2.5">
+        <anim prop="w" from="0" to="420" dur="1.5" ease="io"/>
+        <anim prop="opacity" from="1" to="0" at="4" dur="1.5"/>
+      </rect>
+      <text x="960" y="640" size="34" italic="1" align="center" fill="$fg" text="@sub" at="3" shadow="0 0 20 #000000">
+        <anim prop="opacity" from="0" to="1" dur="1.5"/>
+        <anim prop="opacity" from="1" to="0" at="2.5" dur="1.5"/>
+      </text>
+    </scene>
+
+    <!-- 2 · the city glow -->
+    <scene id="glow" dur="10.5" chapter="@ch2">
+      <say at="0.8" text="@vo2"/>
+      <image src="nebula" x="960" y="540" ax="0.5" ay="0.5" w="1920" h="1080" scale="1.15" rot="2"/>
+      <image src="city" x="=960 + 60 - 120*p" y="540" ax="0.5" ay="0.5" w="1920" h="1080" scale="=1.18 - 0.08*p">
+        <anim prop="opacity" from="0" to="1" dur="1.6" ease="io"/>
+      </image>
+      <!-- sodium glow over the skyline -->
+      <rect x="0" y="0" w="1920" h="1080" fill="#ff9a3c" opacity="=0.10 + 0.03*sin(T*0.8)" blend="screen"/>
+      <group at="2.4">
+        <anim prop="opacity" from="0" to="1" dur="1.2"/>
+        <rect x="0" y="690" w="1100" h="230" fill="url(#fadeL)"/>
+        <text x="140" y="760" size="84" weight="700" fill="$fg" text="@l2a"/>
+        <rect x="140" y="815" w="300" h="2" fill="url(#rule)"/>
+        <text x="140" y="862" size="36" italic="1" fill="$fg" text="@l2b"/>
+      </group>
+    </scene>
+
+    <!-- 3 · the hidden galaxy: pan across -->
+    <scene id="galaxy" dur="10" chapter="@ch3">
+      <say at="0.6" text="@vo3"/>
+      <image src="city" x="900" y="540" ax="0.5" ay="0.5" w="1920" h="1080" scale="1.1"/>
+      <image src="nebula" x="=960 - 140 + 280*p" y="=540 + 40 - 80*p" ax="0.5" ay="0.5" w="1920" h="1080" scale="1.35">
+        <anim prop="opacity" from="0" to="1" dur="1.6" ease="io"/>
+      </image>
+      <!-- the city glow creeping up from the bottom, hiding the stars -->
+      <rect x="0" y="=1080 - 420*ease((T - 4)/3, 'io')" w="1920" h="700" fill="#ff9a3c" opacity="0.35" blur="60" blend="screen"/>
+      <group at="2.2">
+        <anim prop="opacity" from="0" to="1" dur="1.2"/>
+        <rect x="0" y="690" w="1100" h="230" fill="url(#fadeL)"/>
+        <text x="140" y="760" size="84" weight="700" fill="$fg" text="@l3a"/>
+        <rect x="140" y="815" w="300" h="2" fill="url(#rule)"/>
+        <text x="140" y="862" size="36" italic="1" fill="$fg" text="@l3b"/>
+      </group>
+    </scene>
+
+    <!-- 4 · always on -->
+    <scene id="always" dur="10.5" chapter="@ch4">
+      <say at="0.6" text="@vo4"/>
+      <image src="nebula" x="1100" y="500" ax="0.5" ay="0.5" w="1920" h="1080" scale="1.35"/>
+      <image src="factory" x="960" y="540" ax="0.5" ay="0.5" w="1920" h="1080" scale="=1.25 - 0.15*p">
+        <anim prop="opacity" from="0" to="1" dur="1.6" ease="io"/>
+      </image>
+      <rect x="0" y="0" w="1920" h="1080" fill="#0a1a2a" opacity="0.25" blend="multiply"/>
+      <group at="3">
+        <anim prop="opacity" from="0" to="1" dur="1.2"/>
+        <rect x="0" y="690" w="1300" h="230" fill="url(#fadeL)"/>
+        <text x="140" y="760" size="84" weight="700" fill="$fg" text="@l4a"/>
+        <rect x="140" y="815" w="300" h="2" fill="url(#rule)"/>
+        <text x="140" y="862" size="34" italic="1" fill="$fg" text="@l4b"/>
+      </group>
+    </scene>
+
+    <!-- 5 · the reserves: a slow tilt up the valley -->
+    <scene id="reserves" dur="10.5" chapter="@ch5">
+      <say at="0.6" text="@vo5"/>
+      <image src="factory" x="960" y="540" ax="0.5" ay="0.5" w="1920" h="1080" scale="1.1"/>
+      <image src="mountains" x="960" y="=540 - 50 + 100*p" ax="0.5" ay="0.5" w="1920" h="1080" scale="=1.12 + 0.06*p">
+        <anim prop="opacity" from="0" to="1" dur="1.8" ease="io"/>
+      </image>
+      <!-- first stars appearing over the ridge -->
+      <circle repeat="40" as="s" x="=1920*rand(s*2.3)" y="=150 + 260*rand(s*5.1)" r="=1 + 1.8*rand(s*9.7)" fill="#ffffff"
+              opacity="=clamp((T - 3 - rand(s)*4)/1.5, 0, 1)*(0.6 + 0.4*sin(T*3 + s))"/>
+      <group at="2.6">
+        <anim prop="opacity" from="0" to="1" dur="1.2"/>
+        <rect x="0" y="690" w="1100" h="230" fill="url(#fadeL)"/>
+        <text x="140" y="760" size="84" weight="700" fill="$fg" text="@l5a"/>
+        <rect x="140" y="815" w="300" h="2" fill="url(#rule)"/>
+        <text x="140" y="862" size="36" italic="1" fill="$fg" text="@l5b"/>
+      </group>
+    </scene>
+
+    <!-- 6 · turning it down -->
+    <scene id="end" dur="10" chapter="@ch6">
+      <say at="0.6" text="@vo6"/>
+      <image src="mountains" x="960" y="540" ax="0.5" ay="0.5" w="1920" h="1080" scale="1.18"/>
+      <image src="nebula" x="960" y="540" ax="0.5" ay="0.5" w="1920" h="1080" scale="=1.3 - 0.2*p" rot="=-3 + 3*p">
+        <anim prop="opacity" from="0" to="1" dur="2.2" ease="io"/>
+      </image>
+      <text x="960" y="540" size="76" weight="400" italic="1" align="center" fill="$fg" text="@end1" at="5.2" shadow="0 0 30 #000000">
+        <anim prop="opacity" from="0" to="1" dur="1.5"/>
+      </text>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/documentary-ken-burns/en/vo1.051c7b5950.ogg" dur="5.31" hash="051c7b5950" engine="kokoro:bm_daniel"/>
+    <voice say="vo2" lang="en" src="voice/documentary-ken-burns/en/vo2.be67117ddb.ogg" dur="7.11" hash="be67117ddb" engine="kokoro:bm_daniel"/>
+    <voice say="vo3" lang="en" src="voice/documentary-ken-burns/en/vo3.5d7f246bbe.ogg" dur="6.51" hash="5d7f246bbe" engine="kokoro:bm_daniel"/>
+    <voice say="vo4" lang="en" src="voice/documentary-ken-burns/en/vo4.90089b7d0d.ogg" dur="7.41" hash="90089b7d0d" engine="kokoro:bm_daniel"/>
+    <voice say="vo5" lang="en" src="voice/documentary-ken-burns/en/vo5.6e447f79c9.ogg" dur="6.71" hash="6e447f79c9" engine="kokoro:bm_daniel"/>
+    <voice say="vo6" lang="en" src="voice/documentary-ken-burns/en/vo6.c6b2e4475e.ogg" dur="5.11" hash="c6b2e4475e" engine="kokoro:bm_daniel"/>
+  </voices>
+</tsvg>

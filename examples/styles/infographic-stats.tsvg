@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: infographic stats. Flat colour blocks, big numbers that count up, icon arrays (repeat),
+     a donut built from circle from/to, labelled sections. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_bella"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.25" sfx="0.6"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="paper" bg="#fbf4e8" fg="#1f2a44" muted="#7c8190" ink="#1f2a44" coral="#ef6f53" teal="#2a9d8f" mustard="#f4b942" sky="#8ecae6" card="#ffffff" line="#eadfcb"/>
+  </themes>
+
+  <strings>
+    <s id="title" en="Food waste,&#10;by the numbers"/>
+    <s id="kick" en="INFOGRAPHIC"/>
+    <s id="ch1" en="Intro"/><s id="ch2" en="How much"/><s id="ch3" en="1 in 5"/><s id="ch4" en="Where"/>
+    <s id="ch5" en="The cost"/><s id="ch6" en="At home"/><s id="ch7" en="Takeaway"/>
+    <s id="n1u" en="billion tonnes"/>
+    <s id="n1l" en="of food wasted worldwide in one year (2022)"/>
+    <s id="n1b" en="kg per person, every year"/>
+    <s id="f1" en="1 in 5"/>
+    <s id="f1l" en="of all food that reaches shops and homes is thrown away"/>
+    <s id="f1k" en="= 1 plate of 5"/>
+    <s id="d0" en="Where it is wasted"/>
+    <s id="d1" en="Households"/><s id="d2" en="Restaurants &amp; canteens"/><s id="d3" en="Shops"/>
+    <s id="c1" en="million people"/><s id="c1l" en="faced hunger in the same year"/>
+    <s id="c2" en="of global greenhouse emissions"/><s id="c2l" en="come from food that is lost or wasted"/>
+    <s id="h0" en="Three habits that cut household waste"/>
+    <s id="h1" en="Plan"/><s id="h1l" en="Shop with a list for the week"/>
+    <s id="h2" en="Store"/><s id="h2l" en="Coldest shelf for meat, crisper for greens"/>
+    <s id="h3" en="Reuse"/><s id="h3l" en="Leftovers night, once a week"/>
+    <s id="o1" en="Waste less. Feed more."/>
+    <s id="src" en="Figures: UN food waste index, 2024 edition (rounded)."/>
+    <s id="vo1" en="Food waste, by the numbers. Five figures that show how much we throw away, and where."/>
+    <s id="vo2" en="In one year the world wasted about one point oh five billion tonnes of food. That's around one hundred and thirty kilos for every person."/>
+    <s id="vo3" en="Put another way: of all the food that reaches shops and homes, roughly one plate in five ends up in the bin."/>
+    <s id="vo4" en="Most of it isn't shops or restaurants. Sixty percent is wasted at home, in our own kitchens."/>
+    <s id="vo5" en="Meanwhile seven hundred and eighty three million people went hungry, and wasted food drives up to a tenth of global emissions."/>
+    <s id="vo6" en="The good news: three simple habits make a real dent. Plan your shop, store food properly, and have a leftovers night."/>
+    <s id="vo7" en="Waste less, feed more. Small changes in a billion kitchens add up."/>
+  </strings>
+
+  <defs>
+    <symbol id="person">
+      <circle y="-26" r="13" fill="$teal"/>
+      <rect x="-17" y="-8" w="34" h="40" r="12" fill="$teal"/>
+    </symbol>
+    <linear id="band" x1="0" y1="0" x2="1920" y2="0"><stop at="0" color="$coral"/><stop at="1" color="$mustard"/></linear>
+  </defs>
+
+  <assets>
+    <asset id="bright" src="audio/bright.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+    <font family="Anton" src="fonts/Anton.ttf"/>
+  </assets>
+
+  <music src="bright" start="0" loop="1" vol="0.6"/>
+
+  <!-- the same frame on every scene: top band, footer source -->
+  <backdrop>
+    <rect x="0" y="0" w="=W" h="14" fill="url(#band)"/>
+    <text x="80" y="1036" size="20" fill="$muted" text="@src"/>
+    <group x="1840" y="1036">
+      <circle repeat="7" as="k" x="=-k*28" r="7" fill="=k == 6 - min(6, floor(t/9.2)) ? $coral : $line"/>
+    </group>
+  </backdrop>
+
+  <timeline>
+    <!-- 1 · title -->
+    <scene id="intro" dur="7.5" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.4" src="pop"/>
+      <group x="1360" y="540">
+        <circle r="=290*ease((T - 0.2)/0.9, 'back')" fill="$mustard"/>
+        <!-- a plate: 81 % of the food stays, the 19 % slice slides off -->
+        <group scale="=ease((T - 0.4)/0.9, 'back')">
+          <circle r="250" fill="#ffffff" shadow="0 16 40 #1f2a4433"/>
+          <circle r="200" fill="none" stroke="$line" sw="6"/>
+          <circle r="170" from="68" to="160" fill="$teal"/>
+          <circle r="170" from="160" to="250" fill="$sky"/>
+          <circle r="170" from="250" to="360" fill="$mustard"/>
+          <group x="=60*ease((T - 2)/0.8, 'io')" y="=-50*ease((T - 2)/0.8, 'io')" rot="=12*ease((T - 2)/0.8, 'io')">
+            <circle r="170" from="0" to="68" fill="$coral" stroke="#ffffff" sw="6"/>
+          </group>
+        </group>
+        <!-- orbiting stat chips -->
+        <group at="1.4" rot="=-6 + 3*sin(T)">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <rect x="-430" y="170" w="220" h="90" r="45" fill="$coral" shadow="0 10 20 #1f2a4433"/>
+          <text x="-320" y="215" size="44" weight="700" align="center" fill="#ffffff" font="Space Grotesk" text="19%"/>
+        </group>
+        <group at="1.8" rot="=5 + 3*sin(T + 1)">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <rect x="190" y="-290" w="220" h="90" r="45" fill="$teal" shadow="0 10 20 #1f2a4433"/>
+          <text x="300" y="-245" size="44" weight="700" align="center" fill="#ffffff" font="Space Grotesk" text="1.05 bn"/>
+        </group>
+      </group>
+      <text x="120" y="330" size="28" weight="800" fill="$coral" text="@kick" font="Space Grotesk">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+      </text>
+      <text x="120" y="500" size="120" weight="700" lh="1.0" fill="$ink" font="Space Grotesk" text="@title">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <anim prop="x" from="80" to="120" dur="0.7"/>
+      </text>
+      <group x="120" y="680" at="1">
+        <rect repeat="3" as="k" x="=k*70" w="56" h="12" r="6" fill="=k == 0 ? $coral : k == 1 ? $mustard : $teal">
+          <anim prop="w" from="0" to="56" dur="0.4"/>
+        </rect>
+      </group>
+    </scene>
+
+    <!-- 2 · how much: a big counting number -->
+    <scene id="much" dur="10" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="0.3" src="blip"/>
+      <rect x="0" y="0" w="900" h="=H" fill="$coral">
+        <anim prop="w" from="0" to="900" dur="0.6" ease="io"/>
+      </rect>
+      <text x="450" y="430" size="300" weight="700" align="center" fill="#ffffff" font="Anton" text="{fmt(1.05*ease((T - 0.5)/2.2, 'out'), 2)}"/>
+      <text x="450" y="650" size="60" weight="700" align="center" fill="#ffffff" font="Space Grotesk" text="@n1u" at="0.8">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+      </text>
+      <text x="450" y="740" size="32" maxw="700" align="center" fill="#ffffffdd" text="@n1l" at="1.2">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+      </text>
+      <!-- right: per person, bins stacking up -->
+      <group x="1050" y="300" at="3.5">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <text x="0" y="0" size="180" weight="700" fill="$ink" font="Anton" text="{fmt(132*ease((T - 3.5)/1.6, 'out'), 0)}"/>
+        <text x="0" y="140" size="40" weight="600" fill="$ink" text="@n1b"/>
+      </group>
+      <group x="1050" y="560">
+        <group repeat="13" as="k" x="=(k % 7)*112" y="=floor(k/7)*150">
+          <group at="=4 + k*0.12">
+            <anim prop="scale" from="0" to="1" dur="0.35" ease="back"/>
+            <rect x="0" y="20" w="80" h="100" r="10" fill="=k == 12 ? $mustard : $teal"/>
+            <rect x="-8" y="6" w="96" h="16" r="6" fill="$ink"/>
+            <rect x="32" y="-4" w="16" h="10" r="3" fill="$ink"/>
+            <text x="40" y="72" size="24" weight="700" align="center" fill="#ffffff" text="{k == 12 ? '2kg' : '10kg'}"/>
+          </group>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 3 · 1 in 5: icon array of plates -->
+    <scene id="onein5" dur="9" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <text x="120" y="300" size="220" weight="700" fill="$coral" font="Anton" text="@f1">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <anim prop="scale" from="1.2" to="1" dur="0.6" ease="back"/>
+      </text>
+      <text x="120" y="490" size="44" maxw="640" lh="1.2" weight="600" fill="$ink" text="@f1l" at="0.6">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+      </text>
+      <group x="120" y="680" at="4.5">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <circle x="30" y="0" r="26" fill="$coral"/>
+        <text x="80" y="0" size="34" weight="700" fill="$coral" text="@f1k"/>
+      </group>
+      <!-- 10 × 5 plates; every fifth one is binned -->
+      <group x="990" y="250">
+        <group repeat="50" as="k" x="=(k % 10)*86" y="=floor(k/10)*130">
+          <group at="=0.6 + k*0.035">
+            <anim prop="scale" from="0" to="1" dur="0.3" ease="back"/>
+            <circle r="34" fill="=k % 5 == 2 &amp;&amp; T &gt; 3.2 + k*0.03 ? $coral : '#ffffff'" stroke="$line" sw="3"/>
+            <circle r="20" fill="none" stroke="=k % 5 == 2 &amp;&amp; T &gt; 3.2 + k*0.03 ? '#ffffff88' : $line" sw="3"/>
+            <line x1="44" y1="-20" x2="44" y2="20" stroke="$muted" sw="4" opacity="0.6"/>
+          </group>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 4 · where: donut -->
+    <scene id="where" dur="9.5" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="0.8" src="pop"/><sfx at="2.0" src="pop"/><sfx at="2.8" src="pop"/>
+      <text x="120" y="160" size="64" weight="700" fill="$ink" font="Space Grotesk" text="@d0">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+      </text>
+      <group x="620" y="590">
+        <circle r="310" fill="$line"/>
+        <circle r="310" from="0" to="=216*ease((T - 0.6)/1.2, 'io')" fill="$coral"/>
+        <circle r="310" from="216" to="=216 + 101*ease((T - 1.8)/0.8, 'io')" fill="$mustard" when="T &gt; 1.8"/>
+        <circle r="310" from="317" to="=317 + 43*ease((T - 2.6)/0.6, 'io')" fill="$teal" when="T &gt; 2.6"/>
+        <circle r="180" fill="$bg"/>
+        <text y="-10" size="120" weight="700" align="center" fill="$coral" font="Anton" text="{fmt(60*ease((T - 0.6)/1.2, 'io'), 0)}%"/>
+        <text y="80" size="32" weight="600" align="center" fill="$ink" text="@d1"/>
+      </group>
+      <!-- legend -->
+      <group x="1100" y="380">
+        <group at="0.8">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="40" to="0" dur="0.4"/>
+          <rect w="40" h="40" r="8" y="-20" fill="$coral"/>
+          <text x="70" y="0" size="44" weight="700" fill="$ink" text="@d1"/>
+          <text x="680" y="0" size="56" weight="700" align="right" fill="$coral" font="Space Grotesk" text="60%"/>
+        </group>
+        <group y="160" at="2">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="40" to="0" dur="0.4"/>
+          <rect w="40" h="40" r="8" y="-20" fill="$mustard"/>
+          <text x="70" y="0" size="44" weight="700" fill="$ink" text="@d2"/>
+          <text x="680" y="0" size="56" weight="700" align="right" fill="#c58f13" font="Space Grotesk" text="28%"/>
+        </group>
+        <group y="320" at="2.8">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="40" to="0" dur="0.4"/>
+          <rect w="40" h="40" r="8" y="-20" fill="$teal"/>
+          <text x="70" y="0" size="44" weight="700" fill="$ink" text="@d3"/>
+          <text x="680" y="0" size="56" weight="700" align="right" fill="$teal" font="Space Grotesk" text="12%"/>
+        </group>
+        <line x1="0" y1="80" x2="680" y2="80" stroke="$line" sw="3"/>
+        <line x1="0" y1="240" x2="680" y2="240" stroke="$line" sw="3"/>
+      </group>
+    </scene>
+
+    <!-- 5 · the cost: two stat cards -->
+    <scene id="cost" dur="11" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <group x="120" y="200">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect w="800" h="680" r="28" fill="$card" shadow="0 20 50 #1f2a4422"/>
+        <rect w="800" h="16" r="8" fill="$teal"/>
+        <text x="60" y="190" size="190" weight="700" fill="$teal" font="Anton" text="{fmt(783*ease((T - 0.6)/1.8, 'out'), 0)}"/>
+        <text x="60" y="330" size="52" weight="700" fill="$ink" text="@c1"/>
+        <text x="60" y="400" size="34" fill="$muted" text="@c1l"/>
+        <!-- 1 person icon = 50 million -->
+        <group x="90" y="510">
+          <use ref="person" repeat="16" as="k" x="=(k % 8)*82" y="=floor(k/8)*84" opacity="=T &gt; 0.8 + k*0.1 ? 1 : 0.15"/>
+        </group>
+      </group>
+      <group x="1000" y="200" at="5.4">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <anim prop="y" from="240" to="200" dur="0.5"/>
+        <rect w="800" h="680" r="28" fill="$card" shadow="0 20 50 #1f2a4422"/>
+        <rect w="800" h="16" r="8" fill="$coral"/>
+        <text x="60" y="190" size="190" weight="700" fill="$coral" font="Anton" text="8–10%"/>
+        <text x="60" y="330" size="40" maxw="700" weight="700" fill="$ink" text="@c2"/>
+        <text x="60" y="400" size="34" maxw="700" fill="$muted" text="@c2l"/>
+        <!-- smoke stack bar: 10 cells, one filled -->
+        <group x="60" y="520">
+          <rect repeat="10" as="k" x="=k*68" w="58" h="90" r="10" fill="=k == 0 ? $coral : $line"/>
+          <rect x="0" w="58" h="=90*ease((T - 6.2)/0.6,'out')" r="10" fill="$coral"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 6 · at home: three labelled sections -->
+    <scene id="home" dur="10" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <text x="=W/2" y="170" size="60" weight="700" align="center" fill="$ink" font="Space Grotesk" text="@h0">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+      </text>
+      <!-- Plan -->
+      <group x="200" y="300" at="3.2">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="340" to="300" dur="0.5"/>
+        <rect w="460" h="560" r="28" fill="$card" shadow="0 20 50 #1f2a4422"/>
+        <circle x="230" y="150" r="90" fill="$mustard"/>
+        <rect x="185" y="95" w="90" h="115" r="8" fill="#ffffff"/>
+        <line repeat="4" as="k" x1="200" x2="260" y1="=120 + k*22" y2="=120 + k*22" stroke="$ink" sw="5"/>
+        <text x="60" y="320" size="30" weight="800" fill="$mustard" font="Space Grotesk" text="{'01'}"/>
+        <text x="60" y="380" size="56" weight="700" fill="$ink" text="@h1"/>
+        <text x="60" y="460" size="32" maxw="360" fill="$muted" text="@h1l"/>
+      </group>
+      <!-- Store -->
+      <group x="730" y="300" at="4.6">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="340" to="300" dur="0.5"/>
+        <rect w="460" h="560" r="28" fill="$card" shadow="0 20 50 #1f2a4422"/>
+        <circle x="230" y="150" r="90" fill="$sky"/>
+        <rect x="190" y="85" w="80" h="130" r="12" fill="#ffffff"/>
+        <line x1="190" y1="130" x2="270" y2="130" stroke="$ink" sw="4"/>
+        <line x1="205" y1="100" x2="205" y2="118" stroke="$ink" sw="4"/>
+        <line x1="205" y1="145" x2="205" y2="170" stroke="$ink" sw="4"/>
+        <text x="60" y="320" size="30" weight="800" fill="#4a9cc4" font="Space Grotesk" text="{'02'}"/>
+        <text x="60" y="380" size="56" weight="700" fill="$ink" text="@h2"/>
+        <text x="60" y="460" size="32" maxw="360" fill="$muted" text="@h2l"/>
+      </group>
+      <!-- Reuse -->
+      <group x="1260" y="300" at="6">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="340" to="300" dur="0.5"/>
+        <rect w="460" h="560" r="28" fill="$card" shadow="0 20 50 #1f2a4422"/>
+        <circle x="230" y="150" r="90" fill="$teal"/>
+        <path x="230" y="150" d="M -40 0 A 40 40 0 1 1 0 40" fill="none" stroke="#ffffff" sw="10" rot="=T*40"/>
+        <path x="230" y="150" d="M -56 -6 L -40 14 L -22 -6" fill="none" stroke="#ffffff" sw="10" rot="=T*40"/>
+        <text x="60" y="320" size="30" weight="800" fill="$teal" font="Space Grotesk" text="{'03'}"/>
+        <text x="60" y="380" size="56" weight="700" fill="$ink" text="@h3"/>
+        <text x="60" y="460" size="32" maxw="360" fill="$muted" text="@h3l"/>
+      </group>
+    </scene>
+
+    <!-- 7 · takeaway -->
+    <scene id="outro" dur="7" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="0.3" src="ding"/>
+      <rect x="0" y="0" w="=W" h="=H" fill="$ink"/>
+      <group x="=W/2" y="=H/2 - 60">
+        <circle repeat="3" as="k" x="=(k - 1)*170" y="200" r="=50*ease((T - 1 - k*0.2)/0.5, 'back')" fill="=k == 0 ? $coral : k == 1 ? $mustard : $teal"/>
+      </group>
+      <text x="=W/2" y="=H/2 - 100" size="130" weight="700" align="center" fill="#ffffff" font="Space Grotesk" text="@o1">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <anim prop="scale" from="0.9" to="1" dur="0.8" ease="back"/>
+      </text>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/infographic-stats/en/vo1.d4c35a10e1.ogg" dur="5.31" hash="d4c35a10e1" engine="kokoro:af_bella"/>
+    <voice say="vo2" lang="en" src="voice/infographic-stats/en/vo2.c46e2801b7.ogg" dur="8.31" hash="c46e2801b7" engine="kokoro:af_bella"/>
+    <voice say="vo3" lang="en" src="voice/infographic-stats/en/vo3.b6891dd79a.ogg" dur="6.51" hash="b6891dd79a" engine="kokoro:af_bella"/>
+    <voice say="vo4" lang="en" src="voice/infographic-stats/en/vo4.adae1f818a.ogg" dur="6.01" hash="adae1f818a" engine="kokoro:af_bella"/>
+    <voice say="vo5" lang="en" src="voice/infographic-stats/en/vo5.5fac633b90.ogg" dur="7.81" hash="5fac633b90" engine="kokoro:af_bella"/>
+    <voice say="vo6" lang="en" src="voice/infographic-stats/en/vo6.d40db984ce.ogg" dur="7.41" hash="d40db984ce" engine="kokoro:af_bella"/>
+    <voice say="vo7" lang="en" src="voice/infographic-stats/en/vo7.405948a099.ogg" dur="4.61" hash="405948a099" engine="kokoro:af_bella"/>
+  </voices>
+</tsvg>

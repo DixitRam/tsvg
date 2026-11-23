@@ -1,0 +1,11 @@
+{
+  "id": "line-chart-reveal",
+  "title": "Line chart reveal",
+  "category": "Data & science",
+  "summary": "Global temperature 1880\u20132024: the line draws through a growing clip, a shaded area follows, annotations pop in, warming stripes close.",
+  "duration": 66,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 40
+}

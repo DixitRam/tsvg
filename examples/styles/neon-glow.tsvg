@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.2" title="@title" font="Space Grotesk">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full (voice + music + sfx)"/><choice id="speech" label="Speech only"/><choice id="ambient" label="No voice"/></option>
+    <option id="theme" label="Theme" default="night"><choice id="night" label="Night"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.35" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.6" sfx="0.7"/>
+  </mixes>
+  <themes>
+    <theme id="night" bg="#120a0c" fg="#f4e9ff" muted="#a08a9a" accent="#ff4fd8"/>
+  </themes>
+  <strings>
+    <s id="title" en="How a neon sign glows"/>
+    <s id="ch1" en="Neon"/>
+    <s id="ch2" en="The tube"/>
+    <s id="ch3" en="Voltage"/>
+    <s id="ch4" en="Light"/>
+    <s id="ch5" en="Colours"/>
+    <s id="ch6" en="Bending"/>
+    <s id="ch7" en="Open"/>
+    <s id="t1" en="neon"/>
+    <s id="t2" en="how a sign glows"/>
+    <s id="l_glass" en="sealed glass tube"/>
+    <s id="l_elec" en="electrode"/>
+    <s id="l_gas" en="neon gas, almost a vacuum"/>
+    <s id="volts" en="15,000 V"/>
+    <s id="l_e" en="electrons race through"/>
+    <s id="l_hit" en="and hit gas atoms"/>
+    <s id="up" en="kick up"/>
+    <s id="down" en="fall back = light"/>
+    <s id="c_neon" en="neon"/>
+    <s id="c_neon2" en="red-orange"/>
+    <s id="c_arg" en="argon + mercury"/>
+    <s id="c_arg2" en="blue"/>
+    <s id="c_ph" en="coated glass"/>
+    <s id="c_ph2" en="any colour"/>
+    <s id="bend" en="bent by hand over a flame"/>
+    <s id="open" en="open"/>
+    <s id="late" en="late"/>
+    <s id="o2" en="glass · gas · voltage"/>
+    <s id="vo_intro" en="A neon sign is a glass tube, a little gas, and a lot of voltage. Here is how it glows."/>
+    <s id="vo_tube" en="The tube is sealed glass with an electrode at each end, filled with neon at very low pressure."/>
+    <s id="vo_volt" en="A transformer puts about fifteen thousand volts across it. Electrons race through and slam into the gas atoms."/>
+    <s id="vo_light" en="Each hit kicks an electron up to a higher orbit. When it falls back, the energy leaves as light."/>
+    <s id="vo_col" en="Pure neon glows red orange. Argon with a drop of mercury glows blue. Coatings inside the glass make every other colour."/>
+    <s id="vo_bend" en="Each letter is bent by hand over a flame, then pumped empty and filled with gas."/>
+    <s id="vo_outro" en="Glass, gas and voltage. That is the glow."/>
+  </strings>
+  <defs>
+<radial id="vig" x="960" y="540" r="1150"><stop at="0.35" color="#000" opacity="0"/><stop at="1" color="#000" opacity="0.85"/></radial>
+  </defs>
+  <assets>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+    <font family="Caveat" src="fonts/Caveat.ttf"/>
+    <asset id="drone" src="audio/drone.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+
+  </assets>
+  <music src="drone" start="0" loop="1" vol="0.6"/>
+  <backdrop>
+
+    <group repeat="24" as="row" y="=row*46">
+      <rect repeat="17" as="c" x="=c*120 - (row % 2)*60 + 3" y="3" w="114" h="40" r="3" fill="=mix('#2a1519', '#3b1e22', rand(row*31 + c))"/>
+    </group>
+    <rect w="1920" h="1080" fill="url(#vig)"/>
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="9" chapter="@ch1">
+      <say at="0.5" text="@vo_intro"/>
+
+      <sfx at="0.6" src="click"/><sfx at="1.6" src="click"/>
+      <ellipse x="960" y="470" rx="700" ry="380" fill="#ff4fd8" opacity="=0.18*step(0.8, T)" blur="80"/>
+      <line x1="760" y1="0" x2="760" y2="250" stroke="#555" sw="4"/><line x1="1160" y1="0" x2="1160" y2="250" stroke="#555" sw="4"/>
+      
+        <group opacity="=T &lt; 0.4 ? 0.06 : T &lt; 1.3 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 3)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 3))">
+          <rect x="560" y="250" w="800" h="440" r="40" fill="none" stroke="#3fa9ff" sw="30" opacity="0.35" blur="24"/>
+          <rect x="560" y="250" w="800" h="440" r="40" fill="none" stroke="#3fa9ff" sw="12" opacity="0.8" blur="6"/>
+          <rect x="560" y="250" w="800" h="440" r="40" fill="none" stroke="#3fa9ff" sw="6"/>
+          <rect x="560" y="250" w="800" h="440" r="40" fill="none" stroke="#ffffff" sw="2.0999999999999996" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 0.4 ? 0.06 : T &lt; 1.3 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 3)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 3))))"><rect x="560" y="250" w="800" h="440" r="40" fill="none" stroke="#8a8a8a" sw="6"/></group>
+      
+        <group opacity="=T &lt; 0.8 ? 0.06 : T &lt; 1.7000000000000002 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 7)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 7))">
+          <text x="960" y="440" size="260" font="Caveat" weight="700" align="center" text="@t1" fill="none" stroke="#ff4fd8" sw="30" opacity="0.35" blur="24" />
+          <text x="960" y="440" size="260" font="Caveat" weight="700" align="center" text="@t1" fill="none" stroke="#ff4fd8" sw="12" opacity="0.8" blur="6" />
+          <text x="960" y="440" size="260" font="Caveat" weight="700" align="center" text="@t1" fill="none" stroke="#ff4fd8" sw="6" />
+          <text x="960" y="440" size="260" font="Caveat" weight="700" align="center" text="@t1" fill="none" stroke="#ffffff" sw="2.0999999999999996" opacity="0.85" />
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 0.8 ? 0.06 : T &lt; 1.7000000000000002 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 7)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 7))))"><text x="960" y="440" size="260" font="Caveat" weight="700" align="center" text="@t1" fill="none" stroke="#8a8a8a" sw="6" /></group>
+      
+        <group opacity="=T &lt; 1.8 ? 0.06 : T &lt; 2.7 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 11)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 11))">
+          <text x="960" y="600" size="76" font="Space Grotesk" weight="500" align="center" text="@t2" fill="none" stroke="#ffd23f" sw="15" opacity="0.35" blur="12" />
+          <text x="960" y="600" size="76" font="Space Grotesk" weight="500" align="center" text="@t2" fill="none" stroke="#ffd23f" sw="6" opacity="0.8" blur="3" />
+          <text x="960" y="600" size="76" font="Space Grotesk" weight="500" align="center" text="@t2" fill="none" stroke="#ffd23f" sw="3" />
+          <text x="960" y="600" size="76" font="Space Grotesk" weight="500" align="center" text="@t2" fill="none" stroke="#ffffff" sw="1.5" opacity="0.85" />
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 1.8 ? 0.06 : T &lt; 2.7 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 11)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 11))))"><text x="960" y="600" size="76" font="Space Grotesk" weight="500" align="center" text="@t2" fill="none" stroke="#8a8a8a" sw="3" /></group>
+    </scene>
+    <scene id="tube" dur="10" chapter="@ch2">
+      <say at="0.5" text="@vo_tube"/>
+
+      <sfx at="1.2" src="click"/>
+      
+      <group x="360" y="520">
+        <rect x="-30" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/><rect x="1190" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/>
+        <rect x="0" y="-30" w="1200" h="60" r="30" fill="#ffffff10" stroke="#ffffff40" sw="3"/>
+        
+        <group opacity="=T &lt; 1.2 ? 0.06 : T &lt; 2.1 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 21)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 21))">
+          <line x1="20" y1="0" x2="1180" y2="0" stroke="#ff5a36" sw="70" opacity="0.35" blur="56"/>
+          <line x1="20" y1="0" x2="1180" y2="0" stroke="#ff5a36" sw="28" opacity="0.8" blur="14"/>
+          <line x1="20" y1="0" x2="1180" y2="0" stroke="#ff5a36" sw="14"/>
+          <line x1="20" y1="0" x2="1180" y2="0" stroke="#ffffff" sw="4.8999999999999995" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 1.2 ? 0.06 : T &lt; 2.1 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 21)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 21))))"><line x1="20" y1="0" x2="1180" y2="0" stroke="#8a8a8a" sw="14"/></group>
+      </group>
+      <path d="M 960 490 L 960 330" stroke="#f4e9ff" sw="3" fill="none" at="2.4"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+      <text x="960" y="290" size="48" font="Space Grotesk" weight="500" align="center" fill="#f4e9ff" text="@l_glass" at="2.6" shadow="0 0 14 #ff5a36"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <path d="M 340 560 L 340 720 L 400 720" stroke="#f4e9ff" sw="3" fill="none" at="3.6"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+      <text x="420" y="720" size="44" font="Space Grotesk" weight="500" align="left" fill="#f4e9ff" text="@l_elec" at="3.8" shadow="0 0 14 #ff5a36"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <path d="M 1300 545 L 1300 720 L 1240 720" stroke="#f4e9ff" sw="3" fill="none" at="5"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+      <text x="1220" y="720" size="44" font="Space Grotesk" weight="500" align="right" fill="#f4e9ff" text="@l_gas" at="5.2" shadow="0 0 14 #ff5a36"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <circle repeat="14" as="k" x="=400 + rand(k)*1120 + 8*sin(t*2 + k)" y="=520 + 18*sin(t*1.5 + k*2)" r="6" fill="#ffffff" opacity="0.35" at="5"/>
+    </scene>
+    <scene id="volt" dur="11" chapter="@ch3">
+      <say at="0.5" text="@vo_volt"/>
+
+      <sfx at="0.8" src="blip"/>
+      <group x="960" y="230" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="-170" y="-80" w="340" h="160" r="14" fill="#2a2a30" stroke="#666" sw="4"/>
+        
+        <group opacity="=T &lt; 0.8 ? 0.06 : T &lt; 1.7000000000000002 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 31)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 31))">
+          <text size="64" font="Space Grotesk" weight="700" align="center" text="@volts" fill="none" stroke="#ffd23f" sw="12.5" opacity="0.35" blur="10"/>
+          <text size="64" font="Space Grotesk" weight="700" align="center" text="@volts" fill="none" stroke="#ffd23f" sw="5" opacity="0.8" blur="2.5"/>
+          <text size="64" font="Space Grotesk" weight="700" align="center" text="@volts" fill="none" stroke="#ffd23f" sw="2.5"/>
+          <text size="64" font="Space Grotesk" weight="700" align="center" text="@volts" fill="none" stroke="#ffffff" sw="1.5" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 0.8 ? 0.06 : T &lt; 1.7000000000000002 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 31)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 31))))"><text size="64" font="Space Grotesk" weight="700" align="center" text="@volts" fill="none" stroke="#8a8a8a" sw="2.5"/></group>
+      </group>
+      <path d="M 790 230 L 300 230 L 300 520 L 330 520 M 1130 230 L 1620 230 L 1620 520 L 1590 520" stroke="#777" sw="6" fill="none"/>
+      
+      <group x="360" y="520">
+        <rect x="-30" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/><rect x="1190" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/>
+        <rect x="0" y="-30" w="1200" h="60" r="30" fill="#ffffff10" stroke="#ffffff40" sw="3"/>
+        
+        <group opacity="=T &lt; 0.8 ? 0.06 : T &lt; 1.7000000000000002 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 33)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 33))">
+          <line x1="20" y1="0" x2="1180" y2="0" stroke="#ff5a36" sw="70" opacity="0.35" blur="56"/>
+          <line x1="20" y1="0" x2="1180" y2="0" stroke="#ff5a36" sw="28" opacity="0.8" blur="14"/>
+          <line x1="20" y1="0" x2="1180" y2="0" stroke="#ff5a36" sw="14"/>
+          <line x1="20" y1="0" x2="1180" y2="0" stroke="#ffffff" sw="4.8999999999999995" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 0.8 ? 0.06 : T &lt; 1.7000000000000002 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 33)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 33))))"><line x1="20" y1="0" x2="1180" y2="0" stroke="#8a8a8a" sw="14"/></group>
+      </group>
+      <circle x="520" y="520" r="=16 + 10*exp(-pow((fract(T*0.9 + 0) - 0.5)*8, 2))" fill="=mix('#5a2a2a', '#ffd0b0', exp(-pow((fract(T*0.9 + 0) - 0.5)*8, 2)))" at="2"/><circle x="760" y="520" r="=16 + 10*exp(-pow((fract(T*0.9 + 0.23) - 0.5)*8, 2))" fill="=mix('#5a2a2a', '#ffd0b0', exp(-pow((fract(T*0.9 + 0.23) - 0.5)*8, 2)))" at="2"/><circle x="1000" y="520" r="=16 + 10*exp(-pow((fract(T*0.9 + 0.46) - 0.5)*8, 2))" fill="=mix('#5a2a2a', '#ffd0b0', exp(-pow((fract(T*0.9 + 0.46) - 0.5)*8, 2)))" at="2"/><circle x="1240" y="520" r="=16 + 10*exp(-pow((fract(T*0.9 + 0.6900000000000001) - 0.5)*8, 2))" fill="=mix('#5a2a2a', '#ffd0b0', exp(-pow((fract(T*0.9 + 0.6900000000000001) - 0.5)*8, 2)))" at="2"/><circle x="1480" y="520" r="=16 + 10*exp(-pow((fract(T*0.9 + 0.92) - 0.5)*8, 2))" fill="=mix('#5a2a2a', '#ffd0b0', exp(-pow((fract(T*0.9 + 0.92) - 0.5)*8, 2)))" at="2"/>
+      <circle repeat="10" as="k" x="=380 + fract(T*0.45 + k/10)*1160" y="=520 + 12*sin(T*9 + k*3)" r="6" fill="#bfe6ff" shadow="0 0 12 #3fa9ff" at="2"/>
+      <text x="360" y="700" size="46" font="Space Grotesk" weight="500" align="left" fill="#f4e9ff" text="@l_e" at="2.6" shadow="0 0 14 #3fa9ff"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="1560" y="700" size="46" font="Space Grotesk" weight="500" align="right" fill="#f4e9ff" text="@l_hit" at="4.6" shadow="0 0 14 #ff5a36"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+    <scene id="light" dur="10" chapter="@ch4">
+      <say at="0.5" text="@vo_light"/>
+
+      <sfx at="2.2" src="ding"/>
+      <group x="760" y="540">
+        <circle r="34" fill="#ff8a65" shadow="0 0 30 #ff5a36"/>
+        <circle r="150" fill="none" stroke="#ffffff55" sw="3"/><circle r="270" fill="none" stroke="#ffffff55" sw="3"/>
+        <circle x="=lerp(150, 270, ease((T-1)/0.4,'out')*(1 - ease((T-2.4)/0.3,'in')))*cos(T*1.2)" y="=lerp(150, 270, ease((T-1)/0.4,'out')*(1 - ease((T-2.4)/0.3,'in')))*sin(T*1.2)" r="16" fill="#bfe6ff" shadow="0 0 16 #3fa9ff"/>
+      </group>
+      
+        <group opacity="=T &lt; 2.5 ? 0.06 : T &lt; 3.4 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 41)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 41))">
+          <path d="M 1060 540 C 1090 500 1110 500 1140 540 C 1170 580 1190 580 1220 540 C 1250 500 1270 500 1300 540 C 1330 580 1350 580 1380 540 C 1410 500 1430 500 1460 540" fill="none" stroke="#ff5a36" sw="30" opacity="0.35" blur="24"/>
+          <path d="M 1060 540 C 1090 500 1110 500 1140 540 C 1170 580 1190 580 1220 540 C 1250 500 1270 500 1300 540 C 1330 580 1350 580 1380 540 C 1410 500 1430 500 1460 540" fill="none" stroke="#ff5a36" sw="12" opacity="0.8" blur="6"/>
+          <path d="M 1060 540 C 1090 500 1110 500 1140 540 C 1170 580 1190 580 1220 540 C 1250 500 1270 500 1300 540 C 1330 580 1350 580 1380 540 C 1410 500 1430 500 1460 540" fill="none" stroke="#ff5a36" sw="6"/>
+          <path d="M 1060 540 C 1090 500 1110 500 1140 540 C 1170 580 1190 580 1220 540 C 1250 500 1270 500 1300 540 C 1330 580 1350 580 1380 540 C 1410 500 1430 500 1460 540" fill="none" stroke="#ffffff" sw="2.0999999999999996" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 2.5 ? 0.06 : T &lt; 3.4 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 41)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 41))))"><path d="M 1060 540 C 1090 500 1110 500 1140 540 C 1170 580 1190 580 1220 540 C 1250 500 1270 500 1300 540 C 1330 580 1350 580 1380 540 C 1410 500 1430 500 1460 540" fill="none" stroke="#8a8a8a" sw="6"/></group>
+      <path d="M 1460 540 L 1430 515 M 1460 540 L 1430 565" stroke="#ff5a36" sw="6" fill="none" at="2.6" shadow="0 0 14 #ff5a36"/>
+      <text x="760" y="200" size="52" font="Space Grotesk" weight="500" align="center" fill="#f4e9ff" text="@up" at="1" shadow="0 0 14 #3fa9ff"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="1260" y="680" size="52" font="Space Grotesk" weight="500" align="center" fill="#f4e9ff" text="@down" at="2.7" shadow="0 0 14 #ff5a36"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+    <scene id="col" dur="12" chapter="@ch5">
+      <say at="0.5" text="@vo_col"/>
+
+      <sfx at="0.6" src="click"/><sfx at="2.6" src="click"/><sfx at="5" src="click"/>
+      
+      
+      <group x="560" y="260">
+        <rect x="-30" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/><rect x="790" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/>
+        <rect x="0" y="-30" w="800" h="60" r="30" fill="#ffffff10" stroke="#ffffff40" sw="3"/>
+        
+        <group opacity="=T &lt; 0.6 ? 0.06 : T &lt; 1.5 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 51)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 51))">
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#ff5a36" sw="70" opacity="0.35" blur="56"/>
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#ff5a36" sw="28" opacity="0.8" blur="14"/>
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#ff5a36" sw="14"/>
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#ffffff" sw="4.8999999999999995" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 0.6 ? 0.06 : T &lt; 1.5 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 51)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 51))))"><line x1="20" y1="0" x2="780" y2="0" stroke="#8a8a8a" sw="14"/></group>
+      </group>
+      <text x="500" y="260" size="46" font="Space Grotesk" weight="500" align="right" fill="#f4e9ff" text="@c_neon" at="0.6" shadow="0 0 14 #ff5a36"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="1420" y="260" size="46" font="Space Grotesk" weight="500" align="left" fill="#f4e9ff" text="@c_neon2" at="0.8999999999999999" shadow="0 0 14 #ff5a36"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      
+      <group x="560" y="510">
+        <rect x="-30" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/><rect x="790" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/>
+        <rect x="0" y="-30" w="800" h="60" r="30" fill="#ffffff10" stroke="#ffffff40" sw="3"/>
+        
+        <group opacity="=T &lt; 2.6 ? 0.06 : T &lt; 3.5 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 52)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 52))">
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#3fa9ff" sw="70" opacity="0.35" blur="56"/>
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#3fa9ff" sw="28" opacity="0.8" blur="14"/>
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#3fa9ff" sw="14"/>
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#ffffff" sw="4.8999999999999995" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 2.6 ? 0.06 : T &lt; 3.5 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 52)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 52))))"><line x1="20" y1="0" x2="780" y2="0" stroke="#8a8a8a" sw="14"/></group>
+      </group>
+      <text x="500" y="510" size="46" font="Space Grotesk" weight="500" align="right" fill="#f4e9ff" text="@c_arg" at="2.6" shadow="0 0 14 #3fa9ff"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="1420" y="510" size="46" font="Space Grotesk" weight="500" align="left" fill="#f4e9ff" text="@c_arg2" at="2.9" shadow="0 0 14 #3fa9ff"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      
+      <group x="560" y="760">
+        <rect x="-30" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/><rect x="790" y="-34" w="40" h="68" r="8" fill="#9aa0a8"/>
+        <rect x="0" y="-30" w="800" h="60" r="30" fill="#ffffff10" stroke="#ffffff40" sw="3"/>
+        
+        <group opacity="=T &lt; 5 ? 0.06 : T &lt; 5.9 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 53)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 53))">
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#39ff88" sw="70" opacity="0.35" blur="56"/>
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#39ff88" sw="28" opacity="0.8" blur="14"/>
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#39ff88" sw="14"/>
+          <line x1="20" y1="0" x2="780" y2="0" stroke="#ffffff" sw="4.8999999999999995" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 5 ? 0.06 : T &lt; 5.9 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 53)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 53))))"><line x1="20" y1="0" x2="780" y2="0" stroke="#8a8a8a" sw="14"/></group>
+      </group>
+      <text x="500" y="760" size="46" font="Space Grotesk" weight="500" align="right" fill="#f4e9ff" text="@c_ph" at="5" shadow="0 0 14 #39ff88"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="1420" y="760" size="46" font="Space Grotesk" weight="500" align="left" fill="#f4e9ff" text="@c_ph2" at="5.3" shadow="0 0 14 #39ff88"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <group opacity="=step(6.5, T)">
+        <group opacity="=T &lt; 6.5 ? 0.06 : T &lt; 7.4 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 59)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 59))">
+          <line x1="580" y1="760" x2="1340" y2="760" stroke="=mix('#39ff88', '#ff4fd8', 0.5 + 0.5*sin(T*2))" sw="70" opacity="0.35" blur="56"/>
+          <line x1="580" y1="760" x2="1340" y2="760" stroke="=mix('#39ff88', '#ff4fd8', 0.5 + 0.5*sin(T*2))" sw="28" opacity="0.8" blur="14"/>
+          <line x1="580" y1="760" x2="1340" y2="760" stroke="=mix('#39ff88', '#ff4fd8', 0.5 + 0.5*sin(T*2))" sw="14"/>
+          <line x1="580" y1="760" x2="1340" y2="760" stroke="#ffffff" sw="4.8999999999999995" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 6.5 ? 0.06 : T &lt; 7.4 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 59)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 59))))"><line x1="580" y1="760" x2="1340" y2="760" stroke="#8a8a8a" sw="14"/></group></group>
+    </scene>
+    <scene id="bend" dur="9" chapter="@ch6">
+      <say at="0.5" text="@vo_bend"/>
+
+      <sfx at="0.5" src="whoosh"/>
+      <group x="960" y="820">
+        <path d="M -60 0 C -60 -60 -20 -110 0 -170 C 20 -110 60 -60 60 0 Z" fill="#3fa9ff" opacity="0.5" blur="10" scale="=1 + 0.1*sin(T*13)"/>
+        <path d="M -30 0 C -30 -40 -10 -70 0 -110 C 10 -70 30 -40 30 0 Z" fill="#bfe6ff" opacity="0.8" scale="=1 + 0.12*sin(T*17)"/>
+        <rect x="-90" y="0" w="180" h="40" r="8" fill="#555"/>
+      </group>
+      <path d="M 560 520 C 560 400 760 400 760 520 C 760 640 560 640 560 520 M 820 640 L 820 420 C 900 400 960 440 940 500 C 920 560 860 560 820 540 M 1000 520 C 1000 440 1160 440 1160 520 L 1000 520 C 1000 620 1120 630 1160 580 M 1220 640 L 1220 440 C 1260 420 1380 420 1380 500 L 1380 640" fill="none" stroke="#ffd0b0" sw="10" opacity="0.6"><anim prop="draw" from="0" to="1" at="0.6" dur="4.5" ease="linear"/></path>
+      
+        <group opacity="=T &lt; 5.6 ? 0.06 : T &lt; 6.5 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 61)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 61))">
+          <path d="M 560 520 C 560 400 760 400 760 520 C 760 640 560 640 560 520 M 820 640 L 820 420 C 900 400 960 440 940 500 C 920 560 860 560 820 540 M 1000 520 C 1000 440 1160 440 1160 520 L 1000 520 C 1000 620 1120 630 1160 580 M 1220 640 L 1220 440 C 1260 420 1380 420 1380 500 L 1380 640" fill="none" stroke="#ff4fd8" sw="40" opacity="0.35" blur="32"/>
+          <path d="M 560 520 C 560 400 760 400 760 520 C 760 640 560 640 560 520 M 820 640 L 820 420 C 900 400 960 440 940 500 C 920 560 860 560 820 540 M 1000 520 C 1000 440 1160 440 1160 520 L 1000 520 C 1000 620 1120 630 1160 580 M 1220 640 L 1220 440 C 1260 420 1380 420 1380 500 L 1380 640" fill="none" stroke="#ff4fd8" sw="16" opacity="0.8" blur="8"/>
+          <path d="M 560 520 C 560 400 760 400 760 520 C 760 640 560 640 560 520 M 820 640 L 820 420 C 900 400 960 440 940 500 C 920 560 860 560 820 540 M 1000 520 C 1000 440 1160 440 1160 520 L 1000 520 C 1000 620 1120 630 1160 580 M 1220 640 L 1220 440 C 1260 420 1380 420 1380 500 L 1380 640" fill="none" stroke="#ff4fd8" sw="8"/>
+          <path d="M 560 520 C 560 400 760 400 760 520 C 760 640 560 640 560 520 M 820 640 L 820 420 C 900 400 960 440 940 500 C 920 560 860 560 820 540 M 1000 520 C 1000 440 1160 440 1160 520 L 1000 520 C 1000 620 1120 630 1160 580 M 1220 640 L 1220 440 C 1260 420 1380 420 1380 500 L 1380 640" fill="none" stroke="#ffffff" sw="2.8" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 5.6 ? 0.06 : T &lt; 6.5 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 61)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 61))))"><path d="M 560 520 C 560 400 760 400 760 520 C 760 640 560 640 560 520 M 820 640 L 820 420 C 900 400 960 440 940 500 C 920 560 860 560 820 540 M 1000 520 C 1000 440 1160 440 1160 520 L 1000 520 C 1000 620 1120 630 1160 580 M 1220 640 L 1220 440 C 1260 420 1380 420 1380 500 L 1380 640" fill="none" stroke="#8a8a8a" sw="8"/></group>
+      <text x="960" y="220" size="52" font="Space Grotesk" weight="500" align="center" fill="#f4e9ff" text="@bend" at="0.4" shadow="0 0 14 #ff4fd8"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+    <scene id="outro" dur="7" chapter="@ch7">
+      <say at="0.5" text="@vo_outro"/>
+
+      <sfx at="0.4" src="click"/><sfx at="1.4" src="click"/>
+      <ellipse x="960" y="440" rx="700" ry="360" fill="#ff5a36" opacity="=0.2*step(0.6, T)" blur="80"/>
+      
+        <group opacity="=T &lt; 0.3 ? 0.06 : T &lt; 1.2 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 71)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 71))">
+          <rect x="560" y="230" w="800" h="420" r="210" fill="none" stroke="#ff5a36" sw="35" opacity="0.35" blur="28"/>
+          <rect x="560" y="230" w="800" h="420" r="210" fill="none" stroke="#ff5a36" sw="14" opacity="0.8" blur="7"/>
+          <rect x="560" y="230" w="800" h="420" r="210" fill="none" stroke="#ff5a36" sw="7"/>
+          <rect x="560" y="230" w="800" h="420" r="210" fill="none" stroke="#ffffff" sw="2.4499999999999997" opacity="0.85"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 0.3 ? 0.06 : T &lt; 1.2 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 71)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 71))))"><rect x="560" y="230" w="800" h="420" r="210" fill="none" stroke="#8a8a8a" sw="7"/></group>
+      
+        <group opacity="=T &lt; 0.6 ? 0.06 : T &lt; 1.5 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 73)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 73))">
+          <text x="960" y="420" size="240" font="Caveat" weight="700" align="center" text="@open" fill="none" stroke="#ff5a36" sw="35" opacity="0.35" blur="28" />
+          <text x="960" y="420" size="240" font="Caveat" weight="700" align="center" text="@open" fill="none" stroke="#ff5a36" sw="14" opacity="0.8" blur="7" />
+          <text x="960" y="420" size="240" font="Caveat" weight="700" align="center" text="@open" fill="none" stroke="#ff5a36" sw="7" />
+          <text x="960" y="420" size="240" font="Caveat" weight="700" align="center" text="@open" fill="none" stroke="#ffffff" sw="2.4499999999999997" opacity="0.85" />
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 0.6 ? 0.06 : T &lt; 1.5 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 73)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 73))))"><text x="960" y="420" size="240" font="Caveat" weight="700" align="center" text="@open" fill="none" stroke="#8a8a8a" sw="7" /></group>
+      
+        <group opacity="=T &lt; 1.4 ? 0.06 : T &lt; 2.3 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 77)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 77))">
+          <text x="1300" y="280" size="90" font="Caveat" weight="700" align="center" text="@late" fill="none" stroke="#ffd23f" sw="20" opacity="0.35" blur="16" rot="-12"/>
+          <text x="1300" y="280" size="90" font="Caveat" weight="700" align="center" text="@late" fill="none" stroke="#ffd23f" sw="8" opacity="0.8" blur="4" rot="-12"/>
+          <text x="1300" y="280" size="90" font="Caveat" weight="700" align="center" text="@late" fill="none" stroke="#ffd23f" sw="4" rot="-12"/>
+          <text x="1300" y="280" size="90" font="Caveat" weight="700" align="center" text="@late" fill="none" stroke="#ffffff" sw="1.5" opacity="0.85" rot="-12"/>
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 1.4 ? 0.06 : T &lt; 2.3 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 77)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 77))))"><text x="1300" y="280" size="90" font="Caveat" weight="700" align="center" text="@late" fill="none" stroke="#8a8a8a" sw="4" rot="-12"/></group>
+      
+        <group opacity="=T &lt; 2 ? 0.06 : T &lt; 2.9 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 79)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 79))">
+          <text x="960" y="800" size="60" font="Space Grotesk" weight="500" align="center" text="@o2" fill="none" stroke="#3fa9ff" sw="12.5" opacity="0.35" blur="10" />
+          <text x="960" y="800" size="60" font="Space Grotesk" weight="500" align="center" text="@o2" fill="none" stroke="#3fa9ff" sw="5" opacity="0.8" blur="2.5" />
+          <text x="960" y="800" size="60" font="Space Grotesk" weight="500" align="center" text="@o2" fill="none" stroke="#3fa9ff" sw="2.5" />
+          <text x="960" y="800" size="60" font="Space Grotesk" weight="500" align="center" text="@o2" fill="none" stroke="#ffffff" sw="1.5" opacity="0.85" />
+        </group>
+        <group opacity="=0.25*(1 - (T &lt; 2 ? 0.06 : T &lt; 2.9 ? 0.06 + 0.94*step(0.45, rand(floor(T*18) + 79)) : 1 - 0.35*step(0.992, rand(floor(T*12) + 79))))"><text x="960" y="800" size="60" font="Space Grotesk" weight="500" align="center" text="@o2" fill="none" stroke="#8a8a8a" sw="2.5" /></group>
+    </scene>
+  </timeline>
+  <overlay>
+
+  </overlay>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_bend" lang="en" src="voice/neon-glow/en/vo_bend.25ac37c004.ogg" dur="5.41" hash="25ac37c004" engine="kokoro:am_michael"/>
+    <voice say="vo_col" lang="en" src="voice/neon-glow/en/vo_col.2ff9d167ee.ogg" dur="8.71" hash="2ff9d167ee" engine="kokoro:am_michael"/>
+    <voice say="vo_intro" lang="en" src="voice/neon-glow/en/vo_intro.71b048d04f.ogg" dur="6.11" hash="71b048d04f" engine="kokoro:am_michael"/>
+    <voice say="vo_light" lang="en" src="voice/neon-glow/en/vo_light.21c52f0d91.ogg" dur="6.51" hash="21c52f0d91" engine="kokoro:am_michael"/>
+    <voice say="vo_outro" lang="en" src="voice/neon-glow/en/vo_outro.be826d80aa.ogg" dur="3.11" hash="be826d80aa" engine="kokoro:am_michael"/>
+    <voice say="vo_tube" lang="en" src="voice/neon-glow/en/vo_tube.cc337c5662.ogg" dur="6.11" hash="cc337c5662" engine="kokoro:am_michael"/>
+    <voice say="vo_volt" lang="en" src="voice/neon-glow/en/vo_volt.2eed3845d2.ogg" dur="7.61" hash="2eed3845d2" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

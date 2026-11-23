@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: screencast tutorial. A vector app window recorded on screen: an arrow cursor glides along keyframed paths,
+     click ripples, typed input with a caret, a dropdown, drag and drop, a REC badge and "Step n of 5" captions. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="dark"><choice id="dark" label="Dark"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.18" sfx="0.8"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="dark" bg="#1b1d24" fg="#1d2130" muted="#6b7385" panel="#ffffff" accent="#4f6bff" desk="#23262f" app="#f5f6f9" side="#eceef3" line="#dfe2ea" hi="#ffd84d" red="#ef4444" good="#16a34a"/>
+  </themes>
+  <strings>
+    <s id="title" en="How to create and assign a ticket"/>
+    <s id="ch1" en="Intro"/><s id="ch2" en="New ticket"/><s id="ch3" en="Title"/><s id="ch4" en="Assignee"/>
+    <s id="ch5" en="Priority and create"/><s id="ch6" en="Move it"/><s id="ch7" en="Recap"/>
+    <s id="howto" en="HOW TO"/>
+    <s id="s0" en="Create and assign a ticket in 5 steps"/>
+    <s id="s1" en="Click + New ticket"/>
+    <s id="s2" en="Type a clear title"/>
+    <s id="s3" en="Pick an assignee"/>
+    <s id="s4" en="Set priority then click Create"/>
+    <s id="s5" en="Drag it to In progress"/>
+    <s id="sn1" en="STEP 1 / 5"/><s id="sn2" en="STEP 2 / 5"/><s id="sn3" en="STEP 3 / 5"/><s id="sn4" en="STEP 4 / 5"/><s id="sn5" en="STEP 5 / 5"/>
+    <s id="board" en="Web app · Sprint 14"/>
+    <s id="newt" en="+  New ticket"/>
+    <s id="todo" en="To do"/><s id="prog" en="In progress"/><s id="rev" en="Review"/><s id="done" en="Done"/>
+    <s id="k1" en="Update pricing page copy"/><s id="k2" en="Add CSV export to reports"/>
+    <s id="k3" en="Dark mode for settings"/><s id="k4" en="Rate-limit the search API"/>
+    <s id="k5" en="Onboarding email #2"/><s id="k6" en="Fix avatar upload on iOS"/>
+    <s id="typed" en="Fix login redirect on Safari"/>
+    <s id="mtitle" en="New ticket"/>
+    <s id="lTitle" en="Title"/><s id="lAss" en="Assignee"/><s id="lPri" en="Priority"/>
+    <s id="ph1" en="What needs doing?"/><s id="ph2" en="Unassigned"/>
+    <s id="low" en="Low"/><s id="med" en="Medium"/><s id="high" en="High"/>
+    <s id="create" en="Create"/><s id="cancel" en="Cancel"/>
+    <s id="p1" en="Asha Patel"/><s id="p2" en="Ben Ortiz"/><s id="p3" en="Chen Wei"/><s id="p4" en="Dana Kim"/>
+    <s id="recap" en="Recap"/>
+    <s id="vo1" en="In this short tutorial you will create a ticket, assign it, and move it across the board. Five steps."/>
+    <s id="vo2" en="Step one. In the top right corner of the board, click New ticket. A form opens."/>
+    <s id="vo3" en="Step two. Click the title field and type a short, clear title. Say what is broken, and where."/>
+    <s id="vo4" en="Step three. Open the assignee list and pick the person who will own it. Here, that is Chen."/>
+    <s id="vo5" en="Step four. Set the priority to High, then click Create. The ticket lands in the To do column."/>
+    <s id="vo6" en="Step five. When work starts, drag the card into In progress. Everyone on the board sees it move."/>
+    <s id="vo7" en="That is it. New ticket, title, assignee, priority, and move. You are ready to go."/>
+  </strings>
+
+  <defs>
+    <data id="steps" v="Click + New ticket, Type a clear title, Pick an assignee, Set priority then click Create, Drag it to In progress"/>
+    <data id="people" v="Asha Patel, Ben Ortiz, Chen Wei, Dana Kim"/>
+    <linear id="deskg" x1="0" y1="0" x2="0" y2="1080"><stop at="0" color="#2a2e3a"/><stop at="1" color="#16181f"/></linear>
+    <symbol id="cursor"><path d="M0 0 L0 34 L9 26 L16 41 L22 38 L15 24 L27 24 Z" fill="#111" stroke="#fff" sw="2.5" shadow="0 4 8 #0007"/></symbol>
+    <symbol id="hand"><path d="M8 14 V2 a4 4 0 0 1 8 0 V12 a4 4 0 0 1 8 0 V14 a4 4 0 0 1 8 0 V16 a4 4 0 0 1 7 1 V30 Q39 44 26 46 H18 Q8 45 3 34 L-2 24 a4 4 0 0 1 7 -4 L8 24 Z" fill="#fff" stroke="#111" sw="2.5" shadow="0 4 8 #0007"/></symbol>
+    <!-- a card: 300×110 -->
+    <symbol id="cardbg"><rect w="300" h="110" r="12" fill="$panel" stroke="$line" sw="1.5" shadow="0 3 8 #0000000f"/></symbol>
+    <!-- the app window with its static board -->
+    <symbol id="app">
+      <rect x="160" y="130" w="1600" h="860" r="16" fill="$app" shadow="0 40 90 #0009"/>
+      <rect x="160" y="130" w="1600" h="44" r="16" fill="#e3e5ec"/><rect x="160" y="160" w="1600" h="14" fill="#e3e5ec"/>
+      <circle x="190" y="152" r="7" fill="#ff5f57"/><circle x="214" y="152" r="7" fill="#febc2e"/><circle x="238" y="152" r="7" fill="#28c840"/>
+      <text x="960" y="152" size="17" align="center" fill="$muted" text="Board · Web app"/>
+      <!-- sidebar -->
+      <rect x="160" y="174" w="260" h="816" fill="$side"/>
+      <rect x="184" y="196" w="36" h="36" r="9" fill="$accent"/><path d="M193 214 l6 6 l12 -12" stroke="#fff" sw="4" fill="none"/>
+      <text x="234" y="214" size="22" weight="700" fill="$fg" text="Acme"/>
+      <rect x="176" y="262" w="228" h="44" r="10" fill="#dfe3ff"/>
+      <text x="200" y="284" size="19" weight="600" fill="$accent" text="Web app"/>
+      <text x="200" y="334" size="19" fill="$muted" text="Mobile"/>
+      <text x="200" y="380" size="19" fill="$muted" text="Platform"/>
+      <text x="200" y="426" size="19" fill="$muted" text="Design"/>
+      <!-- header -->
+      <text x="460" y="210" size="30" weight="800" fill="$fg" text="@board"/>
+      <rect x="1540" y="182" w="190" h="50" r="12" fill="$accent"/>
+      <text x="1635" y="207" size="20" weight="700" align="center" fill="#fff" text="@newt"/>
+      <!-- columns -->
+      <group repeat="4" as="c">
+        <rect x="=460 + c*324" y="250" w="300" h="720" r="14" fill="#e9ebf1"/>
+        <circle x="=482 + c*324" y="276" r="7" fill="=c == 0 ? '#94a3b8' : c == 1 ? '#4f6bff' : c == 2 ? '#f59e0b' : '#16a34a'"/>
+      </group>
+      <text x="498" y="276" size="20" weight="700" fill="$fg" text="@todo"/>
+      <text x="822" y="276" size="20" weight="700" fill="$fg" text="@prog"/>
+      <text x="1146" y="276" size="20" weight="700" fill="$fg" text="@rev"/>
+      <text x="1470" y="276" size="20" weight="700" fill="$fg" text="@done"/>
+      <use ref="cardbg" x="460" y="300"/><text x="480" y="332" size="20" weight="600" fill="$fg" text="@k1"/>
+      <rect x="480" y="362" w="70" h="26" r="13" fill="#e0f2fe"/><text x="515" y="375" size="14" weight="700" align="center" fill="#0369a1" text="copy"/>
+      <circle x="732" y="375" r="14" fill="#f59e0b"/>
+      <use ref="cardbg" x="460" y="430"/><text x="480" y="462" size="20" weight="600" fill="$fg" text="@k2"/>
+      <rect x="480" y="492" w="82" h="26" r="13" fill="#ede9fe"/><text x="521" y="505" size="14" weight="700" align="center" fill="#6d28d9" text="feature"/>
+      <circle x="732" y="505" r="14" fill="#10b981"/>
+      <use ref="cardbg" x="784" y="300"/><text x="804" y="332" size="20" weight="600" fill="$fg" text="@k3"/>
+      <rect x="804" y="362" w="58" h="26" r="13" fill="#fce7f3"/><text x="833" y="375" size="14" weight="700" align="center" fill="#be185d" text="ui"/>
+      <circle x="1056" y="375" r="14" fill="#6366f1"/>
+      <use ref="cardbg" x="1108" y="300"/><text x="1128" y="332" size="20" weight="600" fill="$fg" text="@k4"/>
+      <rect x="1128" y="362" w="70" h="26" r="13" fill="#dcfce7"/><text x="1163" y="375" size="14" weight="700" align="center" fill="#15803d" text="api"/>
+      <circle x="1380" y="375" r="14" fill="#f59e0b"/>
+      <use ref="cardbg" x="1432" y="300"/><text x="1452" y="332" size="20" weight="600" fill="$fg" text="@k5"/>
+      <circle x="1704" y="375" r="14" fill="#10b981"/>
+      <use ref="cardbg" x="1432" y="430"/><text x="1452" y="462" size="20" weight="600" fill="$fg" text="@k6"/>
+      <circle x="1704" y="505" r="14" fill="#6366f1"/>
+    </symbol>
+    <!-- the New ticket modal (dim layer included) -->
+    <symbol id="modal">
+      <rect x="160" y="174" w="1600" h="816" fill="#0f172a66"/>
+      <rect x="580" y="270" w="760" h="530" r="18" fill="$panel" shadow="0 30 70 #0006"/>
+      <text x="620" y="318" size="30" weight="800" fill="$fg" text="@mtitle"/>
+      <text x="620" y="368" size="18" weight="600" fill="$muted" text="@lTitle"/>
+      <rect x="620" y="385" w="680" h="60" r="10" fill="#fff" stroke="$line" sw="2"/>
+      <text x="620" y="483" size="18" weight="600" fill="$muted" text="@lAss"/>
+      <rect x="620" y="500" w="680" h="60" r="10" fill="#fff" stroke="$line" sw="2"/>
+      <path d="M1266 524 l10 10 l10 -10" stroke="$muted" sw="3" fill="none"/>
+      <text x="620" y="598" size="18" weight="600" fill="$muted" text="@lPri"/>
+      <rect x="620" y="615" w="110" h="50" r="25" fill="#f1f5f9"/><text x="675" y="640" size="19" weight="600" align="center" fill="$muted" text="@low"/>
+      <rect x="746" y="615" w="140" h="50" r="25" fill="#f1f5f9"/><text x="816" y="640" size="19" weight="600" align="center" fill="$muted" text="@med"/>
+      <rect x="902" y="615" w="120" h="50" r="25" fill="#f1f5f9"/><text x="962" y="640" size="19" weight="600" align="center" fill="$muted" text="@high"/>
+      <rect x="960" y="712" w="140" h="56" r="12" fill="#f1f5f9"/><text x="1030" y="740" size="20" weight="600" align="center" fill="$muted" text="@cancel"/>
+      <rect x="1120" y="712" w="180" h="56" r="12" fill="$accent"/><text x="1210" y="740" size="20" weight="700" align="center" fill="#fff" text="@create"/>
+    </symbol>
+    <!-- step caption bar above the window -->
+    <symbol id="rec">
+      <rect x="1600" y="40" w="160" h="48" r="24" fill="#00000066"/>
+      <circle x="1630" y="64" r="9" fill="$red" opacity="=0.4 + 0.6*(fract(t*0.8) &lt; 0.6 ? 1 : 0)"/>
+      <text x="1650" y="64" size="20" weight="700" font="JetBrains Mono" fill="#fff" text="{fmt(floor(t/60),0)}:{t % 60 &lt; 10 ? '0' : ''}{fmt(floor(t % 60),0)}"/>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="bed" src="audio/pad.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="typing" src="audio/typing.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+  </assets>
+
+  <music src="bed" start="0" loop="1" vol="0.6"/>
+
+  <backdrop>
+    <rect w="=W" h="=H" fill="url(#deskg)"/>
+  </backdrop>
+
+  <overlay>
+    <use ref="rec"/>
+  </overlay>
+
+  <timeline>
+    <!-- 1 · intro -->
+    <scene id="intro" dur="9" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group><anim prop="opacity" from="0" to="1" dur="0.8"/><use ref="app"/></group>
+      <rect x="160" y="174" w="1600" h="816" fill="#0f172acc" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.5"/></rect>
+      <group x="960" y="560" at="0.9">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <anim prop="y" from="600" to="560" dur="0.7"/>
+        <rect x="-90" y="-150" w="180" h="44" r="22" fill="$accent"/>
+        <text x="0" y="-128" size="22" weight="800" align="center" fill="#fff" text="@howto"/>
+        <text x="0" y="-30" size="72" weight="800" align="center" fill="#fff" text="@title"/>
+        <text x="0" y="60" size="34" align="center" fill="#c7cede" text="@s0"/>
+        <group y="150" repeat="5" as="k" x="=(k-2)*90">
+          <circle r="28" fill="=T &gt; 2 + k*0.4 ? '#4f6bff' : '#ffffff22'"/>
+          <text y="1" size="24" weight="800" align="center" fill="#fff" text="{k+1}"/>
+        </group>
+      </group>
+      <use ref="cursor" x="1000" y="760" at="2"><anim prop="opacity" from="0" to="1" dur="0.4"/></use>
+    </scene>
+
+    <!-- 2 · step 1: click + New ticket -->
+    <scene id="new" dur="8" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="2.6" src="click"/><sfx at="3" src="pop"/>
+      <use ref="app"/>
+      <group x="160" y="40"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="620" h="56" r="28" fill="#ffffff14"/>
+        <rect x="6" y="6" w="132" h="44" r="22" fill="$accent"/>
+        <text x="72" y="28" size="20" weight="800" align="center" fill="#fff" text="@sn1"/>
+        <text x="160" y="28" size="26" weight="600" fill="#fff" text="@s1"/>
+      </group>
+      <!-- hover glow on the button -->
+      <rect x="1532" y="174" w="206" h="66" r="16" fill="none" stroke="$hi" sw="4" at="2.2" dur="0.9"><anim prop="opacity" from="0" to="1" dur="0.2"/></rect>
+      <group at="3"><anim prop="opacity" from="0" to="1" dur="0.35"/><anim prop="scale" from="0.96" to="1" dur="0.4" ease="back"/><use ref="modal"/></group>
+      <circle x="1636" y="210" r="10" fill="none" stroke="$hi" sw="5" at="2.6" dur="0.7"><anim prop="r" from="8" to="60" dur="0.7"/><anim prop="opacity" from="1" to="0" dur="0.7"/></circle>
+      <use ref="cursor" x="1000" y="760">
+        <keys prop="x" ease="io" v="0.6: 1000; 1.4: 1250; 2.4: 1636"/>
+        <keys prop="y" ease="io" v="0.6: 760; 1.4: 420; 2.4: 210"/>
+        <keys prop="scale" v="2.55: 1; 2.65: 0.82; 2.8: 1"/>
+      </use>
+    </scene>
+
+    <!-- 3 · step 2: type the title -->
+    <scene id="type" dur="9" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="1.4" src="click"/><sfx at="1.9" src="typing" vol="0.8"/>
+      <use ref="app"/><use ref="modal"/>
+      <group x="160" y="40">
+        <rect w="620" h="56" r="28" fill="#ffffff14"/>
+        <rect x="6" y="6" w="132" h="44" r="22" fill="$accent"/>
+        <text x="72" y="28" size="20" weight="800" align="center" fill="#fff" text="@sn2"/>
+        <text x="160" y="28" size="26" weight="600" fill="#fff" text="@s2"/>
+      </group>
+      <text x="642" y="415" size="24" fill="#a0a7b8" text="@ph1" dur="1.5"/>
+      <rect x="620" y="385" w="680" h="60" r="10" fill="none" stroke="$accent" sw="3" at="1.4"/>
+      <rect x="618" y="383" w="684" h="64" r="12" fill="none" stroke="#4f6bff33" sw="8" at="1.4"/>
+      <!-- typed text: reveal by characters; a caret rides the end -->
+      <text x="642" y="415" size="24" weight="500" fill="$fg" text="@typed" at="1.9"><anim prop="reveal" from="0" to="1" dur="3.2" ease="linear"/></text>
+      <rect x="=642 + 296*clamp((T-1.9)/3.2,0,1) + 2" y="400" w="2.5" h="30" fill="$accent" at="1.5" opacity="=fract(T*1.6) &lt; 0.55 || (T &gt; 1.9 &amp;&amp; T &lt; 5.1) ? 1 : 0"/>
+      <use ref="cursor" x="1636" y="210">
+        <keys prop="x" ease="io" v="0.2: 1636; 1.3: 900"/>
+        <keys prop="y" ease="io" v="0.2: 210; 1.3: 420"/>
+        <keys prop="scale" v="1.35: 1; 1.45: 0.82; 1.6: 1"/>
+        <keys prop="opacity" v="1.8: 1; 2.2: 0"/>
+      </use>
+      <circle x="900" y="420" r="10" fill="none" stroke="$hi" sw="5" at="1.4" dur="0.7"><anim prop="r" from="8" to="56" dur="0.7"/><anim prop="opacity" from="1" to="0" dur="0.7"/></circle>
+      <!-- keystroke chips like a key-cast overlay -->
+      <group x="960" y="900" at="2" dur="3.2">
+        <rect x="-150" y="-30" w="300" h="60" r="14" fill="#000000aa"/>
+        <text x="0" y="0" size="26" weight="700" font="JetBrains Mono" align="center" fill="#fff" text="⌨  typing…"/>
+      </group>
+    </scene>
+
+    <!-- 4 · step 3: assignee dropdown -->
+    <scene id="assign" dur="9" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="1.3" src="click"/><sfx at="4.6" src="click"/>
+      <use ref="app"/><use ref="modal"/>
+      <group x="160" y="40">
+        <rect w="620" h="56" r="28" fill="#ffffff14"/>
+        <rect x="6" y="6" w="132" h="44" r="22" fill="$accent"/>
+        <text x="72" y="28" size="20" weight="800" align="center" fill="#fff" text="@sn3"/>
+        <text x="160" y="28" size="26" weight="600" fill="#fff" text="@s3"/>
+      </group>
+      <text x="642" y="415" size="24" weight="500" fill="$fg" text="@typed"/>
+      <text x="642" y="530" size="24" fill="#a0a7b8" text="@ph2" dur="4.7"/>
+      <group at="4.7">
+        <circle x="660" y="530" r="17" fill="#6366f1"/><text x="660" y="531" size="15" weight="800" align="center" fill="#fff" text="CW"/>
+        <text x="690" y="530" size="24" weight="600" fill="$fg" text="@p3"/>
+      </group>
+      <rect x="620" y="500" w="680" h="60" r="10" fill="none" stroke="$accent" sw="3" at="1.3"/>
+      <!-- the list -->
+      <group at="1.4" dur="3.4">
+        <anim prop="opacity" from="0" to="1" dur="0.25"/>
+        <rect x="620" y="568" w="680" h="236" r="12" fill="#fff" stroke="$line" sw="1.5" shadow="0 18 40 #0003"/>
+        <rect x="628" y="=576 + 56*clamp(floor((T-1.4)/0.75),0,2)" w="664" h="52" r="8" fill="#eef1ff"/>
+        <group repeat="4" as="k" y="=602 + k*56">
+          <circle x="660" r="17" fill="=k == 0 ? '#f59e0b' : k == 1 ? '#10b981' : k == 2 ? '#6366f1' : '#ec4899'"/>
+          <text x="660" y="1" size="15" weight="800" align="center" fill="#fff" text="=k == 0 ? 'AP' : k == 1 ? 'BO' : k == 2 ? 'CW' : 'DK'"/>
+          <text x="690" size="22" weight="500" fill="$fg" text="{data('people', k)}"/>
+        </group>
+      </group>
+      <use ref="cursor" x="900" y="420">
+        <keys prop="x" ease="io" v="0.3: 900; 1.2: 1100; 2.2: 1000; 3: 1020; 3.8: 1000; 4.5: 990"/>
+        <keys prop="y" ease="io" v="0.3: 420; 1.2: 530; 2.2: 606; 3: 662; 3.8: 718; 4.5: 718"/>
+        <keys prop="scale" v="1.25: 1; 1.35: 0.82; 1.5: 1; 4.55: 1; 4.65: 0.82; 4.8: 1"/>
+      </use>
+      <circle x="1100" y="530" r="10" fill="none" stroke="$hi" sw="5" at="1.3" dur="0.7"><anim prop="r" from="8" to="56" dur="0.7"/><anim prop="opacity" from="1" to="0" dur="0.7"/></circle>
+      <circle x="990" y="718" r="10" fill="none" stroke="$hi" sw="5" at="4.6" dur="0.7"><anim prop="r" from="8" to="56" dur="0.7"/><anim prop="opacity" from="1" to="0" dur="0.7"/></circle>
+    </scene>
+
+    <!-- 5 · step 4: priority + create; the card lands -->
+    <scene id="create" dur="9" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="1.4" src="click"/><sfx at="3.4" src="click"/><sfx at="4" src="ding"/>
+      <use ref="app"/>
+      <group x="160" y="40">
+        <rect w="620" h="56" r="28" fill="#ffffff14"/>
+        <rect x="6" y="6" w="132" h="44" r="22" fill="$accent"/>
+        <text x="72" y="28" size="20" weight="800" align="center" fill="#fff" text="@sn4"/>
+        <text x="160" y="28" size="26" weight="600" fill="#fff" text="@s4"/>
+      </group>
+      <group dur="3.8">
+        <keys prop="opacity" v="3.5: 1; 3.8: 0"/>
+        <use ref="modal"/>
+        <text x="642" y="415" size="24" weight="500" fill="$fg" text="@typed"/>
+        <circle x="660" y="530" r="17" fill="#6366f1"/><text x="660" y="531" size="15" weight="800" align="center" fill="#fff" text="CW"/>
+        <text x="690" y="530" size="24" weight="600" fill="$fg" text="@p3"/>
+        <group at="1.4">
+          <rect x="902" y="615" w="120" h="50" r="25" fill="$red"><anim prop="scale" from="0.9" to="1" dur="0.3" ease="back"/></rect>
+          <text x="962" y="640" size="19" weight="700" align="center" fill="#fff" text="@high"/>
+        </group>
+      </group>
+      <!-- the new card drops into To do -->
+      <group x="460" y="560" at="3.9">
+        <anim prop="y" from="520" to="560" dur="0.5" ease="back"/>
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="-6" y="-6" w="312" h="122" r="16" fill="none" stroke="$hi" sw="4" opacity="=clamp(1 - (T-4.6)/2, 0, 1)"/>
+        <use ref="cardbg"/>
+        <text x="20" y="32" size="20" weight="600" fill="$fg" text="@typed"/>
+        <rect x="20" y="62" w="62" h="26" r="13" fill="#fee2e2"/><text x="51" y="75" size="14" weight="700" align="center" fill="#b91c1c" text="high"/>
+        <rect x="92" y="62" w="54" h="26" r="13" fill="#fef3c7"/><text x="119" y="75" size="14" weight="700" align="center" fill="#b45309" text="bug"/>
+        <circle x="272" y="75" r="14" fill="#6366f1"/><text x="272" y="76" size="11" weight="800" align="center" fill="#fff" text="CW"/>
+      </group>
+      <use ref="cursor" x="990" y="718">
+        <keys prop="x" ease="io" v="0.3: 990; 1.3: 962; 2.4: 1100; 3.3: 1210; 4.6: 1300"/>
+        <keys prop="y" ease="io" v="0.3: 718; 1.3: 640; 2.4: 700; 3.3: 740; 4.6: 820"/>
+        <keys prop="scale" v="1.35: 1; 1.45: 0.82; 1.6: 1; 3.35: 1; 3.45: 0.82; 3.6: 1"/>
+      </use>
+      <circle x="962" y="640" r="10" fill="none" stroke="$hi" sw="5" at="1.4" dur="0.7"><anim prop="r" from="8" to="56" dur="0.7"/><anim prop="opacity" from="1" to="0" dur="0.7"/></circle>
+      <circle x="1210" y="740" r="10" fill="none" stroke="$hi" sw="5" at="3.4" dur="0.7"><anim prop="r" from="8" to="56" dur="0.7"/><anim prop="opacity" from="1" to="0" dur="0.7"/></circle>
+    </scene>
+
+    <!-- 6 · step 5: drag to In progress -->
+    <scene id="drag" dur="9" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="1.6" src="click"/><sfx at="4.2" src="pop"/>
+      <use ref="app"/>
+      <group x="160" y="40">
+        <rect w="620" h="56" r="28" fill="#ffffff14"/>
+        <rect x="6" y="6" w="132" h="44" r="22" fill="$accent"/>
+        <text x="72" y="28" size="20" weight="800" align="center" fill="#fff" text="@sn5"/>
+        <text x="160" y="28" size="26" weight="600" fill="#fff" text="@s5"/>
+      </group>
+      <!-- drop target hint -->
+      <rect x="784" y="430" w="300" h="110" r="12" fill="#4f6bff14" stroke="$accent" sw="2.5" at="1.8" dur="2.5"><anim prop="opacity" from="0" to="1" dur="0.3"/></rect>
+      <rect x="460" y="560" w="300" h="110" r="12" fill="none" stroke="#b6bccb" sw="2" at="1.8" dur="2.5"/>
+      <group x="460" y="560" rot="0">
+        <keys prop="x" ease="io" v="1.8: 460; 4.1: 784"/>
+        <keys prop="y" ease="io" v="1.8: 560; 4.1: 430"/>
+        <keys prop="rot" ease="io" v="1.8: 0; 2.2: 3; 3.8: 3; 4.2: 0"/>
+        <keys prop="scale" ease="io" v="1.7: 1; 1.9: 1.04; 4: 1.04; 4.2: 1"/>
+        <rect w="300" h="110" r="12" fill="$panel" stroke="$line" sw="1.5" shadow="=T &gt; 1.8 &amp;&amp; T &lt; 4.2 ? '0 24 40 #0004' : '0 3 8 #0000000f'"/>
+        <text x="20" y="32" size="20" weight="600" fill="$fg" text="@typed"/>
+        <rect x="20" y="62" w="62" h="26" r="13" fill="#fee2e2"/><text x="51" y="75" size="14" weight="700" align="center" fill="#b91c1c" text="high"/>
+        <rect x="92" y="62" w="54" h="26" r="13" fill="#fef3c7"/><text x="119" y="75" size="14" weight="700" align="center" fill="#b45309" text="bug"/>
+        <circle x="272" y="75" r="14" fill="#6366f1"/><text x="272" y="76" size="11" weight="800" align="center" fill="#fff" text="CW"/>
+      </group>
+      <use ref="cursor" x="1300" y="820" when="=T &lt; 1.6 || T &gt; 4.3">
+        <keys prop="x" ease="io" v="0.3: 1300; 1.5: 610; 4.3: 934; 5.4: 1180"/>
+        <keys prop="y" ease="io" v="0.3: 820; 1.5: 615; 4.3: 485; 5.4: 700"/>
+      </use>
+      <use ref="hand" x="600" y="606" when="=T &gt;= 1.6 &amp;&amp; T &lt;= 4.3">
+        <keys prop="x" ease="io" v="1.8: 600; 4.1: 924"/>
+        <keys prop="y" ease="io" v="1.8: 606; 4.1: 476"/>
+      </use>
+      <!-- path trace of the drag -->
+      <path d="M610 615 C 680 600, 840 520, 934 485" stroke="$hi" sw="4" fill="none" opacity="0.7" at="1.8" dur="2.5">
+        <anim prop="draw" from="0" to="1" dur="2.3" ease="io"/>
+      </path>
+    </scene>
+
+    <!-- 7 · recap -->
+    <scene id="recap" dur="7.5" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="0.9" src="pop"/><sfx at="1.3" src="pop"/><sfx at="1.7" src="pop"/><sfx at="2.1" src="pop"/><sfx at="2.5" src="pop"/>
+      <use ref="app"/>
+      <rect x="160" y="174" w="1600" h="816" fill="#0f172acc"><anim prop="opacity" from="0" to="1" dur="0.5"/></rect>
+      <group x="620" y="280">
+        <text x="0" y="0" size="64" weight="800" fill="#fff" text="@recap"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+        <group repeat="5" as="k" y="=140 + k*96" at="=0.9 + k*0.4">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <anim prop="x" from="-30" to="0" dur="0.4"/>
+          <circle x="24" r="24" fill="$good"/>
+          <path d="M13 1 l8 8 l15 -15" stroke="#fff" sw="5" fill="none"/>
+          <text x="72" size="36" weight="600" fill="#fff" text="{data('steps', k)}"/>
+        </group>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/screencast-cursor/en/vo1.8a5866ea4a.ogg" dur="6.71" hash="8a5866ea4a" engine="kokoro:am_michael"/>
+    <voice say="vo2" lang="en" src="voice/screencast-cursor/en/vo2.83f37c0521.ogg" dur="5.21" hash="83f37c0521" engine="kokoro:am_michael"/>
+    <voice say="vo3" lang="en" src="voice/screencast-cursor/en/vo3.60c3dd7720.ogg" dur="6.51" hash="60c3dd7720" engine="kokoro:am_michael"/>
+    <voice say="vo4" lang="en" src="voice/screencast-cursor/en/vo4.24e0099792.ogg" dur="5.81" hash="24e0099792" engine="kokoro:am_michael"/>
+    <voice say="vo5" lang="en" src="voice/screencast-cursor/en/vo5.0ff4986b3f.ogg" dur="6.51" hash="0ff4986b3f" engine="kokoro:am_michael"/>
+    <voice say="vo6" lang="en" src="voice/screencast-cursor/en/vo6.1c14724a65.ogg" dur="6.71" hash="1c14724a65" engine="kokoro:am_michael"/>
+    <voice say="vo7" lang="en" src="voice/screencast-cursor/en/vo7.a2bef96634.ogg" dur="5.41" hash="a2bef96634" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bf_emma"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full (voice + music + sfx)"/><choice id="speech" label="Speech only"/><choice id="ambient" label="No voice"/></option>
+    <option id="theme" label="Theme" default="paper"><choice id="paper" label="Paper"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.35" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.6" sfx="0.7"/>
+  </mixes>
+  <themes>
+    <theme id="paper" bg="#f2f0eb" fg="#111111" muted="#6b6b6b" accent="#e30613"/>
+  </themes>
+  <strings>
+    <s id="title" en="Maps that lie"/>
+    <s id="ch1" en="Maps that lie"/>
+    <s id="ch2" en="Geography"/>
+    <s id="ch3" en="Three angles"/>
+    <s id="ch4" en="Even spacing"/>
+    <s id="ch5" en="Colour"/>
+    <s id="ch6" en="Origin"/>
+    <s id="ch7" en="Order"/>
+    <s id="t1" en="Maps"/>
+    <s id="t2" en="that lie."/>
+    <s id="tsub" en="How transit diagrams trade distance for clarity"/>
+    <s id="h2" en="The real city"/>
+    <s id="b2" en="Stations bunch up downtown and thin out in the suburbs."/>
+    <s id="h3" en="0°, 45°, 90°"/>
+    <s id="b3" en="Every line is straightened to just three angles."/>
+    <s id="h4" en="Equal steps"/>
+    <s id="b4" en="Even spacing gives the crowded centre room for names."/>
+    <s id="h5" en="Colour = line"/>
+    <s id="n01" en="Nº 01"/>
+    <s id="n02" en="Nº 02"/>
+    <s id="n03" en="Nº 03"/>
+    <s id="n04" en="Nº 04"/>
+    <s id="b5" en="You read the route and the changes, not the distance."/>
+    <s id="h6" en="1930s"/>
+    <s id="b6" en="A draughtsman drew the network like a circuit diagram."/>
+    <s id="o1" en="Order,"/>
+    <s id="o2" en="not distance"/>
+    <s id="o3" en="A good diagram is honest about connections."/>
+    <s id="vo_intro" en="Transit maps lie, on purpose. Here is how they trade distance for clarity."/>
+    <s id="vo_geo" en="A true map of a city railway is a tangle. Stations bunch up in the centre and spread out in the suburbs."/>
+    <s id="vo_angle" en="So the diagram straightens every line to three angles: horizontal, vertical and forty-five degrees."/>
+    <s id="vo_space" en="Stations are spaced evenly, which gives the crowded centre room for its names."/>
+    <s id="vo_colour" en="Each line gets one flat colour. You read the route and where to change, not how far it is."/>
+    <s id="vo_origin" en="The idea goes back to the nineteen thirties, when a draughtsman drew the network like a circuit."/>
+    <s id="vo_outro" en="A good diagram tells the truth about order and connections, not distance."/>
+  </strings>
+  <defs>
+
+    <data id="cx" v="0, 300, 380, 700, 780, 1100"/><data id="cy" v="0, 0, -80, -80, 0, 0"/>
+    <clip id="cut"><rect x="80" y="250" w="620" h="320"/></clip>
+    <clip id="cutwide"><rect x="0" y="120" w="1920" h="640"/></clip>
+  </defs>
+  <assets>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <asset id="pad" src="audio/pad.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+
+  </assets>
+  <music src="pad" start="0" loop="1" vol="0.7"/>
+  <backdrop>
+<line repeat="13" as="i" x1="=80 + i*148.33 - (i==12 ? 20 : 0)" y1="0" x2="=80 + i*148.33 - (i==12 ? 20 : 0)" y2="=1080*ease(t/1.2,'out')" stroke="#d9d5cc" sw="1.5"/>
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="7" chapter="@ch1">
+      <say at="0.5" text="@vo_intro"/>
+
+      <sfx at="0.2" src="click"/><sfx at="0.8" src="click"/>
+      <group clip="url(#cutwide)">
+        <text x="=80 - 200*(1 - ease(T/0.4,'out'))" y="330" size="300" weight="900" fill="#111111" text="@t1"/>
+        <text x="=80 - 200*(1 - ease((T-0.5)/0.4,'out'))" y="610" size="300" weight="900" fill="#111111" text="@t2" at="0.5"/>
+      </group>
+      <rect x="1415" y="120" w="=425" h="=420*ease((T-0.9)/0.5,'out')" fill="#e30613"/>
+      <text x="1415" y="900" size="40" weight="600" maxw="425" lh="1.25" fill="#111111" text="@tsub" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/></text>
+      <rect x="80" y="830" w="=1166.6*ease((T-1.2)/0.5,'out')" h="6" fill="#111111"/>
+    </scene>
+    <scene id="geo" dur="9" chapter="@ch2">
+      <say at="0.5" text="@vo_geo"/>
+
+      
+      <text x="80" y="200" size="40" weight="800" fill="#e30613" text="@n01" at="0.2"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/></text>
+      <rect x="80" y="236" w="=573.3*ease((T-0.2)/0.35,'out')" h="4" fill="#111111"/>
+      <group clip="url(#cut)" at="0.4">
+        <text x="=80 - 40*(1 - ease((T-0.4)/0.35,'out'))" y="360" size="112" weight="900" maxw="600" lh="0.95" fill="#111111" text="@h2"/>
+      </group>
+      <text x="80" y="660" size="40" weight="500" maxw="560" lh="1.3" fill="#111111" text="@b2" at="1"><anim prop="opacity" from="0" to="1" dur="0.2"/></text>
+      
+      <group at="0">
+        <path d="M 720 300 Q 791 374 880 430 Q 989 477 1080 560 Q 1132 593 1130 590 Q 1152 596 1210 620 Q 1365 777 1520 880" fill="none" stroke="=mix('#111111', '#e30613', clamp(0,0,1))" sw="14" draw="=ease((T-0.6)/2.4,'io')">
+          </path>
+        <path d="M 740 760 Q 826 719 930 660 Q 1014 592 1080 560 Q 1142 558 1150 520 Q 1187 486 1260 470 Q 1480 412 1700 300" fill="none" stroke="=mix('#111111', '#0057b8', clamp(0,0,1))" sw="14" draw="=ease((T-0.6)/2.4,'io')">
+          </path>
+        <path d="M 1300 200 Q 1271 344 1260 470 Q 1259 487 1240 540 Q 1252 598 1210 620 Q 1207 701 1240 800 Q 1210 907 1180 960" fill="none" stroke="=mix('#111111', '#009a44', clamp(0,0,1))" sw="14" draw="=ease((T-0.6)/2.4,'io')">
+          </path>
+        <circle x="=lerp(720, 760, 0)" y="=lerp(300, 300, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(880, 900, 0)" y="=lerp(430, 440, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1080, 1040, 0)" y="=lerp(560, 580, 0)" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.40, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1130, 1180, 0)" y="=lerp(590, 580, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1210, 1320, 0)" y="=lerp(620, 580, 0)" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.80, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1520, 1460, 0)" y="=lerp(880, 720, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(740, 760, 0)" y="=lerp(760, 860, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(930, 900, 0)" y="=lerp(660, 720, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1080, 1040, 0)" y="=lerp(560, 580, 0)" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.40, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1150, 1180, 0)" y="=lerp(520, 440, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1260, 1320, 0)" y="=lerp(470, 300, 0)" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.80, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1700, 1600, 0)" y="=lerp(300, 300, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1300, 1320, 0)" y="=lerp(200, 160, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1260, 1320, 0)" y="=lerp(470, 300, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1240, 1320, 0)" y="=lerp(540, 440, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.40, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1210, 1320, 0)" y="=lerp(620, 580, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1240, 1320, 0)" y="=lerp(800, 720, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.80, ease((T-0.6)/2.4,'io'))"/>
+        <circle x="=lerp(1180, 1320, 0)" y="=lerp(960, 860, 0)" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, ease((T-0.6)/2.4,'io'))"/>
+
+      </group>
+    </scene>
+    <scene id="angle" dur="9" chapter="@ch3">
+      <say at="0.5" text="@vo_angle"/>
+
+      <sfx at="1" src="whoosh"/>
+      
+      <text x="80" y="200" size="40" weight="800" fill="#e30613" text="@n02" at="0.2"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/></text>
+      <rect x="80" y="236" w="=573.3*ease((T-0.2)/0.35,'out')" h="4" fill="#111111"/>
+      <group clip="url(#cut)" at="0.4">
+        <text x="=80 - 40*(1 - ease((T-0.4)/0.35,'out'))" y="360" size="112" weight="900" maxw="600" lh="0.95" fill="#111111" text="@h3"/>
+      </group>
+      <text x="80" y="660" size="40" weight="500" maxw="560" lh="1.3" fill="#111111" text="@b3" at="1"><anim prop="opacity" from="0" to="1" dur="0.2"/></text>
+      
+      <group at="0">
+        <path d="M 720 300 Q 791 374 880 430 Q 989 477 1080 560 Q 1132 593 1130 590 Q 1152 596 1210 620 Q 1365 777 1520 880" fill="none" stroke="=mix('#111111', '#e30613', clamp(0,0,1))" sw="14" draw="=1">
+          <keys prop="d" ease="io" v="1: M 720 300 Q 791 374 880 430 Q 989 477 1080 560 Q 1132 593 1130 590 Q 1152 596 1210 620 Q 1365 777 1520 880; 2.6: M 760 300 Q 830 370 900 440 Q 970 510 1040 580 Q 1110 580 1180 580 Q 1250 580 1320 580 Q 1390 650 1460 720"/></path>
+        <path d="M 740 760 Q 826 719 930 660 Q 1014 592 1080 560 Q 1142 558 1150 520 Q 1187 486 1260 470 Q 1480 412 1700 300" fill="none" stroke="=mix('#111111', '#0057b8', clamp(0,0,1))" sw="14" draw="=1">
+          <keys prop="d" ease="io" v="1: M 740 760 Q 826 719 930 660 Q 1014 592 1080 560 Q 1142 558 1150 520 Q 1187 486 1260 470 Q 1480 412 1700 300; 2.6: M 760 860 Q 830 790 900 720 Q 970 650 1040 580 Q 1110 510 1180 440 Q 1250 370 1320 300 Q 1460 300 1600 300"/></path>
+        <path d="M 1300 200 Q 1271 344 1260 470 Q 1259 487 1240 540 Q 1252 598 1210 620 Q 1207 701 1240 800 Q 1210 907 1180 960" fill="none" stroke="=mix('#111111', '#009a44', clamp(0,0,1))" sw="14" draw="=1">
+          <keys prop="d" ease="io" v="1: M 1300 200 Q 1271 344 1260 470 Q 1259 487 1240 540 Q 1252 598 1210 620 Q 1207 701 1240 800 Q 1210 907 1180 960; 2.6: M 1320 160 Q 1320 230 1320 300 Q 1320 370 1320 440 Q 1320 510 1320 580 Q 1320 650 1320 720 Q 1320 790 1320 860"/></path>
+        <circle x="=lerp(720, 760, ease((T - 1)/1.6, 'io'))" y="=lerp(300, 300, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, 1)"/>
+        <circle x="=lerp(880, 900, ease((T - 1)/1.6, 'io'))" y="=lerp(430, 440, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, 1)"/>
+        <circle x="=lerp(1080, 1040, ease((T - 1)/1.6, 'io'))" y="=lerp(560, 580, ease((T - 1)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.40, 1)"/>
+        <circle x="=lerp(1130, 1180, ease((T - 1)/1.6, 'io'))" y="=lerp(590, 580, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, 1)"/>
+        <circle x="=lerp(1210, 1320, ease((T - 1)/1.6, 'io'))" y="=lerp(620, 580, ease((T - 1)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.80, 1)"/>
+        <circle x="=lerp(1520, 1460, ease((T - 1)/1.6, 'io'))" y="=lerp(880, 720, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, 1)"/>
+        <circle x="=lerp(740, 760, ease((T - 1)/1.6, 'io'))" y="=lerp(760, 860, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, 1)"/>
+        <circle x="=lerp(930, 900, ease((T - 1)/1.6, 'io'))" y="=lerp(660, 720, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, 1)"/>
+        <circle x="=lerp(1080, 1040, ease((T - 1)/1.6, 'io'))" y="=lerp(560, 580, ease((T - 1)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.40, 1)"/>
+        <circle x="=lerp(1150, 1180, ease((T - 1)/1.6, 'io'))" y="=lerp(520, 440, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, 1)"/>
+        <circle x="=lerp(1260, 1320, ease((T - 1)/1.6, 'io'))" y="=lerp(470, 300, ease((T - 1)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.80, 1)"/>
+        <circle x="=lerp(1700, 1600, ease((T - 1)/1.6, 'io'))" y="=lerp(300, 300, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, 1)"/>
+        <circle x="=lerp(1300, 1320, ease((T - 1)/1.6, 'io'))" y="=lerp(200, 160, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, 1)"/>
+        <circle x="=lerp(1260, 1320, ease((T - 1)/1.6, 'io'))" y="=lerp(470, 300, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, 1)"/>
+        <circle x="=lerp(1240, 1320, ease((T - 1)/1.6, 'io'))" y="=lerp(540, 440, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.40, 1)"/>
+        <circle x="=lerp(1210, 1320, ease((T - 1)/1.6, 'io'))" y="=lerp(620, 580, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, 1)"/>
+        <circle x="=lerp(1240, 1320, ease((T - 1)/1.6, 'io'))" y="=lerp(800, 720, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.80, 1)"/>
+        <circle x="=lerp(1180, 1320, ease((T - 1)/1.6, 'io'))" y="=lerp(960, 860, ease((T - 1)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, 1)"/>
+
+      </group>
+      <group x="1475" y="920" at="3"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/>
+        <line x1="0" y1="0" x2="120" y2="0" stroke="#111111" sw="6"/><line x1="0" y1="0" x2="85" y2="-85" stroke="#e30613" sw="6"/><line x1="0" y1="0" x2="0" y2="-120" stroke="#111111" sw="6"/>
+      </group>
+    </scene>
+    <scene id="space" dur="8" chapter="@ch4">
+      <say at="0.5" text="@vo_space"/>
+
+      
+      <text x="80" y="200" size="40" weight="800" fill="#e30613" text="@n03" at="0.2"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/></text>
+      <rect x="80" y="236" w="=573.3*ease((T-0.2)/0.35,'out')" h="4" fill="#111111"/>
+      <group clip="url(#cut)" at="0.4">
+        <text x="=80 - 40*(1 - ease((T-0.4)/0.35,'out'))" y="360" size="112" weight="900" maxw="600" lh="0.95" fill="#111111" text="@h4"/>
+      </group>
+      <text x="80" y="660" size="40" weight="500" maxw="560" lh="1.3" fill="#111111" text="@b4" at="1"><anim prop="opacity" from="0" to="1" dur="0.2"/></text>
+      
+      <group at="0">
+        <path d="M 720 300 Q 791 374 880 430 Q 989 477 1080 560 Q 1132 593 1130 590 Q 1152 596 1210 620 Q 1365 777 1520 880" fill="none" stroke="=mix('#111111', '#e30613', clamp(0,0,1))" sw="14" draw="=1">
+          <keys prop="d" ease="io" v="-5: M 720 300 Q 791 374 880 430 Q 989 477 1080 560 Q 1132 593 1130 590 Q 1152 596 1210 620 Q 1365 777 1520 880; -3.4: M 760 300 Q 830 370 900 440 Q 970 510 1040 580 Q 1110 580 1180 580 Q 1250 580 1320 580 Q 1390 650 1460 720"/></path>
+        <path d="M 740 760 Q 826 719 930 660 Q 1014 592 1080 560 Q 1142 558 1150 520 Q 1187 486 1260 470 Q 1480 412 1700 300" fill="none" stroke="=mix('#111111', '#0057b8', clamp(0,0,1))" sw="14" draw="=1">
+          <keys prop="d" ease="io" v="-5: M 740 760 Q 826 719 930 660 Q 1014 592 1080 560 Q 1142 558 1150 520 Q 1187 486 1260 470 Q 1480 412 1700 300; -3.4: M 760 860 Q 830 790 900 720 Q 970 650 1040 580 Q 1110 510 1180 440 Q 1250 370 1320 300 Q 1460 300 1600 300"/></path>
+        <path d="M 1300 200 Q 1271 344 1260 470 Q 1259 487 1240 540 Q 1252 598 1210 620 Q 1207 701 1240 800 Q 1210 907 1180 960" fill="none" stroke="=mix('#111111', '#009a44', clamp(0,0,1))" sw="14" draw="=1">
+          <keys prop="d" ease="io" v="-5: M 1300 200 Q 1271 344 1260 470 Q 1259 487 1240 540 Q 1252 598 1210 620 Q 1207 701 1240 800 Q 1210 907 1180 960; -3.4: M 1320 160 Q 1320 230 1320 300 Q 1320 370 1320 440 Q 1320 510 1320 580 Q 1320 650 1320 720 Q 1320 790 1320 860"/></path>
+        <circle x="=lerp(720, 760, ease((T - -5)/1.6, 'io'))" y="=lerp(300, 300, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, 1)"/>
+        <circle x="=lerp(880, 900, ease((T - -5)/1.6, 'io'))" y="=lerp(430, 440, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, 1)"/>
+        <circle x="=lerp(1080, 1040, ease((T - -5)/1.6, 'io'))" y="=lerp(560, 580, ease((T - -5)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.40, 1)"/>
+        <circle x="=lerp(1130, 1180, ease((T - -5)/1.6, 'io'))" y="=lerp(590, 580, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, 1)"/>
+        <circle x="=lerp(1210, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(620, 580, ease((T - -5)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.80, 1)"/>
+        <circle x="=lerp(1520, 1460, ease((T - -5)/1.6, 'io'))" y="=lerp(880, 720, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, 1)"/>
+        <circle x="=lerp(740, 760, ease((T - -5)/1.6, 'io'))" y="=lerp(760, 860, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, 1)"/>
+        <circle x="=lerp(930, 900, ease((T - -5)/1.6, 'io'))" y="=lerp(660, 720, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, 1)"/>
+        <circle x="=lerp(1080, 1040, ease((T - -5)/1.6, 'io'))" y="=lerp(560, 580, ease((T - -5)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.40, 1)"/>
+        <circle x="=lerp(1150, 1180, ease((T - -5)/1.6, 'io'))" y="=lerp(520, 440, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, 1)"/>
+        <circle x="=lerp(1260, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(470, 300, ease((T - -5)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.80, 1)"/>
+        <circle x="=lerp(1700, 1600, ease((T - -5)/1.6, 'io'))" y="=lerp(300, 300, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, 1)"/>
+        <circle x="=lerp(1300, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(200, 160, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, 1)"/>
+        <circle x="=lerp(1260, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(470, 300, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, 1)"/>
+        <circle x="=lerp(1240, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(540, 440, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.40, 1)"/>
+        <circle x="=lerp(1210, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(620, 580, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, 1)"/>
+        <circle x="=lerp(1240, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(800, 720, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.80, 1)"/>
+        <circle x="=lerp(1180, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(960, 860, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, 1)"/>
+        <text x="794" y="300" size="32" weight="600" align="left" fill="#111111" text="Harbour" at="0.80"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+        <text x="934" y="440" size="32" weight="600" align="left" fill="#111111" text="Mill Lane" at="0.95"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+        <text x="1006" y="580" size="32" weight="600" align="right" fill="#111111" text="Central" at="1.10"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+        <text x="1180" y="630" size="32" weight="600" align="center" fill="#111111" text="Market" at="1.25"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+        <text x="1286" y="254" size="32" weight="600" align="right" fill="#111111" text="North Gate" at="1.40"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+        <text x="1494" y="720" size="32" weight="600" align="left" fill="#111111" text="Park" at="1.55"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+        <text x="794" y="860" size="32" weight="600" align="left" fill="#111111" text="Riverside" at="1.70"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+        <text x="1600" y="254" size="32" weight="600" align="center" fill="#111111" text="Old Town" at="1.85"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+        <text x="1354" y="160" size="32" weight="600" align="left" fill="#111111" text="Hill" at="2.00"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+        <text x="1354" y="860" size="32" weight="600" align="left" fill="#111111" text="Docks" at="2.15"><anim prop="opacity" from="0" to="1" dur="0.15" ease="step"/></text>
+      </group>
+    </scene>
+    <scene id="colour" dur="9" chapter="@ch5">
+      <say at="0.5" text="@vo_colour"/>
+
+      <sfx at="1" src="pop"/><sfx at="1.5" src="pop"/><sfx at="2" src="pop"/>
+      
+      <text x="80" y="200" size="40" weight="800" fill="#e30613" text="@n04" at="0.2"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/></text>
+      <rect x="80" y="236" w="=573.3*ease((T-0.2)/0.35,'out')" h="4" fill="#111111"/>
+      <group clip="url(#cut)" at="0.4">
+        <text x="=80 - 40*(1 - ease((T-0.4)/0.35,'out'))" y="360" size="112" weight="900" maxw="600" lh="0.95" fill="#111111" text="@h5"/>
+      </group>
+      <text x="80" y="660" size="40" weight="500" maxw="560" lh="1.3" fill="#111111" text="@b5" at="1"><anim prop="opacity" from="0" to="1" dur="0.2"/></text>
+      
+      <group at="0">
+        <path d="M 720 300 Q 791 374 880 430 Q 989 477 1080 560 Q 1132 593 1130 590 Q 1152 596 1210 620 Q 1365 777 1520 880" fill="none" stroke="=mix('#111111', '#e30613', clamp((T-1)/0.3,0,1))" sw="14" draw="=1">
+          <keys prop="d" ease="io" v="-5: M 720 300 Q 791 374 880 430 Q 989 477 1080 560 Q 1132 593 1130 590 Q 1152 596 1210 620 Q 1365 777 1520 880; -3.4: M 760 300 Q 830 370 900 440 Q 970 510 1040 580 Q 1110 580 1180 580 Q 1250 580 1320 580 Q 1390 650 1460 720"/></path>
+        <path d="M 740 760 Q 826 719 930 660 Q 1014 592 1080 560 Q 1142 558 1150 520 Q 1187 486 1260 470 Q 1480 412 1700 300" fill="none" stroke="=mix('#111111', '#0057b8', clamp((T-1)/0.3,0,1))" sw="14" draw="=1">
+          <keys prop="d" ease="io" v="-5: M 740 760 Q 826 719 930 660 Q 1014 592 1080 560 Q 1142 558 1150 520 Q 1187 486 1260 470 Q 1480 412 1700 300; -3.4: M 760 860 Q 830 790 900 720 Q 970 650 1040 580 Q 1110 510 1180 440 Q 1250 370 1320 300 Q 1460 300 1600 300"/></path>
+        <path d="M 1300 200 Q 1271 344 1260 470 Q 1259 487 1240 540 Q 1252 598 1210 620 Q 1207 701 1240 800 Q 1210 907 1180 960" fill="none" stroke="=mix('#111111', '#009a44', clamp((T-1)/0.3,0,1))" sw="14" draw="=1">
+          <keys prop="d" ease="io" v="-5: M 1300 200 Q 1271 344 1260 470 Q 1259 487 1240 540 Q 1252 598 1210 620 Q 1207 701 1240 800 Q 1210 907 1180 960; -3.4: M 1320 160 Q 1320 230 1320 300 Q 1320 370 1320 440 Q 1320 510 1320 580 Q 1320 650 1320 720 Q 1320 790 1320 860"/></path>
+        <circle x="=lerp(720, 760, ease((T - -5)/1.6, 'io'))" y="=lerp(300, 300, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, 1)"/>
+        <circle x="=lerp(880, 900, ease((T - -5)/1.6, 'io'))" y="=lerp(430, 440, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, 1)"/>
+        <circle x="=lerp(1080, 1040, ease((T - -5)/1.6, 'io'))" y="=lerp(560, 580, ease((T - -5)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.40, 1)"/>
+        <circle x="=lerp(1130, 1180, ease((T - -5)/1.6, 'io'))" y="=lerp(590, 580, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, 1)"/>
+        <circle x="=lerp(1210, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(620, 580, ease((T - -5)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.80, 1)"/>
+        <circle x="=lerp(1520, 1460, ease((T - -5)/1.6, 'io'))" y="=lerp(880, 720, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, 1)"/>
+        <circle x="=lerp(740, 760, ease((T - -5)/1.6, 'io'))" y="=lerp(760, 860, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, 1)"/>
+        <circle x="=lerp(930, 900, ease((T - -5)/1.6, 'io'))" y="=lerp(660, 720, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, 1)"/>
+        <circle x="=lerp(1080, 1040, ease((T - -5)/1.6, 'io'))" y="=lerp(560, 580, ease((T - -5)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.40, 1)"/>
+        <circle x="=lerp(1150, 1180, ease((T - -5)/1.6, 'io'))" y="=lerp(520, 440, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, 1)"/>
+        <circle x="=lerp(1260, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(470, 300, ease((T - -5)/1.6, 'io'))" r="18" fill="#f2f0eb" stroke="#111111" sw="7" opacity="=step(0.80, 1)"/>
+        <circle x="=lerp(1700, 1600, ease((T - -5)/1.6, 'io'))" y="=lerp(300, 300, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, 1)"/>
+        <circle x="=lerp(1300, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(200, 160, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.00, 1)"/>
+        <circle x="=lerp(1260, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(470, 300, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.20, 1)"/>
+        <circle x="=lerp(1240, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(540, 440, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.40, 1)"/>
+        <circle x="=lerp(1210, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(620, 580, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.60, 1)"/>
+        <circle x="=lerp(1240, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(800, 720, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(0.80, 1)"/>
+        <circle x="=lerp(1180, 1320, ease((T - -5)/1.6, 'io'))" y="=lerp(960, 860, ease((T - -5)/1.6, 'io'))" r="11" fill="#f2f0eb" stroke="#111111" sw="5" opacity="=step(1.00, 1)"/>
+
+      </group>
+      <group x="690" y="300" at="1"><anim prop="scale" from="0" to="1" dur="0.15" ease="step"/>
+        <circle r="40" fill="#e30613"/><text size="48" weight="900" align="center" fill="#ffffff" text="1"/></group><group x="690" y="860" at="1.5"><anim prop="scale" from="0" to="1" dur="0.15" ease="step"/>
+        <circle r="40" fill="#0057b8"/><text size="48" weight="900" align="center" fill="#ffffff" text="2"/></group><group x="1320" y="80" at="2"><anim prop="scale" from="0" to="1" dur="0.15" ease="step"/>
+        <circle r="40" fill="#009a44"/><text size="48" weight="900" align="center" fill="#ffffff" text="3"/></group>
+    </scene>
+    <scene id="origin" dur="8.5" chapter="@ch6">
+      <say at="0.5" text="@vo_origin"/>
+
+      <rect x="0" y="0" h="1080" w="=1920*ease(T/0.4,'out')" fill="#e30613"/>
+      <text x="70" y="480" size="430" weight="900" fill="#f2f0eb" text="@h6" at="0.4"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/></text>
+      <group x="80" y="860" at="1.2">
+        <path d="M 0 0 L 300 0 L 380 -80 L 700 -80 L 780 0 L 1100 0" fill="none" stroke="#f2f0eb" sw="8"><anim prop="draw" from="0" to="1" dur="1.6" ease="io"/></path>
+        <circle repeat="6" as="i" x="=data('cx', i)" y="=data('cy', i)" r="16" fill="#e30613" stroke="#f2f0eb" sw="6" at="=0.2 + i*0.25"/>
+      </group>
+      <text x="1266.6" y="860" size="40" weight="600" maxw="573.4000000000001" lh="1.3" fill="#f2f0eb" text="@b6" at="1.6"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/></text>
+    </scene>
+    <scene id="outro" dur="7" chapter="@ch7">
+      <say at="0.5" text="@vo_outro"/>
+
+      <sfx at="0.3" src="click"/>
+      <group clip="url(#cutwide)">
+        <text x="=80 - 200*(1 - ease(T/0.4,'out'))" y="330" size="250" weight="900" fill="#111111" text="@o1"/>
+        <text x="=80 - 200*(1 - ease((T-0.6)/0.4,'out'))" y="580" size="250" weight="900" fill="#e30613" text="@o2" at="0.6"/>
+      </group>
+      <rect x="80" y="790" w="=1760*ease((T-1)/0.5,'out')" h="6" fill="#111111"/>
+      <text x="970" y="880" size="44" weight="600" maxw="870" fill="#111111" text="@o3" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.1" ease="step"/></text>
+    </scene>
+  </timeline>
+  <overlay>
+
+  </overlay>
+  <voices>
+    <voice say="vo_angle" lang="en" src="voice/swiss-minimal/en/vo_angle.8dacd2812b.ogg" dur="5.91" hash="8dacd2812b" engine="kokoro:bf_emma"/>
+    <voice say="vo_colour" lang="en" src="voice/swiss-minimal/en/vo_colour.c106ef1f8e.ogg" dur="5.01" hash="c106ef1f8e" engine="kokoro:bf_emma"/>
+    <voice say="vo_geo" lang="en" src="voice/swiss-minimal/en/vo_geo.86329f35f3.ogg" dur="5.71" hash="86329f35f3" engine="kokoro:bf_emma"/>
+    <voice say="vo_intro" lang="en" src="voice/swiss-minimal/en/vo_intro.b689a386f9.ogg" dur="4.41" hash="b689a386f9" engine="kokoro:bf_emma"/>
+    <voice say="vo_origin" lang="en" src="voice/swiss-minimal/en/vo_origin.9a64863883.ogg" dur="5.01" hash="9a64863883" engine="kokoro:bf_emma"/>
+    <voice say="vo_outro" lang="en" src="voice/swiss-minimal/en/vo_outro.9c0acd8150.ogg" dur="4.21" hash="9c0acd8150" engine="kokoro:bf_emma"/>
+    <voice say="vo_space" lang="en" src="voice/swiss-minimal/en/vo_space.0857f91cc6.ogg" dur="4.41" hash="0857f91cc6" engine="kokoro:bf_emma"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,11 @@
+{
+  "id": "product-screenshot-tour",
+  "title": "Product screenshot tour",
+  "category": "Product & software",
+  "summary": "Real screenshots in a browser frame: camera zooms into regions, a spotlight dims the rest, highlight boxes and callout pills with arrows.",
+  "duration": 58.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 14
+}

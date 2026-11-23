@@ -1,0 +1,11 @@
+{
+  "id": "code-walkthrough",
+  "title": "Code walkthrough",
+  "category": "Developer & engineering",
+  "summary": "An editor in JetBrains Mono with token colours, a moving line highlight, annotations beside lines and a unified diff that pushes lines down.",
+  "duration": 62.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 41
+}

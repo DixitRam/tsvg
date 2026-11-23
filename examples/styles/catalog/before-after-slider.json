@@ -1,0 +1,11 @@
+{
+  "id": "before-after-slider",
+  "title": "Before / after slider",
+  "category": "Design & product",
+  "summary": "A vertical slider sweeps a clip between two states: cluttered vs clean settings page, results card, hazy vs edited photo.",
+  "duration": 63.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 20
+}

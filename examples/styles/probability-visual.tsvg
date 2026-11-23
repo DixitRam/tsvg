@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: probability and statistics visual. Coin and dice grids from repeat + rand, histograms building into a bell, percentage counters. -->
+<tsvg version="0.2" title="@title" font="Space Grotesk, Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" default="paper"><choice id="paper" label="Paper"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.25" sfx="0.5"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="paper" bg="#f5f1e8" fg="#22252b" ink="#22252b" muted="#7a7f88" teal="#1a9e8f" coral="#ef6f5e" gold="#f2b134" violet="#6c63c9" panel="#ffffff" line="#e2dccf"/></themes>
+  <strings>
+    <s id="title" en="Where bell curves come from"/>
+    <s id="ch1" en="Coins"/>
+    <s id="ch2" en="One die"/>
+    <s id="ch3" en="Two dice"/>
+    <s id="ch4" en="Sums"/>
+    <s id="ch5" en="More dice"/>
+    <s id="ch6" en="Bell curve"/>
+    <s id="ch7" en="Takeaway"/>
+    <s id="flips" en="flips"/>
+    <s id="headsL" en="heads"/>
+    <s id="h1" en="One die: every face 1 in 6"/>
+    <s id="h2" en="36 ways to roll two dice"/>
+    <s id="h3" en="Sum of two dice"/>
+    <s id="h4" en="Add more dice…"/>
+    <s id="h5" en="The normal distribution"/>
+    <s id="seven" en="6 ways to make 7"/>
+    <s id="two" en="1 way to make 2"/>
+    <s id="ndice" en="dice"/>
+    <s id="s68" en="within 1 σ"/>
+    <s id="s95" en="within 2 σ"/>
+    <s id="ex" en="heights · test scores · measurement errors"/>
+    <s id="out1" en="Add up enough random things,"/>
+    <s id="out2" en="and you get a bell."/>
+    <s id="vo1" en="Flip a coin many times and you get about half heads. But what happens when we add random things together?"/>
+    <s id="vo2" en="Roll one die, and every face is equally likely. Over many rolls, the bars come out flat."/>
+    <s id="vo3" en="Roll two and add them. There are thirty six combinations. Six of them make seven, but only one makes two."/>
+    <s id="vo4" en="So the sums pile up in the middle. Seven turns up about seventeen percent of the time, two and twelve under three percent."/>
+    <s id="vo5" en="Add a third die, then five, then ten. The flat shape rounds off into a smooth hill."/>
+    <s id="vo6" en="That hill is the bell curve. About sixty eight percent of results land within one standard deviation, and ninety five within two."/>
+    <s id="vo7" en="Add up enough random things, and you get a bell."/>
+  </strings>
+  <defs>
+    <data id="heads" v="45.8, 52.1, 53.2, 50.3, 51.4, 52.1, 50.8, 50.5, 49.7, 49.7, 50.5, 49.8, 49.7, 49.4, 48.8, 49.1, 48.6, 49.1, 48.8, 49.0, 48.9, 49.4, 49.3, 49.8"/>
+    <data id="sums" v="1, 2, 3, 4, 5, 6, 5, 4, 3, 2, 1"/>
+    <data id="b1" v="0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0"/>
+    <data id="b2" v="0, 0, 0, 0, 0.167, 0.167, 0.333, 0.333, 0.5, 0.5, 0.667, 0.667, 0.833, 0.833, 1, 1, 1, 0.833, 0.833, 0.667, 0.667, 0.5, 0.5, 0.333, 0.333, 0.167, 0.167, 0, 0, 0, 0"/>
+    <data id="b3" v="0, 0, 0.037, 0.111, 0.111, 0.222, 0.222, 0.37, 0.37, 0.556, 0.778, 0.778, 0.926, 0.926, 1, 1, 1, 0.926, 0.926, 0.778, 0.778, 0.556, 0.37, 0.37, 0.222, 0.222, 0.111, 0.111, 0.037, 0, 0"/>
+    <data id="b5" v="0.006, 0.019, 0.045, 0.09, 0.09, 0.162, 0.263, 0.391, 0.391, 0.538, 0.692, 0.835, 0.835, 0.942, 1, 1, 1, 0.942, 0.835, 0.835, 0.692, 0.538, 0.391, 0.391, 0.263, 0.162, 0.09, 0.09, 0.045, 0.019, 0.006"/>
+    <data id="b10" v="0.011, 0.019, 0.034, 0.055, 0.131, 0.189, 0.262, 0.349, 0.449, 0.557, 0.667, 0.772, 0.865, 0.938, 0.984, 1, 0.984, 0.938, 0.865, 0.772, 0.667, 0.557, 0.449, 0.349, 0.262, 0.189, 0.131, 0.055, 0.034, 0.019, 0.011"/>
+    <data id="nd" v="1, 2, 3, 5, 10"/>
+    <fn id="stage" args="">clamp((T - 1.2)/1.6, 0, 4)</fn>
+    <fn id="bar" args="i">lerp(lerp(lerp(lerp(data('b1', i), data('b2', i), clamp(stage(), 0, 1)), data('b3', i), clamp(stage() - 1, 0, 1)), data('b5', i), clamp(stage() - 2, 0, 1)), data('b10', i), clamp(stage() - 3, 0, 1))</fn>
+    <clip id="c68"><rect x="760" y="0" w="=400*ease((T-2.4)/0.8,'io')" h="1080"/></clip>
+    <clip id="c95"><rect x="560" y="0" w="=800*ease((T-4.8)/0.8,'io')" h="1080"/></clip>
+  </defs>
+  <assets>
+    <asset id="bright" src="audio/bright.ogg"/><asset id="click" src="audio/click.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="bright" loop="1" vol="0.5"/>
+  <backdrop>
+    <line repeat="48" as="k" x1="=k*40" y1="0" x2="=k*40" y2="1080" stroke="$line" sw="1"/>
+    <line repeat="27" as="k" x1="0" y1="=k*40" x2="1920" y2="=k*40" stroke="$line" sw="1"/>
+  </backdrop>
+  <timeline>
+    <scene id="coins" dur="10" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <text x="120" y="130" size="72" weight="700" fill="$ink" text="@title"><anim prop="reveal" from="0" to="1" dur="1.2" ease="linear"/></text>
+      <group x="140" y="300">
+        <group repeat="72" as="i" x="=(i % 12)*84" y="=floor(i/12)*92">
+          <ellipse x="0" y="0" rx="34" ry="=34*max(0.08, fract(max(0, T - 0.6)*2.5 + rand(i)*0.3) &lt; 0.25 ? abs(cos(4*PI*fract(max(0, T - 0.6)*2.5 + rand(i)*0.3))) : 1)" fill="=rand(i*13.7 + clamp(floor(max(0, T - 0.6)*2.5), 0, 23)*3.1) &gt; 0.5 ? $gold : $teal" stroke="$ink" sw="3"/>
+          <text x="0" y="1" size="30" weight="700" align="center" fill="#fff" text="=rand(i*13.7 + clamp(floor(max(0, T - 0.6)*2.5), 0, 23)*3.1) &gt; 0.5 ? 'H' : 'T'" when="=fract(max(0, T - 0.6)*2.5 + rand(i)*0.3) &gt; 0.2"/>
+        </group>
+      </group>
+      <group x="1360" y="300">
+        <rect w="440" h="520" r="24" fill="$panel" stroke="$line" sw="3" shadow="0 12 30 #0001"/>
+        <text x="40" y="80" size="40" fill="$muted" text="@flips"/>
+        <text x="40" y="160" size="96" weight="700" fill="$ink" text="{fmt(72*(clamp(floor(max(0, T - 0.6)*2.5), 0, 23) + 1), 0)}"/>
+        <text x="40" y="270" size="40" fill="$muted" text="@headsL"/>
+        <text x="40" y="360" size="120" weight="700" fill="$gold" text="{data('heads', clamp(floor(max(0, T - 0.6)*2.5), 0, 23))}%"/>
+        <rect x="40" y="440" w="360" h="24" r="12" fill="$line"/>
+        <rect x="40" y="440" w="=3.6*data('heads', clamp(floor(max(0, T - 0.6)*2.5), 0, 23))" h="24" r="12" fill="$gold"/>
+        <line x1="220" y1="430" x2="220" y2="474" stroke="$ink" sw="3"/>
+      </group>
+    </scene>
+
+    <scene id="one" dur="9" chapter="@ch2">
+      <say at="0.3" text="@vo2"/>
+      <text x="120" y="130" size="64" weight="700" fill="$ink" text="@h1"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="90" to="120" dur="0.5"/></text>
+      <group x="460" y="930"><rect x="-45" y="-45" w="90" h="90" r="16.2" fill="#fff" stroke="$ink" sw="3.6"/>
+          <circle x="0" y="0" r="8.1" fill="$ink" when="=(1) % 2 == 1"/><circle x="-23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(1) &gt;= 2"/><circle x="23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(1) &gt;= 2"/><circle x="23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(1) &gt;= 4"/><circle x="-23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(1) &gt;= 4"/><circle x="-23.400000000000002" y="0" r="8.1" fill="$ink" when="=(1) == 6"/><circle x="23.400000000000002" y="0" r="8.1" fill="$ink" when="=(1) == 6"/></group>
+      <group x="660" y="930"><rect x="-45" y="-45" w="90" h="90" r="16.2" fill="#fff" stroke="$ink" sw="3.6"/>
+          <circle x="0" y="0" r="8.1" fill="$ink" when="=(2) % 2 == 1"/><circle x="-23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(2) &gt;= 2"/><circle x="23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(2) &gt;= 2"/><circle x="23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(2) &gt;= 4"/><circle x="-23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(2) &gt;= 4"/><circle x="-23.400000000000002" y="0" r="8.1" fill="$ink" when="=(2) == 6"/><circle x="23.400000000000002" y="0" r="8.1" fill="$ink" when="=(2) == 6"/></group>
+      <group x="860" y="930"><rect x="-45" y="-45" w="90" h="90" r="16.2" fill="#fff" stroke="$ink" sw="3.6"/>
+          <circle x="0" y="0" r="8.1" fill="$ink" when="=(3) % 2 == 1"/><circle x="-23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(3) &gt;= 2"/><circle x="23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(3) &gt;= 2"/><circle x="23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(3) &gt;= 4"/><circle x="-23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(3) &gt;= 4"/><circle x="-23.400000000000002" y="0" r="8.1" fill="$ink" when="=(3) == 6"/><circle x="23.400000000000002" y="0" r="8.1" fill="$ink" when="=(3) == 6"/></group>
+      <group x="1060" y="930"><rect x="-45" y="-45" w="90" h="90" r="16.2" fill="#fff" stroke="$ink" sw="3.6"/>
+          <circle x="0" y="0" r="8.1" fill="$ink" when="=(4) % 2 == 1"/><circle x="-23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(4) &gt;= 2"/><circle x="23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(4) &gt;= 2"/><circle x="23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(4) &gt;= 4"/><circle x="-23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(4) &gt;= 4"/><circle x="-23.400000000000002" y="0" r="8.1" fill="$ink" when="=(4) == 6"/><circle x="23.400000000000002" y="0" r="8.1" fill="$ink" when="=(4) == 6"/></group>
+      <group x="1260" y="930"><rect x="-45" y="-45" w="90" h="90" r="16.2" fill="#fff" stroke="$ink" sw="3.6"/>
+          <circle x="0" y="0" r="8.1" fill="$ink" when="=(5) % 2 == 1"/><circle x="-23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(5) &gt;= 2"/><circle x="23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(5) &gt;= 2"/><circle x="23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(5) &gt;= 4"/><circle x="-23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(5) &gt;= 4"/><circle x="-23.400000000000002" y="0" r="8.1" fill="$ink" when="=(5) == 6"/><circle x="23.400000000000002" y="0" r="8.1" fill="$ink" when="=(5) == 6"/></group>
+      <group x="1460" y="930"><rect x="-45" y="-45" w="90" h="90" r="16.2" fill="#fff" stroke="$ink" sw="3.6"/>
+          <circle x="0" y="0" r="8.1" fill="$ink" when="=(6) % 2 == 1"/><circle x="-23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(6) &gt;= 2"/><circle x="23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(6) &gt;= 2"/><circle x="23.400000000000002" y="-23.400000000000002" r="8.1" fill="$ink" when="=(6) &gt;= 4"/><circle x="-23.400000000000002" y="23.400000000000002" r="8.1" fill="$ink" when="=(6) &gt;= 4"/><circle x="-23.400000000000002" y="0" r="8.1" fill="$ink" when="=(6) == 6"/><circle x="23.400000000000002" y="0" r="8.1" fill="$ink" when="=(6) == 6"/></group>
+      <line x1="340" y1="860" x2="1600" y2="860" stroke="$ink" sw="3"/>
+      <group repeat="6" as="i" x="=400 + i*200">
+        <rect x="0" y="860" w="120" ay="1" r="8" h="=clamp(T - 0.8, 0, 6)*70*(1 + 0.18*sin(i*2.1 + T*1.3)/max(1, T*0.9))" fill="=mix($teal, $violet, i/5)"/>
+        <text x="60" y="=830 - clamp(T - 0.8, 0, 6)*70*(1 + 0.18*sin(i*2.1 + T*1.3)/max(1, T*0.9))" size="30" weight="700" align="center" fill="$ink" text="{fmt(16.7*(1 + 0.18*sin(i*2.1 + T*1.3)/max(1, T*0.9)), 1)}%" when="=T &gt; 1.5"/>
+      </group>
+      <line x1="340" y1="=860 - 6*70" x2="1600" y2="=860 - 6*70" stroke="$coral" sw="3" opacity="=clamp(T - 6.8, 0, 1)"/>
+      <text x="1620" y="=860 - 6*70" size="30" fill="$coral" text="1/6" opacity="=clamp(T - 6.8, 0, 1)"/>
+    </scene>
+
+    <scene id="two" dur="10" chapter="@ch3">
+      <say at="0.3" text="@vo3"/>
+      <text x="120" y="130" size="64" weight="700" fill="$ink" text="@h2"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="90" to="120" dur="0.5"/></text>
+      <group x="560" y="230"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(1) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(1) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(1) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(1) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(1) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(1) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(1) == 6"/></group><group x="670" y="230"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(2) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(2) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(2) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(2) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(2) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(2) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(2) == 6"/></group><group x="780" y="230"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(3) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(3) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(3) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(3) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(3) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(3) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(3) == 6"/></group><group x="890" y="230"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(4) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(4) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(4) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(4) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(4) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(4) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(4) == 6"/></group><group x="1000" y="230"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(5) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(5) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(5) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(5) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(5) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(5) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(5) == 6"/></group><group x="1110" y="230"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(6) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(6) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(6) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(6) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(6) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(6) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(6) == 6"/></group>
+      <group x="440" y="330"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(1) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(1) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(1) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(1) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(1) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(1) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(1) == 6"/></group><group x="440" y="440"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(2) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(2) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(2) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(2) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(2) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(2) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(2) == 6"/></group><group x="440" y="550"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(3) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(3) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(3) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(3) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(3) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(3) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(3) == 6"/></group><group x="440" y="660"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(4) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(4) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(4) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(4) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(4) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(4) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(4) == 6"/></group><group x="440" y="770"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(5) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(5) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(5) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(5) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(5) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(5) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(5) == 6"/></group><group x="440" y="880"><rect x="-32" y="-32" w="64" h="64" r="11.52" fill="#fff" stroke="$ink" sw="2.56"/>
+          <circle x="0" y="0" r="5.76" fill="$ink" when="=(6) % 2 == 1"/><circle x="-16.64" y="-16.64" r="5.76" fill="$ink" when="=(6) &gt;= 2"/><circle x="16.64" y="16.64" r="5.76" fill="$ink" when="=(6) &gt;= 2"/><circle x="16.64" y="-16.64" r="5.76" fill="$ink" when="=(6) &gt;= 4"/><circle x="-16.64" y="16.64" r="5.76" fill="$ink" when="=(6) &gt;= 4"/><circle x="-16.64" y="0" r="5.76" fill="$ink" when="=(6) == 6"/><circle x="16.64" y="0" r="5.76" fill="$ink" when="=(6) == 6"/></group>
+      <group repeat="36" as="k" x="=560 + (k % 6)*110" y="=330 + floor(k/6)*110" at="=0.6 + k*0.05">
+        <anim prop="scale" from="0" to="1" dur="0.3" ease="back"/>
+        <rect x="-48" y="-48" w="96" h="96" r="14" fill="=mix($teal, $coral, abs((k % 6) + floor(k/6) - 5)/5*-1 + 1)" opacity="=(k % 6) + floor(k/6) == 5 || T &lt; 4.2 ? 1 : 0.35"/>
+        <text x="0" y="2" size="40" weight="700" align="center" fill="#fff" text="{(k % 6) + floor(k/6) + 2}"/>
+      </group>
+      <path d="M 500 940 L 1170 270" stroke="$coral" sw="6" fill="none" opacity="0.6" at="4.2"><anim prop="draw" from="0" to="1" dur="0.8"/></path>
+      <group x="1320" y="440" at="4.6"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="460" h="110" r="20" fill="$coral"/><text x="230" y="56" size="44" weight="700" align="center" fill="#fff" text="@seven"/></group>
+      <group x="1320" y="600" at="6.6"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="460" h="110" r="20" fill="$panel" stroke="$teal" sw="4"/><text x="230" y="56" size="44" weight="700" align="center" fill="$teal" text="@two"/></group>
+      <sfx at="4.6" src="pop"/>
+    </scene>
+
+    <scene id="sums" dur="10" chapter="@ch4">
+      <say at="0.3" text="@vo4"/>
+      <text x="120" y="130" size="64" weight="700" fill="$ink" text="@h3"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="90" to="120" dur="0.5"/></text>
+      <line x1="300" y1="880" x2="1640" y2="880" stroke="$ink" sw="3"/>
+      <group repeat="11" as="i" x="=330 + i*120">
+        <rect x="0" y="880" w="96" ay="1" r="8" h="=data('sums', i)*95*ease((T - 0.6 - i*0.12)/1.0, 'out')" fill="=i == 5 ? $coral : mix($teal, $violet, abs(i - 5)/5)"/>
+        <text x="48" y="=850 - data('sums', i)*95*ease((T - 0.6 - i*0.12)/1.0, 'out')" size="28" weight="700" align="center" fill="$ink" text="{fmt(100*data('sums', i)/36*ease((T - 0.6 - i*0.12)/1.0, 'out'), 1)}%"/>
+        <text x="48" y="920" size="34" weight="600" align="center" fill="$muted" text="{i + 2}"/>
+      </group>
+    </scene>
+
+    <scene id="more" dur="10" chapter="@ch5">
+      <say at="0.3" text="@vo5"/>
+      <text x="120" y="130" size="64" weight="700" fill="$ink" text="@h4"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="90" to="120" dur="0.5"/></text>
+      <line x1="340" y1="860" x2="1580" y2="860" stroke="$ink" sw="3"/>
+      <rect repeat="31" as="i" x="=360 + i*38.710" y="860" w="32.71" ay="1" r="5" h="=520*bar(i)" fill="=mix($teal, $violet, clamp(stage()/4, 0, 1))"/>
+      <path d="M 360.0 854.2 L 375.0 852.8 L 390.0 851.0 L 405.0 848.9 L 420.0 846.4 L 435.0 843.4 L 450.0 839.9 L 465.0 835.7 L 480.0 830.8 L 495.0 825.2 L 510.0 818.6 L 525.0 811.2 L 540.0 802.7 L 555.0 793.1 L 570.0 782.3 L 585.0 770.3 L 600.0 757.1 L 615.0 742.5 L 630.0 726.7 L 645.0 709.6 L 660.0 691.2 L 675.0 671.6 L 690.0 650.9 L 705.0 629.3 L 720.0 606.9 L 735.0 583.8 L 750.0 560.4 L 765.0 536.7 L 780.0 513.2 L 795.0 490.0 L 810.0 467.5 L 825.0 445.9 L 840.0 425.7 L 855.0 406.9 L 870.0 390.1 L 885.0 375.3 L 900.0 362.9 L 915.0 353.0 L 930.0 345.8 L 945.0 341.5 L 960.0 340.0 L 975.0 341.5 L 990.0 345.8 L 1005.0 353.0 L 1020.0 362.9 L 1035.0 375.3 L 1050.0 390.1 L 1065.0 406.9 L 1080.0 425.7 L 1095.0 445.9 L 1110.0 467.5 L 1125.0 490.0 L 1140.0 513.2 L 1155.0 536.7 L 1170.0 560.4 L 1185.0 583.8 L 1200.0 606.9 L 1215.0 629.3 L 1230.0 650.9 L 1245.0 671.6 L 1260.0 691.2 L 1275.0 709.6 L 1290.0 726.7 L 1305.0 742.5 L 1320.0 757.1 L 1335.0 770.3 L 1350.0 782.3 L 1365.0 793.1 L 1380.0 802.7 L 1395.0 811.2 L 1410.0 818.6 L 1425.0 825.2 L 1440.0 830.8 L 1455.0 835.7 L 1470.0 839.9 L 1485.0 843.4 L 1500.0 846.4 L 1515.0 848.9 L 1530.0 851.0 L 1545.0 852.8 L 1560.0 854.2" stroke="$coral" sw="6" fill="none" at="7.4"><anim prop="draw" from="0" to="1" dur="1.4" ease="io"/></path>
+      <group x="1600" y="250">
+        <rect x="-10" y="-70" w="230" h="150" r="20" fill="$panel" stroke="$line" sw="3"/>
+        <text x="105" y="-10" size="84" weight="700" align="center" fill="$violet" text="{data('nd', round(stage()))}"/>
+        <text x="105" y="52" size="30" align="center" fill="$muted" text="@ndice"/>
+      </group>
+      <sfx at="2.8" src="click"/><sfx at="4.4" src="click"/><sfx at="6.0" src="click"/><sfx at="7.6" src="click"/>
+    </scene>
+
+    <scene id="bell" dur="11" chapter="@ch6">
+      <say at="0.3" text="@vo6"/>
+      <text x="120" y="130" size="64" weight="700" fill="$ink" text="@h5"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="90" to="120" dur="0.5"/></text>
+      <line x1="340" y1="860" x2="1580" y2="860" stroke="$ink" sw="3"/>
+      <path d="M 560.0 860 L 560.0 789.6 L 580.0 774.5 L 600.0 757.1 L 620.0 737.4 L 640.0 715.4 L 660.0 691.2 L 680.0 664.8 L 700.0 636.6 L 720.0 606.9 L 740.0 576.0 L 760.0 544.6 L 780.0 513.2 L 800.0 482.4 L 820.0 453.0 L 840.0 425.7 L 860.0 401.1 L 880.0 380.0 L 900.0 362.9 L 920.0 350.3 L 940.0 342.6 L 960.0 340.0 L 980.0 342.6 L 1000.0 350.3 L 1020.0 362.9 L 1040.0 380.0 L 1060.0 401.1 L 1080.0 425.7 L 1100.0 453.0 L 1120.0 482.4 L 1140.0 513.2 L 1160.0 544.6 L 1180.0 576.0 L 1200.0 606.9 L 1220.0 636.6 L 1240.0 664.8 L 1260.0 691.2 L 1280.0 715.4 L 1300.0 737.4 L 1320.0 757.1 L 1340.0 774.5 L 1360.0 789.6 L 1360.0 860 Z" fill="$teal" opacity="0.18" clip="url(#c95)"/>
+      <path d="M 760.0 860 L 760.0 544.6 L 770.0 528.8 L 780.0 513.2 L 790.0 497.7 L 800.0 482.4 L 810.0 467.5 L 820.0 453.0 L 830.0 439.0 L 840.0 425.7 L 850.0 413.0 L 860.0 401.1 L 870.0 390.1 L 880.0 380.0 L 890.0 370.9 L 900.0 362.9 L 910.0 356.0 L 920.0 350.3 L 930.0 345.8 L 940.0 342.6 L 950.0 340.6 L 960.0 340.0 L 970.0 340.6 L 980.0 342.6 L 990.0 345.8 L 1000.0 350.3 L 1010.0 356.0 L 1020.0 362.9 L 1030.0 370.9 L 1040.0 380.0 L 1050.0 390.1 L 1060.0 401.1 L 1070.0 413.0 L 1080.0 425.7 L 1090.0 439.0 L 1100.0 453.0 L 1110.0 467.5 L 1120.0 482.4 L 1130.0 497.7 L 1140.0 513.2 L 1150.0 528.8 L 1160.0 544.6 L 1160.0 860 Z" fill="$teal" opacity="0.4" clip="url(#c68)"/>
+      <path d="M 360.0 854.2 L 375.0 852.8 L 390.0 851.0 L 405.0 848.9 L 420.0 846.4 L 435.0 843.4 L 450.0 839.9 L 465.0 835.7 L 480.0 830.8 L 495.0 825.2 L 510.0 818.6 L 525.0 811.2 L 540.0 802.7 L 555.0 793.1 L 570.0 782.3 L 585.0 770.3 L 600.0 757.1 L 615.0 742.5 L 630.0 726.7 L 645.0 709.6 L 660.0 691.2 L 675.0 671.6 L 690.0 650.9 L 705.0 629.3 L 720.0 606.9 L 735.0 583.8 L 750.0 560.4 L 765.0 536.7 L 780.0 513.2 L 795.0 490.0 L 810.0 467.5 L 825.0 445.9 L 840.0 425.7 L 855.0 406.9 L 870.0 390.1 L 885.0 375.3 L 900.0 362.9 L 915.0 353.0 L 930.0 345.8 L 945.0 341.5 L 960.0 340.0 L 975.0 341.5 L 990.0 345.8 L 1005.0 353.0 L 1020.0 362.9 L 1035.0 375.3 L 1050.0 390.1 L 1065.0 406.9 L 1080.0 425.7 L 1095.0 445.9 L 1110.0 467.5 L 1125.0 490.0 L 1140.0 513.2 L 1155.0 536.7 L 1170.0 560.4 L 1185.0 583.8 L 1200.0 606.9 L 1215.0 629.3 L 1230.0 650.9 L 1245.0 671.6 L 1260.0 691.2 L 1275.0 709.6 L 1290.0 726.7 L 1305.0 742.5 L 1320.0 757.1 L 1335.0 770.3 L 1350.0 782.3 L 1365.0 793.1 L 1380.0 802.7 L 1395.0 811.2 L 1410.0 818.6 L 1425.0 825.2 L 1440.0 830.8 L 1455.0 835.7 L 1470.0 839.9 L 1485.0 843.4 L 1500.0 846.4 L 1515.0 848.9 L 1530.0 851.0 L 1545.0 852.8 L 1560.0 854.2" stroke="$ink" sw="6" fill="none"><anim prop="draw" from="0" to="1" dur="1.2" ease="io"/></path>
+      <line x1="560" y1="860" x2="560" y2="880" stroke="$ink" sw="3"/><text x="560" y="910" size="30" align="center" fill="$muted" text="−2σ"/><line x1="760" y1="860" x2="760" y2="880" stroke="$ink" sw="3"/><text x="760" y="910" size="30" align="center" fill="$muted" text="−1σ"/><line x1="960" y1="860" x2="960" y2="880" stroke="$ink" sw="3"/><text x="960" y="910" size="30" align="center" fill="$muted" text="μ"/><line x1="1160" y1="860" x2="1160" y2="880" stroke="$ink" sw="3"/><text x="1160" y="910" size="30" align="center" fill="$muted" text="+1σ"/><line x1="1360" y1="860" x2="1360" y2="880" stroke="$ink" sw="3"/><text x="1360" y="910" size="30" align="center" fill="$muted" text="+2σ"/>
+      <group x="960" y="640" at="2.6"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <text x="0" y="0" size="80" weight="700" align="center" fill="$ink" text="{fmt(68.3*ease((T-2.6)/1.2,'out'), 0)}%"/><text x="0" y="56" size="30" align="center" fill="$ink" text="@s68"/></group>
+      <group x="1530" y="700" at="5"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <text x="0" y="0" size="64" weight="700" align="center" fill="$teal" text="{fmt(95.4*ease((T-5)/1.2,'out'), 0)}%"/><text x="0" y="48" size="30" align="center" fill="$teal" text="@s95"/></group>
+      <text x="960" y="990" size="36" align="center" fill="$muted" text="@ex" at="7.4"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+    </scene>
+
+    <scene id="out" dur="6" chapter="@ch7">
+      <say at="0.3" text="@vo7"/>
+      <path d="M 360.0 854.2 L 375.0 852.8 L 390.0 851.0 L 405.0 848.9 L 420.0 846.4 L 435.0 843.4 L 450.0 839.9 L 465.0 835.7 L 480.0 830.8 L 495.0 825.2 L 510.0 818.6 L 525.0 811.2 L 540.0 802.7 L 555.0 793.1 L 570.0 782.3 L 585.0 770.3 L 600.0 757.1 L 615.0 742.5 L 630.0 726.7 L 645.0 709.6 L 660.0 691.2 L 675.0 671.6 L 690.0 650.9 L 705.0 629.3 L 720.0 606.9 L 735.0 583.8 L 750.0 560.4 L 765.0 536.7 L 780.0 513.2 L 795.0 490.0 L 810.0 467.5 L 825.0 445.9 L 840.0 425.7 L 855.0 406.9 L 870.0 390.1 L 885.0 375.3 L 900.0 362.9 L 915.0 353.0 L 930.0 345.8 L 945.0 341.5 L 960.0 340.0 L 975.0 341.5 L 990.0 345.8 L 1005.0 353.0 L 1020.0 362.9 L 1035.0 375.3 L 1050.0 390.1 L 1065.0 406.9 L 1080.0 425.7 L 1095.0 445.9 L 1110.0 467.5 L 1125.0 490.0 L 1140.0 513.2 L 1155.0 536.7 L 1170.0 560.4 L 1185.0 583.8 L 1200.0 606.9 L 1215.0 629.3 L 1230.0 650.9 L 1245.0 671.6 L 1260.0 691.2 L 1275.0 709.6 L 1290.0 726.7 L 1305.0 742.5 L 1320.0 757.1 L 1335.0 770.3 L 1350.0 782.3 L 1365.0 793.1 L 1380.0 802.7 L 1395.0 811.2 L 1410.0 818.6 L 1425.0 825.2 L 1440.0 830.8 L 1455.0 835.7 L 1470.0 839.9 L 1485.0 843.4 L 1500.0 846.4 L 1515.0 848.9 L 1530.0 851.0 L 1545.0 852.8 L 1560.0 854.2" y="60" stroke="$coral" sw="8" fill="none" opacity="0.35"/>
+      <text x="960" y="420" size="84" weight="700" align="center" fill="$ink" text="@out1"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <text x="960" y="540" size="84" weight="700" align="center" fill="$coral" text="@out2" at="1"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="scale" from="1.2" to="1" dur="0.6" ease="back"/></text>
+      <sfx at="1" src="ding"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/probability-visual/en/vo1.73bc351526.ogg" dur="6.01" hash="73bc351526" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/probability-visual/en/vo2.4c8bf1bcdb.ogg" dur="5.91" hash="4c8bf1bcdb" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/probability-visual/en/vo3.56ac94aaaa.ogg" dur="6.31" hash="56ac94aaaa" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/probability-visual/en/vo4.ea57963f7b.ogg" dur="7.31" hash="ea57963f7b" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/probability-visual/en/vo5.c4a5e08c26.ogg" dur="5.21" hash="c4a5e08c26" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/probability-visual/en/vo6.de6c877aa9.ogg" dur="7.71" hash="de6c877aa9" engine="kokoro:af_heart"/>
+    <voice say="vo7" lang="en" src="voice/probability-visual/en/vo7.e1b96b2f3d.ogg" dur="2.57" hash="e1b96b2f3d" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,11 @@
+{
+  "id": "documentary-ken-burns",
+  "title": "Documentary (Ken Burns)",
+  "category": "Storytelling",
+  "summary": "The vanishing night sky: slow pans and zooms on photos, cross-fades, letterbox, film grain, serif lower thirds and a drone bed.",
+  "duration": 60.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 24
+}

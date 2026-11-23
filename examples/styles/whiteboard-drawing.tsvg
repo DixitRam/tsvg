@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: whiteboard animation. Marker strokes draw on, handwritten notes reveal, simple doodles. -->
+<tsvg version="0.2" title="@title" font="Caveat, Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_bella"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" default="board"><choice id="board" label="Whiteboard"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.22" sfx="0.5"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="board" bg="#f6f6f2" fg="#1c1d21" ink="#1c1d21" blue="#1f5fd6" red="#d93a3a" green="#1f9a54" orange="#e89a16" frame="#c4c8ce"/></themes>
+  <strings>
+    <s id="title" en="How habits stick"/>
+    <s id="ch1" en="The question"/>
+    <s id="ch2" en="Cue"/>
+    <s id="ch3" en="Routine"/>
+    <s id="ch4" en="Reward"/>
+    <s id="ch5" en="The loop"/>
+    <s id="ch6" en="The chain"/>
+    <s id="ch7" en="Recap"/>
+    <s id="q" en="?"/>
+    <s id="h1" en="1. Cue"/>
+    <s id="h2" en="2. Routine"/>
+    <s id="h3" en="3. Reward"/>
+    <s id="n1a" en="a trigger you can’t miss"/>
+    <s id="n1b" en="shoes by the door"/>
+    <s id="n2a" en="the action itself"/>
+    <s id="n2b" en="keep it tiny: 2 minutes"/>
+    <s id="n3a" en="feels good right away"/>
+    <s id="n3b" en="brain: “do that again”"/>
+    <s id="l1" en="cue"/>
+    <s id="l2" en="routine"/>
+    <s id="l3" en="reward"/>
+    <s id="loop" en="habit loop"/>
+    <s id="chain" en="don’t break the chain!"/>
+    <s id="week" en="M  T  W  T  F  S  S"/>
+    <s id="o1" en="Make it obvious."/>
+    <s id="o2" en="Make it tiny."/>
+    <s id="o3" en="Make it rewarding."/>
+    <s id="vo1" en="Why do some habits stick, while others fade after a week? It comes down to one simple loop."/>
+    <s id="vo2" en="First, a cue. Something you can’t miss, like an alarm, or your running shoes left by the door."/>
+    <s id="vo3" en="Second, the routine. The action itself. Keep it so small that skipping it feels silly."/>
+    <s id="vo4" en="Third, a reward. Something that feels good right away, so your brain marks the path as worth repeating."/>
+    <s id="vo5" en="Cue, routine, reward. Run the loop enough times, and it starts to run itself."/>
+    <s id="vo6" en="Track it on a calendar. Every tick is a small win, and soon you won’t want to break the chain."/>
+    <s id="vo7" en="Make it obvious. Make it tiny. Make it rewarding. That’s the whole trick."/>
+  </strings>
+  <defs>
+    <data id="days" v="M, T, W, T, F, S, S"/>
+    <radial id="gloss" x="420" y="160" r="900"><stop at="0" color="#ffffff" opacity="0.9"/><stop at="1" color="#ffffff" opacity="0"/></radial>
+    <linear id="rim" x1="0" y1="0" x2="0" y2="40"><stop at="0" color="#dfe2e6"/><stop at="1" color="#aeb3ba"/></linear>
+    <symbol id="marker">
+      <group rot="-35">
+        <rect x="-14" y="0" w="28" h="150" r="6" fill="#2a2d33" shadow="6 10 14 #0003"/>
+        <rect x="-14" y="0" w="28" h="40" r="4" fill="$blue"/>
+        <path d="M -10 0 L -6 -22 L 6 -22 L 10 0 Z" fill="#555"/>
+      </group>
+    </symbol>
+  </defs>
+  <assets>
+    <asset id="bright" src="audio/bright.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <font family="Caveat" src="fonts/Caveat.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="bright" loop="1" vol="0.6"/>
+  <backdrop>
+    <rect w="1920" h="1080" fill="url(#gloss)"/>
+    <ellipse x="1500" y="820" rx="260" ry="70" fill="#9aa0a8" opacity="0.07" blur="30"/>
+    <ellipse x="300" y="980" rx="200" ry="40" fill="#9aa0a8" opacity="0.06" blur="24"/>
+  </backdrop>
+  <overlay>
+    <rect x="8" y="8" w="1904" h="1064" r="10" fill="none" stroke="url(#rim)" sw="16"/>
+    <rect x="660" y="1050" w="600" h="22" r="6" fill="#b5bac1"/>
+    <rect x="700" y="1040" w="120" h="14" r="7" fill="$red"/><rect x="840" y="1040" w="120" h="14" r="7" fill="$blue"/><rect x="980" y="1040" w="120" h="14" r="7" fill="$ink"/>
+  </overlay>
+  <timeline>
+    <scene id="intro" dur="9" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <text x="960" y="250" size="150" align="center" font="Caveat" weight="700" fill="$ink" text="@title" at="0.2"><anim prop="reveal" from="0" to="1" dur="1.2" ease="linear"/></text>
+      <path x="560" y="345" d="M 0 0 Q 400 -18 800 6" stroke="$red" sw="9" fill="none" at="1.4"><anim prop="draw" from="0" to="1" dur="0.8" ease="io"/></path>
+      <use ref="marker" x="=560 + 800*ease((T-1.4)/0.8,'io')" y="=345 - 8*ease((T-1.4)/0.8,'io')" at="1.2" dur="1.4"/>
+      <group x="520" y="940" scale="1.3">
+        <path d="M -44 -262 A 44 44 0 1 1 44 -262 A 44 44 0 1 1 -44 -262" stroke="$ink" sw="7" fill="none" at="1.20"><anim prop="draw" from="0" to="1" dur="0.39" ease="linear"/></path>
+        <path d="M -16 -272 L -16 -264" stroke="$ink" sw="6" fill="none" at="1.67"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 16 -272 L 16 -264" stroke="$ink" sw="6" fill="none" at="1.90"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -18 -244 Q 0 -234 18 -244" stroke="$ink" sw="5" fill="none" at="2.13"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 0 -218 L 0 -92" stroke="$ink" sw="7" fill="none" at="2.36"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -78 -128 L 0 -180 L 78 -128" stroke="$ink" sw="7" fill="none" at="2.59"><anim prop="draw" from="0" to="1" dur="0.17" ease="linear"/></path>
+        <path d="M -52 0 L 0 -92 L 52 0" stroke="$ink" sw="7" fill="none" at="2.84"><anim prop="draw" from="0" to="1" dur="0.20" ease="linear"/></path>
+      </group>
+      <group x="520" y="940" scale="1.3">
+        <path d="M 170.0 -480.0 L 189.2 -474.6 L 207.2 -467.6 L 225.8 -459.4 L 238.3 -443.4 L 242.5 -423.6 L 246.6 -404.8 L 248.2 -385.1 L 239.5 -367.3 L 226.9 -352.9 L 215.6 -337.2 L 199.7 -325.0 L 179.8 -322.8 L 160.3 -323.5 L 140.1 -324.5 L 122.4 -334.5 L 111.5 -351.6 L 101.3 -367.7 L 92.3 -385.2 L 93.0 -404.8 L 99.5 -422.9 L 104.5 -441.6 L 114.4 -459.2 L 132.1 -468.9 L 150.8 -474.6 L 170.0 -480.7 L 190.1 -478.2 L 206.5 -466.4 L 221.5 -454.8" stroke="$ink" sw="5" fill="none" at="3.12"><anim prop="draw" from="0" to="1" dur="0.51" ease="linear"/></path>
+        <path d="M 78 -310 A 14 14 0 1 1 106 -310 A 14 14 0 1 1 78 -310" stroke="$ink" sw="5" fill="none" at="3.71"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 58 -282 A 8 8 0 1 1 74 -282 A 8 8 0 1 1 58 -282" stroke="$ink" sw="5" fill="none" at="3.94"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+      </group>
+      <text x="741" y="420" size="130" font="Caveat" weight="700" fill="$blue" text="@q" at="4.17"><anim prop="opacity" from="0" to="1" dur="0.3"/></text>
+      <group x="1360" y="700" at="4.47">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <text x="0" y="-90" size="72" font="Caveat" weight="600" fill="$ink" text="@l1" align="center"/>
+        <text x="0" y="0" size="72" font="Caveat" weight="600" fill="$ink" text="@l2" align="center"/>
+        <text x="0" y="90" size="72" font="Caveat" weight="600" fill="$ink" text="@l3" align="center"/>
+        <path d="M 0.0 -192.5 L 43.6 -177.4 L 87.2 -166.7 L 127.4 -144.6 L 151.1 -105.1 L 170.0 -65.3 L 192.5 -24.3 L 195.8 22.6 L 176.6 65.7 L 157.3 106.9 L 132.9 147.5 L 90.9 169.5 L 45.2 175.9 L 2.0 186.4 L -44.0 187.8 L -84.3 165.4 L -119.5 138.4 L -158.5 112.6 L -184.6 73.1 L -187.6 25.7 L -187.9 -19.7 L -185.4 -66.7 L -160.0 -106.3 L -122.5 -133.2 L -89.1 -162.2 L -50.0 -186.6 L -3.9 -187.5 L 40.1 -179.3 L 86.5 -174.2 L 128.8 -152.4 L 153.6 -111.6" stroke="$blue" sw="6" fill="none"><anim prop="draw" from="0" to="1" dur="1.1"/></path>
+      </group>
+    </scene>
+
+    <scene id="cue" dur="9" chapter="@ch2">
+      <say at="0.3" text="@vo2"/>
+      <text x="160" y="170" size="120" font="Caveat" weight="700" fill="$blue" text="@h1"><anim prop="reveal" from="0" to="1" dur="0.7" ease="linear"/></text>
+      <path x="160" y="235" d="M 0 0 Q 120 -10 330 4" stroke="$blue" sw="6" fill="none" at="0.6"><anim prop="draw" from="0" to="1" dur="0.5"/></path>
+      <group rot="=T &gt; 3.2 &amp;&amp; T &lt; 5 ? 5*sin(T*40) : 0" x="0" y="0"><group x="540" y="640" scale="1.55">
+        <path d="M 0.0 -123.9 L 30.0 -116.9 L 54.9 -99.8 L 80.0 -85.2 L 103.3 -65.6 L 113.2 -36.8 L 116.4 -7.3 L 121.1 23.1 L 114.1 53.7 L 92.2 76.3 L 69.3 95.3 L 45.2 114.1 L 15.1 119.7 L -14.3 113.0 L -42.9 108.2 L -72.2 99.4 L -92.8 76.7 L -106.1 49.9 L -120.9 23.1 L -126.1 -7.9 L -113.9 -37.0 L -98.6 -62.5 L -83.2 -88.6 L -58.1 -105.8 L -28.4 -110.6 L 0.0 -116.2 L 30.7 -119.5 L 58.7 -106.7 L 80.6 -85.9" stroke="$ink" sw="8" fill="none" at="0.80"><anim prop="draw" from="0" to="1" dur="0.94" ease="linear"/></path>
+        <path d="M 0 0 L 0 -72" stroke="$ink" sw="7" fill="none" at="1.82"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 0 0 L 52 26" stroke="$ink" sw="7" fill="none" at="2.05"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -118 -62 Q -122 -140 -46 -128 L -118 -62" stroke="$ink" sw="7" fill="$ink" at="2.28"><anim prop="draw" from="0" to="1" dur="0.28" ease="linear"/></path>
+        <path d="M 118 -62 Q 122 -140 46 -128 L 118 -62" stroke="$ink" sw="7" fill="$ink" at="2.64"><anim prop="draw" from="0" to="1" dur="0.28" ease="linear"/></path>
+        <path d="M -76 96 L -100 142" stroke="$ink" sw="7" fill="none" at="3.00"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 76 96 L 100 142" stroke="$ink" sw="7" fill="none" at="3.23"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -165 -118 L -205 -140" stroke="$red" sw="6" fill="none" at="3.46"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -182 -62 L -225 -62" stroke="$red" sw="6" fill="none" at="3.69"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 165 -118 L 205 -140" stroke="$red" sw="6" fill="none" at="3.92"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 182 -62 L 225 -62" stroke="$red" sw="6" fill="none" at="4.15"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+      </group></group>
+      <sfx at="3.2" src="ding"/>
+      <path x="950" y="470" d="M -14 0 L 14 0 M 4 -10 L 14 0 L 4 10" stroke="$red" sw="6" fill="none" at="2.4"><anim prop="draw" from="0" to="1" dur="0.3"/></path><text x="1000" y="470" size="84" font="Caveat" weight="600" fill="$ink" text="@n1a" at="2.5"><anim prop="reveal" from="0" to="1" dur="1.1" ease="linear"/></text>
+      <path x="950" y="630" d="M -14 0 L 14 0 M 4 -10 L 14 0 L 4 10" stroke="$red" sw="6" fill="none" at="4.4"><anim prop="draw" from="0" to="1" dur="0.3"/></path><text x="1000" y="630" size="84" font="Caveat" weight="600" fill="$blue" text="@n1b" at="4.5"><anim prop="reveal" from="0" to="1" dur="1.1" ease="linear"/></text>
+    </scene>
+
+    <scene id="routine" dur="9" chapter="@ch3">
+      <say at="0.3" text="@vo3"/>
+      <text x="160" y="170" size="120" font="Caveat" weight="700" fill="$blue" text="@h2"><anim prop="reveal" from="0" to="1" dur="0.7" ease="linear"/></text>
+      <path x="160" y="235" d="M 0 0 Q 120 -10 330 4" stroke="$blue" sw="6" fill="none" at="0.6"><anim prop="draw" from="0" to="1" dur="0.5"/></path>
+      <group x="=8*sin(T*9)*step(3.77, T)"><group x="540" y="600" scale="1.5">
+        <path d="M 8 -176 A 38 38 0 1 1 84 -176 A 38 38 0 1 1 8 -176" stroke="$ink" sw="7" fill="none" at="0.80"><anim prop="draw" from="0" to="1" dur="0.38" ease="linear"/></path>
+        <path d="M 30 -138 L 0 0" stroke="$ink" sw="7" fill="none" at="1.26"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 18 -104 L 76 -70 L 108 -112" stroke="$ink" sw="7" fill="none" at="1.50"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 18 -104 L -38 -84 L -74 -40" stroke="$ink" sw="7" fill="none" at="1.73"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 0 0 L 62 52 L 50 132" stroke="$ink" sw="7" fill="none" at="1.96"><anim prop="draw" from="0" to="1" dur="0.17" ease="linear"/></path>
+        <path d="M 0 0 L -52 62 L -114 70" stroke="$ink" sw="7" fill="none" at="2.21"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -190 -120 L -118 -120" stroke="$blue" sw="6" fill="none" at="2.44"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -210 -62 L -128 -62" stroke="$blue" sw="6" fill="none" at="2.67"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -180 2 L -116 2" stroke="$blue" sw="6" fill="none" at="2.90"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -260 142 L 260 142" stroke="$ink" sw="5" fill="none" at="3.13"><anim prop="draw" from="0" to="1" dur="0.56" ease="linear"/></path>
+      </group></group>
+      <path x="950" y="470" d="M -14 0 L 14 0 M 4 -10 L 14 0 L 4 10" stroke="$red" sw="6" fill="none" at="2.2"><anim prop="draw" from="0" to="1" dur="0.3"/></path><text x="1000" y="470" size="84" font="Caveat" weight="600" fill="$ink" text="@n2a" at="2.3"><anim prop="reveal" from="0" to="1" dur="1.1" ease="linear"/></text>
+      <path x="950" y="630" d="M -14 0 L 14 0 M 4 -10 L 14 0 L 4 10" stroke="$red" sw="6" fill="none" at="4.2"><anim prop="draw" from="0" to="1" dur="0.3"/></path><text x="1000" y="630" size="84" font="Caveat" weight="600" fill="$blue" text="@n2b" at="4.3"><anim prop="reveal" from="0" to="1" dur="1.1" ease="linear"/></text>
+      <path x="1250" y="680" d="M 0 0 Q 200 12 420 -2" stroke="$red" sw="6" fill="none" at="5.6"><anim prop="draw" from="0" to="1" dur="0.5"/></path>
+    </scene>
+
+    <scene id="reward" dur="10" chapter="@ch4">
+      <say at="0.3" text="@vo4"/>
+      <text x="160" y="170" size="120" font="Caveat" weight="700" fill="$blue" text="@h3"><anim prop="reveal" from="0" to="1" dur="0.7" ease="linear"/></text>
+      <path x="160" y="235" d="M 0 0 Q 120 -10 330 4" stroke="$blue" sw="6" fill="none" at="0.6"><anim prop="draw" from="0" to="1" dur="0.5"/></path>
+      <group x="540" y="640" scale="1.5">
+        <path d="M 0.0 -138.0 L 34.1 -46.9 L 131.2 -42.6 L 55.2 17.9 L 81.1 111.6 L 0.0 58.0 L -81.1 111.6 L -55.2 17.9 L -131.2 -42.6 L -34.1 -46.9 L -0.0 -138.0" stroke="$orange" sw="9" fill="none" at="0.80"><anim prop="draw" from="0" to="1" dur="1.04" ease="linear"/></path>
+        <path d="M -24 -8 L -24 4" stroke="$ink" sw="7" fill="none" at="1.92"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 24 -8 L 24 4" stroke="$ink" sw="7" fill="none" at="2.15"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -26 26 Q 0 46 26 26" stroke="$ink" sw="6" fill="none" at="2.38"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -190 -150 L -160 -120" stroke="$orange" sw="6" fill="none" at="2.61"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 190 -150 L 160 -120" stroke="$orange" sw="6" fill="none" at="2.84"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 0 -210 L 0 -170" stroke="$orange" sw="6" fill="none" at="3.07"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -200 40 L -160 30" stroke="$orange" sw="6" fill="none" at="3.30"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 200 40 L 160 30" stroke="$orange" sw="6" fill="none" at="3.53"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+      </group>
+      <sfx at="3.76" src="pop"/>
+      <path x="950" y="470" d="M -14 0 L 14 0 M 4 -10 L 14 0 L 4 10" stroke="$red" sw="6" fill="none" at="2.6"><anim prop="draw" from="0" to="1" dur="0.3"/></path><text x="1000" y="470" size="84" font="Caveat" weight="600" fill="$ink" text="@n3a" at="2.7"><anim prop="reveal" from="0" to="1" dur="1.1" ease="linear"/></text>
+      <path x="950" y="630" d="M -14 0 L 14 0 M 4 -10 L 14 0 L 4 10" stroke="$red" sw="6" fill="none" at="4.8"><anim prop="draw" from="0" to="1" dur="0.3"/></path><text x="1000" y="630" size="84" font="Caveat" weight="600" fill="$blue" text="@n3b" at="4.9"><anim prop="reveal" from="0" to="1" dur="1.1" ease="linear"/></text>
+    </scene>
+
+    <scene id="loop" dur="10" chapter="@ch5">
+      <say at="0.3" text="@vo5"/>
+      <group x="960" y="270" scale="0.6">
+        <path d="M 0.0 -123.9 L 30.0 -116.9 L 54.9 -99.8 L 80.0 -85.2 L 103.3 -65.6 L 113.2 -36.8 L 116.4 -7.3 L 121.1 23.1 L 114.1 53.7 L 92.2 76.3 L 69.3 95.3 L 45.2 114.1 L 15.1 119.7 L -14.3 113.0 L -42.9 108.2 L -72.2 99.4 L -92.8 76.7 L -106.1 49.9 L -120.9 23.1 L -126.1 -7.9 L -113.9 -37.0 L -98.6 -62.5 L -83.2 -88.6 L -58.1 -105.8 L -28.4 -110.6 L 0.0 -116.2 L 30.7 -119.5 L 58.7 -106.7 L 80.6 -85.9" stroke="$ink" sw="8" fill="none" at="0.40"><anim prop="draw" from="0" to="1" dur="0.21" ease="linear"/></path>
+        <path d="M 0 0 L 0 -72" stroke="$ink" sw="7" fill="none" at="0.69"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 0 0 L 52 26" stroke="$ink" sw="7" fill="none" at="0.92"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -118 -62 Q -122 -140 -46 -128 L -118 -62" stroke="$ink" sw="7" fill="$ink" at="1.15"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 118 -62 Q 122 -140 46 -128 L 118 -62" stroke="$ink" sw="7" fill="$ink" at="1.38"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -76 96 L -100 142" stroke="$ink" sw="7" fill="none" at="1.61"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 76 96 L 100 142" stroke="$ink" sw="7" fill="none" at="1.84"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -165 -118 L -205 -140" stroke="$red" sw="6" fill="none" at="2.07"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -182 -62 L -225 -62" stroke="$red" sw="6" fill="none" at="2.30"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 165 -118 L 205 -140" stroke="$red" sw="6" fill="none" at="2.53"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 182 -62 L 225 -62" stroke="$red" sw="6" fill="none" at="2.76"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+      </group>
+      <group x="1245.7883832488646" y="775" scale="0.6">
+        <path d="M 8 -176 A 38 38 0 1 1 84 -176 A 38 38 0 1 1 8 -176" stroke="$ink" sw="7" fill="none" at="1.60"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 30 -138 L 0 0" stroke="$ink" sw="7" fill="none" at="1.83"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 18 -104 L 76 -70 L 108 -112" stroke="$ink" sw="7" fill="none" at="2.06"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 18 -104 L -38 -84 L -74 -40" stroke="$ink" sw="7" fill="none" at="2.29"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 0 0 L 62 52 L 50 132" stroke="$ink" sw="7" fill="none" at="2.52"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 0 0 L -52 62 L -114 70" stroke="$ink" sw="7" fill="none" at="2.75"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -190 -120 L -118 -120" stroke="$blue" sw="6" fill="none" at="2.98"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -210 -62 L -128 -62" stroke="$blue" sw="6" fill="none" at="3.21"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -180 2 L -116 2" stroke="$blue" sw="6" fill="none" at="3.44"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -260 142 L 260 142" stroke="$ink" sw="5" fill="none" at="3.67"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+      </group>
+      <group x="674.2116167511352" y="765" scale="0.6">
+        <path d="M 0.0 -138.0 L 34.1 -46.9 L 131.2 -42.6 L 55.2 17.9 L 81.1 111.6 L 0.0 58.0 L -81.1 111.6 L -55.2 17.9 L -131.2 -42.6 L -34.1 -46.9 L -0.0 -138.0" stroke="$orange" sw="9" fill="none" at="2.80"><anim prop="draw" from="0" to="1" dur="0.24" ease="linear"/></path>
+        <path d="M -24 -8 L -24 4" stroke="$ink" sw="7" fill="none" at="3.12"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 24 -8 L 24 4" stroke="$ink" sw="7" fill="none" at="3.35"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -26 26 Q 0 46 26 26" stroke="$ink" sw="6" fill="none" at="3.58"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -190 -150 L -160 -120" stroke="$orange" sw="6" fill="none" at="3.81"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 190 -150 L 160 -120" stroke="$orange" sw="6" fill="none" at="4.04"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 0 -210 L 0 -170" stroke="$orange" sw="6" fill="none" at="4.27"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M -200 40 L -160 30" stroke="$orange" sw="6" fill="none" at="4.50"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 200 40 L 160 30" stroke="$orange" sw="6" fill="none" at="4.73"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+      </group>
+      <text x="1150" y="270" size="64" font="Caveat" weight="700" fill="$blue" text="@l1" at="1"><anim prop="opacity" from="0" to="1" dur="0.3"/></text>
+      <text x="1256" y="925" size="64" align="center" font="Caveat" weight="700" fill="$blue" text="@l2" at="2.2"><anim prop="opacity" from="0" to="1" dur="0.3"/></text>
+      <text x="674" y="915" size="64" align="center" font="Caveat" weight="700" fill="$blue" text="@l3" at="3.4"><anim prop="opacity" from="0" to="1" dur="0.3"/></text>
+      <group x="0" y="0">
+        <path d="M 1114.9 308.6 A 330 330 0 0 1 1289.8 611.5" stroke="$red" sw="7" fill="none" at="4.20"><anim prop="draw" from="0" to="1" dur="0.51" ease="linear"/></path>
+        <path d="M 1306.8 582.1 L 1289.8 611.5 L 1274.9 581.0" stroke="$red" sw="7" fill="none" at="4.76"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 1134.9 879.9 A 330 330 0 0 1 785.1 879.9" stroke="$red" sw="7" fill="none" at="4.96"><anim prop="draw" from="0" to="1" dur="0.51" ease="linear"/></path>
+        <path d="M 802.1 909.3 L 785.1 879.9 L 819.0 882.2" stroke="$red" sw="7" fill="none" at="5.51"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+        <path d="M 630.2 611.5 A 330 330 0 0 1 805.1 308.6" stroke="$red" sw="7" fill="none" at="5.71"><anim prop="draw" from="0" to="1" dur="0.51" ease="linear"/></path>
+        <path d="M 771.1 308.6 L 805.1 308.6 L 786.1 336.8" stroke="$red" sw="7" fill="none" at="6.27"><anim prop="draw" from="0" to="1" dur="0.15" ease="linear"/></path>
+      </group>
+      <text x="960" y="620" size="84" align="center" font="Caveat" weight="700" fill="$ink" text="@loop" at="6.47"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text>
+    </scene>
+
+    <scene id="chain" dur="10" chapter="@ch6">
+      <say at="0.3" text="@vo6"/>
+      <group x="0" y="0">
+        <path d="M 170 230 L 1220 230 L 1220 770 L 170 770 Z" stroke="$ink" sw="7" fill="none" at="0.50"><anim prop="draw" from="0" to="1" dur="1.22" ease="linear"/></path>
+        <path d="M 170 365 L 1220 365" stroke="$ink" sw="4" fill="none" at="1.75"><anim prop="draw" from="0" to="1" dur="0.40" ease="linear"/></path>
+        <path d="M 170 500 L 1220 500" stroke="$ink" sw="4" fill="none" at="2.19"><anim prop="draw" from="0" to="1" dur="0.40" ease="linear"/></path>
+        <path d="M 170 635 L 1220 635" stroke="$ink" sw="4" fill="none" at="2.62"><anim prop="draw" from="0" to="1" dur="0.40" ease="linear"/></path>
+        <path d="M 320 365 L 320 770" stroke="$ink" sw="4" fill="none" at="3.05"><anim prop="draw" from="0" to="1" dur="0.16" ease="linear"/></path>
+        <path d="M 470 365 L 470 770" stroke="$ink" sw="4" fill="none" at="3.24"><anim prop="draw" from="0" to="1" dur="0.16" ease="linear"/></path>
+        <path d="M 620 365 L 620 770" stroke="$ink" sw="4" fill="none" at="3.43"><anim prop="draw" from="0" to="1" dur="0.16" ease="linear"/></path>
+        <path d="M 770 365 L 770 770" stroke="$ink" sw="4" fill="none" at="3.61"><anim prop="draw" from="0" to="1" dur="0.16" ease="linear"/></path>
+        <path d="M 920 365 L 920 770" stroke="$ink" sw="4" fill="none" at="3.80"><anim prop="draw" from="0" to="1" dur="0.16" ease="linear"/></path>
+        <path d="M 1070 365 L 1070 770" stroke="$ink" sw="4" fill="none" at="3.98"><anim prop="draw" from="0" to="1" dur="0.16" ease="linear"/></path>
+      </group>
+      <text repeat="7" as="c" x="=245 + c*150" y="297.5" size="72" align="center" font="Caveat" weight="700" fill="$blue" text="{data('days', c)}" at="=1.4 + c*0.1"><anim prop="opacity" from="0" to="1" dur="0.2"/></text>
+      <path repeat="17" as="k" x="=170 + (k % 7)*150 + 22" y="=365 + floor(k/7)*135 + 18" d="M 14 52 L 48 86 L 104 14" stroke="$green" sw="11" fill="none" at="=2.4 + k*0.28"><anim prop="draw" from="0" to="1" dur="0.25"/></path>
+      <sfx at="2.4" src="pop"/><sfx at="4.08" src="pop"/><sfx at="5.76" src="pop"/>
+      <path d="M 695.0 637.9 L 715.7 638.7 L 734.6 648.0 L 746.3 665.2 L 755.0 683.0 L 761.9 702.5 L 758.5 723.1 L 747.0 740.3 L 734.1 756.3 L 716.5 768.7 L 695.0 769.6 L 675.2 763.6 L 656.0 756.2 L 640.7 742.0 L 634.6 722.1 L 632.0 702.5 L 631.3 681.8 L 640.4 662.8 L 656.9 650.1 L 674.5 639.4 L 695.0 633.0 L 715.7 638.6 L 732.5 650.9 L 748.1 663.9 L 758.8 681.8" stroke="$red" sw="6" fill="none" at="7.2"><anim prop="draw" from="0" to="1" dur="0.6"/></path>
+      <text x="1560" y="520" size="84" font="Caveat" weight="700" fill="$red" text="@chain" align="center" at="7.6" maxw="460"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <path x="1420" y="650" d="M 0 0 Q -40 80 -150 110 M -118 88 L -150 110 L -114 128" stroke="$red" sw="6" fill="none" at="8.2"><anim prop="draw" from="0" to="1" dur="0.5"/></path>
+    </scene>
+
+    <scene id="outro" dur="9" chapter="@ch7">
+      <say at="0.3" text="@vo7"/>
+      <text x="960" y="300" size="130" align="center" font="Caveat" weight="700" fill="$ink" text="@o1" at="0.3"><anim prop="reveal" from="0" to="1" dur="1.2" ease="linear"/></text>
+      <text x="960" y="500" size="130" align="center" font="Caveat" weight="700" fill="$ink" text="@o2" at="1.6"><anim prop="reveal" from="0" to="1" dur="1.2" ease="linear"/></text>
+      <text x="960" y="700" size="130" align="center" font="Caveat" weight="700" fill="$ink" text="@o3" at="2.9"><anim prop="reveal" from="0" to="1" dur="1.2" ease="linear"/></text>
+      <path x="560" y="790" d="M 0 0 Q 400 -16 800 4" stroke="$red" sw="9" fill="none" at="4.3"><anim prop="draw" from="0" to="1" dur="0.7" ease="io"/></path>
+      <path x="1480" y="480" d="M -60 0 L -10 50 L 90 -80" stroke="$green" sw="14" fill="none" at="5.2"><anim prop="draw" from="0" to="1" dur="0.5"/></path>
+      <sfx at="5.2" src="ding"/>
+      <use ref="marker" x="=560 + 800*ease((T-4.3)/0.7,'io')" y="=790 - 6*ease((T-4.3)/0.7,'io')" at="4.1" dur="1.4"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/whiteboard-drawing/en/vo1.04f60a3cd1.ogg" dur="5.41" hash="04f60a3cd1" engine="kokoro:af_bella"/>
+    <voice say="vo2" lang="en" src="voice/whiteboard-drawing/en/vo2.c0f73fba48.ogg" dur="5.71" hash="c0f73fba48" engine="kokoro:af_bella"/>
+    <voice say="vo3" lang="en" src="voice/whiteboard-drawing/en/vo3.de22041786.ogg" dur="5.41" hash="de22041786" engine="kokoro:af_bella"/>
+    <voice say="vo4" lang="en" src="voice/whiteboard-drawing/en/vo4.e4aad00997.ogg" dur="6.31" hash="e4aad00997" engine="kokoro:af_bella"/>
+    <voice say="vo5" lang="en" src="voice/whiteboard-drawing/en/vo5.816ea63ee0.ogg" dur="5.01" hash="816ea63ee0" engine="kokoro:af_bella"/>
+    <voice say="vo6" lang="en" src="voice/whiteboard-drawing/en/vo6.d428dedefd.ogg" dur="5.31" hash="d428dedefd" engine="kokoro:af_bella"/>
+    <voice say="vo7" lang="en" src="voice/whiteboard-drawing/en/vo7.88d8adb3a5.ogg" dur="4.11" hash="88d8adb3a5" engine="kokoro:af_bella"/>
+  </voices>
+</tsvg>

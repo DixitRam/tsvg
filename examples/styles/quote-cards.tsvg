@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Quote cards: serif quotes on photo backgrounds with a frosted card, slow zoom, fade-through-black transitions. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait" w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" default="en"><choice id="en" label="English" tts="kokoro:bf_emma"/></option>
+    <option id="mix" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.4" sfx="0.4"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="main" bg="#0b0b0f" fg="#fbf7ef" muted="#ffffff99" accent="#e8c98a"/></themes>
+  <strings>
+    <s id="title" en="On Patience"/>
+    <s id="kicker" en="FIVE LINES WORTH KEEPING"/>
+    <s id="sub" en="for the days when everything feels slow"/>
+    <s id="out1" en="Slow is still moving."/>
+    <s id="out2" en="SAVE THE ONE YOU NEEDED TODAY"/>
+    <s id="q_q1" en="Adopt the pace of nature: her secret is patience."/>
+    <s id="who_q1" en="RALPH WALDO EMERSON"/>
+    <s id="yr_q1" en="1803 – 1882"/>
+    <s id="q_q2" en="It does not matter how slowly you go as long as you do not stop."/>
+    <s id="who_q2" en="CONFUCIUS"/>
+    <s id="yr_q2" en="attributed"/>
+    <s id="q_q3" en="Rivers know this: there is no hurry. We shall get there some day."/>
+    <s id="who_q3" en="A. A. MILNE"/>
+    <s id="yr_q3" en="Winnie-the-Pooh, 1926"/>
+    <s id="q_q4" en="Patience is bitter, but its fruit is sweet."/>
+    <s id="who_q4" en="JEAN-JACQUES ROUSSEAU"/>
+    <s id="yr_q4" en="attributed"/>
+    <s id="q_q5" en="He that can have patience can have what he will."/>
+    <s id="who_q5" en="BENJAMIN FRANKLIN"/>
+    <s id="yr_q5" en="Poor Richard's Almanack"/>
+    <s id="vo_intro" en="On patience. Five lines worth keeping, for the days when everything feels slow."/>
+    <s id="vo_q1" en="Adopt the pace of nature: her secret is patience. Ralph Waldo Emerson."/>
+    <s id="vo_q2" en="It does not matter how slowly you go as long as you do not stop. Confucius."/>
+    <s id="vo_q3" en="Rivers know this: there is no hurry. We shall get there some day. A. A. Milne."/>
+    <s id="vo_q4" en="Patience is bitter, but its fruit is sweet. Jean-Jacques Rousseau."/>
+    <s id="vo_q5" en="He that can have patience can have what he will. Benjamin Franklin."/>
+    <s id="vo_outro" en="Save the one you needed today. Slow is still moving."/>
+    <s id="ch_intro" en="Intro"/>
+    <s id="ch_q1" en="Ralph Waldo Emerson"/>
+    <s id="ch_q2" en="Confucius"/>
+    <s id="ch_q3" en="A. A. Milne"/>
+    <s id="ch_q4" en="Jean-Jacques Rousseau"/>
+    <s id="ch_q5" en="Benjamin Franklin"/>
+    <s id="ch_outro" en="Outro"/>
+  </strings>
+  <defs>
+    <radial id="vignette" x="=W/2" y="=H/2" r="=max(W, H)*0.75"><stop at="0" color="#000" opacity="0.15"/><stop at="1" color="#000" opacity="0.75"/></radial>
+    <clip id="card"><rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 900 : 1440" h="=portrait ? 1180 : 760" r="6"/></clip>
+  </defs>
+  <assets>
+    <asset id="paper" src="images/paper.jpg"/>
+    <asset id="mountains" src="images/mountains.jpg"/>
+    <asset id="city" src="images/city.jpg"/>
+    <asset id="nebula" src="images/nebula.jpg"/>
+    <asset id="factory" src="images/factory.jpg"/>
+    <asset id="pad" src="audio/pad.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.9"/>
+  <timeline>
+    <scene id="intro" dur="8" chapter="@ch_intro">
+      <say at="0.9" text="@vo_intro"/>
+      <sfx at="0.1" src="whoosh" vol="0.5"/>
+      <group scale="=1.04 + 0.10*T/sdur" rot="=1*0.6*T/sdur">
+        <image src="paper" x="0" y="0" w="=W" h="=H" blur="2"/>
+      </group>
+      <rect w="=W" h="=H" fill="#8a5a2b" blend="multiply"/>
+      <rect w="=W" h="=H" fill="url(#vignette)"/>
+      <group clip="url(#card)" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+        <group scale="=1.04 + 0.10*T/sdur" rot="=1*0.6*T/sdur"><image src="paper" x="0" y="0" w="=W" h="=H" blur="26"/></group><rect w="=W" h="=H" fill="#8a5a2b" blend="multiply"/>
+        <rect w="=W" h="=H" fill="#0b0b0f" opacity="0.42"/>
+      </group>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 900 : 1440" h="=portrait ? 1180 : 760" r="6" fill="none" stroke="#ffffff55" sw="2" shadow="0 30 80 #0009" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 860 : 1400" h="=portrait ? 1140 : 720" r="4" fill="none" stroke="#e8c98a55" sw="1.5" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <text x="=W/2" y="=H/2 - 150" y.portrait="=H/2 - 260" size="38" weight="600" align="center" fill="#e8c98a" text="@kicker" at="0.6">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H/2 - 30" y.portrait="=H/2 - 110" size="170" size.portrait="150" italic="1" font="Playfair Display" weight="600" align="center" fill="#fbf7ef" text="@title" at="0.9" shadow="0 6 30 #0008">
+        <anim prop="opacity" from="0" to="1" dur="1.4" ease="io"/>
+        <anim prop="blur" from="12" to="0" dur="1.4" ease="out"/>
+      </text>
+      <line x1="=W/2 - 120" x2="=W/2 + 120" y1="=H/2 + 90" y2="=H/2 + 90" y1.portrait="=H/2 + 20" y2.portrait="=H/2 + 20" stroke="#e8c98a" sw="2" at="1.8"><anim prop="draw" from="0" to="1" dur="1"/></line>
+      <text x="=W/2" y="=H/2 + 150" y.portrait="=H/2 + 110" size="44" size.portrait="42" maxw.portrait="720" italic="1" font="Playfair Display" align="center" fill="#fbf7efdd" text="@sub" at="2.2">
+        <anim prop="opacity" from="0" to="1" dur="1"/>
+      </text>
+      <rect w="=W" h="=H" fill="#000" opacity="=1 - smooth(0, 0.9, T) + smooth(sdur - 0.8, sdur, T)"/>
+    </scene>
+    <scene id="q1" dur="8" chapter="@ch_q1">
+      <say at="0.9" text="@vo_q1"/>
+      <sfx at="0.1" src="whoosh" vol="0.5"/>
+      <group scale="=1.04 + 0.10*T/sdur" rot="=-1*0.6*T/sdur">
+        <image src="mountains" x="0" y="0" w="=W" h="=H" blur="2"/>
+      </group>
+      <rect w="=W" h="=H" fill="url(#vignette)"/>
+      <group clip="url(#card)" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+        <group scale="=1.04 + 0.10*T/sdur" rot="=-1*0.6*T/sdur"><image src="mountains" x="0" y="0" w="=W" h="=H" blur="26"/></group>
+        <rect w="=W" h="=H" fill="#0b0b0f" opacity="0.42"/>
+      </group>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 900 : 1440" h="=portrait ? 1180 : 760" r="6" fill="none" stroke="#ffffff55" sw="2" shadow="0 30 80 #0009" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 860 : 1400" h="=portrait ? 1140 : 720" r="4" fill="none" stroke="#e8c98a55" sw="1.5" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <text x="=W/2" y="=H/2 - 250" y.portrait="=H/2 - 430" size="220" font="Playfair Display" weight="700" align="center" fill="#e8c98a" text="“" at="0.6">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+        <anim prop="y" from="=H/2 - 220" to="=H/2 - 250" dur="1.2" ease="out"/>
+      </text>
+      <text x="=W/2" y="=H/2 - 20" y.portrait="=H/2 - 60" size="98" size.portrait="74" lh="1.32" maxw="1180" maxw.portrait="740" italic="1" font="Playfair Display" weight="500" align="center" fill="#fbf7ef" shadow="0 4 24 #0008" text="@q_q1" at="1.0">
+        <anim prop="opacity" from="0" to="1" dur="1.4" ease="io"/>
+        <anim prop="blur" from="10" to="0" dur="1.4" ease="out"/>
+        <anim prop="y" from="=H/2 + 10" from.portrait="=H/2 - 30" to="=H/2 - 20" to.portrait="=H/2 - 60" dur="1.6" ease="out"/>
+      </text>
+      <line x1="=W/2 - 70" x2="=W/2 + 70" y1="=H/2 + 200" y2="=H/2 + 200" y1.portrait="=H/2 + 310" y2.portrait="=H/2 + 310" stroke="#e8c98a" sw="2" at="2.2">
+        <anim prop="draw" from="0" to="1" dur="0.8" ease="io"/>
+      </line>
+      <text x="=W/2" y="=H/2 + 255" y.portrait="=H/2 + 370" size="40" weight="600" align="center" fill="#fbf7ef" text="@who_q1" at="2.5">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 305" y.portrait="=H/2 + 425" size="28" italic="1" font="Playfair Display" align="center" fill="#e8c98a" text="@yr_q1" at="2.8">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H - 70" y.portrait="=H - 140" size="26" weight="500" align="center" fill="#ffffff99" text="1 / 5" at="1"/>
+      <rect w="=W" h="=H" fill="#000" opacity="=1 - smooth(0, 0.9, T) + smooth(sdur - 0.8, sdur, T)"/>
+    </scene>
+    <scene id="q2" dur="8" chapter="@ch_q2">
+      <say at="0.9" text="@vo_q2"/>
+      <sfx at="0.1" src="whoosh" vol="0.5"/>
+      <group scale="=1.04 + 0.10*T/sdur" rot="=1*0.6*T/sdur">
+        <image src="city" x="0" y="0" w="=W" h="=H" blur="2"/>
+      </group>
+      <rect w="=W" h="=H" fill="url(#vignette)"/>
+      <group clip="url(#card)" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+        <group scale="=1.04 + 0.10*T/sdur" rot="=1*0.6*T/sdur"><image src="city" x="0" y="0" w="=W" h="=H" blur="26"/></group>
+        <rect w="=W" h="=H" fill="#0b0b0f" opacity="0.42"/>
+      </group>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 900 : 1440" h="=portrait ? 1180 : 760" r="6" fill="none" stroke="#ffffff55" sw="2" shadow="0 30 80 #0009" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 860 : 1400" h="=portrait ? 1140 : 720" r="4" fill="none" stroke="#e8c98a55" sw="1.5" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <text x="=W/2" y="=H/2 - 250" y.portrait="=H/2 - 430" size="220" font="Playfair Display" weight="700" align="center" fill="#e8c98a" text="“" at="0.6">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+        <anim prop="y" from="=H/2 - 220" to="=H/2 - 250" dur="1.2" ease="out"/>
+      </text>
+      <text x="=W/2" y="=H/2 - 20" y.portrait="=H/2 - 60" size="86" size.portrait="74" lh="1.32" maxw="1180" maxw.portrait="740" italic="1" font="Playfair Display" weight="500" align="center" fill="#fbf7ef" shadow="0 4 24 #0008" text="@q_q2" at="1.0">
+        <anim prop="opacity" from="0" to="1" dur="1.4" ease="io"/>
+        <anim prop="blur" from="10" to="0" dur="1.4" ease="out"/>
+        <anim prop="y" from="=H/2 + 10" from.portrait="=H/2 - 30" to="=H/2 - 20" to.portrait="=H/2 - 60" dur="1.6" ease="out"/>
+      </text>
+      <line x1="=W/2 - 70" x2="=W/2 + 70" y1="=H/2 + 200" y2="=H/2 + 200" y1.portrait="=H/2 + 310" y2.portrait="=H/2 + 310" stroke="#e8c98a" sw="2" at="2.2">
+        <anim prop="draw" from="0" to="1" dur="0.8" ease="io"/>
+      </line>
+      <text x="=W/2" y="=H/2 + 255" y.portrait="=H/2 + 370" size="40" weight="600" align="center" fill="#fbf7ef" text="@who_q2" at="2.5">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 305" y.portrait="=H/2 + 425" size="28" italic="1" font="Playfair Display" align="center" fill="#e8c98a" text="@yr_q2" at="2.8">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H - 70" y.portrait="=H - 140" size="26" weight="500" align="center" fill="#ffffff99" text="2 / 5" at="1"/>
+      <rect w="=W" h="=H" fill="#000" opacity="=1 - smooth(0, 0.9, T) + smooth(sdur - 0.8, sdur, T)"/>
+    </scene>
+    <scene id="q3" dur="8" chapter="@ch_q3">
+      <say at="0.9" text="@vo_q3"/>
+      <sfx at="0.1" src="whoosh" vol="0.5"/>
+      <group scale="=1.04 + 0.10*T/sdur" rot="=-1*0.6*T/sdur">
+        <image src="nebula" x="0" y="0" w="=W" h="=H" blur="2"/>
+      </group>
+      <rect w="=W" h="=H" fill="url(#vignette)"/>
+      <group clip="url(#card)" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+        <group scale="=1.04 + 0.10*T/sdur" rot="=-1*0.6*T/sdur"><image src="nebula" x="0" y="0" w="=W" h="=H" blur="26"/></group>
+        <rect w="=W" h="=H" fill="#0b0b0f" opacity="0.42"/>
+      </group>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 900 : 1440" h="=portrait ? 1180 : 760" r="6" fill="none" stroke="#ffffff55" sw="2" shadow="0 30 80 #0009" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 860 : 1400" h="=portrait ? 1140 : 720" r="4" fill="none" stroke="#e8c98a55" sw="1.5" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <text x="=W/2" y="=H/2 - 250" y.portrait="=H/2 - 430" size="220" font="Playfair Display" weight="700" align="center" fill="#e8c98a" text="“" at="0.6">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+        <anim prop="y" from="=H/2 - 220" to="=H/2 - 250" dur="1.2" ease="out"/>
+      </text>
+      <text x="=W/2" y="=H/2 - 20" y.portrait="=H/2 - 60" size="86" size.portrait="74" lh="1.32" maxw="1180" maxw.portrait="740" italic="1" font="Playfair Display" weight="500" align="center" fill="#fbf7ef" shadow="0 4 24 #0008" text="@q_q3" at="1.0">
+        <anim prop="opacity" from="0" to="1" dur="1.4" ease="io"/>
+        <anim prop="blur" from="10" to="0" dur="1.4" ease="out"/>
+        <anim prop="y" from="=H/2 + 10" from.portrait="=H/2 - 30" to="=H/2 - 20" to.portrait="=H/2 - 60" dur="1.6" ease="out"/>
+      </text>
+      <line x1="=W/2 - 70" x2="=W/2 + 70" y1="=H/2 + 200" y2="=H/2 + 200" y1.portrait="=H/2 + 310" y2.portrait="=H/2 + 310" stroke="#e8c98a" sw="2" at="2.2">
+        <anim prop="draw" from="0" to="1" dur="0.8" ease="io"/>
+      </line>
+      <text x="=W/2" y="=H/2 + 255" y.portrait="=H/2 + 370" size="40" weight="600" align="center" fill="#fbf7ef" text="@who_q3" at="2.5">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 305" y.portrait="=H/2 + 425" size="28" italic="1" font="Playfair Display" align="center" fill="#e8c98a" text="@yr_q3" at="2.8">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H - 70" y.portrait="=H - 140" size="26" weight="500" align="center" fill="#ffffff99" text="3 / 5" at="1"/>
+      <rect w="=W" h="=H" fill="#000" opacity="=1 - smooth(0, 0.9, T) + smooth(sdur - 0.8, sdur, T)"/>
+    </scene>
+    <scene id="q4" dur="8" chapter="@ch_q4">
+      <say at="0.9" text="@vo_q4"/>
+      <sfx at="0.1" src="whoosh" vol="0.5"/>
+      <group scale="=1.04 + 0.10*T/sdur" rot="=1*0.6*T/sdur">
+        <image src="paper" x="0" y="0" w="=W" h="=H" blur="2"/>
+      </group>
+      <rect w="=W" h="=H" fill="#4f6b3a" blend="multiply"/>
+      <rect w="=W" h="=H" fill="url(#vignette)"/>
+      <group clip="url(#card)" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+        <group scale="=1.04 + 0.10*T/sdur" rot="=1*0.6*T/sdur"><image src="paper" x="0" y="0" w="=W" h="=H" blur="26"/></group><rect w="=W" h="=H" fill="#4f6b3a" blend="multiply"/>
+        <rect w="=W" h="=H" fill="#0b0b0f" opacity="0.42"/>
+      </group>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 900 : 1440" h="=portrait ? 1180 : 760" r="6" fill="none" stroke="#ffffff55" sw="2" shadow="0 30 80 #0009" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 860 : 1400" h="=portrait ? 1140 : 720" r="4" fill="none" stroke="#e8c98a55" sw="1.5" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <text x="=W/2" y="=H/2 - 250" y.portrait="=H/2 - 430" size="220" font="Playfair Display" weight="700" align="center" fill="#e8c98a" text="“" at="0.6">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+        <anim prop="y" from="=H/2 - 220" to="=H/2 - 250" dur="1.2" ease="out"/>
+      </text>
+      <text x="=W/2" y="=H/2 - 20" y.portrait="=H/2 - 60" size="98" size.portrait="74" lh="1.32" maxw="1180" maxw.portrait="740" italic="1" font="Playfair Display" weight="500" align="center" fill="#fbf7ef" shadow="0 4 24 #0008" text="@q_q4" at="1.0">
+        <anim prop="opacity" from="0" to="1" dur="1.4" ease="io"/>
+        <anim prop="blur" from="10" to="0" dur="1.4" ease="out"/>
+        <anim prop="y" from="=H/2 + 10" from.portrait="=H/2 - 30" to="=H/2 - 20" to.portrait="=H/2 - 60" dur="1.6" ease="out"/>
+      </text>
+      <line x1="=W/2 - 70" x2="=W/2 + 70" y1="=H/2 + 200" y2="=H/2 + 200" y1.portrait="=H/2 + 310" y2.portrait="=H/2 + 310" stroke="#e8c98a" sw="2" at="2.2">
+        <anim prop="draw" from="0" to="1" dur="0.8" ease="io"/>
+      </line>
+      <text x="=W/2" y="=H/2 + 255" y.portrait="=H/2 + 370" size="40" weight="600" align="center" fill="#fbf7ef" text="@who_q4" at="2.5">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 305" y.portrait="=H/2 + 425" size="28" italic="1" font="Playfair Display" align="center" fill="#e8c98a" text="@yr_q4" at="2.8">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H - 70" y.portrait="=H - 140" size="26" weight="500" align="center" fill="#ffffff99" text="4 / 5" at="1"/>
+      <rect w="=W" h="=H" fill="#000" opacity="=1 - smooth(0, 0.9, T) + smooth(sdur - 0.8, sdur, T)"/>
+    </scene>
+    <scene id="q5" dur="8" chapter="@ch_q5">
+      <say at="0.9" text="@vo_q5"/>
+      <sfx at="0.1" src="whoosh" vol="0.5"/>
+      <group scale="=1.04 + 0.10*T/sdur" rot="=-1*0.6*T/sdur">
+        <image src="factory" x="0" y="0" w="=W" h="=H" blur="2"/>
+      </group>
+      <rect w="=W" h="=H" fill="url(#vignette)"/>
+      <group clip="url(#card)" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+        <group scale="=1.04 + 0.10*T/sdur" rot="=-1*0.6*T/sdur"><image src="factory" x="0" y="0" w="=W" h="=H" blur="26"/></group>
+        <rect w="=W" h="=H" fill="#0b0b0f" opacity="0.42"/>
+      </group>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 900 : 1440" h="=portrait ? 1180 : 760" r="6" fill="none" stroke="#ffffff55" sw="2" shadow="0 30 80 #0009" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 860 : 1400" h="=portrait ? 1140 : 720" r="4" fill="none" stroke="#e8c98a55" sw="1.5" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <text x="=W/2" y="=H/2 - 250" y.portrait="=H/2 - 430" size="220" font="Playfair Display" weight="700" align="center" fill="#e8c98a" text="“" at="0.6">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+        <anim prop="y" from="=H/2 - 220" to="=H/2 - 250" dur="1.2" ease="out"/>
+      </text>
+      <text x="=W/2" y="=H/2 - 20" y.portrait="=H/2 - 60" size="98" size.portrait="74" lh="1.32" maxw="1180" maxw.portrait="740" italic="1" font="Playfair Display" weight="500" align="center" fill="#fbf7ef" shadow="0 4 24 #0008" text="@q_q5" at="1.0">
+        <anim prop="opacity" from="0" to="1" dur="1.4" ease="io"/>
+        <anim prop="blur" from="10" to="0" dur="1.4" ease="out"/>
+        <anim prop="y" from="=H/2 + 10" from.portrait="=H/2 - 30" to="=H/2 - 20" to.portrait="=H/2 - 60" dur="1.6" ease="out"/>
+      </text>
+      <line x1="=W/2 - 70" x2="=W/2 + 70" y1="=H/2 + 200" y2="=H/2 + 200" y1.portrait="=H/2 + 310" y2.portrait="=H/2 + 310" stroke="#e8c98a" sw="2" at="2.2">
+        <anim prop="draw" from="0" to="1" dur="0.8" ease="io"/>
+      </line>
+      <text x="=W/2" y="=H/2 + 255" y.portrait="=H/2 + 370" size="40" weight="600" align="center" fill="#fbf7ef" text="@who_q5" at="2.5">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 305" y.portrait="=H/2 + 425" size="28" italic="1" font="Playfair Display" align="center" fill="#e8c98a" text="@yr_q5" at="2.8">
+        <anim prop="opacity" from="0" to="0.9" dur="0.8"/>
+      </text>
+      <text x="=W/2" y="=H - 70" y.portrait="=H - 140" size="26" weight="500" align="center" fill="#ffffff99" text="5 / 5" at="1"/>
+      <rect w="=W" h="=H" fill="#000" opacity="=1 - smooth(0, 0.9, T) + smooth(sdur - 0.8, sdur, T)"/>
+    </scene>
+    <scene id="outro" dur="8" chapter="@ch_outro">
+      <say at="0.9" text="@vo_outro"/>
+      <sfx at="0.1" src="whoosh" vol="0.5"/>
+      <group scale="=1.04 + 0.10*T/sdur" rot="=1*0.6*T/sdur">
+        <image src="mountains" x="0" y="0" w="=W" h="=H" blur="2"/>
+      </group>
+      <rect w="=W" h="=H" fill="url(#vignette)"/>
+      <group clip="url(#card)" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+        <group scale="=1.04 + 0.10*T/sdur" rot="=1*0.6*T/sdur"><image src="mountains" x="0" y="0" w="=W" h="=H" blur="26"/></group>
+        <rect w="=W" h="=H" fill="#0b0b0f" opacity="0.42"/>
+      </group>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 900 : 1440" h="=portrait ? 1180 : 760" r="6" fill="none" stroke="#ffffff55" sw="2" shadow="0 30 80 #0009" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <rect x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=portrait ? 860 : 1400" h="=portrait ? 1140 : 720" r="4" fill="none" stroke="#e8c98a55" sw="1.5" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="1.0" ease="io"/>
+      </rect>
+      <text x="=W/2" y="=H/2 - 40" y.portrait="=H/2 - 80" size="110" size.portrait="96" maxw.portrait="760" lh="1.15" italic="1" font="Playfair Display" weight="600" align="center" fill="#fbf7ef" text="@out1" at="0.8" shadow="0 6 30 #0008">
+        <anim prop="opacity" from="0" to="1" dur="1.4" ease="io"/>
+        <anim prop="blur" from="12" to="0" dur="1.4" ease="out"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 100" y.portrait="=H/2 + 160" size="36" weight="600" align="center" fill="#e8c98a" text="@out2" at="2">
+        <anim prop="opacity" from="0" to="1" dur="1"/>
+      </text>
+      <group x="=W/2" y="=H/2 + 200" y.portrait="=H/2 + 280" at="2.6">
+        <anim prop="opacity" from="0" to="1" dur="1"/>
+        <circle repeat="5" as="k" x="=(k-2)*34" r="=k == 4 ? 9 : 6" fill="=k == 4 ? '#e8c98a' : '#ffffff77'"/>
+      </group>
+      <rect w="=W" h="=H" fill="#000" opacity="=1 - smooth(0, 0.9, T) + smooth(sdur - 0.8, sdur, T)"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_intro" lang="en" src="voice/quote-cards/en/vo_intro.f5434ca1b0.ogg" dur="4.51" hash="f5434ca1b0" engine="kokoro:bf_emma"/>
+    <voice say="vo_outro" lang="en" src="voice/quote-cards/en/vo_outro.6666c3af71.ogg" dur="2.95" hash="6666c3af71" engine="kokoro:bf_emma"/>
+    <voice say="vo_q1" lang="en" src="voice/quote-cards/en/vo_q1.53689b86eb.ogg" dur="4.61" hash="53689b86eb" engine="kokoro:bf_emma"/>
+    <voice say="vo_q2" lang="en" src="voice/quote-cards/en/vo_q2.014218dfe6.ogg" dur="4.31" hash="014218dfe6" engine="kokoro:bf_emma"/>
+    <voice say="vo_q3" lang="en" src="voice/quote-cards/en/vo_q3.fa5ac042b4.ogg" dur="4.21" hash="fa5ac042b4" engine="kokoro:bf_emma"/>
+    <voice say="vo_q4" lang="en" src="voice/quote-cards/en/vo_q4.4d1ce914aa.ogg" dur="3.61" hash="4d1ce914aa" engine="kokoro:bf_emma"/>
+    <voice say="vo_q5" lang="en" src="voice/quote-cards/en/vo_q5.98807f8a03.ogg" dur="3.91" hash="98807f8a03" engine="kokoro:bf_emma"/>
+  </voices>
+</tsvg>

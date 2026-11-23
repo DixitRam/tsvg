@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Keynote slideshow: big title slides, bullet build-ins, Ken Burns photo slides, push and fade transitions. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.25" sfx="0.5"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="stage" bg="#07090e" fg="#f4f6fb" muted="#8a93a6" accent="#4da3ff"/></themes>
+  <strings>
+    <s id="title" en="The Quiet Factory"/>
+    <s id="t_title" en="The Quiet Factory"/>
+    <s id="t_kicker" en="PLANT OPERATIONS SUMMIT 2026"/>
+    <s id="t_sub" en="Predictive maintenance, one sensor at a time"/>
+    <s id="t_speaker" en="Maintenance Engineering · Line 4 team"/>
+    <s id="line_k" en="LINE 4"/>
+    <s id="line_t" en="12 robot arms · running 24/7"/>
+    <s id="cost_t" en="per hour of unplanned downtime"/>
+    <s id="cost_s" en="Lost output, overtime and scrap, averaged over 2025"/>
+    <s id="how_t" en="How it works"/>
+    <s id="how_listen" en="Listen"/>
+    <s id="how_listen_d" en="Vibration sensors on every joint"/>
+    <s id="how_learn" en="Learn"/>
+    <s id="how_learn_d" en="A baseline of “normal” for each arm"/>
+    <s id="how_warn" en="Warn"/>
+    <s id="how_warn_d" en="Alerts about 48 hours before a fault"/>
+    <s id="fix_k" en="WHAT CHANGED"/>
+    <s id="fix_t1" en="Fixed at the planned break."/>
+    <s id="fix_t2" en="Not in the middle of a shift."/>
+    <s id="res_t" en="Unplanned stops per month"/>
+    <s id="res_s" en="Line 4, quarterly average"/>
+    <s id="res_pct" en="−40%"/>
+    <s id="res_pct_s" en="unplanned stops"/>
+    <s id="close_1" en="Your machines are already talking."/>
+    <s id="close_2" en="Start listening."/>
+    <s id="close_3" en="Thank you"/>
+    <s id="vo_title" en="The Quiet Factory. How a few cheap sensors cut our unplanned downtime by forty percent."/>
+    <s id="ch_title" en="Title"/>
+    <s id="vo_line" en="This is line four. Twelve robot arms, running around the clock. When one stops without warning, the whole line waits."/>
+    <s id="ch_line" en="Line four"/>
+    <s id="vo_cost" en="And every unplanned stop cost us about twenty-two thousand dollars an hour."/>
+    <s id="ch_cost" en="The cost"/>
+    <s id="vo_how" en="So we taught the line to listen. Sensors hear the vibration. A model learns what normal sounds like for each arm. And the system warns us two days ahead."/>
+    <s id="ch_how" en="How it works"/>
+    <s id="vo_fix" en="Now maintenance happens on our schedule, during planned breaks, not in the middle of a shift."/>
+    <s id="ch_fix" en="On our schedule"/>
+    <s id="vo_result" en="In one year, unplanned stops fell from thirty-one a month to nineteen. That's forty percent fewer."/>
+    <s id="ch_result" en="Results"/>
+    <s id="vo_close" en="Your machines are already talking. Start listening. Thank you."/>
+    <s id="ch_close" en="Close"/>
+  </strings>
+  <defs>
+    <data id="stops" v="31, 27, 22, 19"/>
+    <data id="qs" v="Q1, Q2, Q3, Q4"/>
+    <radial id="stageGlow" x="=W/2" y="=H*0.35" r="=W*0.75"><stop at="0" color="#1a2236"/><stop at="0.6" color="#0b0e16"/><stop at="1" color="#05060a"/></radial>
+    <linear id="titleInk" x1="=W/2 - 700" y1="0" x2="=W/2 + 700" y2="0"><stop at="0" color="#ffffff"/><stop at="0.55" color="#cfe3ff"/><stop at="1" color="#9b8cff"/></linear>
+    <linear id="warnInk" x1="0" y1="330" x2="0" y2="560"><stop at="0" color="#ffd27a"/><stop at="1" color="#ff6a3d"/></linear>
+    <linear id="dotInk" x1="-200" y1="-200" x2="200" y2="200"><stop at="0" color="#4da3ff"/><stop at="1" color="#9b5cff"/></linear>
+    <linear id="barInk" x1="0" y1="-400" x2="0" y2="0"><stop at="0" color="#4da3ff"/><stop at="1" color="#9b5cff"/></linear>
+    <linear id="scrim" x1="0" y1="=H*0.45" x2="0" y2="=H"><stop at="0" color="#000" opacity="0"/><stop at="1" color="#000" opacity="0.85"/></linear>
+    <linear id="scrimL" x1="0" y1="0" x2="=W*0.7" y2="0"><stop at="0" color="#000" opacity="0.92"/><stop at="0.55" color="#000" opacity="0.6"/><stop at="1" color="#000" opacity="0.1"/></linear>
+  </defs>
+  <assets>
+    <asset id="factory" src="images/factory.jpg"/>
+    <asset id="pad" src="audio/pad.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="click" src="audio/click.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.8"/>
+  <backdrop>
+    <rect w="=W" h="=H" fill="url(#stageGlow)"/>
+  </backdrop>
+  <timeline>
+    <scene id="title" dur="7.81" chapter="@ch_title">
+      <say at="0.7" text="@vo_title"/>
+      <sfx at="0.1" src="click" vol="0.6"/>
+      <group opacity="=ease(T/0.8,'io') * (1 - ease((T - sdur + 0.6)/0.6,'io'))">
+        <text x="=W/2" y="420" size="40" weight="600" align="center" fill="$accent" text="@t_kicker" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.8"/></text>
+        <text x="=W/2" y="540" size="150" weight="800" align="center" fill="url(#titleInk)" text="@t_title">
+          <anim prop="opacity" from="0" to="1" dur="1.2"/><anim prop="y" from="570" to="540" dur="1.4" ease="out"/>
+        </text>
+        <text x="=W/2" y="660" size="48" align="center" fill="$muted" text="@t_sub" at="1.0"><anim prop="opacity" from="0" to="1" dur="0.9"/></text>
+        <line x1="=W/2 - 60" x2="=W/2 + 60" y1="760" y2="760" stroke="$accent" sw="4" at="1.4"><anim prop="draw" from="0" to="1" dur="0.8" ease="io"/></line>
+        <text x="=W/2" y="830" size="32" weight="500" align="center" fill="$muted" text="@t_speaker" at="1.8"><anim prop="opacity" from="0" to="1" dur="0.8"/></text>
+        <text x="=W - 80" y="=H - 60" size="24" weight="600" align="right" fill="#ffffff55" text="1 / 7"/>
+      </group>
+    </scene>
+    <scene id="line" dur="9.71" chapter="@ch_line">
+      <say at="0.7" text="@vo_line"/>
+      <sfx at="0" src="whoosh" vol="0.5"/>
+      <group x="=W*(1 - ease(T/0.7,'io')) - W*ease((T - sdur + 0.6)/0.6,'io')">
+        
+        <group x="=W/2 + lerp(0, -70, T/sdur)" y="=H/2 + lerp(0, -30, T/sdur)" scale="=lerp(1.05, 1.22, T/sdur)">
+          <image src="factory" x="=-W/2" y="=-H/2" w="=W" h="=H"/>
+        </group>
+        <rect w="=W" h="=H" fill="url(#scrim)"/>
+        <group x="140" y="820">
+          <text size="30" weight="700" fill="$accent" text="@line_k" at="0.9"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+          <text y="80" size="76" weight="800" fill="#fff" text="@line_t" at="1.1"><anim prop="opacity" from="0" to="1" dur="0.8"/><anim prop="x" from="30" to="0" dur="0.9" ease="out"/></text>
+        </group>
+        <text x="=W - 80" y="=H - 60" size="24" weight="600" align="right" fill="#ffffff55" text="2 / 7"/>
+      </group>
+    </scene>
+    <scene id="cost" dur="7.01" chapter="@ch_cost">
+      <say at="0.7" text="@vo_cost"/>
+      <sfx at="0" src="whoosh" vol="0.5"/>
+      <group x="=W*(1 - ease(T/0.7,'io')) - W*ease((T - sdur + 0.6)/0.6,'io')">
+        <text x="=W/2" y="460" size="260" weight="800" align="center" fill="url(#warnInk)" text="${fmt(22000*ease((T-2.94)/1.4,'out')/1000, 0)},000">
+          <anim prop="scale" from="0.92" to="1" at="0.5" dur="1.2" ease="out"/>
+        </text>
+        <text x="=W/2" y="680" size="56" weight="600" align="center" fill="$fg" text="@cost_t" at="4.35"><anim prop="opacity" from="0" to="1" dur="0.7"/></text>
+        <text x="=W/2" y="770" size="34" align="center" fill="$muted" text="@cost_s" at="5.43"><anim prop="opacity" from="0" to="1" dur="0.7"/></text>
+        <text x="=W - 80" y="=H - 60" size="24" weight="600" align="right" fill="#ffffff55" text="3 / 7"/>
+      </group>
+    </scene>
+    <scene id="how" dur="12.21" chapter="@ch_how">
+      <say at="0.7" text="@vo_how"/>
+      <sfx at="0" src="whoosh" vol="0.5"/>
+      <group x="=W*(1 - ease(T/0.7,'io')) - W*ease((T - sdur + 0.6)/0.6,'io')">
+        <text x="200" y="230" size="96" weight="800" fill="$fg" text="@how_t"><anim prop="opacity" from="0" to="1" at="0.4" dur="0.8"/></text>
+        <rect x="200" y="300" w="0" h="6" r="3" fill="url(#titleInk)"><anim prop="w" from="0" to="160" at="0.8" dur="0.8" ease="io"/></rect>
+        <group x="200" y="440" at="2.79">
+          <anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="x" from="260" to="200" dur="0.7" ease="out"/>
+          <circle x="40" r="40" fill="url(#dotInk)"/>
+          <text x="40" size="40" weight="800" align="center" fill="#fff" text="1"/>
+          <text x="120" y="-24" size="60" weight="800" fill="$fg" text="@how_listen"/>
+          <text x="120" y="40" size="38" fill="$muted" text="@how_listen_d"/>
+        </group>
+        <group x="200" y="610" at="4.69">
+          <anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="x" from="260" to="200" dur="0.7" ease="out"/>
+          <circle x="40" r="40" fill="url(#dotInk)"/>
+          <text x="40" size="40" weight="800" align="center" fill="#fff" text="2"/>
+          <text x="120" y="-24" size="60" weight="800" fill="$fg" text="@how_learn"/>
+          <text x="120" y="40" size="38" fill="$muted" text="@how_learn_d"/>
+        </group>
+        <group x="200" y="780" at="8.41">
+          <anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="x" from="260" to="200" dur="0.7" ease="out"/>
+          <circle x="40" r="40" fill="url(#dotInk)"/>
+          <text x="40" size="40" weight="800" align="center" fill="#fff" text="3"/>
+          <text x="120" y="-24" size="60" weight="800" fill="$fg" text="@how_warn"/>
+          <text x="120" y="40" size="38" fill="$muted" text="@how_warn_d"/>
+        </group>
+        <group x="1500" y="610" opacity="=ease((T - 2.99)/0.8,'out')">
+          <circle r="230" fill="none" stroke="#ffffff14" sw="2"/><circle r="160" fill="none" stroke="#ffffff14" sw="2"/>
+          <path d="=('M -220 0 ' + 'L -180 ' + fmt(30*sin(T*9),1) + ' L -140 ' + fmt(-50*sin(T*7+1),1) + ' L -100 ' + fmt(70*sin(T*11+2),1) + ' L -60 ' + fmt(-40*sin(T*8),1) + ' L -20 ' + fmt(90*sin(T*10+3),1) + ' L 20 ' + fmt(-80*sin(T*9+1),1) + ' L 60 ' + fmt(50*sin(T*12),1) + ' L 100 ' + fmt(-60*sin(T*7+2),1) + ' L 140 ' + fmt(30*sin(T*9+4),1) + ' L 180 ' + fmt(-20*sin(T*13),1) + ' L 220 0')" stroke="url(#dotInk)" sw="6" fill="none"/>
+          <circle r="22" y="0" x="=-220 + 440*fract(T/2)" fill="$accent" opacity="0.6" blur="6"/>
+        </group>
+        <text x="=W - 80" y="=H - 60" size="24" weight="600" align="right" fill="#ffffff55" text="4 / 7"/>
+      </group>
+    </scene>
+    <scene id="fix" dur="7.61" chapter="@ch_fix">
+      <say at="0.7" text="@vo_fix"/>
+      <sfx at="0.1" src="click" vol="0.6"/>
+      <group opacity="=ease(T/0.8,'io') * (1 - ease((T - sdur + 0.6)/0.6,'io'))">
+        
+        <group x="=W/2 + lerp(-260, -180, T/sdur)" y="=H/2 + lerp(40, 0, T/sdur)" scale="=lerp(1.3, 1.12, T/sdur)">
+          <image src="factory" x="=-W/2" y="=-H/2" w="=W" h="=H"/>
+        </group>
+        <rect w="=W" h="=H" fill="url(#scrimL)"/>
+        <group x="140" y="440">
+          <text size="30" weight="700" fill="$accent" text="@fix_k" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+          <text y="90" size="84" weight="800" fill="#fff" text="@fix_t1" at="1.0"><anim prop="opacity" from="0" to="1" dur="0.8"/><anim prop="y" from="120" to="90" dur="0.9" ease="out"/></text>
+          <text y="190" size="84" weight="800" fill="#a9cdff" text="@fix_t2" at="4.14"><anim prop="opacity" from="0" to="1" dur="0.8"/><anim prop="y" from="220" to="190" dur="0.9" ease="out"/></text>
+        </group>
+        <text x="=W - 80" y="=H - 60" size="24" weight="600" align="right" fill="#ffffff55" text="5 / 7"/>
+      </group>
+    </scene>
+    <scene id="result" dur="8.21" chapter="@ch_result">
+      <say at="0.7" text="@vo_result"/>
+      <sfx at="0" src="whoosh" vol="0.5"/>
+      <group x="=W*(1 - ease(T/0.7,'io')) - W*ease((T - sdur + 0.6)/0.6,'io')">
+        <text x="200" y="200" size="80" weight="800" fill="$fg" text="@res_t"><anim prop="opacity" from="0" to="1" at="0.4" dur="0.8"/></text>
+        <text x="200" y="270" size="34" fill="$muted" text="@res_s" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+        <group x="260" y="880">
+          <line x1="-40" x2="1060" y1="0" y2="0" stroke="#ffffff33" sw="2"/>
+          <group repeat="4" as="k" x="=k*270">
+            <rect x="0" w="170" ay="1" r="14" h="=data('stops', k)*16*ease((T - 1.2 - k*0.35)/0.9,'out')" fill="=k == 3 ? 'url(#barInk)' : '#ffffff2e'"/>
+            <text x="85" y="=-data('stops', k)*16*ease((T - 1.2 - k*0.35)/0.9,'out') - 40" size="48" weight="800" align="center" fill="=k == 3 ? $accent : $fg" text="{fmt(data('stops', k)*ease((T - 1.2 - k*0.35)/0.9,'out'), 0)}" opacity="=ease((T - 1.2 - k*0.35)/0.5,'out')"/>
+            <text x="85" y="44" size="32" align="center" fill="$muted" text="{data('qs', k)}"/>
+          </group>
+        </group>
+        <group x="1560" y="560" at="4.75">
+          <anim prop="scale" from="0.6" to="1" dur="0.7" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <circle r="210" fill="url(#dotInk)" shadow="0 0 60 #4da3ff66"/>
+          <text y="-10" size="104" weight="800" align="center" fill="#fff" text="@res_pct"/>
+          <text y="80" size="34" weight="600" align="center" fill="#ffffffcc" text="@res_pct_s"/>
+        </group>
+        <text x="=W - 80" y="=H - 60" size="24" weight="600" align="right" fill="#ffffff55" text="6 / 7"/>
+      </group>
+    </scene>
+    <scene id="close" dur="6" chapter="@ch_close">
+      <say at="0.7" text="@vo_close"/>
+      <sfx at="0.1" src="click" vol="0.6"/>
+      <group opacity="=ease(T/0.8,'io') * (1 - ease((T - sdur + 0.6)/0.6,'io'))">
+        <text x="=W/2" y="430" size="56" weight="500" align="center" fill="$muted" text="@close_1" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.9"/></text>
+        <text x="=W/2" y="560" size="140" weight="800" align="center" fill="url(#titleInk)" text="@close_2" at="2.45">
+          <anim prop="opacity" from="0" to="1" dur="0.9"/><anim prop="scale" from="1.06" to="1" dur="1.4" ease="out"/>
+        </text>
+        <text x="=W/2" y="760" size="44" weight="600" align="center" fill="$fg" text="@close_3" at="3.54"><anim prop="opacity" from="0" to="1" dur="0.8"/></text>
+        <text x="=W/2" y="830" size="30" align="center" fill="$muted" text="@t_speaker" at="3.84"><anim prop="opacity" from="0" to="1" dur="0.8"/></text>
+        <text x="=W - 80" y="=H - 60" size="24" weight="600" align="right" fill="#ffffff55" text="7 / 7"/>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_close" lang="en" src="voice/keynote-slideshow/en/vo_close.cff4b34e3b.ogg" dur="3.71" hash="cff4b34e3b" engine="kokoro:am_michael"/>
+    <voice say="vo_cost" lang="en" src="voice/keynote-slideshow/en/vo_cost.5525a5f3f3.ogg" dur="5.01" hash="5525a5f3f3" engine="kokoro:am_michael"/>
+    <voice say="vo_fix" lang="en" src="voice/keynote-slideshow/en/vo_fix.0ec0aa2234.ogg" dur="5.61" hash="0ec0aa2234" engine="kokoro:am_michael"/>
+    <voice say="vo_how" lang="en" src="voice/keynote-slideshow/en/vo_how.8c6b9d6adf.ogg" dur="10.21" hash="8c6b9d6adf" engine="kokoro:am_michael"/>
+    <voice say="vo_line" lang="en" src="voice/keynote-slideshow/en/vo_line.929210c044.ogg" dur="7.71" hash="929210c044" engine="kokoro:am_michael"/>
+    <voice say="vo_result" lang="en" src="voice/keynote-slideshow/en/vo_result.8f10d6899a.ogg" dur="6.21" hash="8f10d6899a" engine="kokoro:am_michael"/>
+    <voice say="vo_title" lang="en" src="voice/keynote-slideshow/en/vo_title.eeb50da829.ogg" dur="5.81" hash="eeb50da829" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

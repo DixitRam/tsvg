@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: analytics dashboard tour. A full dashboard (KPI cards with sparklines, a 30-day line chart, top products,
+     a channel donut); numbers count up, charts draw, and a spotlight (a path with a hole) dims all but one panel at a time.
+     Chart paths are precomputed from the same numbers as <data id="rev">; dots ride the line via repeat + data(). -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bm_george"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="dark"><choice id="dark" label="Dark"/><choice id="light" label="Light"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.22" sfx="0.6"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="dark" bg="#0c0f1a" fg="#eef1f8" muted="#8b93a9" panel="#151a2b" line="#252c42" accent="#6d8bff" teal="#2dd4bf" amber="#fbbf24" up="#22c55e" down="#f43f5e" dim="#05070dcc" note="#fbbf24"/>
+    <theme id="light" bg="#eef1f6" fg="#141a2b" muted="#5f6880" panel="#ffffff" line="#e1e5ee" accent="#4361ee" teal="#0d9488" amber="#d97706" up="#16a34a" down="#e11d48" dim="#0c0f1a99" note="#fde68a"/>
+  </themes>
+  <strings>
+    <s id="title" en="Dashboard tour: October at the roastery"/>
+    <s id="hdr" en="Store overview"/><s id="month" en="1 – 31 October 2026"/><s id="live" en="Live"/>
+    <s id="lt" en="Daily revenue"/><s id="lg1" en="October"/><s id="lg2" en="September"/>
+    <s id="bt" en="Top coffees · bags sold"/><s id="dt" en="Orders by channel"/>
+    <s id="n2" en="€47.9k in October: up 12.4% on September, the best month this year."/>
+    <s id="n3" en="Oct 14 · newsletter day · €3.05k"/>
+    <s id="n3b" en="After the spike, a steady climb into month end."/>
+    <s id="n4" en="Single origins sell 3 bags for every espresso blend bag."/>
+    <s id="n5" en="App orders: 19% → 27% since the reorder button."/>
+    <s id="n6" en="Repeat rate slipped 2 points. Next test: a refill reminder email."/>
+    <s id="sumh" en="Three things to remember"/>
+    <s id="su1" en="Revenue +12.4%: best month of the year"/>
+    <s id="su2" en="One newsletter = the best day"/>
+    <s id="su3" en="Watch the repeat rate"/>
+    <s id="ch1" en="Overview"/><s id="ch2" en="Revenue"/><s id="ch3" en="Daily trend"/><s id="ch4" en="Products"/><s id="ch5" en="Channels"/><s id="ch6" en="Repeat customers"/><s id="ch7" en="Takeaways"/>
+    <s id="vo1" en="Here is the roastery's October dashboard. Let's walk through it, one panel at a time."/>
+    <s id="vo2" en="Revenue first. Forty seven point nine thousand euros, up twelve percent on September. Our best month this year."/>
+    <s id="vo3" en="Daily revenue. The big spike on the fourteenth is newsletter day. After it, sales climb steadily into the end of the month."/>
+    <s id="vo4" en="Top coffees. The Ethiopian leads, and single origins outsell the espresso blend three to one."/>
+    <s id="vo5" en="Orders by channel. The app has grown from nineteen to twenty seven percent since we added the reorder button."/>
+    <s id="vo6" en="One number to watch. Repeat customers slipped two points. Next, we will test a refill reminder email."/>
+    <s id="vo7" en="So: a record month, one great newsletter, and a repeat rate to keep an eye on."/>
+  </strings>
+
+  <defs>
+    <data id="rev" v="1.41,1.44,1.28,1.2,1.72,1.72,1.67,1.78,1.66,1.39,1.27,1.58,1.61,3.05,2.3,1.42,1.13,1.19,1.44,1.4,1.56,1.38,1.62,1.2,1.23,1.65,1.77,1.96,1.87,2.02"/>
+    <fn id="kc" args="x">ease(x/2, 'out')</fn>
+    <fn id="lk" args="x">x &lt; 16 ? ease((x - 1)/2, 'io') : ease((x - 16.8)/2.5, 'io')</fn>
+    <fn id="bk" args="x,k">x &lt; 26 ? ease((x - 1.2 - k*0.1)/1, 'out') : ease((x - 26.8 - k*0.2)/0.8, 'out')</fn>
+    <fn id="dk" args="x">x &lt; 34 ? ease((x - 1.4)/1.2, 'io') : ease((x - 34.8)/1.5, 'io')</fn>
+    <linear id="areaG" x1="0" y1="470" x2="0" y2="970"><stop at="0" color="$accent" opacity="0.35"/><stop at="1" color="$accent" opacity="0"/></linear>
+    <symbol id="dash">
+      <!-- sidebar -->
+      <rect w="90" h="1080" fill="$panel"/>
+      <rect x="25" y="30" w="40" h="40" r="12" fill="$accent"/>
+      <circle repeat="5" as="k" x="45" y="=140 + k*70" r="14" fill="none" stroke="=k == 0 ? $accent : $muted" sw="3"/>
+      <!-- header -->
+      <text x="130" y="80" size="40" weight="800" fill="$fg" text="@hdr"/>
+      <rect x="1420" y="56" w="300" h="48" r="24" fill="$panel" stroke="$line" sw="1.5"/>
+      <text x="1570" y="80" size="20" weight="600" align="center" fill="$fg" text="@month"/>
+      <circle x="1752" y="80" r="7" fill="$up" opacity="=0.5 + 0.5*sin(t*4)"/><text x="1766" y="80" size="20" weight="700" fill="$up" text="@live"/>
+      <!-- KPI cards -->
+      <group x="130" y="140">
+        <rect w="410" h="170" r="20" fill="$panel" stroke="$line" sw="1.5"/>
+        <text x="28" y="40" size="22" weight="600" fill="$muted" text="Revenue"/>
+        <text x="28" y="102" size="54" weight="800" fill="$fg" text="€{fmt(47.9*kc(t),1)}k"/>
+        <rect x="252" y="22" w="130" h="36" r="18" fill="#22c55e22"/>
+        <text x="317" y="40" size="19" weight="800" align="center" fill="$up" text="▲ +12.4%"/>
+        <path x="236" y="96" d="M0 36.9 L24 26.6 L48 11.2 L72 0.0 L96 18.0 L120 13.3 L144 15.8 L168 27.9 L192 45.1 L216 60.0 L240 49.7 L264 23.1" scale="0.62" stroke="$up" sw="4" fill="none" draw="=ease((t - 0.4 - 0.0)/1.2, 'io')"/>
+        <text x="28" y="146" size="17" fill="$muted" text="vs September"/>
+      </group>
+      <group x="564" y="140">
+        <rect w="410" h="170" r="20" fill="$panel" stroke="$line" sw="1.5"/>
+        <text x="28" y="40" size="22" weight="600" fill="$muted" text="Orders"/>
+        <text x="28" y="102" size="54" weight="800" fill="$fg" text="{fmt(1894*kc(t),0)}"/>
+        <rect x="252" y="22" w="130" h="36" r="18" fill="#22c55e22"/>
+        <text x="317" y="40" size="19" weight="800" align="center" fill="$up" text="▲ +8.1%"/>
+        <path x="236" y="96" d="M0 30.2 L24 0.0 L48 1.7 L72 15.8 L96 39.8 L120 32.7 L144 43.9 L168 60.0 L192 55.7 L216 52.4 L240 41.1 L264 3.9" scale="0.62" stroke="$up" sw="4" fill="none" draw="=ease((t - 0.4 - 0.15)/1.2, 'io')"/>
+        <text x="28" y="146" size="17" fill="$muted" text="vs September"/>
+      </group>
+      <group x="998" y="140">
+        <rect w="410" h="170" r="20" fill="$panel" stroke="$line" sw="1.5"/>
+        <text x="28" y="40" size="22" weight="600" fill="$muted" text="Avg order"/>
+        <text x="28" y="102" size="54" weight="800" fill="$fg" text="€{fmt(25.3*kc(t),2)}"/>
+        <rect x="252" y="22" w="130" h="36" r="18" fill="#22c55e22"/>
+        <text x="317" y="40" size="19" weight="800" align="center" fill="$up" text="▲ +3.9%"/>
+        <path x="236" y="96" d="M0 0.0 L24 24.4 L48 37.0 L72 27.2 L96 53.5 L120 60.0 L144 48.8 L168 50.3 L192 30.1 L216 34.0 L240 9.6 L264 17.6" scale="0.62" stroke="$up" sw="4" fill="none" draw="=ease((t - 0.4 - 0.3)/1.2, 'io')"/>
+        <text x="28" y="146" size="17" fill="$muted" text="vs September"/>
+      </group>
+      <group x="1432" y="140">
+        <rect w="410" h="170" r="20" fill="$panel" stroke="$line" sw="1.5"/>
+        <text x="28" y="40" size="22" weight="600" fill="$muted" text="Repeat customers"/>
+        <text x="28" y="102" size="54" weight="800" fill="$fg" text="{fmt(38*kc(t),0)}%"/>
+        <rect x="252" y="22" w="130" h="36" r="18" fill="#f43f5e22"/>
+        <text x="317" y="40" size="19" weight="800" align="center" fill="$down" text="▼ −2.0 pts"/>
+        <path x="236" y="96" d="M0 26.2 L24 33.7 L48 41.1 L72 60.0 L96 47.2 L120 43.5 L144 30.6 L168 26.6 L192 14.3 L216 1.4 L240 2.9 L264 0.0" scale="0.62" stroke="$down" sw="4" fill="none" draw="=ease((t - 0.4 - 0.44999999999999996)/1.2, 'io')"/>
+        <text x="28" y="146" size="17" fill="$muted" text="vs September"/>
+      </group>
+      <!-- line chart -->
+      <rect x="130" y="340" w="1060" h="700" r="22" fill="$panel" stroke="$line" sw="1.5"/>
+      <text x="170" y="390" size="28" weight="800" fill="$fg" text="@lt"/>
+      <rect x="840" y="378" w="26" h="5" r="2" fill="$accent"/><text x="876" y="381" size="19" fill="$muted" text="@lg1"/>
+      <line x1="990" y1="381" x2="1016" y2="381" stroke="$muted" sw="3" opacity="0.6"/><text x="1026" y="381" size="19" fill="$muted" text="@lg2"/>
+      <line x1="200" y1="970.0" x2="1140" y2="970.0" stroke="$line" sw="1.5"/><text x="186" y="970.0" size="17" align="right" fill="$muted" text="0k"/><line x1="200" y1="822.9" x2="1140" y2="822.9" stroke="$line" sw="1.5"/><text x="186" y="822.9" size="17" align="right" fill="$muted" text="1k"/><line x1="200" y1="675.9" x2="1140" y2="675.9" stroke="$line" sw="1.5"/><text x="186" y="675.9" size="17" align="right" fill="$muted" text="2k"/><line x1="200" y1="528.8" x2="1140" y2="528.8" stroke="$line" sw="1.5"/><text x="186" y="528.8" size="17" align="right" fill="$muted" text="3k"/>
+      <text x="200.0" y="1000" size="17" align="center" fill="$muted" text="Oct 1"/><text x="426.9" y="1000" size="17" align="center" fill="$muted" text="Oct 8"/><text x="653.8" y="1000" size="17" align="center" fill="$muted" text="Oct 15"/><text x="880.7" y="1000" size="17" align="center" fill="$muted" text="Oct 22"/><text x="1107.6" y="1000" size="17" align="center" fill="$muted" text="Oct 29"/>
+      <path d="M200.0 742.1 L232.4 747.9 L264.8 740.6 L297.2 755.3 L329.7 799.4 L362.1 797.9 L394.5 742.1 L426.9 753.8 L459.3 761.2 L491.7 759.7 L524.1 768.5 L556.6 822.9 L589.0 814.1 L621.4 778.8 L653.8 796.5 L686.2 792.1 L718.6 796.5 L751.0 789.1 L783.4 837.6 L815.9 850.9 L848.3 786.2 L880.7 808.2 L913.1 796.5 L945.5 781.8 L977.9 795.0 L1010.3 824.4 L1042.8 831.8 L1075.2 762.6 L1107.6 753.8 L1140.0 755.3" stroke="$muted" sw="3" fill="none" opacity="0.45" draw="=lk(t)"/>
+      <path d="M200.0 762.6 L232.4 758.2 L264.8 781.8 L297.2 793.5 L329.7 717.1 L362.1 717.1 L394.5 724.4 L426.9 708.2 L459.3 725.9 L491.7 765.6 L524.1 783.2 L556.6 737.6 L589.0 733.2 L621.4 521.5 L653.8 631.8 L686.2 761.2 L718.6 803.8 L751.0 795.0 L783.4 758.2 L815.9 764.1 L848.3 740.6 L880.7 767.1 L913.1 731.8 L945.5 793.5 L977.9 789.1 L1010.3 727.4 L1042.8 709.7 L1075.2 681.8 L1107.6 695.0 L1140.0 672.9 L1140.0 970 L200 970 Z" fill="url(#areaG)" opacity="=clamp(lk(t)*3 - 2, 0, 1)"/>
+      <path d="M200.0 762.6 L232.4 758.2 L264.8 781.8 L297.2 793.5 L329.7 717.1 L362.1 717.1 L394.5 724.4 L426.9 708.2 L459.3 725.9 L491.7 765.6 L524.1 783.2 L556.6 737.6 L589.0 733.2 L621.4 521.5 L653.8 631.8 L686.2 761.2 L718.6 803.8 L751.0 795.0 L783.4 758.2 L815.9 764.1 L848.3 740.6 L880.7 767.1 L913.1 731.8 L945.5 793.5 L977.9 789.1 L1010.3 727.4 L1042.8 709.7 L1075.2 681.8 L1107.6 695.0 L1140.0 672.9" stroke="$accent" sw="5" fill="none" draw="=lk(t)" shadow="0 6 16 #6d8bff55"/>
+      <circle repeat="30" as="i" x="=200 + 940*i/29" y="=970 - 500*data('rev', i)/3.4" r="5" fill="$panel" stroke="$accent" sw="3"
+              opacity="=clamp(lk(t)*29 - i + 1, 0, 1)"/>
+      <!-- bars -->
+      <rect x="1214" y="340" w="628" h="340" r="22" fill="$panel" stroke="$line" sw="1.5"/>
+      <text x="1244" y="380" size="26" weight="800" fill="$fg" text="@bt"/>
+      <text x="1244" y="430" size="21" fill="$fg" text="Ethiopia Yirgacheffe"/>
+        <rect x="1500" y="416" h="28" r="6" w="=240.0*bk(t, 0)" fill="=mix($accent, $teal, 0.0)"/>
+        <text x="=1508 + 240.0*bk(t, 0)" y="430" size="19" weight="700" fill="$muted" text="{fmt(412*bk(t, 0),0)}"/><text x="1244" y="480" size="21" fill="$fg" text="Colombia Huila"/>
+        <rect x="1500" y="466" h="28" r="6" w="=207.4*bk(t, 1)" fill="=mix($accent, $teal, 0.25)"/>
+        <text x="=1508 + 207.4*bk(t, 1)" y="480" size="19" weight="700" fill="$muted" text="{fmt(356*bk(t, 1),0)}"/><text x="1244" y="530" size="21" fill="$fg" text="House Espresso"/>
+        <rect x="1500" y="516" h="28" r="6" w="=173.6*bk(t, 2)" fill="=mix($accent, $teal, 0.5)"/>
+        <text x="=1508 + 173.6*bk(t, 2)" y="530" size="19" weight="700" fill="$muted" text="{fmt(298*bk(t, 2),0)}"/><text x="1244" y="580" size="21" fill="$fg" text="Kenya AA"/>
+        <rect x="1500" y="566" h="28" r="6" w="=117.1*bk(t, 3)" fill="=mix($accent, $teal, 0.75)"/>
+        <text x="=1508 + 117.1*bk(t, 3)" y="580" size="19" weight="700" fill="$muted" text="{fmt(201*bk(t, 3),0)}"/><text x="1244" y="630" size="21" fill="$fg" text="Decaf Swiss Water"/>
+        <rect x="1500" y="616" h="28" r="6" w="=68.2*bk(t, 4)" fill="=mix($accent, $teal, 1.0)"/>
+        <text x="=1508 + 68.2*bk(t, 4)" y="630" size="19" weight="700" fill="$muted" text="{fmt(117*bk(t, 4),0)}"/>
+      <!-- donut -->
+      <rect x="1214" y="704" w="628" h="336" r="22" fill="$panel" stroke="$line" sw="1.5"/>
+      <text x="1244" y="744" size="26" weight="800" fill="$fg" text="@dt"/>
+      <circle x="1380" y="880" r="118" fill="$accent" from="=0.0*dk(t)" to="=208.8*dk(t)"/><circle x="1560" y="830" r="10" fill="$accent"/><text x="1584" y="830" size="22" fill="$fg" text="Web shop"/><text x="1810" y="830" size="22" weight="800" align="right" fill="$fg" text="58%"/><circle x="1380" y="880" r="118" fill="$teal" from="=208.8*dk(t)" to="=306.0*dk(t)"/><circle x="1560" y="882" r="10" fill="$teal"/><text x="1584" y="882" size="22" fill="$fg" text="App"/><text x="1810" y="882" size="22" weight="800" align="right" fill="$fg" text="27%"/><circle x="1380" y="880" r="118" fill="$amber" from="=306.0*dk(t)" to="=360.0*dk(t)"/><circle x="1560" y="934" r="10" fill="$amber"/><text x="1584" y="934" size="22" fill="$fg" text="Wholesale"/><text x="1810" y="934" size="22" weight="800" align="right" fill="$fg" text="15%"/><circle x="1380" y="880" r="74" fill="$panel"/><text x="1380" y="868" size="34" weight="800" align="center" fill="$fg" text="1,894"/><text x="1380" y="902" size="17" align="center" fill="$muted" text="orders"/>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="bed" src="audio/pad.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+
+  <music src="bed" start="0" loop="1" vol="0.7"/>
+
+  <timeline>
+    <scene id="overview" dur="8" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group><anim prop="opacity" from="0" to="1" dur="0.6"/><use ref="dash"/></group>
+    </scene>
+
+    <scene id="revenue" dur="8" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="0.3" src="blip"/>
+      <use ref="dash"/>
+      <path fill="$dim" d="M0 0 H1920 V1080 H0 Z M120 130 V320 H550 V130 Z"><anim prop="opacity" from="0" to="1" dur="0.5"/></path>
+      <rect x="120" y="130" w="430" h="190" r="26" fill="none" stroke="$accent" sw="4"><anim prop="opacity" from="0" to="1" dur="0.5"/></rect>
+      <group x="580" y="380" at="1.2"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="610" to="580" dur="0.5"/>
+        <path d="M-40 -150 L0 -20" stroke="$note" sw="4" fill="none"/>
+        <rect w="620" h="150" r="20" fill="$note" fill.dark="#fbbf24"/>
+        <text x="32" y="75" size="32" weight="700" maxw="560" lh="1.25" fill="#1a1405" text="@n2"/>
+      </group>
+    </scene>
+
+    <scene id="trend" dur="10" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="0.3" src="blip"/><sfx at="3.4" src="pop"/>
+      <use ref="dash"/>
+      <path fill="$dim" d="M0 0 H1920 V1080 H0 Z M120 330 V1050 H1200 V330 Z"><anim prop="opacity" from="0" to="1" dur="0.5"/></path>
+      <group at="3.4"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <circle x="621.4" y="521.5" r="=14 + 6*sin(T*5)" fill="none" stroke="$note" sw="4"/>
+        <path d="M640 505 L700 450" stroke="$note" sw="4"/>
+        <rect x="700" y="420" w="470" h="64" r="16" fill="$note"/>
+        <text x="724" y="452" size="26" weight="800" fill="#1a1405" text="@n3"/>
+      </group>
+      <group at="6"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="640" y="560" w="520" h="64" r="16" fill="$panel" stroke="$line" sw="2"/>
+        <text x="664" y="592" size="24" weight="600" fill="$fg" text="@n3b"/>
+        <path d="M960 680 Q1080 640 1130 600" stroke="$up" sw="4" fill="none"><anim prop="draw" from="0" to="1" dur="0.6"/></path>
+      </group>
+    </scene>
+
+    <scene id="products" dur="8" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="0.3" src="blip"/>
+      <use ref="dash"/>
+      <path fill="$dim" d="M0 0 H1920 V1080 H0 Z M1204 330 V690 H1852 V330 Z"><anim prop="opacity" from="0" to="1" dur="0.5"/></path>
+      <group x="560" y="430" at="2.6"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="530" to="560" dur="0.5"/>
+        <rect w="600" h="150" r="20" fill="$note"/>
+        <text x="32" y="75" size="32" weight="700" maxw="540" lh="1.25" fill="#1a1405" text="@n4"/>
+        <path d="M600 75 L640 75" stroke="$note" sw="4"/>
+      </group>
+    </scene>
+
+    <scene id="channels" dur="8" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="0.3" src="blip"/>
+      <use ref="dash"/>
+      <path fill="$dim" d="M0 0 H1920 V1080 H0 Z M1204 694 V1050 H1852 V694 Z"><anim prop="opacity" from="0" to="1" dur="0.5"/></path>
+      <group x="560" y="800" at="2.4"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="530" to="560" dur="0.5"/>
+        <rect w="600" h="150" r="20" fill="$note"/>
+        <text x="32" y="75" size="32" weight="700" maxw="540" lh="1.25" fill="#1a1405" text="@n5"/>
+        <path d="M600 75 L640 75" stroke="$note" sw="4"/>
+      </group>
+    </scene>
+
+    <scene id="repeat" dur="8" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="0.3" src="blip"/>
+      <use ref="dash"/>
+      <path fill="$dim" d="M0 0 H1920 V1080 H0 Z M1422 130 V320 H1852 V130 Z"><anim prop="opacity" from="0" to="1" dur="0.5"/></path>
+      <rect x="1422" y="130" w="430" h="190" r="26" fill="none" stroke="$down" sw="4"><anim prop="opacity" from="0" to="1" dur="0.5"/></rect>
+      <group x="1230" y="400" at="1.4"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="430" to="400" dur="0.5"/>
+        <path d="M420 -80 L420 0" stroke="$note" sw="4"/>
+        <rect w="610" h="150" r="20" fill="$note"/>
+        <text x="32" y="75" size="32" weight="700" maxw="550" lh="1.25" fill="#1a1405" text="@n6"/>
+      </group>
+    </scene>
+
+    <scene id="summary" dur="7.5" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="0.8" src="pop"/><sfx at="1.4" src="pop"/><sfx at="2" src="pop"/>
+      <use ref="dash"/>
+      <rect w="1920" h="1080" fill="$dim"><anim prop="opacity" from="0" to="1" dur="0.5"/></rect>
+      <group x="460" y="250" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="scale" from="0.95" to="1" dur="0.6" ease="back"/>
+        <rect w="1000" h="580" r="30" fill="$panel" stroke="$line" sw="2" shadow="0 40 80 #0008"/>
+        <text x="60" y="90" size="48" weight="800" fill="$fg" text="@sumh"/>
+        <group repeat="3" as="k" x="60" y="=210 + k*120" at="=0.5 + k*0.6">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="x" from="30" to="60" dur="0.4"/>
+          <circle x="30" r="30" fill="=k == 2 ? $down : $up"/>
+          <text x="30" y="1" size="30" weight="800" align="center" fill="#fff" text="{k+1}"/>
+        </group>
+        <text x="150" y="210" size="36" weight="600" fill="$fg" text="@su1" at="0.5"/>
+        <text x="150" y="330" size="36" weight="600" fill="$fg" text="@su2" at="1.1"/>
+        <text x="150" y="450" size="36" weight="600" fill="$fg" text="@su3" at="1.7"/>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/dashboard-kpi-tour/en/vo1.120ab4f272.ogg" dur="5.81" hash="120ab4f272" engine="kokoro:bm_george"/>
+    <voice say="vo2" lang="en" src="voice/dashboard-kpi-tour/en/vo2.c1efb5a4d8.ogg" dur="7.61" hash="c1efb5a4d8" engine="kokoro:bm_george"/>
+    <voice say="vo3" lang="en" src="voice/dashboard-kpi-tour/en/vo3.390f73393b.ogg" dur="8.01" hash="390f73393b" engine="kokoro:bm_george"/>
+    <voice say="vo4" lang="en" src="voice/dashboard-kpi-tour/en/vo4.493bed7656.ogg" dur="6.71" hash="493bed7656" engine="kokoro:bm_george"/>
+    <voice say="vo5" lang="en" src="voice/dashboard-kpi-tour/en/vo5.0d00483907.ogg" dur="6.91" hash="0d00483907" engine="kokoro:bm_george"/>
+    <voice say="vo6" lang="en" src="voice/dashboard-kpi-tour/en/vo6.b3d60cdab5.ogg" dur="7.01" hash="b3d60cdab5" engine="kokoro:bm_george"/>
+    <voice say="vo7" lang="en" src="voice/dashboard-kpi-tour/en/vo7.0d25dacbcf.ogg" dur="5.31" hash="0d25dacbcf" engine="kokoro:bm_george"/>
+  </voices>
+</tsvg>

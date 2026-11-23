@@ -1,0 +1,11 @@
+{
+  "id": "retro-synthwave",
+  "title": "Retro synthwave",
+  "category": "Retro",
+  "summary": "Neon perspective grid, striped sunset sun, chrome type and VHS scanlines explain a synth: oscillator, filter, envelope.",
+  "duration": 56.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 3.5
+}

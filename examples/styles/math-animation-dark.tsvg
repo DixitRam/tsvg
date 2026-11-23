@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: dark maths animation. Axes draw on, curves trace, a tangent slides, a circle unrolls, shapes morph. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" default="ink"><choice id="ink" label="Ink"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.25" sfx="0.5"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="ink" bg="#101318" fg="#ece9e1" muted="#8b93a3" grid="#3b5a78" blue="#5cc8e8" yellow="#f5d76e" green="#8fd16a" red="#ff6f61" purple="#b18cff"/></themes>
+  <strings>
+    <s id="eq" en="="/>
+    <s id="why" en="Why?"/>
+    <s id="title" en="The slope of a wave"/>
+    <s id="ch1" en="Question"/>
+    <s id="ch2" en="Sine"/>
+    <s id="ch3" en="Tangent"/>
+    <s id="ch4" en="Slope curve"/>
+    <s id="ch5" en="Circle"/>
+    <s id="ch6" en="Result"/>
+    <s id="q" en="How steep is it, at every moment?"/>
+    <s id="slope" en="slope"/>
+    <s id="peak" en="slope 0 at the peak"/>
+    <s id="fast" en="steepest going down"/>
+    <s id="turn" en="height = sin θ"/>
+    <s id="speed" en="rate of height = cos θ"/>
+    <s id="shift" en="same wave, shifted a quarter turn"/>
+    <s id="vo1" en="Here is a question worth a minute. When a wave rises and falls, how steep is it at each moment?"/>
+    <s id="vo2" en="Start with the sine curve. It climbs from zero, peaks at one, and falls back below the axis."/>
+    <s id="vo3" en="Now slide a tangent line along it. The slope is one at the start, zero at the peak, and minus one where the curve falls fastest."/>
+    <s id="vo4" en="Plot that slope as its own curve, and a familiar shape appears. It is the cosine wave."/>
+    <s id="vo5" en="Why? Picture a point turning around a circle. Its height is the sine, and how fast that height changes is the cosine."/>
+    <s id="vo6" en="So the derivative of sine is cosine. The same wave, shifted a quarter turn ahead."/>
+  </strings>
+  <defs>
+    <fn id="u3" args="">clamp((T - 1.2)/8, 0, 1) * 2 * PI</fn>
+    <fn id="u4" args="">clamp((T - 0.8)/5.5, 0, 1) * 2 * PI</fn>
+    <fn id="th" args="">clamp((T - 1.5)/7, 0, 1) * 2 * PI</fn>
+    <clip id="upto4"><rect x="260" y="0" h="1080" w="=222.8 * u4()"/></clip>
+    <clip id="upto5"><rect x="820" y="0" h="1080" w="=159.2 * th()"/></clip>
+    <radial id="vign" x="960" y="540" r="1150"><stop at="0" color="#000" opacity="0"/><stop at="1" color="#000" opacity="0.55"/></radial>
+    <radial id="dotglow" x="0" y="0" r="40"><stop at="0" color="$yellow" opacity="0.7"/><stop at="1" color="$yellow" opacity="0"/></radial>
+  </defs>
+  <assets>
+    <asset id="pad" src="audio/pad.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="blip" src="audio/blip.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.8"/>
+  <overlay><rect w="1920" h="1080" fill="url(#vign)"/></overlay>
+  <timeline>
+    <!-- 1 · the question -->
+    <scene id="q" dur="9" chapter="@ch1">
+      <say at="0.6" text="@vo1"/>
+      <sfx at="0.2" src="whoosh"/>
+      
+      <group at="0">
+        <group opacity="0.22">
+          <anim prop="opacity" from="0" to="0.22" dur="1.2"/>
+          <line repeat="15" as="g" x1="=260 + g*100" y1="300" x2="=260 + g*100" y2="900" stroke="$grid" sw="1.5"/>
+          <line repeat="7" as="g" x1="200" y1="=300 + g*100" x2="1720" y2="=300 + g*100" stroke="$grid" sw="1.5"/>
+        </group>
+        <line x1="200" y1="600" x2="1740" y2="600" stroke="$fg" sw="3"><anim prop="draw" from="0" to="1" dur="1.2" ease="io"/></line>
+        <line x1="260" y1="880" x2="260" y2="310" stroke="$fg" sw="3"><anim prop="draw" from="0" to="1" at="0.3" dur="1.2" ease="io"/></line>
+        <path x="1740" y="600" d="M -18 -10 L 0 0 L -18 10" stroke="$fg" sw="3" fill="none" at="1.2"/>
+        <path x="260" y="310" d="M -10 18 L 0 0 L 10 18" stroke="$fg" sw="3" fill="none" at="1.4"/>
+        <group at="1"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="610" y1="590" x2="610" y2="610" stroke="$fg" sw="3"/><text x="610" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="π/2"/></group>
+        <group at="1.15"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="960" y1="590" x2="960" y2="610" stroke="$fg" sw="3"/><text x="960" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="π"/></group>
+        <group at="1.3"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="1310" y1="590" x2="1310" y2="610" stroke="$fg" sw="3"/><text x="1310" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="3π/2"/></group>
+        <group at="1.45"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="1660" y1="590" x2="1660" y2="610" stroke="$fg" sw="3"/><text x="1660" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="2π"/></group>
+        <text x="230" y="390" size="30" align="right" fill="$muted" text="1" at="1.2"/>
+        <line x1="250" y1="390" x2="270" y2="390" stroke="$fg" sw="3" at="1.2"/>
+        <text x="230" y="810" size="30" align="right" fill="$muted" text="−1" at="1.2"/>
+        <line x1="250" y1="810" x2="270" y2="810" stroke="$fg" sw="3" at="1.2"/>
+      </group>
+      <path d="M 260 600 L 274.6 586.3 L 289.2 572.6 L 303.8 559 L 318.3 545.6 L 332.9 532.5 L 347.5 519.6 L 362.1 507.1 L 376.7 495 L 391.3 483.3 L 405.8 472.2 L 420.4 461.5 L 435 451.5 L 449.6 442.1 L 464.2 433.4 L 478.8 425.4 L 493.3 418.1 L 507.9 411.7 L 522.5 406 L 537.1 401.1 L 551.7 397.2 L 566.3 394 L 580.8 391.8 L 595.4 390.4 L 610 390 L 624.6 390.4 L 639.2 391.8 L 653.8 394 L 668.3 397.2 L 682.9 401.1 L 697.5 406 L 712.1 411.7 L 726.7 418.1 L 741.3 425.4 L 755.8 433.4 L 770.4 442.1 L 785 451.5 L 799.6 461.5 L 814.2 472.2 L 828.8 483.3 L 843.3 495 L 857.9 507.1 L 872.5 519.6 L 887.1 532.5 L 901.7 545.6 L 916.3 559 L 930.8 572.6 L 945.4 586.3 L 960 600 L 974.6 613.7 L 989.2 627.4 L 1003.8 641 L 1018.3 654.4 L 1032.9 667.5 L 1047.5 680.4 L 1062.1 692.9 L 1076.7 705 L 1091.3 716.7 L 1105.8 727.8 L 1120.4 738.5 L 1135 748.5 L 1149.6 757.9 L 1164.2 766.6 L 1178.8 774.6 L 1193.3 781.9 L 1207.9 788.3 L 1222.5 794 L 1237.1 798.9 L 1251.7 802.8 L 1266.3 806 L 1280.8 808.2 L 1295.4 809.6 L 1310 810 L 1324.6 809.6 L 1339.2 808.2 L 1353.8 806 L 1368.3 802.8 L 1382.9 798.9 L 1397.5 794 L 1412.1 788.3 L 1426.7 781.9 L 1441.3 774.6 L 1455.8 766.6 L 1470.4 757.9 L 1485 748.5 L 1499.6 738.5 L 1514.2 727.8 L 1528.7 716.7 L 1543.3 705 L 1557.9 692.9 L 1572.5 680.4 L 1587.1 667.5 L 1601.7 654.4 L 1616.3 641 L 1630.8 627.4 L 1645.4 613.7 L 1660 600" stroke="$blue" sw="6" fill="none" at="2" opacity="0.35"><anim prop="draw" from="0" to="1" dur="3" ease="io"/></path>
+      <text x="960" y="150" size="86" align="center" font="Playfair Display" weight="600" text="@title" fill="$fg"><anim prop="reveal" from="0" to="1" dur="1.4" ease="linear"/></text>
+      <text x="960" y="245" size="50" align="center" text="@q" fill="$yellow" at="4"><anim prop="opacity" from="0" to="1" dur="0.8"/></text>
+    </scene>
+
+    <!-- 2 · the sine curve -->
+    <scene id="sine" dur="9" chapter="@ch2">
+      <say at="0.3" text="@vo2"/>
+      
+      <group at="-5">
+        <group opacity="0.22">
+          <anim prop="opacity" from="0" to="0.22" dur="1.2"/>
+          <line repeat="15" as="g" x1="=260 + g*100" y1="300" x2="=260 + g*100" y2="900" stroke="$grid" sw="1.5"/>
+          <line repeat="7" as="g" x1="200" y1="=300 + g*100" x2="1720" y2="=300 + g*100" stroke="$grid" sw="1.5"/>
+        </group>
+        <line x1="200" y1="600" x2="1740" y2="600" stroke="$fg" sw="3"><anim prop="draw" from="0" to="1" dur="1.2" ease="io"/></line>
+        <line x1="260" y1="880" x2="260" y2="310" stroke="$fg" sw="3"><anim prop="draw" from="0" to="1" at="0.3" dur="1.2" ease="io"/></line>
+        <path x="1740" y="600" d="M -18 -10 L 0 0 L -18 10" stroke="$fg" sw="3" fill="none" at="1.2"/>
+        <path x="260" y="310" d="M -10 18 L 0 0 L 10 18" stroke="$fg" sw="3" fill="none" at="1.4"/>
+        <group at="1"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="610" y1="590" x2="610" y2="610" stroke="$fg" sw="3"/><text x="610" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="π/2"/></group>
+        <group at="1.15"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="960" y1="590" x2="960" y2="610" stroke="$fg" sw="3"/><text x="960" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="π"/></group>
+        <group at="1.3"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="1310" y1="590" x2="1310" y2="610" stroke="$fg" sw="3"/><text x="1310" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="3π/2"/></group>
+        <group at="1.45"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="1660" y1="590" x2="1660" y2="610" stroke="$fg" sw="3"/><text x="1660" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="2π"/></group>
+        <text x="230" y="390" size="30" align="right" fill="$muted" text="1" at="1.2"/>
+        <line x1="250" y1="390" x2="270" y2="390" stroke="$fg" sw="3" at="1.2"/>
+        <text x="230" y="810" size="30" align="right" fill="$muted" text="−1" at="1.2"/>
+        <line x1="250" y1="810" x2="270" y2="810" stroke="$fg" sw="3" at="1.2"/>
+      </group>
+      <path d="M 260 600 L 274.6 586.3 L 289.2 572.6 L 303.8 559 L 318.3 545.6 L 332.9 532.5 L 347.5 519.6 L 362.1 507.1 L 376.7 495 L 391.3 483.3 L 405.8 472.2 L 420.4 461.5 L 435 451.5 L 449.6 442.1 L 464.2 433.4 L 478.8 425.4 L 493.3 418.1 L 507.9 411.7 L 522.5 406 L 537.1 401.1 L 551.7 397.2 L 566.3 394 L 580.8 391.8 L 595.4 390.4 L 610 390 L 624.6 390.4 L 639.2 391.8 L 653.8 394 L 668.3 397.2 L 682.9 401.1 L 697.5 406 L 712.1 411.7 L 726.7 418.1 L 741.3 425.4 L 755.8 433.4 L 770.4 442.1 L 785 451.5 L 799.6 461.5 L 814.2 472.2 L 828.8 483.3 L 843.3 495 L 857.9 507.1 L 872.5 519.6 L 887.1 532.5 L 901.7 545.6 L 916.3 559 L 930.8 572.6 L 945.4 586.3 L 960 600 L 974.6 613.7 L 989.2 627.4 L 1003.8 641 L 1018.3 654.4 L 1032.9 667.5 L 1047.5 680.4 L 1062.1 692.9 L 1076.7 705 L 1091.3 716.7 L 1105.8 727.8 L 1120.4 738.5 L 1135 748.5 L 1149.6 757.9 L 1164.2 766.6 L 1178.8 774.6 L 1193.3 781.9 L 1207.9 788.3 L 1222.5 794 L 1237.1 798.9 L 1251.7 802.8 L 1266.3 806 L 1280.8 808.2 L 1295.4 809.6 L 1310 810 L 1324.6 809.6 L 1339.2 808.2 L 1353.8 806 L 1368.3 802.8 L 1382.9 798.9 L 1397.5 794 L 1412.1 788.3 L 1426.7 781.9 L 1441.3 774.6 L 1455.8 766.6 L 1470.4 757.9 L 1485 748.5 L 1499.6 738.5 L 1514.2 727.8 L 1528.7 716.7 L 1543.3 705 L 1557.9 692.9 L 1572.5 680.4 L 1587.1 667.5 L 1601.7 654.4 L 1616.3 641 L 1630.8 627.4 L 1645.4 613.7 L 1660 600" stroke="$blue" sw="7" fill="none" shadow="0 0 18 $blue"><anim prop="draw" from="0.0" to="1" at="0.4" dur="5.5" ease="io"/></path>
+      <group x="1330" y="170">
+        <anim prop="opacity" from="0" to="1" at="0.6" dur="0.6"/>
+        <text x="0" y="0" size="72" font="Playfair Display" italic="1" fill="$fg" text="y"/>
+        <text x="58" y="0" size="72" font="Playfair Display" fill="$muted" text="@eq"/>
+        <text x="122" y="0" size="72" font="Playfair Display" fill="$blue" text="sin"/>
+        <text x="240" y="0" size="72" font="Playfair Display" italic="1" fill="$yellow" text="x"/>
+      </group>
+      <group at="3.2"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <circle x="610" y="390" r="12" fill="$yellow"/>
+        <line x1="610" y1="406" x2="610" y2="600" stroke="$yellow" sw="2" opacity="0.6"/>
+      </group>
+    </scene>
+
+    <!-- 3 · tangent line sliding -->
+    <scene id="tangent" dur="11" chapter="@ch3">
+      <say at="0.3" text="@vo3"/>
+      
+      <group at="-5">
+        <group opacity="0.22">
+          <anim prop="opacity" from="0" to="0.22" dur="1.2"/>
+          <line repeat="15" as="g" x1="=260 + g*100" y1="300" x2="=260 + g*100" y2="900" stroke="$grid" sw="1.5"/>
+          <line repeat="7" as="g" x1="200" y1="=300 + g*100" x2="1720" y2="=300 + g*100" stroke="$grid" sw="1.5"/>
+        </group>
+        <line x1="200" y1="600" x2="1740" y2="600" stroke="$fg" sw="3"><anim prop="draw" from="0" to="1" dur="1.2" ease="io"/></line>
+        <line x1="260" y1="880" x2="260" y2="310" stroke="$fg" sw="3"><anim prop="draw" from="0" to="1" at="0.3" dur="1.2" ease="io"/></line>
+        <path x="1740" y="600" d="M -18 -10 L 0 0 L -18 10" stroke="$fg" sw="3" fill="none" at="1.2"/>
+        <path x="260" y="310" d="M -10 18 L 0 0 L 10 18" stroke="$fg" sw="3" fill="none" at="1.4"/>
+        <group at="1"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="610" y1="590" x2="610" y2="610" stroke="$fg" sw="3"/><text x="610" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="π/2"/></group>
+        <group at="1.15"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="960" y1="590" x2="960" y2="610" stroke="$fg" sw="3"/><text x="960" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="π"/></group>
+        <group at="1.3"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="1310" y1="590" x2="1310" y2="610" stroke="$fg" sw="3"/><text x="1310" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="3π/2"/></group>
+        <group at="1.45"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="1660" y1="590" x2="1660" y2="610" stroke="$fg" sw="3"/><text x="1660" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="2π"/></group>
+        <text x="230" y="390" size="30" align="right" fill="$muted" text="1" at="1.2"/>
+        <line x1="250" y1="390" x2="270" y2="390" stroke="$fg" sw="3" at="1.2"/>
+        <text x="230" y="810" size="30" align="right" fill="$muted" text="−1" at="1.2"/>
+        <line x1="250" y1="810" x2="270" y2="810" stroke="$fg" sw="3" at="1.2"/>
+      </group>
+      <path d="M 260 600 L 274.6 586.3 L 289.2 572.6 L 303.8 559 L 318.3 545.6 L 332.9 532.5 L 347.5 519.6 L 362.1 507.1 L 376.7 495 L 391.3 483.3 L 405.8 472.2 L 420.4 461.5 L 435 451.5 L 449.6 442.1 L 464.2 433.4 L 478.8 425.4 L 493.3 418.1 L 507.9 411.7 L 522.5 406 L 537.1 401.1 L 551.7 397.2 L 566.3 394 L 580.8 391.8 L 595.4 390.4 L 610 390 L 624.6 390.4 L 639.2 391.8 L 653.8 394 L 668.3 397.2 L 682.9 401.1 L 697.5 406 L 712.1 411.7 L 726.7 418.1 L 741.3 425.4 L 755.8 433.4 L 770.4 442.1 L 785 451.5 L 799.6 461.5 L 814.2 472.2 L 828.8 483.3 L 843.3 495 L 857.9 507.1 L 872.5 519.6 L 887.1 532.5 L 901.7 545.6 L 916.3 559 L 930.8 572.6 L 945.4 586.3 L 960 600 L 974.6 613.7 L 989.2 627.4 L 1003.8 641 L 1018.3 654.4 L 1032.9 667.5 L 1047.5 680.4 L 1062.1 692.9 L 1076.7 705 L 1091.3 716.7 L 1105.8 727.8 L 1120.4 738.5 L 1135 748.5 L 1149.6 757.9 L 1164.2 766.6 L 1178.8 774.6 L 1193.3 781.9 L 1207.9 788.3 L 1222.5 794 L 1237.1 798.9 L 1251.7 802.8 L 1266.3 806 L 1280.8 808.2 L 1295.4 809.6 L 1310 810 L 1324.6 809.6 L 1339.2 808.2 L 1353.8 806 L 1368.3 802.8 L 1382.9 798.9 L 1397.5 794 L 1412.1 788.3 L 1426.7 781.9 L 1441.3 774.6 L 1455.8 766.6 L 1470.4 757.9 L 1485 748.5 L 1499.6 738.5 L 1514.2 727.8 L 1528.7 716.7 L 1543.3 705 L 1557.9 692.9 L 1572.5 680.4 L 1587.1 667.5 L 1601.7 654.4 L 1616.3 641 L 1630.8 627.4 L 1645.4 613.7 L 1660 600" stroke="$blue" sw="7" fill="none"/>
+      <group x="=260 + 222.8*u3()" y="=600 - 210*sin(u3())">
+        <group rot="=atan2(-210*cos(u3()), 222.8) * 180 / PI">
+          <line x1="-240" y1="0" x2="240" y2="0" stroke="$yellow" sw="5"><anim prop="draw" from="0" to="1" dur="0.8"/></line>
+        </group>
+        <circle r="40" fill="url(#dotglow)"/>
+        <circle r="13" fill="$yellow"/>
+      </group>
+      <group x="1360" y="170">
+        <rect x="-40" y="-70" w="460" h="140" r="18" fill="#1b2230" stroke="#2e3a4d" sw="2" shadow="0 12 30 #0009"/>
+        <text x="0" y="0" size="56" fill="$muted" text="@slope"/>
+        <text x="150" y="0" size="56" fill="$muted" text="@eq"/>
+        <text x="210" y="0" size="64" weight="700" font="Inter" fill="=cos(u3()) &gt; 0.05 ? $green : cos(u3()) &lt; -0.05 ? $red : $yellow" text="{fmt(cos(u3()), 2)}"/>
+      </group>
+      <text x="610" y="300" size="34" align="center" fill="$yellow" text="@peak" when="=u3() &gt; 1.2 &amp;&amp; u3() &lt; 2.2"/>
+      <text x="960" y="710" size="34" align="left" fill="$red" text="@fast" when="=u3() &gt; 2.7 &amp;&amp; u3() &lt; 3.7"/>
+    </scene>
+
+    <!-- 4 · the slope becomes a curve -->
+    <scene id="slopecurve" dur="9" chapter="@ch4">
+      <say at="0.3" text="@vo4"/>
+      
+      <group at="-5">
+        <group opacity="0.22">
+          <anim prop="opacity" from="0" to="0.22" dur="1.2"/>
+          <line repeat="15" as="g" x1="=260 + g*100" y1="300" x2="=260 + g*100" y2="900" stroke="$grid" sw="1.5"/>
+          <line repeat="7" as="g" x1="200" y1="=300 + g*100" x2="1720" y2="=300 + g*100" stroke="$grid" sw="1.5"/>
+        </group>
+        <line x1="200" y1="600" x2="1740" y2="600" stroke="$fg" sw="3"><anim prop="draw" from="0" to="1" dur="1.2" ease="io"/></line>
+        <line x1="260" y1="880" x2="260" y2="310" stroke="$fg" sw="3"><anim prop="draw" from="0" to="1" at="0.3" dur="1.2" ease="io"/></line>
+        <path x="1740" y="600" d="M -18 -10 L 0 0 L -18 10" stroke="$fg" sw="3" fill="none" at="1.2"/>
+        <path x="260" y="310" d="M -10 18 L 0 0 L 10 18" stroke="$fg" sw="3" fill="none" at="1.4"/>
+        <group at="1"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="610" y1="590" x2="610" y2="610" stroke="$fg" sw="3"/><text x="610" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="π/2"/></group>
+        <group at="1.15"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="960" y1="590" x2="960" y2="610" stroke="$fg" sw="3"/><text x="960" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="π"/></group>
+        <group at="1.3"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="1310" y1="590" x2="1310" y2="610" stroke="$fg" sw="3"/><text x="1310" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="3π/2"/></group>
+        <group at="1.45"><anim prop="opacity" from="0" to="1" dur="0.4"/><line x1="1660" y1="590" x2="1660" y2="610" stroke="$fg" sw="3"/><text x="1660" y="644" size="32" align="center" fill="$muted" font="Playfair Display" italic="1" text="2π"/></group>
+        <text x="230" y="390" size="30" align="right" fill="$muted" text="1" at="1.2"/>
+        <line x1="250" y1="390" x2="270" y2="390" stroke="$fg" sw="3" at="1.2"/>
+        <text x="230" y="810" size="30" align="right" fill="$muted" text="−1" at="1.2"/>
+        <line x1="250" y1="810" x2="270" y2="810" stroke="$fg" sw="3" at="1.2"/>
+      </group>
+      <path d="M 260 600 L 274.6 586.3 L 289.2 572.6 L 303.8 559 L 318.3 545.6 L 332.9 532.5 L 347.5 519.6 L 362.1 507.1 L 376.7 495 L 391.3 483.3 L 405.8 472.2 L 420.4 461.5 L 435 451.5 L 449.6 442.1 L 464.2 433.4 L 478.8 425.4 L 493.3 418.1 L 507.9 411.7 L 522.5 406 L 537.1 401.1 L 551.7 397.2 L 566.3 394 L 580.8 391.8 L 595.4 390.4 L 610 390 L 624.6 390.4 L 639.2 391.8 L 653.8 394 L 668.3 397.2 L 682.9 401.1 L 697.5 406 L 712.1 411.7 L 726.7 418.1 L 741.3 425.4 L 755.8 433.4 L 770.4 442.1 L 785 451.5 L 799.6 461.5 L 814.2 472.2 L 828.8 483.3 L 843.3 495 L 857.9 507.1 L 872.5 519.6 L 887.1 532.5 L 901.7 545.6 L 916.3 559 L 930.8 572.6 L 945.4 586.3 L 960 600 L 974.6 613.7 L 989.2 627.4 L 1003.8 641 L 1018.3 654.4 L 1032.9 667.5 L 1047.5 680.4 L 1062.1 692.9 L 1076.7 705 L 1091.3 716.7 L 1105.8 727.8 L 1120.4 738.5 L 1135 748.5 L 1149.6 757.9 L 1164.2 766.6 L 1178.8 774.6 L 1193.3 781.9 L 1207.9 788.3 L 1222.5 794 L 1237.1 798.9 L 1251.7 802.8 L 1266.3 806 L 1280.8 808.2 L 1295.4 809.6 L 1310 810 L 1324.6 809.6 L 1339.2 808.2 L 1353.8 806 L 1368.3 802.8 L 1382.9 798.9 L 1397.5 794 L 1412.1 788.3 L 1426.7 781.9 L 1441.3 774.6 L 1455.8 766.6 L 1470.4 757.9 L 1485 748.5 L 1499.6 738.5 L 1514.2 727.8 L 1528.7 716.7 L 1543.3 705 L 1557.9 692.9 L 1572.5 680.4 L 1587.1 667.5 L 1601.7 654.4 L 1616.3 641 L 1630.8 627.4 L 1645.4 613.7 L 1660 600" stroke="$blue" sw="6" fill="none" opacity="0.45"/>
+      <path d="M 260 390 L 274.6 390.4 L 289.2 391.8 L 303.8 394 L 318.3 397.2 L 332.9 401.1 L 347.5 406 L 362.1 411.7 L 376.7 418.1 L 391.3 425.4 L 405.8 433.4 L 420.4 442.1 L 435 451.5 L 449.6 461.5 L 464.2 472.2 L 478.8 483.3 L 493.3 495 L 507.9 507.1 L 522.5 519.6 L 537.1 532.5 L 551.7 545.6 L 566.3 559 L 580.8 572.6 L 595.4 586.3 L 610 600 L 624.6 613.7 L 639.2 627.4 L 653.8 641 L 668.3 654.4 L 682.9 667.5 L 697.5 680.4 L 712.1 692.9 L 726.7 705 L 741.3 716.7 L 755.8 727.8 L 770.4 738.5 L 785 748.5 L 799.6 757.9 L 814.2 766.6 L 828.8 774.6 L 843.3 781.9 L 857.9 788.3 L 872.5 794 L 887.1 798.9 L 901.7 802.8 L 916.3 806 L 930.8 808.2 L 945.4 809.6 L 960 810 L 974.6 809.6 L 989.2 808.2 L 1003.8 806 L 1018.3 802.8 L 1032.9 798.9 L 1047.5 794 L 1062.1 788.3 L 1076.7 781.9 L 1091.3 774.6 L 1105.8 766.6 L 1120.4 757.9 L 1135 748.5 L 1149.6 738.5 L 1164.2 727.8 L 1178.8 716.7 L 1193.3 705 L 1207.9 692.9 L 1222.5 680.4 L 1237.1 667.5 L 1251.7 654.4 L 1266.3 641 L 1280.8 627.4 L 1295.4 613.7 L 1310 600 L 1324.6 586.3 L 1339.2 572.6 L 1353.8 559 L 1368.3 545.6 L 1382.9 532.5 L 1397.5 519.6 L 1412.1 507.1 L 1426.7 495 L 1441.3 483.3 L 1455.8 472.2 L 1470.4 461.5 L 1485 451.5 L 1499.6 442.1 L 1514.2 433.4 L 1528.7 425.4 L 1543.3 418.1 L 1557.9 411.7 L 1572.5 406 L 1587.1 401.1 L 1601.7 397.2 L 1616.3 394 L 1630.8 391.8 L 1645.4 390.4 L 1660 390" stroke="$green" sw="7" fill="none" clip="url(#upto4)" shadow="0 0 16 $green"/>
+      <line x1="=260 + 222.8*u4()" y1="=600 - 210*sin(u4())" x2="=260 + 222.8*u4()" y2="=600 - 210*cos(u4())" stroke="$fg" sw="2" opacity="0.5"/>
+      <circle x="=260 + 222.8*u4()" y="=600 - 210*sin(u4())" r="10" fill="$blue"/>
+      <circle x="=260 + 222.8*u4()" y="=600 - 210*cos(u4())" r="13" fill="$green"/>
+      <group x="1330" y="170" at="5.8">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <anim prop="scale" from="1.3" to="1" dur="0.8" ease="back"/>
+        <text x="0" y="0" size="72" font="Playfair Display" italic="1" fill="$fg" text="y"/>
+        <text x="58" y="0" size="72" font="Playfair Display" fill="$muted" text="@eq"/>
+        <text x="122" y="0" size="72" font="Playfair Display" fill="$green" text="cos"/>
+        <text x="252" y="0" size="72" font="Playfair Display" italic="1" fill="$yellow" text="x"/>
+      </group>
+      <sfx at="5.8" src="blip"/>
+    </scene>
+
+    <!-- 5 · why: the turning point -->
+    <scene id="circle" dur="10" chapter="@ch5">
+      <say at="0.3" text="@vo5"/>
+      <text x="1330" y="170" size="72" font="Playfair Display" italic="1" fill="$fg" text="@why"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+      <line x1="210" y1="560" x2="1860" y2="560" stroke="$muted" sw="2" opacity="0.6"><anim prop="draw" from="0" to="1" dur="1"/></line>
+      <line x1="470" y1="820" x2="470" y2="300" stroke="$muted" sw="2" opacity="0.6"><anim prop="draw" from="0" to="1" dur="1"/></line>
+      <circle x="470" y="560" r="190" fill="none" stroke="$fg" sw="4"><anim prop="to" from="0" to="360" dur="1.2" ease="io"/></circle>
+      <path d="M 820 560 L 830.4 547.6 L 840.8 535.2 L 851.3 522.9 L 861.7 510.8 L 872.1 498.9 L 882.5 487.3 L 892.9 476 L 903.3 465 L 913.8 454.4 L 924.2 444.3 L 934.6 434.7 L 945 425.6 L 955.4 417.2 L 965.8 409.3 L 976.3 402 L 986.7 395.5 L 997.1 389.6 L 1007.5 384.5 L 1017.9 380.1 L 1028.3 376.5 L 1038.8 373.7 L 1049.2 371.6 L 1059.6 370.4 L 1070 370 L 1080.4 370.4 L 1090.8 371.6 L 1101.3 373.7 L 1111.7 376.5 L 1122.1 380.1 L 1132.5 384.5 L 1142.9 389.6 L 1153.3 395.5 L 1163.8 402 L 1174.2 409.3 L 1184.6 417.2 L 1195 425.6 L 1205.4 434.7 L 1215.8 444.3 L 1226.3 454.4 L 1236.7 465 L 1247.1 476 L 1257.5 487.3 L 1267.9 498.9 L 1278.3 510.8 L 1288.8 522.9 L 1299.2 535.2 L 1309.6 547.6 L 1320 560 L 1330.4 572.4 L 1340.8 584.8 L 1351.3 597.1 L 1361.7 609.2 L 1372.1 621.1 L 1382.5 632.7 L 1392.9 644 L 1403.3 655 L 1413.8 665.6 L 1424.2 675.7 L 1434.6 685.3 L 1445 694.4 L 1455.4 702.8 L 1465.8 710.7 L 1476.3 718 L 1486.7 724.5 L 1497.1 730.4 L 1507.5 735.5 L 1517.9 739.9 L 1528.3 743.5 L 1538.8 746.3 L 1549.2 748.4 L 1559.6 749.6 L 1570 750 L 1580.4 749.6 L 1590.8 748.4 L 1601.3 746.3 L 1611.7 743.5 L 1622.1 739.9 L 1632.5 735.5 L 1642.9 730.4 L 1653.3 724.5 L 1663.8 718 L 1674.2 710.7 L 1684.6 702.8 L 1695 694.4 L 1705.4 685.3 L 1715.8 675.7 L 1726.3 665.6 L 1736.7 655 L 1747.1 644 L 1757.5 632.7 L 1767.9 621.1 L 1778.3 609.2 L 1788.8 597.1 L 1799.2 584.8 L 1809.6 572.4 L 1820 560" stroke="$blue" sw="6" fill="none" clip="url(#upto5)"/>
+      <group at="1.2"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <line x1="470" y1="560" x2="=470 + 190*cos(th())" y2="=560 - 190*sin(th())" stroke="$fg" sw="3"/>
+        <line x1="=470 + 190*cos(th())" y1="560" x2="=470 + 190*cos(th())" y2="=560 - 190*sin(th())" stroke="$blue" sw="5"/>
+        <line x1="=470 + 190*cos(th())" y1="=560 - 190*sin(th())" x2="=820 + 159.2*th()" y2="=560 - 190*sin(th())" stroke="$blue" sw="2" opacity="0.45"/>
+        <!-- the vertical part of the velocity: how fast the height changes = cos θ -->
+        <group x="=470 + 190*cos(th())" y="=560 - 190*sin(th())">
+          <line x1="0" y1="0" x2="0" y2="=-110*cos(th())" stroke="$green" sw="6"/>
+          <path y="=-110*cos(th())" d="M -12 0 L 0 -16 L 12 0 Z" fill="$green" scale="=cos(th()) &lt; 0 ? -1 : 1" when="=abs(cos(th())) &gt; 0.12"/>
+          <circle r="13" fill="$yellow"/>
+        </group>
+        <circle x="=820 + 159.2*th()" y="=560 - 190*sin(th())" r="11" fill="$blue"/>
+      </group>
+      <text x="470" y="230" size="46" align="center" fill="$blue" text="@turn" at="2"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <text x="470" y="880" size="46" align="center" fill="$green" text="@speed" at="5"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+    </scene>
+
+    <!-- 6 · result: morph sine into cosine, then a circle -->
+    <scene id="result" dur="9" chapter="@ch6">
+      <say at="0.3" text="@vo6"/>
+      <path d="M 260 600 L 274.6 586.3 L 289.2 572.6 L 303.8 559 L 318.3 545.6 L 332.9 532.5 L 347.5 519.6 L 362.1 507.1 L 376.7 495 L 391.3 483.3 L 405.8 472.2 L 420.4 461.5 L 435 451.5 L 449.6 442.1 L 464.2 433.4 L 478.8 425.4 L 493.3 418.1 L 507.9 411.7 L 522.5 406 L 537.1 401.1 L 551.7 397.2 L 566.3 394 L 580.8 391.8 L 595.4 390.4 L 610 390 L 624.6 390.4 L 639.2 391.8 L 653.8 394 L 668.3 397.2 L 682.9 401.1 L 697.5 406 L 712.1 411.7 L 726.7 418.1 L 741.3 425.4 L 755.8 433.4 L 770.4 442.1 L 785 451.5 L 799.6 461.5 L 814.2 472.2 L 828.8 483.3 L 843.3 495 L 857.9 507.1 L 872.5 519.6 L 887.1 532.5 L 901.7 545.6 L 916.3 559 L 930.8 572.6 L 945.4 586.3 L 960 600 L 974.6 613.7 L 989.2 627.4 L 1003.8 641 L 1018.3 654.4 L 1032.9 667.5 L 1047.5 680.4 L 1062.1 692.9 L 1076.7 705 L 1091.3 716.7 L 1105.8 727.8 L 1120.4 738.5 L 1135 748.5 L 1149.6 757.9 L 1164.2 766.6 L 1178.8 774.6 L 1193.3 781.9 L 1207.9 788.3 L 1222.5 794 L 1237.1 798.9 L 1251.7 802.8 L 1266.3 806 L 1280.8 808.2 L 1295.4 809.6 L 1310 810 L 1324.6 809.6 L 1339.2 808.2 L 1353.8 806 L 1368.3 802.8 L 1382.9 798.9 L 1397.5 794 L 1412.1 788.3 L 1426.7 781.9 L 1441.3 774.6 L 1455.8 766.6 L 1470.4 757.9 L 1485 748.5 L 1499.6 738.5 L 1514.2 727.8 L 1528.7 716.7 L 1543.3 705 L 1557.9 692.9 L 1572.5 680.4 L 1587.1 667.5 L 1601.7 654.4 L 1616.3 641 L 1630.8 627.4 L 1645.4 613.7 L 1660 600" y="80" stroke="$blue" sw="7" fill="none">
+        <keys prop="d" ease="io" v="1.2: M 260 600 L 274.6 586.3 L 289.2 572.6 L 303.8 559 L 318.3 545.6 L 332.9 532.5 L 347.5 519.6 L 362.1 507.1 L 376.7 495 L 391.3 483.3 L 405.8 472.2 L 420.4 461.5 L 435 451.5 L 449.6 442.1 L 464.2 433.4 L 478.8 425.4 L 493.3 418.1 L 507.9 411.7 L 522.5 406 L 537.1 401.1 L 551.7 397.2 L 566.3 394 L 580.8 391.8 L 595.4 390.4 L 610 390 L 624.6 390.4 L 639.2 391.8 L 653.8 394 L 668.3 397.2 L 682.9 401.1 L 697.5 406 L 712.1 411.7 L 726.7 418.1 L 741.3 425.4 L 755.8 433.4 L 770.4 442.1 L 785 451.5 L 799.6 461.5 L 814.2 472.2 L 828.8 483.3 L 843.3 495 L 857.9 507.1 L 872.5 519.6 L 887.1 532.5 L 901.7 545.6 L 916.3 559 L 930.8 572.6 L 945.4 586.3 L 960 600 L 974.6 613.7 L 989.2 627.4 L 1003.8 641 L 1018.3 654.4 L 1032.9 667.5 L 1047.5 680.4 L 1062.1 692.9 L 1076.7 705 L 1091.3 716.7 L 1105.8 727.8 L 1120.4 738.5 L 1135 748.5 L 1149.6 757.9 L 1164.2 766.6 L 1178.8 774.6 L 1193.3 781.9 L 1207.9 788.3 L 1222.5 794 L 1237.1 798.9 L 1251.7 802.8 L 1266.3 806 L 1280.8 808.2 L 1295.4 809.6 L 1310 810 L 1324.6 809.6 L 1339.2 808.2 L 1353.8 806 L 1368.3 802.8 L 1382.9 798.9 L 1397.5 794 L 1412.1 788.3 L 1426.7 781.9 L 1441.3 774.6 L 1455.8 766.6 L 1470.4 757.9 L 1485 748.5 L 1499.6 738.5 L 1514.2 727.8 L 1528.7 716.7 L 1543.3 705 L 1557.9 692.9 L 1572.5 680.4 L 1587.1 667.5 L 1601.7 654.4 L 1616.3 641 L 1630.8 627.4 L 1645.4 613.7 L 1660 600; 3.4: M 260 390 L 274.6 390.4 L 289.2 391.8 L 303.8 394 L 318.3 397.2 L 332.9 401.1 L 347.5 406 L 362.1 411.7 L 376.7 418.1 L 391.3 425.4 L 405.8 433.4 L 420.4 442.1 L 435 451.5 L 449.6 461.5 L 464.2 472.2 L 478.8 483.3 L 493.3 495 L 507.9 507.1 L 522.5 519.6 L 537.1 532.5 L 551.7 545.6 L 566.3 559 L 580.8 572.6 L 595.4 586.3 L 610 600 L 624.6 613.7 L 639.2 627.4 L 653.8 641 L 668.3 654.4 L 682.9 667.5 L 697.5 680.4 L 712.1 692.9 L 726.7 705 L 741.3 716.7 L 755.8 727.8 L 770.4 738.5 L 785 748.5 L 799.6 757.9 L 814.2 766.6 L 828.8 774.6 L 843.3 781.9 L 857.9 788.3 L 872.5 794 L 887.1 798.9 L 901.7 802.8 L 916.3 806 L 930.8 808.2 L 945.4 809.6 L 960 810 L 974.6 809.6 L 989.2 808.2 L 1003.8 806 L 1018.3 802.8 L 1032.9 798.9 L 1047.5 794 L 1062.1 788.3 L 1076.7 781.9 L 1091.3 774.6 L 1105.8 766.6 L 1120.4 757.9 L 1135 748.5 L 1149.6 738.5 L 1164.2 727.8 L 1178.8 716.7 L 1193.3 705 L 1207.9 692.9 L 1222.5 680.4 L 1237.1 667.5 L 1251.7 654.4 L 1266.3 641 L 1280.8 627.4 L 1295.4 613.7 L 1310 600 L 1324.6 586.3 L 1339.2 572.6 L 1353.8 559 L 1368.3 545.6 L 1382.9 532.5 L 1397.5 519.6 L 1412.1 507.1 L 1426.7 495 L 1441.3 483.3 L 1455.8 472.2 L 1470.4 461.5 L 1485 451.5 L 1499.6 442.1 L 1514.2 433.4 L 1528.7 425.4 L 1543.3 418.1 L 1557.9 411.7 L 1572.5 406 L 1587.1 401.1 L 1601.7 397.2 L 1616.3 394 L 1630.8 391.8 L 1645.4 390.4 L 1660 390"/>
+        <keys prop="stroke" v="1.2: $blue; 3.4: $green"/>
+        <anim prop="opacity" from="1" to="0" at="5.2" dur="0.6"/>
+      </path>
+      <path d="M 260 390 L 274.6 390.4 L 289.2 391.8 L 303.8 394 L 318.3 397.2 L 332.9 401.1 L 347.5 406 L 362.1 411.7 L 376.7 418.1 L 391.3 425.4 L 405.8 433.4 L 420.4 442.1 L 435 451.5 L 449.6 461.5 L 464.2 472.2 L 478.8 483.3 L 493.3 495 L 507.9 507.1 L 522.5 519.6 L 537.1 532.5 L 551.7 545.6 L 566.3 559 L 580.8 572.6 L 595.4 586.3 L 610 600 L 624.6 613.7 L 639.2 627.4 L 653.8 641 L 668.3 654.4 L 682.9 667.5 L 697.5 680.4 L 712.1 692.9 L 726.7 705 L 741.3 716.7 L 755.8 727.8 L 770.4 738.5 L 785 748.5 L 799.6 757.9 L 814.2 766.6 L 828.8 774.6 L 843.3 781.9 L 857.9 788.3 L 872.5 794 L 887.1 798.9 L 901.7 802.8 L 916.3 806 L 930.8 808.2 L 945.4 809.6 L 960 810 L 974.6 809.6 L 989.2 808.2 L 1003.8 806 L 1018.3 802.8 L 1032.9 798.9 L 1047.5 794 L 1062.1 788.3 L 1076.7 781.9 L 1091.3 774.6 L 1105.8 766.6 L 1120.4 757.9 L 1135 748.5 L 1149.6 738.5 L 1164.2 727.8 L 1178.8 716.7 L 1193.3 705 L 1207.9 692.9 L 1222.5 680.4 L 1237.1 667.5 L 1251.7 654.4 L 1266.3 641 L 1280.8 627.4 L 1295.4 613.7 L 1310 600 L 1324.6 586.3 L 1339.2 572.6 L 1353.8 559 L 1368.3 545.6 L 1382.9 532.5 L 1397.5 519.6 L 1412.1 507.1 L 1426.7 495 L 1441.3 483.3 L 1455.8 472.2 L 1470.4 461.5 L 1485 451.5 L 1499.6 442.1 L 1514.2 433.4 L 1528.7 425.4 L 1543.3 418.1 L 1557.9 411.7 L 1572.5 406 L 1587.1 401.1 L 1601.7 397.2 L 1616.3 394 L 1630.8 391.8 L 1645.4 390.4 L 1660 390" y="80" stroke="$green" sw="5" fill="none" at="5.2">
+        <keys prop="d" ease="io" v="0: M 260 390 L 274.6 390.4 L 289.2 391.8 L 303.8 394 L 318.3 397.2 L 332.9 401.1 L 347.5 406 L 362.1 411.7 L 376.7 418.1 L 391.3 425.4 L 405.8 433.4 L 420.4 442.1 L 435 451.5 L 449.6 461.5 L 464.2 472.2 L 478.8 483.3 L 493.3 495 L 507.9 507.1 L 522.5 519.6 L 537.1 532.5 L 551.7 545.6 L 566.3 559 L 580.8 572.6 L 595.4 586.3 L 610 600 L 624.6 613.7 L 639.2 627.4 L 653.8 641 L 668.3 654.4 L 682.9 667.5 L 697.5 680.4 L 712.1 692.9 L 726.7 705 L 741.3 716.7 L 755.8 727.8 L 770.4 738.5 L 785 748.5 L 799.6 757.9 L 814.2 766.6 L 828.8 774.6 L 843.3 781.9 L 857.9 788.3 L 872.5 794 L 887.1 798.9 L 901.7 802.8 L 916.3 806 L 930.8 808.2 L 945.4 809.6 L 960 810 L 974.6 809.6 L 989.2 808.2 L 1003.8 806 L 1018.3 802.8 L 1032.9 798.9 L 1047.5 794 L 1062.1 788.3 L 1076.7 781.9 L 1091.3 774.6 L 1105.8 766.6 L 1120.4 757.9 L 1135 748.5 L 1149.6 738.5 L 1164.2 727.8 L 1178.8 716.7 L 1193.3 705 L 1207.9 692.9 L 1222.5 680.4 L 1237.1 667.5 L 1251.7 654.4 L 1266.3 641 L 1280.8 627.4 L 1295.4 613.7 L 1310 600 L 1324.6 586.3 L 1339.2 572.6 L 1353.8 559 L 1368.3 545.6 L 1382.9 532.5 L 1397.5 519.6 L 1412.1 507.1 L 1426.7 495 L 1441.3 483.3 L 1455.8 472.2 L 1470.4 461.5 L 1485 451.5 L 1499.6 442.1 L 1514.2 433.4 L 1528.7 425.4 L 1543.3 418.1 L 1557.9 411.7 L 1572.5 406 L 1587.1 401.1 L 1601.7 397.2 L 1616.3 394 L 1630.8 391.8 L 1645.4 390.4 L 1660 390; 1.8: M 730 560 L 730.5 545 L 732 530 L 734.4 515.1 L 737.8 500.5 L 742.2 486.1 L 747.5 472 L 753.7 458.3 L 760.8 445 L 768.8 432.2 L 777.5 420 L 787.1 408.4 L 797.4 397.4 L 808.4 387.1 L 820 377.5 L 832.2 368.8 L 845 360.8 L 858.3 353.7 L 872 347.5 L 886.1 342.2 L 900.5 337.8 L 915.1 334.4 L 930 332 L 945 330.5 L 960 330 L 975 330.5 L 990 332 L 1004.9 334.4 L 1019.5 337.8 L 1033.9 342.2 L 1048 347.5 L 1061.7 353.7 L 1075 360.8 L 1087.8 368.8 L 1100 377.5 L 1111.6 387.1 L 1122.6 397.4 L 1132.9 408.4 L 1142.5 420 L 1151.2 432.2 L 1159.2 445 L 1166.3 458.3 L 1172.5 472 L 1177.8 486.1 L 1182.2 500.5 L 1185.6 515.1 L 1188 530 L 1189.5 545 L 1190 560 L 1189.5 575 L 1188 590 L 1185.6 604.9 L 1182.2 619.5 L 1177.8 633.9 L 1172.5 648 L 1166.3 661.7 L 1159.2 675 L 1151.2 687.8 L 1142.5 700 L 1132.9 711.6 L 1122.6 722.6 L 1111.6 732.9 L 1100 742.5 L 1087.8 751.2 L 1075 759.2 L 1061.7 766.3 L 1048 772.5 L 1033.9 777.8 L 1019.5 782.2 L 1004.9 785.6 L 990 788 L 975 789.5 L 960 790 L 945 789.5 L 930 788 L 915.1 785.6 L 900.5 782.2 L 886.1 777.8 L 872 772.5 L 858.3 766.3 L 845 759.2 L 832.2 751.2 L 820 742.5 L 808.4 732.9 L 797.4 722.6 L 787.1 711.6 L 777.5 700 L 768.8 687.8 L 760.8 675 L 753.7 661.7 L 747.5 648 L 742.2 633.9 L 737.8 619.5 L 734.4 604.9 L 732 590 L 730.5 575 L 730 560"/>
+        <anim prop="opacity" from="0" to="0.7" dur="0.4"/>
+      </path>
+      <group x="960" y="230">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+        <text x="-330" y="0" size="84" align="center" font="Playfair Display" italic="1" fill="$fg" text="d/dx"/>
+        <text x="-140" y="0" size="84" align="center" font="Playfair Display" fill="$blue" text="sin"/>
+        <text x="-30" y="0" size="84" align="center" font="Playfair Display" italic="1" fill="$yellow" text="x"/>
+        <text x="70" y="0" size="84" align="center" font="Playfair Display" fill="$muted" text="@eq"/>
+        <text x="190" y="0" size="84" align="center" font="Playfair Display" fill="$green" text="cos"/>
+        <text x="310" y="0" size="84" align="center" font="Playfair Display" italic="1" fill="$yellow" text="x"/>
+        <path d="M -420 -80 L 400 -80 L 400 80 L -420 80 Z" stroke="$yellow" sw="4" fill="none" at="2"><anim prop="draw" from="0" to="1" dur="1.2" ease="io"/></path>
+      </group>
+      <text x="960" y="1000" size="46" align="center" fill="$muted" text="@shift" at="3.6"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/math-animation-dark/en/vo1.163f24b589.ogg" dur="7.61" hash="163f24b589" engine="kokoro:am_michael"/>
+    <voice say="vo2" lang="en" src="voice/math-animation-dark/en/vo2.59049fb1ab.ogg" dur="6.51" hash="59049fb1ab" engine="kokoro:am_michael"/>
+    <voice say="vo3" lang="en" src="voice/math-animation-dark/en/vo3.514c01d38e.ogg" dur="7.21" hash="514c01d38e" engine="kokoro:am_michael"/>
+    <voice say="vo4" lang="en" src="voice/math-animation-dark/en/vo4.6b976c6155.ogg" dur="5.91" hash="6b976c6155" engine="kokoro:am_michael"/>
+    <voice say="vo5" lang="en" src="voice/math-animation-dark/en/vo5.92228bcb95.ogg" dur="7.71" hash="92228bcb95" engine="kokoro:am_michael"/>
+    <voice say="vo6" lang="en" src="voice/math-animation-dark/en/vo6.21fb1f0eda.ogg" dur="5.61" hash="21fb1f0eda" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

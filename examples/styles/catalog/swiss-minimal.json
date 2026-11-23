@@ -1,0 +1,11 @@
+{
+  "id": "swiss-minimal",
+  "title": "Swiss minimal typography",
+  "category": "Typography",
+  "summary": "Strict 12-column grid, huge bold sans and one red accent show why transit maps trade distance for clarity.",
+  "duration": 57.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 3
+}

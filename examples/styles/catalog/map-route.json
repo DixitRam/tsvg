@@ -1,0 +1,11 @@
+{
+  "id": "map-route",
+  "title": "Map route",
+  "category": "Explainer",
+  "summary": "A 1497 sea voyage on an antique map: the camera pans and zooms leg by leg as a dotted route and ship marker advance, with distance cards.",
+  "duration": 69.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 66
+}

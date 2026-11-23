@@ -1,0 +1,11 @@
+{
+  "id": "architecture-diagram",
+  "title": "Architecture diagram",
+  "category": "Developer & engineering",
+  "summary": "Blueprint system diagram: services pop in, arrows draw on, packets flow along curves, and the camera zooms into one service to open it up.",
+  "duration": 61.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 59
+}

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: app onboarding carousel. One page per scene: a big friendly illustration, a title and one line,
+     page dots that stretch to the current page, Skip / Next, and a swipe (slide + fade) between pages.
+     Landscape puts the art left and text right; portrait stacks them like a phone. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait" w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="light"><choice id="light" label="Light"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.28" sfx="0.6"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="light" bg="#fbf8f3" fg="#1c1b29" muted="#6b6880" panel="#ffffff" accent="#ff6a3d"
+           c1="#ff6a3d" c2="#2f9e7d" c3="#3d7bff" c4="#9b5cf6" c5="#f2a516" c6="#e0457b"/>
+  </themes>
+  <strings>
+    <s id="title" en="Trailmate: onboarding"/>
+    <s id="skip" en="Skip"/><s id="next" en="Next"/><s id="go" en="Get started"/>
+    <s id="allow" en="Allow notifications"/><s id="later" en="Not now"/>
+    <s id="t1" en="Welcome to Trailmate"/><s id="b1" en="Plan trips that keep working when the signal doesn't."/>
+    <s id="t2" en="Plan your route"/><s id="b2" en="Drop your stops on the map. We find the best order."/>
+    <s id="t3" en="Works offline"/><s id="b3" en="Maps, tickets and notes are saved on your phone."/>
+    <s id="t4" en="Plan together"/><s id="b4" en="Invite friends. Everyone edits the same trip, live."/>
+    <s id="t5" en="Split the costs"/><s id="b5" en="Log spending in any currency and see who owes what."/>
+    <s id="t6" en="Stay in the loop"/><s id="b6" en="Gate changes and check-in reminders, right on time."/>
+    <s id="t7" en="You're all set"/><s id="b7" en="Your first trip is one tap away."/>
+    <s id="ch1" en="Welcome"/><s id="ch2" en="Route"/><s id="ch3" en="Offline"/><s id="ch4" en="Together"/><s id="ch5" en="Costs"/><s id="ch6" en="Alerts"/><s id="ch7" en="Start"/>
+    <s id="saved" en="Lisbon maps · 84 MB"/>
+    <s id="gate" en="Gate changed: B12 → B7"/>
+    <s id="vo1" en="Welcome to Trailmate. It plans trips that keep working, even when the signal does not."/>
+    <s id="vo2" en="Drop your stops on the map, and Trailmate works out the best order to visit them."/>
+    <s id="vo3" en="Maps, tickets and notes are saved on your phone, so they open even in airplane mode."/>
+    <s id="vo4" en="Invite your friends. Everyone edits the same trip, and changes show up live."/>
+    <s id="vo5" en="Log what you spend in any currency, and see at a glance who owes what."/>
+    <s id="vo6" en="Turn on notifications for gate changes and check-in reminders, right when they matter."/>
+    <s id="vo7" en="You are all set. Tap get started to plan your first trip."/>
+  </strings>
+
+  <defs>
+    <!-- continuous page index from video time (pages start at 0, 7, 15, 23, 31, 39, 47) -->
+    <fn id="pg" args="x">x &lt; 6.6 ? 0 : x &lt; 7 ? (x-6.6)/0.4 : min(6, 1 + floor((x-7)/8) + clamp((fract((x-7)/8)*8 - 7.6)/0.4, 0, 1))</fn>
+    <data id="conf" v="#ff6a3d, #2f9e7d, #3d7bff, #9b5cf6, #f2a516, #e0457b"/>
+    <radial id="blob" x="0" y="0" r="360"><stop at="0" color="#ffffff" opacity="0.9"/><stop at="1" color="#ffffff" opacity="0"/></radial>
+    <linear id="logo" x1="-150" y1="-150" x2="150" y2="150"><stop at="0" color="#ff8a4c"/><stop at="1" color="#e0457b"/></linear>
+    <linear id="cta" x1="0" y1="0" x2="300" y2="0"><stop at="0" color="#ff6a3d"/><stop at="1" color="#e0457b"/></linear>
+    <clip id="mapclip"><rect x="-270" y="-200" w="540" h="400" r="36"/></clip>
+  </defs>
+
+  <assets>
+    <asset id="bed" src="audio/bright.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+  </assets>
+
+  <music src="bed" start="0" loop="1" vol="0.6"/>
+
+  <backdrop>
+    <!-- the page colour drifts from page to page -->
+    <rect w="=W" h="=H" fill="=mix(mix(mix('#fff1ea', '#eaf7f1', clamp(pg(t),0,1)), mix('#ebf1ff', '#f3edff', clamp(pg(t)-2,0,1)), clamp(pg(t)-1,0,1)), mix(mix('#fff6e3', '#ffedf3', clamp(pg(t)-4,0,1)), '#fff1ea', clamp(pg(t)-5,0,1)), clamp(pg(t)-3,0,1))"/>
+    <circle x="620" y="500" x.portrait="540" y.portrait="720" r="420" fill="url(#blob)"/>
+  </backdrop>
+
+  <overlay>
+    <!-- Skip -->
+    <text x="=W - 90" y="80" size="32" weight="600" align="right" fill="$muted" text="@skip" when="=t &lt; 47"/>
+    <!-- page dots: the current one stretches -->
+    <group x="1000" y="900" x.portrait="=540 - 6*32" y.portrait="1620">
+      <rect repeat="7" as="i" x="=i*32 + 34*clamp(i - pg(t), 0, 1)" y="-8" h="16" r="8"
+            w="=16 + 34*clamp(1 - abs(pg(t) - i), 0, 1)"
+            fill="=mix('#d8d3cc', '#1c1b29', clamp(1 - abs(pg(t) - i), 0, 1))"/>
+    </group>
+    <!-- Next -->
+    <group x="1500" y="860" x.portrait="90" y.portrait="1720" when="=t &lt; 39">
+      <rect w="280" w.portrait="900" h="84" r="42" fill="$fg"/>
+      <text x="140" x.portrait="450" y="42" size="32" weight="700" align="center" fill="#fff" text="@next"/>
+    </group>
+  </overlay>
+
+  <timeline>
+    <!-- 1 · welcome -->
+    <scene id="p1" dur="7" chapter="@ch1">
+      <say at="0.4" text="@vo1"/>
+      <sfx at="0.3" src="pop"/>
+      <group>
+        <keys prop="x" v="6.55: 0; 7: -300"/><keys prop="opacity" v="6.55: 1; 7: 0"/>
+        <group x="620" y="500" x.portrait="540" y.portrait="720">
+          <circle r="=230 + 30*fract(T*0.6)" fill="none" stroke="$c1" sw="3" opacity="=0.5*(1 - fract(T*0.6))"/>
+          <circle r="=230 + 30*fract(T*0.6 + 0.5)" fill="none" stroke="$c1" sw="3" opacity="=0.5*(1 - fract(T*0.6 + 0.5))"/>
+          <group><anim prop="scale" from="0.4" to="1" dur="0.9" ease="back"/>
+            <rect x="-150" y="-150" w="300" h="300" r="80" fill="url(#logo)" shadow="0 30 60 #e0457b55"/>
+            <circle r="92" fill="none" stroke="#fff" sw="10"/>
+            <group rot="=20*sin(T*1.4)">
+              <path d="M0 -70 L18 0 L0 70 L-18 0 Z" fill="#fff"/>
+              <path d="M0 -70 L18 0 L-18 0 Z" fill="#ffd6c7"/>
+            </group>
+            <circle r="9" fill="#e0457b"/>
+          </group>
+        </group>
+        <group at="0.5"><anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="y" from="30" to="0" dur="0.6"/>
+          <text x="1000" y="420" x.portrait="540" y.portrait="1250" size="80" size.portrait="80" weight="700" font="Space Grotesk" align="left" align.portrait="center" fill="$fg" text="@t1"/>
+          <text x="1000" y="545" x.portrait="540" y.portrait="1390" size="40" maxw="720" maxw.portrait="860" lh="1.35" align="left" align.portrait="center" fill="$muted" text="@b1"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 2 · route: a map card, a route that draws, pins that drop -->
+    <scene id="p2" dur="8" chapter="@ch2">
+      <say at="0.5" text="@vo2"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.4" src="pop"/><sfx at="1.9" src="pop"/><sfx at="2.4" src="pop"/>
+      <group>
+        <keys prop="x" ease="out" v="0: 300; 0.6: 0; 7.55: 0; 8: -300"/><keys prop="opacity" v="0: 0; 0.4: 1; 7.55: 1; 8: 0"/>
+        <group x="620" y="500" x.portrait="540" y.portrait="720">
+          <rect x="-270" y="-200" w="540" h="400" r="36" fill="#dff3ea" shadow="0 30 60 #2f9e7d33"/>
+          <group clip="url(#mapclip)">
+            <path d="M-300 60 C -150 20, -60 140, 80 90 S 260 -40, 320 -10" stroke="#bfe6d4" sw="40" fill="none"/>
+            <rect x="-120" y="-220" w="120" h="140" fill="#c9ecdc"/>
+            <rect x="120" y="60" w="200" h="180" fill="#c9ecdc"/>
+            <line repeat="7" as="k" x1="=-270 + k*90" y1="-200" x2="=-270 + k*90" y2="200" stroke="#ffffff" sw="3"/>
+            <line repeat="5" as="k" x1="-270" y1="=-200 + k*100" x2="270" y2="=-200 + k*100" stroke="#ffffff" sw="3"/>
+          </group>
+          <path d="M-170 110 C -120 -40, -20 -60, 20 0 S 140 80, 170 -110" stroke="$c2" sw="10" fill="none" at="0.9">
+            <anim prop="draw" from="0" to="1" dur="2" ease="io"/>
+          </path>
+          <group repeat="3" as="k" x="=k == 0 ? -170 : k == 1 ? 20 : 170" y="=k == 0 ? 110 : k == 1 ? 0 : -110" at="=1.3 + k*0.5">
+            <anim prop="y" from="=(k == 0 ? 110 : k == 1 ? 0 : -110) - 80" to="=k == 0 ? 110 : k == 1 ? 0 : -110" dur="0.5" ease="back"/>
+            <ellipse y="4" rx="18" ry="6" fill="#0002"/>
+            <path d="M0 0 C -30 -34, -30 -70, 0 -70 C 30 -70, 30 -34, 0 0 Z" fill="=k == 2 ? '#ff6a3d' : '#2f9e7d'" shadow="0 6 10 #0003"/>
+            <circle y="-46" r="11" fill="#fff"/>
+          </group>
+          <group x="130" y="150" at="3"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+            <rect x="-10" y="-30" w="200" h="60" r="30" fill="#fff" shadow="0 10 20 #0002"/>
+            <text x="90" y="0" size="24" weight="700" align="center" fill="$c2" text="3 stops · 2h 40m"/>
+          </group>
+        </group>
+        <group at="0.5"><anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="y" from="30" to="0" dur="0.6"/>
+          <text x="1000" y="420" x.portrait="540" y.portrait="1250" size="80" size.portrait="80" weight="700" font="Space Grotesk" align="left" align.portrait="center" fill="$fg" text="@t2"/>
+          <text x="1000" y="545" x.portrait="540" y.portrait="1390" size="40" maxw="720" maxw.portrait="860" lh="1.35" align="left" align.portrait="center" fill="$muted" text="@b2"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 3 · offline: a phone with a download ring that completes -->
+    <scene id="p3" dur="8" chapter="@ch3">
+      <say at="0.5" text="@vo3"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="3.4" src="ding"/>
+      <group>
+        <keys prop="x" ease="out" v="0: 300; 0.6: 0; 7.55: 0; 8: -300"/><keys prop="opacity" v="0: 0; 0.4: 1; 7.55: 1; 8: 0"/>
+        <group x="620" y="500" x.portrait="540" y.portrait="720">
+          <rect x="-150" y="-270" w="300" h="540" r="48" fill="#1c1b29" shadow="0 30 60 #3d7bff33"/>
+          <rect x="-132" y="-252" w="264" h="504" r="34" fill="#f4f7ff"/>
+          <rect x="-40" y="-240" w="80" h="18" r="9" fill="#1c1b29"/>
+          <!-- airplane mode chip -->
+          <rect x="-110" y="-200" w="220" h="44" r="22" fill="#e3ebff"/>
+          <text x="0" y="-178" size="20" weight="700" align="center" fill="$c3" text="✈  Airplane mode"/>
+          <circle y="0" r="90" fill="none" stroke="#dbe4ff" sw="18"/>
+          <circle y="0" r="90" fill="none" stroke="$c3" sw="18" from="0" to="=360*ease((T-0.8)/2.6,'io')" at="0.8"/>
+          <path d="M0 -36 V24 M-24 2 L0 26 L24 2" stroke="$c3" sw="10" fill="none" when="=T &lt; 3.4"/>
+          <path d="M-36 2 L-10 28 L38 -24" stroke="$c2" sw="12" fill="none" at="3.4"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+          <text y="140" size="22" weight="600" align="center" fill="$muted" text="@saved"/>
+          <text y="180" size="30" weight="800" align="center" fill="$fg" text="{fmt(100*ease((T-0.8)/2.6,'io'),0)}%"/>
+          <!-- floating saved items -->
+          <group repeat="3" as="k" x="=k == 0 ? -250 : k == 1 ? 240 : -230" y="=(k == 0 ? -120 : k == 1 ? -40 : 170) + 10*sin(T*1.5 + k)" at="=3.6 + k*0.25">
+            <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+            <rect x="-60" y="-40" w="120" h="80" r="18" fill="#fff" shadow="0 10 20 #0002"/>
+            <text y="0" size="36" align="center" text="=k == 0 ? '🗺' : k == 1 ? '🎫' : '📝'"/>
+          </group>
+        </group>
+        <group at="0.5"><anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="y" from="30" to="0" dur="0.6"/>
+          <text x="1000" y="420" x.portrait="540" y.portrait="1250" size="80" size.portrait="80" weight="700" font="Space Grotesk" align="left" align.portrait="center" fill="$fg" text="@t3"/>
+          <text x="1000" y="545" x.portrait="540" y.portrait="1390" size="40" maxw="720" maxw.portrait="860" lh="1.35" align="left" align.portrait="center" fill="$muted" text="@b3"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 4 · together: avatars linked, edits travel along the links -->
+    <scene id="p4" dur="8" chapter="@ch4">
+      <say at="0.5" text="@vo4"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1" src="blip"/><sfx at="1.3" src="blip"/><sfx at="1.6" src="blip"/>
+      <group>
+        <keys prop="x" ease="out" v="0: 300; 0.6: 0; 7.55: 0; 8: -300"/><keys prop="opacity" v="0: 0; 0.4: 1; 7.55: 1; 8: 0"/>
+        <group x="620" y="500" x.portrait="540" y.portrait="720">
+          <line repeat="3" as="k" x1="=200*cos((k*120 - 90)*PI/180)" y1="=200*sin((k*120 - 90)*PI/180)"
+                x2="=200*cos(((k+1)*120 - 90)*PI/180)" y2="=200*sin(((k+1)*120 - 90)*PI/180)" stroke="#d9cbff" sw="8" at="0.8">
+            <anim prop="draw" from="0" to="1" dur="0.8"/>
+          </line>
+          <circle repeat="3" as="k" r="12" fill="$c4" at="1.8"
+                  x="=lerp(200*cos((k*120-90)*PI/180), 200*cos(((k+1)*120-90)*PI/180), fract(T*0.5 + k/3))"
+                  y="=lerp(200*sin((k*120-90)*PI/180), 200*sin(((k+1)*120-90)*PI/180), fract(T*0.5 + k/3))"/>
+          <group repeat="3" as="k" x="=200*cos((k*120 - 90)*PI/180)" y="=200*sin((k*120 - 90)*PI/180)" at="=0.9 + k*0.3">
+            <anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+            <circle r="86" fill="#fff" shadow="0 14 30 #9b5cf633"/>
+            <circle r="70" fill="=k == 0 ? '#ffb38a' : k == 1 ? '#8fd3b8' : '#a9c1ff'"/>
+            <circle y="-16" r="24" fill="#fff8"/>
+            <path d="M-38 44 C -30 10, 30 10, 38 44 Z" fill="#fff8"/>
+            <text y="104" size="26" weight="700" align="center" fill="$fg" text="=k == 0 ? 'Maya' : k == 1 ? 'Jon' : 'Ravi'"/>
+          </group>
+          <group y="10" at="2.6"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+            <rect x="-80" y="-32" w="160" h="64" r="32" fill="$c4"/>
+            <text y="0" size="26" weight="700" align="center" fill="#fff" text="✎ live"/>
+          </group>
+        </group>
+        <group at="0.5"><anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="y" from="30" to="0" dur="0.6"/>
+          <text x="1000" y="420" x.portrait="540" y.portrait="1250" size="80" size.portrait="80" weight="700" font="Space Grotesk" align="left" align.portrait="center" fill="$fg" text="@t4"/>
+          <text x="1000" y="545" x.portrait="540" y.portrait="1390" size="40" maxw="720" maxw.portrait="860" lh="1.35" align="left" align.portrait="center" fill="$muted" text="@b4"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 5 · costs: a donut that fills, coins -->
+    <scene id="p5" dur="8" chapter="@ch5">
+      <say at="0.5" text="@vo5"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.2" src="pop"/><sfx at="1.8" src="pop"/><sfx at="2.4" src="pop"/>
+      <group>
+        <keys prop="x" ease="out" v="0: 300; 0.6: 0; 7.55: 0; 8: -300"/><keys prop="opacity" v="0: 0; 0.4: 1; 7.55: 1; 8: 0"/>
+        <group x="620" y="500" x.portrait="540" y.portrait="720">
+          <circle r="230" fill="#fff" shadow="0 30 60 #f2a51633"/>
+          <circle r="190" fill="$c5" from="0" to="=150*ease((T-0.8)/0.8,'out')" at="0.8"/>
+          <circle r="190" fill="$c1" from="150" to="=150 + 120*ease((T-1.4)/0.8,'out')" at="1.4"/>
+          <circle r="190" fill="$c2" from="270" to="=270 + 90*ease((T-2)/0.8,'out')" at="2"/>
+          <circle r="120" fill="#fff"/>
+          <text y="-18" size="58" weight="800" font="Space Grotesk" align="center" fill="$fg" text="€{fmt(1260*ease((T-0.8)/2,'out'),0)}"/>
+          <text y="34" size="24" weight="600" align="center" fill="$muted" text="trip total"/>
+          <group x="250" y="140" at="3"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+            <rect x="-30" y="-36" w="230" h="72" r="20" fill="#fff" shadow="0 10 20 #0002"/>
+            <circle x="10" r="20" fill="#8fd3b8"/>
+            <text x="44" y="-10" size="20" weight="700" fill="$fg" text="Jon owes you"/>
+            <text x="44" y="16" size="22" weight="800" fill="$c2" text="€84.50"/>
+          </group>
+        </group>
+        <group at="0.5"><anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="y" from="30" to="0" dur="0.6"/>
+          <text x="1000" y="420" x.portrait="540" y.portrait="1250" size="80" size.portrait="80" weight="700" font="Space Grotesk" align="left" align.portrait="center" fill="$fg" text="@t5"/>
+          <text x="1000" y="545" x.portrait="540" y.portrait="1390" size="40" maxw="720" maxw.portrait="860" lh="1.35" align="left" align.portrait="center" fill="$muted" text="@b5"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 6 · alerts: a bell that rings, a notification, a permission choice -->
+    <scene id="p6" dur="8" chapter="@ch6">
+      <say at="0.5" text="@vo6"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1" src="ding"/>
+      <group>
+        <keys prop="x" ease="out" v="0: 300; 0.6: 0; 7.55: 0; 8: -300"/><keys prop="opacity" v="0: 0; 0.4: 1; 7.55: 1; 8: 0"/>
+        <group x="620" y="500" x.portrait="540" y.portrait="720">
+          <circle r="210" fill="#ffe1ec"/>
+          <group y="-20" rot="=T &gt; 1 &amp;&amp; T &lt; 2.6 ? 16*sin(T*28)*(2.6 - T) : 0">
+            <path d="M0 -150 C 80 -150, 110 -80, 110 0 L 110 60 L 140 100 L -140 100 L -110 60 L -110 0 C -110 -80, -80 -150, 0 -150 Z" fill="$c6" shadow="0 20 40 #e0457b44"/>
+            <circle y="-160" r="18" fill="$c6"/>
+            <circle y="=126 + 6*sin(T*28)*(T &gt; 1 &amp;&amp; T &lt; 2.6 ? 1 : 0)" r="28" fill="#b8325f"/>
+          </group>
+          <circle x="110" y="-130" r="34" fill="$c1" at="1"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/></circle>
+          <text x="110" y="-129" size="34" weight="800" align="center" fill="#fff" text="1" at="1"/>
+          <group y="=portrait ? 300 : 280" at="1.8"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="=portrait ? 340 : 320" to="=portrait ? 300 : 280" dur="0.5"/>
+            <rect x="-260" y="-44" w="520" h="88" r="24" fill="#fff" shadow="0 14 30 #0002"/>
+            <circle x="-212" r="24" fill="$c6"/>
+            <text x="-174" y="0" size="26" weight="700" fill="$fg" text="@gate"/>
+          </group>
+        </group>
+        <group at="0.5"><anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="y" from="30" to="0" dur="0.6"/>
+          <text x="1000" y="420" x.portrait="540" y.portrait="1250" size="80" size.portrait="80" weight="700" font="Space Grotesk" align="left" align.portrait="center" fill="$fg" text="@t6"/>
+          <text x="1000" y="545" x.portrait="540" y.portrait="1390" size="40" maxw="720" maxw.portrait="860" lh="1.35" align="left" align.portrait="center" fill="$muted" text="@b6"/>
+        </group>
+        <group x="1000" y="700" x.portrait="90" y.portrait="1480" at="3">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <rect w="400" w.portrait="560" h="84" r="42" fill="url(#cta)" scale="=T &gt; 5.4 &amp;&amp; T &lt; 5.7 ? 0.95 : 1"/>
+          <text x="200" x.portrait="280" y="42" size="30" weight="700" align="center" fill="#fff" text="@allow"/>
+          <text x="470" x.portrait="730" y="42" size="30" weight="600" align="center" fill="$muted" text="@later"/>
+        </group>
+        <circle x="1200" y="742" x.portrait="370" y.portrait="1522" r="10" fill="none" stroke="#fff" sw="5" at="5.4" dur="0.6">
+          <anim prop="r" from="8" to="60" dur="0.6"/><anim prop="opacity" from="1" to="0" dur="0.6"/>
+        </circle>
+      </group>
+    </scene>
+
+    <!-- 7 · all set: confetti + Get started -->
+    <scene id="p7" dur="7.5" chapter="@ch7">
+      <say at="0.5" text="@vo7"/>
+      <sfx at="0.2" src="ding"/>
+      <group><keys prop="x" ease="out" v="0: 300; 0.6: 0"/><keys prop="opacity" v="0: 0; 0.4: 1"/>
+        <group x="620" y="500" x.portrait="540" y.portrait="720">
+          <circle r="200" fill="$c2" shadow="0 30 60 #2f9e7d44"><anim prop="scale" from="0.3" to="1" dur="0.8" ease="back"/></circle>
+          <path d="M-90 0 L-25 65 L100 -70" stroke="#fff" sw="34" fill="none" at="0.6"><anim prop="draw" from="0" to="1" dur="0.6" ease="io"/></path>
+        </group>
+        <group at="0.5"><anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="y" from="30" to="0" dur="0.6"/>
+          <text x="1000" y="420" x.portrait="540" y.portrait="1250" size="80" size.portrait="80" weight="700" font="Space Grotesk" align="left" align.portrait="center" fill="$fg" text="@t7"/>
+          <text x="1000" y="545" x.portrait="540" y.portrait="1390" size="40" maxw="720" maxw.portrait="860" lh="1.35" align="left" align.portrait="center" fill="$muted" text="@b7"/>
+        </group>
+        <group x="1000" y="680" x.portrait="90" y.portrait="1720" at="1.2">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/>
+          <rect w="420" w.portrait="900" h="96" r="48" fill="url(#cta)" shadow="0 18 36 #ff6a3d55" scale="=1 + 0.03*sin(T*4)"/>
+          <text x="210" x.portrait="450" y="48" size="36" weight="800" align="center" fill="#fff" text="@go"/>
+        </group>
+      </group>
+      <!-- confetti -->
+      <rect repeat="70" as="i" at="0.3" w="16" h="26" r="4"
+            x="=rand(i)*W + 40*sin(T*2 + i)" y="=-60 - rand(i+9)*400 + T*(260 + 220*rand(i+50))"
+            rot="=T*(120 + 200*rand(i+3)) + i*40"
+            fill="=data('conf', i)" opacity="=clamp(4 - T*0.5, 0, 1)"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/feature-onboarding/en/vo1.740e882afe.ogg" dur="5.21" hash="740e882afe" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/feature-onboarding/en/vo2.4e5b8f6b0e.ogg" dur="4.31" hash="4e5b8f6b0e" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/feature-onboarding/en/vo3.b52e6a9f64.ogg" dur="4.91" hash="b52e6a9f64" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/feature-onboarding/en/vo4.2980ac036c.ogg" dur="4.61" hash="2980ac036c" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/feature-onboarding/en/vo5.3381a60a34.ogg" dur="3.91" hash="3381a60a34" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/feature-onboarding/en/vo6.389d0ec079.ogg" dur="4.81" hash="389d0ec079" engine="kokoro:af_heart"/>
+    <voice say="vo7" lang="en" src="voice/feature-onboarding/en/vo7.7ce4672694.ogg" dur="3.21" hash="7ce4672694" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

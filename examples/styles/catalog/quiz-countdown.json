@@ -1,0 +1,12 @@
+{
+  "id": "quiz-countdown",
+  "title": "Quiz countdown",
+  "category": "entertainment",
+  "summary": "Game-show quiz: question card, four answers, a countdown ring, a pop reveal with confetti and a running score.",
+  "duration": 67,
+  "layouts": [
+    "landscape",
+    "portrait"
+  ],
+  "thumbT": 19
+}

@@ -1,0 +1,12 @@
+{
+  "id": "feature-onboarding",
+  "title": "App onboarding carousel",
+  "category": "Product & software",
+  "summary": "Onboarding pages: big friendly illustrations, a title and one line, stretching page dots, Skip/Next and swipe transitions.",
+  "duration": 54.5,
+  "layouts": [
+    "landscape",
+    "portrait"
+  ],
+  "thumbT": 18
+}

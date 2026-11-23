@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: comic / storyboard. A six-panel page revealed one panel at a time, the camera moving panel to panel; speech bubbles, caption boxes, halftone dots (repeat) and SFX lettering. -->
+<tsvg version="0.2" title="@title" font="Space Grotesk, Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_sky"/></option>
+    <option id="mix" label="Audio" default="full">
+      <choice id="full" label="Full"/><choice id="speech" label="Speech only"/>
+    </option>
+    <option id="theme" label="Theme" default="ink"><choice id="ink" label="Ink"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.3" sfx="0.8"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="ink" bg="#1a1a22" fg="#ffffff" muted="#a7a7b8" yellow="#ffe14a" red="#e02525" blue="#3b6fd8"/>
+  </themes>
+  <strings>
+    <s id="title" en="The Friday Deploy"/>
+    <s id="t1" en="THE FRIDAY"/><s id="t2" en="DEPLOY!"/>
+    <s id="issue" en="ISSUE #1"/>
+    <s id="tag" en="A comic in six panels"/>
+    <s id="ch0" en="Cover"/><s id="ch1" en="4:55 PM"/><s id="ch2" en="The button"/><s id="ch3" en="Uh-oh"/><s id="ch4" en="Buzz"/><s id="ch5" en="Revert"/><s id="ch6" en="Lesson"/><s id="ch7" en="The end"/>
+    <s id="c1" en="FRIDAY · 4:55 PM"/>
+    <s id="b1" en="JUST ONE TINY FIX BEFORE THE WEEKEND..."/>
+    <s id="deploy" en="DEPLOY"/>
+    <s id="click" en="CLICK!"/>
+    <s id="err" en="500 · 500 · 500"/>
+    <s id="pop" en="POP!"/>
+    <s id="b3" en="UH-OH."/>
+    <s id="bzzt" en="BZZT!"/>
+    <s id="b4" en="IS THE SITE DOWN?!"/>
+    <s id="c5" en="4:58 PM"/>
+    <s id="cmd1" en="$ git revert HEAD"/>
+    <s id="cmd2" en="[main 3f9a1c2] Revert"/>
+    <s id="cmd3" en="$ deploy --prod"/>
+    <s id="tak" en="TAK TAK TAK"/>
+    <s id="note" en="NO DEPLOYS ON FRIDAY"/>
+    <s id="c6" en="LESSON LEARNED."/>
+    <s id="end" en="THE END"/>
+    <s id="end2" en="Ship on Monday."/>
+    <s id="vo0" en="The Friday Deploy. A short comic about a lesson every developer learns exactly once."/>
+    <s id="vo1" en="Friday, four fifty-five. Just one tiny fix, Sam thinks, and then the weekend."/>
+    <s id="vo2" en="One click on the big red button. What could possibly go wrong?"/>
+    <s id="vo3" en="Pop. Errors everywhere. The dashboard turns red in seconds."/>
+    <s id="vo4" en="The phone starts buzzing. Thirty-seven messages, all asking the same thing."/>
+    <s id="vo5" en="Fingers flying, Sam reverts the change and redeploys."/>
+    <s id="vo6" en="Green again. A new note goes on the monitor: no deploys on Friday."/>
+    <s id="vo7" en="Six panels, one lesson. Ship it on Monday instead."/>
+  </strings>
+  <defs>
+    <clip id="pc"><rect x="0" y="0" w="584" h="468"/></clip>
+    <clip id="reveal0"><rect x="0" y="0" w="=584*ease(clamp((t - 6.5)/0.5, 0, 1), 'out')" h="468"/></clip>
+    <clip id="reveal1"><rect x="0" y="0" w="=584*ease(clamp((t - 13.5)/0.5, 0, 1), 'out')" h="468"/></clip>
+    <clip id="reveal2"><rect x="0" y="0" w="=584*ease(clamp((t - 20.5)/0.5, 0, 1), 'out')" h="468"/></clip>
+    <clip id="reveal3"><rect x="0" y="0" w="=584*ease(clamp((t - 27.5)/0.5, 0, 1), 'out')" h="468"/></clip>
+    <clip id="reveal4"><rect x="0" y="0" w="=584*ease(clamp((t - 34.5)/0.5, 0, 1), 'out')" h="468"/></clip>
+    <clip id="reveal5"><rect x="0" y="0" w="=584*ease(clamp((t - 41.5)/0.5, 0, 1), 'out')" h="468"/></clip>
+    <radial id="coverG" x="960" y="540" r="1100"><stop at="0" color="#ffe14a"/><stop at="0.55" color="#ff9a3c"/><stop at="1" color="#e0322a"/></radial>
+  </defs>
+  <assets>
+    <asset id="bed" src="audio/bright.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="typing" src="audio/typing.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+    <font family="Anton" src="fonts/Anton.ttf"/>
+    <font family="Caveat" src="fonts/Caveat.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="bed" loop="1" vol="0.5"/>
+
+  <!-- the page: six panels, camera moves from panel to panel and pulls back at the end -->
+  <backdrop>
+    <rect w="1920" h="1080" fill="#1a1a22"/>
+    <group when="=t >= 6.2" x="=lerp((960 - 1.75*(352.0 + 608*ease(clamp((t - 13.3)/0.8, 0, 1), 'io') + 608*ease(clamp((t - 20.3)/0.8, 0, 1), 'io') + -1216*ease(clamp((t - 27.3)/0.8, 0, 1), 'io') + 608*ease(clamp((t - 34.3)/0.8, 0, 1), 'io') + 608*ease(clamp((t - 41.3)/0.8, 0, 1), 'io'))), 0, ease(clamp((t - 48.5)/1.2, 0, 1), 'io'))" y="=lerp((540 - 1.75*(294.0 + 492*ease(clamp((t - 27.3)/0.8, 0, 1), 'io'))), 0, ease(clamp((t - 48.5)/1.2, 0, 1), 'io'))" scale="=lerp(1.75, 1, ease(clamp((t - 48.5)/1.2, 0, 1), 'io'))">
+      <rect x="20" y="20" w="1880" h="1040" fill="#f4efe2"/>
+
+      <!-- panel 1 -->
+      <group x="60" y="60">
+        <rect w="584" h="468" fill="#e9e4d8" stroke="#111" sw="6"/>
+        <group clip="url(#pc)" when="=t > 6.4" opacity="=clamp((t - 6.5)*4, 0, 1)">
+          <group clip="url(#reveal0)">
+        <group repeat="25" as="hx"><circle repeat="20" as="hy" x="=hx*24 + 10" y="=hy*24 + 10" r="=max(0, 9 - sqrt((hx*24 + 10 - 120)^2 + (hy*24 + 10 - 80)^2)/51.282051282051285)" fill="#7cc4ff" opacity="0.35"/></group>
+        <rect x="360" y="40" w="170" h="170" r="85" fill="#fff" stroke="#111" sw="6"/>
+        <line x1="445" y1="125" x2="445" y2="70" stroke="#111" sw="7"/>
+        <line x1="445" y1="125" x2="=445 + 40*cos(((t - 6.5))*0.6 - 2.4)" y2="=125 + 40*sin(((t - 6.5))*0.6 - 2.4)" stroke="#d92b2b" sw="5"/>
+        <rect x="0" y="360" w="584" h="108" fill="#c98b4e" stroke="#111" sw="5"/>
+        <rect x="300" y="230" w="220" h="140" r="10" fill="#2b2f3a" stroke="#111" sw="5"/>
+        <rect x="316" y="246" w="188" h="108" r="4" fill="#9fd6ff"/>
+        <rect x="390" y="368" w="40" h="18" fill="#2b2f3a"/>
+        <group x="180" y="300" scale="1">
+          <rect x="-62" y="0" w="124" h="150" r="40" fill="#3b6fd8" stroke="#111" sw="5"/>
+          
+          <circle y="-55" r="52" fill="#f2c39b" stroke="#111" sw="5"/>
+          <path d="M -54 -62 C -50 -120, 50 -125, 54 -66 C 30 -84, -10 -90, -54 -62 Z" fill="#3a2418" stroke="#111" sw="4"/>
+          <circle x="-18" y="-52" r="6" fill="#111"/><circle x="18" y="-52" r="6" fill="#111"/>
+        </group>
+        <group opacity="=clamp(((t - 6.5) - 0.2)*5, 0, 1)">
+          <rect x="20" y="20" w="300" h="52" fill="#ffe14a" stroke="#111" sw="5"/>
+          <text x="36" y="47" size="26" weight="800" font="Space Grotesk" fill="#111" text="@c1"/>
+        </group>
+        <group opacity="=clamp(((t - 6.5) - 1.2)*5, 0, 1)" scale="=0.8 + 0.2*ease(clamp(((t - 6.5) - 1.2)*4, 0, 1), 'back')">
+          <path d="M 125.0 186 L 150 200 L 185.0 186 Z" fill="#fff" stroke="#111" sw="5"/>
+          <rect x="20" y="84" w="300" h="106" r="40" fill="#fff" stroke="#111" sw="5"/>
+          <rect x="119.0" y="180" w="75.0" h="12" fill="#fff"/>
+          <text x="170.0" y="137.0" size="25" weight="700" font="Space Grotesk" align="center" maxw="260" lh="1.15" fill="#111" text="@b1"/>
+        </group>
+          </group>
+        </group>
+        <rect w="584" h="468" fill="none" stroke="#111" sw="8"/>
+        <rect w="584" h="468" fill="#ffffff" opacity="=max(0, 0.9 - (t - 6.5)*3)*(t > 6.5)"/>
+      </group>
+
+      <!-- panel 2 -->
+      <group x="668" y="60">
+        <rect w="584" h="468" fill="#e9e4d8" stroke="#111" sw="6"/>
+        <group clip="url(#pc)" when="=t > 13.4" opacity="=clamp((t - 13.5)*4, 0, 1)">
+          <group clip="url(#reveal1)">
+        <rect w="584" h="468" fill="#1d2133"/>
+        <line repeat="36" as="q" x1="=292 + 120*cos(q*0.1745 + t*0.2)" y1="=234 + 120*sin(q*0.1745 + t*0.2)" x2="=292 + 520*cos(q*0.1745 + t*0.2)" y2="=234 + 520*sin(q*0.1745 + t*0.2)" stroke="#ffffff" sw="=q%2==0 ? 6 : 2" opacity="0.18"/>
+        <ellipse x="292" y="300" rx="170" ry="60" fill="#555b70" stroke="#111" sw="6"/>
+        <ellipse x="292" y="=270 + 14*ease(clamp(((t - 13.5) - 2.3)*6, 0, 1), 'out')" rx="130" ry="48" fill="#e02525" stroke="#111" sw="6"/>
+        <rect x="222" y="=200 + 14*ease(clamp(((t - 13.5) - 2.3)*6, 0, 1), 'out')" w="140" h="70" fill="#e02525"/>
+        <ellipse x="292" y="=200 + 14*ease(clamp(((t - 13.5) - 2.3)*6, 0, 1), 'out')" rx="130" ry="48" fill="#ff4a4a" stroke="#111" sw="6"/>
+        <line x1="162" y1="=200 + 14*ease(clamp(((t - 13.5) - 2.3)*6, 0, 1), 'out')" x2="162" y2="=270 + 14*ease(clamp(((t - 13.5) - 2.3)*6, 0, 1), 'out')" stroke="#111" sw="6"/>
+        <line x1="422" y1="=200 + 14*ease(clamp(((t - 13.5) - 2.3)*6, 0, 1), 'out')" x2="422" y2="=270 + 14*ease(clamp(((t - 13.5) - 2.3)*6, 0, 1), 'out')" stroke="#111" sw="6"/>
+        <text x="292" y="=202 + 14*ease(clamp(((t - 13.5) - 2.3)*6, 0, 1), 'out')" size="40" font="Anton" align="center" fill="#fff" text="@deploy"/>
+        <!-- the finger -->
+        <group x="292" y="=lerp(-120, 150, ease(clamp(((t - 13.5) - 1.2)/1.1, 0, 1), 'in'))">
+          <rect x="-34" y="-260" w="68" h="250" r="34" fill="#f2c39b" stroke="#111" sw="6"/>
+          <path d="M -20 -40 C -10 -30, 10 -30, 20 -40" stroke="#111" sw="4" fill="none"/>
+          <rect x="-34" y="-300" w="68" h="60" fill="#3b6fd8" stroke="#111" sw="6"/>
+        </group>
+        <text x="140" y="110" size="110" font="Anton" align="center" fill="#ffe14a" stroke="#111" sw="10" rot="-12" text="@click"
+              opacity="=clamp(((t - 13.5) - 2.3)*8, 0, 1)" scale="=1 + 0.6*max(0, 1 - ((t - 13.5) - 2.3)*4) + 0.04*sin(t*20)*max(0, 1 - ((t - 13.5) - 2.3)*0.8)"/>
+          </group>
+        </group>
+        <rect w="584" h="468" fill="none" stroke="#111" sw="8"/>
+        <rect w="584" h="468" fill="#ffffff" opacity="=max(0, 0.9 - (t - 13.5)*3)*(t > 13.5)"/>
+      </group>
+
+      <!-- panel 3 -->
+      <group x="1276" y="60">
+        <rect w="584" h="468" fill="#e9e4d8" stroke="#111" sw="6"/>
+        <group clip="url(#pc)" when="=t > 20.4" opacity="=clamp((t - 20.5)*4, 0, 1)">
+          <group clip="url(#reveal2)">
+        <rect w="584" h="468" fill="=mix('#ffffff', '#ffd0d0', clamp(((t - 20.5) - 0.8)*2, 0, 1))"/>
+        <group repeat="25" as="hx"><circle repeat="20" as="hy" x="=hx*24 + 10" y="=hy*24 + 10" r="=max(0, 10 - sqrt((hx*24 + 10 - 292)^2 + (hy*24 + 10 - 234)^2)/46.15384615384615)" fill="#ff4040" opacity="0.3"/></group>
+        <path x="292" y="234" d="M 0 -220 L 50 -90 L 190 -150 L 110 -30 L 260 20 L 100 60 L 170 190 L 30 100 L -40 230 L -60 90 L -220 150 L -110 20 L -250 -60 L -90 -70 L -150 -200 L -30 -100 Z" fill="#ffe14a" stroke="#111" sw="6" scale="=ease(clamp(((t - 20.5) - 0.7)*4, 0, 1), 'back') + 0.03*sin(t*18)"/>
+        <rect x="120" y="140" w="344" h="210" r="10" fill="#2b2f3a" stroke="#111" sw="6"/>
+        <rect x="136" y="156" w="312" h="170" fill="#141722"/>
+        <path d="=('M 146 300 L 200 296 L 250 300 L 300 ' + (300 - 120*clamp(((t - 20.5) - 0.6)*2, 0, 1)) + ' L 340 ' + (300 - 60*clamp(((t - 20.5) - 0.6)*2, 0, 1)) + ' L 380 ' + (300 - 130*clamp(((t - 20.5) - 0.6)*2, 0, 1)) + ' L 436 ' + (300 - 125*clamp(((t - 20.5) - 0.6)*2, 0, 1)))" stroke="#ff3b3b" sw="6" fill="none"/>
+        <text x="292" y="180" size="24" font="JetBrains Mono" weight="700" align="center" fill="#ff3b3b" text="@err" opacity="=0.5 + 0.5*sin(t*12)"/>
+        <circle repeat="2" as="q" x="=q==0 ? 60 : 524" y="60" r="30" fill="#ff2a2a" stroke="#111" sw="5" opacity="=0.4 + 0.6*(sin(t*10 + q*3) > 0)"/>
+        <text x="292" y="410" size="120" font="Anton" align="center" fill="#ff3b3b" stroke="#111" sw="10" rot="6" text="@pop"
+              opacity="=clamp(((t - 20.5) - 0.7)*8, 0, 1)" scale="=1 + 0.6*max(0, 1 - ((t - 20.5) - 0.7)*4) + 0.04*sin(t*20)*max(0, 1 - ((t - 20.5) - 0.7)*0.8)"/>
+        <group opacity="=clamp(((t - 20.5) - 2.4)*5, 0, 1)" scale="=0.8 + 0.2*ease(clamp(((t - 20.5) - 2.4)*4, 0, 1), 'back')">
+          <path d="M 359.5 102 L 420 150 L 393.5 102 Z" fill="#fff" stroke="#111" sw="5"/>
+          <rect x="300" y="30" w="170" h="76" r="38.0" fill="#fff" stroke="#111" sw="5"/>
+          <rect x="356.1" y="96" w="42.5" h="12" fill="#fff"/>
+          <text x="385.0" y="68.0" size="30" weight="700" font="Space Grotesk" align="center" maxw="130" lh="1.15" fill="#111" text="@b3"/>
+        </group>
+          </group>
+        </group>
+        <rect w="584" h="468" fill="none" stroke="#111" sw="8"/>
+        <rect w="584" h="468" fill="#ffffff" opacity="=max(0, 0.9 - (t - 20.5)*3)*(t > 20.5)"/>
+      </group>
+
+      <!-- panel 4 -->
+      <group x="60" y="552">
+        <rect w="584" h="468" fill="#e9e4d8" stroke="#111" sw="6"/>
+        <group clip="url(#pc)" when="=t > 27.4" opacity="=clamp((t - 27.5)*4, 0, 1)">
+          <group clip="url(#reveal3)">
+        <group repeat="25" as="hx"><circle repeat="20" as="hy" x="=hx*24 + 10" y="=hy*24 + 10" r="=max(0, 9 - sqrt((hx*24 + 10 - 470)^2 + (hy*24 + 10 - 400)^2)/51.282051282051285)" fill="#b07cff" opacity="0.35"/></group>
+        <group x="=292 + 8*sin(t*45)*(sin(t*3) > -0.2)" y="250" rot="=4*sin(t*37)">
+          <rect x="-110" y="-190" w="220" h="390" r="34" fill="#2b2f3a" stroke="#111" sw="6"/>
+          <rect x="-94" y="-160" w="188" h="320" r="10" fill="#f4f6fb"/>
+          <rect repeat="5" as="n" x="-84" y="=-150 + n*62" w="168" h="52" r="10" fill="#ffffff" stroke="#cfd6e4" sw="2" opacity="=clamp(((t - 27.5) - 0.5 - n*0.3)*4, 0, 1)"/>
+          <circle repeat="5" as="n" x="-62" y="=-124 + n*62" r="14" fill="=n%2 ? '#ff7a2f' : '#3b6fd8'" opacity="=clamp(((t - 27.5) - 0.5 - n*0.3)*4, 0, 1)"/>
+          <rect repeat="5" as="n" x="-40" y="=-132 + n*62" w="=90 + 30*rand(n)" h="8" r="4" fill="#9aa3b5" opacity="=clamp(((t - 27.5) - 0.5 - n*0.3)*4, 0, 1)"/>
+          <circle x="100" y="-180" r="34" fill="#e02525" stroke="#111" sw="5"/>
+          <text x="100" y="-180" size="30" font="Anton" align="center" fill="#fff" text="{min(37, floor(max(0, (t - 27.5) - 0.4)*12))}"/>
+        </group>
+        <path repeat="4" as="q" x="=q &lt; 2 ? 150 - q*22 : 434 + (q-2)*22" y="250" d="=q &lt; 2 ? 'M 0 -40 Q -16 0 0 40' : 'M 0 -40 Q 16 0 0 40'" stroke="#111" sw="5" fill="none" opacity="=0.4 + 0.6*(sin(t*20 + q) > 0)"/>
+        <text x="110" y="70" size="84" font="Anton" align="center" fill="#ffe14a" stroke="#111" sw="10" rot="-10" text="@bzzt"
+              opacity="=clamp(((t - 27.5) - 0.4)*8, 0, 1)" scale="=1 + 0.6*max(0, 1 - ((t - 27.5) - 0.4)*4) + 0.04*sin(t*20)*max(0, 1 - ((t - 27.5) - 0.4)*0.8)"/>
+        <group opacity="=clamp(((t - 27.5) - 2.2)*5, 0, 1)" scale="=0.8 + 0.2*ease(clamp(((t - 27.5) - 2.2)*4, 0, 1), 'back')">
+          <path d="M 414.0 126 L 360 140 L 462.0 126 Z" fill="#fff" stroke="#111" sw="5"/>
+          <rect x="330" y="20" w="240" h="110" r="40" fill="#fff" stroke="#111" sw="5"/>
+          <rect x="409.2" y="120" w="60.0" h="12" fill="#fff"/>
+          <text x="450.0" y="75.0" size="26" weight="700" font="Space Grotesk" align="center" maxw="200" lh="1.15" fill="#111" text="@b4"/>
+        </group>
+          </group>
+        </group>
+        <rect w="584" h="468" fill="none" stroke="#111" sw="8"/>
+        <rect w="584" h="468" fill="#ffffff" opacity="=max(0, 0.9 - (t - 27.5)*3)*(t > 27.5)"/>
+      </group>
+
+      <!-- panel 5 -->
+      <group x="668" y="552">
+        <rect w="584" h="468" fill="#e9e4d8" stroke="#111" sw="6"/>
+        <group clip="url(#pc)" when="=t > 34.4" opacity="=clamp((t - 34.5)*4, 0, 1)">
+          <group clip="url(#reveal4)">
+        <rect w="584" h="468" fill="#fff7d6"/>
+        <line repeat="14" as="q" x1="=20 + q*42" y1="20" x2="=20 + q*42" y2="460" stroke="#f0e2a8" sw="3"/>
+        <rect x="150" y="60" w="400" h="230" r="10" fill="#2b2f3a" stroke="#111" sw="6"/>
+        <rect x="166" y="76" w="368" h="190" fill="#0f1220"/>
+        <text x="186" y="110" size="24" font="JetBrains Mono" fill="#7cf29c" text="@cmd1" reveal="=clamp(((t - 34.5) - 0.8)/1.2, 0, 1)"/>
+        <text x="186" y="150" size="22" font="JetBrains Mono" fill="#9aa3b5" text="@cmd2" opacity="=((t - 34.5) > 2.3)"/>
+        <text x="186" y="190" size="24" font="JetBrains Mono" fill="#7cf29c" text="@cmd3" reveal="=clamp(((t - 34.5) - 2.8)/1.0, 0, 1)"/>
+        <rect x="186" y="214" w="=300*clamp(((t - 34.5) - 4)/2, 0, 1)" h="22" fill="#7cf29c"/>
+        <rect x="0" y="380" w="584" h="88" fill="#c98b4e" stroke="#111" sw="5"/>
+        <rect x="200" y="350" w="260" h="40" r="6" fill="#d9dde6" stroke="#111" sw="5"/>
+        <group x="110" y="300" scale="1">
+          <rect x="-62" y="0" w="124" h="150" r="40" fill="#3b6fd8" stroke="#111" sw="5"/>
+          <rect x="-70" y="40" w="60" h="22" r="11" fill="#3b6fd8" stroke="#111" sw="4" rot="=10*sin(t*30)"/>
+            <rect x="10" y="40" w="60" h="22" r="11" fill="#3b6fd8" stroke="#111" sw="4" rot="=-10*sin(t*30 + 1)"/>
+          <circle y="-55" r="52" fill="#f2c39b" stroke="#111" sw="5"/>
+          <path d="M -54 -62 C -50 -120, 50 -125, 54 -66 C 30 -84, -10 -90, -54 -62 Z" fill="#3a2418" stroke="#111" sw="4"/>
+          <circle x="-18" y="-52" r="6" fill="#111"/><circle x="18" y="-52" r="6" fill="#111"/>
+        </group>
+        <path repeat="3" as="q" x="=60 + q*22" y="=210 + 10*fract(t*2 + q*0.3)*3" d="M 0 -12 C 8 0, 8 8, 0 10 C -8 8, -8 0, 0 -12 Z" fill="#7cc4ff" stroke="#111" sw="2" opacity="=1 - fract(t*2 + q*0.3)"/>
+        <path repeat="4" as="q" x="=330 + q*30" y="400" d="M 0 0 L 12 -18" stroke="#111" sw="4" opacity="=0.4 + 0.6*(sin(t*25 + q*2) > 0)"/>
+        <group opacity="=clamp(((t - 34.5) - 0.2)*5, 0, 1)">
+          <rect x="20" y="20" w="200" h="52" fill="#ffe14a" stroke="#111" sw="5"/>
+          <text x="36" y="47" size="26" weight="800" font="Space Grotesk" fill="#111" text="@c5"/>
+        </group>
+        <text x="470" y="430" size="50" font="Anton" align="center" fill="#ffffff" stroke="#111" sw="10" rot="-4" text="@tak"
+              opacity="=clamp(((t - 34.5) - 0.6)*8, 0, 1)" scale="=1 + 0.6*max(0, 1 - ((t - 34.5) - 0.6)*4) + 0.04*sin(t*20)*max(0, 1 - ((t - 34.5) - 0.6)*0.8)"/>
+          </group>
+        </group>
+        <rect w="584" h="468" fill="none" stroke="#111" sw="8"/>
+        <rect w="584" h="468" fill="#ffffff" opacity="=max(0, 0.9 - (t - 34.5)*3)*(t > 34.5)"/>
+      </group>
+
+      <!-- panel 6 -->
+      <group x="1276" y="552">
+        <rect w="584" h="468" fill="#e9e4d8" stroke="#111" sw="6"/>
+        <group clip="url(#pc)" when="=t > 41.4" opacity="=clamp((t - 41.5)*4, 0, 1)">
+          <group clip="url(#reveal5)">
+        <group repeat="25" as="hx"><circle repeat="20" as="hy" x="=hx*24 + 10" y="=hy*24 + 10" r="=max(0, 11 - sqrt((hx*24 + 10 - 292)^2 + (hy*24 + 10 - 470)^2)/41.95804195804196)" fill="#ffcf4a" opacity="0.35"/></group>
+        <rect x="250" y="60" w="300" h="200" r="10" fill="#2b2f3a" stroke="#111" sw="6"/>
+        <rect x="266" y="76" w="268" h="160" fill="#16a36a"/>
+        <circle x="400" y="156" r="52" fill="#fff" scale="=ease(clamp(((t - 41.5) - 0.6)*3, 0, 1), 'back')"/>
+        <path x="400" y="156" d="M -24 0 L -6 18 L 26 -16" stroke="#16a36a" sw="12" fill="none" draw="=clamp(((t - 41.5) - 0.9)*3, 0, 1)"/>
+        <!-- sticky note -->
+        <group x="500" y="290" rot="8" scale="=ease(clamp(((t - 41.5) - 2.6)*3, 0, 1), 'back')">
+          <rect x="-80" y="-70" w="160" h="140" fill="#fff36a" stroke="#111" sw="4" shadow="4 6 0 #0003"/>
+          <text y="0" size="30" font="Caveat" weight="700" align="center" maxw="140" lh="1" fill="#c01818" text="@note"/>
+        </group>
+        <rect x="0" y="380" w="584" h="88" fill="#c98b4e" stroke="#111" sw="5"/>
+        <group x="150" y="300" scale="1">
+          <rect x="-62" y="0" w="124" h="150" r="40" fill="#3b6fd8" stroke="#111" sw="5"/>
+          <path d="M -50 10 C -90 -40, -70 -110, -20 -100" stroke="#3b6fd8" sw="20" fill="none"/>
+            <path d="M 50 10 C 90 -40, 70 -110, 20 -100" stroke="#3b6fd8" sw="20" fill="none"/>
+          <circle y="-55" r="52" fill="#f2c39b" stroke="#111" sw="5"/>
+          <path d="M -54 -62 C -50 -120, 50 -125, 54 -66 C 30 -84, -10 -90, -54 -62 Z" fill="#3a2418" stroke="#111" sw="4"/>
+          <circle x="-18" y="-52" r="6" fill="#111"/><circle x="18" y="-52" r="6" fill="#111"/>
+        </group>
+        <group opacity="=clamp(((t - 41.5) - 3.4)*5, 0, 1)">
+          <rect x="20" y="400" w="290" h="52" fill="#ffe14a" stroke="#111" sw="5"/>
+          <text x="36" y="427" size="26" weight="800" font="Space Grotesk" fill="#111" text="@c6"/>
+        </group>
+          </group>
+        </group>
+        <rect w="584" h="468" fill="none" stroke="#111" sw="8"/>
+        <rect w="584" h="468" fill="#ffffff" opacity="=max(0, 0.9 - (t - 41.5)*3)*(t > 41.5)"/>
+      </group>
+    </group>
+  </backdrop>
+
+  <timeline>
+    <!-- cover -->
+    <scene id="cover" dur="6.5" chapter="@ch0">
+      <say at="0.4" text="@vo0"/>
+      <sfx at="0.3" src="pop"/>
+      <rect w="1920" h="1080" fill="url(#coverG)"/>
+      <!-- halftone burst -->
+      <group repeat="48" as="hx">
+        <circle repeat="27" as="hy" x="=hx*40 + 20" y="=hy*40 + 20" r="=max(0, 16 - sqrt((hx*40 - 960)^2 + (hy*40 - 540)^2)/50)" fill="#e0322a" opacity="0.35"/>
+      </group>
+      <line repeat="40" as="q" x1="=960 + 200*cos(q*0.157)" y1="=540 + 200*sin(q*0.157)" x2="=960 + 1400*cos(q*0.157)" y2="=540 + 1400*sin(q*0.157)" stroke="#fff" sw="=q%2 ? 4 : 10" opacity="0.25" rot="=T*3"/>
+      <group x="960" y="470" rot="-6">
+        <anim prop="scale" from="0.2" to="1" dur="0.6" ease="back"/>
+        <text y="-110" size="190" font="Anton" align="center" fill="#fff" stroke="#111" sw="16" text="@t1"/>
+        <text y="110" size="240" font="Anton" align="center" fill="$yellow" stroke="#111" sw="18" text="@t2"/>
+      </group>
+      <group x="260" y="150" rot="-12" at="1">
+        <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+        <circle r="110" fill="$red" stroke="#111" sw="8"/>
+        <text size="44" font="Anton" align="center" fill="#fff" text="@issue"/>
+      </group>
+      <group x="960" y="900" at="1.6">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="-330" y="-40" w="660" h="80" fill="#fff" stroke="#111" sw="6" rot="2"/>
+        <text size="40" weight="700" align="center" fill="#111" text="@tag" rot="2"/>
+      </group>
+    </scene>
+
+    <scene id="p1" dur="7" chapter="@ch1">
+      <say at="0.6" text="@vo1"/>
+      <sfx at="0.1" src="whoosh"/>
+    </scene>
+    <scene id="p2" dur="7" chapter="@ch2">
+      <say at="0.5" text="@vo2"/>
+      <sfx at="0" src="whoosh"/><sfx at="2.3" src="click"/>
+    </scene>
+    <scene id="p3" dur="7" chapter="@ch3">
+      <say at="0.5" text="@vo3"/>
+      <sfx at="0" src="whoosh"/><sfx at="0.7" src="pop"/><sfx at="1.5" src="blip"/><sfx at="2" src="blip"/>
+    </scene>
+    <scene id="p4" dur="7" chapter="@ch4">
+      <say at="0.5" text="@vo4"/>
+      <sfx at="0" src="whoosh"/><sfx at="0.5" src="blip"/><sfx at="0.9" src="blip"/><sfx at="1.3" src="blip"/><sfx at="1.7" src="blip"/>
+    </scene>
+    <scene id="p5" dur="7" chapter="@ch5">
+      <say at="0.5" text="@vo5"/>
+      <sfx at="0" src="whoosh"/><sfx at="0.6" src="typing"/>
+    </scene>
+    <scene id="p6" dur="7" chapter="@ch6">
+      <say at="0.5" text="@vo6"/>
+      <sfx at="0" src="whoosh"/><sfx at="0.9" src="ding"/><sfx at="2.6" src="pop"/>
+    </scene>
+    <scene id="end" dur="7" chapter="@ch7">
+      <say at="1.2" text="@vo7"/>
+      <sfx at="1.6" src="pop"/>
+      <group x="960" y="540" at="1.6" rot="-4">
+        <anim prop="scale" from="0" to="1" dur="0.45" ease="back"/>
+        <rect x="-330" y="-110" w="660" h="220" fill="$yellow" stroke="#111" sw="10" shadow="12 12 0 #111"/>
+        <text y="-18" size="120" font="Anton" align="center" fill="#111" text="@end"/>
+        <text y="66" size="40" font="Caveat" weight="700" align="center" fill="$red" text="@end2"/>
+      </group>
+    </scene>
+  </timeline>
+  <voices>
+    <voice say="vo0" lang="en" src="voice/comic-storyboard/en/vo0.6d20ac6c99.ogg" dur="5.41" hash="6d20ac6c99" engine="kokoro:af_sky"/>
+    <voice say="vo1" lang="en" src="voice/comic-storyboard/en/vo1.3b01b4e872.ogg" dur="4.71" hash="3b01b4e872" engine="kokoro:af_sky"/>
+    <voice say="vo2" lang="en" src="voice/comic-storyboard/en/vo2.d584025516.ogg" dur="3.61" hash="d584025516" engine="kokoro:af_sky"/>
+    <voice say="vo3" lang="en" src="voice/comic-storyboard/en/vo3.7b74c688c9.ogg" dur="3.61" hash="7b74c688c9" engine="kokoro:af_sky"/>
+    <voice say="vo4" lang="en" src="voice/comic-storyboard/en/vo4.b97a39b7ec.ogg" dur="4.41" hash="b97a39b7ec" engine="kokoro:af_sky"/>
+    <voice say="vo5" lang="en" src="voice/comic-storyboard/en/vo5.7dc2d6540e.ogg" dur="3.51" hash="7dc2d6540e" engine="kokoro:af_sky"/>
+    <voice say="vo6" lang="en" src="voice/comic-storyboard/en/vo6.9025bb6ef6.ogg" dur="4.11" hash="9025bb6ef6" engine="kokoro:af_sky"/>
+    <voice say="vo7" lang="en" src="voice/comic-storyboard/en/vo7.dd189ccbc8.ogg" dur="3.31" hash="dd189ccbc8" engine="kokoro:af_sky"/>
+  </voices>
+</tsvg>

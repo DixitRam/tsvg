@@ -1,0 +1,11 @@
+{
+  "id": "terminal-cli-demo",
+  "title": "Terminal CLI demo",
+  "category": "Developer & engineering",
+  "summary": "Terminal recording: typed commands with a block cursor, output lines, progress bars and a success tick; modern or retro green CRT theme.",
+  "duration": 63.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 55
+}

@@ -1,0 +1,11 @@
+{
+  "id": "isometric-explainer",
+  "title": "Isometric explainer",
+  "category": "Illustration",
+  "summary": "Isometric blocks assemble a tiny cloud city and follow one photo backup from phone to edge servers.",
+  "duration": 55.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 5
+}

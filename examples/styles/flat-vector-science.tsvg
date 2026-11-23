@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_bella"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full (voice + music + sfx)"/><choice id="speech" label="Speech only"/><choice id="ambient" label="No voice"/></option>
+    <option id="theme" label="Theme" default="bright"><choice id="bright" label="Bright"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.35" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.6" sfx="0.7"/>
+  </mixes>
+  <themes>
+    <theme id="bright" bg="#1d2160" fg="#ffffff" muted="#c9c6ff" accent="#ffd166"/>
+  </themes>
+  <strings>
+    <s id="title" en="Why we have seasons"/>
+    <s id="ch1" en="The question"/>
+    <s id="ch2" en="Distance?"/>
+    <s id="ch3" en="The tilt"/>
+    <s id="ch4" en="Steep light"/>
+    <s id="ch5" en="Around the year"/>
+    <s id="ch6" en="Opposite seasons"/>
+    <s id="ch7" en="Recap"/>
+    <s id="t1" en="Why do we have"/>
+    <s id="t2" en="seasons?"/>
+    <s id="d_near" en="Closest: early January"/>
+    <s id="d_near2" en="147 million km"/>
+    <s id="d_far" en="Farthest: early July"/>
+    <s id="d_far2" en="152 million km"/>
+    <s id="d_note" en="Only 3% apart"/>
+    <s id="tilt" en="23.4°"/>
+    <s id="tilt_h" en="The axis leans"/>
+    <s id="tilt_b" en="and keeps pointing the same way all year"/>
+    <s id="l_steep" en="Leaning toward"/>
+    <s id="l_steep2" en="Light packs in: warm"/>
+    <s id="l_slant" en="Leaning away"/>
+    <s id="l_slant2" en="Light spreads thin: cold"/>
+    <s id="m_jun" en="June"/>
+    <s id="m_sep" en="September"/>
+    <s id="m_dec" en="December"/>
+    <s id="m_mar" en="March"/>
+    <s id="y_n" en="North tilts in: summer up north"/>
+    <s id="f_n" en="North in December"/>
+    <s id="f_n2" en="Snow and short days"/>
+    <s id="f_s" en="South in December"/>
+    <s id="f_s2" en="Sun and long days"/>
+    <s id="o1" en="Tilt,"/>
+    <s id="o2" en="not distance."/>
+    <s id="o3" en="23.4° makes the year turn"/>
+    <s id="vo_intro" en="Why do we have seasons? Many people guess that Earth gets closer to the Sun in summer. Let us check."/>
+    <s id="vo_orbit" en="Our orbit is almost a perfect circle. We are actually closest to the Sun in early January, in the middle of northern winter."/>
+    <s id="vo_tilt" en="The real reason is the tilt. Earth leans about twenty-three degrees, and keeps pointing the same way all year."/>
+    <s id="vo_light" en="When your half leans toward the Sun, light arrives steeply and packs into a small patch. Leaning away, the same light spreads thin."/>
+    <s id="vo_year" en="So as we go around, the north gets the steep light in June, and the south gets it in December."/>
+    <s id="vo_flip" en="That is why the seasons are opposite. Snow in Canada means beach weather in Australia."/>
+    <s id="vo_outro" en="Seasons come from tilt, not distance."/>
+  </strings>
+  <defs>
+
+    <linear id="sky" x1="0" y1="0" x2="0" y2="1080"><stop at="0" color="#1d2160"/><stop at="0.6" color="#4b2f9a"/><stop at="1" color="#c0478f"/></linear>
+    <radial id="ocean" x="-60" y="-70" r="300"><stop at="0" color="#5cc8ff"/><stop at="1" color="#2463d6"/></radial>
+    <radial id="shade" x="0" y="0" r="300"><stop at="0.55" color="#000" opacity="0"/><stop at="1" color="#0b1040" opacity="0.45"/></radial>
+    <radial id="sunfill" x="-30" y="-30" r="160"><stop at="0" color="#ffe27a"/><stop at="1" color="#ff9f1c"/></radial>
+    <radial id="sunglow" x="0" y="0" r="260"><stop at="0" color="#ffd166" opacity="0.6"/><stop at="1" color="#ffd166" opacity="0"/></radial>
+    <linear id="warmtext" x1="0" y1="-60" x2="0" y2="60"><stop at="0" color="#ffe27a"/><stop at="1" color="#ff7a59"/></linear>
+    <linear id="beam" x1="0" y1="80" x2="0" y2="600"><stop at="0" color="#ffe27a" opacity="0.1"/><stop at="1" color="#ffd166" opacity="0.9"/></linear>
+    <linear id="snowsky" x1="0" y1="0" x2="0" y2="1080"><stop at="0" color="#9fc9ff"/><stop at="1" color="#dcebff"/></linear>
+    <linear id="beachsky" x1="0" y1="0" x2="0" y2="1080"><stop at="0" color="#ffb36b"/><stop at="1" color="#ffe3a3"/></linear>
+    <clip id="globe"><circle r="200"/></clip>
+    <clip id="cardclip"><rect w="800" h="840" r="48"/></clip>
+  </defs>
+  <assets>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <asset id="bright" src="audio/bright.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+
+  </assets>
+  <music src="bright" start="0" loop="1" vol="0.8"/>
+  <backdrop>
+
+    <rect w="1920" h="1080" fill="url(#sky)"/>
+    <circle repeat="60" as="k" x="=rand(k)*1920" y="=rand(k*3.1)*700" r="=2 + 3*rand(k*5)" fill="#ffffff" opacity="=0.3 + 0.6*abs(sin(t*(0.5+rand(k*2)) + k))"/>
+    <circle x="=300 + 20*sin(t*0.2)" y="160" r="90" fill="#ffffff" opacity="0.06"/>
+    <path x="=-fract(t*0.01)*960" d="M 0 1200 L 0 940 L 0 820.0 L 40 822.0 L 80 828.0 L 120 837.6 L 160 850.0 L 200 864.5 L 240 880.0 L 280 895.5 L 320 910.0 L 360 922.4 L 400 932.0 L 440 938.0 L 480 940.0 L 520 938.0 L 560 932.0 L 600 922.4 L 640 910.0 L 680 895.5 L 720 880.0 L 760 864.5 L 800 850.0 L 840 837.6 L 880 828.0 L 920 822.0 L 960 820.0 L 1000 822.0 L 1040 828.0 L 1080 837.6 L 1120 850.0 L 1160 864.5 L 1200 880.0 L 1240 895.5 L 1280 910.0 L 1320 922.4 L 1360 932.0 L 1400 938.0 L 1440 940.0 L 1480 938.0 L 1520 932.0 L 1560 922.4 L 1600 910.0 L 1640 895.5 L 1680 880.0 L 1720 864.5 L 1760 850.0 L 1800 837.6 L 1840 828.0 L 1880 822.0 L 1920 820.0 L 1960 822.0 L 2000 828.0 L 2040 837.6 L 2080 850.0 L 2120 864.5 L 2160 880.0 L 2200 895.5 L 2240 910.0 L 2280 922.4 L 2320 932.0 L 2360 938.0 L 2400 940.0 L 2440 938.0 L 2480 932.0 L 2520 922.4 L 2560 910.0 L 2600 895.5 L 2640 880.0 L 2680 864.5 L 2720 850.0 L 2760 837.6 L 2800 828.0 L 2840 822.0 L 2880 820.0 L 2920 822.0 L 2960 828.0 L 3000 837.6 L 3040 850.0 L 3080 864.5 L 3120 880.0 L 3160 895.5 L 3200 910.0 L 3240 922.4 L 3280 932.0 L 3320 938.0 L 3360 940.0 L 3400 938.0 L 3440 932.0 L 3480 922.4 L 3520 910.0 L 3560 895.5 L 3600 880.0 L 3640 864.5 L 3680 850.0 L 3720 837.6 L 3760 828.0 L 3800 822.0 L 3840 820.0 L 3840 1200 Z" fill="#3b2a85" opacity="0.9"/>
+    <path x="=-fract(t*0.02)*640" d="M 0 1200 L 0 1000 L 0 978.4 L 40 989.7 L 80 997.3 L 120 1000.0 L 160 997.3 L 200 989.7 L 240 978.4 L 280 965.0 L 320 951.6 L 360 940.3 L 400 932.7 L 440 930.0 L 480 932.7 L 520 940.3 L 560 951.6 L 600 965.0 L 640 978.4 L 680 989.7 L 720 997.3 L 760 1000.0 L 800 997.3 L 840 989.7 L 880 978.4 L 920 965.0 L 960 951.6 L 1000 940.3 L 1040 932.7 L 1080 930.0 L 1120 932.7 L 1160 940.3 L 1200 951.6 L 1240 965.0 L 1280 978.4 L 1320 989.7 L 1360 997.3 L 1400 1000.0 L 1440 997.3 L 1480 989.7 L 1520 978.4 L 1560 965.0 L 1600 951.6 L 1640 940.3 L 1680 932.7 L 1720 930.0 L 1760 932.7 L 1800 940.3 L 1840 951.6 L 1880 965.0 L 1920 978.4 L 1960 989.7 L 2000 997.3 L 2040 1000.0 L 2080 997.3 L 2120 989.7 L 2160 978.4 L 2200 965.0 L 2240 951.6 L 2280 940.3 L 2320 932.7 L 2360 930.0 L 2400 932.7 L 2440 940.3 L 2480 951.6 L 2520 965.0 L 2560 978.4 L 2600 989.7 L 2640 997.3 L 2680 1000.0 L 2720 997.3 L 2760 989.7 L 2800 978.4 L 2840 965.0 L 2880 951.6 L 2920 940.3 L 2960 932.7 L 3000 930.0 L 3040 932.7 L 3080 940.3 L 3120 951.6 L 3160 965.0 L 3200 978.4 L 3240 989.7 L 3280 997.3 L 3320 1000.0 L 3360 997.3 L 3400 989.7 L 3440 978.4 L 3480 965.0 L 3520 951.6 L 3560 940.3 L 3600 932.7 L 3640 930.0 L 3680 932.7 L 3720 940.3 L 3760 951.6 L 3800 965.0 L 3840 978.4 L 3840 1200 Z" fill="#2a1f6b"/>
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="8" chapter="@ch1">
+      <say at="0.5" text="@vo_intro"/>
+
+      <sfx at="0.2" src="whoosh"/><sfx at="1.4" src="pop"/>
+      <group x="1640" y="190">
+        <circle r="220.00000000000003" fill="url(#sunglow)"/>
+        <group rot="=T*10"><group repeat="12" as="k" rot="=k*30"><rect x="-10" y="-160" w="20" h="44" r="10" fill="#ffd166"/></group></group>
+        <circle r="100" fill="url(#sunfill)"/>
+        <circle x="-35" y="-10" r="13" fill="#7a3b00"/><circle x="35" y="-10" r="13" fill="#7a3b00"/>
+        <path d="M -25 22 Q 0 45 25 22" stroke="#7a3b00" sw="7.000000000000001" fill="none"/>
+        <anim prop="scale" from="0" to="1" dur="1" ease="back"/></group>
+      <group x="=W/2 - 300" y="=640 + 14*sin(T*2)" scale="0.9">
+        <anim prop="scale" from="0" to="0.9" at="1.2" dur="0.9" ease="back"/>
+        <circle r="214" fill="#7fd1ff" opacity="0.25"/>
+        <circle r="200" fill="url(#ocean)"/>
+        <group clip="url(#globe)">
+          <group x="=-fract(T*40/800)*800">
+            <path repeat="2" as="k" x="=k*800" d="M -180 -120 C -120 -190 -20 -170 10 -110 C 40 -60 -30 -20 -80 -40 C -140 -60 -220 -60 -180 -120 Z M 120 40 C 170 0 260 30 250 100 C 240 160 170 190 130 140 C 100 100 90 70 120 40 Z M -120 80 C -80 60 -30 90 -40 130 C -50 170 -110 170 -130 130 Z M 330 -150 C 380 -190 470 -170 480 -110 C 490 -60 420 -40 370 -70 C 340 -90 310 -120 330 -150 Z M 520 60 C 560 30 640 50 640 110 C 640 170 560 180 530 140 Z" fill="#5fd38d"/>
+          </group>
+          <ellipse y="-190" rx="150" ry="40" fill="#ffffff"/><ellipse y="192" rx="140" ry="36" fill="#ffffff"/>
+          <circle x="80" y="-40" r="300" fill="url(#shade)"/>
+        </group>
+        <circle x="-56" y="10" r="24" fill="#fff"/><circle x="56" y="10" r="24" fill="#fff"/>
+        <circle x="-52" y="=14 - 4*abs(sin(t*0.8))" r="12" fill="#1d2160"/><circle x="60" y="=14 - 4*abs(sin(t*0.8))" r="12" fill="#1d2160"/>
+        <circle x="-92" y="52" r="16" fill="#ff7eb6" opacity="0.6"/><circle x="92" y="52" r="16" fill="#ff7eb6" opacity="0.6"/>
+        <path d="M -24 56 Q 0 80 24 56" stroke="#1d2160" sw="7" fill="none"/>
+      </group>
+      <text x="1000" y="420" size="96" weight="800" text="@t1" fill="#ffffff" at="0.4">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="1040" to="1000" dur="0.6" ease="out"/></text>
+      <text x="1000" y="540" size="150" weight="900" text="@t2" fill="url(#warmtext)" at="0.9">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="scale" from="0.7" to="1" dur="0.7" ease="back"/></text>
+      <group x="1520" y="=880 + 10*abs(sin(T*3))" scale="0.8" at="2.2">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <ellipse x="-26" y="58" rx="22" ry="12" fill="#b85c00"/><ellipse x="26" y="58" rx="22" ry="12" fill="#b85c00"/>
+        <line x1="0" y1="-60" x2="10" y2="-98" stroke="#b85c00" sw="6"/><circle x="10" y="-104" r="11" fill="#ff7eb6"/>
+        <circle r="64" fill="#ff9f43"/>
+        <ellipse x="-18" y="-22" rx="30" ry="20" fill="#ffffff" opacity="0.25"/>
+        <circle x="-22" y="-6" r="15" fill="#fff"/><circle x="22" y="-6" r="15" fill="#fff"/>
+        <circle x="=-19 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/><circle x="=25 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/>
+        <circle x="-38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/><circle x="38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/>
+        <path d="M -12 22 Q 0 34 12 22" stroke="#1d2160" sw="5" fill="none"/></group>
+    </scene>
+    <scene id="orbit" dur="10" chapter="@ch2">
+      <say at="0.5" text="@vo_orbit"/>
+
+      <sfx at="0.3" src="whoosh"/><sfx at="4.8" src="ding"/>
+      <group x="=W/2" y="560">
+        <ellipse rx="560" ry="360" fill="none" stroke="#ffffff" sw="5" opacity="0.35"/>
+        <ellipse rx="=560" ry="360" fill="none" stroke="#ffd166" sw="6" from="0" to="=360*ease(T/2.5,'io')"/>
+        <group x="0" y="0" scale="0.85">
+        <circle r="242.00000000000003" fill="url(#sunglow)"/>
+        <group rot="=T*10"><group repeat="12" as="k" rot="=k*30"><rect x="-10" y="-170" w="20" h="44" r="10" fill="#ffd166"/></group></group>
+        <circle r="110" fill="url(#sunfill)"/>
+        <circle x="-38.5" y="-11" r="14.3" fill="#7a3b00"/><circle x="38.5" y="-11" r="14.3" fill="#7a3b00"/>
+        <path d="M -27.5 24.2 Q 0 49.5 27.5 24.2" stroke="#7a3b00" sw="7.700000000000001" fill="none"/></group>
+        <group x="=560*sin(T*0.5 + 2.2)" y="=-360*cos(T*0.5 + 2.2)" scale="0.32">
+        <circle r="214" fill="#7fd1ff" opacity="0.25"/>
+        <circle r="200" fill="url(#ocean)"/>
+        <group clip="url(#globe)">
+          <group x="=-fract(t*60/800)*800">
+            <path repeat="2" as="k" x="=k*800" d="M -180 -120 C -120 -190 -20 -170 10 -110 C 40 -60 -30 -20 -80 -40 C -140 -60 -220 -60 -180 -120 Z M 120 40 C 170 0 260 30 250 100 C 240 160 170 190 130 140 C 100 100 90 70 120 40 Z M -120 80 C -80 60 -30 90 -40 130 C -50 170 -110 170 -130 130 Z M 330 -150 C 380 -190 470 -170 480 -110 C 490 -60 420 -40 370 -70 C 340 -90 310 -120 330 -150 Z M 520 60 C 560 30 640 50 640 110 C 640 170 560 180 530 140 Z" fill="#5fd38d"/>
+          </group>
+          <ellipse y="-190" rx="150" ry="40" fill="#ffffff"/><ellipse y="192" rx="140" ry="36" fill="#ffffff"/>
+          <circle x="80" y="-40" r="300" fill="url(#shade)"/>
+        </group>
+        <circle x="-56" y="10" r="24" fill="#fff"/><circle x="56" y="10" r="24" fill="#fff"/>
+        <circle x="-52" y="=14 - 4*abs(sin(t*0.8))" r="12" fill="#1d2160"/><circle x="60" y="=14 - 4*abs(sin(t*0.8))" r="12" fill="#1d2160"/>
+        <circle x="-92" y="52" r="16" fill="#ff7eb6" opacity="0.6"/><circle x="92" y="52" r="16" fill="#ff7eb6" opacity="0.6"/>
+        <path d="M -24 56 Q 0 80 24 56" stroke="#1d2160" sw="7" fill="none"/></group>
+        <circle x="-560" y="0" r="16" fill="#7fd1ff"/><circle x="560" y="0" r="16" fill="#ff9f43"/>
+      </group>
+      
+      <group x="80" y="90" at="1.2" >
+        <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="130" to="90" dur="0.7" ease="back"/>
+        <rect w="520" h="200" r="36" fill="#ffffff" shadow="0 18 0 #00000033"/>
+        <text x="40" y="70" size="40" weight="800" fill="#1d2160" text="@d_near"/>
+        <text x="40" y="140" size="48" weight="800" fill="#2d8cf0" text="@d_near2"/>
+      </group>
+      
+      <group x="1320" y="90" at="2.2" >
+        <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="130" to="90" dur="0.7" ease="back"/>
+        <rect w="520" h="200" r="36" fill="#ffffff" shadow="0 18 0 #00000033"/>
+        <text x="40" y="70" size="40" weight="800" fill="#1d2160" text="@d_far"/>
+        <text x="40" y="140" size="48" weight="800" fill="#ff7a1a" text="@d_far2"/>
+      </group>
+      <group x="=W/2" y="990" at="4.6">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="scale" from="0.6" to="1" dur="0.6" ease="back"/>
+        <rect x="-300" y="-50" w="600" h="100" r="50" fill="#ff7eb6"/>
+        <text x="0" y="0" size="52" weight="900" align="center" fill="#ffffff" text="@d_note"/>
+      </group>
+    </scene>
+    <scene id="tilt" dur="9.5" chapter="@ch3">
+      <say at="0.5" text="@vo_tilt"/>
+
+      <sfx at="1.2" src="pop"/>
+      <group x="620" y="560">
+        <line x1="0" y1="-330" x2="0" y2="330" stroke="#ffffff" sw="4" opacity="0.35"/>
+        <group rot="=23.4*ease((T-0.8)/1.4,'back')">
+          <line x1="0" y1="-330" x2="0" y2="330" stroke="#ffd166" sw="10"/>
+          <group scale="1.2">
+        <circle r="214" fill="#7fd1ff" opacity="0.25"/>
+        <circle r="200" fill="url(#ocean)"/>
+        <group clip="url(#globe)">
+          <group x="=-fract(T*30/800)*800">
+            <path repeat="2" as="k" x="=k*800" d="M -180 -120 C -120 -190 -20 -170 10 -110 C 40 -60 -30 -20 -80 -40 C -140 -60 -220 -60 -180 -120 Z M 120 40 C 170 0 260 30 250 100 C 240 160 170 190 130 140 C 100 100 90 70 120 40 Z M -120 80 C -80 60 -30 90 -40 130 C -50 170 -110 170 -130 130 Z M 330 -150 C 380 -190 470 -170 480 -110 C 490 -60 420 -40 370 -70 C 340 -90 310 -120 330 -150 Z M 520 60 C 560 30 640 50 640 110 C 640 170 560 180 530 140 Z" fill="#5fd38d"/>
+          </group>
+          <ellipse y="-190" rx="150" ry="40" fill="#ffffff"/><ellipse y="192" rx="140" ry="36" fill="#ffffff"/>
+          <circle x="80" y="-40" r="300" fill="url(#shade)"/>
+        </group>
+        <circle x="-56" y="10" r="24" fill="#fff"/><circle x="56" y="10" r="24" fill="#fff"/>
+        <circle x="-52" y="=14 - 4*abs(sin(t*0.8))" r="12" fill="#1d2160"/><circle x="60" y="=14 - 4*abs(sin(t*0.8))" r="12" fill="#1d2160"/>
+        <circle x="-92" y="52" r="16" fill="#ff7eb6" opacity="0.6"/><circle x="92" y="52" r="16" fill="#ff7eb6" opacity="0.6"/>
+        <path d="M -24 56 Q 0 80 24 56" stroke="#1d2160" sw="7" fill="none"/></group>
+          <circle y="-330" r="18" fill="#ffd166"/>
+        </group>
+        <circle r="290" from="0" to="=23.4*ease((T-0.8)/1.4,'out')" fill="#ffd16655"/>
+        <text x="80" y="-380" size="64" weight="900" fill="#ffd166" text="@tilt" at="1.6"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      </group>
+      <group x="1140" y="380" at="2.4">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="x" from="1180" to="1140" dur="0.6" ease="out"/>
+        <text x="0" y="0" size="96" weight="900" fill="#ffffff" text="@tilt_h"/>
+        <text x="0" y="140" size="48" weight="600" maxw="640" lh="1.3" fill="#c9c6ff" text="@tilt_b"/>
+      </group>
+      <group x="1720" y="180" at="4"><anim prop="opacity" from="0" to="=0.6+0.4*sin(T*5)" dur="0.5"/>
+        <path d="M 0 -40 L 10 -10 L 40 0 L 10 10 L 0 40 L -10 10 L -40 0 L -10 -10 Z" fill="#ffd166"/></group>
+      <line x1="620" y1="230" x2="1690" y2="185" stroke="#ffd166" sw="3" opacity="0.5" at="4"><anim prop="draw" from="0" to="1" dur="1.2" ease="io"/></line>
+    </scene>
+    <scene id="light" dur="11" chapter="@ch4">
+      <say at="0.5" text="@vo_light"/>
+
+      <sfx at="0.6" src="pop"/><sfx at="4.6" src="pop"/>
+      
+      <group x="120" y="120" at="0.4">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect w="800" h="840" r="48" fill="#2b3fa8" shadow="0 20 0 #00000040"/>
+        <group clip="url(#cardclip)">
+          <path d="M 300 80 L 500 80 L 500 600 L 300 600 Z" fill="url(#beam)" opacity="=0.75 + 0.15*sin(T*4)">
+            <anim prop="opacity" from="0" to="0.85" dur="0.8" at="0.6"/></path>
+          <path d="M 0 600 C 200 570 600 570 800 600 L 800 840 L 0 840 Z" fill="#5fd38d"/>
+          <rect x="300" y="592" w="200" h="22" r="11" fill="#ffb703"/>
+          <text x="400" y="650" size="34" weight="800" align="center" fill="#1d2160" text="1 unit of heat"/>
+          <group x="640" y="740" scale="0.6" rot="=0">
+        <ellipse x="-26" y="58" rx="22" ry="12" fill="#b85c00"/><ellipse x="26" y="58" rx="22" ry="12" fill="#b85c00"/>
+        <line x1="0" y1="-60" x2="10" y2="-98" stroke="#b85c00" sw="6"/><circle x="10" y="-104" r="11" fill="#ff7eb6"/>
+        <circle r="64" fill="#ff9f43"/>
+        <ellipse x="-18" y="-22" rx="30" ry="20" fill="#ffffff" opacity="0.25"/>
+        <circle x="-22" y="-6" r="15" fill="#fff"/><circle x="22" y="-6" r="15" fill="#fff"/>
+        <circle x="=-19 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/><circle x="=25 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/>
+        <circle x="-38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/><circle x="38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/>
+        <path d="M -12 22 Q 0 34 12 22" stroke="#1d2160" sw="5" fill="none"/><rect x="-48" y="-22" w="96" h="26" r="12" fill="#1d2160"/></group>
+          
+        </group>
+        <text x="50" y="140" size="56" weight="900" fill="#ffffff" text="@l_steep"/>
+        <text x="50" y="210" size="40" weight="600" fill="#ffd166" text="@l_steep2"/>
+      </group>
+      <group x="1000" y="120" at="4.2">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect w="800" h="840" r="48" fill="#3a2f8f" shadow="0 20 0 #00000040"/>
+        <group clip="url(#cardclip)">
+          <path d="M 40 80 L 220 80 L 640 600 L 260 600 Z" fill="url(#beam)" opacity="=0.75 + 0.15*sin(T*4)">
+            <anim prop="opacity" from="0" to="0.85" dur="0.8" at="0.6"/></path>
+          <path d="M 0 600 C 200 570 600 570 800 600 L 800 840 L 0 840 Z" fill="#5fd38d"/>
+          <rect x="260" y="592" w="380" h="22" r="11" fill="#ffe7a3"/>
+          <text x="450" y="650" size="34" weight="800" align="center" fill="#1d2160" text="1 unit of heat ÷ 2× area"/>
+          <group x="160" y="740" scale="0.6" rot="=4*sin(T*30)">
+        <ellipse x="-26" y="58" rx="22" ry="12" fill="#2d6fb0"/><ellipse x="26" y="58" rx="22" ry="12" fill="#2d6fb0"/>
+        <line x1="0" y1="-60" x2="10" y2="-98" stroke="#2d6fb0" sw="6"/><circle x="10" y="-104" r="11" fill="#ff7eb6"/>
+        <circle r="64" fill="#7fd1ff"/>
+        <ellipse x="-18" y="-22" rx="30" ry="20" fill="#ffffff" opacity="0.25"/>
+        <circle x="-22" y="-6" r="15" fill="#fff"/><circle x="22" y="-6" r="15" fill="#fff"/>
+        <circle x="=-19 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/><circle x="=25 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/>
+        <circle x="-38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/><circle x="38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/>
+        <path d="M -12 22 Q 0 34 12 22" stroke="#1d2160" sw="5" fill="none"/><rect x="-60" y="30" w="120" h="20" r="10" fill="#ff4d6d"/></group>
+          <circle repeat="5" as="k" x="=60 + k*150 + 20*sin(t + k)" y="=fract(t*0.25 + k*0.27)*840" r="7" fill="#ffffff" opacity="0.8"/>
+        </group>
+        <text x="50" y="140" size="56" weight="900" fill="#ffffff" text="@l_slant"/>
+        <text x="50" y="210" size="40" weight="600" fill="#ffd166" text="@l_slant2"/>
+      </group>
+    </scene>
+    <scene id="year" dur="9" chapter="@ch5">
+      <say at="0.5" text="@vo_year"/>
+
+      <sfx at="0.5" src="whoosh"/>
+      <group x="=W/2" y="600">
+        <ellipse rx="660" ry="250" fill="none" stroke="#ffffff" sw="5" opacity="0.4"/>
+        
+        <group x="-660" y="0" at="0.6">
+          <anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+          <group scale="0.3" rot="23.4"><line x1="0" y1="-300" x2="0" y2="300" stroke="#ffd166" sw="16"/>
+        <circle r="214" fill="#7fd1ff" opacity="0.25"/>
+        <circle r="200" fill="url(#ocean)"/>
+        <group clip="url(#globe)">
+          <group x="=-fract(t*30/800)*800">
+            <path repeat="2" as="k" x="=k*800" d="M -180 -120 C -120 -190 -20 -170 10 -110 C 40 -60 -30 -20 -80 -40 C -140 -60 -220 -60 -180 -120 Z M 120 40 C 170 0 260 30 250 100 C 240 160 170 190 130 140 C 100 100 90 70 120 40 Z M -120 80 C -80 60 -30 90 -40 130 C -50 170 -110 170 -130 130 Z M 330 -150 C 380 -190 470 -170 480 -110 C 490 -60 420 -40 370 -70 C 340 -90 310 -120 330 -150 Z M 520 60 C 560 30 640 50 640 110 C 640 170 560 180 530 140 Z" fill="#5fd38d"/>
+          </group>
+          <ellipse y="-190" rx="150" ry="40" fill="#ffffff"/><ellipse y="192" rx="140" ry="36" fill="#ffffff"/>
+          <circle x="80" y="-40" r="300" fill="url(#shade)"/>
+        </group>
+        
+            <rect x="-200" y="-200" w="400" h="200" fill="#ffb70366" clip="url(#globe)"/></group>
+          <text x="0" y="120" size="44" weight="800" align="center" fill="#ffffff" text="@m_jun"/>
+        </group>
+        <group x="0" y="-250" at="1.1">
+          <anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+          <group scale="0.3" rot="23.4"><line x1="0" y1="-300" x2="0" y2="300" stroke="#ffd166" sw="16"/>
+        <circle r="214" fill="#7fd1ff" opacity="0.25"/>
+        <circle r="200" fill="url(#ocean)"/>
+        <group clip="url(#globe)">
+          <group x="=-fract(t*30/800)*800">
+            <path repeat="2" as="k" x="=k*800" d="M -180 -120 C -120 -190 -20 -170 10 -110 C 40 -60 -30 -20 -80 -40 C -140 -60 -220 -60 -180 -120 Z M 120 40 C 170 0 260 30 250 100 C 240 160 170 190 130 140 C 100 100 90 70 120 40 Z M -120 80 C -80 60 -30 90 -40 130 C -50 170 -110 170 -130 130 Z M 330 -150 C 380 -190 470 -170 480 -110 C 490 -60 420 -40 370 -70 C 340 -90 310 -120 330 -150 Z M 520 60 C 560 30 640 50 640 110 C 640 170 560 180 530 140 Z" fill="#5fd38d"/>
+          </group>
+          <ellipse y="-190" rx="150" ry="40" fill="#ffffff"/><ellipse y="192" rx="140" ry="36" fill="#ffffff"/>
+          <circle x="80" y="-40" r="300" fill="url(#shade)"/>
+        </group>
+        
+            <rect x="-200" y="-200" w="400" h="200" fill="#00000000" clip="url(#globe)"/></group>
+          <text x="0" y="-110" size="44" weight="800" align="center" fill="#ffffff" text="@m_sep"/>
+        </group>
+        <group x="660" y="0" at="1.6">
+          <anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+          <group scale="0.3" rot="23.4"><line x1="0" y1="-300" x2="0" y2="300" stroke="#ffd166" sw="16"/>
+        <circle r="214" fill="#7fd1ff" opacity="0.25"/>
+        <circle r="200" fill="url(#ocean)"/>
+        <group clip="url(#globe)">
+          <group x="=-fract(t*30/800)*800">
+            <path repeat="2" as="k" x="=k*800" d="M -180 -120 C -120 -190 -20 -170 10 -110 C 40 -60 -30 -20 -80 -40 C -140 -60 -220 -60 -180 -120 Z M 120 40 C 170 0 260 30 250 100 C 240 160 170 190 130 140 C 100 100 90 70 120 40 Z M -120 80 C -80 60 -30 90 -40 130 C -50 170 -110 170 -130 130 Z M 330 -150 C 380 -190 470 -170 480 -110 C 490 -60 420 -40 370 -70 C 340 -90 310 -120 330 -150 Z M 520 60 C 560 30 640 50 640 110 C 640 170 560 180 530 140 Z" fill="#5fd38d"/>
+          </group>
+          <ellipse y="-190" rx="150" ry="40" fill="#ffffff"/><ellipse y="192" rx="140" ry="36" fill="#ffffff"/>
+          <circle x="80" y="-40" r="300" fill="url(#shade)"/>
+        </group>
+        
+            <rect x="-200" y="-200" w="400" h="200" fill="#1d216066" clip="url(#globe)"/></group>
+          <text x="0" y="120" size="44" weight="800" align="center" fill="#ffffff" text="@m_dec"/>
+        </group>
+        <group x="0" y="250" at="2.1">
+          <anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+          <group scale="0.3" rot="23.4"><line x1="0" y1="-300" x2="0" y2="300" stroke="#ffd166" sw="16"/>
+        <circle r="214" fill="#7fd1ff" opacity="0.25"/>
+        <circle r="200" fill="url(#ocean)"/>
+        <group clip="url(#globe)">
+          <group x="=-fract(t*30/800)*800">
+            <path repeat="2" as="k" x="=k*800" d="M -180 -120 C -120 -190 -20 -170 10 -110 C 40 -60 -30 -20 -80 -40 C -140 -60 -220 -60 -180 -120 Z M 120 40 C 170 0 260 30 250 100 C 240 160 170 190 130 140 C 100 100 90 70 120 40 Z M -120 80 C -80 60 -30 90 -40 130 C -50 170 -110 170 -130 130 Z M 330 -150 C 380 -190 470 -170 480 -110 C 490 -60 420 -40 370 -70 C 340 -90 310 -120 330 -150 Z M 520 60 C 560 30 640 50 640 110 C 640 170 560 180 530 140 Z" fill="#5fd38d"/>
+          </group>
+          <ellipse y="-190" rx="150" ry="40" fill="#ffffff"/><ellipse y="192" rx="140" ry="36" fill="#ffffff"/>
+          <circle x="80" y="-40" r="300" fill="url(#shade)"/>
+        </group>
+        
+            <rect x="-200" y="-200" w="400" h="200" fill="#00000000" clip="url(#globe)"/></group>
+          <text x="0" y="120" size="44" weight="800" align="center" fill="#ffffff" text="@m_mar"/>
+        </group>
+        <group scale="0.75">
+        <circle r="242.00000000000003" fill="url(#sunglow)"/>
+        <group rot="=T*10"><group repeat="12" as="k" rot="=k*30"><rect x="-10" y="-170" w="20" h="44" r="10" fill="#ffd166"/></group></group>
+        <circle r="110" fill="url(#sunfill)"/>
+        <circle x="-38.5" y="-11" r="14.3" fill="#7a3b00"/><circle x="38.5" y="-11" r="14.3" fill="#7a3b00"/>
+        <path d="M -27.5 24.2 Q 0 49.5 27.5 24.2" stroke="#7a3b00" sw="7.700000000000001" fill="none"/></group>
+      </group>
+      <group x="=W/2" y="140" at="3"><anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect x="-460" y="-50" w="920" h="100" r="50" fill="#ffd166"/>
+        <text size="48" weight="900" align="center" fill="#1d2160" text="@y_n"/></group>
+    </scene>
+    <scene id="flip" dur="8" chapter="@ch6">
+      <say at="0.5" text="@vo_flip"/>
+
+      <sfx at="0.4" src="whoosh"/>
+      <group><anim prop="x" from="-960" to="0" dur="0.7" ease="out"/>
+        <rect w="960" h="1080" fill="url(#snowsky)"/>
+        <path d="M 0 820 C 240 760 600 800 960 760 L 960 1080 L 0 1080 Z" fill="#f1f6ff"/>
+        <circle repeat="40" as="k" x="=fract(rand(k)+0.03*sin(t+k))*960" y="=fract(rand(k*7) + t*0.08*(1+rand(k*3)))*1080" r="=5 + 6*rand(k*11)" fill="#ffffff" opacity="0.9"/>
+        <group x="480" y="700">
+        <ellipse x="-26" y="58" rx="22" ry="12" fill="#2d6fb0"/><ellipse x="26" y="58" rx="22" ry="12" fill="#2d6fb0"/>
+        <line x1="0" y1="-60" x2="10" y2="-98" stroke="#2d6fb0" sw="6"/><circle x="10" y="-104" r="11" fill="#ff7eb6"/>
+        <circle r="64" fill="#7fd1ff"/>
+        <ellipse x="-18" y="-22" rx="30" ry="20" fill="#ffffff" opacity="0.25"/>
+        <circle x="-22" y="-6" r="15" fill="#fff"/><circle x="22" y="-6" r="15" fill="#fff"/>
+        <circle x="=-19 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/><circle x="=25 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/>
+        <circle x="-38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/><circle x="38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/>
+        <path d="M -12 22 Q 0 34 12 22" stroke="#1d2160" sw="5" fill="none"/><rect x="-64" y="26" w="128" h="24" r="12" fill="#ff4d6d"/><rect x="20" y="40" w="26" h="60" r="12" fill="#ff4d6d"/></group>
+        <text x="480" y="220" size="64" weight="900" align="center" fill="#1d2160" text="@f_n"/>
+        <text x="480" y="300" size="44" weight="700" align="center" fill="#2d6fb0" text="@f_n2"/>
+      </group>
+      <group><anim prop="x" from="960" to="0" dur="0.7" ease="out" at="0.6"/>
+        <rect x="960" w="960" h="1080" fill="url(#beachsky)"/>
+        <path d="M 960 740 C 1200 720 1600 760 1920 730 L 1920 1080 L 960 1080 Z" fill="#2ec4f1"/>
+        <path d="M 960 {820 + 10*sin(T*2)} C 1200 {800 - 10*sin(T*2)} 1600 {840 + 10*sin(T*2)} 1920 810 L 1920 1080 L 960 1080 Z" fill="#ffd88a"/>
+        <group x="1220" y="560" scale="0.5">
+        <circle r="242.00000000000003" fill="url(#sunglow)"/>
+        <group rot="=T*10"><group repeat="12" as="k" rot="=k*30"><rect x="-10" y="-170" w="20" h="44" r="10" fill="#ffd166"/></group></group>
+        <circle r="110" fill="url(#sunfill)"/>
+        <circle x="-38.5" y="-11" r="14.3" fill="#7a3b00"/><circle x="38.5" y="-11" r="14.3" fill="#7a3b00"/>
+        <path d="M -27.5 24.2 Q 0 49.5 27.5 24.2" stroke="#7a3b00" sw="7.700000000000001" fill="none"/></group>
+        <group x="1440" y="=740 - 8*abs(sin(T*3))">
+        <ellipse x="-26" y="58" rx="22" ry="12" fill="#b85c00"/><ellipse x="26" y="58" rx="22" ry="12" fill="#b85c00"/>
+        <line x1="0" y1="-60" x2="10" y2="-98" stroke="#b85c00" sw="6"/><circle x="10" y="-104" r="11" fill="#ff7eb6"/>
+        <circle r="64" fill="#ff9f43"/>
+        <ellipse x="-18" y="-22" rx="30" ry="20" fill="#ffffff" opacity="0.25"/>
+        <circle x="-22" y="-6" r="15" fill="#fff"/><circle x="22" y="-6" r="15" fill="#fff"/>
+        <circle x="=-19 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/><circle x="=25 + 3*sin(t*1.3)" y="-4" r="8" fill="#1d2160"/>
+        <circle x="-38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/><circle x="38" y="16" r="9" fill="#ff7eb6" opacity="0.7"/>
+        <path d="M -12 22 Q 0 34 12 22" stroke="#1d2160" sw="5" fill="none"/><rect x="-56" y="-26" w="50" h="30" r="12" fill="#1d2160"/><rect x="6" y="-26" w="50" h="30" r="12" fill="#1d2160"/></group>
+        <text x="1440" y="220" size="64" weight="900" align="center" fill="#1d2160" text="@f_s"/>
+        <text x="1440" y="300" size="44" weight="700" align="center" fill="#b85c00" text="@f_s2"/>
+      </group>
+      <rect x="954" y="0" w="12" h="1080" fill="#ffffff" at="1.2"><anim prop="h" from="0" to="1080" dur="0.6" ease="io"/></rect>
+    </scene>
+    <scene id="outro" dur="5.5" chapter="@ch7">
+      <say at="0.5" text="@vo_outro"/>
+
+      <sfx at="0.3" src="ding"/>
+      <group x="560" y="=520 + 12*sin(T*2)"><anim prop="scale" from="0.4" to="1" dur="0.9" ease="back"/>
+        <ellipse rx="330" ry="90" fill="none" stroke="#ffd166" sw="8" rot="-12" opacity="0.7"/>
+        <group rot="23.4"><line x1="0" y1="-280" x2="0" y2="280" stroke="#ffd166" sw="10"/>
+        <circle r="214" fill="#7fd1ff" opacity="0.25"/>
+        <circle r="200" fill="url(#ocean)"/>
+        <group clip="url(#globe)">
+          <group x="=-fract(T*40/800)*800">
+            <path repeat="2" as="k" x="=k*800" d="M -180 -120 C -120 -190 -20 -170 10 -110 C 40 -60 -30 -20 -80 -40 C -140 -60 -220 -60 -180 -120 Z M 120 40 C 170 0 260 30 250 100 C 240 160 170 190 130 140 C 100 100 90 70 120 40 Z M -120 80 C -80 60 -30 90 -40 130 C -50 170 -110 170 -130 130 Z M 330 -150 C 380 -190 470 -170 480 -110 C 490 -60 420 -40 370 -70 C 340 -90 310 -120 330 -150 Z M 520 60 C 560 30 640 50 640 110 C 640 170 560 180 530 140 Z" fill="#5fd38d"/>
+          </group>
+          <ellipse y="-190" rx="150" ry="40" fill="#ffffff"/><ellipse y="192" rx="140" ry="36" fill="#ffffff"/>
+          <circle x="80" y="-40" r="300" fill="url(#shade)"/>
+        </group>
+        <circle x="-56" y="10" r="24" fill="#fff"/><circle x="56" y="10" r="24" fill="#fff"/>
+        <circle x="-52" y="=14 - 4*abs(sin(t*0.8))" r="12" fill="#1d2160"/><circle x="60" y="=14 - 4*abs(sin(t*0.8))" r="12" fill="#1d2160"/>
+        <circle x="-92" y="52" r="16" fill="#ff7eb6" opacity="0.6"/><circle x="92" y="52" r="16" fill="#ff7eb6" opacity="0.6"/>
+        <path d="M -24 56 Q 0 80 24 56" stroke="#1d2160" sw="7" fill="none"/></group>
+      </group>
+      <text x="1000" y="400" size="150" weight="900" fill="#ffffff" text="@o1" at="0.4"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="1060" to="1000" dur="0.6" ease="out"/></text>
+      <text x="1000" y="560" size="130" weight="900" fill="url(#warmtext)" text="@o2" at="1.0"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="scale" from="0.8" to="1" dur="0.6" ease="back"/></text>
+      <text x="1004" y="690" size="44" weight="700" fill="#c9c6ff" text="@o3" at="1.8"><anim prop="reveal" from="0" to="1" dur="1"/></text>
+    </scene>
+  </timeline>
+  <overlay>
+
+  </overlay>
+  <voices>
+    <voice say="vo_flip" lang="en" src="voice/flat-vector-science/en/vo_flip.4693af86c6.ogg" dur="5.21" hash="4693af86c6" engine="kokoro:af_bella"/>
+    <voice say="vo_intro" lang="en" src="voice/flat-vector-science/en/vo_intro.faecbc7fa8.ogg" dur="5.91" hash="faecbc7fa8" engine="kokoro:af_bella"/>
+    <voice say="vo_light" lang="en" src="voice/flat-vector-science/en/vo_light.d69b3feb2a.ogg" dur="8.01" hash="d69b3feb2a" engine="kokoro:af_bella"/>
+    <voice say="vo_orbit" lang="en" src="voice/flat-vector-science/en/vo_orbit.d8f2bd86a5.ogg" dur="7.51" hash="d8f2bd86a5" engine="kokoro:af_bella"/>
+    <voice say="vo_outro" lang="en" src="voice/flat-vector-science/en/vo_outro.9f99224cb1.ogg" dur="2.25" hash="9f99224cb1" engine="kokoro:af_bella"/>
+    <voice say="vo_tilt" lang="en" src="voice/flat-vector-science/en/vo_tilt.9950e4eeb5.ogg" dur="6.51" hash="9950e4eeb5" engine="kokoro:af_bella"/>
+    <voice say="vo_year" lang="en" src="voice/flat-vector-science/en/vo_year.bb8c73bad8.ogg" dur="5.71" hash="bb8c73bad8" engine="kokoro:af_bella"/>
+  </voices>
+</tsvg>

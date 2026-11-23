@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: TV news bulletin graphics. Breaking-news sting, headline bar, lower thirds, a LIVE badge,
+     an on-air clock and a scrolling ticker (expression x) that runs under every scene. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bm_george"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.25" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="broadcast" bg="#06101f" fg="#ffffff" red="#d0142c" deep="#8e0b1d" navy="#0b1f3a" navy2="#13305a" gold="#ffcc33" muted="#9fb0c8" glass="#0b1f3acc"/>
+  </themes>
+
+  <strings>
+    <s id="title" en="Evening bulletin: record heat"/>
+    <s id="net" en="WORLD DESK"/>
+    <s id="live" en="LIVE"/>
+    <s id="breaking" en="BREAKING NEWS"/>
+    <s id="ch1" en="Sting"/><s id="ch2" en="Headline"/><s id="ch3" en="Live: Harbour District"/><s id="ch4" en="Demand"/>
+    <s id="ch5" en="What it means"/><s id="ch6" en="Statement"/><s id="ch7" en="Close"/>
+    <s id="h1" en="RECORD HEAT PUSHES POWER DEMAND TO ALL-TIME HIGH"/>
+    <s id="h1s" en="Port Meridian · grid operator asks homes to cut use from 4 to 9 pm"/>
+    <s id="lt1" en="HARBOUR DISTRICT, PORT MERIDIAN"/>
+    <s id="lt1s" en="41 °C at 3 pm: hottest November day since records began"/>
+    <s id="g0" en="PEAK ELECTRICITY DEMAND"/>
+    <s id="g1" en="Previous record (2023)"/><s id="g2" en="Today, 5:40 pm"/><s id="gu" en="GW"/>
+    <s id="b0" en="WHAT IT MEANS FOR YOU"/>
+    <s id="b1" en="38 cooling centres open until midnight"/>
+    <s id="b2" en="Run washers and dryers after 9 pm"/>
+    <s id="b3" en="Buses and trams: free water at major stops"/>
+    <s id="q0" en="GRID OPERATOR STATEMENT"/>
+    <s id="q1" en="“Supply is holding. If every home shifts one appliance past 9 pm, we stay out of rolling cuts.”"/>
+    <s id="q2" en="Port Meridian Grid Control Room, 6:15 pm"/>
+    <s id="o1" en="MORE AT THE TOP OF THE HOUR"/>
+    <s id="tick" en="HEAT ALERT: Level 3 warning in force until Thursday   ●   TRANSIT: Line 4 trams running every 6 minutes   ●   MARKETS: Energy shares up 2.1% at the close   ●   SPORT: Harbour FC win 2–1 in extra time   ●   WEATHER: Storms expected Friday, temperatures fall to 27 °C   ●"/>
+    <s id="vo1" en="Good evening. Breaking news tonight: record heat has pushed the city's power demand to an all-time high."/>
+    <s id="vo2" en="Port Meridian's grid operator is asking every household to cut electricity use between four and nine this evening."/>
+    <s id="vo3" en="In the Harbour District, thermometers hit forty one degrees this afternoon: the hottest November day since records began."/>
+    <s id="vo4" en="Demand peaked at nine point eight gigawatts at twenty to six, beating last year's record by seven hundred megawatts."/>
+    <s id="vo5" en="So what does it mean for you? Thirty eight cooling centres are open until midnight. Run washers and dryers after nine."/>
+    <s id="vo6" en="In a statement, the operator said supply is holding, and one appliance per home, shifted past nine, avoids rolling cuts."/>
+    <s id="vo7" en="We'll have more on this story at the top of the hour. Stay with us."/>
+  </strings>
+
+  <defs>
+    <fn id="sec">(52 + floor(t)) % 60</fn>
+    <fn id="mins">41 + floor((52 + floor(t))/60)</fn>
+    <linear id="redbar" x1="0" y1="0" x2="0" y2="110"><stop at="0" color="#e3253d"/><stop at="1" color="#a50f22"/></linear>
+    <linear id="navybar" x1="0" y1="0" x2="0" y2="70"><stop at="0" color="#173a6b"/><stop at="1" color="#0b1f3a"/></linear>
+    <linear id="shine" x1="0" y1="0" x2="300" y2="0"><stop at="0" color="#ffffff" opacity="0"/><stop at="0.5" color="#ffffff" opacity="0.35"/><stop at="1" color="#ffffff" opacity="0"/></linear>
+    <linear id="vignette" x1="0" y1="0" x2="0" y2="1080"><stop at="0" color="#000000" opacity="0.15"/><stop at="0.6" color="#000000" opacity="0"/><stop at="1" color="#000000" opacity="0.6"/></linear>
+    <radial id="studio" x="960" y="420" r="1100"><stop at="0" color="#1b4f8f"/><stop at="0.6" color="#0b1f3a"/><stop at="1" color="#050b16"/></radial>
+    <clip id="wall"><rect x="560" y="120" w="1240" h="640" r="6"/></clip>
+    <clip id="tickclip"><rect x="250" y="990" w="1670" h="70"/></clip>
+    <!-- the studio set: gradient, light beams, a video wall -->
+    <symbol id="set">
+      <rect x="0" y="0" w="1920" h="1080" fill="url(#studio)"/>
+      <group opacity="0.12">
+        <path repeat="9" as="k" d="=('M ' + (k*240 - 200) + ' 0 L ' + (k*240 - 120) + ' 0 L ' + (k*240 + 300) + ' 1080 L ' + (k*240 + 160) + ' 1080 Z')" fill="#7fb2ff"/>
+      </group>
+      <!-- floor reflection lines -->
+      <line repeat="6" as="k" x1="0" x2="1920" y1="=800 + k*k*8" y2="=800 + k*k*8" stroke="#2a5fa8" sw="2" opacity="0.35"/>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="city" src="images/city.jpg"/>
+    <asset id="pulse" src="audio/pulse.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Anton" src="fonts/Anton.ttf"/>
+  </assets>
+
+  <music src="pulse" start="0" loop="1" vol="0.6"/>
+
+  <!-- on-air furniture over every scene except the sting -->
+  <overlay>
+    <group when="t &gt; 8.7" opacity="=clamp((t - 8.7)*3, 0, 1)">
+      <!-- network bug + live badge -->
+      <group x="80" y="60">
+        <rect w="210" h="56" r="4" fill="$red"/>
+        <circle x="30" y="28" r="=9 + 2*sin(t*6)" fill="#ffffff" opacity="=0.6 + 0.4*sin(t*6)"/>
+        <text x="52" y="29" size="32" weight="900" fill="#ffffff" text="@live"/>
+        <text x="128" y="29" size="30" weight="400" fill="#ffffff" opacity="0.4" text="|"/>
+        <text x="185" y="29" size="20" weight="700" align="right" fill="#ffffff" text="HD"/>
+      </group>
+      <group x="1840" y="60">
+        <rect x="-250" w="250" h="56" r="4" fill="$glass"/>
+        <text x="-125" y="29" size="30" weight="700" align="center" fill="#ffffff" font="Inter" text="18:{mins()}:{sec() &lt; 10 ? '0' : ''}{sec()}"/>
+      </group>
+      <!-- ticker -->
+      <rect x="0" y="990" w="1920" h="70" fill="#ffffff"/>
+      <rect x="0" y="990" w="250" h="70" fill="$red"/>
+      <text x="125" y="1025" size="34" weight="900" align="center" fill="#ffffff" font="Anton" text="@net"/>
+      <group clip="url(#tickclip)">
+        <text x="=1920 - (t*170 % 4010)" y="1026" size="32" weight="700" fill="$navy" text="@tick"/>
+        <text x="=1920 - (t*170 % 4010) + 4010" y="1026" size="32" weight="700" fill="$navy" text="@tick"/>
+      </group>
+      <rect x="250" y="990" w="8" h="70" fill="$gold"/>
+    </group>
+  </overlay>
+
+  <timeline>
+    <!-- 1 · breaking-news sting -->
+    <scene id="sting" dur="9" chapter="@ch1">
+      <say at="1.1" text="@vo1"/>
+      <sfx at="0" src="whoosh"/><sfx at="0.9" src="ding"/>
+      <use ref="set"/>
+      <!-- rotating rings -->
+      <group x="960" y="480" opacity="0.5">
+        <circle r="=380 + 20*sin(T*2)" fill="none" stroke="#3d7fd6" sw="2"/>
+        <circle r="300" from="=T*90" to="=T*90 + 220" fill="none" stroke="#ffffff" sw="6"/>
+        <circle r="250" from="=-T*120" to="=-T*120 + 140" fill="none" stroke="$red" sw="10"/>
+        <group rot="=T*30"><line repeat="24" as="k" x1="=360*cos(k*PI/12)" y1="=360*sin(k*PI/12)" x2="=380*cos(k*PI/12)" y2="=380*sin(k*PI/12)" stroke="#ffffff" sw="3"/></group>
+      </group>
+      <!-- diagonal red/white wipes -->
+      <rect x="=-2400 + 4400*ease(T/0.8, 'io')" y="300" w="2200" h="40" fill="#ffffff" rot="-8"/>
+      <rect x="=2400 - 4600*ease((T - 0.15)/0.8, 'io')" y="660" w="2200" h="24" fill="$red" rot="-8"/>
+      <group x="960" y="480" at="0.6">
+        <anim prop="scale" from="2.4" to="1" dur="0.35" ease="out"/>
+        <anim prop="opacity" from="0" to="1" dur="0.2"/>
+        <rect x="-640" y="-95" w="1280" h="190" fill="url(#redbar)" shadow="0 20 50 #000a"/>
+        <text y="4" size="150" weight="900" align="center" fill="#ffffff" font="Anton" text="@breaking"/>
+        <rect x="=-640 + 1600*fract(T/1.6) - 300" y="-95" w="300" h="190" fill="url(#shine)"/>
+      </group>
+      <group x="960" y="640" at="1.2">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="-300" y="-30" w="600" h="60" fill="$navy"/>
+        <text y="1" size="34" weight="800" align="center" fill="#ffffff" text="@net"/>
+      </group>
+    </scene>
+
+    <!-- 2 · headline: studio with the video wall -->
+    <scene id="headline" dur="9" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="0.2" src="whoosh"/>
+      <use ref="set"/>
+      <group clip="url(#wall)">
+        <image src="city" x="=560 - 30*p" y="120" w="1300" h="740" fit="cover"/>
+        <rect x="560" y="120" w="1240" h="640" fill="#0b1f3a" opacity="0.15"/>
+      </group>
+      <rect x="560" y="120" w="1240" h="640" r="6" fill="none" stroke="#3d7fd6" sw="4"/>
+      <!-- headline bar -->
+      <group x="80" y="800">
+        <rect w="=1760*ease((T - 0.2)/0.5, 'out')" h="110" fill="url(#redbar)" shadow="0 10 30 #0008"/>
+        <text x="30" y="56" size="54" weight="900" fill="#ffffff" font="Anton" text="@h1" at="0.5">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <anim prop="x" from="70" to="30" dur="0.4"/>
+        </text>
+        <rect y="110" w="=1760*ease((T - 0.5)/0.5, 'out')" h="60" fill="url(#navybar)"/>
+        <text x="30" y="141" size="30" weight="600" fill="#ffffff" text="@h1s" at="0.9">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        </text>
+      </group>
+    </scene>
+
+    <!-- 3 · live field picture with a lower third -->
+    <scene id="field" dur="9.5" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="0.1" src="click"/>
+      <image src="city" x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="1920" h="1080" scale="=1.08 + 0.06*p"/>
+      <!-- heat shimmer -->
+      <rect x="0" y="0" w="=W" h="=H" fill="#ff7a1a" opacity="0.12" blend="multiply"/>
+      <rect x="0" y="0" w="=W" h="=H" fill="url(#vignette)"/>
+      <group x="1500" y="180" at="1.6">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="300" h="140" r="8" fill="$glass"/>
+        <text x="150" y="58" size="70" weight="900" align="center" fill="$gold" font="Anton" text="41°C"/>
+        <text x="150" y="112" size="22" weight="700" align="center" fill="#ffffff" text="3:00 PM"/>
+      </group>
+      <!-- lower third -->
+      <group x="80" y="820" at="0.6">
+        <rect w="=1100*ease(T/0.45, 'out')" h="80" fill="url(#redbar)"/>
+        <rect w="12" h="80" fill="$gold"/>
+        <text x="40" y="41" size="44" weight="900" fill="#ffffff" font="Anton" text="@lt1" at="0.3">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        </text>
+        <rect y="80" w="=1100*ease((T - 0.3)/0.45, 'out')" h="56" fill="#ffffff"/>
+        <text x="40" y="108" size="28" weight="600" fill="$navy" text="@lt1s" at="0.6">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        </text>
+      </group>
+    </scene>
+
+    <!-- 4 · data graphic: record vs today -->
+    <scene id="demand" dur="10" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <use ref="set"/>
+      <group x="160" y="180">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="1600" h="720" r="10" fill="$glass" stroke="#3d7fd6" sw="2"/>
+        <rect w="1600" h="90" r="10" fill="url(#redbar)"/>
+        <text x="50" y="46" size="46" weight="900" fill="#ffffff" font="Anton" text="@g0"/>
+        <!-- two horizontal bars, 10 GW = 1100 px -->
+        <group x="420" y="280">
+          <text x="-30" y="0" size="34" weight="700" align="right" fill="$muted" text="@g1"/>
+          <rect y="-50" w="=1001*ease((T - 0.8)/1, 'out')" h="100" fill="$navy2"/>
+          <text x="=1001*ease((T - 0.8)/1, 'out') - 24" y="2" size="54" weight="900" align="right" fill="#ffffff" font="Anton" text="{fmt(9.1*ease((T - 0.8)/1, 'out'), 1)}"/>
+        </group>
+        <group x="420" y="480">
+          <text x="-30" y="0" size="34" weight="700" align="right" fill="#ffffff" text="@g2"/>
+          <rect y="-50" w="=1078*ease((T - 2.4)/1.4, 'out')" h="100" fill="url(#redbar)"/>
+          <text x="=1078*ease((T - 2.4)/1.4, 'out') - 24" y="2" size="54" weight="900" align="right" fill="#ffffff" font="Anton" text="{fmt(9.8*ease((T - 2.4)/1.4, 'out'), 1)}"/>
+        </group>
+        <!-- record line -->
+        <line x1="1421" y1="200" x2="1421" y2="560" stroke="$gold" sw="4"/>
+        <group x="1421" y="620" at="4">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <rect x="-150" y="-34" w="300" h="68" r="34" fill="$gold"/>
+          <text y="2" size="34" weight="900" align="center" fill="$navy" text="+0.7 GW"/>
+        </group>
+        <text x="1550" y="680" size="26" weight="700" align="right" fill="$muted" text="@gu"/>
+      </group>
+    </scene>
+
+    <!-- 5 · what it means: numbered list -->
+    <scene id="means" dur="10.5" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <use ref="set"/>
+      <group x="160" y="170">
+        <rect w="=900*ease(T/0.4, 'out')" h="90" fill="url(#redbar)"/>
+        <text x="40" y="46" size="50" weight="900" fill="#ffffff" font="Anton" text="@b0" at="0.3">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        </text>
+      </group>
+      <group repeat="3" as="k" x="160" y="=360 + k*170" at="=1.8 + k*2">
+        <anim prop="x" from="-1400" to="160" dur="0.45" ease="out"/>
+        <rect w="1500" h="130" fill="$glass" stroke="#3d7fd6" sw="2"/>
+        <rect w="130" h="130" fill="=k == 0 ? $red : $navy2"/>
+        <text x="65" y="66" size="72" weight="900" align="center" fill="#ffffff" font="Anton" text="{k + 1}"/>
+        <text x="180" y="66" size="46" weight="700" fill="#ffffff" text="@b1" when="k == 0"/>
+        <text x="180" y="66" size="46" weight="700" fill="#ffffff" text="@b2" when="k == 1"/>
+        <text x="180" y="66" size="46" weight="700" fill="#ffffff" text="@b3" when="k == 2"/>
+      </group>
+    </scene>
+
+    <!-- 6 · statement card -->
+    <scene id="statement" dur="10" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <use ref="set"/>
+      <group x="160" y="200">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="1600" h="600" fill="#ffffff" shadow="0 30 60 #000a"/>
+        <rect w="1600" h="80" fill="$navy"/>
+        <text x="50" y="41" size="40" weight="900" fill="#ffffff" font="Anton" text="@q0"/>
+        <text x="80" y="200" size="200" weight="900" fill="$red" font="Anton" text="“" opacity="0.25"/>
+        <text x="160" y="320" size="54" weight="700" maxw="1340" lh="1.3" fill="$navy" text="@q1">
+          <anim prop="reveal" from="0" to="1" at="0.6" dur="4" ease="linear"/>
+        </text>
+        <line x1="160" y1="490" x2="420" y2="490" stroke="$red" sw="6"/>
+        <text x="160" y="540" size="30" weight="600" fill="#5a6b85" text="@q2"/>
+      </group>
+    </scene>
+
+    <!-- 7 · close -->
+    <scene id="close" dur="6" chapter="@ch7">
+      <say at="0.3" text="@vo7"/>
+      <sfx at="3.8" src="whoosh"/>
+      <use ref="set"/>
+      <group x="960" y="460">
+        <circle r="=260 + 10*sin(T*2)" fill="none" stroke="#3d7fd6" sw="3" opacity="0.6"/>
+        <circle r="220" from="=T*120" to="=T*120 + 240" fill="none" stroke="$red" sw="10"/>
+        <text y="-20" size="120" weight="900" align="center" fill="#ffffff" font="Anton" text="@net">
+          <anim prop="scale" from="1.3" to="1" dur="0.5"/>
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        </text>
+      </group>
+      <group x="960" y="720" at="0.8">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="-520" y="-42" w="1040" h="84" fill="url(#redbar)"/>
+        <text y="2" size="46" weight="900" align="center" fill="#ffffff" font="Anton" text="@o1"/>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/news-bulletin/en/vo1.1abfda08a3.ogg" dur="6.81" hash="1abfda08a3" engine="kokoro:bm_george"/>
+    <voice say="vo2" lang="en" src="voice/news-bulletin/en/vo2.a1aadf524b.ogg" dur="8.01" hash="a1aadf524b" engine="kokoro:bm_george"/>
+    <voice say="vo3" lang="en" src="voice/news-bulletin/en/vo3.db38f34a5c.ogg" dur="7.91" hash="db38f34a5c" engine="kokoro:bm_george"/>
+    <voice say="vo4" lang="en" src="voice/news-bulletin/en/vo4.dd96efd4fd.ogg" dur="7.71" hash="dd96efd4fd" engine="kokoro:bm_george"/>
+    <voice say="vo5" lang="en" src="voice/news-bulletin/en/vo5.943adf10e1.ogg" dur="7.91" hash="943adf10e1" engine="kokoro:bm_george"/>
+    <voice say="vo6" lang="en" src="voice/news-bulletin/en/vo6.596e23eac5.ogg" dur="8.31" hash="596e23eac5" engine="kokoro:bm_george"/>
+    <voice say="vo7" lang="en" src="voice/news-bulletin/en/vo7.1f5772a022.ogg" dur="4.01" hash="1f5772a022" engine="kokoro:bm_george"/>
+  </voices>
+</tsvg>

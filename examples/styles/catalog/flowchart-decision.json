@@ -1,0 +1,11 @@
+{
+  "id": "flowchart-decision",
+  "title": "Decision-tree flowchart",
+  "category": "Explainer",
+  "summary": "Blueprint decision tree: diamonds and yes/no branches draw on, a token walks a real bug through it, the outcome lights up.",
+  "duration": 65.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 46
+}

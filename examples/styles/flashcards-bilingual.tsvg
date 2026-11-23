@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: bilingual flashcards, English → Gujarati. Card flips (width + clip), word, pronunciation, example sentence. -->
+<tsvg version="0.2" title="@title" font="Inter, Noto Sans Gujarati">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/><choice id="gu" label="ગુજરાતી"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" default="night"><choice id="night" label="Study night"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.25" sfx="0.6"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="night" bg="#1c2140" fg="#f6f2ea" muted="#a9adc8" saffron="#ffb347"/></themes>
+  <strings>
+    <s id="title" en="Learn Gujarati" gu="ગુજરાતી શીખો"/>
+    <s id="sub" en="5 everyday words · flashcards" gu="રોજના 5 શબ્દો · ફ્લેશકાર્ડ"/>
+    <s id="ch0" en="Water" gu="પાણી"/>
+    <s id="chE" en="Review" gu="પુનરાવર્તન"/>
+    <s id="tapflip" en="say it, then flip" gu="બોલો, પછી ફેરવો"/>
+    <s id="example" en="Example" gu="ઉદાહરણ"/>
+    <s id="review" en="Review: 5 new words" gu="પુનરાવર્તન: 5 નવા શબ્દો"/>
+    <s id="tomorrow" en="Practise again tomorrow" gu="કાલે ફરી અભ્યાસ કરો"/>
+    <s id="tagEN" en="ENGLISH" gu="અંગ્રેજી"/>
+    <s id="tagGU" en="GUJARATI" gu="ગુજરાતી"/>
+    <s id="vo0" en="Let’s learn five everyday words in Gujarati. Say each word out loud before the card flips." gu="ચાલો ગુજરાતીમાં રોજના પાંચ શબ્દો શીખીએ. કાર્ડ ફરે તે પહેલાં દરેક શબ્દ મોટેથી બોલો."/>
+    <s id="voE" en="Water, friend, thank you, home and food. Five new words. Practise them again tomorrow!" gu="પાણી, મિત્ર, આભાર, ઘર અને ખાવાનું. પાંચ નવા શબ્દો. કાલે ફરી અભ્યાસ કરો!"/>
+    <s id="en0" en="Water" gu="Water"/>
+    <s id="gu0" en="પાણી" gu="પાણી"/>
+    <s id="pr0" en="pāṇī" gu="pāṇī"/>
+    <s id="pos0" en="noun" gu="નામ"/>
+    <s id="ex0" en="I drink water every morning." gu="I drink water every morning."/>
+    <s id="exg0" en="હું દરરોજ સવારે પાણી પીઉં છું." gu="હું દરરોજ સવારે પાણી પીઉં છું."/>
+    <s id="n0" en="Word 1 of 5" gu="શબ્દ 1 / 5"/>
+    <s id="vo1" en="Water. In Gujarati: pāṇī. I drink water every morning." gu="પાણી. અંગ્રેજીમાં: Water. હું દરરોજ સવારે પાણી પીઉં છું."/>
+    <s id="vs1" en="Water. In Gujarati, paa nee. I drink water every morning." gu="પાણી. અંગ્રેજીમાં: Water. હું દરરોજ સવારે પાણી પીઉં છું."/>
+    <s id="en1" en="Friend" gu="Friend"/>
+    <s id="gu1" en="મિત્ર" gu="મિત્ર"/>
+    <s id="pr1" en="mitra" gu="mitra"/>
+    <s id="pos1" en="noun" gu="નામ"/>
+    <s id="ex1" en="She is my best friend." gu="She is my best friend."/>
+    <s id="exg1" en="તે મારી સૌથી સારી મિત્ર છે." gu="તે મારી સૌથી સારી મિત્ર છે."/>
+    <s id="n1" en="Word 2 of 5" gu="શબ્દ 2 / 5"/>
+    <s id="ch1" en="Friend" gu="મિત્ર"/>
+    <s id="vo2" en="Friend. In Gujarati: mitra. She is my best friend." gu="મિત્ર. અંગ્રેજીમાં: Friend. તે મારી સૌથી સારી મિત્ર છે."/>
+    <s id="vs2" en="Friend. In Gujarati, mit ra. She is my best friend." gu="મિત્ર. અંગ્રેજીમાં: Friend. તે મારી સૌથી સારી મિત્ર છે."/>
+    <s id="en2" en="Thank you" gu="Thank you"/>
+    <s id="gu2" en="આભાર" gu="આભાર"/>
+    <s id="pr2" en="ābhār" gu="ābhār"/>
+    <s id="pos2" en="phrase" gu="શબ્દસમૂહ"/>
+    <s id="ex2" en="Thank you for the tea!" gu="Thank you for the tea!"/>
+    <s id="exg2" en="ચા માટે આભાર!" gu="ચા માટે આભાર!"/>
+    <s id="n2" en="Word 3 of 5" gu="શબ્દ 3 / 5"/>
+    <s id="ch2" en="Thank you" gu="આભાર"/>
+    <s id="vo3" en="Thank you. In Gujarati: ābhār. Thank you for the tea!" gu="આભાર. અંગ્રેજીમાં: Thank you. ચા માટે આભાર!"/>
+    <s id="vs3" en="Thank you. In Gujarati, aa bhaar. Thank you for the tea!" gu="આભાર. અંગ્રેજીમાં: Thank you. ચા માટે આભાર!"/>
+    <s id="en3" en="Home" gu="Home"/>
+    <s id="gu3" en="ઘર" gu="ઘર"/>
+    <s id="pr3" en="ghar" gu="ghar"/>
+    <s id="pos3" en="noun" gu="નામ"/>
+    <s id="ex3" en="Let’s go home." gu="Let’s go home."/>
+    <s id="exg3" en="ચાલો ઘરે જઈએ." gu="ચાલો ઘરે જઈએ."/>
+    <s id="n3" en="Word 4 of 5" gu="શબ્દ 4 / 5"/>
+    <s id="ch3" en="Home" gu="ઘર"/>
+    <s id="vo4" en="Home. In Gujarati: ghar. Let’s go home." gu="ઘર. અંગ્રેજીમાં: Home. ચાલો ઘરે જઈએ."/>
+    <s id="vs4" en="Home. In Gujarati, ghar. Let’s go home." gu="ઘર. અંગ્રેજીમાં: Home. ચાલો ઘરે જઈએ."/>
+    <s id="en4" en="Food" gu="Food"/>
+    <s id="gu4" en="ખાવાનું" gu="ખાવાનું"/>
+    <s id="pr4" en="khāvānũ" gu="khāvānũ"/>
+    <s id="pos4" en="noun" gu="નામ"/>
+    <s id="ex4" en="The food is delicious." gu="The food is delicious."/>
+    <s id="exg4" en="ખાવાનું સ્વાદિષ્ટ છે." gu="ખાવાનું સ્વાદિષ્ટ છે."/>
+    <s id="n4" en="Word 5 of 5" gu="શબ્દ 5 / 5"/>
+    <s id="ch4" en="Food" gu="ખાવાનું"/>
+    <s id="vo5" en="Food. In Gujarati: khāvānũ. The food is delicious." gu="ખાવાનું. અંગ્રેજીમાં: Food. ખાવાનું સ્વાદિષ્ટ છે."/>
+    <s id="vs5" en="Food. In Gujarati, khaa vaa noo. The food is delicious." gu="ખાવાનું. અંગ્રેજીમાં: Food. ખાવાનું સ્વાદિષ્ટ છે."/>
+    <s id="pq0" en="/ pāṇī /" gu="/ pāṇī /"/>
+    <s id="pq1" en="/ mitra /" gu="/ mitra /"/>
+    <s id="pq2" en="/ ābhār /" gu="/ ābhār /"/>
+    <s id="pq3" en="/ ghar /" gu="/ ghar /"/>
+    <s id="pq4" en="/ khāvānũ /" gu="/ khāvānũ /"/>
+  </strings>
+  <defs>
+    <data id="letters" v="ક, ખ, ગ, ઘ, ચ, છ, જ, ઝ, ટ, ઠ, ડ, ત, થ, દ, ન, પ, મ, અ"/>
+    <radial id="bgG" x="960" y="420" r="1200"><stop at="0" color="#2d3466"/><stop at="1" color="#141830"/></radial>
+    <linear id="back" x1="0" y1="170" x2="0" y2="730"><stop at="0" color="#ffd08a"/><stop at="1" color="#ff9f4a"/></linear>
+    <clip id="flip"><rect x="=960 - (960*abs(cos(PI*clamp((T - 3.4)/0.7, 0, 1))))/2" y="0" w="=(960*abs(cos(PI*clamp((T - 3.4)/0.7, 0, 1))))" h="1080"/></clip>
+  </defs>
+  <assets>
+    <asset id="pad" src="audio/pad.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="pop" src="audio/pop.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/><font family="Noto Sans Gujarati" src="fonts/NotoSansGujarati.ttf"/><font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.7"/>
+  <backdrop>
+    <rect w="1920" h="1080" fill="url(#bgG)"/>
+    <text repeat="18" as="k" x="=rand(k)*1920" y="=fract(rand(k+3) - t*0.01*(0.5 + rand(k+1)))*1080" size="=40 + rand(k+2)*60" font="Noto Sans Gujarati" fill="#ffffff" opacity="0.05" text="{data('letters', k)}"/>
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="8" chapter="@ch0">
+      <say at="0.5" text="@vo0"/>
+      <group x="960" y="380"><anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="scale" from="0.8" to="1" dur="0.8" ease="back"/>
+        <text x="0" y="0" size="150" font="Playfair Display" font.gu="Noto Sans Gujarati" weight="700" align="center" fill="$fg" text="@title"/>
+      </group>
+      <text x="960" y="520" size="48" align="center" fill="$muted" font.gu="Noto Sans Gujarati" text="@sub" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group x="400" y="770" rot="-8" at="1.4"><anim prop="y" from="1200" to="770" dur="0.6" ease="back"/>
+        <rect x="-115" y="-140" w="230" h="280" r="24" fill="#fffaf0" shadow="0 16 30 #0006"/>
+        <text x="0" y="0" size="64" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu0"/></group>
+      <group x="680" y="770" rot="-4" at="1.5999999999999999"><anim prop="y" from="1200" to="770" dur="0.6" ease="back"/>
+        <rect x="-115" y="-140" w="230" h="280" r="24" fill="url(#back)" shadow="0 16 30 #0006"/>
+        <text x="0" y="0" size="54" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu1"/></group>
+      <group x="960" y="770" rot="0" at="1.7999999999999998"><anim prop="y" from="1200" to="770" dur="0.6" ease="back"/>
+        <rect x="-115" y="-140" w="230" h="280" r="24" fill="#fffaf0" shadow="0 16 30 #0006"/>
+        <text x="0" y="0" size="64" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu2"/></group>
+      <group x="1240" y="770" rot="4" at="2"><anim prop="y" from="1200" to="770" dur="0.6" ease="back"/>
+        <rect x="-115" y="-140" w="230" h="280" r="24" fill="url(#back)" shadow="0 16 30 #0006"/>
+        <text x="0" y="0" size="64" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu3"/></group>
+      <group x="1520" y="770" rot="8" at="2.2"><anim prop="y" from="1200" to="770" dur="0.6" ease="back"/>
+        <rect x="-115" y="-140" w="230" h="280" r="24" fill="#fffaf0" shadow="0 16 30 #0006"/>
+        <text x="0" y="0" size="54" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu4"/></group>
+    </scene>
+    <scene id="w1" dur="10" chapter="@ch0">
+      <say at="0.5" text="@vo1" speak="@vs1"/>
+      
+      <!-- progress -->
+      <group x="840" y="70"><circle x="0" r="13" fill="$fg"/><circle x="60" r="10" fill="#ffffff40"/><circle x="120" r="10" fill="#ffffff40"/><circle x="180" r="10" fill="#ffffff40"/><circle x="240" r="10" fill="#ffffff40"/></group>
+      <text x="120" y="70" size="36" weight="600" fill="$muted" font.gu="Noto Sans Gujarati" text="@n0"/>
+      <!-- card -->
+      <group y="=-24*sin(PI*clamp((T - 3.4)/0.7, 0, 1))">
+        <rect x="960" y="450" ax="0.5" ay="0.5" w="=(960*abs(cos(PI*clamp((T - 3.4)/0.7, 0, 1))))" h="560" r="40" fill="=T &lt; 3.75 ? '#fffaf0' : 'url(#back)'" shadow="0 30 60 #0007">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        </rect>
+        <group clip="url(#flip)" when="=T &lt; 3.75">
+          <group x="960" y="360" scale="0.95"><anim prop="scale" from="0" to="0.95" at="0.3" dur="0.5" ease="back"/><path d="M 0 -90 C 40 -30 70 10 70 40 C 70 80 38 105 0 105 C -38 105 -70 80 -70 40 C -70 10 -40 -30 0 -90 Z" fill="#4aa8ff" stroke="#1d3b6b" sw="5"/><path d="M -36 40 C -36 60 -22 75 -6 80" stroke="#ffffffcc" sw="9" fill="none"/></group>
+          <text x="960" y="570" size="120" font="Playfair Display" weight="700" align="center" fill="#1f2340" text="@en0"/>
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#1f2340"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#fffaf0" font.gu="Noto Sans Gujarati" text="@tagEN"/>
+          <text x="960" y="680" size="34" align="center" fill="#6a6f88" font.gu="Noto Sans Gujarati" text="@tapflip" opacity="=0.7 + 0.3*sin(T*5)"/>
+        </group>
+        <group clip="url(#flip)" when="=T &gt;= 3.75">
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#5a1e00" opacity="0.85"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#ffe9c7" font.gu="Noto Sans Gujarati" text="@tagGU"/>
+          <text x="1390" y="234" size="30" italic="1" align="right" fill="#5a1e00" font.gu="Noto Sans Gujarati" text="@pos0"/>
+          <text x="960" y="430" size="200" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu0"/>
+          <text x="960" y="610" size="54" font="Inter" italic="1" align="center" fill="#5a1e00" text="@pq0" opacity="0.9"/>
+        </group>
+      </group>
+      <!-- example sentence -->
+      <group x="960" y="900" at="5.6"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="960" to="900" dur="0.5" ease="out"/>
+        <rect x="-760" y="-110" w="1520" h="220" r="28" fill="#ffffff12" stroke="#ffffff30" sw="2"/>
+        <text x="-720" y="-74" size="30" weight="700" fill="$saffron" font.gu="Noto Sans Gujarati" text="@example"/>
+        <text x="0" y="-14" size="52" align="center" fill="$fg" text="@ex0"/>
+        <text x="0" y="58" size="52" align="center" font="Noto Sans Gujarati" fill="#ffd9a0" text="@exg0"/>
+      </group>
+      <sfx at="3.4" src="whoosh"/><sfx at="5.6" src="pop"/>
+    </scene>
+    <scene id="w2" dur="10" chapter="@ch1">
+      <say at="0.5" text="@vo2" speak="@vs2"/>
+      
+      <!-- progress -->
+      <group x="840" y="70"><circle x="0" r="10" fill="$saffron"/><circle x="60" r="13" fill="$fg"/><circle x="120" r="10" fill="#ffffff40"/><circle x="180" r="10" fill="#ffffff40"/><circle x="240" r="10" fill="#ffffff40"/></group>
+      <text x="120" y="70" size="36" weight="600" fill="$muted" font.gu="Noto Sans Gujarati" text="@n1"/>
+      <!-- card -->
+      <group y="=-24*sin(PI*clamp((T - 3.4)/0.7, 0, 1))">
+        <rect x="960" y="450" ax="0.5" ay="0.5" w="=(960*abs(cos(PI*clamp((T - 3.4)/0.7, 0, 1))))" h="560" r="40" fill="=T &lt; 3.75 ? '#fffaf0' : 'url(#back)'" shadow="0 30 60 #0007">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        </rect>
+        <group clip="url(#flip)" when="=T &lt; 3.75">
+          <group x="960" y="360" scale="0.95"><anim prop="scale" from="0" to="0.95" at="0.3" dur="0.5" ease="back"/><circle x="-48" y="-40" r="38" fill="#ffb27a" stroke="#4a2a14" sw="5"/><circle x="48" y="-40" r="38" fill="#f08a5d" stroke="#4a2a14" sw="5"/><path d="M -118 90 C -118 20 22 20 22 90 Z" fill="#5c8dff" stroke="#1d3b6b" sw="5"/><path d="M -22 90 C -22 20 118 20 118 90 Z" fill="#ff6b8a" stroke="#6b1d33" sw="5"/></group>
+          <text x="960" y="570" size="120" font="Playfair Display" weight="700" align="center" fill="#1f2340" text="@en1"/>
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#1f2340"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#fffaf0" font.gu="Noto Sans Gujarati" text="@tagEN"/>
+          <text x="960" y="680" size="34" align="center" fill="#6a6f88" font.gu="Noto Sans Gujarati" text="@tapflip" opacity="=0.7 + 0.3*sin(T*5)"/>
+        </group>
+        <group clip="url(#flip)" when="=T &gt;= 3.75">
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#5a1e00" opacity="0.85"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#ffe9c7" font.gu="Noto Sans Gujarati" text="@tagGU"/>
+          <text x="1390" y="234" size="30" italic="1" align="right" fill="#5a1e00" font.gu="Noto Sans Gujarati" text="@pos1"/>
+          <text x="960" y="430" size="170" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu1"/>
+          <text x="960" y="610" size="54" font="Inter" italic="1" align="center" fill="#5a1e00" text="@pq1" opacity="0.9"/>
+        </group>
+      </group>
+      <!-- example sentence -->
+      <group x="960" y="900" at="5.6"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="960" to="900" dur="0.5" ease="out"/>
+        <rect x="-760" y="-110" w="1520" h="220" r="28" fill="#ffffff12" stroke="#ffffff30" sw="2"/>
+        <text x="-720" y="-74" size="30" weight="700" fill="$saffron" font.gu="Noto Sans Gujarati" text="@example"/>
+        <text x="0" y="-14" size="52" align="center" fill="$fg" text="@ex1"/>
+        <text x="0" y="58" size="52" align="center" font="Noto Sans Gujarati" fill="#ffd9a0" text="@exg1"/>
+      </group>
+      <sfx at="3.4" src="whoosh"/><sfx at="5.6" src="pop"/>
+    </scene>
+    <scene id="w3" dur="11" chapter="@ch2">
+      <say at="0.5" text="@vo3" speak="@vs3"/>
+      
+      <!-- progress -->
+      <group x="840" y="70"><circle x="0" r="10" fill="$saffron"/><circle x="60" r="10" fill="$saffron"/><circle x="120" r="13" fill="$fg"/><circle x="180" r="10" fill="#ffffff40"/><circle x="240" r="10" fill="#ffffff40"/></group>
+      <text x="120" y="70" size="36" weight="600" fill="$muted" font.gu="Noto Sans Gujarati" text="@n2"/>
+      <!-- card -->
+      <group y="=-24*sin(PI*clamp((T - 3.4)/0.7, 0, 1))">
+        <rect x="960" y="450" ax="0.5" ay="0.5" w="=(960*abs(cos(PI*clamp((T - 3.4)/0.7, 0, 1))))" h="560" r="40" fill="=T &lt; 3.75 ? '#fffaf0' : 'url(#back)'" shadow="0 30 60 #0007">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        </rect>
+        <group clip="url(#flip)" when="=T &lt; 3.75">
+          <group x="960" y="360" scale="0.95"><anim prop="scale" from="0" to="0.95" at="0.3" dur="0.5" ease="back"/><path d="M 0 90 C -120 10 -100 -90 -40 -90 C -10 -90 0 -60 0 -50 C 0 -60 10 -90 40 -90 C 100 -90 120 10 0 90 Z" fill="#ff5470" stroke="#6b1d33" sw="5"/></group>
+          <text x="960" y="570" size="104" font="Playfair Display" weight="700" align="center" fill="#1f2340" text="@en2"/>
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#1f2340"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#fffaf0" font.gu="Noto Sans Gujarati" text="@tagEN"/>
+          <text x="960" y="680" size="34" align="center" fill="#6a6f88" font.gu="Noto Sans Gujarati" text="@tapflip" opacity="=0.7 + 0.3*sin(T*5)"/>
+        </group>
+        <group clip="url(#flip)" when="=T &gt;= 3.75">
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#5a1e00" opacity="0.85"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#ffe9c7" font.gu="Noto Sans Gujarati" text="@tagGU"/>
+          <text x="1390" y="234" size="30" italic="1" align="right" fill="#5a1e00" font.gu="Noto Sans Gujarati" text="@pos2"/>
+          <text x="960" y="430" size="200" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu2"/>
+          <text x="960" y="610" size="54" font="Inter" italic="1" align="center" fill="#5a1e00" text="@pq2" opacity="0.9"/>
+        </group>
+      </group>
+      <!-- example sentence -->
+      <group x="960" y="900" at="5.6"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="960" to="900" dur="0.5" ease="out"/>
+        <rect x="-760" y="-110" w="1520" h="220" r="28" fill="#ffffff12" stroke="#ffffff30" sw="2"/>
+        <text x="-720" y="-74" size="30" weight="700" fill="$saffron" font.gu="Noto Sans Gujarati" text="@example"/>
+        <text x="0" y="-14" size="52" align="center" fill="$fg" text="@ex2"/>
+        <text x="0" y="58" size="52" align="center" font="Noto Sans Gujarati" fill="#ffd9a0" text="@exg2"/>
+      </group>
+      <sfx at="3.4" src="whoosh"/><sfx at="5.6" src="pop"/>
+    </scene>
+    <scene id="w4" dur="10" chapter="@ch3">
+      <say at="0.5" text="@vo4" speak="@vs4"/>
+      
+      <!-- progress -->
+      <group x="840" y="70"><circle x="0" r="10" fill="$saffron"/><circle x="60" r="10" fill="$saffron"/><circle x="120" r="10" fill="$saffron"/><circle x="180" r="13" fill="$fg"/><circle x="240" r="10" fill="#ffffff40"/></group>
+      <text x="120" y="70" size="36" weight="600" fill="$muted" font.gu="Noto Sans Gujarati" text="@n3"/>
+      <!-- card -->
+      <group y="=-24*sin(PI*clamp((T - 3.4)/0.7, 0, 1))">
+        <rect x="960" y="450" ax="0.5" ay="0.5" w="=(960*abs(cos(PI*clamp((T - 3.4)/0.7, 0, 1))))" h="560" r="40" fill="=T &lt; 3.75 ? '#fffaf0' : 'url(#back)'" shadow="0 30 60 #0007">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        </rect>
+        <group clip="url(#flip)" when="=T &lt; 3.75">
+          <group x="960" y="360" scale="0.95"><anim prop="scale" from="0" to="0.95" at="0.3" dur="0.5" ease="back"/><path d="M -110 -10 L 0 -100 L 110 -10" stroke="#6b2d14" sw="10" fill="none"/><rect x="-85" y="-20" w="170" h="120" fill="#ffd27a" stroke="#6b2d14" sw="5"/><rect x="-25" y="30" w="50" h="70" fill="#c0612b" stroke="#6b2d14" sw="4"/><rect x="40" y="0" w="32" h="32" fill="#8fd3ff" stroke="#6b2d14" sw="4"/></group>
+          <text x="960" y="570" size="120" font="Playfair Display" weight="700" align="center" fill="#1f2340" text="@en3"/>
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#1f2340"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#fffaf0" font.gu="Noto Sans Gujarati" text="@tagEN"/>
+          <text x="960" y="680" size="34" align="center" fill="#6a6f88" font.gu="Noto Sans Gujarati" text="@tapflip" opacity="=0.7 + 0.3*sin(T*5)"/>
+        </group>
+        <group clip="url(#flip)" when="=T &gt;= 3.75">
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#5a1e00" opacity="0.85"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#ffe9c7" font.gu="Noto Sans Gujarati" text="@tagGU"/>
+          <text x="1390" y="234" size="30" italic="1" align="right" fill="#5a1e00" font.gu="Noto Sans Gujarati" text="@pos3"/>
+          <text x="960" y="430" size="200" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu3"/>
+          <text x="960" y="610" size="54" font="Inter" italic="1" align="center" fill="#5a1e00" text="@pq3" opacity="0.9"/>
+        </group>
+      </group>
+      <!-- example sentence -->
+      <group x="960" y="900" at="5.6"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="960" to="900" dur="0.5" ease="out"/>
+        <rect x="-760" y="-110" w="1520" h="220" r="28" fill="#ffffff12" stroke="#ffffff30" sw="2"/>
+        <text x="-720" y="-74" size="30" weight="700" fill="$saffron" font.gu="Noto Sans Gujarati" text="@example"/>
+        <text x="0" y="-14" size="52" align="center" fill="$fg" text="@ex3"/>
+        <text x="0" y="58" size="52" align="center" font="Noto Sans Gujarati" fill="#ffd9a0" text="@exg3"/>
+      </group>
+      <sfx at="3.4" src="whoosh"/><sfx at="5.6" src="pop"/>
+    </scene>
+    <scene id="w5" dur="10" chapter="@ch4">
+      <say at="0.5" text="@vo5" speak="@vs5"/>
+      
+      <!-- progress -->
+      <group x="840" y="70"><circle x="0" r="10" fill="$saffron"/><circle x="60" r="10" fill="$saffron"/><circle x="120" r="10" fill="$saffron"/><circle x="180" r="10" fill="$saffron"/><circle x="240" r="13" fill="$fg"/></group>
+      <text x="120" y="70" size="36" weight="600" fill="$muted" font.gu="Noto Sans Gujarati" text="@n4"/>
+      <!-- card -->
+      <group y="=-24*sin(PI*clamp((T - 3.4)/0.7, 0, 1))">
+        <rect x="960" y="450" ax="0.5" ay="0.5" w="=(960*abs(cos(PI*clamp((T - 3.4)/0.7, 0, 1))))" h="560" r="40" fill="=T &lt; 3.75 ? '#fffaf0' : 'url(#back)'" shadow="0 30 60 #0007">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        </rect>
+        <group clip="url(#flip)" when="=T &lt; 3.75">
+          <group x="960" y="360" scale="0.95"><anim prop="scale" from="0" to="0.95" at="0.3" dur="0.5" ease="back"/><path d="M -110 0 L 110 0 C 110 60 60 100 0 100 C -60 100 -110 60 -110 0 Z" fill="#ff9f43" stroke="#6b3a14" sw="5"/><ellipse y="0" rx="110" ry="16" fill="#fff3d6" stroke="#6b3a14" sw="4"/><path d="M -40 -20 C -60 -50 -20 -60 -40 -100 M 0 -20 C -20 -50 20 -60 0 -100 M 40 -20 C 20 -50 60 -60 40 -100" stroke="#b9a98f" sw="6" fill="none" opacity="=0.5 + 0.4*sin(t*3)"/></group>
+          <text x="960" y="570" size="120" font="Playfair Display" weight="700" align="center" fill="#1f2340" text="@en4"/>
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#1f2340"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#fffaf0" font.gu="Noto Sans Gujarati" text="@tagEN"/>
+          <text x="960" y="680" size="34" align="center" fill="#6a6f88" font.gu="Noto Sans Gujarati" text="@tapflip" opacity="=0.7 + 0.3*sin(T*5)"/>
+        </group>
+        <group clip="url(#flip)" when="=T &gt;= 3.75">
+          <rect x="520" y="206" w="200" h="56" r="28" fill="#5a1e00" opacity="0.85"/>
+          <text x="620" y="234" size="26" weight="700" align="center" fill="#ffe9c7" font.gu="Noto Sans Gujarati" text="@tagGU"/>
+          <text x="1390" y="234" size="30" italic="1" align="right" fill="#5a1e00" font.gu="Noto Sans Gujarati" text="@pos4"/>
+          <text x="960" y="430" size="170" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu4"/>
+          <text x="960" y="610" size="54" font="Inter" italic="1" align="center" fill="#5a1e00" text="@pq4" opacity="0.9"/>
+        </group>
+      </group>
+      <!-- example sentence -->
+      <group x="960" y="900" at="5.6"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="y" from="960" to="900" dur="0.5" ease="out"/>
+        <rect x="-760" y="-110" w="1520" h="220" r="28" fill="#ffffff12" stroke="#ffffff30" sw="2"/>
+        <text x="-720" y="-74" size="30" weight="700" fill="$saffron" font.gu="Noto Sans Gujarati" text="@example"/>
+        <text x="0" y="-14" size="52" align="center" fill="$fg" text="@ex4"/>
+        <text x="0" y="58" size="52" align="center" font="Noto Sans Gujarati" fill="#ffd9a0" text="@exg4"/>
+      </group>
+      <sfx at="3.4" src="whoosh"/><sfx at="5.6" src="pop"/>
+    </scene>
+    <scene id="review" dur="9" chapter="@chE">
+      <say at="0.4" text="@voE"/>
+      <text x="960" y="150" size="72" weight="700" align="center" fill="$fg" font.gu="Noto Sans Gujarati" text="@review"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group x="320" y="520" at="0.4"><anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="scale" from="0.6" to="1" dur="0.4" ease="back"/>
+        <rect x="-140" y="-220" w="280" h="440" r="28" fill="url(#back)" shadow="0 18 36 #0006"/>
+        <group y="-110" scale="0.55"><path d="M 0 -90 C 40 -30 70 10 70 40 C 70 80 38 105 0 105 C -38 105 -70 80 -70 40 C -70 10 -40 -30 0 -90 Z" fill="#4aa8ff" stroke="#1d3b6b" sw="5"/><path d="M -36 40 C -36 60 -22 75 -6 80" stroke="#ffffffcc" sw="9" fill="none"/></group>
+        <text x="0" y="40" size="72" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu0"/>
+        <text x="0" y="110" size="34" italic="1" align="center" fill="#5a1e00" text="@pr0"/>
+        <text x="0" y="170" size="34" weight="700" align="center" fill="#1f2340" text="@en0"/></group>
+      <group x="640" y="520" at="1"><anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="scale" from="0.6" to="1" dur="0.4" ease="back"/>
+        <rect x="-140" y="-220" w="280" h="440" r="28" fill="url(#back)" shadow="0 18 36 #0006"/>
+        <group y="-110" scale="0.55"><circle x="-48" y="-40" r="38" fill="#ffb27a" stroke="#4a2a14" sw="5"/><circle x="48" y="-40" r="38" fill="#f08a5d" stroke="#4a2a14" sw="5"/><path d="M -118 90 C -118 20 22 20 22 90 Z" fill="#5c8dff" stroke="#1d3b6b" sw="5"/><path d="M -22 90 C -22 20 118 20 118 90 Z" fill="#ff6b8a" stroke="#6b1d33" sw="5"/></group>
+        <text x="0" y="40" size="60" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu1"/>
+        <text x="0" y="110" size="34" italic="1" align="center" fill="#5a1e00" text="@pr1"/>
+        <text x="0" y="170" size="34" weight="700" align="center" fill="#1f2340" text="@en1"/></group>
+      <group x="960" y="520" at="1.6"><anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="scale" from="0.6" to="1" dur="0.4" ease="back"/>
+        <rect x="-140" y="-220" w="280" h="440" r="28" fill="url(#back)" shadow="0 18 36 #0006"/>
+        <group y="-110" scale="0.55"><path d="M 0 90 C -120 10 -100 -90 -40 -90 C -10 -90 0 -60 0 -50 C 0 -60 10 -90 40 -90 C 100 -90 120 10 0 90 Z" fill="#ff5470" stroke="#6b1d33" sw="5"/></group>
+        <text x="0" y="40" size="72" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu2"/>
+        <text x="0" y="110" size="34" italic="1" align="center" fill="#5a1e00" text="@pr2"/>
+        <text x="0" y="170" size="34" weight="700" align="center" fill="#1f2340" text="@en2"/></group>
+      <group x="1280" y="520" at="2.1999999999999997"><anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="scale" from="0.6" to="1" dur="0.4" ease="back"/>
+        <rect x="-140" y="-220" w="280" h="440" r="28" fill="url(#back)" shadow="0 18 36 #0006"/>
+        <group y="-110" scale="0.55"><path d="M -110 -10 L 0 -100 L 110 -10" stroke="#6b2d14" sw="10" fill="none"/><rect x="-85" y="-20" w="170" h="120" fill="#ffd27a" stroke="#6b2d14" sw="5"/><rect x="-25" y="30" w="50" h="70" fill="#c0612b" stroke="#6b2d14" sw="4"/><rect x="40" y="0" w="32" h="32" fill="#8fd3ff" stroke="#6b2d14" sw="4"/></group>
+        <text x="0" y="40" size="72" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu3"/>
+        <text x="0" y="110" size="34" italic="1" align="center" fill="#5a1e00" text="@pr3"/>
+        <text x="0" y="170" size="34" weight="700" align="center" fill="#1f2340" text="@en3"/></group>
+      <group x="1600" y="520" at="2.8"><anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="scale" from="0.6" to="1" dur="0.4" ease="back"/>
+        <rect x="-140" y="-220" w="280" h="440" r="28" fill="url(#back)" shadow="0 18 36 #0006"/>
+        <group y="-110" scale="0.55"><path d="M -110 0 L 110 0 C 110 60 60 100 0 100 C -60 100 -110 60 -110 0 Z" fill="#ff9f43" stroke="#6b3a14" sw="5"/><ellipse y="0" rx="110" ry="16" fill="#fff3d6" stroke="#6b3a14" sw="4"/><path d="M -40 -20 C -60 -50 -20 -60 -40 -100 M 0 -20 C -20 -50 20 -60 0 -100 M 40 -20 C 20 -50 60 -60 40 -100" stroke="#b9a98f" sw="6" fill="none" opacity="=0.5 + 0.4*sin(t*3)"/></group>
+        <text x="0" y="40" size="60" font="Noto Sans Gujarati" weight="700" align="center" fill="#3a1200" text="@gu4"/>
+        <text x="0" y="110" size="34" italic="1" align="center" fill="#5a1e00" text="@pr4"/>
+        <text x="0" y="170" size="34" weight="700" align="center" fill="#1f2340" text="@en4"/></group>
+      <text x="960" y="900" size="44" align="center" fill="$saffron" font.gu="Noto Sans Gujarati" text="@tomorrow" at="4"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo0" lang="en" src="voice/flashcards-bilingual/en/vo0.3838b2a17d.ogg" dur="5.71" hash="3838b2a17d" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="en" src="voice/flashcards-bilingual/en/vo1.d03163b692.ogg" dur="3.81" hash="d03163b692" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/flashcards-bilingual/en/vo2.9fc36f8313.ogg" dur="3.41" hash="9fc36f8313" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/flashcards-bilingual/en/vo3.b8b391974f.ogg" dur="3.21" hash="b8b391974f" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/flashcards-bilingual/en/vo4.2873477745.ogg" dur="2.65" hash="2873477745" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/flashcards-bilingual/en/vo5.aec02fcbdc.ogg" dur="3.51" hash="aec02fcbdc" engine="kokoro:af_heart"/>
+    <voice say="voE" lang="en" src="voice/flashcards-bilingual/en/voE.4a499733db.ogg" dur="5.31" hash="4a499733db" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

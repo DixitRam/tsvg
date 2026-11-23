@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: versus comparison. Split screen A vs B, one attribute row per round, bars per side, a winner badge per row, a running score. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_michael"/></option>
+    <option id="mix" label="Audio" default="full">
+      <choice id="full" label="Full"/><choice id="speech" label="Speech only"/>
+    </option>
+    <option id="theme" label="Theme" default="arena"><choice id="arena" label="Arena"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.3" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="arena" bg="#0b0d14" fg="#f4f6fb" muted="#9aa3b5" a="#22d3c5" a2="#0c3e3b" a3="#062523" b="#ff7a2f" b2="#4a1d08" b3="#2a0f04" gold="#ffd23f" panel="#12151f"/>
+  </themes>
+  <strings>
+    <s id="title" en="Electric vs Petrol"/>
+    <s id="A" en="ELECTRIC"/><s id="B" en="PETROL"/>
+    <s id="vs" en="VS"/>
+    <s id="q" en="Which scooter for a 20 km daily city commute?"/>
+    <s id="note" en="Typical city figures · illustrative"/>
+    <s id="ch0" en="The match-up"/><s id="ch1" en="Running cost"/><s id="ch2" en="Price"/><s id="ch3" en="Servicing"/><s id="ch4" en="Range"/><s id="ch5" en="Emissions"/><s id="ch6" en="Verdict"/>
+    <s id="round" en="ROUND"/>
+    <s id="win" en="WIN"/>
+    <s id="lower" en="lower is better"/><s id="higher" en="higher is better"/>
+    <s id="winner" en="WINNER"/>
+    <s id="verdict" en="Daily city rides: go electric. Long highway trips: petrol still wins."/>
+    <s id="payback" en="Pays back the price gap in under 2 years"/>
+    <s id="vo0" en="Electric or petrol? If you ride twenty kilometres a day in the city, which scooter should you buy? Five rounds, one winner."/>
+    <s id="vo1" en="Round one, running cost. Charging costs about twenty-five rupees per hundred kilometres. Petrol costs nearly ten times that."/>
+    <s id="vo2" en="Round two, the price tag. The petrol scooter is about thirty thousand rupees cheaper to buy. Point to petrol."/>
+    <s id="vo3" en="Round three, servicing. No oil changes and fewer moving parts make the electric one cheaper to keep."/>
+    <s id="vo4" en="Round four, range. A full tank goes more than twice as far as a full battery, and refills in minutes."/>
+    <s id="vo5" en="Round five, emissions. The electric scooter puts out nothing from a tailpipe, because it doesn't have one."/>
+    <s id="vo6" en="Final score, three to two. For a daily city commute, electric wins, and it pays back the price gap in under two years."/>
+  </strings>
+  <defs>
+    <data id="label" v="Running cost / 100 km, Price on road, Service per year, Range per fill, Tailpipe CO₂"/>
+    <data id="aval" v="₹25, ₹1.15 L, ₹1.5k, 110 km, 0 g/km"/>
+    <data id="bval" v="₹240, ₹0.85 L, ₹4k, 280 km, 52 g/km"/>
+    <data id="afr" v="0.1, 1, 0.38, 0.39, 0.02"/>
+    <data id="bfr" v="1, 0.74, 1, 1, 1"/>
+    <data id="winB" v="0, 1, 0, 1, 0"/>
+    <data id="hib" v="0, 0, 0, 1, 0"/>
+    <!-- round k starts at 8.5 + 9k; the score counts rows whose badge has landed (4.6 s into a round) -->
+    <fn id="rs" args="k">8.5 + 9*k</fn>
+    <fn id="scoreA">(t > rs(0)+4.6) + (t > rs(2)+4.6) + (t > rs(4)+4.6)</fn>
+    <fn id="scoreB">(t > rs(1)+4.6) + (t > rs(3)+4.6)</fn>
+    <linear id="aSide" x1="0" y1="0" x2="1000" y2="0"><stop at="0" color="$a3"/><stop at="1" color="$a2"/></linear>
+    <linear id="bSide" x1="920" y1="0" x2="1920" y2="0"><stop at="0" color="$b2"/><stop at="1" color="$b3"/></linear>
+    <linear id="aBar" x1="-560" y1="0" x2="0" y2="0"><stop at="0" color="#7ff5ea"/><stop at="1" color="$a"/></linear>
+    <linear id="bBar" x1="0" y1="0" x2="560" y2="0"><stop at="0" color="$b"/><stop at="1" color="#ffb37f"/></linear>
+    <radial id="vsGlow" x="0" y="0" r="200"><stop at="0" color="$gold" opacity="0.6"/><stop at="1" color="$gold" opacity="0"/></radial>
+    <linear id="shine" x1="-120" y1="0" x2="120" y2="0"><stop at="0" color="#fff" opacity="0"/><stop at="0.5" color="#fff" opacity="0.7"/><stop at="1" color="#fff" opacity="0"/></linear>
+    <clip id="vsClip"><circle r="110"/></clip>
+  </defs>
+  <assets>
+    <asset id="bed" src="audio/pulse.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Anton" src="fonts/Anton.ttf"/>
+  </assets>
+  <music src="bed" loop="1" vol="0.7"/>
+
+  <!-- the arena: two halves with a diagonal seam, plus the scoreboard and rows that persist across rounds -->
+  <backdrop>
+    <path d="M 0 0 L 1010 0 L 910 1080 L 0 1080 Z" fill="url(#aSide)"/>
+    <path d="M 1010 0 L 1920 0 L 1920 1080 L 910 1080 Z" fill="url(#bSide)"/>
+    <line repeat="40" as="k" x1="=k*60 - 300" y1="0" x2="=k*60 - 400" y2="1080" stroke="#ffffff" sw="1" opacity="0.025"/>
+    <line x1="1010" y1="0" x2="910" y2="1080" stroke="$gold" sw="4" opacity="0.5"/>
+
+    <group when="=t >= 8.5 &amp;&amp; t &lt; 53.5">
+      <!-- scoreboard -->
+      <rect x="560" y="28" w="800" h="128" r="24" fill="#05060acc" stroke="#ffffff22" sw="2"/>
+      <text x="710" y="92" size="58" font="Anton" fill="$a" align="center" text="@A"/>
+      <text x="1210" y="92" size="58" font="Anton" fill="$b" align="center" text="@B"/>
+      <rect x="860" y="44" w="200" h="96" r="16" fill="#000"/>
+      <text x="908" y="94" size="74" font="Anton" fill="#fff" align="center" text="{scoreA()}" scale="=1 + 0.35*max(0, 1 - abs(t - (rs(0)+4.8))*3) + 0.35*max(0, 1 - abs(t - (rs(2)+4.8))*3) + 0.35*max(0, 1 - abs(t - (rs(4)+4.8))*3)"/>
+      <text x="960" y="90" size="50" font="Anton" fill="$muted" align="center" text="–"/>
+      <text x="1012" y="94" size="74" font="Anton" fill="#fff" align="center" text="{scoreB()}" scale="=1 + 0.35*max(0, 1 - abs(t - (rs(1)+4.8))*3) + 0.35*max(0, 1 - abs(t - (rs(3)+4.8))*3)"/>
+
+      <!-- rows, one per round -->
+      <group repeat="5" as="i" at="=rs(i) + 0.5" y="=262 + i*148">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <!-- highlight band while its round is on -->
+        <rect x="60" y="-64" w="1800" h="128" r="22" fill="#ffffff" opacity="=(t &lt; rs(i)+9) ? 0.07 : 0"/>
+        <!-- label pill in the centre -->
+        <rect x="960" y="-34" ax="0.5" w="380" h="68" r="34" fill="#05060a" stroke="=(t &lt; rs(i)+9) ? $gold : '#ffffff33'" sw="3"/>
+        <text x="960" y="0" size="30" weight="700" align="center" fill="#fff" text="{data('label', i)}"/>
+        <!-- A bar grows left from the centre -->
+        <group x="750">
+          <rect x="=-430*data('afr', i)*ease((t - rs(i) - 1.4)/1.2, 'out')" y="-26" h="52" r="10"
+                w="=max(10, 430*data('afr', i)*ease((t - rs(i) - 1.4)/1.2, 'out'))" fill="url(#aBar)"/>
+          <text x="=-430*max(0.02, data('afr', i))*ease((t - rs(i) - 1.4)/1.2, 'out') - 24" y="0" size="44" font="Anton" align="right" fill="#fff" text="{data('aval', i)}" opacity="=clamp((t - rs(i) - 1.6)*3, 0, 1)"/>
+        </group>
+        <group x="1170">
+          <rect x="0" y="-26" h="52" r="10" w="=max(10, 430*data('bfr', i)*ease((t - rs(i) - 2.2)/1.2, 'out'))" fill="url(#bBar)"/>
+          <text x="=430*data('bfr', i)*ease((t - rs(i) - 2.2)/1.2, 'out') + 24" y="0" size="44" font="Anton" fill="#fff" text="{data('bval', i)}" opacity="=clamp((t - rs(i) - 2.4)*3, 0, 1)"/>
+        </group>
+        <!-- winner badge on the winning side -->
+        <group x="=data('winB', i) ? 1826 : 94" y="0" at="=rs(i) + 4.4" scale="=1 + 0.5*max(0, 1 - (t - rs(i) - 4.4)*4)">
+          <anim prop="opacity" from="0" to="1" dur="0.2"/>
+          <circle r="46" fill="$gold" shadow="0 0 24 $gold"/>
+          <path d="M -24 8 L -24 -14 L -12 -2 L 0 -20 L 12 -2 L 24 -14 L 24 8 Z" fill="#05060a" y="-6"/>
+          <text y="24" size="18" weight="900" align="center" fill="#05060a" text="@win"/>
+        </group>
+        <!-- dim the losing value -->
+        <rect x="=data('winB', i) ? 70 : 1180" y="-60" w="680" h="120" r="20" fill="#000" opacity="=0.45*clamp((t - rs(i) - 4.4)*3, 0, 1)"/>
+      </group>
+    </group>
+  </backdrop>
+
+  <timeline>
+    <!-- 0 · match-up -->
+    <scene id="intro" dur="8.5" chapter="@ch0">
+      <say at="0.4" text="@vo0"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.2" src="pop"/>
+      <!-- A -->
+      <group x="470" y="470">
+        <anim prop="x" from="-300" to="470" dur="0.8" ease="out"/>
+        <ellipse y="210" rx="260" ry="24" fill="#000" opacity="0.4" blur="10"/>
+        <!-- e-scooter: wheels, deck, stem, battery glow -->
+        <circle x="-170" y="150" r="62" fill="#111" stroke="#7ff5ea" sw="8"/>
+        <circle x="170" y="150" r="62" fill="#111" stroke="#7ff5ea" sw="8"/>
+        <path d="M -230 90 C -150 40, -60 40, 40 70 L 150 70 L 200 -140 L 240 -140 L 190 90 Z" fill="$a"/>
+        <path d="M -120 70 C -90 0, 20 -10, 80 30 L 60 70 Z" fill="#0e8f84"/>
+        <rect x="170" y="-170" w="140" h="26" r="13" fill="#e6fffd"/>
+        <path d="M -40 30 L -10 -20 L -16 10 L 20 6 L -10 56 L -4 22 Z" fill="$gold" opacity="=0.6 + 0.4*sin(T*6)"/>
+        <text y="-300" size="140" font="Anton" align="center" fill="$a" text="@A" shadow="0 8 30 #000a"/>
+      </group>
+      <!-- B -->
+      <group x="1450" y="470">
+        <anim prop="x" from="2200" to="1450" dur="0.8" ease="out"/>
+        <ellipse y="210" rx="260" ry="24" fill="#000" opacity="0.4" blur="10"/>
+        <circle x="-170" y="150" r="62" fill="#111" stroke="#ffb37f" sw="8"/>
+        <circle x="170" y="150" r="62" fill="#111" stroke="#ffb37f" sw="8"/>
+        <path d="M 230 90 C 150 40, 60 40, -40 70 L -150 70 L -200 -140 L -240 -140 L -190 90 Z" fill="$b"/>
+        <path d="M 120 70 C 90 0, -20 -10, -80 30 L -60 70 Z" fill="#b8501a"/>
+        <rect x="-310" y="-170" w="140" h="26" r="13" fill="#fff1e6"/>
+        <!-- exhaust puffs -->
+        <circle repeat="4" as="k" x="=260 + 60*fract(T*0.7 + k*0.25)*3" y="=120 - 30*fract(T*0.7 + k*0.25)" r="=14 + 30*fract(T*0.7 + k*0.25)" fill="#8a8f99" opacity="=0.5*(1 - fract(T*0.7 + k*0.25))" blur="6"/>
+        <text y="-300" size="140" font="Anton" align="center" fill="$b" text="@B" shadow="0 8 30 #000a"/>
+      </group>
+      <!-- VS badge -->
+      <group x="960" y="520" at="1.1">
+        <anim prop="scale" from="3" to="1" dur="0.5" ease="out"/>
+        <anim prop="rot" from="-30" to="-8" dur="0.5" ease="back"/>
+        <circle r="200" fill="url(#vsGlow)"/>
+        <circle r="110" fill="$gold" stroke="#05060a" sw="10"/>
+        <text y="6" size="120" font="Anton" align="center" fill="#05060a" text="@vs"/>
+        <group clip="url(#vsClip)">
+          <rect x="=-360 + 720*fract((T - 1.6)/2.2)" y="-140" w="80" h="280" fill="url(#shine)" rot="20"/>
+        </group>
+      </group>
+      <text x="960" y="900" size="48" weight="700" align="center" fill="#fff" text="@q" at="2.2"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <text x="960" y="970" size="28" align="center" fill="$muted" text="@note" at="2.6"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+    </scene>
+
+    <!-- rounds: the rows live in the backdrop; each round adds a flash card and sounds -->
+    <scene id="r1" dur="9" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.5" src="blip"/><sfx at="2.3" src="blip"/><sfx at="4.4" src="ding"/>
+      <text x="960" y="1010" size="30" weight="700" align="center" fill="$muted" text="@lower" at="0.5"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+    <scene id="r2" dur="9" chapter="@ch2">
+      <say at="0.5" text="@vo2"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.5" src="blip"/><sfx at="2.3" src="blip"/><sfx at="4.4" src="ding"/>
+      <text x="960" y="1010" size="30" weight="700" align="center" fill="$muted" text="@lower" at="0.5"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+    <scene id="r3" dur="9" chapter="@ch3">
+      <say at="0.5" text="@vo3"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.5" src="blip"/><sfx at="2.3" src="blip"/><sfx at="4.4" src="ding"/>
+      <text x="960" y="1010" size="30" weight="700" align="center" fill="$muted" text="@lower" at="0.5"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+    <scene id="r4" dur="9" chapter="@ch4">
+      <say at="0.5" text="@vo4"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.5" src="blip"/><sfx at="2.3" src="blip"/><sfx at="4.4" src="ding"/>
+      <text x="960" y="1010" size="30" weight="700" align="center" fill="$muted" text="@higher" at="0.5"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+    <scene id="r5" dur="9" chapter="@ch5">
+      <say at="0.5" text="@vo5"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.5" src="blip"/><sfx at="2.3" src="blip"/><sfx at="4.4" src="ding"/>
+      <text x="960" y="1010" size="30" weight="700" align="center" fill="$muted" text="@lower" at="0.5"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+
+    <!-- verdict -->
+    <scene id="final" dur="9.5" chapter="@ch6">
+      <say at="0.5" text="@vo6"/>
+      <sfx at="0.2" src="whoosh"/><sfx at="2.2" src="ding"/>
+      <!-- the winning side floods the frame -->
+      <path d="=('M 0 0 L ' + (1010 + 910*ease((T-1.6)/1.0,'io')) + ' 0 L ' + (910 + 1010*ease((T-1.6)/1.0,'io')) + ' 1080 L 0 1080 Z')" fill="$a2" opacity="0.85"/>
+      <group x="960" y="300">
+        <text x="-150" y="0" size="260" font="Anton" align="center" fill="$a" text="3"><anim prop="scale" from="0" to="1" dur="0.5" ease="back"/></text>
+        <text x="0" y="-10" size="160" font="Anton" align="center" fill="#fff" text="–"/>
+        <text x="150" y="0" size="260" font="Anton" align="center" fill="$b" text="2" at="0.3"><anim prop="scale" from="0" to="1" dur="0.5" ease="back"/></text>
+      </group>
+      <group x="960" y="600" at="2">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="scale" from="1.4" to="1" dur="0.5" ease="back"/>
+        <rect x="-430" y="-95" w="860" h="190" r="95" fill="$gold" shadow="0 0 50 $gold"/>
+        <!-- trophy -->
+        <group x="-330" y="0">
+          <path d="M -40 -50 L 40 -50 L 34 0 C 30 24, -30 24, -34 0 Z" fill="#05060a"/>
+          <path d="M -40 -40 C -70 -40, -70 0, -34 0 M 40 -40 C 70 -40, 70 0, 34 0" stroke="#05060a" sw="8" fill="none"/>
+          <rect x="-10" y="20" w="20" h="24" fill="#05060a"/>
+          <rect x="-30" y="42" w="60" h="14" r="4" fill="#05060a"/>
+        </group>
+        <text x="60" y="-48" size="32" weight="900" align="center" fill="#05060a" text="@winner"/>
+        <text x="60" y="22" size="80" font="Anton" align="center" fill="#05060a" text="@A"/>
+      </group>
+      <text x="960" y="800" size="44" weight="700" align="center" maxw="1500" fill="#fff" text="@verdict" at="3.5"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <group x="960" y="910" at="5">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect x="-380" y="-36" w="760" h="72" r="36" fill="#05060acc" stroke="$a" sw="2"/>
+        <text size="32" weight="600" align="center" fill="$a" text="@payback"/>
+      </group>
+    </scene>
+  </timeline>
+  <voices>
+    <voice say="vo0" lang="en" src="voice/comparison-versus/en/vo0.76f3d6b00e.ogg" dur="8.01" hash="76f3d6b00e" engine="kokoro:am_michael"/>
+    <voice say="vo1" lang="en" src="voice/comparison-versus/en/vo1.8931c3843d.ogg" dur="8.81" hash="8931c3843d" engine="kokoro:am_michael"/>
+    <voice say="vo2" lang="en" src="voice/comparison-versus/en/vo2.a688215a04.ogg" dur="7.41" hash="a688215a04" engine="kokoro:am_michael"/>
+    <voice say="vo3" lang="en" src="voice/comparison-versus/en/vo3.1bad85ad69.ogg" dur="6.71" hash="1bad85ad69" engine="kokoro:am_michael"/>
+    <voice say="vo4" lang="en" src="voice/comparison-versus/en/vo4.9c27042452.ogg" dur="7.01" hash="9c27042452" engine="kokoro:am_michael"/>
+    <voice say="vo5" lang="en" src="voice/comparison-versus/en/vo5.541a7bfad9.ogg" dur="6.61" hash="541a7bfad9" engine="kokoro:am_michael"/>
+    <voice say="vo6" lang="en" src="voice/comparison-versus/en/vo6.3efbf9f98b.ogg" dur="8.21" hash="3efbf9f98b" engine="kokoro:am_michael"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,11 @@
+{
+  "id": "weather-report",
+  "title": "Weather report",
+  "category": "Explainer",
+  "summary": "Weekend forecast: a stylised region map with temperature bubbles, animated sun/cloud/rain/storm icons, a radar band, wind and a 5-day strip.",
+  "duration": 57.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 13
+}

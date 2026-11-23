@@ -1,0 +1,11 @@
+{
+  "id": "qa-bug-walkthrough",
+  "title": "QA bug walkthrough",
+  "category": "Product & software",
+  "summary": "A bug report as a video: ticket header, environment chips, repro steps beside a phone, expected vs actual, root cause and verdict stamps.",
+  "duration": 66.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 33
+}

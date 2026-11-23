@@ -1,0 +1,750 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait" w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_bella"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full (voice + music + sfx)"/><choice id="speech" label="Speech only"/><choice id="ambient" label="No voice"/></option>
+    <option id="theme" label="Theme" default="bold"><choice id="bold" label="Bold"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.35" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.6" sfx="0.7"/>
+  </mixes>
+  <themes>
+    <theme id="bold" bg="#111111" fg="#f4f1ea" muted="#999999" accent="#ffe600"/>
+  </themes>
+  <strings>
+    <s id="title" en="One bag, one week"/>
+    <s id="vo_intro" en="Pack for a week. In one bag. Here is how."/>
+    <s id="ch0" en="Pack for a week"/>
+    <s id="vo_bag" en="Start with a carry-on of about 40 litres. Nothing bigger."/>
+    <s id="ch1" en="Start with a carry-on of about 40 litres"/>
+    <s id="vo_palette" en="Pick one colour palette, so every top matches every bottom."/>
+    <s id="ch2" en="Pick one colour palette, so every top matches every bottom"/>
+    <s id="vo_count" en="3 tops, 2 bottoms, 1 jacket. Wear the bulkiest on the plane."/>
+    <s id="ch3" en="3 tops, 2 bottoms, 1 jacket"/>
+    <s id="vo_shoes" en="Shoes take the most space. Bring two pairs, and wear the heavier one."/>
+    <s id="ch4" en="Shoes take the most space"/>
+    <s id="vo_roll" en="Roll your clothes, and squeeze them into packing cubes."/>
+    <s id="ch5" en="Roll your clothes, and squeeze them into packing cubes"/>
+    <s id="vo_liquid" en="Liquids? A solid shampoo bar and one tiny bottle."/>
+    <s id="ch6" en="Liquids"/>
+    <s id="vo_extras" en="Leave the just-in-case stuff at home. You can buy it there."/>
+    <s id="ch7" en="Leave the just-in-case stuff at home"/>
+    <s id="vo_wash" en="Wash one thing every night. It is dry by morning."/>
+    <s id="ch8" en="Wash one thing every night"/>
+    <s id="vo_outro" en="One bag. Seven days. Zero waiting at baggage claim."/>
+    <s id="ch9" en="One bag"/>
+  </strings>
+  <defs>
+
+  </defs>
+  <assets>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Anton" src="fonts/Anton.ttf"/>
+    <asset id="pulse" src="audio/pulse.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+
+  </assets>
+  <music src="pulse" start="0" loop="1" vol="0.8"/>
+  <backdrop>
+
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="4.25" chapter="@ch0">
+      <say at="0.4" text="@vo_intro"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#111111"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#ff3b30"/>
+      <text x="80" y="80" size="34" weight="800" fill="#ffe600" text="01 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/4.25">
+        <rect x="259" y="-35" x.portrait="-215" y.portrait="84" ax="0.5" w="=559*ease((T-1.13)/0.3,'out')" w.portrait="=447*ease((T-1.13)/0.3,'out')" h="12" fill="#ffe600" at="1.13"/>
+        <rect x="-523" y="245" x.portrait="299" y.portrait="84" ax="0.5" w="=349*ease((T-1.65)/0.3,'out')" w.portrait="=279*ease((T-1.65)/0.3,'out')" h="12" fill="#ffe600" at="1.65"/>
+        <group only="landscape"><text x="-538" y="-140" x.portrait="-149" y.portrait="-185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="PACK" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-738" to="-538" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-538" y="-140" x.portrait="-149" y.portrait="-185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="PACK" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-349" to="-149" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-262" y="-140" x.portrait="91" y.portrait="-185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="FOR" at="0.64">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="20" to="-140" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-262" y="-140" x.portrait="91" y.portrait="-185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="FOR" at="0.64">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-25" to="-185" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="-90" y="-140" x.portrait="240" y.portrait="-185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="A" at="0.87">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="259" y="-140" x.portrait="-215" y.portrait="0" size="250" size.portrait="200" font="Anton" align="center" fill="#ffe600" text="WEEK." at="0.98">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="626" y="-140" x.portrait="84" y.portrait="0" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="IN" at="1.32">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <text x="-523" y="140" x.portrait="299" y.portrait="0" size="250" size.portrait="200" font="Anton" align="center" fill="#ffe600" text="ONE" at="1.5">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="-189" y="140" x.portrait="-330" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="BAG." at="1.73">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-389" to="-189" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-189" y="140" x.portrait="-330" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="BAG." at="1.73">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-530" to="-330" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="104" y="140" x.portrait="-75" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="HERE" at="2.01">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="300" to="140" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="104" y="140" x.portrait="-75" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="HERE" at="2.01">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="345" to="185" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="324" y="140" x.portrait="115" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="IS" at="2.3">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="553" y="140" x.portrait="314" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="HOW." at="2.47">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="753" to="553" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="553" y="140" x.portrait="314" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="HOW." at="2.47">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="514" to="314" dur="0.35" ease="out"/>
+        </text></group>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/4.25" h="14" fill="#ffe600"/>
+    </scene>
+    <scene id="bag" dur="5.31" chapter="@ch1">
+      <say at="0.4" text="@vo_bag"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#ffe600"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#111111"/>
+      <text x="80" y="80" size="34" weight="800" fill="#ff3b30" text="02 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/5.31">
+        <rect x="-269" y="49" x.portrait="-18" y.portrait="45" ax="0.5" w="=247*ease((T-2.35)/0.3,'out')" w.portrait="=198*ease((T-2.35)/0.3,'out')" h="12" fill="#ff3b30" at="2.35"/>
+        <rect x="0" y="329" x.portrait="0" y.portrait="414" ax="0.5" w="=698*ease((T-3.4899999999999998)/0.3,'out')" w.portrait="=558*ease((T-3.4899999999999998)/0.3,'out')" h="12" fill="#ff3b30" at="3.4899999999999998"/>
+        <group only="landscape"><text x="-580" y="-280" x.portrait="-179" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="START" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-120" to="-280" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-580" y="-280" x.portrait="-179" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="START" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-210" to="-370" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="-245" y="-280" x.portrait="112" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="WITH" at="0.71">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="-38" y="-280" x.portrait="291" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="A" at="1.01">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="162" to="-38" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-38" y="-280" x.portrait="291" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="A" at="1.01">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="491" to="291" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="306" y="-280" x.portrait="-72" y.portrait="-224" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="CARRY-ON" at="1.13">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <group only="landscape"><text x="679" y="-280" x.portrait="252" y.portrait="-224" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="OF" at="1.67">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-440" to="-280" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="679" y="-280" x.portrait="252" y.portrait="-224" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="OF" at="1.67">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-384" to="-224" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-599" y="-56" x.portrait="-296" y.portrait="-39" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="ABOUT" at="1.85">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-799" to="-599" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-599" y="-56" x.portrait="-296" y.portrait="-39" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="ABOUT" at="1.85">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-496" to="-296" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="-269" y="-56" x.portrait="-18" y.portrait="-39" size="250" size.portrait="200" font="Anton" align="center" fill="#ff3b30" text="40" at="2.2">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="82" y="-56" x.portrait="278" y.portrait="-39" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="LITRES." at="2.38">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="542" y="-56" x.portrait="0" y.portrait="146" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="NOTHING" at="2.86">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="742" to="542" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="542" y="-56" x.portrait="0" y.portrait="146" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="NOTHING" at="2.86">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="200" to="0" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="0" y="224" x.portrait="0" y.portrait="330" size="250" size.portrait="200" font="Anton" align="center" fill="#ff3b30" text="BIGGER." at="3.34">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/5.31" h="14" fill="#ff3b30"/>
+    </scene>
+    <scene id="palette" dur="5.51" chapter="@ch2">
+      <say at="0.4" text="@vo_palette"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#ff3b30"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#ffe600"/>
+      <text x="80" y="80" size="34" weight="800" fill="#111111" text="03 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/5.51">
+        <rect x="-324" y="-119" x.portrait="-75" y.portrait="-246" ax="0.5" w="=349*ease((T-0.81)/0.3,'out')" w.portrait="=279*ease((T-0.81)/0.3,'out')" h="12" fill="#111111" at="0.81"/>
+        <rect x="0" y="329" x.portrait="0" y.portrait="414" ax="0.5" w="=804*ease((T-3.6799999999999997)/0.3,'out')" w.portrait="=643*ease((T-3.6799999999999997)/0.3,'out')" h="12" fill="#111111" at="3.6799999999999997"/>
+        <text x="-655" y="-224" x.portrait="-350" y.portrait="-330" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="PICK" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="-324" y="-224" x.portrait="-75" y.portrait="-330" size="250" size.portrait="200" font="Anton" align="center" fill="#111111" text="ONE" at="0.66">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="93" y="-224" x.portrait="275" y.portrait="-330" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="COLOUR" at="0.9">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <group only="landscape"><text x="557" y="-224" x.portrait="-234" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="PALETTE" at="1.33">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-384" to="-224" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="557" y="-224" x.portrait="-234" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="PALETTE" at="1.33">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-306" to="-146" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-759" y="0" x.portrait="48" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="SO" at="1.88">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-959" to="-759" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-759" y="0" x.portrait="48" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="SO" at="1.88">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-152" to="48" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-489" y="0" x.portrait="282" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="EVERY" at="2.06">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="160" to="0" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-489" y="0" x.portrait="282" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="EVERY" at="2.06">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="14" to="-146" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="-188" y="0" x.portrait="-239" y.portrait="0" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="TOP" at="2.43">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="206" y="0" x.portrait="102" y.portrait="0" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="MATCHES" at="2.68">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="406" to="206" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="206" y="0" x.portrait="102" y.portrait="0" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="MATCHES" at="2.68">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="302" to="102" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="664" y="0" x.portrait="0" y.portrait="146" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="EVERY" at="3.16">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <text x="0" y="224" x.portrait="0" y.portrait="330" size="250" size.portrait="200" font="Anton" align="center" fill="#111111" text="BOTTOM." at="3.53">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/5.51" h="14" fill="#111111"/>
+    </scene>
+    <scene id="count" dur="6.21" chapter="@ch3">
+      <say at="0.4" text="@vo_count"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#f4f1ea"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#ff3b30"/>
+      <text x="80" y="80" size="34" weight="800" fill="#1d3cff" text="04 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/6.21">
+        <rect x="-564" y="-119" x.portrait="-196" y.portrait="-286" ax="0.5" w="=124*ease((T-0.5)/0.3,'out')" w.portrait="=99*ease((T-0.5)/0.3,'out')" h="12" fill="#1d3cff" at="0.5"/>
+        <rect x="-102" y="-119" x.portrait="196" y.portrait="-286" ax="0.5" w="=124*ease((T-1.07)/0.3,'out')" w.portrait="=99*ease((T-1.07)/0.3,'out')" h="12" fill="#1d3cff" at="1.07"/>
+        <rect x="584" y="-119" x.portrait="239" y.portrait="-62" ax="0.5" w="=83*ease((T-1.8599999999999999)/0.3,'out')" w.portrait="=66*ease((T-1.8599999999999999)/0.3,'out')" h="12" fill="#1d3cff" at="1.8599999999999999"/>
+        <rect x="-408" y="329" x.portrait="-78" y.portrait="308" ax="0.5" w="=829*ease((T-3.23)/0.3,'out')" w.portrait="=663*ease((T-3.23)/0.3,'out')" h="12" fill="#1d3cff" at="3.23"/>
+        <text x="-564" y="-224" x.portrait="-196" y.portrait="-370" size="250" size.portrait="200" font="Anton" align="center" fill="#1d3cff" text="3" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="-333" y="-224" x.portrait="0" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="TOPS" at="0.49">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <text x="-102" y="-224" x.portrait="196" y.portrait="-370" size="250" size.portrait="200" font="Anton" align="center" fill="#1d3cff" text="2" at="0.92">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="251" y="-224" x.portrait="-47" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="BOTTOMS" at="1.07">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="51" to="251" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="251" y="-224" x.portrait="-47" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="BOTTOMS" at="1.07">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-247" to="-47" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="584" y="-224" x.portrait="239" y.portrait="-146" size="250" size.portrait="200" font="Anton" align="center" fill="#1d3cff" text="1" at="1.71">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="-287" y="0" x.portrait="-249" y.portrait="39" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="JACKET." at="1.86">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="122" y="0" x.portrait="106" y.portrait="39" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="WEAR" at="2.43">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="322" to="122" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="122" y="0" x.portrait="106" y.portrait="39" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="WEAR" at="2.43">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="306" to="106" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="409" y="0" x.portrait="355" y.portrait="39" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="THE" at="2.79">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <text x="-408" y="224" x.portrait="-78" y.portrait="224" size="250" size.portrait="200" font="Anton" align="center" fill="#1d3cff" text="BULKIEST" at="3.08">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="113" y="224" x.portrait="346" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="ON" at="3.73">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-87" to="113" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="113" y="224" x.portrait="346" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="ON" at="3.73">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="146" to="346" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="318" y="224" x.portrait="-176" y.portrait="409" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="THE" at="3.94">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="384" to="224" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="318" y="224" x.portrait="-176" y.portrait="409" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="THE" at="3.94">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="569" to="409" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="636" y="224" x.portrait="99" y.portrait="409" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="PLANE." at="4.23">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/6.21" h="14" fill="#1d3cff"/>
+    </scene>
+    <scene id="shoes" dur="5.91" chapter="@ch4">
+      <say at="0.4" text="@vo_shoes"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#1d3cff"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#f4f1ea"/>
+      <text x="80" y="80" size="34" weight="800" fill="#ffe600" text="05 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/5.91">
+        <rect x="453" y="-119" x.portrait="-178" y.portrait="-101" ax="0.5" w="=522*ease((T-1.3699999999999999)/0.3,'out')" w.portrait="=418*ease((T-1.3699999999999999)/0.3,'out')" h="12" fill="#ffe600" at="1.3699999999999999"/>
+        <rect x="210" y="161" x.portrait="4" y.portrait="123" ax="0.5" w="=398*ease((T-2.42)/0.3,'out')" w.portrait="=319*ease((T-2.42)/0.3,'out')" h="12" fill="#ffe600" at="2.42"/>
+        <text x="-540" y="-224" x.portrait="-227" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="SHOES" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <group only="landscape"><text x="-202" y="-224" x.portrait="66" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="TAKE" at="0.7">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-384" to="-224" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-202" y="-224" x.portrait="66" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="TAKE" at="0.7">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-530" to="-370" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="61" y="-224" x.portrait="293" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="THE" at="0.99">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-139" to="61" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="61" y="-224" x.portrait="293" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="THE" at="0.99">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="93" to="293" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="453" y="-224" x.portrait="-178" y.portrait="-185" size="250" size.portrait="200" font="Anton" align="center" fill="#ffe600" text="MOST" at="1.22">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="-569" y="56" x.portrait="223" y.portrait="-185" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="SPACE." at="1.51">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="-185" y="56" x.portrait="-325" y.portrait="39" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="BRING" at="1.92">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="15" to="-185" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-185" y="56" x.portrait="-325" y.portrait="39" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="BRING" at="1.92">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-125" to="-325" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="210" y="56" x.portrait="4" y.portrait="39" size="250" size.portrait="200" font="Anton" align="center" fill="#ffe600" text="TWO" at="2.27">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="600" y="56" x.portrait="329" y.portrait="39" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="PAIRS" at="2.5">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-104" to="56" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="600" y="56" x.portrait="329" y.portrait="39" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="PAIRS" at="2.5">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-121" to="39" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-664" y="280" x.portrait="-249" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="AND" at="2.91">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-864" to="-664" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-664" y="280" x.portrait="-249" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="AND" at="2.91">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-449" to="-249" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-364" y="280" x.portrait="11" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="WEAR" at="3.14">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="440" to="280" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-364" y="280" x.portrait="11" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="WEAR" at="3.14">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="384" to="224" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="-77" y="280" x.portrait="260" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="THE" at="3.43">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="276" y="280" x.portrait="-120" y.portrait="370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="HEAVIER" at="3.66">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="476" to="276" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="276" y="280" x.portrait="-120" y.portrait="370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="HEAVIER" at="3.66">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="80" to="-120" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="653" y="280" x.portrait="207" y.portrait="370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="ONE." at="4.13">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/5.91" h="14" fill="#ffe600"/>
+    </scene>
+    <scene id="roll" dur="5.01" chapter="@ch5">
+      <say at="0.4" text="@vo_roll"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#111111"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#1d3cff"/>
+      <text x="80" y="80" size="34" weight="800" fill="#ff3b30" text="06 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/5.01">
+        <rect x="-536" y="-119" x.portrait="-137" y.portrait="-246" ax="0.5" w="=439*ease((T-0.5)/0.3,'out')" w.portrait="=352*ease((T-0.5)/0.3,'out')" h="12" fill="#ff3b30" at="0.5"/>
+        <rect x="-307" y="161" x.portrait="-148" y.portrait="123" ax="0.5" w="=768*ease((T-1.7999999999999998)/0.3,'out')" w.portrait="=615*ease((T-1.7999999999999998)/0.3,'out')" h="12" fill="#ff3b30" at="1.7999999999999998"/>
+        <text x="-536" y="-224" x.portrait="-137" y.portrait="-330" size="250" size.portrait="200" font="Anton" align="center" fill="#ff3b30" text="ROLL" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="-142" y="-224" x.portrait="190" y.portrait="-330" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="YOUR" at="0.63">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-342" to="-142" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-142" y="-224" x.portrait="190" y.portrait="-330" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="YOUR" at="0.63">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-10" to="190" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="267" y="-224" x.portrait="-110" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="CLOTHES" at="0.92">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-64" to="-224" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="267" y="-224" x.portrait="-110" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="CLOTHES" at="0.92">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="14" to="-146" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="645" y="-224" x.portrait="217" y.portrait="-146" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="AND" at="1.42">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="-307" y="56" x.portrait="-148" y.portrait="39" size="250" size.portrait="200" font="Anton" align="center" fill="#ff3b30" text="SQUEEZE" at="1.65">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="264" y="56" x.portrait="322" y.portrait="39" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="THEM" at="2.1">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <group only="landscape"><text x="571" y="56" x.portrait="-216" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="INTO" at="2.39">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-104" to="56" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="571" y="56" x.portrait="-216" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="INTO" at="2.39">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="64" to="224" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-206" y="280" x.portrait="119" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="PACKING" at="2.67">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-406" to="-206" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-206" y="280" x.portrait="119" y.portrait="224" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="PACKING" at="2.67">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-81" to="119" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="249" y="280" x.portrait="0" y.portrait="370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="CUBES." at="3.12">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="440" to="280" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="249" y="280" x.portrait="0" y.portrait="370" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="CUBES." at="3.12">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="530" to="370" dur="0.35" ease="out"/>
+        </text></group>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/5.01" h="14" fill="#ff3b30"/>
+    </scene>
+    <scene id="liquid" dur="5.41" chapter="@ch6">
+      <say at="0.4" text="@vo_liquid"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#ffe600"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#111111"/>
+      <text x="80" y="80" size="34" weight="800" fill="#1d3cff" text="07 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/5.41">
+        <rect x="314" y="-119" x.portrait="-251" y.portrait="-28" ax="0.5" w="=516*ease((T-1.2899999999999998)/0.3,'out')" w.portrait="=413*ease((T-1.2899999999999998)/0.3,'out')" h="12" fill="#1d3cff" at="1.2899999999999998"/>
+        <rect x="662" y="161" x.portrait="-196" y.portrait="342" ax="0.5" w="=392*ease((T-3.15)/0.3,'out')" w.portrait="=313*ease((T-3.15)/0.3,'out')" h="12" fill="#1d3cff" at="3.15"/>
+        <group only="landscape"><text x="-328" y="-224" x.portrait="-46" y.portrait="-297" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="LIQUIDS?" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-528" to="-328" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-328" y="-224" x.portrait="-46" y.portrait="-297" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="LIQUIDS?" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-246" to="-46" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-13" y="-224" x.portrait="227" y.portrait="-297" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="A" at="0.99">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-64" to="-224" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-13" y="-224" x.portrait="227" y.portrait="-297" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="A" at="0.99">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-137" to="-297" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="314" y="-224" x.portrait="-251" y.portrait="-112" size="250" size.portrait="200" font="Anton" align="center" fill="#1d3cff" text="SOLID" at="1.14">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="-585" y="56" x.portrait="221" y.portrait="-112" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="SHAMPOO" at="1.57">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-385" to="-585" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-585" y="56" x.portrait="221" y.portrait="-112" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="SHAMPOO" at="1.57">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="421" to="221" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="-171" y="56" x.portrait="-215" y.portrait="73" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="BAR" at="2.14">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <group only="landscape"><text x="80" y="56" x.portrait="3" y.portrait="73" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="AND" at="2.43">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-104" to="56" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="80" y="56" x.portrait="3" y.portrait="73" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="AND" at="2.43">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-87" to="73" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="329" y="56" x.portrait="218" y.portrait="73" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="ONE" at="2.71">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="129" to="329" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="329" y="56" x.portrait="218" y.portrait="73" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="ONE" at="2.71">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="18" to="218" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="662" y="56" x.portrait="-196" y.portrait="258" size="250" size.portrait="200" font="Anton" align="center" fill="#1d3cff" text="TINY" at="3">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="0" y="280" x.portrait="171" y.portrait="258" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="BOTTLE." at="3.36">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/5.41" h="14" fill="#1d3cff"/>
+    </scene>
+    <scene id="extras" dur="5.21" chapter="@ch7">
+      <say at="0.4" text="@vo_extras"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#f4f1ea"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#ffe600"/>
+      <text x="80" y="80" size="34" weight="800" fill="#ff3b30" text="08 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/5.21">
+        <rect x="-176" y="-35" x.portrait="0" y.portrait="-101" ax="0.5" w="=1244*ease((T-1.06)/0.3,'out')" w.portrait="=995*ease((T-1.06)/0.3,'out')" h="12" fill="#ff3b30" at="1.06"/>
+        <rect x="461" y="245" x.portrait="160" y.portrait="269" ax="0.5" w="=350*ease((T-3.08)/0.3,'out')" w.portrait="=280*ease((T-3.08)/0.3,'out')" h="12" fill="#ff3b30" at="3.08"/>
+        <group only="landscape"><text x="-114" y="-364" x.portrait="-99" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="LEAVE" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-204" to="-364" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-114" y="-364" x.portrait="-99" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="LEAVE" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-210" to="-370" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="178" y="-364" x.portrait="154" y.portrait="-370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="THE" at="0.69">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="-176" y="-140" x.portrait="0" y.portrait="-185" size="250" size.portrait="200" font="Anton" align="center" fill="#ff3b30" text="JUST-IN-CASE" at="0.91">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="639" y="-140" x.portrait="-239" y.portrait="0" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="STUFF" at="1.64">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <group only="landscape"><text x="-697" y="140" x.portrait="-16" y.portrait="0" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="AT" at="1.98">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-20" to="140" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-697" y="140" x.portrait="-16" y.portrait="0" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="AT" at="1.98">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-160" to="0" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-421" y="140" x.portrait="223" y.portrait="0" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="HOME." at="2.15">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="-621" to="-421" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-421" y="140" x.portrait="223" y.portrait="0" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="HOME." at="2.15">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="23" to="223" dur="0.35" ease="out"/>
+        </text></group>
+        <group only="landscape"><text x="-104" y="140" x.portrait="-318" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="YOU" at="2.48">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="300" to="140" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-104" y="140" x.portrait="-318" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="YOU" at="2.48">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="345" to="185" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="143" y="140" x.portrait="-103" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="CAN" at="2.71">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="461" y="140" x.portrait="160" y.portrait="185" size="250" size.portrait="200" font="Anton" align="center" fill="#ff3b30" text="BUY" at="2.93">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="715" y="140" x.portrait="369" y.portrait="185" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="IT" at="3.16">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <group only="landscape"><text x="0" y="364" x.portrait="0" y.portrait="370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="THERE." at="3.32">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="204" to="364" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="0" y="364" x.portrait="0" y.portrait="370" size="150" size.portrait="130" font="Anton" align="center" fill="#111111" text="THERE." at="3.32">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="210" to="370" dur="0.35" ease="out"/>
+        </text></group>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/5.21" h="14" fill="#ff3b30"/>
+    </scene>
+    <scene id="wash" dur="5.21" chapter="@ch8">
+      <say at="0.4" text="@vo_wash"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#1d3cff"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#f4f1ea"/>
+      <text x="80" y="80" size="34" weight="800" fill="#ffe600" text="09 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/5.21">
+        <rect x="-340" y="49" x.portrait="104" y.portrait="-28" ax="0.5" w="=583*ease((T-1.92)/0.3,'out')" w.portrait="=467*ease((T-1.92)/0.3,'out')" h="12" fill="#ffe600" at="1.92"/>
+        <rect x="0" y="329" x.portrait="0" y.portrait="342" ax="0.5" w="=911*ease((T-3.27)/0.3,'out')" w.portrait="=729*ease((T-3.27)/0.3,'out')" h="12" fill="#ffe600" at="3.27"/>
+        <text x="-478" y="-280" x.portrait="-256" y.portrait="-297" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="WASH" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="-180" y="-280" x.portrait="3" y.portrait="-297" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="ONE" at="0.69">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="20" to="-180" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="-180" y="-280" x.portrait="3" y.portrait="-297" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="ONE" at="0.69">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="203" to="3" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="116" y="-280" x.portrait="259" y.portrait="-297" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="THING" at="0.96">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <group only="landscape"><text x="473" y="-280" x.portrait="-302" y.portrait="-112" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="EVERY" at="1.36">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-440" to="-280" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="473" y="-280" x.portrait="-302" y.portrait="-112" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="EVERY" at="1.36">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="-272" to="-112" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="-340" y="-56" x.portrait="104" y.portrait="-112" size="250" size.portrait="200" font="Anton" align="center" fill="#ffe600" text="NIGHT." at="1.77">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="31" y="-56" x.portrait="406" y.portrait="-112" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="IT" at="2.24">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="104" to="-56" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="31" y="-56" x.portrait="406" y.portrait="-112" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="IT" at="2.24">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="48" to="-112" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="163" y="-56" x.portrait="-181" y.portrait="73" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="IS" at="2.44">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="353" y="-56" x.portrait="-15" y.portrait="73" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="DRY" at="2.65">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="553" to="353" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="353" y="-56" x.portrait="-15" y.portrait="73" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="DRY" at="2.65">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="185" to="-15" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="562" y="-56" x.portrait="165" y.portrait="73" size="150" size.portrait="130" font="Anton" align="center" fill="#f4f1ea" text="BY" at="2.92">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <text x="0" y="224" x.portrait="0" y.portrait="258" size="250" size.portrait="200" font="Anton" align="center" fill="#ffe600" text="MORNING." at="3.12">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/5.21" h="14" fill="#ffe600"/>
+    </scene>
+    <scene id="outro" dur="5.61" chapter="@ch9">
+      <say at="0.4" text="@vo_outro"/>
+      <sfx at="0" src="whoosh"/>
+      <rect w="=W" h="=H" fill="#ff3b30"/>
+      <rect w="=W" h="=H*(1 - ease(T/0.35,'io'))" fill="#1d3cff"/>
+      <text x="80" y="80" size="34" weight="800" fill="#ffe600" text="10 / 10" at="0.1"/>
+      <group x="=W/2" y="=H/2" scale="=1 + 0.04*T/5.61">
+        <rect x="-614" y="-119" x.portrait="-123" y.portrait="-213" ax="0.5" w="=349*ease((T-0.5)/0.3,'out')" w.portrait="=279*ease((T-0.5)/0.3,'out')" h="12" fill="#ffe600" at="0.5"/>
+        <rect x="160" y="-119" x.portrait="-150" y.portrait="11" ax="0.5" w="=563*ease((T-1.15)/0.3,'out')" w.portrait="=450*ease((T-1.15)/0.3,'out')" h="12" fill="#ffe600" at="1.15"/>
+        <rect x="-589" y="161" x.portrait="-281" y.portrait="235" ax="0.5" w="=446*ease((T-2.03)/0.3,'out')" w.portrait="=357*ease((T-2.03)/0.3,'out')" h="12" fill="#ffe600" at="2.03"/>
+        <text x="-614" y="-224" x.portrait="-123" y.portrait="-297" size="250" size.portrait="200" font="Anton" align="center" fill="#ffe600" text="ONE" at="0.35">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="-280" y="-224" x.portrait="154" y.portrait="-297" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="BAG." at="0.64">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <text x="160" y="-224" x.portrait="-150" y.portrait="-73" size="250" size.portrait="200" font="Anton" align="center" fill="#ffe600" text="SEVEN" at="1">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="631" y="-224" x.portrait="239" y.portrait="-73" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="DAYS." at="1.44">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="431" to="631" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="631" y="-224" x.portrait="239" y.portrait="-73" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="DAYS." at="1.44">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="39" to="239" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="-589" y="56" x.portrait="-281" y.portrait="151" size="250" size.portrait="200" font="Anton" align="center" fill="#ffe600" text="ZERO" at="1.88">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <text x="-107" y="56" x.portrait="122" y.portrait="151" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="WAITING" at="2.24">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="scale" from="2.4" to="1" dur="0.3" ease="out"/>
+        </text>
+        <group only="landscape"><text x="217" y="56" x.portrait="403" y.portrait="151" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="AT" at="2.82">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="417" to="217" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="217" y="56" x.portrait="403" y.portrait="151" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="AT" at="2.82">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="x" from="603" to="403" dur="0.35" ease="out"/>
+        </text></group>
+        <text x="564" y="56" x.portrait="-181" y.portrait="336" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="BAGGAGE" at="3.04">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="rot" from="-25" to="0" dur="0.4" ease="back"/><anim prop="scale" from="0.5" to="1" dur="0.35" ease="back"/>
+        </text>
+        <group only="landscape"><text x="0" y="280" x.portrait="230" y.portrait="336" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="CLAIM." at="3.62">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="120" to="280" dur="0.35" ease="out"/>
+        </text></group><group only="portrait"><text x="0" y="280" x.portrait="230" y.portrait="336" size="150" size.portrait="130" font="Anton" align="center" fill="#fff6e6" text="CLAIM." at="3.62">
+          <anim prop="opacity" from="0" to="1" dur="0.12"/>
+          <anim prop="y" from="176" to="336" dur="0.35" ease="out"/>
+        </text></group>
+      </group>
+      <rect x="0" y="=H - 14" w="=W*T/5.61" h="14" fill="#ffe600"/>
+    </scene>
+  </timeline>
+  <overlay>
+
+  </overlay>
+  <voices>
+    <voice say="vo_bag" lang="en" src="voice/kinetic-typography/en/vo_bag.f83e773a33.ogg" dur="3.41" hash="f83e773a33" engine="kokoro:af_bella"/>
+    <voice say="vo_count" lang="en" src="voice/kinetic-typography/en/vo_count.259e8ff449.ogg" dur="4.31" hash="259e8ff449" engine="kokoro:af_bella"/>
+    <voice say="vo_extras" lang="en" src="voice/kinetic-typography/en/vo_extras.3d5009f33b.ogg" dur="3.31" hash="3d5009f33b" engine="kokoro:af_bella"/>
+    <voice say="vo_intro" lang="en" src="voice/kinetic-typography/en/vo_intro.9330f2904d.ogg" dur="2.35" hash="9330f2904d" engine="kokoro:af_bella"/>
+    <voice say="vo_liquid" lang="en" src="voice/kinetic-typography/en/vo_liquid.a87c660cb7.ogg" dur="3.51" hash="a87c660cb7" engine="kokoro:af_bella"/>
+    <voice say="vo_outro" lang="en" src="voice/kinetic-typography/en/vo_outro.61e01bedcf.ogg" dur="3.71" hash="61e01bedcf" engine="kokoro:af_bella"/>
+    <voice say="vo_palette" lang="en" src="voice/kinetic-typography/en/vo_palette.d82995d930.ogg" dur="3.61" hash="d82995d930" engine="kokoro:af_bella"/>
+    <voice say="vo_roll" lang="en" src="voice/kinetic-typography/en/vo_roll.538985f4a4.ogg" dur="3.11" hash="538985f4a4" engine="kokoro:af_bella"/>
+    <voice say="vo_shoes" lang="en" src="voice/kinetic-typography/en/vo_shoes.6d0d02829a.ogg" dur="4.01" hash="6d0d02829a" engine="kokoro:af_bella"/>
+    <voice say="vo_wash" lang="en" src="voice/kinetic-typography/en/vo_wash.b7b2de959a.ogg" dur="3.31" hash="b7b2de959a" engine="kokoro:af_bella"/>
+  </voices>
+</tsvg>

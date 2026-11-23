@@ -48,7 +48,7 @@ function draw() {
   for (const c of items.filter((c) => (cat === 'All' || c.category === cat) && (!f || (c.title + c.summary + c.id).toLowerCase().includes(f)))) {
     const el = document.createElement('div'); el.className = 'card';
     el.innerHTML = `<img loading="lazy" alt=""><div><span class="cat"></span><b></b><small></small></div>`;
-    el.querySelector('img').src = '../examples/styles/thumbs/' + c.id + '.png';
+    el.querySelector('img').src = '../examples/styles/thumbs/' + c.id + '.jpg';
     el.querySelector('.cat').textContent = c.category; el.querySelector('b').textContent = c.title; el.querySelector('small').textContent = c.summary + ' · ' + Math.round(c.duration) + ' s';
     el.onclick = () => open(c); grid.appendChild(el);
   }
@@ -62,12 +62,12 @@ async function open(c) {
   stage.classList.toggle('portrait', portrait);
   stage.innerHTML = ''; if (player) player.pause();
   dlg.showModal();
-  player = new TSVGPlayer(stage, {});
-  await player.open('../examples/styles/' + c.id + '.tsvg');
-  player.play();
+  const pl = new TSVGPlayer(stage, {}); player = pl;
+  await pl.open('../examples/styles/' + c.id + '.tsvg');
+  if (player === pl) pl.play();
 }
 document.getElementById('close').onclick = () => dlg.close();
-dlg.addEventListener('close', () => { if (player) player.pause(); stage.innerHTML = ''; player = null; history.replaceState(null, '', location.pathname); });
+dlg.addEventListener('close', () => { if (dlg.open) return; if (player) player.pause(); stage.innerHTML = ''; player = null; history.replaceState(null, '', location.pathname); });
 q.oninput = draw;
 fetch('../examples/styles/catalog.json').then((r) => r.json()).then((list) => {
   items = list;

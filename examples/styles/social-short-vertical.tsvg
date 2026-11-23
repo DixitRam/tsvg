@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Vertical social short: hook, word-by-word captions, quick cuts, stickers, progress bar. Portrait-first. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="portrait" w="1080" h="1920"/>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" default="en"><choice id="en" label="English" tts="kokoro:af_bella"/></option>
+    <option id="mix" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.3" sfx="0.6"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="main" bg="#111" fg="#fff" muted="#ffffffaa" accent="#FFE14D"/></themes>
+  <strings>
+    <s id="title" en="Salt your pasta water (properly)"/>
+    <s id="stop" en="STOP"/>
+    <s id="hook2" en="YOU'RE DOING IT WRONG"/>
+    <s id="myth" en="MYTH"/>
+    <s id="myth_sub" en="boiling point, +1 tbsp salt"/>
+    <s id="soak" en="SOAKS IT UP"/>
+    <s id="g10" en="10 g"/>
+    <s id="l1" en="PER 1 L"/>
+    <s id="boil" en="ROLLING BOIL"/>
+    <s id="sauce" en="LIQUID GOLD"/>
+    <s id="follow" en="+ FOLLOW"/>
+    <s id="handle" en="@onekitchenfact"/>
+    <s id="vo_hook" en="Stop. You are salting your pasta water wrong. Here's the fix."/>
+    <s id="vo_myth" en="Myth one. Salt does not make water boil faster. It raises the boiling point by less than one degree."/>
+    <s id="vo_why" en="The real reason? Pasta soaks up water as it cooks, so the water is your only chance to season it from the inside."/>
+    <s id="vo_much" en="How much? Aim for one percent. That's ten grams per litre, roughly two teaspoons."/>
+    <s id="vo_when" en="Add it once the water is boiling hard, so it dissolves fast and never pits your pot."/>
+    <s id="vo_bonus" en="Bonus tip. Save a cup of that starchy water. It turns butter and cheese into a glossy sauce."/>
+    <s id="vo_cta" en="Follow for one kitchen fact a day. Which one surprised you?"/>
+    <s id="ch_hook" en="Hook"/>
+    <s id="ch_myth" en="Myth"/>
+    <s id="ch_why" en="Why"/>
+    <s id="ch_much" en="How much"/>
+    <s id="ch_when" en="When"/>
+    <s id="ch_bonus" en="Bonus"/>
+    <s id="ch_cta" en="Follow"/>
+  </strings>
+  <defs>
+    <linear id="bg_hook" x1="0" y1="0" x2="=W*0.4" y2="=H"><stop at="0" color="#ff3b30"/><stop at="1" color="#ff9500"/></linear>
+    <linear id="bg_myth" x1="0" y1="0" x2="=W*0.4" y2="=H"><stop at="0" color="#1f5eff"/><stop at="1" color="#00c2ff"/></linear>
+    <linear id="bg_why" x1="0" y1="0" x2="=W*0.4" y2="=H"><stop at="0" color="#7b2ff7"/><stop at="1" color="#f107a3"/></linear>
+    <linear id="bg_much" x1="0" y1="0" x2="=W*0.4" y2="=H"><stop at="0" color="#00a86b"/><stop at="1" color="#b6f03c"/></linear>
+    <linear id="bg_when" x1="0" y1="0" x2="=W*0.4" y2="=H"><stop at="0" color="#ff2d55"/><stop at="1" color="#ff8a00"/></linear>
+    <linear id="bg_bonus" x1="0" y1="0" x2="=W*0.4" y2="=H"><stop at="0" color="#0a84ff"/><stop at="1" color="#5e5ce6"/></linear>
+    <linear id="bg_cta" x1="0" y1="0" x2="=W*0.4" y2="=H"><stop at="0" color="#111111"/><stop at="1" color="#3a3a3c"/></linear>
+    <linear id="ring" x1="-170" y1="-170" x2="170" y2="170"><stop at="0" color="#ff2d55"/><stop at="0.5" color="#ffd23f"/><stop at="1" color="#00e0a4"/></linear>
+    <data id="w_hook" v="STOP, YOU, ARE, SALTING, YOUR, PASTA, WATER, WRONG, HERE'S, THE, FIX"/>
+    <data id="x_hook" v="0.0,-262.2,-78.6,183.5,-284.8,-29.7,255.1,0.0,-164.6,71.0,235.6"/>
+    <data id="t0_hook" v="0.40,0.76,0.98,1.19,1.59,1.85,2.16,2.46,2.87,3.18,3.39"/>
+    <data id="t1_hook" v="0.76,0.98,1.19,1.59,1.85,2.16,2.46,2.87,3.18,3.39,3.71"/>
+    <data id="cs_hook" v="0.35,0.71,0.71,0.71,1.54,1.54,1.54,2.41,2.82,2.82,2.82"/>
+    <data id="ce_hook" v="0.71,1.54,1.54,1.54,2.41,2.41,2.41,2.82,5.76,5.76,5.76"/>
+    <data id="w_myth" v="MYTH, ONE, SALT, DOES, NOT, MAKE, WATER, BOIL, FASTER, IT, RAISES, THE, BOILING, POINT, BY, LESS, THAN, ONE, DEGREE"/>
+    <data id="x_myth" v="-92.1,128.0,-207.1,17.1,224.2,-249.3,27.4,276.6,0.0,-238.1,-35.6,202.5,-195.2,97.4,292.6,-209.2,17.5,226.7,0.0"/>
+    <data id="t0_myth" v="0.40,0.69,1.05,1.35,1.64,1.89,2.18,2.53,2.82,3.34,3.53,3.93,4.17,4.62,4.97,5.16,5.46,5.75,5.99"/>
+    <data id="t1_myth" v="0.69,1.05,1.35,1.64,1.89,2.18,2.53,2.82,3.34,3.53,3.93,4.17,4.62,4.97,5.16,5.46,5.75,5.99,6.51"/>
+    <data id="cs_myth" v="0.35,0.35,1.00,1.00,1.00,1.84,1.84,1.84,2.77,3.29,3.29,3.29,4.12,4.12,4.12,5.11,5.11,5.11,5.94"/>
+    <data id="ce_myth" v="1.00,1.00,1.84,1.84,1.84,2.77,2.77,2.77,3.29,4.12,4.12,4.12,5.11,5.11,5.11,5.94,5.94,5.94,8.56"/>
+    <data id="w_why" v="THE, REAL, REASON, PASTA, SOAKS, UP, WATER, AS, IT, COOKS, SO, THE, WATER, IS, YOUR, ONLY, CHANCE, TO, SEASON, IT, FROM, THE, INSIDE"/>
+    <data id="x_why" v="-277.7,-78.7,199.0,-211.3,69.0,280.2,-120.6,95.3,215.9,0.0,-234.6,-78.4,156.2,-230.3,-57.7,172.7,-230.7,2.0,232.7,-216.5,-35.6,181.0,0.0"/>
+    <data id="t0_why" v="0.40,0.63,0.92,1.42,1.76,2.10,2.28,2.62,2.80,2.98,3.43,3.62,3.85,4.19,4.37,4.66,4.94,5.33,5.52,5.90,6.09,6.37,6.61"/>
+    <data id="t1_why" v="0.63,0.92,1.42,1.76,2.10,2.28,2.62,2.80,2.98,3.43,3.62,3.85,4.19,4.37,4.66,4.94,5.33,5.52,5.90,6.09,6.37,6.61,7.11"/>
+    <data id="cs_why" v="0.35,0.35,0.35,1.37,1.37,1.37,2.23,2.23,2.23,2.93,3.38,3.38,3.38,4.14,4.14,4.14,4.89,4.89,4.89,5.85,5.85,5.85,6.56"/>
+    <data id="ce_why" v="1.37,1.37,1.37,2.23,2.23,2.23,2.93,2.93,2.93,3.38,4.14,4.14,4.14,4.89,4.89,4.89,5.85,5.85,5.85,6.56,6.56,6.56,9.16"/>
+    <data id="w_much" v="HOW, MUCH, AIM, FOR, ONE, PERCENT, THAT'S, TEN, GRAMS, PER, LITRE, ROUGHLY, TWO, TEASPOONS"/>
+    <data id="x_much" v="-133.5,107.8,-182.4,3.2,185.6,0.0,-244.9,-11.2,233.6,-118.7,90.2,-102.4,187.6,0.0"/>
+    <data id="t0_much" v="0.40,0.64,1.05,1.29,1.53,1.77,2.33,2.67,2.91,3.26,3.50,3.95,4.40,4.64"/>
+    <data id="t1_much" v="0.64,1.05,1.29,1.53,1.77,2.33,2.67,2.91,3.26,3.50,3.95,4.40,4.64,5.31"/>
+    <data id="cs_much" v="0.35,0.35,1.00,1.00,1.00,1.72,2.28,2.28,2.28,3.21,3.21,3.90,3.90,4.59"/>
+    <data id="ce_much" v="1.00,1.00,1.72,1.72,1.72,2.28,3.21,3.21,3.21,3.90,3.90,4.59,4.59,7.36"/>
+    <data id="w_when" v="ADD, IT, ONCE, THE, WATER, IS, BOILING, HARD, SO, IT, DISSOLVES, FAST, AND, NEVER, PITS, YOUR, POT"/>
+    <data id="x_when" v="-168.6,-20.7,147.9,-202.4,32.1,234.6,-121.1,165.0,-271.4,-150.8,120.6,-233.7,-27.8,205.9,-207.3,10.5,217.8"/>
+    <data id="t0_when" v="0.40,0.62,0.80,1.07,1.29,1.61,1.78,2.20,2.57,2.75,2.92,3.43,3.70,3.92,4.24,4.51,4.78"/>
+    <data id="t1_when" v="0.62,0.80,1.07,1.29,1.61,1.78,2.20,2.57,2.75,2.92,3.43,3.70,3.92,4.24,4.51,4.78,5.11"/>
+    <data id="cs_when" v="0.35,0.35,0.35,1.02,1.02,1.02,1.73,1.73,2.52,2.52,2.52,3.38,3.38,3.38,4.19,4.19,4.19"/>
+    <data id="ce_when" v="1.02,1.02,1.02,1.73,1.73,1.73,2.52,2.52,3.38,3.38,3.38,4.19,4.19,4.19,7.16,7.16,7.16"/>
+    <data id="w_bonus" v="BONUS, TIP, SAVE, A, CUP, OF, THAT, STARCHY, WATER, IT, TURNS, BUTTER, AND, CHEESE, INTO, A, GLOSSY, SAUCE"/>
+    <data id="x_bonus" v="-76.4,144.2,-138.1,20.1,158.2,-298.4,-121.7,176.7,0.0,-295.7,-104.5,191.2,-261.3,-6.8,254.6,-301.3,-94.7,206.6"/>
+    <data id="t0_bonus" v="0.40,0.74,1.10,1.39,1.53,1.77,1.96,2.25,2.70,3.16,3.35,3.69,4.09,4.33,4.73,5.02,5.15,5.55"/>
+    <data id="t1_bonus" v="0.74,1.10,1.39,1.53,1.77,1.96,2.25,2.70,3.16,3.35,3.69,4.09,4.33,4.73,5.02,5.15,5.55,6.01"/>
+    <data id="cs_bonus" v="0.35,0.35,1.05,1.05,1.05,1.72,1.72,1.72,2.65,3.11,3.11,3.11,4.04,4.04,4.04,4.97,4.97,4.97"/>
+    <data id="ce_bonus" v="1.05,1.05,1.72,1.72,1.72,2.65,2.65,2.65,3.11,4.04,4.04,4.04,4.97,4.97,4.97,8.06,8.06,8.06"/>
+    <data id="w_cta" v="FOLLOW, FOR, ONE, KITCHEN, FACT, A, DAY, WHICH, ONE, SURPRISED, YOU"/>
+    <data id="x_cta" v="-182.4,77.1,259.5,-155.0,129.6,284.6,0.0,-92.1,144.9,-92.6,225.1"/>
+    <data id="t0_cta" v="0.40,0.74,0.95,1.16,1.54,1.80,1.91,2.22,2.52,2.73,3.20"/>
+    <data id="t1_cta" v="0.74,0.95,1.16,1.54,1.80,1.91,2.22,2.52,2.73,3.20,3.51"/>
+    <data id="cs_cta" v="0.35,0.35,0.35,1.11,1.11,1.11,1.86,2.17,2.17,2.68,2.68"/>
+    <data id="ce_cta" v="1.11,1.11,1.11,1.86,1.86,1.86,2.17,2.68,2.68,5.56,5.56"/>
+  </defs>
+  <assets>
+    <asset id="pulse" src="audio/pulse.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <font family="Anton" src="fonts/Anton.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="pulse" loop="1" vol="0.8"/>
+  <timeline>
+    <scene id="hook" dur="5.76" chapter="@ch_hook">
+      <say at="0.25" text="@vo_hook"/>
+      <sfx at="0" src="pop"/>
+      <sfx at="1.2" src="pop"/>
+      <rect w="=W" h="=H" fill="url(#bg_hook)"/>
+      <group repeat="14" as="k" opacity="0.10">
+        <rect x="=-200 + k*170 + 60*sin(T*0.6 + k)" y="-200" w="60" h="=H+400" rot="18" fill="#fff"/>
+      </group>
+      
+      <group x="=W/2" y="720" x.landscape="560" y.landscape="560" >
+        <anim prop="scale" from="1.25" to="1" dur="0.35" ease="out"/>
+        <group scale="=1 + 0.03*sin(T*2.2)">
+          
+          <rect x="-230" y="-40" w="460" h="250" r="40" fill="#2b2f36" stroke="#fff" sw="10"/>
+          <rect x="-270" y="-60" w="540" h="40" r="20" fill="#3d434d" stroke="#fff" sw="10"/>
+          <rect x="-330" y="10" w="70" h="30" r="15" fill="#3d434d" stroke="#fff" sw="8"/><rect x="260" y="10" w="70" h="30" r="15" fill="#3d434d" stroke="#fff" sw="8"/>
+          <path repeat="3" as="k" x="=-110 + k*110" y="-90" d="M 0 0 C -30 -40 30 -70 0 -120 C -30 -160 30 -190 0 -230" stroke="#ffffffcc" sw="14" fill="none" opacity="=0.4 + 0.5*fract(T*0.6 + k*0.33)">
+            <anim prop="draw" from="0" to="1" dur="1.2" ease="io"/>
+          </path>
+          <group y="-330" rot="-7">
+            <path d="M -120 -290 L 120 -290 L 290 -120 L 290 120 L 120 290 L -120 290 L -290 120 L -290 -120 Z" fill="#fff" scale="0.62" shadow="0 14 0 #0005"/>
+            <path d="M -120 -290 L 120 -290 L 290 -120 L 290 120 L 120 290 L -120 290 L -290 120 L -290 -120 Z" fill="#e0001b" scale="0.56"/>
+            <text font="Anton" size="150" align="center" y="6" fill="#fff" text="@stop"/>
+          </group>
+        </group>
+      </group>
+      <group x="=W/2 + 6*sin(T*60)*(T &lt; 0.5 ? 1 : 0)" y="1150" x.landscape="1350" y.landscape="330" at="0.15">
+        <anim prop="scale" from="2.2" to="1" dur="0.25" ease="out"/>
+        <text font="Anton" size="96" align="center" fill="#fff" stroke="#000" sw="16" text="@hook2"/>
+      </group>
+      
+        <group x="=W - 170" x.landscape="1790" y="360" y.landscape="170" rot="12" at="1.0">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <circle r="92" fill="#fff" shadow="0 10 0 #0004"/><circle r="82" fill="#FFD23F"/>
+          <ellipse x="-28" y="-18" rx="11" ry="17" fill="#3b2400"/><ellipse x="28" y="-18" rx="11" ry="17" fill="#3b2400"/>
+          <ellipse y="34" rx="20" ry="=24 + 4*sin(T*8)" fill="#3b2400"/>
+          <path d="M -50 -50 Q -30 -66 -10 -54" stroke="#3b2400" sw="7" fill="none"/><path d="M 50 -50 Q 30 -66 10 -54" stroke="#3b2400" sw="7" fill="none"/></group>
+        </group>
+      <group x="=W/2" y="1390" x.landscape="1350" y.landscape="800">
+        <text repeat="=count('w_hook')" as="i" font="Anton" size="104" align="center" sw="18" stroke="#000"
+              x="=data('x_hook', i)" when="=T &gt;= data('cs_hook', i) &amp;&amp; T &lt; data('ce_hook', i)"
+              fill="=(T &gt;= data('t0_hook', i) &amp;&amp; T &lt; data('ce_hook', i)) ? (T &lt; data('t1_hook', i) ? '#FFE14D' : '#ffffff') : '#ffffffaa'"
+              scale="=1 + 0.16*(T &gt;= data('t0_hook', i) &amp;&amp; T &lt; data('t1_hook', i) ? 1 - ease((T - data('t0_hook', i))/0.18,'out')*0.4 : 0)"
+              rot="=(T &gt;= data('t0_hook', i) &amp;&amp; T &lt; data('t1_hook', i)) ? -3 : 0" shadow="0 10 0 #0007" text="{data('w_hook', i)}"/>
+      </group>
+      <rect w="=W" h="=H" fill="#fff"><anim prop="opacity" from="0.85" to="0" dur="0.22" ease="linear"/></rect>
+    </scene>
+    <scene id="myth" dur="8.56" chapter="@ch_myth">
+      <say at="0.25" text="@vo_myth"/>
+      <sfx at="0" src="whoosh"/>
+      <sfx at="1.2" src="pop"/>
+      <rect w="=W" h="=H" fill="url(#bg_myth)"/>
+      <group repeat="14" as="k" opacity="0.10">
+        <rect x="=-200 + k*170 + 60*sin(T*0.6 + k)" y="-200" w="60" h="=H+400" rot="18" fill="#fff"/>
+      </group>
+      
+      <group x="=W/2" y="720" x.landscape="560" y.landscape="560" >
+        <anim prop="scale" from="1.25" to="1" dur="0.35" ease="out"/>
+        <group scale="=1 + 0.03*sin(T*2.2)">
+          <rect x="-46" y="-330" w="92" h="520" r="46" fill="#fff" shadow="0 14 0 #0004"/>
+          <rect x="-30" y="=170 - 380*ease(T/1.6,'out')" w="60" h="=380*ease(T/1.6,'out') + 30" r="30" fill="#ff3b30"/>
+          <circle y="230" r="90" fill="#fff"/><circle y="230" r="72" fill="#ff3b30"/>
+          <line repeat="6" as="k" x1="60" x2="100" y1="=-280 + k*70" y2="=-280 + k*70" stroke="#fff" sw="8"/>
+          <text x="140" y="-220" font="Anton" size="88" fill="#fff" stroke="#00000055" sw="10" text="{fmt(100 + 0.2*ease((T-1)/1.5,'out'), 1)}°C" at="0.6"/>
+          <text x="140" y="-130" size="40" weight="700" fill="#ffffffcc" text="@myth_sub" at="0.6"/>
+        </group>
+      </group>
+      
+        <group x="=W/2 + 250" x.landscape="1350" y="300" y.landscape="300" rot="-10" at="1.3">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <rect x="-150" y="-52" w="300" h="104" r="22" fill="#fff" shadow="0 12 0 #0005"/>
+          <rect x="-142" y="-44" w="284" h="88" r="16" fill="#ffd23f"/>
+          <text font="Anton" size="64" align="center" y="2" fill="#111" text="@myth"/></group>
+        </group>
+      <group x="=W/2 + 250" y="300" x.landscape="1350" y.landscape="300" at="2.2">
+        <path d="M -170 -70 L 170 70 M 170 -70 L -170 70" stroke="#e0001b" sw="14" opacity="0.85" fill="none"><anim prop="draw" from="0" to="1" dur="0.4"/></path>
+      </group>
+      <group x="=W/2" y="1390" x.landscape="1350" y.landscape="800">
+        <text repeat="=count('w_myth')" as="i" font="Anton" size="104" align="center" sw="18" stroke="#000"
+              x="=data('x_myth', i)" when="=T &gt;= data('cs_myth', i) &amp;&amp; T &lt; data('ce_myth', i)"
+              fill="=(T &gt;= data('t0_myth', i) &amp;&amp; T &lt; data('ce_myth', i)) ? (T &lt; data('t1_myth', i) ? '#FFE14D' : '#ffffff') : '#ffffffaa'"
+              scale="=1 + 0.16*(T &gt;= data('t0_myth', i) &amp;&amp; T &lt; data('t1_myth', i) ? 1 - ease((T - data('t0_myth', i))/0.18,'out')*0.4 : 0)"
+              rot="=(T &gt;= data('t0_myth', i) &amp;&amp; T &lt; data('t1_myth', i)) ? -3 : 0" shadow="0 10 0 #0007" text="{data('w_myth', i)}"/>
+      </group>
+      <rect w="=W" h="=H" fill="#fff"><anim prop="opacity" from="0.85" to="0" dur="0.22" ease="linear"/></rect>
+    </scene>
+    <scene id="why" dur="9.16" chapter="@ch_why">
+      <say at="0.25" text="@vo_why"/>
+      <sfx at="0" src="whoosh"/>
+      <sfx at="1.2" src="pop"/>
+      <rect w="=W" h="=H" fill="url(#bg_why)"/>
+      <group repeat="14" as="k" opacity="0.10">
+        <rect x="=-200 + k*170 + 60*sin(T*0.6 + k)" y="-200" w="60" h="=H+400" rot="18" fill="#fff"/>
+      </group>
+      
+      <group x="=W/2" y="720" x.landscape="560" y.landscape="560" >
+        <anim prop="scale" from="1.25" to="1" dur="0.35" ease="out"/>
+        <group scale="=1 + 0.03*sin(T*2.2)">
+          <path d="M -300 0 C -240 -120 -160 120 -90 0 S 60 -120 120 0 S 240 120 300 0" stroke="#fff" sw="64" fill="none" shadow="0 14 0 #0004"/>
+          <path d="M -300 0 C -240 -120 -160 120 -90 0 S 60 -120 120 0 S 240 120 300 0" stroke="#ffd86b" sw="46" fill="none">
+            <anim prop="draw" from="0" to="1" dur="1.2" ease="io"/>
+          </path>
+          <path d="M -300 60 C -240 -60 -160 180 -90 60 S 60 -60 120 60 S 240 180 300 60" stroke="#ffcf4a" sw="34" fill="none" opacity="0.9">
+            <anim prop="draw" from="0" to="1" at="0.3" dur="1.2" ease="io"/>
+          </path>
+          <circle repeat="26" as="k" x="=lerp(-330 + 660*rand(k), lerp(-300, 300, rand(k+40)), ease(fract(T*0.35 + rand(k+9)), 'in'))"
+                  y="=lerp(-300 - 100*rand(k+3), 20, ease(fract(T*0.35 + rand(k+9)), 'in'))" r="=8 + 8*rand(k+7)"
+                  fill="#fff" stroke="#00000033" sw="3" opacity="=1 - fract(T*0.35 + rand(k+9))"/>
+        </group>
+      </group>
+      
+        <group x="=W/2" x.landscape="1350" y="1110" y.landscape="330" rot="-4" at="1.6">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <rect x="-240" y="-52" w="480" h="104" r="22" fill="#fff" shadow="0 12 0 #0005"/>
+          <rect x="-232" y="-44" w="464" h="88" r="16" fill="#00e0a4"/>
+          <text font="Anton" size="64" align="center" y="2" fill="#111" text="@soak"/></group>
+        </group>
+      <group x="=W/2" y="1390" x.landscape="1350" y.landscape="800">
+        <text repeat="=count('w_why')" as="i" font="Anton" size="104" align="center" sw="18" stroke="#000"
+              x="=data('x_why', i)" when="=T &gt;= data('cs_why', i) &amp;&amp; T &lt; data('ce_why', i)"
+              fill="=(T &gt;= data('t0_why', i) &amp;&amp; T &lt; data('ce_why', i)) ? (T &lt; data('t1_why', i) ? '#FFE14D' : '#ffffff') : '#ffffffaa'"
+              scale="=1 + 0.16*(T &gt;= data('t0_why', i) &amp;&amp; T &lt; data('t1_why', i) ? 1 - ease((T - data('t0_why', i))/0.18,'out')*0.4 : 0)"
+              rot="=(T &gt;= data('t0_why', i) &amp;&amp; T &lt; data('t1_why', i)) ? -3 : 0" shadow="0 10 0 #0007" text="{data('w_why', i)}"/>
+      </group>
+      <rect w="=W" h="=H" fill="#fff"><anim prop="opacity" from="0.85" to="0" dur="0.22" ease="linear"/></rect>
+    </scene>
+    <scene id="much" dur="7.36" chapter="@ch_much">
+      <say at="0.25" text="@vo_much"/>
+      <sfx at="0" src="whoosh"/>
+      <sfx at="1.2" src="pop"/>
+      <rect w="=W" h="=H" fill="url(#bg_much)"/>
+      <group repeat="14" as="k" opacity="0.10">
+        <rect x="=-200 + k*170 + 60*sin(T*0.6 + k)" y="-200" w="60" h="=H+400" rot="18" fill="#fff"/>
+      </group>
+      
+      <group x="=W/2" y="720" x.landscape="560" y.landscape="560" >
+        <anim prop="scale" from="1.25" to="1" dur="0.35" ease="out"/>
+        <group scale="=1 + 0.03*sin(T*2.2)">
+          <text font="Anton" size="360" align="center" y="-90" fill="#fff" stroke="#00000055" sw="14" shadow="0 16 0 #0004" text="{fmt(ease((T-0.6)/1.4,'out'), 0)}%"/>
+          <group y="210">
+            <group x="-170" rot="-18" at="1.4"><anim prop="scale" from="0" to="1" dur="0.35" ease="back"/>
+              <ellipse rx="62" ry="44" fill="#fff"/><ellipse rx="48" ry="32" fill="#dfe6ee"/><ellipse x="-6" y="-4" rx="30" ry="18" fill="#fff"/>
+              <rect x="56" y="-10" w="170" h="20" r="10" fill="#fff"/></group>
+            <group x="70" rot="-18" at="1.75"><anim prop="scale" from="0" to="1" dur="0.35" ease="back"/>
+              <ellipse rx="62" ry="44" fill="#fff"/><ellipse rx="48" ry="32" fill="#dfe6ee"/><ellipse x="-6" y="-4" rx="30" ry="18" fill="#fff"/>
+              <rect x="56" y="-10" w="170" h="20" r="10" fill="#fff"/></group>
+          </group>
+        </group>
+      </group>
+      
+        <group x="=W/2 - 230" x.landscape="1180" y="300" y.landscape="320" rot="-8" at="2.2">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <rect x="-150" y="-52" w="300" h="104" r="22" fill="#fff" shadow="0 12 0 #0005"/>
+          <rect x="-142" y="-44" w="284" h="88" r="16" fill="#fff"/>
+          <text font="Anton" size="64" align="center" y="2" fill="#111" text="@g10"/></group>
+        </group>
+      
+        <group x="=W/2 + 240" x.landscape="1520" y="330" y.landscape="340" rot="9" at="2.6">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <rect x="-130" y="-52" w="260" h="104" r="22" fill="#fff" shadow="0 12 0 #0005"/>
+          <rect x="-122" y="-44" w="244" h="88" r="16" fill="#ffd23f"/>
+          <text font="Anton" size="64" align="center" y="2" fill="#111" text="@l1"/></group>
+        </group>
+      <group x="=W/2" y="1390" x.landscape="1350" y.landscape="800">
+        <text repeat="=count('w_much')" as="i" font="Anton" size="104" align="center" sw="18" stroke="#000"
+              x="=data('x_much', i)" when="=T &gt;= data('cs_much', i) &amp;&amp; T &lt; data('ce_much', i)"
+              fill="=(T &gt;= data('t0_much', i) &amp;&amp; T &lt; data('ce_much', i)) ? (T &lt; data('t1_much', i) ? '#FFE14D' : '#ffffff') : '#ffffffaa'"
+              scale="=1 + 0.16*(T &gt;= data('t0_much', i) &amp;&amp; T &lt; data('t1_much', i) ? 1 - ease((T - data('t0_much', i))/0.18,'out')*0.4 : 0)"
+              rot="=(T &gt;= data('t0_much', i) &amp;&amp; T &lt; data('t1_much', i)) ? -3 : 0" shadow="0 10 0 #0007" text="{data('w_much', i)}"/>
+      </group>
+      <rect w="=W" h="=H" fill="#fff"><anim prop="opacity" from="0.85" to="0" dur="0.22" ease="linear"/></rect>
+    </scene>
+    <scene id="when" dur="7.16" chapter="@ch_when">
+      <say at="0.25" text="@vo_when"/>
+      <sfx at="0" src="whoosh"/>
+      <sfx at="1.2" src="pop"/>
+      <rect w="=W" h="=H" fill="url(#bg_when)"/>
+      <group repeat="14" as="k" opacity="0.10">
+        <rect x="=-200 + k*170 + 60*sin(T*0.6 + k)" y="-200" w="60" h="=H+400" rot="18" fill="#fff"/>
+      </group>
+      
+      <group x="=W/2" y="720" x.landscape="560" y.landscape="560" >
+        <anim prop="scale" from="1.25" to="1" dur="0.35" ease="out"/>
+        <group scale="=1 + 0.03*sin(T*2.2)">
+          <group y="40">
+          <rect x="-230" y="-40" w="460" h="250" r="40" fill="#2b2f36" stroke="#fff" sw="10"/>
+          <rect x="-270" y="-60" w="540" h="40" r="20" fill="#3d434d" stroke="#fff" sw="10"/>
+          <rect x="-330" y="10" w="70" h="30" r="15" fill="#3d434d" stroke="#fff" sw="8"/><rect x="260" y="10" w="70" h="30" r="15" fill="#3d434d" stroke="#fff" sw="8"/>
+          <path repeat="3" as="k" x="=-110 + k*110" y="-90" d="M 0 0 C -30 -40 30 -70 0 -120 C -30 -160 30 -190 0 -230" stroke="#ffffffcc" sw="14" fill="none" opacity="=0.4 + 0.5*fract(T*0.6 + k*0.33)">
+            <anim prop="draw" from="0" to="1" dur="1.2" ease="io"/>
+          </path>
+            <circle repeat="18" as="k" x="=-190 + 380*rand(k)" y="=170 - 200*fract(T*1.4 + rand(k+5))" r="=6 + 14*fract(T*1.4 + rand(k+5))" fill="none" stroke="#9fe3ff" sw="5" opacity="=1 - fract(T*1.4 + rand(k+5))"/>
+          </group>
+        </group>
+      </group>
+      
+        <group x="=W/2 + 260" x.landscape="900" y="1100" y.landscape="330" rot="8" at="1.2">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <path d="M 0 -110 C 40 -60 90 -30 80 30 C 72 80 36 104 0 104 C -36 104 -72 80 -80 30 C -86 -10 -50 -30 -40 -70 C -20 -40 -12 -40 0 -110 Z" fill="#fff" scale="1.12" shadow="0 10 0 #0004"/>
+          <path d="M 0 -110 C 40 -60 90 -30 80 30 C 72 80 36 104 0 104 C -36 104 -72 80 -80 30 C -86 -10 -50 -30 -40 -70 C -20 -40 -12 -40 0 -110 Z" fill="#ff5a1f"/>
+          <path d="M 0 -20 C 24 10 44 30 40 60 C 36 84 18 96 0 96 C -18 96 -36 84 -40 60 C -42 36 -20 20 0 -20 Z" fill="#ffd23f" scale="=1 + 0.08*sin(T*9)"/></group>
+        </group>
+      
+        <group x="=W/2 - 160" x.landscape="1350" y="310" y.landscape="330" rot="-6" at="0.8">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <rect x="-260" y="-52" w="520" h="104" r="22" fill="#fff" shadow="0 12 0 #0005"/>
+          <rect x="-252" y="-44" w="504" h="88" r="16" fill="#fff"/>
+          <text font="Anton" size="64" align="center" y="2" fill="#e0001b" text="@boil"/></group>
+        </group>
+      <group x="=W/2" y="1390" x.landscape="1350" y.landscape="800">
+        <text repeat="=count('w_when')" as="i" font="Anton" size="104" align="center" sw="18" stroke="#000"
+              x="=data('x_when', i)" when="=T &gt;= data('cs_when', i) &amp;&amp; T &lt; data('ce_when', i)"
+              fill="=(T &gt;= data('t0_when', i) &amp;&amp; T &lt; data('ce_when', i)) ? (T &lt; data('t1_when', i) ? '#FFE14D' : '#ffffff') : '#ffffffaa'"
+              scale="=1 + 0.16*(T &gt;= data('t0_when', i) &amp;&amp; T &lt; data('t1_when', i) ? 1 - ease((T - data('t0_when', i))/0.18,'out')*0.4 : 0)"
+              rot="=(T &gt;= data('t0_when', i) &amp;&amp; T &lt; data('t1_when', i)) ? -3 : 0" shadow="0 10 0 #0007" text="{data('w_when', i)}"/>
+      </group>
+      <rect w="=W" h="=H" fill="#fff"><anim prop="opacity" from="0.85" to="0" dur="0.22" ease="linear"/></rect>
+    </scene>
+    <scene id="bonus" dur="8.06" chapter="@ch_bonus">
+      <say at="0.25" text="@vo_bonus"/>
+      <sfx at="0" src="whoosh"/>
+      <sfx at="1.2" src="pop"/>
+      <rect w="=W" h="=H" fill="url(#bg_bonus)"/>
+      <group repeat="14" as="k" opacity="0.10">
+        <rect x="=-200 + k*170 + 60*sin(T*0.6 + k)" y="-200" w="60" h="=H+400" rot="18" fill="#fff"/>
+      </group>
+      
+      <group x="=W/2" y="720" x.landscape="560" y.landscape="560" >
+        <anim prop="scale" from="1.25" to="1" dur="0.35" ease="out"/>
+        <group scale="=1 + 0.03*sin(T*2.2)">
+          <path d="M -150 -170 L 150 -170 L 120 200 C 116 230 96 250 66 250 L -66 250 C -96 250 -116 230 -120 200 Z" fill="#ffffff33" stroke="#fff" sw="14"/>
+          <path d="=('M -138 ' + (210 - 330*ease((T-0.4)/2,'io')) + ' L 138 ' + (210 - 330*ease((T-0.4)/2,'io')) + ' L 118 200 C 114 225 96 240 66 240 L -66 240 C -96 240 -114 225 -118 200 Z')" fill="#f3e6c8"/>
+          <path d="M 150 -110 C 260 -110 260 110 140 110" stroke="#fff" sw="26" fill="none"/>
+          <circle repeat="10" as="k" x="=-90 + 180*rand(k)" y="=200 - 300*fract(T*0.5 + rand(k+2))" r="=6 + 8*rand(k+4)" fill="#ffffffaa"/>
+        </group>
+      </group>
+      
+        <group x="=W/2 - 250" y="330" rot="-10" at="0.6">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <path d="M 0 -60 Q 8 -8 60 0 Q 8 8 0 60 Q -8 8 -60 0 Q -8 -8 0 -60 Z" fill="#ffd23f" stroke="#fff" sw="8" rot="=T*40"/></group>
+        </group>
+      
+        <group x="=W/2 + 200" x.landscape="1350" y="1090" y.landscape="330" rot="8" at="1.6">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <rect x="-260" y="-52" w="520" h="104" r="22" fill="#fff" shadow="0 12 0 #0005"/>
+          <rect x="-252" y="-44" w="504" h="88" r="16" fill="#ffd23f"/>
+          <text font="Anton" size="64" align="center" y="2" fill="#111" text="@sauce"/></group>
+        </group>
+      <group x="=W/2" y="1390" x.landscape="1350" y.landscape="800">
+        <text repeat="=count('w_bonus')" as="i" font="Anton" size="104" align="center" sw="18" stroke="#000"
+              x="=data('x_bonus', i)" when="=T &gt;= data('cs_bonus', i) &amp;&amp; T &lt; data('ce_bonus', i)"
+              fill="=(T &gt;= data('t0_bonus', i) &amp;&amp; T &lt; data('ce_bonus', i)) ? (T &lt; data('t1_bonus', i) ? '#FFE14D' : '#ffffff') : '#ffffffaa'"
+              scale="=1 + 0.16*(T &gt;= data('t0_bonus', i) &amp;&amp; T &lt; data('t1_bonus', i) ? 1 - ease((T - data('t0_bonus', i))/0.18,'out')*0.4 : 0)"
+              rot="=(T &gt;= data('t0_bonus', i) &amp;&amp; T &lt; data('t1_bonus', i)) ? -3 : 0" shadow="0 10 0 #0007" text="{data('w_bonus', i)}"/>
+      </group>
+      <rect w="=W" h="=H" fill="#fff"><anim prop="opacity" from="0.85" to="0" dur="0.22" ease="linear"/></rect>
+    </scene>
+    <scene id="cta" dur="5.56" chapter="@ch_cta">
+      <say at="0.25" text="@vo_cta"/>
+      <sfx at="0" src="whoosh"/>
+      <sfx at="1.2" src="pop"/>
+      <rect w="=W" h="=H" fill="url(#bg_cta)"/>
+      <group repeat="14" as="k" opacity="0.10">
+        <rect x="=-200 + k*170 + 60*sin(T*0.6 + k)" y="-200" w="60" h="=H+400" rot="18" fill="#fff"/>
+      </group>
+      
+      <group x="=W/2" y="720" x.landscape="560" y.landscape="560" >
+        <anim prop="scale" from="1.25" to="1" dur="0.35" ease="out"/>
+        <group scale="=1 + 0.03*sin(T*2.2)">
+          <circle r="170" fill="url(#ring)"/><circle r="150" fill="#1c1c1e"/>
+          <text font="Anton" size="130" align="center" y="4" fill="#fff" text="1/day"/>
+          <group y="290" scale="=1 + 0.06*sin(T*6)">
+            <rect x="-230" y="-60" w="460" h="120" r="60" fill="#ff2d55" shadow="0 0 40 #ff2d55aa"/>
+            <text font="Anton" size="64" align="center" y="2" fill="#fff" text="@follow"/>
+          </group>
+          <text y="420" size="44" weight="700" align="center" fill="#ffffffbb" text="@handle"/>
+        </group>
+      </group>
+      
+        <group x="=W/2 + 300" x.landscape="1000" y="300" y.landscape="250" rot="12" at="1.0">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)"><path d="M 0 60 C -120 -10 -90 -110 -30 -100 C -10 -96 0 -80 0 -70 C 0 -80 10 -96 30 -100 C 90 -110 120 -10 0 60 Z" fill="#fff" scale="1.25"/><path d="M 0 60 C -120 -10 -90 -110 -30 -100 C -10 -96 0 -80 0 -70 C 0 -80 10 -96 30 -100 C 90 -110 120 -10 0 60 Z" fill="#ff2d55" scale="1.05"/></group>
+        </group>
+      
+        <group x="=W/2 - 300" x.landscape="160" y="330" y.landscape="220" rot="-8" at="1.4">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <group rot="=4*sin(T*3)">
+          <path d="M 0 -60 Q 8 -8 60 0 Q 8 8 0 60 Q -8 8 -60 0 Q -8 -8 0 -60 Z" fill="#00e0a4" stroke="#fff" sw="8" rot="=T*40"/></group>
+        </group>
+      <group x="=W/2" y="1390" x.landscape="1350" y.landscape="800">
+        <text repeat="=count('w_cta')" as="i" font="Anton" size="104" align="center" sw="18" stroke="#000"
+              x="=data('x_cta', i)" when="=T &gt;= data('cs_cta', i) &amp;&amp; T &lt; data('ce_cta', i)"
+              fill="=(T &gt;= data('t0_cta', i) &amp;&amp; T &lt; data('ce_cta', i)) ? (T &lt; data('t1_cta', i) ? '#FFE14D' : '#ffffff') : '#ffffffaa'"
+              scale="=1 + 0.16*(T &gt;= data('t0_cta', i) &amp;&amp; T &lt; data('t1_cta', i) ? 1 - ease((T - data('t0_cta', i))/0.18,'out')*0.4 : 0)"
+              rot="=(T &gt;= data('t0_cta', i) &amp;&amp; T &lt; data('t1_cta', i)) ? -3 : 0" shadow="0 10 0 #0007" text="{data('w_cta', i)}"/>
+      </group>
+      <rect w="=W" h="=H" fill="#fff"><anim prop="opacity" from="0.85" to="0" dur="0.22" ease="linear"/></rect>
+    </scene>
+  </timeline>
+  <overlay>
+    <rect x="40" y="40" w="=W-80" h="12" r="6" fill="#ffffff44"/>
+    <rect x="40" y="40" w="=(W-80)*t/dur" h="12" r="6" fill="#fff"/>
+  </overlay>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_bonus" lang="en" src="voice/social-short-vertical/en/vo_bonus.70fd8e3a72.ogg" dur="6.01" hash="70fd8e3a72" engine="kokoro:af_bella"/>
+    <voice say="vo_cta" lang="en" src="voice/social-short-vertical/en/vo_cta.4af3837023.ogg" dur="3.51" hash="4af3837023" engine="kokoro:af_bella"/>
+    <voice say="vo_hook" lang="en" src="voice/social-short-vertical/en/vo_hook.bda7855a5f.ogg" dur="3.71" hash="bda7855a5f" engine="kokoro:af_bella"/>
+    <voice say="vo_much" lang="en" src="voice/social-short-vertical/en/vo_much.4ea1f5de0e.ogg" dur="5.31" hash="4ea1f5de0e" engine="kokoro:af_bella"/>
+    <voice say="vo_myth" lang="en" src="voice/social-short-vertical/en/vo_myth.e6423cd032.ogg" dur="6.51" hash="e6423cd032" engine="kokoro:af_bella"/>
+    <voice say="vo_when" lang="en" src="voice/social-short-vertical/en/vo_when.b87d4d0e96.ogg" dur="5.11" hash="b87d4d0e96" engine="kokoro:af_bella"/>
+    <voice say="vo_why" lang="en" src="voice/social-short-vertical/en/vo_why.dc16ea0f5f.ogg" dur="7.11" hash="dc16ea0f5f" engine="kokoro:af_bella"/>
+  </voices>
+</tsvg>

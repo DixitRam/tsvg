@@ -1,0 +1,11 @@
+{
+  "id": "comic-storyboard",
+  "title": "Comic storyboard",
+  "category": "Storytelling",
+  "summary": "Six-panel comic revealed panel by panel with a moving camera: speech bubbles, captions, halftone dots, POP! lettering.",
+  "duration": 55.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 50
+}

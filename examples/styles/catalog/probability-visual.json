@@ -1,0 +1,11 @@
+{
+  "id": "probability-visual",
+  "title": "Probability visual",
+  "category": "data",
+  "summary": "Coin grid with a live heads counter, dice combinations and histograms that grow from flat into a bell curve.",
+  "duration": 66,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 38
+}

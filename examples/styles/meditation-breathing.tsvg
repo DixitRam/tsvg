@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: guided breathing. Soft gradient, a circle that expands and contracts with the breath, gentle cues, slow pad. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait" w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_nicole"/></option>
+    <option id="mix" label="Audio" default="full">
+      <choice id="full" label="Voice + music"/><choice id="speech" label="Voice only"/><choice id="ambient" label="Music only"/>
+    </option>
+    <option id="theme" label="Theme" default="dawn"><choice id="dawn" label="Dawn"/><choice id="night" label="Night"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.45" sfx="0.4"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.7" sfx="0.4"/>
+  </mixes>
+  <themes>
+    <theme id="dawn" bg="#e9defa" fg="#3d3558" muted="#7b7196" top="#c9b8f0" bottom="#fbd3c4" orb="#ffffff" orb2="#b9a3f5" ring="#ffffff" soft="#ffffff" orbtext="#3d3558" orbmuted="#7b7196"/>
+    <theme id="night" bg="#0e1230" fg="#e6e8ff" muted="#9aa0cf" top="#0b1033" bottom="#2a2a63" orb="#c9d4ff" orb2="#5b64c9" ring="#c9d4ff" soft="#9aa8ff" orbtext="#1b1f4a" orbmuted="#3a4180"/>
+  </themes>
+  <strings>
+    <s id="title" en="One-minute breathing reset"/>
+    <s id="t1" en="A one-minute"/><s id="t2" en="breathing reset"/>
+    <s id="ch1" en="Settle"/><s id="ch2" en="The rhythm"/><s id="ch3" en="Breath one"/><s id="ch4" en="Breath two"/><s id="ch5" en="Breath three"/><s id="ch6" en="Return"/>
+    <s id="in" en="Breathe in"/><s id="hold" en="Hold"/><s id="out" en="Breathe out"/>
+    <s id="r4" en="4"/><s id="r4b" en="4"/><s id="r6" en="6"/>
+    <s id="lin" en="in"/><s id="lhold" en="hold"/><s id="lout" en="out"/>
+    <s id="follow" en="follow the circle"/>
+    <s id="bn1" en="breath 1 of 3"/><s id="bn2" en="breath 2 of 3"/><s id="bn3" en="breath 3 of 3"/>
+    <s id="end1" en="Well done."/>
+    <s id="end2" en="Carry this calm with you."/>
+    <s id="vo1" en="Let's take one minute to slow down. Sit comfortably, and relax your shoulders."/>
+    <s id="vo2" en="We'll breathe in for four, hold for four, and breathe out slowly for six. Just follow the circle."/>
+    <s id="vo3" en="Breathe in through your nose, and let your belly rise."/>
+    <s id="vo4" en="Again. In for four, noticing the cool air."/>
+    <s id="vo5" en="One last time. In, hold, and let it all go."/>
+    <s id="vo6" en="Well done. Let your breath find its own rhythm again, and carry this calm with you."/>
+  </strings>
+  <defs>
+    <!-- breath cycle: 4 s in, 4 s hold, 6 s out; c = seconds into the cycle -->
+    <fn id="br" args="c">c &lt; 4 ? ease(clamp(c/4, 0, 1), 'io') : c &lt; 8 ? 1 : 1 - ease(clamp((c - 8)/6, 0, 1), 'io')</fn>
+    <fn id="cyc">clamp(T - 0.5, 0, 14)</fn>
+    <fn id="rad" args="k">150 + 170*k</fn>
+    <linear id="sky" x1="0" y1="0" x2="0" y2="=H"><stop at="0" color="$top"/><stop at="1" color="$bottom"/></linear>
+    <radial id="orbG" x="0" y="0" r="330"><stop at="0" color="$orb"/><stop at="0.6" color="$orb" opacity="0.75"/><stop at="1" color="$orb2" opacity="0.55"/></radial>
+    <radial id="halo" x="0" y="0" r="560"><stop at="0" color="$soft" opacity="0.45"/><stop at="1" color="$soft" opacity="0"/></radial>
+  </defs>
+  <assets>
+    <asset id="pad" src="audio/pad.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.9"/>
+
+  <backdrop>
+    <rect w="=W" h="=H" fill="url(#sky)"/>
+    <!-- slow drifting blobs -->
+    <circle x="=W*0.2 + 80*sin(t*0.13)" y="=H*0.25 + 60*cos(t*0.11)" r="=W*0.22" fill="$soft" opacity="0.22" blur="80"/>
+    <circle x="=W*0.82 + 70*cos(t*0.1)" y="=H*0.78 + 50*sin(t*0.12)" r="=W*0.25" fill="$orb2" opacity="0.22" blur="90"/>
+    <!-- motes rising -->
+    <circle repeat="40" as="m" x="=W*rand(m+1) + 40*sin(t*0.3 + m)" y="=H - fract(t*0.012*(0.5 + rand(m+7)) + rand(m+3))*(H + 80)" r="=2 + 4*rand(m+11)" fill="$soft" opacity="=0.25 + 0.3*rand(m+5)"/>
+  </backdrop>
+
+  <timeline>
+    <!-- 1 · settle -->
+    <scene id="settle" dur="8.5" chapter="@ch1">
+      <say at="0.6" text="@vo1"/>
+      <group x="=W/2" y="=H/2">
+        <circle r="560" fill="url(#halo)" scale="=0.9 + 0.05*sin(T*0.8)"/>
+        <circle r="=150 + 10*sin(T*0.8)" fill="url(#orbG)" opacity="=0.45*clamp(T/2, 0, 1)" blur="6"/>
+      </group>
+      <text x="=W/2" y="=H/2 - 50" size="76" size.portrait="70" font="Playfair Display" italic="1" align="center" fill="$fg" text="@t1" at="0.4">
+        <anim prop="opacity" from="0" to="1" dur="1.6"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 50" size="76" size.portrait="70" font="Playfair Display" italic="1" align="center" fill="$fg" text="@t2" at="1.2">
+        <anim prop="opacity" from="0" to="1" dur="1.6"/>
+      </text>
+    </scene>
+
+    <!-- 2 · the rhythm -->
+    <scene id="rhythm" dur="9" chapter="@ch2">
+      <say at="0.5" text="@vo2"/>
+      <group x="=W/2" y="=H/2 - 40" y.portrait="=H/2 - 120">
+        <group repeat="3" as="k" x="=(k - 1)*300" x.portrait="=(k - 1)*300" at="=0.8 + k*1.3">
+          <anim prop="opacity" from="0" to="1" dur="1"/>
+          <anim prop="y" from="20" to="0" dur="1"/>
+          <circle r="100" fill="$orb" opacity="0.35"/>
+          <circle r="100" fill="none" stroke="$ring" sw="3" opacity="0.8"/>
+          <text y="-10" size="84" weight="300" align="center" fill="$fg" text="@r4" when="=k==0"/>
+          <text y="-10" size="84" weight="300" align="center" fill="$fg" text="@r4b" when="=k==1"/>
+          <text y="-10" size="84" weight="300" align="center" fill="$fg" text="@r6" when="=k==2"/>
+          <text y="58" size="28" align="center" fill="$muted" text="@lin" when="=k==0"/>
+          <text y="58" size="28" align="center" fill="$muted" text="@lhold" when="=k==1"/>
+          <text y="58" size="28" align="center" fill="$muted" text="@lout" when="=k==2"/>
+        </group>
+        <path d="M -190 0 L -130 0 M 110 0 L 170 0" stroke="$ring" sw="2" opacity="=clamp((T - 4)/1, 0, 0.6)"/>
+      </group>
+      <text x="=W/2" y="=H/2 + 220" y.portrait="=H/2 + 200" size="36" italic="1" font="Playfair Display" align="center" fill="$muted" text="@follow" at="5.5">
+        <anim prop="opacity" from="0" to="1" dur="1.2"/>
+      </text>
+    </scene>
+
+    <!-- 3–5 · three breaths -->
+    <scene id="b1" dur="14.5" chapter="@ch3">
+      <say at="0.5" text="@vo3"/>
+      <sfx at="0.5" src="ding" vol="0.4"/>
+      <group x="=W/2" y="=H/2">
+        <circle r="560" fill="url(#halo)" scale="=0.7 + 0.5*br(cyc())"/>
+        <!-- phase arc -->
+        <circle r="400" fill="none" stroke="$ring" sw="2" opacity="0.25"/>
+        <path d="M 0 -400 A 400 400 0 1 1 0 400 A 400 400 0 1 1 0 -400" stroke="$ring" sw="6" fill="none" opacity="0.8" draw="=cyc()/14"/>
+        <circle x="=400*sin(cyc()/14*2*PI)" y="=-400*cos(cyc()/14*2*PI)" r="10" fill="$ring"/>
+        <!-- ripple rings during the inhale -->
+        <circle repeat="3" as="q" r="=rad(br(cyc())) + 30 + q*36" fill="none" stroke="$ring" sw="2" opacity="=(0.4 - q*0.12)*(cyc() &lt; 8 ? 1 : 0.4)"/>
+        <circle r="=rad(br(cyc()))" fill="url(#orbG)" shadow="0 0 60 $soft"/>
+        <circle r="=rad(br(cyc()))*(0.98 + 0.01*sin(T*7)*(cyc() >= 4 &amp;&amp; cyc() &lt; 8 ? 1 : 0))" fill="none" stroke="$ring" sw="3" opacity="0.9"/>
+        <text y="-20" size="64" font="Playfair Display" italic="1" align="center" fill="$orbtext" text="@in" when="=cyc() &lt; 4"/>
+        <text y="-20" size="64" font="Playfair Display" italic="1" align="center" fill="$orbtext" text="@hold" when="=cyc() >= 4 &amp;&amp; cyc() &lt; 8"/>
+        <text y="-20" size="64" font="Playfair Display" italic="1" align="center" fill="$orbtext" text="@out" when="=cyc() >= 8"/>
+        <text y="56" size="48" weight="300" align="center" fill="$orbmuted" text="{cyc() &lt; 4 ? floor(cyc()) + 1 : cyc() &lt; 8 ? floor(cyc() - 4) + 1 : min(6, floor(cyc() - 8) + 1)}"/>
+      </group>
+      <text x="=W/2" y="=H - 90" y.portrait="=H - 220" size="32" align="center" fill="$muted" text="@bn1"/>
+    </scene>
+    <scene id="b2" dur="14.5" chapter="@ch4">
+      <say at="0.5" text="@vo4"/>
+      <sfx at="0.5" src="ding" vol="0.4"/>
+      <group x="=W/2" y="=H/2">
+        <circle r="560" fill="url(#halo)" scale="=0.7 + 0.5*br(cyc())"/>
+        <circle r="400" fill="none" stroke="$ring" sw="2" opacity="0.25"/>
+        <path d="M 0 -400 A 400 400 0 1 1 0 400 A 400 400 0 1 1 0 -400" stroke="$ring" sw="6" fill="none" opacity="0.8" draw="=cyc()/14"/>
+        <circle x="=400*sin(cyc()/14*2*PI)" y="=-400*cos(cyc()/14*2*PI)" r="10" fill="$ring"/>
+        <circle repeat="3" as="q" r="=rad(br(cyc())) + 30 + q*36" fill="none" stroke="$ring" sw="2" opacity="=(0.4 - q*0.12)*(cyc() &lt; 8 ? 1 : 0.4)"/>
+        <circle r="=rad(br(cyc()))" fill="url(#orbG)" shadow="0 0 60 $soft"/>
+        <circle r="=rad(br(cyc()))*(0.98 + 0.01*sin(T*7)*(cyc() >= 4 &amp;&amp; cyc() &lt; 8 ? 1 : 0))" fill="none" stroke="$ring" sw="3" opacity="0.9"/>
+        <text y="-20" size="64" font="Playfair Display" italic="1" align="center" fill="$orbtext" text="@in" when="=cyc() &lt; 4"/>
+        <text y="-20" size="64" font="Playfair Display" italic="1" align="center" fill="$orbtext" text="@hold" when="=cyc() >= 4 &amp;&amp; cyc() &lt; 8"/>
+        <text y="-20" size="64" font="Playfair Display" italic="1" align="center" fill="$orbtext" text="@out" when="=cyc() >= 8"/>
+        <text y="56" size="48" weight="300" align="center" fill="$orbmuted" text="{cyc() &lt; 4 ? floor(cyc()) + 1 : cyc() &lt; 8 ? floor(cyc() - 4) + 1 : min(6, floor(cyc() - 8) + 1)}"/>
+      </group>
+      <text x="=W/2" y="=H - 90" y.portrait="=H - 220" size="32" align="center" fill="$muted" text="@bn2"/>
+    </scene>
+    <scene id="b3" dur="14.5" chapter="@ch5">
+      <say at="0.5" text="@vo5"/>
+      <sfx at="0.5" src="ding" vol="0.4"/>
+      <group x="=W/2" y="=H/2">
+        <circle r="560" fill="url(#halo)" scale="=0.7 + 0.5*br(cyc())"/>
+        <circle r="400" fill="none" stroke="$ring" sw="2" opacity="0.25"/>
+        <path d="M 0 -400 A 400 400 0 1 1 0 400 A 400 400 0 1 1 0 -400" stroke="$ring" sw="6" fill="none" opacity="0.8" draw="=cyc()/14"/>
+        <circle x="=400*sin(cyc()/14*2*PI)" y="=-400*cos(cyc()/14*2*PI)" r="10" fill="$ring"/>
+        <circle repeat="3" as="q" r="=rad(br(cyc())) + 30 + q*36" fill="none" stroke="$ring" sw="2" opacity="=(0.4 - q*0.12)*(cyc() &lt; 8 ? 1 : 0.4)"/>
+        <circle r="=rad(br(cyc()))" fill="url(#orbG)" shadow="0 0 60 $soft"/>
+        <circle r="=rad(br(cyc()))*(0.98 + 0.01*sin(T*7)*(cyc() >= 4 &amp;&amp; cyc() &lt; 8 ? 1 : 0))" fill="none" stroke="$ring" sw="3" opacity="0.9"/>
+        <text y="-20" size="64" font="Playfair Display" italic="1" align="center" fill="$orbtext" text="@in" when="=cyc() &lt; 4"/>
+        <text y="-20" size="64" font="Playfair Display" italic="1" align="center" fill="$orbtext" text="@hold" when="=cyc() >= 4 &amp;&amp; cyc() &lt; 8"/>
+        <text y="-20" size="64" font="Playfair Display" italic="1" align="center" fill="$orbtext" text="@out" when="=cyc() >= 8"/>
+        <text y="56" size="48" weight="300" align="center" fill="$orbmuted" text="{cyc() &lt; 4 ? floor(cyc()) + 1 : cyc() &lt; 8 ? floor(cyc() - 4) + 1 : min(6, floor(cyc() - 8) + 1)}"/>
+      </group>
+      <text x="=W/2" y="=H - 90" y.portrait="=H - 220" size="32" align="center" fill="$muted" text="@bn3"/>
+    </scene>
+
+    <!-- 6 · return -->
+    <scene id="return" dur="8.5" chapter="@ch6">
+      <say at="0.5" text="@vo6"/>
+      <sfx at="0.3" src="ding" vol="0.5"/>
+      <group x="=W/2" y="=H/2">
+        <circle r="560" fill="url(#halo)" scale="=0.8 + 0.05*sin(T*0.7)"/>
+        <circle r="=150 + 12*sin(T*0.7)" fill="url(#orbG)" opacity="=0.45 - clamp((T - 5)/3, 0, 0.25)" blur="6"/>
+      </group>
+      <text x="=W/2" y="=H/2 - 40" size="84" font="Playfair Display" italic="1" align="center" fill="$fg" text="@end1" at="0.6">
+        <anim prop="opacity" from="0" to="1" dur="1.5"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 60" size="40" maxw.portrait="900" font="Playfair Display" italic="1" align="center" fill="$fg" opacity="0.8" text="@end2" at="3.5">
+        <anim prop="opacity" from="0" to="1" dur="1.5"/>
+      </text>
+    </scene>
+  </timeline>
+  <voices>
+    <voice say="vo1" lang="en" src="voice/meditation-breathing/en/vo1.e982b26868.ogg" dur="6.91" hash="e982b26868" engine="kokoro:af_nicole"/>
+    <voice say="vo2" lang="en" src="voice/meditation-breathing/en/vo2.ebb5d41b66.ogg" dur="8.91" hash="ebb5d41b66" engine="kokoro:af_nicole"/>
+    <voice say="vo3" lang="en" src="voice/meditation-breathing/en/vo3.3726028c9f.ogg" dur="4.11" hash="3726028c9f" engine="kokoro:af_nicole"/>
+    <voice say="vo4" lang="en" src="voice/meditation-breathing/en/vo4.ae6c261b71.ogg" dur="3.71" hash="ae6c261b71" engine="kokoro:af_nicole"/>
+    <voice say="vo5" lang="en" src="voice/meditation-breathing/en/vo5.25bae0e854.ogg" dur="4.51" hash="25bae0e854" engine="kokoro:af_nicole"/>
+    <voice say="vo6" lang="en" src="voice/meditation-breathing/en/vo6.6f553178de.ogg" dur="7.01" hash="6f553178de" engine="kokoro:af_nicole"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,11 @@
+{
+  "id": "paper-cutout",
+  "title": "Paper cut-out stop motion",
+  "category": "Handmade",
+  "summary": "Layered paper cut-outs with drop shadows and 8 fps jitter walk through making masala chai for two.",
+  "duration": 58.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 4
+}

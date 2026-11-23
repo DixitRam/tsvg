@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: numbered step-by-step how-to. Progress rail of six steps, an illustration per step, checklist ticks. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" default="light"><choice id="light" label="Light"/><choice id="dark" label="Dark"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.2" sfx="0.6"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes>
+    <theme id="light" bg="#ffffff" fg="#1b1f2b" muted="#7a8194" accent="#4f5bd5" good="#16a36a" warm="#f08c2e" panel="#ffffff" panel2="#f4f5f9" line="#dfe2ea"/>
+    <theme id="dark" bg="#12151d" fg="#eef1f7" muted="#8790a6" accent="#8b95ff" good="#3fcf8e" warm="#ffa94d" panel="#1c2130" panel2="#171b26" line="#2c3344"/>
+  </themes>
+  <strings>
+    <s id="title" en="Set up a web project"/>
+    <s id="sub" en="6 steps · about 5 minutes"/>
+    <s id="ch0" en="1. Install Node.js"/>
+    <s id="chE" en="Done"/>
+    <s id="guide" en="HOW-TO GUIDE"/>
+    <s id="done" en="Your site is live!"/>
+    <s id="url" en="https://my-site.example.app"/>
+    <s id="helloA" en="Hello, world"/>
+    <s id="helloB" en="Hello, TSVG"/>
+    <s id="vo0" en="Here is how to set up a new web project from scratch, in six short steps."/>
+    <s id="vo7" en="That is it. Six steps, and your site is live."/>
+    <s id="s0" en="Install Node.js"/>
+    <s id="st0" en="STEP 1 OF 6"/>
+    <s id="vo1" en="Step one: install Node.js, version 18 or newer. Check it with node --version."/>
+    <s id="vs1" en="Step one: install Node J S, version eighteen or newer. Check it with node, dash dash version."/>
+    <s id="c00" en="Version 18 or newer"/>
+    <s id="c01" en="npm comes with it"/>
+    <s id="s1" en="Create the project"/>
+    <s id="st1" en="STEP 2 OF 6"/>
+    <s id="vo2" en="Step two: create the project with npm create vite, pick the Vanilla template, and a new folder appears."/>
+    <s id="vs2" en="Step two: create the project with N P M create veet, pick the vanilla template, and a new folder appears."/>
+    <s id="ch1" en="2. Create the project"/>
+    <s id="c10" en="Pick the Vanilla template"/>
+    <s id="c11" en="A folder my-site appears"/>
+    <s id="s2" en="Install dependencies"/>
+    <s id="st2" en="STEP 3 OF 6"/>
+    <s id="vo3" en="Step three: move into the folder and run npm install to download the packages."/>
+    <s id="vs3" en="Step three: move into the folder and run N P M install to download the packages."/>
+    <s id="ch2" en="3. Install dependencies"/>
+    <s id="c20" en="Downloads the packages"/>
+    <s id="c21" en="Creates node_modules"/>
+    <s id="s3" en="Start the dev server"/>
+    <s id="st3" en="STEP 4 OF 6"/>
+    <s id="vo4" en="Step four: start the dev server with npm run dev, and open the local address in your browser."/>
+    <s id="vs4" en="Step four: start the dev server with N P M run dev, and open the local address in your browser."/>
+    <s id="ch3" en="4. Start the dev server"/>
+    <s id="c30" en="Opens on localhost:5173"/>
+    <s id="c31" en="Leave it running"/>
+    <s id="s4" en="Edit a page"/>
+    <s id="st4" en="STEP 5 OF 6"/>
+    <s id="vo5" en="Step five: edit index.html and save. The page in the browser updates instantly."/>
+    <s id="vs5" en="Step five: edit index dot html and save. The page in the browser updates instantly."/>
+    <s id="ch4" en="5. Edit a page"/>
+    <s id="c40" en="Save index.html"/>
+    <s id="c41" en="The page updates instantly"/>
+    <s id="s5" en="Build and deploy"/>
+    <s id="st5" en="STEP 6 OF 6"/>
+    <s id="vo6" en="Step six: run npm run build. The finished site lands in the dist folder, ready to upload anywhere."/>
+    <s id="vs6" en="Step six: run N P M run build. The finished site lands in the dist folder, ready to upload anywhere."/>
+    <s id="ch5" en="6. Build and deploy"/>
+    <s id="c50" en="Static files land in dist/"/>
+    <s id="c51" en="Upload dist/ to any host"/>
+    <s id="t0_0" en="$ node --version"/>
+    <s id="t0_1" en="v22.11.0"/>
+    <s id="t1_0" en="$ npm create vite@latest my-site"/>
+    <s id="t1_1" en="✔ Select a framework: › Vanilla"/>
+    <s id="t1_2" en="✔ Select a variant: › JavaScript"/>
+    <s id="t1_3" en="Scaffolding project in ./my-site…"/>
+    <s id="t2_0" en="$ cd my-site &amp;&amp; npm install"/>
+    <s id="t2_1" en="added 31 packages in 4s"/>
+    <s id="t3_0" en="$ npm run dev"/>
+    <s id="t3_1" en="VITE v5.4  ready in 312 ms"/>
+    <s id="t3_2" en="➜  Local:   http://localhost:5173/"/>
+    <s id="t5_0" en="$ npm run build"/>
+    <s id="t5_1" en="dist/index.html          0.45 kB"/>
+    <s id="t5_2" en="dist/assets/index.css    1.20 kB"/>
+    <s id="t5_3" en="dist/assets/index.js     0.71 kB"/>
+    <s id="t5_4" en="✓ built in 380ms"/>
+    <s id="tr0" en="my-site/"/>
+    <s id="tr1" en="  index.html"/>
+    <s id="tr2" en="  main.js"/>
+    <s id="tr3" en="  style.css"/>
+    <s id="tr4" en="  package.json"/>
+    <s id="cd0" en="&lt;body&gt;"/>
+    <s id="cd1" en="  &lt;div id=&quot;app&quot;&gt;"/>
+    <s id="cd2" en="    &lt;h1&gt;"/>
+    <s id="cd3" en="  &lt;/div&gt;"/>
+    <s id="cd4" en="&lt;/body&gt;"/>
+  </strings>
+  <assets>
+    <asset id="pad" src="audio/pad.ogg"/><asset id="click" src="audio/click.ogg"/><asset id="blip" src="audio/blip.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/><font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.6"/>
+  <timeline>
+    <scene id="overview" dur="7.5" chapter="@ch0">
+      <say at="0.4" text="@vo0"/>
+      
+      <text x="110" y="110" size="26" weight="800" fill="$accent" text="@guide"/>
+      <text x="110" y="168" size="50" weight="800" fill="$fg" text="@title"/>
+      <line x1="170" y1="300" x2="170" y2="880" stroke="$line" sw="6"/>
+      <line x1="170" y1="300" x2="170" y2="=300 + 116*0" stroke="$good" sw="6"/>
+      <group x="170" y="300">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="1"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s0"/>
+      </group>
+      <group x="170" y="416">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="2"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s1"/>
+      </group>
+      <group x="170" y="532">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="3"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s2"/>
+      </group>
+      <group x="170" y="648">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="4"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s3"/>
+      </group>
+      <group x="170" y="764">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="5"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s4"/>
+      </group>
+      <group x="170" y="880">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="6"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s5"/>
+      </group>
+      <rect x="600" y="0" w="1320" h="1080" fill="$panel2"/>
+      <group x="1260" y="460"><anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <rect x="-460" y="-250" w="920" h="500" r="32" fill="#ffffff" stroke="$line" sw="2" shadow="0 30 60 #1b1f2b26"/>
+        <group x="-380" y="-110" at="0.6"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <circle r="48" fill="$accent"/><text x="0" y="2" size="44" weight="800" align="center" fill="#fff" text="1"/></group><group x="-90" y="-110" at="0.85"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <circle r="48" fill="$warm"/><text x="0" y="2" size="44" weight="800" align="center" fill="#fff" text="2"/></group><group x="200" y="-110" at="1.1"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <circle r="48" fill="$accent"/><text x="0" y="2" size="44" weight="800" align="center" fill="#fff" text="3"/></group><group x="-380" y="100" at="1.35"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <circle r="48" fill="$warm"/><text x="0" y="2" size="44" weight="800" align="center" fill="#fff" text="4"/></group><group x="-90" y="100" at="1.6"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <circle r="48" fill="$accent"/><text x="0" y="2" size="44" weight="800" align="center" fill="#fff" text="5"/></group><group x="200" y="100" at="1.85"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <circle r="48" fill="$warm"/><text x="0" y="2" size="44" weight="800" align="center" fill="#fff" text="6"/></group>
+      </group>
+      <text x="1260" y="800" size="40" align="center" fill="$muted" text="@sub" at="2"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+    </scene>
+    <scene id="step1" dur="8.5" chapter="@ch0">
+      <say at="0.4" text="@vo1" speak="@vs1"/>
+      <sfx at="0.1" src="blip"/>
+      
+      <text x="110" y="110" size="26" weight="800" fill="$accent" text="@guide"/>
+      <text x="110" y="168" size="50" weight="800" fill="$fg" text="@title"/>
+      <line x1="170" y1="300" x2="170" y2="880" stroke="$line" sw="6"/>
+      <line x1="170" y1="300" x2="170" y2="=300 + 116*0" stroke="$good" sw="6"/>
+      <group x="170" y="300">
+        <circle r="=40 + 6*sin(T*4)" fill="$accent" opacity="0.18"/>
+        <circle r="30" fill="$accent" stroke="none" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="#fff" text="1"/>
+        <text x="56" y="0" size="32" weight="800" fill="$fg" text="@s0"/>
+      </group>
+      <group x="170" y="416">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="2"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s1"/>
+      </group>
+      <group x="170" y="532">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="3"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s2"/>
+      </group>
+      <group x="170" y="648">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="4"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s3"/>
+      </group>
+      <group x="170" y="764">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="5"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s4"/>
+      </group>
+      <group x="170" y="880">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="6"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s5"/>
+      </group>
+      <rect x="600" y="0" w="1320" h="1080" fill="$panel2"/>
+      
+      <text x="660" y="110" size="28" weight="800" fill="$accent" text="@st0"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="660" y="172" size="64" weight="800" fill="$fg" text="@s0"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="700" to="660" dur="0.4" ease="out"/></text>
+      
+      <group x="660" y="270"><anim prop="opacity" from="0" to="1" at="0.3" dur="0.3"/>
+        <rect w="1080" h="206" r="18" fill="#1b1f2b" shadow="0 24 50 #1b1f2b40"/>
+        <rect w="1080" h="48" r="18" fill="#262b3a"/><rect y="30" w="1080" h="18" fill="#262b3a"/>
+        <circle x="30" y="24" r="8" fill="#ff5f57"/><circle x="56" y="24" r="8" fill="#febc2e"/><circle x="82" y="24" r="8" fill="#28c840"/>
+        <text x="30" y="88" size="32" font="JetBrains Mono" fill="#e6edf7" text="@t0_0" at="0.60"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text><text x="30" y="146" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@t0_1" at="1.50"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text>
+        <rect x="=30 + 19.2*min(16, 16*clamp((T - 0.6)/0.8, 0, 1))" y="70" w="16" h="36" fill="#e6edf7" opacity="=fract(T*1.6) &lt; 0.5 ? 1 : 0" when="=T &lt; 1.5"/>
+      </group>
+      <group x="1200" y="620" at="2"><anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+        <path d="M 0 -130 L 113 -65 L 113 65 L 0 130 L -113 65 L -113 -65 Z" fill="$good" opacity="0.15"/>
+        <path d="M 0 -100 L 87 -50 L 87 50 L 0 100 L -87 50 L -87 -50 Z" fill="$good"/>
+        <text x="0" y="-10" size="64" weight="800" align="center" fill="#fff" text="v22"/><text x="0" y="46" size="26" weight="700" align="center" fill="#ffffffcc" text="LTS"/></group>
+      <group x="660" y="880" at="3.2"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c00"/></group>
+      <group x="660" y="956" at="4"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c01"/></group><sfx at="3.2" src="click"/><sfx at="4" src="click"/>
+    </scene>
+    <scene id="step2" dur="9" chapter="@ch1">
+      <say at="0.4" text="@vo2" speak="@vs2"/>
+      <sfx at="0.1" src="blip"/>
+      
+      <text x="110" y="110" size="26" weight="800" fill="$accent" text="@guide"/>
+      <text x="110" y="168" size="50" weight="800" fill="$fg" text="@title"/>
+      <line x1="170" y1="300" x2="170" y2="880" stroke="$line" sw="6"/>
+      <line x1="170" y1="300" x2="170" y2="=300 + 116*lerp(0, 1, ease(T/0.8, 'io'))" stroke="$good" sw="6"/>
+      <group x="170" y="300">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s0"/>
+      </group>
+      <group x="170" y="416">
+        <circle r="=40 + 6*sin(T*4)" fill="$accent" opacity="0.18"/>
+        <circle r="30" fill="$accent" stroke="none" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="#fff" text="2"/>
+        <text x="56" y="0" size="32" weight="800" fill="$fg" text="@s1"/>
+      </group>
+      <group x="170" y="532">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="3"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s2"/>
+      </group>
+      <group x="170" y="648">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="4"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s3"/>
+      </group>
+      <group x="170" y="764">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="5"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s4"/>
+      </group>
+      <group x="170" y="880">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="6"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s5"/>
+      </group>
+      <rect x="600" y="0" w="1320" h="1080" fill="$panel2"/>
+      
+      <text x="660" y="110" size="28" weight="800" fill="$accent" text="@st1"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="660" y="172" size="64" weight="800" fill="$fg" text="@s1"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="700" to="660" dur="0.4" ease="out"/></text>
+      
+      <group x="660" y="260"><anim prop="opacity" from="0" to="1" at="0.3" dur="0.3"/>
+        <rect w="1100" h="322" r="18" fill="#1b1f2b" shadow="0 24 50 #1b1f2b40"/>
+        <rect w="1100" h="48" r="18" fill="#262b3a"/><rect y="30" w="1100" h="18" fill="#262b3a"/>
+        <circle x="30" y="24" r="8" fill="#ff5f57"/><circle x="56" y="24" r="8" fill="#febc2e"/><circle x="82" y="24" r="8" fill="#28c840"/>
+        <text x="30" y="88" size="32" font="JetBrains Mono" fill="#e6edf7" text="@t1_0" at="0.60"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text><text x="30" y="146" size="32" font="JetBrains Mono" fill="#5fd39a" text="@t1_1" at="1.50"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text><text x="30" y="204" size="32" font="JetBrains Mono" fill="#5fd39a" text="@t1_2" at="2.30"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text><text x="30" y="262" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@t1_3" at="3.10"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text>
+        <rect x="=30 + 19.2*min(32, 32*clamp((T - 0.6)/0.8, 0, 1))" y="70" w="16" h="36" fill="#e6edf7" opacity="=fract(T*1.6) &lt; 0.5 ? 1 : 0" when="=T &lt; 1.5"/>
+      </group>
+      <group x="1360" y="600" at="4.2"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="1420" to="1360" dur="0.4" ease="out"/>
+        <rect w="420" h="260" r="16" fill="#ffffff" stroke="$line" sw="2" shadow="0 16 36 #1b1f2b26"/>
+        <group x="28" y="44"><rect x="0" y="-13" w="26" h="26" r="5" fill="$warm"/><text x="40" y="0" size="28" font="JetBrains Mono" fill="$fg" text="@tr0"/></group><group x="56" y="90"><rect x="0" y="-13" w="26" h="26" r="5" fill="#c7d2fe"/><text x="40" y="0" size="28" font="JetBrains Mono" fill="$fg" text="@tr1"/></group><group x="56" y="136"><rect x="0" y="-13" w="26" h="26" r="5" fill="#c7d2fe"/><text x="40" y="0" size="28" font="JetBrains Mono" fill="$fg" text="@tr2"/></group><group x="56" y="182"><rect x="0" y="-13" w="26" h="26" r="5" fill="#c7d2fe"/><text x="40" y="0" size="28" font="JetBrains Mono" fill="$fg" text="@tr3"/></group><group x="56" y="228"><rect x="0" y="-13" w="26" h="26" r="5" fill="#c7d2fe"/><text x="40" y="0" size="28" font="JetBrains Mono" fill="$fg" text="@tr4"/></group>
+      </group>
+      <group x="660" y="880" at="5.2"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c10"/></group>
+      <group x="660" y="956" at="6"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c11"/></group><sfx at="5.2" src="click"/><sfx at="6" src="click"/>
+    </scene>
+    <scene id="step3" dur="8.5" chapter="@ch2">
+      <say at="0.4" text="@vo3" speak="@vs3"/>
+      <sfx at="0.1" src="blip"/>
+      
+      <text x="110" y="110" size="26" weight="800" fill="$accent" text="@guide"/>
+      <text x="110" y="168" size="50" weight="800" fill="$fg" text="@title"/>
+      <line x1="170" y1="300" x2="170" y2="880" stroke="$line" sw="6"/>
+      <line x1="170" y1="300" x2="170" y2="=300 + 116*lerp(1, 2, ease(T/0.8, 'io'))" stroke="$good" sw="6"/>
+      <group x="170" y="300">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s0"/>
+      </group>
+      <group x="170" y="416">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s1"/>
+      </group>
+      <group x="170" y="532">
+        <circle r="=40 + 6*sin(T*4)" fill="$accent" opacity="0.18"/>
+        <circle r="30" fill="$accent" stroke="none" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="#fff" text="3"/>
+        <text x="56" y="0" size="32" weight="800" fill="$fg" text="@s2"/>
+      </group>
+      <group x="170" y="648">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="4"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s3"/>
+      </group>
+      <group x="170" y="764">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="5"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s4"/>
+      </group>
+      <group x="170" y="880">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="6"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s5"/>
+      </group>
+      <rect x="600" y="0" w="1320" h="1080" fill="$panel2"/>
+      
+      <text x="660" y="110" size="28" weight="800" fill="$accent" text="@st2"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="660" y="172" size="64" weight="800" fill="$fg" text="@s2"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="700" to="660" dur="0.4" ease="out"/></text>
+      
+      <group x="660" y="270"><anim prop="opacity" from="0" to="1" at="0.3" dur="0.3"/>
+        <rect w="1080" h="206" r="18" fill="#1b1f2b" shadow="0 24 50 #1b1f2b40"/>
+        <rect w="1080" h="48" r="18" fill="#262b3a"/><rect y="30" w="1080" h="18" fill="#262b3a"/>
+        <circle x="30" y="24" r="8" fill="#ff5f57"/><circle x="56" y="24" r="8" fill="#febc2e"/><circle x="82" y="24" r="8" fill="#28c840"/>
+        <text x="30" y="88" size="32" font="JetBrains Mono" fill="#e6edf7" text="@t2_0" at="0.60"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text><text x="30" y="146" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@t2_1" at="1.50"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text>
+        <rect x="=30 + 19.2*min(27, 27*clamp((T - 0.6)/0.8, 0, 1))" y="70" w="16" h="36" fill="#e6edf7" opacity="=fract(T*1.6) &lt; 0.5 ? 1 : 0" when="=T &lt; 1.5"/>
+      </group>
+      <group x="690" y="490" at="1.5"><rect w="1020" h="20" r="10" fill="#2c3242"/><rect w="=1020*ease((T - 1.5)/2.4, 'io')" h="20" r="10" fill="$good"/>
+        <text x="1020" y="48" size="26" font="JetBrains Mono" align="right" fill="#9aa6bd" text="{fmt(31*ease((T - 1.5)/2.4, 'io'), 0)} / 31 packages"/></group>
+      <group x="700" y="610"><rect repeat="31" as="k" x="=(k % 16)*64" y="=floor(k/16)*64" w="52" h="52" r="10" fill="=mix($accent, $good, k/30)" at="=1.5 + 2.4*k/31"><anim prop="scale" from="0" to="1" dur="0.25" ease="back"/></rect></group>
+      <group x="660" y="880" at="4.4"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c20"/></group>
+      <group x="660" y="956" at="5.2"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c21"/></group><sfx at="4.4" src="click"/><sfx at="5.2" src="click"/>
+    </scene>
+    <scene id="step4" dur="9" chapter="@ch3">
+      <say at="0.4" text="@vo4" speak="@vs4"/>
+      <sfx at="0.1" src="blip"/>
+      
+      <text x="110" y="110" size="26" weight="800" fill="$accent" text="@guide"/>
+      <text x="110" y="168" size="50" weight="800" fill="$fg" text="@title"/>
+      <line x1="170" y1="300" x2="170" y2="880" stroke="$line" sw="6"/>
+      <line x1="170" y1="300" x2="170" y2="=300 + 116*lerp(2, 3, ease(T/0.8, 'io'))" stroke="$good" sw="6"/>
+      <group x="170" y="300">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s0"/>
+      </group>
+      <group x="170" y="416">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s1"/>
+      </group>
+      <group x="170" y="532">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s2"/>
+      </group>
+      <group x="170" y="648">
+        <circle r="=40 + 6*sin(T*4)" fill="$accent" opacity="0.18"/>
+        <circle r="30" fill="$accent" stroke="none" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="#fff" text="4"/>
+        <text x="56" y="0" size="32" weight="800" fill="$fg" text="@s3"/>
+      </group>
+      <group x="170" y="764">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="5"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s4"/>
+      </group>
+      <group x="170" y="880">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="6"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s5"/>
+      </group>
+      <rect x="600" y="0" w="1320" h="1080" fill="$panel2"/>
+      
+      <text x="660" y="110" size="28" weight="800" fill="$accent" text="@st3"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="660" y="172" size="64" weight="800" fill="$fg" text="@s3"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="700" to="660" dur="0.4" ease="out"/></text>
+      
+      <group x="660" y="250"><anim prop="opacity" from="0" to="1" at="0.3" dur="0.3"/>
+        <rect w="1100" h="264" r="18" fill="#1b1f2b" shadow="0 24 50 #1b1f2b40"/>
+        <rect w="1100" h="48" r="18" fill="#262b3a"/><rect y="30" w="1100" h="18" fill="#262b3a"/>
+        <circle x="30" y="24" r="8" fill="#ff5f57"/><circle x="56" y="24" r="8" fill="#febc2e"/><circle x="82" y="24" r="8" fill="#28c840"/>
+        <text x="30" y="88" size="32" font="JetBrains Mono" fill="#e6edf7" text="@t3_0" at="0.60"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text><text x="30" y="146" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@t3_1" at="1.50"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text><text x="30" y="204" size="32" font="JetBrains Mono" fill="#5fd39a" text="@t3_2" at="2.10"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text>
+        <rect x="=30 + 19.2*min(13, 13*clamp((T - 0.6)/0.8, 0, 1))" y="70" w="16" h="36" fill="#e6edf7" opacity="=fract(T*1.6) &lt; 0.5 ? 1 : 0" when="=T &lt; 1.5"/>
+      </group>
+      <group x="1080" y="520" at="3.2"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="550" to="520" dur="0.4" ease="out"/>
+        <rect w="700" h="300" r="18" fill="#ffffff" stroke="$line" sw="2" shadow="0 24 50 #1b1f2b26"/>
+        <rect w="700" h="52" r="18" fill="#eef0f5"/><rect y="34" w="700" h="18" fill="#eef0f5"/>
+        <circle x="28" y="26" r="7" fill="#ff5f57"/><circle x="50" y="26" r="7" fill="#febc2e"/><circle x="72" y="26" r="7" fill="#28c840"/>
+        <rect x="100" y="12" w="570" h="28" r="14" fill="#ffffff"/><text x="118" y="27" size="20" font="JetBrains Mono" fill="$muted" text="localhost:5173"/>
+        <text x="350" y="170" size="56" weight="800" align="center" fill="#1b1f2b" text="@helloA"/><circle x="350" y="250" r="18" fill="$accent" opacity="=0.4 + 0.4*sin(T*3)"/></group>
+      <group x="660" y="880" at="4.6"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c30"/></group>
+      <group x="660" y="956" at="5.3999999999999995"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c31"/></group><sfx at="4.6" src="click"/><sfx at="5.3999999999999995" src="click"/>
+    </scene>
+    <scene id="step5" dur="8.5" chapter="@ch4">
+      <say at="0.4" text="@vo5" speak="@vs5"/>
+      <sfx at="0.1" src="blip"/>
+      
+      <text x="110" y="110" size="26" weight="800" fill="$accent" text="@guide"/>
+      <text x="110" y="168" size="50" weight="800" fill="$fg" text="@title"/>
+      <line x1="170" y1="300" x2="170" y2="880" stroke="$line" sw="6"/>
+      <line x1="170" y1="300" x2="170" y2="=300 + 116*lerp(3, 4, ease(T/0.8, 'io'))" stroke="$good" sw="6"/>
+      <group x="170" y="300">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s0"/>
+      </group>
+      <group x="170" y="416">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s1"/>
+      </group>
+      <group x="170" y="532">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s2"/>
+      </group>
+      <group x="170" y="648">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s3"/>
+      </group>
+      <group x="170" y="764">
+        <circle r="=40 + 6*sin(T*4)" fill="$accent" opacity="0.18"/>
+        <circle r="30" fill="$accent" stroke="none" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="#fff" text="5"/>
+        <text x="56" y="0" size="32" weight="800" fill="$fg" text="@s4"/>
+      </group>
+      <group x="170" y="880">
+        
+        <circle r="30" fill="$panel" stroke="$line" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="$muted" text="6"/>
+        <text x="56" y="0" size="32" weight="500" fill="$muted" text="@s5"/>
+      </group>
+      <rect x="600" y="0" w="1320" h="1080" fill="$panel2"/>
+      
+      <text x="660" y="110" size="28" weight="800" fill="$accent" text="@st4"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="660" y="172" size="64" weight="800" fill="$fg" text="@s4"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="700" to="660" dur="0.4" ease="out"/></text>
+      <group x="660" y="260"><rect w="560" h="420" r="18" fill="#1b1f2b" shadow="0 24 50 #1b1f2b40"/>
+        <text x="30" y="34" size="22" font="JetBrains Mono" fill="#9aa6bd" text="index.html"/>
+        <text x="30" y="100" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@cd0"/><text x="30" y="160" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@cd1"/><text x="30" y="220" size="32" font="JetBrains Mono" fill="#7aa2ff" text="@cd2"/><text x="30" y="280" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@cd3"/><text x="30" y="340" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@cd4"/>
+        <text x="184" y="220" size="32" font="JetBrains Mono" fill="#e6edf7" text="{T &lt; 2.2 ? 'Hello, world' : 'Hello, TSVG'}" reveal="=(T &lt; 1.4 ? 12 : T &lt; 2.2 ? round(12 - 5*(T - 1.4)/0.8) : round(7 + 4*clamp((T - 2.2)/0.8, 0, 1)))/(T &lt; 2.2 ? 12 : 11)"/>
+        <text x="=184 + 19.2*(T &lt; 1.4 ? 12 : T &lt; 2.2 ? round(12 - 5*(T - 1.4)/0.8) : round(7 + 4*clamp((T - 2.2)/0.8, 0, 1)))" y="220" size="32" font="JetBrains Mono" fill="#7aa2ff" text="&lt;/h1&gt;"/>
+        <rect x="=184 + 19.2*(T &lt; 1.4 ? 12 : T &lt; 2.2 ? round(12 - 5*(T - 1.4)/0.8) : round(7 + 4*clamp((T - 2.2)/0.8, 0, 1)))" y="202" w="3" h="36" fill="#e6edf7" when="=T &gt; 1.2 &amp;&amp; T &lt; 3.2"/>
+        <group x="460" y="380" at="3.2" dur="1.2"><rect x="-80" y="-22" w="160" h="44" r="22" fill="$good"/><text x="0" y="1" size="22" weight="700" align="center" fill="#fff" text="saved ✓"/></group>
+      </group>
+      <group x="1260" y="300" at="0"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="330" to="300" dur="0.4" ease="out"/>
+        <rect w="560" h="340" r="18" fill="#ffffff" stroke="$line" sw="2" shadow="0 24 50 #1b1f2b26"/>
+        <rect w="560" h="52" r="18" fill="#eef0f5"/><rect y="34" w="560" h="18" fill="#eef0f5"/>
+        <circle x="28" y="26" r="7" fill="#ff5f57"/><circle x="50" y="26" r="7" fill="#febc2e"/><circle x="72" y="26" r="7" fill="#28c840"/>
+        <rect x="100" y="12" w="430" h="28" r="14" fill="#ffffff"/><text x="118" y="27" size="20" font="JetBrains Mono" fill="$muted" text="localhost:5173"/>
+        <text x="280" y="190" size="52" weight="800" align="center" fill="#1b1f2b" text="{T &lt; 3.4 ? 'Hello, world' : 'Hello, TSVG'}"/><rect x="0" y="52" w="560" h="288" fill="$good" opacity="=0.25*max(0, 1 - abs(T - 3.6)*2)"/></group>
+      <group x="660" y="880" at="4.2"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c40"/></group>
+      <group x="660" y="956" at="5"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c41"/></group><sfx at="4.2" src="click"/><sfx at="5" src="click"/>
+    </scene>
+    <scene id="step6" dur="9.5" chapter="@ch5">
+      <say at="0.4" text="@vo6" speak="@vs6"/>
+      <sfx at="0.1" src="blip"/>
+      
+      <text x="110" y="110" size="26" weight="800" fill="$accent" text="@guide"/>
+      <text x="110" y="168" size="50" weight="800" fill="$fg" text="@title"/>
+      <line x1="170" y1="300" x2="170" y2="880" stroke="$line" sw="6"/>
+      <line x1="170" y1="300" x2="170" y2="=300 + 116*lerp(4, 5, ease(T/0.8, 'io'))" stroke="$good" sw="6"/>
+      <group x="170" y="300">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s0"/>
+      </group>
+      <group x="170" y="416">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s1"/>
+      </group>
+      <group x="170" y="532">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s2"/>
+      </group>
+      <group x="170" y="648">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s3"/>
+      </group>
+      <group x="170" y="764">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s4"/>
+      </group>
+      <group x="170" y="880">
+        <circle r="=40 + 6*sin(T*4)" fill="$accent" opacity="0.18"/>
+        <circle r="30" fill="$accent" stroke="none" sw="4"/>
+        <text x="0" y="1" size="28" weight="800" align="center" fill="#fff" text="6"/>
+        <text x="56" y="0" size="32" weight="800" fill="$fg" text="@s5"/>
+      </group>
+      <rect x="600" y="0" w="1320" h="1080" fill="$panel2"/>
+      
+      <text x="660" y="110" size="28" weight="800" fill="$accent" text="@st5"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="660" y="172" size="64" weight="800" fill="$fg" text="@s5"><anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="700" to="660" dur="0.4" ease="out"/></text>
+      
+      <group x="660" y="250"><anim prop="opacity" from="0" to="1" at="0.3" dur="0.3"/>
+        <rect w="1100" h="380" r="18" fill="#1b1f2b" shadow="0 24 50 #1b1f2b40"/>
+        <rect w="1100" h="48" r="18" fill="#262b3a"/><rect y="30" w="1100" h="18" fill="#262b3a"/>
+        <circle x="30" y="24" r="8" fill="#ff5f57"/><circle x="56" y="24" r="8" fill="#febc2e"/><circle x="82" y="24" r="8" fill="#28c840"/>
+        <text x="30" y="88" size="32" font="JetBrains Mono" fill="#e6edf7" text="@t5_0" at="0.60"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text><text x="30" y="146" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@t5_1" at="1.50"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text><text x="30" y="204" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@t5_2" at="1.90"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text><text x="30" y="262" size="32" font="JetBrains Mono" fill="#9aa6bd" text="@t5_3" at="2.30"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text><text x="30" y="320" size="32" font="JetBrains Mono" fill="#5fd39a" text="@t5_4" at="2.70"><anim prop="reveal" from="0" to="1" dur="0.3" ease="linear"/></text>
+        <rect x="=30 + 19.2*min(15, 15*clamp((T - 0.6)/0.8, 0, 1))" y="70" w="16" h="36" fill="#e6edf7" opacity="=fract(T*1.6) &lt; 0.5 ? 1 : 0" when="=T &lt; 1.5"/>
+      </group>
+      <group x="1500" y="660" at="4.6"><anim prop="scale" from="0" to="1" dur="0.5" ease="back"/>
+        <circle r="120" fill="$good" opacity="0.15"/><circle r="86" fill="$good"/>
+        <path d="M -34 0 L -8 26 L 38 -24" stroke="#fff" sw="14" fill="none"><anim prop="draw" from="0" to="1" at="0.3" dur="0.4"/></path></group>
+      <group x="660" y="880" at="5.6"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c50"/></group>
+      <group x="660" y="956" at="6.3999999999999995"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect x="0" y="-26" w="52" h="52" r="12" fill="$good"/><path d="M 13 0 L 22 10 L 40 -10" stroke="#fff" sw="6" fill="none"><anim prop="draw" from="0" to="1" at="0.15" dur="0.3"/></path>
+        <text x="76" y="0" size="38" fill="$fg" text="@c51"/></group><sfx at="5.6" src="click"/><sfx at="6.3999999999999995" src="click"/>
+    </scene>
+    <scene id="done" dur="5.5" chapter="@chE">
+      <say at="0.3" text="@vo7"/>
+      <sfx at="0.4" src="ding"/>
+      
+      <text x="110" y="110" size="26" weight="800" fill="$accent" text="@guide"/>
+      <text x="110" y="168" size="50" weight="800" fill="$fg" text="@title"/>
+      <line x1="170" y1="300" x2="170" y2="880" stroke="$line" sw="6"/>
+      <line x1="170" y1="300" x2="170" y2="=300 + 116*5" stroke="$good" sw="6"/>
+      <group x="170" y="300">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s0"/>
+      </group>
+      <group x="170" y="416">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s1"/>
+      </group>
+      <group x="170" y="532">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s2"/>
+      </group>
+      <group x="170" y="648">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s3"/>
+      </group>
+      <group x="170" y="764">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s4"/>
+      </group>
+      <group x="170" y="880">
+        
+        <circle r="30" fill="$good" stroke="none" sw="4"/>
+        <path d="M -12 0 L -3 10 L 13 -9" stroke="#fff" sw="6" fill="none"/>
+        <text x="56" y="0" size="32" weight="500" fill="$fg" text="@s5"/>
+      </group>
+      <rect x="600" y="0" w="1320" h="1080" fill="$panel2"/>
+      <group x="1260" y="440"><anim prop="scale" from="0.6" to="1" dur="0.6" ease="back"/>
+        <circle r="150" fill="$good" opacity="0.15"/><circle r="110" fill="$good"/>
+        <path d="M -44 0 L -10 34 L 50 -32" stroke="#fff" sw="18" fill="none"><anim prop="draw" from="0" to="1" at="0.3" dur="0.4"/></path></group>
+      <text x="1260" y="680" size="72" weight="800" align="center" fill="$fg" text="@done" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="1260" y="770" size="36" font="JetBrains Mono" align="center" fill="$accent" text="@url" at="1"><anim prop="reveal" from="0" to="1" dur="0.8" ease="linear"/></text>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo0" lang="en" src="voice/step-by-step-howto/en/vo0.e8f8c03201.ogg" dur="4.31" hash="e8f8c03201" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="en" src="voice/step-by-step-howto/en/vo1.f3272f5e24.ogg" dur="6.31" hash="f3272f5e24" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/step-by-step-howto/en/vo2.37f9e9f766.ogg" dur="6.71" hash="37f9e9f766" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/step-by-step-howto/en/vo3.45f685a3aa.ogg" dur="5.41" hash="45f685a3aa" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/step-by-step-howto/en/vo4.58f5e057df.ogg" dur="5.81" hash="58f5e057df" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/step-by-step-howto/en/vo5.75947d5893.ogg" dur="6.11" hash="75947d5893" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/step-by-step-howto/en/vo6.aa05a8635f.ogg" dur="6.81" hash="aa05a8635f" engine="kokoro:af_heart"/>
+    <voice say="vo7" lang="en" src="voice/step-by-step-howto/en/vo7.3504543953.ogg" dur="2.78" hash="3504543953" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

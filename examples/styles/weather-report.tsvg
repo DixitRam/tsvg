@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: TV weather forecast. A stylised region map with temperature bubbles, animated vector
+     weather icons (sun, cloud, rain, storm), a radar rain band clipped to the land, wind arrows
+     and a 5-day strip. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.25" sfx="0.6"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="sky" bg="#0f4c8a" fg="#ffffff" sea="#1d6fb8" sea2="#2a86d1" land="#7cc36a" land2="#5aa84f" hill="#4c9444" panel="#ffffff" ink="#12355c" muted="#5d7896" sun="#ffc928" rain="#47a8ff" cold="#5ab4ff" warm="#ff8a2a"/>
+  </themes>
+
+  <strings>
+    <s id="title" en="Weekend weather: heat, then a stormy Friday"/>
+    <s id="brand" en="WEATHER"/>
+    <s id="ch1" en="Intro"/><s id="ch2" en="Today"/><s id="ch3" en="Rain band"/><s id="ch4" en="Wind"/>
+    <s id="ch5" en="5-day"/><s id="ch6" en="Weekend"/>
+    <s id="i1" en="Your weekend forecast"/>
+    <s id="i2" en="Coastal Region · Thursday 21 November"/>
+    <s id="today" en="TODAY · 3 PM"/>
+    <s id="radar" en="RAIN RADAR · FRIDAY"/>
+    <s id="wind" en="WIND · SATURDAY"/>
+    <s id="gust" en="Gusts to 60 km/h on the coast"/>
+    <s id="five" en="5-DAY FORECAST · NORTHPORT"/>
+    <s id="best" en="Best day outside"/>
+    <s id="bestd" en="Sunday: 24 °C, light breeze, UV 6"/>
+    <s id="uv" en="Wear sunscreen 11 am – 3 pm"/>
+    <s id="c1" en="Northport"/><s id="c2" en="Lakeside"/><s id="c3" en="Eastmere"/><s id="c4" en="Port Hollis"/><s id="c5" en="Southfield"/>
+    <s id="d1" en="THU"/><s id="d2" en="FRI"/><s id="d3" en="SAT"/><s id="d4" en="SUN"/><s id="d5" en="MON"/>
+    <s id="vo1" en="Good evening. Here's your forecast for the coastal region, and it's a weekend of two halves."/>
+    <s id="vo2" en="Today was hot and sunny almost everywhere. Southfield topped out at thirty one degrees, with a little cloud near Eastmere."/>
+    <s id="vo3" en="Tomorrow a band of heavy rain sweeps in from the west, with thunderstorms around Lakeside by the afternoon."/>
+    <s id="vo4" en="Behind it, a fresh north westerly wind on Saturday, gusting to sixty kilometres an hour along the coast."/>
+    <s id="vo5" en="Here's the five day picture for Northport: storms Friday, cooler Saturday, then sunshine returns for Sunday and Monday."/>
+    <s id="vo6" en="So if you're planning to be outside, Sunday's your day. Twenty four degrees and a light breeze. Enjoy your weekend."/>
+  </strings>
+
+  <defs>
+    <!-- today's temperatures and positions -->
+    <data id="cx" v="330, 590, 930, 270, 790"/>
+    <data id="cy" v="200, 360, 280, 580, 610"/>
+    <data id="temp" v="27, 29, 24, 28, 31"/>
+    <data id="ic" v="0, 0, 1, 0, 0"/>
+    <!-- 5-day: icon 0 sun 1 partly 2 rain 3 storm -->
+    <data id="hi" v="27, 21, 19, 24, 25"/>
+    <data id="lo" v="18, 16, 12, 13, 15"/>
+    <data id="dic" v="0, 3, 2, 0, 1"/>
+
+    <clip id="land"><path d="M 120 80 C 300 20 520 60 700 40 C 860 30 980 90 1040 200 C 1080 300 1000 360 1020 460 C 1040 560 960 660 820 700 C 700 730 640 640 540 660 C 420 690 360 740 260 700 C 140 650 180 540 120 470 C 60 400 40 300 80 220 C 100 160 60 120 120 80 Z"/></clip>
+    <linear id="skyg" x1="0" y1="0" x2="0" y2="1080"><stop at="0" color="#1a6dc0"/><stop at="1" color="#0b3566"/></linear>
+    <linear id="seag" x1="0" y1="0" x2="1200" y2="800"><stop at="0" color="#2a86d1"/><stop at="1" color="#155a9c"/></linear>
+    <linear id="landg" x1="0" y1="0" x2="0" y2="740"><stop at="0" color="#8fd17a"/><stop at="1" color="#5aa84f"/></linear>
+    <radial id="sunglow" x="0" y="0" r="90"><stop at="0" color="#fff3b0" opacity="0.9"/><stop at="1" color="#ffc928" opacity="0"/></radial>
+
+    <!-- icons, about 120 units wide, centred -->
+    <symbol id="sun">
+      <circle r="80" fill="url(#sunglow)"/>
+      <group rot="=t*25"><group repeat="10" as="r" rot="=r*36"><rect x="-5" y="-66" w="10" h="20" r="5" fill="$sun"/></group></group>
+      <circle r="38" fill="$sun"/>
+    </symbol>
+    <symbol id="cloud">
+      <group x="=6*sin(t*1.3)">
+        <circle x="-28" y="8" r="28" fill="#ffffff"/><circle x="6" y="-10" r="38" fill="#ffffff"/><circle x="38" y="10" r="26" fill="#ffffff"/>
+        <rect x="-56" y="8" w="120" h="32" r="16" fill="#ffffff"/>
+        <rect x="-56" y="30" w="120" h="10" r="5" fill="#d7e3f0"/>
+      </group>
+    </symbol>
+    <symbol id="partly">
+      <group x="26" y="-26" scale="0.75"><use ref="sun"/></group>
+      <use ref="cloud" y="10"/>
+    </symbol>
+    <symbol id="rain">
+      <line repeat="5" as="d" x1="=-40 + d*20" x2="=-46 + d*20" y1="=40 + 50*fract(t*1.4 + d*0.37)" y2="=56 + 50*fract(t*1.4 + d*0.37)" stroke="$rain" sw="6" opacity="=1 - fract(t*1.4 + d*0.37)"/>
+      <group><circle x="-28" y="0" r="28" fill="#c9d6e6"/><circle x="6" y="-18" r="38" fill="#c9d6e6"/><circle x="38" y="2" r="26" fill="#c9d6e6"/><rect x="-56" y="0" w="120" h="30" r="15" fill="#c9d6e6"/></group>
+    </symbol>
+    <symbol id="storm">
+      <use ref="rain"/>
+      <path d="M 4 24 L -14 62 L 2 62 L -8 96 L 22 52 L 6 52 L 18 24 Z" fill="$sun" opacity="=fract(t*0.7) &lt; 0.12 ? 1 : 0.55"/>
+      <group><circle x="-28" y="0" r="28" fill="#8fa3bb"/><circle x="6" y="-18" r="38" fill="#8fa3bb"/><circle x="38" y="2" r="26" fill="#8fa3bb"/><rect x="-56" y="0" w="120" h="30" r="15" fill="#8fa3bb"/></group>
+    </symbol>
+
+    <!-- the region map: sea, land, hills, lake, island, labels; 1100 × 760 -->
+    <symbol id="map">
+      <rect x="-40" y="-20" w="1180" h="800" r="26" fill="url(#seag)"/>
+      <!-- sea swell lines -->
+      <group opacity="0.18">
+        <path repeat="7" as="k" d="=('M -20 ' + (k*110 + 30) + ' Q 120 ' + (k*110 + 10) + ' 260 ' + (k*110 + 30) + ' T 540 ' + (k*110 + 30) + ' T 820 ' + (k*110 + 30) + ' T 1100 ' + (k*110 + 30))" x="=20*sin(t*0.5 + k)" fill="none" stroke="#ffffff" sw="3"/>
+      </group>
+      <path d="M 120 80 C 300 20 520 60 700 40 C 860 30 980 90 1040 200 C 1080 300 1000 360 1020 460 C 1040 560 960 660 820 700 C 700 730 640 640 540 660 C 420 690 360 740 260 700 C 140 650 180 540 120 470 C 60 400 40 300 80 220 C 100 160 60 120 120 80 Z" fill="url(#landg)" stroke="#e9f6e1" sw="5" shadow="0 10 0 #0b3566"/>
+      <path d="M 420 140 L 500 90 L 560 150 L 640 100 L 720 170 Z" fill="$hill" opacity="0.6"/>
+      <ellipse x="560" y="430" rx="70" ry="34" fill="$sea2" stroke="#e9f6e1" sw="3"/>
+      <ellipse x="1110" y="640" rx="40" ry="26" fill="url(#landg)" stroke="#e9f6e1" sw="4"/>
+      <path d="M 300 300 C 380 340 420 460 520 520 C 600 570 700 560 800 520" fill="none" stroke="#4aa0e0" sw="5" opacity="0.8"/>
+    </symbol>
+  </defs>
+
+  <assets>
+    <asset id="bright" src="audio/bright.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+  </assets>
+
+  <music src="bright" start="0" loop="1" vol="0.55"/>
+
+  <backdrop>
+    <rect x="0" y="0" w="=W" h="=H" fill="url(#skyg)"/>
+    <circle x="1700" y="-100" r="420" fill="#ffffff" opacity="0.05"/>
+    <circle x="200" y="1180" r="380" fill="#ffffff" opacity="0.04"/>
+  </backdrop>
+
+  <overlay>
+    <!-- programme bug -->
+    <group x="80" y="56" when="t &gt; 7">
+      <rect w="240" h="64" r="32" fill="#ffffff"/>
+      <circle x="34" y="32" r="18" fill="$sun"/>
+      <text x="64" y="33" size="30" weight="800" fill="$ink" font="Space Grotesk" text="@brand"/>
+    </group>
+  </overlay>
+
+  <timeline>
+    <!-- 1 · intro -->
+    <scene id="intro" dur="7.5" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.2" src="whoosh"/>
+      <group x="1380" y="470">
+        <group scale="=2.6*ease((T - 0.2)/0.8, 'back')"><use ref="sun"/></group>
+        <group x="=-120 + 60*sin(T*0.6)" y="160" scale="=1.8*ease((T - 0.7)/0.8, 'back')"><use ref="cloud"/></group>
+      </group>
+      <text x="160" y="420" size="110" weight="700" maxw="1000" lh="1.0" fill="#ffffff" font="Space Grotesk" text="@i1">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <anim prop="x" from="100" to="160" dur="0.7"/>
+      </text>
+      <group x="160" y="640" at="1">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect w="760" h="70" r="35" fill="#ffffff"/>
+        <text x="380" y="36" size="32" weight="700" align="center" fill="$ink" text="@i2"/>
+      </group>
+    </scene>
+
+    <!-- 2 · today: temperature bubbles on the map -->
+    <scene id="today" dur="10" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="1" src="pop"/><sfx at="1.35" src="pop"/><sfx at="1.7" src="pop"/><sfx at="2.05" src="pop"/><sfx at="2.4" src="pop"/>
+      <group x="140" y="170">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <anim prop="x" from="200" to="140" dur="0.6"/>
+        <use ref="map"/>
+        <group repeat="5" as="k" x="=data('cx', k)" y="=data('cy', k)" at="=1 + k*0.35">
+          <group>
+            <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+            <group x="-70" y="-58" scale="0.62">
+              <use ref="sun" when="data('ic', k) == 0"/>
+              <use ref="partly" when="data('ic', k) == 1"/>
+            </group>
+            <circle r="52" fill="=mix('#ffd23f', '#ff5a1f', clamp((data('temp', k) - 22)/9, 0, 1))" stroke="#ffffff" sw="6" shadow="0 8 16 #0b356666"/>
+            <text y="2" size="46" weight="700" align="center" fill="#ffffff" font="Space Grotesk" text="{data('temp', k)}°"/>
+          </group>
+          <rect x="-90" y="62" w="180" h="40" r="20" fill="$ink" opacity="0.85"/>
+          <text y="83" size="24" weight="700" align="center" fill="#ffffff" text="@c1" when="k == 0"/>
+          <text y="83" size="24" weight="700" align="center" fill="#ffffff" text="@c2" when="k == 1"/>
+          <text y="83" size="24" weight="700" align="center" fill="#ffffff" text="@c3" when="k == 2"/>
+          <text y="83" size="24" weight="700" align="center" fill="#ffffff" text="@c4" when="k == 3"/>
+          <text y="83" size="24" weight="700" align="center" fill="#ffffff" text="@c5" when="k == 4"/>
+        </group>
+      </group>
+      <!-- side panel -->
+      <group x="1380" y="200" at="0.6">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="440" h="120" r="20" fill="#ffffff"/>
+        <text x="220" y="61" size="40" weight="800" align="center" fill="$ink" font="Space Grotesk" text="@today"/>
+        <!-- temperature scale -->
+        <group y="200">
+          <rect repeat="10" as="k" x="=k*44" w="44" h="28" fill="=mix('#5ab4ff', '#ff5a1f', k/9)"/>
+          <text x="0" y="60" size="24" weight="700" fill="#ffffff" text="10°"/>
+          <text x="440" y="60" size="24" weight="700" align="right" fill="#ffffff" text="35°"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 3 · rain band: radar blobs clipped to the land, sweeping east -->
+    <scene id="rainband" dur="9.5" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="0.3" src="whoosh"/>
+      <group x="140" y="170">
+        <use ref="map"/>
+        <group clip="url(#land)">
+          <group x="=-500 + 140*T" opacity="0.85">
+            <ellipse x="300" y="300" rx="190" ry="330" fill="#3fbf5a" blur="30" rot="15"/>
+            <ellipse x="320" y="260" rx="120" ry="220" fill="#f5e130" blur="24" rot="15"/>
+            <ellipse x="340" y="330" rx="60" ry="110" fill="#ff5a3a" blur="18" rot="15"/>
+            <ellipse x="140" y="520" rx="140" ry="160" fill="#3fbf5a" blur="30"/>
+            <ellipse x="150" y="520" rx="70" ry="80" fill="#f5e130" blur="20"/>
+          </group>
+        </group>
+        <!-- radar sweep -->
+        <group x="560" y="380" opacity="0.35">
+          <circle r="440" from="=T*90" to="=T*90 + 30" fill="#ffffff" opacity="0.25"/>
+        </group>
+        <group x="590" y="250" at="4.5">
+          <anim prop="scale" from="0" to="1" dur="0.4" ease="back"/>
+          <use ref="storm"/>
+        </group>
+      </group>
+      <group x="1380" y="200">
+        <rect w="440" h="120" r="20" fill="#ffffff"/>
+        <text x="220" y="61" size="36" weight="800" align="center" fill="$ink" font="Space Grotesk" text="@radar"/>
+        <group y="200">
+          <rect x="0" w="146" h="28" fill="#3fbf5a"/><rect x="146" w="146" h="28" fill="#f5e130"/><rect x="292" w="148" h="28" fill="#ff5a3a"/>
+          <text x="0" y="60" size="24" weight="700" fill="#ffffff" text="light"/>
+          <text x="440" y="60" size="24" weight="700" align="right" fill="#ffffff" text="heavy"/>
+        </group>
+        <text x="0" y="360" size="64" weight="700" fill="#ffffff" font="Space Grotesk" text="{fmt(9 + floor(T*0.9), 0)}:00" opacity="0.9"/>
+      </group>
+    </scene>
+
+    <!-- 4 · wind arrows -->
+    <scene id="wind" dur="9.5" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <group x="140" y="170">
+        <use ref="map"/>
+        <!-- 6 × 4 field of arrows from the north-west, drifting -->
+        <group repeat="24" as="k" x="=100 + (k % 6)*175 + 60*fract(T*0.5 + k*0.13)" y="=90 + floor(k/6)*170 + 60*fract(T*0.5 + k*0.13)"
+               opacity="=sin(PI*fract(T*0.5 + k*0.13))" rot="45">
+          <path d="M -40 0 L 26 0 M 10 -16 L 30 0 L 10 16" fill="none" stroke="#ffffff" sw="=k % 6 &lt; 2 ? 10 : 7"/>
+        </group>
+        <group x="120" y="640" at="2.5">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <circle r="62" fill="#ffffff"/>
+          <text y="-6" size="44" weight="800" align="center" fill="$ink" font="Space Grotesk" text="60"/>
+          <text y="30" size="20" weight="700" align="center" fill="$muted" text="km/h"/>
+        </group>
+      </group>
+      <group x="1380" y="200">
+        <rect w="440" h="120" r="20" fill="#ffffff"/>
+        <text x="220" y="61" size="36" weight="800" align="center" fill="$ink" font="Space Grotesk" text="@wind"/>
+        <text x="0" y="230" size="40" weight="700" maxw="440" lh="1.2" fill="#ffffff" text="@gust" at="2.5">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        </text>
+      </group>
+    </scene>
+
+    <!-- 5 · the 5-day strip -->
+    <scene id="fiveday" dur="11.5" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="0.6" src="blip"/><sfx at="0.85" src="blip"/><sfx at="1.1" src="blip"/><sfx at="1.35" src="blip"/><sfx at="1.6" src="blip"/>
+      <text x="=W/2" y="200" size="56" weight="700" align="center" fill="#ffffff" font="Space Grotesk" text="@five">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+      </text>
+      <group repeat="5" as="k" x="=170 + k*322" y="300" at="=0.6 + k*0.25">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="y" from="360" to="300" dur="0.5" ease="back"/>
+        <rect w="290" h="560" r="28" fill="=k == 1 + floor(clamp((T - 4)/1.4, 0, 3.99)) ? '#ffffff' : '#ffffffe6'" shadow="0 20 40 #0b356666"
+              stroke="=k == 1 + floor(clamp((T - 4)/1.4, 0, 3.99)) ? $sun : '#ffffff00'" sw="8"/>
+        <text x="145" y="70" size="44" weight="800" align="center" fill="$ink" font="Space Grotesk" text="@d1" when="k == 0"/>
+        <text x="145" y="70" size="44" weight="800" align="center" fill="$ink" font="Space Grotesk" text="@d2" when="k == 1"/>
+        <text x="145" y="70" size="44" weight="800" align="center" fill="$ink" font="Space Grotesk" text="@d3" when="k == 2"/>
+        <text x="145" y="70" size="44" weight="800" align="center" fill="$ink" font="Space Grotesk" text="@d4" when="k == 3"/>
+        <text x="145" y="70" size="44" weight="800" align="center" fill="$ink" font="Space Grotesk" text="@d5" when="k == 4"/>
+        <group x="145" y="210" scale="1.1">
+          <use ref="sun" when="data('dic', k) == 0"/>
+          <use ref="partly" when="data('dic', k) == 1"/>
+          <use ref="rain" when="data('dic', k) == 2"/>
+          <use ref="storm" when="data('dic', k) == 3"/>
+        </group>
+        <text x="145" y="380" size="88" weight="700" align="center" fill="=mix('#ff9a2a', '#ff4d1f', clamp((data('hi', k) - 19)/8, 0, 1))" font="Space Grotesk" text="{data('hi', k)}°"/>
+        <text x="145" y="470" size="48" weight="600" align="center" fill="$cold" font="Space Grotesk" text="{data('lo', k)}°"/>
+      </group>
+    </scene>
+
+    <!-- 6 · weekend pick -->
+    <scene id="weekend" dur="9.5" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <group x="560" y="520">
+        <circle r="=300 + 10*sin(T*2)" fill="#ffffff" opacity="0.08"/>
+        <group scale="=3*ease((T - 0.3)/0.8, 'back')"><use ref="sun"/></group>
+      </group>
+      <group x="1000" y="340" at="0.8">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <anim prop="x" from="1060" to="1000" dur="0.5"/>
+        <text x="0" y="0" size="40" weight="700" fill="$sun" font="Space Grotesk" text="@best"/>
+        <text x="0" y="110" size="64" weight="700" maxw="780" lh="1.15" fill="#ffffff" font="Space Grotesk" text="@bestd"/>
+      </group>
+      <group x="1000" y="640" at="3">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect w="640" h="80" r="40" fill="#ffffff"/>
+        <circle x="40" y="40" r="20" fill="$sun"/>
+        <text x="80" y="41" size="32" weight="700" fill="$ink" text="@uv"/>
+      </group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/weather-report/en/vo1.2693c642d7.ogg" dur="5.11" hash="2693c642d7" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/weather-report/en/vo2.3f952d26a5.ogg" dur="7.31" hash="3f952d26a5" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/weather-report/en/vo3.05fd43db5a.ogg" dur="6.31" hash="05fd43db5a" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/weather-report/en/vo4.ddec1d7de1.ogg" dur="6.51" hash="ddec1d7de1" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/weather-report/en/vo5.1c8e01a7ea.ogg" dur="7.41" hash="1c8e01a7ea" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/weather-report/en/vo6.5bc71e340a.ogg" dur="6.51" hash="5bc71e340a" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

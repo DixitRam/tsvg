@@ -1,0 +1,11 @@
+{
+  "id": "dashboard-kpi-tour",
+  "title": "Dashboard KPI tour",
+  "category": "Business & reporting",
+  "summary": "Analytics dashboard: KPI cards count up, sparklines and a 30-day line draw, bars grow, and a spotlight focuses one panel at a time.",
+  "duration": 57.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 20
+}

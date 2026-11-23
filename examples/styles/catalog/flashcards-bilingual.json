@@ -1,0 +1,11 @@
+{
+  "id": "flashcards-bilingual",
+  "title": "Bilingual flashcards (EN → GU)",
+  "category": "language",
+  "summary": "English → Gujarati flashcards that flip to word, pronunciation and an example sentence; English or Gujarati captions.",
+  "duration": 68,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 15
+}

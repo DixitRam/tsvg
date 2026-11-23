@@ -1,0 +1,11 @@
+{
+  "id": "whiteboard-drawing",
+  "title": "Whiteboard drawing",
+  "category": "education",
+  "summary": "Marker doodles draw stroke by stroke with handwritten notes: how habits stick, from cue to routine to reward.",
+  "duration": 66,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 17
+}

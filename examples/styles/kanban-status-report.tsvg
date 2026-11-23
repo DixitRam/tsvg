@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: project status report on a kanban board. Columns, cards sliding between them, a burndown chart, a risks callout. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_sarah"/></option>
+    <option id="mix" label="Audio" default="full">
+      <choice id="full" label="Full"/><choice id="speech" label="Speech only"/>
+    </option>
+    <option id="theme" label="Theme" default="light"><choice id="light" label="Light"/><choice id="dark" label="Dark"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.22" sfx="0.55"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="light" bg="#f4f5f8" fg="#111827" muted="#6b7280" col="#e8eaf0" card="#ffffff" line="#d6d9e0" accent="#4f5bd5" good="#16a36a" warn="#e8930c" bad="#dc3b3b" feat="#4f5bd5" bug="#dc3b3b" chore="#8b95a5" shadow="#1118270f" ink="#111827"/>
+    <theme id="dark" bg="#0f1117" fg="#eef0f6" muted="#8d95a6" col="#181b24" card="#222632" line="#2e3340" accent="#8b95ff" good="#3fd497" warn="#ffb547" bad="#ff6b6b" feat="#8b95ff" bug="#ff6b6b" chore="#9aa3b5" shadow="#00000055" ink="#eef0f6"/>
+  </themes>
+  <strings>
+    <s id="title" en="Sprint 14 status: Board Script v2"/>
+    <s id="kick" en="STATUS REPORT"/>
+    <s id="sprint" en="Sprint 14"/>
+    <s id="proj" en="Board Script v2"/>
+    <s id="dates" en="Nov 10 – Nov 21 · day 9 of 10"/>
+    <s id="hdr" en="Sprint 14 · Board Script v2"/>
+    <s id="todo" en="To do"/><s id="doing" en="Doing"/><s id="review" en="Review"/><s id="done" en="Done"/>
+    <s id="ch1" en="Sprint 14"/><s id="ch2" en="The board"/><s id="ch3" en="This week"/><s id="ch4" en="Burndown"/><s id="ch5" en="Risks"/><s id="ch6" en="The ask"/><s id="ch7" en="Wrap-up"/>
+    <s id="cap2" en="16 tickets · 40 points"/>
+    <s id="cap3" en="4 cards moved this week"/>
+    <s id="bdT" en="Burndown"/><s id="bdS" en="story points remaining"/>
+    <s id="ideal" en="ideal"/><s id="actual" en="actual"/><s id="proj2" en="projected"/>
+    <s id="today" en="today"/>
+    <s id="st1" en="14 pts left"/><s id="st1b" en="1 day to go"/>
+    <s id="st2" en="+2 days"/><s id="st2b" en="at current pace"/>
+    <s id="riskT" en="Risks"/>
+    <s id="r1t" en="Calendar preview blocked"/><s id="r1b" en="Waits on the timezone fix in ENG-212 (other team)."/><s id="r1m" en="Mitigation: pair with their on-call on Wednesday."/>
+    <s id="r2t" en="One reviewer out Thu–Fri"/><s id="r2b" en="Review queue may back up before the sprint ends."/><s id="r2m" en="Mitigation: second reviewer from the SDK team."/>
+    <s id="high" en="HIGH"/><s id="med" en="MEDIUM"/>
+    <s id="askT" en="Decision needed"/>
+    <s id="ask" en="Move “Forms builder” to Sprint 15"/>
+    <s id="toast" en="Moved to Sprint 15 · −5 pts"/>
+    <s id="wrap" en="Back on track after the scope cut"/>
+    <s id="wrap2" en="Questions? Reply in the sprint ticket thread."/>
+    <s id="vo1" en="Sprint fourteen status, for Board Script version two. Nine days in, one to go."/>
+    <s id="vo2" en="Sixteen tickets this sprint. Six are done, two are in review, three in progress, and five haven't started."/>
+    <s id="vo3" en="This week the Monaco editor and the typed API moved to done, the calendar preview went to review, and table bulk edit started."/>
+    <s id="vo4" en="The burndown shows us a little behind the ideal line: fourteen points left with one day to go. At this pace, we finish two days late."/>
+    <s id="vo5" en="Two risks. The calendar preview is blocked on another team's timezone fix, and we're down a reviewer on Thursday and Friday."/>
+    <s id="vo6" en="So, one ask: move the forms builder to next sprint. That cuts five points and puts us back on the line."/>
+    <s id="vo7" en="With that change, we land the sprint on time. Questions go in the ticket thread."/>
+  </strings>
+  <defs>
+    <data id="ttl" v="Table bulk edit, Board export CSV, Script docs page, Undo for field edits, Forms builder, Calendar preview, Timeline preview, Filter chips, Monaco editor, Typed script API, Stage built in, Sort by field, Card previews, Script sandbox, Field types, Data migration v1"/>
+    <data id="key" v="ENG-231, ENG-236, ENG-240, ENG-244, ENG-249, ENG-219, ENG-221, ENG-226, ENG-204, ENG-207, ENG-198, ENG-199, ENG-201, ENG-202, ENG-210, ENG-211"/>
+    <data id="tag" v="0, 0, 2, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2"/>
+    <data id="who" v="AP, RK, MS, AP, JD, MS, MS, RK, AP, JD, RK, AP, MS, JD, RK, JD"/>
+    <data id="pts" v="3, 2, 1, 2, 5, 5, 3, 2, 3, 3, 2, 1, 3, 2, 2, 1"/>
+    <data id="c0" v="0, 0, 0, 0, 0, 1, 1, 1, 2, 2, 3, 3, 3, 3, 3, 3"/>
+    <data id="i0" v="0, 1, 2, 3, 4, 0, 1, 2, 0, 1, 0, 1, 2, 3, 4, 5"/>
+    <data id="c1" v="1, 0, 0, 0, 0, 2, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3"/>
+    <data id="i1" v="2, 0, 1, 2, 3, 0, 0, 1, 6, 7, 0, 1, 2, 3, 4, 5"/>
+    <data id="mt" v="22.5, 22.9, 22.9, 22.9, 22.9, 21, 21.4, 21.4, 18, 19.5, 999, 999, 999, 999, 999, 999"/>
+    <data id="avc" v="#f59e0b, #10b981, #6366f1, #ec4899"/>
+    <data id="act" v="40, 38, 35, 34, 30, 27, 25, 21, 17, 14"/>
+    <fn id="mk" args="j">ease(clamp((t - data('mt', j))/0.9, 0, 1), 'io')</fn>
+    <fn id="colx" args="c">115 + 435*c</fn>
+    <fn id="avi" args="w">w == 'AP' ? 0 : w == 'RK' ? 1 : w == 'MS' ? 2 : 3</fn>
+    <fn id="nTodo">5 - (t > 22.5) - (t > 49.5)</fn>
+    <fn id="nDoing">3 - (t > 21) + (t > 22.5)</fn>
+    <fn id="nReview">2 - (t > 18) - (t > 19.5) + (t > 21)</fn>
+    <fn id="nDone">6 + (t > 18) + (t > 19.5)</fn>
+    <!-- burndown geometry: day d → x, points p → y -->
+    <fn id="bx" args="d">240 + d*92</fn>
+    <fn id="by" args="p">880 - p*16</fn>
+    <linear id="area" x1="0" y1="240" x2="0" y2="880"><stop at="0" color="$accent" opacity="0.25"/><stop at="1" color="$accent" opacity="0"/></linear>
+  </defs>
+  <assets>
+    <asset id="bed" src="audio/pulse.ogg"/>
+    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+  </assets>
+  <music src="bed" loop="1" vol="0.5"/>
+
+  <!-- the board lives across scenes 2, 3, 6 and 7; cards move as a function of video time -->
+  <backdrop>
+    <group when="=(t >= 7 &amp;&amp; t &lt; 26) || t >= 46.5">
+      <!-- top bar -->
+      <rect w="1920" h="110" fill="$card"/>
+      <rect y="109" w="1920" h="2" fill="$line"/>
+      <rect x="115" y="35" w="40" h="40" r="10" fill="$accent"/>
+      <path x="115" y="35" d="M 11 12 L 29 12 M 11 20 L 25 20 M 11 28 L 21 28" stroke="#fff" sw="3" fill="none"/>
+      <text x="175" y="55" size="30" weight="700" fill="$fg" text="@hdr"/>
+      <!-- columns -->
+      <group repeat="4" as="c" x="=colx(c)" y="140">
+        <rect w="400" h="900" r="18" fill="$col"/>
+        <circle x="30" y="42" r="8" fill="=c==0 ? $chore : c==1 ? $warn : c==2 ? $accent : $good"/>
+        <text x="50" y="42" size="26" weight="700" fill="$fg" text="@todo" when="=c==0"/>
+        <text x="50" y="42" size="26" weight="700" fill="$fg" text="@doing" when="=c==1"/>
+        <text x="50" y="42" size="26" weight="700" fill="$fg" text="@review" when="=c==2"/>
+        <text x="50" y="42" size="26" weight="700" fill="$fg" text="@done" when="=c==3"/>
+        <rect x="340" y="24" w="44" h="36" r="18" fill="$card"/>
+        <text x="362" y="42" size="22" weight="700" align="center" fill="$muted" text="{c==0 ? nTodo() : c==1 ? nDoing() : c==2 ? nReview() : nDone()}"/>
+      </group>
+      <!-- cards -->
+      <group repeat="16" as="j" when="=!(mk(j) > 0 &amp;&amp; mk(j) &lt; 1)"
+             x="=colx(lerp(data('c0', j), data('c1', j), mk(j))) + 12"
+             y="=226 + 92*lerp(data('i0', j), data('i1', j), mk(j)) + (j == 4 ? 900*ease(clamp((t - 49.5)/0.9, 0, 1), 'in') : 0)"
+             opacity="=(j == 4 ? 1 - clamp((t - 49.8)/0.6, 0, 1) : 1) * (t &lt; 8 ? clamp((t - 7 - j*0.04)/0.4, 0, 1) : 1)"
+             scale="=1 + 0.06*sin(mk(j)*PI)">
+        <rect w="376" h="80" r="12" fill="$card" shadow="=mk(j) > 0 &amp;&amp; mk(j) &lt; 1 ? '0 18 30 #0003' : '0 2 4 #0000000f'"/>
+        <rect w="6" h="80" r="3" fill="=data('tag', j) == 0 ? $feat : data('tag', j) == 1 ? $bug : $chore"/>
+        <text x="22" y="28" size="22" weight="600" fill="$fg" text="{data('ttl', j)}"/>
+        <text x="22" y="60" size="17" font="JetBrains Mono" fill="$muted" text="{data('key', j)}"/>
+        <rect x="290" y="47" w="32" h="26" r="8" fill="$col"/>
+        <text x="306" y="60" size="16" weight="700" align="center" fill="$muted" text="{data('pts', j)}"/>
+        <circle x="350" y="60" r="15" fill="=data('avc', avi(data('who', j)))"/>
+        <text x="350" y="60" size="13" weight="700" align="center" fill="#fff" text="{data('who', j)}"/>
+        <!-- done tick -->
+        <circle x="350" y="24" r="11" fill="$good" opacity="=lerp(data('c0', j), data('c1', j), mk(j)) >= 3 ? 1 : 0"/>
+        <path x="350" y="24" d="M -5 0 L -1 4 L 6 -4" stroke="#fff" sw="2.5" fill="none" opacity="=lerp(data('c0', j), data('c1', j), mk(j)) >= 3 ? 1 : 0"/>
+      </group>
+      <!-- cards in flight, drawn on top -->
+      <group repeat="16" as="j" when="=mk(j) > 0 &amp;&amp; mk(j) &lt; 1"
+             x="=colx(lerp(data('c0', j), data('c1', j), mk(j))) + 12"
+             y="=226 + 92*lerp(data('i0', j), data('i1', j), mk(j)) + (j == 4 ? 900*ease(clamp((t - 49.5)/0.9, 0, 1), 'in') : 0)"
+             opacity="=(j == 4 ? 1 - clamp((t - 49.8)/0.6, 0, 1) : 1) * (t &lt; 8 ? clamp((t - 7 - j*0.04)/0.4, 0, 1) : 1)"
+             scale="=1 + 0.06*sin(mk(j)*PI)">
+        <rect w="376" h="80" r="12" fill="$card" shadow="=mk(j) > 0 &amp;&amp; mk(j) &lt; 1 ? '0 18 30 #0003' : '0 2 4 #0000000f'"/>
+        <rect w="6" h="80" r="3" fill="=data('tag', j) == 0 ? $feat : data('tag', j) == 1 ? $bug : $chore"/>
+        <text x="22" y="28" size="22" weight="600" fill="$fg" text="{data('ttl', j)}"/>
+        <text x="22" y="60" size="17" font="JetBrains Mono" fill="$muted" text="{data('key', j)}"/>
+        <rect x="290" y="47" w="32" h="26" r="8" fill="$col"/>
+        <text x="306" y="60" size="16" weight="700" align="center" fill="$muted" text="{data('pts', j)}"/>
+        <circle x="350" y="60" r="15" fill="=data('avc', avi(data('who', j)))"/>
+        <text x="350" y="60" size="13" weight="700" align="center" fill="#fff" text="{data('who', j)}"/>
+        <!-- done tick -->
+        <circle x="350" y="24" r="11" fill="$good" opacity="=lerp(data('c0', j), data('c1', j), mk(j)) >= 3 ? 1 : 0"/>
+        <path x="350" y="24" d="M -5 0 L -1 4 L 6 -4" stroke="#fff" sw="2.5" fill="none" opacity="=lerp(data('c0', j), data('c1', j), mk(j)) >= 3 ? 1 : 0"/>
+      </group>
+    </group>
+  </backdrop>
+
+  <timeline>
+    <!-- 1 · title -->
+    <scene id="title" dur="7" chapter="@ch1">
+      <say at="0.4" text="@vo1"/>
+      <sfx at="0.2" src="whoosh"/>
+      <!-- faint board silhouette -->
+      <group opacity="0.5">
+        <rect repeat="4" as="c" x="=115 + 435*c" y="=140 + 30*sin(T + c)" w="400" h="900" r="18" fill="$col"/>
+        <rect repeat="12" as="k" x="=127 + 435*(k%4)" y="=226 + 92*floor(k/4) + 30*sin(T + k%4)" w="376" h="80" r="12" fill="$card"/>
+      </group>
+      <rect x="360" y="300" w="1200" h="480" r="32" fill="$card" shadow="0 30 60 #0002"/>
+      <rect x="440" y="370" w="270" h="50" r="25" fill="$accent"><anim prop="opacity" from="0" to="1" dur="0.4"/></rect>
+      <text x="575" y="395" size="24" weight="800" align="center" fill="#fff" text="@kick"/>
+      <text x="440" y="500" size="96" weight="800" fill="$fg" text="@sprint"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+      <text x="440" y="590" size="56" weight="600" fill="$accent" text="@proj" at="0.5"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+      <text x="440" y="680" size="30" fill="$muted" text="@dates" at="1"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+      <!-- team -->
+      <group x="1300" y="680" at="1.4">
+        <circle repeat="4" as="a" x="=a*56" r="30" fill="=data('avc', a)" stroke="$card" sw="5">
+          <anim prop="scale" from="0" to="1" dur="0.35" ease="back"/>
+        </circle>
+        <text repeat="4" as="a" x="=a*56" size="18" weight="700" align="center" fill="#fff" text="=a==0 ? 'AP' : a==1 ? 'RK' : a==2 ? 'MS' : 'JD'"/>
+      </group>
+      <!-- progress ring: day 9 of 10 -->
+      <group x="1360" y="470" at="1">
+        <circle r="90" fill="none" stroke="$col" sw="18"/>
+        <path d="M 0 -90 A 90 90 0 1 1 0 90 A 90 90 0 1 1 0 -90" stroke="$accent" sw="18" fill="none">
+          <anim prop="draw" from="0" to="0.9" dur="1.4" ease="io"/>
+        </path>
+        <text y="-8" size="44" weight="800" align="center" fill="$fg" text="9/10"/>
+        <text y="34" size="20" align="center" fill="$muted" text="days"/>
+      </group>
+    </scene>
+
+    <!-- 2 · the board -->
+    <scene id="board" dur="9" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="0.1" src="whoosh"/>
+      <group x="1805" y="55" at="1">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="-320" y="-26" w="320" h="52" r="26" fill="$col"/>
+        <text x="-160" size="24" weight="700" align="center" fill="$fg" text="@cap2"/>
+      </group>
+      <!-- count pulses as the voice names each column -->
+      <circle repeat="4" as="c" x="=colx(3 - c) + 362" y="182" r="=30 + 10*sin(clamp((T - 2.6 - c*1.2)/0.6, 0, 1)*PI)" fill="none" stroke="$accent" sw="4" opacity="=sin(clamp((T - 2.6 - c*1.2)/0.6, 0, 1)*PI)"/>
+    </scene>
+
+    <!-- 3 · movement this week -->
+    <scene id="moves" dur="10" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <sfx at="2" src="whoosh"/><sfx at="2.9" src="ding"/><sfx at="3.5" src="whoosh"/><sfx at="4.4" src="ding"/><sfx at="5" src="whoosh"/><sfx at="6.5" src="whoosh"/>
+      <group x="1805" y="55">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="-320" y="-26" w="320" h="52" r="26" fill="$col"/>
+        <text x="-160" size="24" weight="700" align="center" fill="$fg" text="@cap3"/>
+      </group>
+    </scene>
+
+    <!-- 4 · burndown -->
+    <scene id="burndown" dur="11" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="0.2" src="whoosh"/>
+      <text x="160" y="110" size="64" weight="800" fill="$fg" text="@bdT"/>
+      <text x="160" y="170" size="28" fill="$muted" text="@bdS"/>
+      <!-- axes + grid -->
+      <line repeat="5" as="g" x1="240" y1="=by(g*10)" x2="1344" y2="=by(g*10)" stroke="$line" sw="2"/>
+      <text repeat="5" as="g" x="220" y="=by(g*10)" size="22" align="right" fill="$muted" text="{g*10}"/>
+      <text repeat="13" as="d" x="=bx(d)" y="915" size="20" align="center" fill="$muted" text="{d}"/>
+      <!-- ideal -->
+      <line x1="=bx(0)" y1="=by(40)" x2="=bx(10)" y2="=by(0)" stroke="$muted" sw="3" opacity="0.7">
+        <anim prop="draw" from="0" to="1" at="0.6" dur="1.2"/>
+      </line>
+      <text x="=bx(10) + 10" y="=by(0) - 24" size="20" fill="$muted" text="@ideal" at="1.6"/>
+      <!-- area under actual -->
+      <path d="=('M ' + bx(0) + ' ' + by(40) + ' L ' + bx(1) + ' ' + by(38) + ' L ' + bx(2) + ' ' + by(35) + ' L ' + bx(3) + ' ' + by(34) + ' L ' + bx(4) + ' ' + by(30) + ' L ' + bx(5) + ' ' + by(27) + ' L ' + bx(6) + ' ' + by(25) + ' L ' + bx(7) + ' ' + by(21) + ' L ' + bx(8) + ' ' + by(17) + ' L ' + bx(9) + ' ' + by(14) + ' L ' + bx(9) + ' ' + by(0) + ' L ' + bx(0) + ' ' + by(0) + ' Z')" fill="url(#area)" opacity="=clamp((T - 4.6)/0.8, 0, 1)"/>
+      <!-- actual, segment by segment -->
+      <line repeat="9" as="k" x1="=bx(k)" y1="=by(data('act', k))" x2="=bx(k+1)" y2="=by(data('act', k+1))" stroke="$accent" sw="6" draw="=clamp((T - 1.8 - k*0.3)/0.3, 0, 1)"/>
+      <circle repeat="10" as="k" x="=bx(k)" y="=by(data('act', k))" r="=k == 9 ? 12 : 7" fill="$accent" stroke="$card" sw="3" opacity="=clamp((T - 1.8 - k*0.3)*4, 0, 1)"/>
+      <text x="=bx(9)" y="=by(14) - 40" size="26" weight="800" align="center" fill="$accent" text="14" at="4.6"><anim prop="opacity" from="0" to="1" dur="0.3"/></text>
+      <!-- projection, dashed -->
+      <line repeat="12" as="q" x1="=bx(9 + q*0.25)" y1="=by(14 - q*14/12)" x2="=bx(9 + q*0.25 + 0.15)" y2="=by(14 - (q + 0.6)*14/12)" stroke="$bad" sw="5" opacity="=clamp((T - 5.6 - q*0.08)*5, 0, 1)"/>
+      <text x="=bx(12) + 14" y="=by(0) - 8" size="20" fill="$bad" text="@proj2" at="6.6"/>
+      <!-- today marker -->
+      <line x1="=bx(9)" y1="230" x2="=bx(9)" y2="880" stroke="$warn" sw="2" opacity="0.8" at="4.2"/>
+      <rect x="=bx(9) - 44" y="214" w="88" h="32" r="16" fill="$warn" at="4.2"/>
+      <text x="=bx(9)" y="230" size="18" weight="700" align="center" fill="#fff" text="@today" at="4.2"/>
+      <!-- legend -->
+      <group x="900" y="140">
+        <line x1="0" y1="0" x2="40" y2="0" stroke="$muted" sw="3"/><text x="52" size="22" fill="$muted" text="@ideal"/>
+        <line x1="140" y1="0" x2="180" y2="0" stroke="$accent" sw="6"/><text x="192" size="22" fill="$muted" text="@actual"/>
+        <line x1="300" y1="0" x2="340" y2="0" stroke="$bad" sw="5"/><text x="352" size="22" fill="$muted" text="@proj2"/>
+      </group>
+      <!-- stat tiles -->
+      <group x="1440" y="300" at="5">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1500" to="1440" dur="0.5"/>
+        <rect w="380" h="200" r="20" fill="$card" shadow="0 10 30 $shadow"/>
+        <text x="36" y="80" size="56" weight="800" fill="$fg" text="@st1"/>
+        <text x="36" y="148" size="26" fill="$muted" text="@st1b"/>
+      </group>
+      <group x="1440" y="540" at="6.4">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="1500" to="1440" dur="0.5"/>
+        <rect w="380" h="200" r="20" fill="$card" shadow="0 10 30 $shadow"/>
+        <rect w="8" h="200" r="4" fill="$bad"/>
+        <text x="36" y="80" size="56" weight="800" fill="$bad" text="@st2"/>
+        <text x="36" y="148" size="26" fill="$muted" text="@st2b"/>
+      </group>
+    </scene>
+
+    <!-- 5 · risks callout -->
+    <scene id="risks" dur="9.5" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="0.8" src="pop"/><sfx at="4.4" src="pop"/>
+      <text x="160" y="140" size="64" weight="800" fill="$fg" text="@riskT"/>
+      <group repeat="2" as="r" x="160" y="=250 + r*360" at="=0.8 + r*3.6">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="x" from="100" to="160" dur="0.5"/>
+        <rect w="1600" h="300" r="24" fill="$card" shadow="0 14 40 $shadow"/>
+        <rect w="12" h="300" r="6" fill="=r==0 ? $bad : $warn"/>
+        <!-- warning triangle -->
+        <group x="110" y="110">
+          <path d="M 0 -52 L 56 44 L -56 44 Z" fill="=r==0 ? $bad : $warn" scale="=1 + 0.06*sin(T*5)"/>
+          <rect x="-5" y="-22" w="10" h="40" r="5" fill="#fff"/>
+          <circle y="30" r="6" fill="#fff"/>
+        </group>
+        <rect x="1400" y="40" w="160" h="44" r="22" fill="=r==0 ? $bad : $warn"/>
+        <text x="1480" y="62" size="22" weight="800" align="center" fill="#fff" text="@high" when="=r==0"/>
+        <text x="1480" y="62" size="22" weight="800" align="center" fill="#fff" text="@med" when="=r==1"/>
+        <text x="220" y="80" size="48" weight="800" fill="$fg" text="@r1t" when="=r==0"/>
+        <text x="220" y="80" size="48" weight="800" fill="$fg" text="@r2t" when="=r==1"/>
+        <text x="220" y="148" size="32" fill="$muted" text="@r1b" when="=r==0"/>
+        <text x="220" y="148" size="32" fill="$muted" text="@r2b" when="=r==1"/>
+        <rect x="220" y="196" w="1300" h="64" r="14" fill="$col"/>
+        <text x="250" y="228" size="28" weight="600" fill="$good" text="@r1m" when="=r==0"/>
+        <text x="250" y="228" size="28" weight="600" fill="$good" text="@r2m" when="=r==1"/>
+      </group>
+    </scene>
+
+    <!-- 6 · the ask: forms builder leaves the sprint -->
+    <scene id="ask" dur="9" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="3" src="whoosh"/><sfx at="3.9" src="ding"/>
+      <!-- highlight ring on the card -->
+      <rect x="=colx(0) + 4" y="=226 + 92*3 - 8" w="392" h="96" r="16" fill="none" stroke="$warn" sw="5" opacity="=T &lt; 3 ? 0.6 + 0.4*sin(T*6) : 0"/>
+      <group x="1805" y="55" at="0.4">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="-760" y="-28" w="760" h="56" r="28" fill="$warn"/>
+        <text x="-380" size="26" weight="700" align="center" fill="#fff" text="@ask"/>
+      </group>
+      <!-- toast -->
+      <group x="960" y="1000" at="3.8">
+        <anim prop="y" from="1120" to="1000" dur="0.5" ease="back"/>
+        <rect x="-300" y="-36" w="600" h="72" r="36" fill="$ink" shadow="0 14 30 #0004"/>
+        <circle x="-250" r="16" fill="$good"/>
+        <path x="-250" d="M -7 0 L -2 5 L 8 -5" stroke="#fff" sw="3" fill="none"/>
+        <text x="20" size="26" weight="600" align="center" fill="$bg" text="@toast"/>
+      </group>
+    </scene>
+
+    <!-- 7 · wrap-up -->
+    <scene id="wrap" dur="7" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="0.6" src="ding"/>
+      <rect w="1920" h="1080" fill="$bg" opacity="0.6"/>
+      <group x="960" y="540" at="0.4">
+        <anim prop="scale" from="0.9" to="1" dur="0.5" ease="back"/>
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect x="-560" y="-150" w="1120" h="300" r="30" fill="$card" shadow="0 30 60 #0003"/>
+        <circle x="-430" y="-10" r="54" fill="$good"/>
+        <path x="-430" y="-10" d="M -24 0 L -8 16 L 26 -18" stroke="#fff" sw="9" fill="none">
+          <anim prop="draw" from="0" to="1" at="0.5" dur="0.5"/>
+        </path>
+        <text x="-340" y="-30" size="46" weight="800" fill="$fg" text="@wrap"/>
+        <text x="-340" y="40" size="28" fill="$muted" text="@wrap2"/>
+      </group>
+    </scene>
+  </timeline>
+  <voices>
+    <voice say="vo1" lang="en" src="voice/kanban-status-report/en/vo1.6f2579c167.ogg" dur="4.91" hash="6f2579c167" engine="kokoro:af_sarah"/>
+    <voice say="vo2" lang="en" src="voice/kanban-status-report/en/vo2.ce5028017f.ogg" dur="6.31" hash="ce5028017f" engine="kokoro:af_sarah"/>
+    <voice say="vo3" lang="en" src="voice/kanban-status-report/en/vo3.6b8372c144.ogg" dur="7.81" hash="6b8372c144" engine="kokoro:af_sarah"/>
+    <voice say="vo4" lang="en" src="voice/kanban-status-report/en/vo4.0274783b7c.ogg" dur="8.11" hash="0274783b7c" engine="kokoro:af_sarah"/>
+    <voice say="vo5" lang="en" src="voice/kanban-status-report/en/vo5.b748ec8663.ogg" dur="7.31" hash="b748ec8663" engine="kokoro:af_sarah"/>
+    <voice say="vo6" lang="en" src="voice/kanban-status-report/en/vo6.6cfb9ae5cc.ogg" dur="6.41" hash="6cfb9ae5cc" engine="kokoro:af_sarah"/>
+    <voice say="vo7" lang="en" src="voice/kanban-status-report/en/vo7.b9776e61f6.ogg" dur="4.61" hash="b9776e61f6" engine="kokoro:af_sarah"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Lyric / karaoke video: a spoken poem, gold sweep across the current line (mask with keyed width),
+     next line previewed, atmospheric night-sea backdrop with a lighthouse beam. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait" w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" default="en"><choice id="en" label="English" tts="kokoro:bf_emma"/></option>
+    <option id="mix" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/><choice id="music" label="Music only"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.4" sfx="0.5"/><mix id="speech" voice="1" music="0" sfx="0"/><mix id="music" voice="0" music="0.8" sfx="0.5"/></mixes>
+  <themes><theme id="night" bg="#070b1d" fg="#ffffff" muted="#ffffff99" accent="#ffd27a"/></themes>
+  <strings>
+    <s id="title" en="The Lighthouse (a spoken poem)"/>
+    <s id="ptitle" en="The Lighthouse"/>
+    <s id="psub" en="a short poem, read aloud"/>
+    <s id="otitle" en="Leave the light on"/>
+    <s id="osub" en="thank you for listening"/>
+    <s id="hdr" en="THE LIGHTHOUSE"/>
+    <s id="vo_title" en="The Lighthouse. A short poem."/>
+    <s id="vo_s1" en="The lighthouse keeps a quiet watch above the restless sea;"/>
+    <s id="vo_s2" en="it does not chase the ships at night, it simply lets them see."/>
+    <s id="vo_s3" en="The keeper climbs the winding stair with oil and cloth and light,"/>
+    <s id="vo_s4" en="and every wave that breaks below is answered through the night."/>
+    <s id="vo_s5" en="No captain ever knew her face, no sailor learned her name,"/>
+    <s id="vo_s6" en="yet every boat that found the shore was guided by her flame."/>
+    <s id="vo_s7" en="So when the dark is all you see and every star is gone,"/>
+    <s id="vo_s8" en="be someone’s quiet lighthouse, and leave the light on."/>
+    <s id="vo_outro" en="Thank you for listening. Leave a light on for someone tonight."/>
+    <s id="ch_title" en="Title"/>
+    <s id="ch_s1" en="Verse 1"/>
+    <s id="ch_s2" en="Verse 2"/>
+    <s id="ch_s3" en="Verse 3"/>
+    <s id="ch_s4" en="Verse 4"/>
+    <s id="ch_s5" en="Verse 5"/>
+    <s id="ch_s6" en="Verse 6"/>
+    <s id="ch_s7" en="Verse 7"/>
+    <s id="ch_s8" en="Verse 8"/>
+    <s id="ch_outro" en="Outro"/>
+  </strings>
+  <defs>
+    <linear id="gold" x1="-500" y1="0" x2="500" y2="0"><stop at="0" color="#ffe3a3"/><stop at="0.5" color="#ffc861"/><stop at="1" color="#ffe9b8"/></linear>
+    <linear id="soft" x1="0" y1="0" x2="40" y2="0"><stop at="0" color="#000"/><stop at="1" color="#000" opacity="0"/></linear>
+    <linear id="sky" x1="0" y1="0" x2="0" y2="=H*0.72"><stop at="0" color="#060a1c"/><stop at="0.6" color="#1b1f4a"/><stop at="1" color="#5a3f6e"/></linear>
+    <linear id="sea" x1="0" y1="=H*0.72" x2="0" y2="=H"><stop at="0" color="#16163a"/><stop at="1" color="#03050e"/></linear>
+    <linear id="beam" x1="0" y1="0" x2="1500" y2="0"><stop at="0" color="#fff1c4" opacity="0.55"/><stop at="1" color="#fff1c4" opacity="0"/></linear>
+    <radial id="moonGlow" x="0" y="0" r="260"><stop at="0" color="#fff3d6" opacity="0.5"/><stop at="1" color="#fff3d6" opacity="0"/></radial>
+    <radial id="vig" x="=W/2" y="=portrait ? 800 : 470" r="=portrait ? 700 : 900"><stop at="0" color="#000" opacity="0.45"/><stop at="1" color="#000" opacity="0"/></radial>
+    <mask id="sw_s1_0"><group x="-643"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 0.55: 0; 0.72: 202; 0.72: 202; 1.16: 611; 1.16: 611; 1.41: 841; 1.41: 841; 1.51: 901; 1.51: 901; 1.75: 1108; 1.75: 1108; 2.00: 1347"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 0.55: -60; 0.72: 142; 0.72: 142; 1.16: 551; 1.16: 551; 1.41: 781; 1.41: 781; 1.51: 841; 1.51: 841; 1.75: 1048; 1.75: 1048; 2.00: 1287"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s1_1"><group x="-404"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 2.00: 0; 2.25: 272; 2.25: 272; 2.42: 408; 2.42: 408; 2.78: 707; 2.78: 707; 3.04: 868"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 2.00: -60; 2.25: 212; 2.25: 212; 2.42: 348; 2.42: 348; 2.78: 647; 2.78: 647; 3.04: 808"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s2_0"><group x="-642"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 0.55: 0; 0.70: 113; 0.70: 113; 0.93: 302; 0.93: 302; 1.12: 443; 1.12: 443; 1.39: 669; 1.39: 669; 1.58: 805; 1.58: 805; 1.85: 1019; 1.85: 1019; 2.00: 1108; 2.00: 1108; 2.36: 1343"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 0.55: -60; 0.70: 53; 0.70: 53; 0.93: 242; 0.93: 242; 1.12: 383; 1.12: 383; 1.39: 609; 1.39: 609; 1.58: 745; 1.58: 745; 1.85: 959; 1.85: 959; 2.00: 1048; 2.00: 1048; 2.36: 1283"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s2_1"><group x="-417"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 2.36: 0; 2.51: 113; 2.51: 113; 2.82: 381; 2.82: 381; 3.05: 529; 3.05: 529; 3.28: 737; 3.28: 737; 3.56: 895"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 2.36: -60; 2.51: 53; 2.51: 53; 2.82: 321; 2.82: 321; 3.05: 469; 3.05: 469; 3.28: 677; 3.28: 677; 3.56: 835"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s3_0"><group x="-661"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 0.55: 0; 0.74: 202; 0.74: 202; 1.04: 471; 1.04: 471; 1.35: 736; 1.35: 736; 1.54: 872; 1.54: 872; 1.89: 1194; 1.89: 1194; 2.15: 1381"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 0.55: -60; 0.74: 142; 0.74: 142; 1.04: 411; 1.04: 411; 1.35: 676; 1.35: 676; 1.54: 812; 1.54: 812; 1.89: 1134; 1.89: 1134; 2.15: 1321"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s3_1"><group x="-504"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 2.15: 0; 2.38: 225; 2.38: 225; 2.56: 339; 2.56: 339; 2.75: 496; 2.75: 496; 3.02: 700; 3.02: 700; 3.20: 857; 3.20: 857; 3.56: 1069"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 2.15: -60; 2.38: 165; 2.38: 165; 2.56: 279; 2.56: 279; 2.75: 436; 2.75: 436; 3.02: 640; 3.02: 640; 3.20: 797; 3.20: 797; 3.56: 1009"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s4_0"><group x="-613"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 0.55: 0; 0.72: 198; 0.72: 198; 0.95: 415; 0.95: 415; 1.16: 616; 1.16: 616; 1.36: 781; 1.36: 781; 1.63: 1048; 1.63: 1048; 1.87: 1285"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 0.55: -60; 0.72: 138; 0.72: 138; 0.95: 355; 0.95: 355; 1.16: 556; 1.16: 556; 1.36: 721; 1.36: 721; 1.63: 988; 1.63: 988; 1.87: 1225"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s4_1"><group x="-562"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 1.87: 0; 2.00: 122; 2.00: 122; 2.35: 494; 2.35: 494; 2.66: 813; 2.66: 813; 2.82: 948; 2.82: 948; 3.14: 1184"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 1.87: -60; 2.00: 62; 2.00: 62; 2.35: 434; 2.35: 434; 2.66: 753; 2.66: 753; 2.82: 888; 2.82: 888; 3.14: 1124"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s5_0"><group x="-560"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 0.55: 0; 0.70: 161; 0.70: 161; 1.05: 453; 1.05: 453; 1.29: 628; 1.29: 628; 1.52: 845; 1.52: 845; 1.71: 989; 1.71: 989; 2.03: 1179"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 0.55: -60; 0.70: 101; 0.70: 101; 1.05: 393; 1.05: 393; 1.29: 568; 1.29: 568; 1.52: 785; 1.52: 785; 1.71: 929; 1.71: 929; 2.03: 1119"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s5_1"><group x="-505"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 2.03: 0; 2.18: 154; 2.18: 154; 2.49: 383; 2.49: 383; 2.85: 682; 2.85: 682; 3.04: 827; 3.04: 827; 3.36: 1070"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 2.03: -60; 2.18: 94; 2.18: 94; 2.49: 323; 2.49: 323; 2.85: 622; 2.85: 622; 3.04: 767; 3.04: 767; 3.36: 1010"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s6_0"><group x="-634"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 0.55: 0; 0.73: 169; 0.73: 169; 0.99: 385; 0.99: 385; 1.21: 565; 1.21: 565; 1.42: 730; 1.42: 730; 1.68: 966; 1.68: 966; 1.86: 1102; 1.86: 1102; 2.12: 1328"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 0.55: -60; 0.73: 109; 0.73: 109; 0.99: 325; 0.99: 325; 1.21: 505; 1.21: 505; 1.42: 670; 1.42: 670; 1.68: 906; 1.68: 906; 1.86: 1042; 1.86: 1042; 2.12: 1268"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s6_1"><group x="-455"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 2.12: 0; 2.30: 200; 2.30: 200; 2.60: 473; 2.60: 473; 2.74: 579; 2.74: 579; 2.92: 724; 2.92: 724; 3.26: 971"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 2.12: -60; 2.30: 140; 2.30: 140; 2.60: 413; 2.60: 413; 2.74: 519; 2.74: 519; 2.92: 664; 2.92: 664; 3.26: 911"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s7_0"><group x="-557"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 0.55: 0; 0.69: 152; 0.69: 152; 0.91: 369; 0.91: 369; 1.09: 505; 1.09: 505; 1.31: 695; 1.31: 695; 1.45: 776; 1.45: 776; 1.62: 886; 1.62: 886; 1.80: 1038; 1.80: 1038; 1.98: 1175"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 0.55: -60; 0.69: 92; 0.69: 92; 0.91: 309; 0.91: 309; 1.09: 445; 1.09: 445; 1.31: 635; 1.31: 635; 1.45: 716; 1.45: 716; 1.62: 826; 1.62: 826; 1.80: 978; 1.80: 978; 1.98: 1115"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s7_1"><group x="-408"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 1.98: 0; 2.16: 198; 2.16: 198; 2.42: 415; 2.42: 415; 2.64: 577; 2.64: 577; 2.78: 658; 2.78: 658; 3.08: 876"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 1.98: -60; 2.16: 138; 2.16: 138; 2.42: 355; 2.42: 355; 2.64: 517; 2.64: 517; 2.78: 598; 2.78: 598; 3.08: 816"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s8_0"><group x="-565"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 0.55: 0; 0.68: 147; 0.68: 147; 1.03: 550; 1.03: 550; 1.28: 758; 1.28: 758; 1.78: 1189"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 0.55: -60; 0.68: 87; 0.68: 87; 1.03: 490; 1.03: 490; 1.28: 698; 1.28: 698; 1.78: 1129"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+    <mask id="sw_s8_1"><group x="-401"><rect x="-60" y="-90" h="180" w="0" fill="#000"><keys prop="w" ease="linear" v="0: 0; 1.78: 0; 1.95: 198; 1.95: 198; 2.20: 402; 2.20: 402; 2.36: 538; 2.36: 538; 2.61: 727; 2.61: 727; 2.82: 862"/></rect>
+      <group><keys prop="x" ease="linear" v="0: -60; 1.78: -60; 1.95: 138; 1.95: 138; 2.20: 342; 2.20: 342; 2.36: 478; 2.36: 478; 2.61: 667; 2.61: 667; 2.82: 802"/><rect y="-90" w="40" h="180" fill="url(#soft)"/></group></group></mask>
+  </defs>
+  <assets>
+    <asset id="pad" src="audio/pad.ogg"/>
+    <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="1"/>
+  <backdrop>
+    <group scale="=1 + 0.06*t/dur" x="=W/2*(-0.06*t/dur)" y="=H/2*(-0.06*t/dur)">
+      <rect w="=W" h="=H*0.72 + 2" fill="url(#sky)"/>
+      <circle repeat="90" as="k" x="=W*rand(k)" y="=H*0.68*rand(k+101)^1.4" r="=1 + 2.2*rand(k+7)" fill="#fff" opacity="=0.25 + 0.75*noise(t*0.9 + k*3)"/>
+      <group x="=W*0.78" y="=H*0.17" x.portrait="=W*0.72" y.portrait="=H*0.13">
+        <circle r="260" fill="url(#moonGlow)"/>
+        <circle r="62" fill="#fff6e2"/>
+        <circle x="-18" y="-10" r="12" fill="#efe4c8"/><circle x="20" y="18" r="8" fill="#efe4c8"/>
+      </group>
+      <rect y="=H*0.72" w="=W" h="=H*0.28" fill="url(#sea)"/>
+      <!-- moon path on the water -->
+      <rect repeat="22" as="k" x="=(portrait ? W*0.72 : W*0.78) - (20 + 70*rand(k))/2 + 30*sin(t*0.8 + k)" y="=H*0.735 + k*(portrait ? 24 : 13)" w="=20 + 70*rand(k)*(1 + k*0.05)" h="3" r="2" fill="#fff3d6" opacity="=(0.15 + 0.5*noise(t*2 + k))*(1 - k/26)"/>
+      <!-- wave shimmer rows -->
+      <group repeat="9" as="r">
+        <rect repeat="14" as="c" x="=fract(c/14 + t*0.012*(1 + r*0.2) + rand(r))*W*1.1 - 60" y="=H*0.745 + r*r*(portrait ? 6.5 : 3.6)" w="=40 + 6*r" h="2" r="1" fill="#9fb3ff" opacity="=0.08 + 0.2*noise(t + c + r*7)"/>
+      </group>
+      <!-- lighthouse with sweeping beam -->
+      <group x="=W*0.13" y="=H*0.72" x.portrait="=W*0.16">
+        <path y="-262" d="M 0 0 L 1500 -150 L 1500 150 Z" fill="url(#beam)" blur="10" rot="=-8 + 22*sin(t*0.5)" opacity="=0.35 + 0.3*max(0, sin(t*0.5))"/>
+        <path d="M -150 30 C -110 -40 110 -40 170 30 Z" fill="#05060f"/>
+        <path d="M -44 0 L -30 -230 L 30 -230 L 44 0 Z" fill="#0b0d1c"/>
+        <path d="M -38 -60 L -36 -90 L 36 -90 L 38 -60 Z M -34 -150 L -33 -180 L 33 -180 L 34 -150 Z" fill="#3a1f2c"/>
+        <rect x="-38" y="-238" w="76" h="10" fill="#0b0d1c"/>
+        <rect x="-22" y="-282" w="44" h="44" fill="#ffe6a6" shadow="0 0 40 #ffd27a"/>
+        <path d="M -30 -282 L 0 -312 L 30 -282 Z" fill="#0b0d1c"/>
+      </group>
+      <circle repeat="26" as="k" x="=W*rand(k+300) + 40*sin(t*0.3 + k)" y="=H - fract(t*0.03*(0.5 + rand(k)) + rand(k+9))*H*1.1" r="=2 + 5*rand(k+4)" fill="#ffd27a" blur="2" opacity="=0.25*rand(k+2)"/>
+    </group>
+    <rect w="=W" h="=H" fill="url(#vig)"/>
+    <text x="=W/2" y="80" y.portrait="140" size="26" weight="600" align="center" fill="#ffffffaa" text="@hdr"/>
+    <rect x="=W/2 - 40" y="106" y.portrait="166" w="80" h="2" fill="#ffd27a88"/>
+  </backdrop>
+  <timeline>
+    <scene id="title" dur="4.5" chapter="@ch_title">
+      <say at="0.4" text="@vo_title"/>
+      <group x="=W/2" y="=portrait ? 760 : 440" opacity="=min(1, T/0.8, (sdur - T)/0.6)">
+        <text font="Playfair Display" weight="700" size="130" size.portrait="110" align="center" fill="url(#gold)" shadow="0 0 40 #ffb84d66" text="@ptitle">
+          <anim prop="scale" from="0.94" to="1" dur="2.5" ease="out"/>
+        </text>
+        <line x1="-120" x2="120" y1="110" y2="110" stroke="#ffd27a" sw="3"><anim prop="draw" from="0" to="1" at="0.8" dur="1.2" ease="io"/></line>
+        <text y="180" size="40" weight="400" font="Playfair Display" italic="1" align="center" fill="#ffffffcc" text="@psub" at="1"><anim prop="opacity" from="0" to="1" dur="0.8"/></text>
+      </group>
+    </scene>
+    <scene id="s1" dur="5.19" chapter="@ch_s1">
+      <say at="0.4" text="@vo_s1"/>
+
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 0 - 165*ease((T - 2.00)/0.55, 'io')" scale="=(1 - 0.38*ease((T - 2.00)/0.55, 'io'))*(portrait ? 0.731 : 1)" opacity="=min(1, T/0.5) - 0.55*ease((T - 2.00)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="The lighthouse keeps a quiet watch"/>
+        <group mask="url(#sw_s1_0)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="The lighthouse keeps a quiet watch"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150 - 150*ease((T - 2.00)/0.55, 'io')" scale="=(0.62 + 0.38*ease((T - 2.00)/0.55, 'io'))*(portrait ? 1.000 : 1)" opacity="=min(1, T/0.5)*(0.5 + 0.5*ease((T - 2.00)/0.55, 'io'))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="above the restless sea;"/>
+        <group mask="url(#sw_s1_1)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="above the restless sea;"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150" scale="=(0.62)*(portrait ? 0.732 : 1)" opacity="=0.5*ease((T - 2.00)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="it does not chase the ships at night,"/>
+
+      </group>
+    </scene>
+    <scene id="s2" dur="5.71" chapter="@ch_s2">
+      <say at="0.4" text="@vo_s2"/>
+      <group x="=W/2" y="=(portrait ? 800 : 470) - 165 - 60*ease(T/0.6,'io')" scale="=(0.62)*(portrait ? 1.000 : 1)" opacity="=0.45*(1 - clamp(T/0.6, 0, 1))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="above the restless sea;"/>
+
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 130*(1 - ease(T/0.5,'io')) - 165*ease((T - 2.36)/0.55, 'io')" scale="=(lerp(0.62, 1, ease(T/0.5,'io')) - 0.38*ease((T - 2.36)/0.55, 'io'))*(portrait ? 0.732 : 1)" opacity="=lerp(0.5, 1, ease(T/0.5,'io')) - 0.55*ease((T - 2.36)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="it does not chase the ships at night,"/>
+        <group mask="url(#sw_s2_0)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="it does not chase the ships at night,"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150 - 150*ease((T - 2.36)/0.55, 'io')" scale="=(0.62 + 0.38*ease((T - 2.36)/0.55, 'io'))*(portrait ? 1.000 : 1)" opacity="=clamp(T/0.5, 0, 1)*(0.5 + 0.5*ease((T - 2.36)/0.55, 'io'))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="it simply lets them see."/>
+        <group mask="url(#sw_s2_1)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="it simply lets them see."/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150" scale="=(0.62)*(portrait ? 0.711 : 1)" opacity="=0.5*ease((T - 2.36)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="The keeper climbs the winding stair"/>
+
+      </group>
+    </scene>
+    <scene id="s3" dur="5.71" chapter="@ch_s3">
+      <say at="0.4" text="@vo_s3"/>
+      <group x="=W/2" y="=(portrait ? 800 : 470) - 165 - 60*ease(T/0.6,'io')" scale="=(0.62)*(portrait ? 1.000 : 1)" opacity="=0.45*(1 - clamp(T/0.6, 0, 1))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="it simply lets them see."/>
+
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 130*(1 - ease(T/0.5,'io')) - 165*ease((T - 2.15)/0.55, 'io')" scale="=(lerp(0.62, 1, ease(T/0.5,'io')) - 0.38*ease((T - 2.15)/0.55, 'io'))*(portrait ? 0.711 : 1)" opacity="=lerp(0.5, 1, ease(T/0.5,'io')) - 0.55*ease((T - 2.15)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="The keeper climbs the winding stair"/>
+        <group mask="url(#sw_s3_0)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="The keeper climbs the winding stair"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150 - 150*ease((T - 2.15)/0.55, 'io')" scale="=(0.62 + 0.38*ease((T - 2.15)/0.55, 'io'))*(portrait ? 0.932 : 1)" opacity="=clamp(T/0.5, 0, 1)*(0.5 + 0.5*ease((T - 2.15)/0.55, 'io'))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="with oil and cloth and light,"/>
+        <group mask="url(#sw_s3_1)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="with oil and cloth and light,"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150" scale="=(0.62)*(portrait ? 0.767 : 1)" opacity="=0.5*ease((T - 2.15)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="and every wave that breaks below"/>
+
+      </group>
+    </scene>
+    <scene id="s4" dur="5.29" chapter="@ch_s4">
+      <say at="0.4" text="@vo_s4"/>
+      <group x="=W/2" y="=(portrait ? 800 : 470) - 165 - 60*ease(T/0.6,'io')" scale="=(0.62)*(portrait ? 0.932 : 1)" opacity="=0.45*(1 - clamp(T/0.6, 0, 1))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="with oil and cloth and light,"/>
+
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 130*(1 - ease(T/0.5,'io')) - 165*ease((T - 1.87)/0.55, 'io')" scale="=(lerp(0.62, 1, ease(T/0.5,'io')) - 0.38*ease((T - 1.87)/0.55, 'io'))*(portrait ? 0.767 : 1)" opacity="=lerp(0.5, 1, ease(T/0.5,'io')) - 0.55*ease((T - 1.87)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="and every wave that breaks below"/>
+        <group mask="url(#sw_s4_0)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="and every wave that breaks below"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150 - 150*ease((T - 1.87)/0.55, 'io')" scale="=(0.62 + 0.38*ease((T - 1.87)/0.55, 'io'))*(portrait ? 0.836 : 1)" opacity="=clamp(T/0.5, 0, 1)*(0.5 + 0.5*ease((T - 1.87)/0.55, 'io'))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="is answered through the night."/>
+        <group mask="url(#sw_s4_1)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="is answered through the night."/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150" scale="=(0.62)*(portrait ? 0.840 : 1)" opacity="=0.5*ease((T - 1.87)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="No captain ever knew her face,"/>
+
+      </group>
+    </scene>
+    <scene id="s5" dur="5.51" chapter="@ch_s5">
+      <say at="0.4" text="@vo_s5"/>
+      <group x="=W/2" y="=(portrait ? 800 : 470) - 165 - 60*ease(T/0.6,'io')" scale="=(0.62)*(portrait ? 0.836 : 1)" opacity="=0.45*(1 - clamp(T/0.6, 0, 1))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="is answered through the night."/>
+
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 130*(1 - ease(T/0.5,'io')) - 165*ease((T - 2.03)/0.55, 'io')" scale="=(lerp(0.62, 1, ease(T/0.5,'io')) - 0.38*ease((T - 2.03)/0.55, 'io'))*(portrait ? 0.840 : 1)" opacity="=lerp(0.5, 1, ease(T/0.5,'io')) - 0.55*ease((T - 2.03)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="No captain ever knew her face,"/>
+        <group mask="url(#sw_s5_0)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="No captain ever knew her face,"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150 - 150*ease((T - 2.03)/0.55, 'io')" scale="=(0.62 + 0.38*ease((T - 2.03)/0.55, 'io'))*(portrait ? 0.930 : 1)" opacity="=clamp(T/0.5, 0, 1)*(0.5 + 0.5*ease((T - 2.03)/0.55, 'io'))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="no sailor learned her name,"/>
+        <group mask="url(#sw_s5_1)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="no sailor learned her name,"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150" scale="=(0.62)*(portrait ? 0.741 : 1)" opacity="=0.5*ease((T - 2.03)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="yet every boat that found the shore"/>
+
+      </group>
+    </scene>
+    <scene id="s6" dur="5.41" chapter="@ch_s6">
+      <say at="0.4" text="@vo_s6"/>
+      <group x="=W/2" y="=(portrait ? 800 : 470) - 165 - 60*ease(T/0.6,'io')" scale="=(0.62)*(portrait ? 0.930 : 1)" opacity="=0.45*(1 - clamp(T/0.6, 0, 1))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="no sailor learned her name,"/>
+
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 130*(1 - ease(T/0.5,'io')) - 165*ease((T - 2.12)/0.55, 'io')" scale="=(lerp(0.62, 1, ease(T/0.5,'io')) - 0.38*ease((T - 2.12)/0.55, 'io'))*(portrait ? 0.741 : 1)" opacity="=lerp(0.5, 1, ease(T/0.5,'io')) - 0.55*ease((T - 2.12)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="yet every boat that found the shore"/>
+        <group mask="url(#sw_s6_0)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="yet every boat that found the shore"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150 - 150*ease((T - 2.12)/0.55, 'io')" scale="=(0.62 + 0.38*ease((T - 2.12)/0.55, 'io'))*(portrait ? 1.000 : 1)" opacity="=clamp(T/0.5, 0, 1)*(0.5 + 0.5*ease((T - 2.12)/0.55, 'io'))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="was guided by her flame."/>
+        <group mask="url(#sw_s6_1)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="was guided by her flame."/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150" scale="=(0.62)*(portrait ? 0.843 : 1)" opacity="=0.5*ease((T - 2.12)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="So when the dark is all you see"/>
+
+      </group>
+    </scene>
+    <scene id="s7" dur="5.23" chapter="@ch_s7">
+      <say at="0.4" text="@vo_s7"/>
+      <group x="=W/2" y="=(portrait ? 800 : 470) - 165 - 60*ease(T/0.6,'io')" scale="=(0.62)*(portrait ? 1.000 : 1)" opacity="=0.45*(1 - clamp(T/0.6, 0, 1))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="was guided by her flame."/>
+
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 130*(1 - ease(T/0.5,'io')) - 165*ease((T - 1.98)/0.55, 'io')" scale="=(lerp(0.62, 1, ease(T/0.5,'io')) - 0.38*ease((T - 1.98)/0.55, 'io'))*(portrait ? 0.843 : 1)" opacity="=lerp(0.5, 1, ease(T/0.5,'io')) - 0.55*ease((T - 1.98)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="So when the dark is all you see"/>
+        <group mask="url(#sw_s7_0)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="So when the dark is all you see"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150 - 150*ease((T - 1.98)/0.55, 'io')" scale="=(0.62 + 0.38*ease((T - 1.98)/0.55, 'io'))*(portrait ? 1.000 : 1)" opacity="=clamp(T/0.5, 0, 1)*(0.5 + 0.5*ease((T - 1.98)/0.55, 'io'))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="and every star is gone,"/>
+        <group mask="url(#sw_s7_1)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="and every star is gone,"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150" scale="=(0.62)*(portrait ? 0.833 : 1)" opacity="=0.5*ease((T - 1.98)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="be someone’s quiet lighthouse,"/>
+
+      </group>
+    </scene>
+    <scene id="s8" dur="4.97" chapter="@ch_s8">
+      <say at="0.4" text="@vo_s8"/>
+      <group x="=W/2" y="=(portrait ? 800 : 470) - 165 - 60*ease(T/0.6,'io')" scale="=(0.62)*(portrait ? 1.000 : 1)" opacity="=0.45*(1 - clamp(T/0.6, 0, 1))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="and every star is gone,"/>
+
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 130*(1 - ease(T/0.5,'io')) - 165*ease((T - 1.78)/0.55, 'io')" scale="=(lerp(0.62, 1, ease(T/0.5,'io')) - 0.38*ease((T - 1.78)/0.55, 'io'))*(portrait ? 0.833 : 1)" opacity="=lerp(0.5, 1, ease(T/0.5,'io')) - 0.55*ease((T - 1.78)/0.55, 'io')">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="be someone’s quiet lighthouse,"/>
+        <group mask="url(#sw_s8_0)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="be someone’s quiet lighthouse,"/></group>
+      </group>
+      <group x="=W/2" y="=(portrait ? 800 : 470) + 150 - 150*ease((T - 1.78)/0.55, 'io')" scale="=(0.62 + 0.38*ease((T - 1.78)/0.55, 'io'))*(portrait ? 1.000 : 1)" opacity="=clamp(T/0.5, 0, 1)*(0.5 + 0.5*ease((T - 1.78)/0.55, 'io'))">
+        <text font="Playfair Display" weight="700" size="80" align="center" fill="#ffffff8c" shadow="0 4 24 #000c" text="and leave the light on."/>
+        <group mask="url(#sw_s8_1)"><text font="Playfair Display" weight="700" size="80" align="center" fill="url(#gold)" shadow="0 0 22 #ffb84d88" text="and leave the light on."/></group>
+      </group>
+
+    </scene>
+    <scene id="outro" dur="5.41" chapter="@ch_outro">
+      <say at="0.4" text="@vo_outro"/>
+      <group x="=W/2" y="=portrait ? 760 : 440" opacity="=min(1, T/0.8, (sdur - T)/0.6)">
+        <text font="Playfair Display" weight="700" size="130" size.portrait="110" align="center" fill="url(#gold)" shadow="0 0 40 #ffb84d66" text="@otitle">
+          <anim prop="scale" from="0.94" to="1" dur="2.5" ease="out"/>
+        </text>
+        <line x1="-120" x2="120" y1="110" y2="110" stroke="#ffd27a" sw="3"><anim prop="draw" from="0" to="1" at="0.8" dur="1.2" ease="io"/></line>
+        <text y="180" size="40" weight="400" font="Playfair Display" italic="1" align="center" fill="#ffffffcc" text="@osub" at="1"><anim prop="opacity" from="0" to="1" dur="0.8"/></text>
+      </group>
+    </scene>
+  </timeline>
+  <overlay>
+    <rect x="=W/2 - 300" y="=H - 70" y.portrait="=H - 140" w="600" h="4" r="2" fill="#ffffff22"/>
+    <rect x="=W/2 - 300" y="=H - 70" y.portrait="=H - 140" w="=600*t/dur" h="4" r="2" fill="#ffd27a"/>
+  </overlay>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_outro" lang="en" src="voice/lyric-karaoke/en/vo_outro.ca0b7f6850.ogg" dur="3.41" hash="ca0b7f6850" engine="kokoro:bf_emma"/>
+    <voice say="vo_s1" lang="en" src="voice/lyric-karaoke/en/vo_s1.cc48b6ea2c.ogg" dur="2.89" hash="cc48b6ea2c" engine="kokoro:bf_emma"/>
+    <voice say="vo_s2" lang="en" src="voice/lyric-karaoke/en/vo_s2.501de66cac.ogg" dur="3.41" hash="501de66cac" engine="kokoro:bf_emma"/>
+    <voice say="vo_s3" lang="en" src="voice/lyric-karaoke/en/vo_s3.8303d6e729.ogg" dur="3.41" hash="8303d6e729" engine="kokoro:bf_emma"/>
+    <voice say="vo_s4" lang="en" src="voice/lyric-karaoke/en/vo_s4.df2af9534b.ogg" dur="2.99" hash="df2af9534b" engine="kokoro:bf_emma"/>
+    <voice say="vo_s5" lang="en" src="voice/lyric-karaoke/en/vo_s5.26c527e6b4.ogg" dur="3.21" hash="26c527e6b4" engine="kokoro:bf_emma"/>
+    <voice say="vo_s6" lang="en" src="voice/lyric-karaoke/en/vo_s6.281ba2f373.ogg" dur="3.11" hash="281ba2f373" engine="kokoro:bf_emma"/>
+    <voice say="vo_s7" lang="en" src="voice/lyric-karaoke/en/vo_s7.b71e15f95b.ogg" dur="2.93" hash="b71e15f95b" engine="kokoro:bf_emma"/>
+    <voice say="vo_s8" lang="en" src="voice/lyric-karaoke/en/vo_s8.fc5ba57e24.ogg" dur="2.67" hash="fc5ba57e24" engine="kokoro:bf_emma"/>
+    <voice say="vo_title" lang="en" src="voice/lyric-karaoke/en/vo_title.bab8921580.ogg" dur="1.76" hash="bab8921580" engine="kokoro:bf_emma"/>
+  </voices>
+</tsvg>

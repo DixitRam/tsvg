@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.2" title="@title" font="Caveat">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full (voice + music + sfx)"/><choice id="speech" label="Speech only"/><choice id="ambient" label="No voice"/></option>
+    <option id="theme" label="Theme" default="paper"><choice id="paper" label="Paper"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.35" sfx="0.7"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+    <mix id="ambient" voice="0" music="0.6" sfx="0.7"/>
+  </mixes>
+  <themes>
+    <theme id="paper" bg="#fbf8f1" fg="#2b2b2b" muted="#555555" accent="#1c4fa0"/>
+  </themes>
+  <strings>
+    <s id="title" en="How to run a good retro"/>
+    <s id="ch1" en="Retro"/>
+    <s id="ch2" en="Set the stage"/>
+    <s id="ch3" en="Gather"/>
+    <s id="ch4" en="Vote"/>
+    <s id="ch5" en="One action"/>
+    <s id="ch6" en="Follow up"/>
+    <s id="ch7" en="Recap"/>
+    <s id="t1" en="Running a good"/>
+    <s id="t2" en="retro"/>
+    <s id="t3" en="look back · get a bit better"/>
+    <s id="s_head" en="1. Set the stage"/>
+    <s id="s_min" en="45 min"/>
+    <s id="s_rule" en="blame the process, not people"/>
+    <s id="s_safe" en="everyone writes, everyone speaks"/>
+    <s id="g_head" en="2. Gather notes"/>
+    <s id="g_well" en="went well :)"/>
+    <s id="g_hard" en="was hard :("/>
+    <s id="n1" en="pairing on bugs"/>
+    <s id="n2" en="demo day!"/>
+    <s id="n3" en="clear tickets"/>
+    <s id="n4" en="flaky tests"/>
+    <s id="n5" en="too many meetings"/>
+    <s id="n6" en="CI is slow"/>
+    <s id="n7" en="tests fail randomly"/>
+    <s id="v_head" en="3. Group + vote"/>
+    <s id="v_top" en="top issue: unreliable tests"/>
+    <s id="a_head" en="4. ONE action"/>
+    <s id="a_what" en="quarantine flaky tests, fix 3 per week"/>
+    <s id="a_who" en="owner: Priya"/>
+    <s id="a_when" en="by Friday"/>
+    <s id="f_head" en="5. Follow up"/>
+    <s id="f_q" en="did it happen?"/>
+    <s id="f_loop" en="next retro starts here"/>
+    <s id="r_head" en="The recipe"/>
+    <s id="r1" en="set the stage"/>
+    <s id="r2" en="sticky notes"/>
+    <s id="r3" en="group + dot vote"/>
+    <s id="r4" en="one action, one owner"/>
+    <s id="r5" en="check it next time"/>
+    <s id="r_bub" en="we got better!"/>
+    <s id="vo_intro" en="A retrospective is a short meeting where a team looks back and gets a little better. Here is a simple way to run one."/>
+    <s id="vo_stage" en="Start by setting the stage. Book forty five minutes, and agree to blame the process, not people."/>
+    <s id="vo_gather" en="Next, everyone writes sticky notes: what went well, and what was hard. Five minutes, in silence."/>
+    <s id="vo_vote" en="Group similar notes, then vote with dots. The biggest cluster is what you work on."/>
+    <s id="vo_action" en="Turn it into one concrete action, with an owner and a date. Just one."/>
+    <s id="vo_follow" en="At the next retro, start by checking that action. That loop is what makes teams improve."/>
+    <s id="vo_outro" en="Stage, notes, vote, one action, follow up. That is a retro."/>
+  </strings>
+  <defs>
+
+  </defs>
+  <assets>
+    <font family="Caveat" src="fonts/Caveat.ttf"/>
+    <asset id="bright" src="audio/bright.ogg"/>
+    <asset id="typing" src="audio/typing.ogg"/>
+    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+
+  </assets>
+  <music src="bright" start="0" loop="1" vol="0.5"/>
+  <backdrop>
+
+    <circle repeat="48" as="c" x="=20 + c*40" y="0" r="0"/>
+    <group repeat="27" as="r" y="=20 + r*40"><circle repeat="48" as="c" x="=20 + c*40" r="2" fill="#d9d2c3"/></group>
+  </backdrop>
+  <timeline>
+    <scene id="intro" dur="11" chapter="@ch1">
+      <say at="0.5" text="@vo_intro"/>
+
+      <sfx at="0.4" src="typing"/>
+      <rect x="300" y="330" w="=430*ease((T-1.4)/0.5,'out')" h="120" r="6" fill="#ffe14d" opacity="0.65" rot="-1.2" blend="multiply" at="1.4"/>
+      <text x="240" y="260" size="110" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@t1" at="0.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <text x="300" y="400" size="190" font="Caveat" weight="700" align="left" fill="#1c4fa0" text="@t2" at="1"><anim prop="reveal" from="0" to="1" dur="0.6" ease="linear"/></text>
+      <path d="M 294 505 Q 356.0 489.4 422.8 490.4 Q 476.7 502.3 543.1 505.5 Q 623.5 499.1 703.8 484.9" fill="none" stroke="#e8590c" sw="7" at="1.7"><anim prop="draw" from="0" to="1" at="0" dur="0.5" ease="io"/></path>
+      <text x="250" y="620" size="60" font="Caveat" weight="700" align="left" fill="#555" text="@t3" at="2.3"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <path d="M 1580.3 527.5 Q 1593.1 541.3 1599.1000000000001 574.4 Q 1577.2 603.4 1536.7 620.3000000000001 Q 1494.8 637.0 1434 647.5 Q 1376.1 654.2 1302.5 644.2 Q 1256.6 629.3 1192 616.5 Q 1167.9 592.2 1147.7 574 Q 1155.5 555.8 1154.4 520.9 Q 1202.2 504.6 1241.3999999999999 481.40000000000003 Q 1311.4 469.1 1363.1000000000001 468.1 Q 1429.9 484.6 1488.9 478.9 Q 1530.5 497.1 1574.2 518.9 Q 1584.1 545.1 1600.2 566" fill="none" stroke="#2b2b2b" sw="5" at="2.4"><anim prop="draw" from="0" to="1" at="0" dur="0.8" ease="io"/></path>
+      <group x="1180" y="380" scale="1" at="2.6">
+        <path d="M 27.6 -0.2 Q 24.3 9.9 18.5 18.1 Q 9.0 23.2 1.8 25.6 Q -7.7 20.4 -17.7 17.4 Q -23.1 8.3 -24.8 1.5 Q -24.5 -7.0 -19.7 -18.4 Q -11.2 -24.7 2 -27.1 Q 9.8 -24.3 17.8 -17.6 Q 19.7 -6.3 27.5 1.6" fill="#ffffff" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0" dur="0.5" ease="io"/></path>
+        <path d="M 0 28 L 0 90 M 0 50 L -30 72 M 0 50 L 30 72 M 0 90 L -22 130 M 0 90 L 22 130" fill="none" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0.3" dur="0.6" ease="io"/></path>
+        <circle x="-9" y="-4" r="3" fill="#2b2b2b"/><circle x="9" y="-4" r="3" fill="#2b2b2b"/><path d="M -9 9 Q 0 16 9 9" fill="none" stroke="#2b2b2b" sw="3"/></group><group x="1370" y="330" scale="1" at="2.9">
+        <path d="M 27.5 1.6 Q 23.7 7.6 16 17 Q 6.3 18.8 0.5 24.9 Q -7.5 21.9 -17.2 17 Q -19.6 7.3 -26.5 1.6 Q -24.4 -9.1 -20 -16.3 Q -8.1 -19.3 -1.9 -24.4 Q 7.0 -19.0 18.3 -17.3 Q 20.5 -10.8 24.8 0.3" fill="#ffffff" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0" dur="0.5" ease="io"/></path>
+        <path d="M 0 28 L 0 90 M 0 50 L -30 72 M 0 50 L 30 72 M 0 90 L -22 130 M 0 90 L 22 130" fill="none" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0.3" dur="0.6" ease="io"/></path>
+        <circle x="-9" y="-4" r="3" fill="#2b2b2b"/><circle x="9" y="-4" r="3" fill="#2b2b2b"/><path d="M -9 9 Q 0 16 9 9" fill="none" stroke="#2b2b2b" sw="3"/></group><group x="1560" y="380" scale="1" at="3.2">
+        <path d="M 24.2 1.1 Q 23.3 10.4 18 16.1 Q 6.5 24.7 -1.5 26.8 Q -6.5 19.0 -16.5 19.4 Q -18.8 11.9 -24.9 -0.3 Q -23.6 -7.5 -16.5 -18.4 Q -10.7 -22.6 1.5 -25.8 Q 8.0 -21.2 18.9 -18.7 Q 23.4 -9.5 24.8 -0.8" fill="#ffffff" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0" dur="0.5" ease="io"/></path>
+        <path d="M 0 28 L 0 90 M 0 50 L -30 72 M 0 50 L 30 72 M 0 90 L -22 130 M 0 90 L 22 130" fill="none" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0.3" dur="0.6" ease="io"/></path>
+        <circle x="-9" y="-4" r="3" fill="#2b2b2b"/><circle x="9" y="-4" r="3" fill="#2b2b2b"/><path d="M -9 9 Q 0 16 9 9" fill="none" stroke="#2b2b2b" sw="3"/></group>
+      <path x="1370" y="560" scale="0.9" d="M 0 30 C -60 -10 -40 -60 0 -30 C 40 -60 60 -10 0 30 Z" fill="#ff8fb1" stroke="#2b2b2b" sw="4" at="3.8"><anim prop="draw" from="0" to="1" at="0" dur="0.6" ease="io"/></path>
+    </scene>
+    <scene id="stage" dur="10" chapter="@ch2">
+      <say at="0.5" text="@vo_stage"/>
+
+      <text x="160" y="150" size="90" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@s_head" at="0.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <rect x="160" y="185" w="=560*ease((T-0.9)/0.5,'out')" h="22" r="6" fill="#ffe14d" opacity="0.65" rot="-1.2" blend="multiply" at="0.9"/>
+      <group y="110">
+      
+      <path d="M 162.9 303 Q 421.3 303.6 682.5 298.2 Q 681.4 496.5 680 700.3 Q 422.6 704.3 159.9 698.1 Q 159.5 496.8 161 300.1" fill="#7cc8ff" opacity="0.5" at="1.2"><anim prop="opacity" from="0" to="0.5" dur="0.3"/></path>
+      <path d="M 160.5 300.1 Q 423.3 298.2 682 296.2 Q 677.4 500.5 677.6 701.8 Q 417.3 696.6 161.3 699.4 Q 154.6 503.5 162.6 303.3" fill="none" stroke="#2b2b2b" sw="5" at="0.6"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 168.1 298.8 Q 432.3 291.9 688.6 303 Q 685.6 509.4 673.4 700.4 Q 410.8 694.7 152.8 693.1 Q 162.2 504.6 160.9 293.3" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="0.8"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <group x="420" y="470" at="1">
+        <path d="M 68.2 1 Q 63.0 17.1 64 34.5 Q 49.7 50.6 34.4 60.5 Q 13.3 62.9 1.8 72.8 Q -20.8 69.6 -34.9 58.7 Q -50.8 49.0 -63 32.5 Q -67.7 18.9 -69.7 -0.1 Q -60.8 -21.6 -61.5 -36.1 Q -52.8 -52.7 -35.5 -63.5 Q -20.1 -61.4 1.7 -68.4 Q 16.9 -62.1 37.8 -59.2 Q 49.6 -47.3 60.1 -35.6 Q 65.5 -17.5 70.4 1.3" fill="#7cc8ff88" stroke="#2b2b2b" sw="5"><anim prop="draw" from="0" to="1" at="0" dur="0.7" ease="io"/></path>
+        <line x1="0" y1="0" x2="0" y2="-48" stroke="#2b2b2b" sw="5" rot="=T*30"/><line x1="0" y1="0" x2="34" y2="0" stroke="#2b2b2b" sw="5"/></group>
+      <text x="420" y="630" size="80" font="Caveat" weight="700" align="center" fill="#2b2b2b" text="@s_min" at="1.6"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <path d="M 720 500 Q 805.5 458.0 900 470" fill="none" stroke="#2b2b2b" sw="5" at="2.4"><anim prop="draw" from="0" to="1" at="0" dur="0.6" ease="io"/></path>
+      <path d="M 871.6 479.5 L 900 470 L 874.8 453.7" fill="none" stroke="#2b2b2b" sw="5" at="2.95"><anim prop="draw" from="0" to="1" at="0" dur="0.2" ease="io"/></path>
+      
+      
+      <path d="M 941.3 301.1 Q 1352.9 304.9 1762.8 303.9 Q 1759.2 409.8 1763.7 523.8 Q 1348.2 514.6 938.7 523.1 Q 942.7 413.0 943.6 302.3" fill="none" stroke="#2b2b2b" sw="5" at="2.8"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 941.1 294.4 Q 1359.8 293.2 1770.2 305 Q 1764.2 416.4 1758.4 523.4 Q 1353.5 522.0 940.7 515.7 Q 943.5 406.4 943 293.9" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="3"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path x="1030" y="410" scale="0.8" d="M 0 30 C -60 -10 -40 -60 0 -30 C 40 -60 60 -10 0 30 Z" fill="#ff8fb1" stroke="#2b2b2b" sw="4" at="3.2"><anim prop="draw" from="0" to="1" at="0" dur="0.6" ease="io"/></path>
+      <text x="1110" y="410" size="58" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@s_rule" at="3.4" maxw="620"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <rect x="1100" y="432" w="=600*ease((T-4.6)/0.5,'out')" h="26" r="6" fill="#ff8fb1" opacity="0.65" rot="-1.2" blend="multiply" at="4.6"/>
+      <text x="1000" y="640" size="52" font="Caveat" weight="700" align="left" fill="#555" text="@s_safe" at="5.4"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      </group>
+    </scene>
+    <scene id="gather" dur="10" chapter="@ch3">
+      <say at="0.5" text="@vo_gather"/>
+
+      <sfx at="1.4" src="pop"/><sfx at="2" src="pop"/><sfx at="2.6" src="pop"/><sfx at="3.4" src="pop"/><sfx at="4" src="pop"/><sfx at="4.6" src="pop"/><sfx at="5.2" src="pop"/>
+      <text x="160" y="150" size="90" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@g_head" at="0.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <path d="M 961.1 246.8 Q 967.7 431.2 958.1 602.2 Q 967.2 782.6 957.7 985.1" fill="none" stroke="#2b2b2b" sw="4" at="0.6"><anim prop="draw" from="0" to="1" at="0" dur="0.6" ease="io"/></path>
+      <text x="480" y="270" size="70" font="Caveat" weight="700" align="center" fill="#2f9e44" text="@g_well" at="0.8"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <text x="1440" y="270" size="70" font="Caveat" weight="700" align="center" fill="#c92a2a" text="@g_hard" at="0.8"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      
+      <group x="300" y="460" rot="-4" at="1.4"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#8ee07d" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n1"/>
+      </group>
+      <group x="600" y="460" rot="3" at="2"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#ffe14d" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n2"/>
+      </group>
+      <group x="360" y="710" rot="-2" at="2.5999999999999996"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#8ee07d" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n3"/>
+      </group>
+      
+      <group x="1240" y="460" rot="3" at="3.4"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#ff8fb1" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n4"/>
+      </group>
+      <group x="1540" y="460" rot="-3" at="4"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#ffb35c" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n5"/>
+      </group>
+      <group x="1240" y="710" rot="2" at="4.6"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#ff8fb1" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n6"/>
+      </group>
+      <group x="1540" y="710" rot="-4" at="5.199999999999999"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#ff8fb1" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n7"/>
+      </group>
+    </scene>
+    <scene id="vote" dur="9" chapter="@ch4">
+      <say at="0.5" text="@vo_vote"/>
+
+      <sfx at="1.6" src="click"/><sfx at="1.9" src="click"/><sfx at="2.2" src="click"/><sfx at="2.5" src="click"/><sfx at="2.8" src="click"/>
+      <text x="160" y="150" size="90" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@v_head" at="0.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      
+      <group x="420" y="520" rot="-3" at="0"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#ffb35c" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n5"/>
+      </group>
+      <group x="420" y="790" rot="2" at="0"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#ff8fb1" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n6"/>
+      </group>
+      <group x="=lerp(0, -40, ease((T-0.5)/0.8,'io'))">
+        
+      <group x="1100" y="480" rot="-2" at="0"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#ff8fb1" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n4"/>
+      </group>
+      <group x="1320" y="560" rot="3" at="0"><anim prop="scale" from="0.6" to="1" dur="0.3" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.15"/>
+        <rect x="-110" y="-90" w="220" h="180" fill="#ff8fb1" shadow="3 6 6 #00000030"/>
+        <text y="10" size="38" font="Caveat" weight="700" align="center" maxw="190" lh="1.05" fill="#2b2b2b" text="@n7"/>
+      </group>
+      </group>
+      <path d="M 1478 443.8 Q 1492.8 497.2 1507.8 569.4 Q 1459.3 611.9 1431.1000000000001 672.6 Q 1341.4 693.8 1270.9 726.3000000000001 Q 1183.3 733.5 1088.3 726.7 Q 1004.8 703.5 936.1 668.1 Q 893.8 619.6 856 563.9 Q 867.9 495.4 872.8 446.4 Q 932.3 401.8 993.8 352 Q 1086.9 340.2 1176.2 317 Q 1269.2 326.5 1352.7 349 Q 1418.4 396.3 1479 431.5 Q 1499.9 493.9 1512.2 550.6" fill="none" stroke="#c92a2a" sw="6" at="1.1"><anim prop="draw" from="0" to="1" at="0" dur="0.8" ease="io"/></path>
+      <circle x="1060" y="420" r="14" fill="#e8590c" at="1.6"><anim prop="scale" from="0" to="1" dur="0.2" ease="back"/></circle><circle x="1100" y="420" r="14" fill="#e8590c" at="1.9000000000000001"><anim prop="scale" from="0" to="1" dur="0.2" ease="back"/></circle><circle x="1140" y="420" r="14" fill="#e8590c" at="2.2"><anim prop="scale" from="0" to="1" dur="0.2" ease="back"/></circle><circle x="1250" y="470" r="14" fill="#e8590c" at="2.5"><anim prop="scale" from="0" to="1" dur="0.2" ease="back"/></circle><circle x="1290" y="470" r="14" fill="#e8590c" at="2.8"><anim prop="scale" from="0" to="1" dur="0.2" ease="back"/></circle><circle x="1330" y="470" r="14" fill="#e8590c" at="3.1"><anim prop="scale" from="0" to="1" dur="0.2" ease="back"/></circle>
+      <circle x="370" y="440" r="14" fill="#e8590c" at="3.6"><anim prop="scale" from="0" to="1" dur="0.2" ease="back"/></circle>
+      <path d="M 1180 780 Q 1170.0 830.0 1180 880" fill="none" stroke="#c92a2a" sw="5" at="4.2"><anim prop="draw" from="0" to="1" at="0" dur="0.6" ease="io"/></path>
+      <path d="M 1161.9 856.1 L 1180 880 L 1187.5 851.0" fill="none" stroke="#c92a2a" sw="5" at="4.75"><anim prop="draw" from="0" to="1" at="0" dur="0.2" ease="io"/></path>
+      <text x="1180" y="940" size="64" font="Caveat" weight="700" align="center" fill="#c92a2a" text="@v_top" at="4.6"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+    </scene>
+    <scene id="action" dur="9" chapter="@ch5">
+      <say at="0.5" text="@vo_action"/>
+
+      <sfx at="3.6" src="ding"/>
+      <text x="160" y="150" size="90" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@a_head" at="0.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <rect x="160" y="180" w="=400*ease((T-0.8)/0.5,'out')" h="26" r="6" fill="#ffb35c" opacity="0.65" rot="-1.2" blend="multiply" at="0.8"/>
+      
+      <path d="M 302.2 321.7 Q 962.2 323.9 1622.1 318.1 Q 1622.1 576.7 1617.8 842.7 Q 964.4 835.7 297.5 838.6 Q 304.2 583.5 302.7 318.7" fill="#ffe14d" opacity="0.5" at="1.2"><anim prop="opacity" from="0" to="0.5" dur="0.3"/></path>
+      <path d="M 297.6 316.2 Q 959.6 320.8 1617.1 318.6 Q 1619.8 576.5 1616.4 836.4 Q 954.8 841.7 299.7 842.5 Q 302.9 580.1 301.6 319.1" fill="none" stroke="#2b2b2b" sw="6" at="0.6"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 305.1 321.7 Q 969.3 326.9 1628.1 323 Q 1626.8 577.7 1613.7 846.3 Q 959.8 839.9 297.4 836.9 Q 300.4 571.5 299.7 312.8" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="0.8"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      
+      
+      <path d="M 378.8 428.8 Q 421.2 431.8 467 426.4 Q 463.6 479.3 473 516.4 Q 428.4 517.7 379.2 523.3 Q 383.8 468.7 383.9 427.6" fill="none" stroke="#2b2b2b" sw="5" at="1.2"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 385.4 426.3 Q 422.5 424.3 478.6 434.5 Q 468.0 483.7 471.1 522.2 Q 421.8 517.8 374.5 521.8 Q 386.4 475.4 384 430.7" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="1.4"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path x="425" y="470" scale="1.3" d="M -24 0 L -6 20 L 30 -26" fill="none" stroke="#2f9e44" sw="8" at="3.6"><anim prop="draw" from="0" to="1" at="0" dur="0.35" ease="io"/></path>
+      <text x="520" y="470" size="64" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@a_what" at="1.4" maxw="1040"><anim prop="reveal" from="0" to="1" dur="1.4" ease="linear"/></text>
+      <group x="470" y="630" scale="0.8" at="2.4">
+        <path d="M 27.3 1.3 Q 23.7 12.0 18.8 17.1 Q 10.4 20.9 1.5 24.7 Q -6.8 23.0 -16.7 17.9 Q -20.1 11.1 -27.8 -1.1 Q -23.9 -12.1 -17.7 -16.8 Q -8.2 -19.7 1.5 -24.7 Q 7.1 -21.6 17.8 -18.5 Q 22.2 -7.4 26.1 -0.5" fill="#ffffff" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0" dur="0.5" ease="io"/></path>
+        <path d="M 0 28 L 0 90 M 0 50 L -30 72 M 0 50 L 30 72 M 0 90 L -22 130 M 0 90 L 22 130" fill="none" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0.3" dur="0.6" ease="io"/></path>
+        <circle x="-9" y="-4" r="3" fill="#2b2b2b"/><circle x="9" y="-4" r="3" fill="#2b2b2b"/><path d="M -9 9 Q 0 16 9 9" fill="none" stroke="#2b2b2b" sw="3"/></group>
+      <text x="560" y="690" size="60" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@a_who" at="2.6"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <text x="1080" y="690" size="60" font="Caveat" weight="700" align="left" fill="#c92a2a" text="@a_when" at="3"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <path d="M 1298.9 667.4 Q 1307.4 689.6 1305.6999999999998 695.3000000000001 Q 1293.4 711.8 1279.5 724.1999999999999 Q 1237.6 732.6 1208.8000000000002 739.7 Q 1170.3 731.5 1126.3 733.3 Q 1093.8 732.9 1068.7 724.4000000000001 Q 1045.8 707.1 1030.3 692.9 Q 1030.2 675.0 1041.7 668.3 Q 1059.4 661.7 1091.1 647.9 Q 1121.8 650.7 1164.1 637.6 Q 1197.3 637.9 1241.5 643.6 Q 1270.9 659.0 1298.3 671.1 Q 1302.2 688.4 1311.5 690.5" fill="none" stroke="#c92a2a" sw="4" at="3.4"><anim prop="draw" from="0" to="1" at="0" dur="0.8" ease="io"/></path>
+    </scene>
+    <scene id="follow" dur="9" chapter="@ch6">
+      <say at="0.5" text="@vo_follow"/>
+
+      <text x="160" y="150" size="90" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@f_head" at="0.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <path d="M 961.5 282.8 Q 1040.5 302.0 1111.6 318.5 Q 1167.0 368.1 1204.2 430.7 Q 1230.8 515.2 1241.7 582.6 Q 1208.0 654.2 1190.3 721.2 Q 1133.0 775.5 1068 824.4 Q 987.8 818.9 918.8 837.2 Q 849.2 808.7 780.2 767.5 Q 740.0 719.2 698.1 649.2 Q 692.3 565.6 689.6 495.8 Q 723.8 419.3 766.4 363.8" fill="none" stroke="#1c4fa0" sw="7" at="0.5"><anim prop="draw" from="0" to="1" at="0" dur="1.4" ease="io"/></path>
+      <path d="M 760 360 Q 841.5 339.9 905 285" fill="none" stroke="#1c4fa0" sw="5" at="1.9"><anim prop="draw" from="0" to="1" at="0" dur="0.6" ease="io"/></path>
+      <path d="M 893.1 312.5 L 905 285 L 876.0 292.8" fill="none" stroke="#1c4fa0" sw="5" at="2.45"><anim prop="draw" from="0" to="1" at="0" dur="0.2" ease="io"/></path>
+      <text x="960" y="520" size="72" font="Caveat" weight="700" align="center" fill="#2b2b2b" text="@f_q" at="2.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      
+      
+      <path d="M 903.8 578.5 Q 963.1 585.6 1020.6 581 Q 1016.1 631.7 1019.6 689.5 Q 954.2 690.9 902.2 692.7 Q 894.7 632.5 900.9 579.4" fill="none" stroke="#2b2b2b" sw="5" at="2.8"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 902.2 574.9 Q 958.2 577.4 1025.3 583.4 Q 1022.1 638.7 1017.3 695.2 Q 963.9 698.1 896.6 691.3 Q 908.2 634.9 903 578.3" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="3"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path x="960" y="630" scale="1.4" d="M -24 0 L -6 20 L 30 -26" fill="none" stroke="#2f9e44" sw="8" at="3.6"><anim prop="draw" from="0" to="1" at="0" dur="0.35" ease="io"/></path>
+      <text x="1360" y="900" size="56" font="Caveat" weight="700" align="left" fill="#555" text="@f_loop" at="4.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <rect x="1330" y="925" w="=520*ease((T-4.8)/0.5,'out')" h="22" r="6" fill="#8ee07d" opacity="0.65" rot="-1.2" blend="multiply" at="4.8"/>
+    </scene>
+    <scene id="outro" dur="8" chapter="@ch7">
+      <say at="0.5" text="@vo_outro"/>
+
+      <text x="160" y="150" size="90" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@r_head" at="0.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      
+      
+      
+      <path d="M 196.4 278.3 Q 229.0 284.4 266.9 277.9 Q 272.1 311.4 268.2 347.1 Q 238.3 347.5 201 352 Q 193.8 319.2 203.3 282.1" fill="none" stroke="#2b2b2b" sw="4" at="0.6"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 208.5 272.7 Q 234.9 272.1 280.8 281.8 Q 268.4 318.4 271.4 356.1 Q 237.2 343.2 193.1 349.2 Q 204.5 305.9 201.9 276.1" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="0.8"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path><path x="235" y="312" scale="1" d="M -24 0 L -6 20 L 30 -26" fill="none" stroke="#2f9e44" sw="8" at="1"><anim prop="draw" from="0" to="1" at="0" dur="0.35" ease="io"/></path>
+      <text x="320" y="315" size="66" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@r1" at="0.8"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      
+      
+      <path d="M 202.2 421.4 Q 236.7 415.6 273.4 424 Q 271.5 457.8 267.3 493.1 Q 230.6 488.0 201.6 489.4 Q 199.5 461.2 199.6 420.4" fill="none" stroke="#2b2b2b" sw="4" at="1.2"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 205.6 413 Q 234.7 414.5 279.4 420.4 Q 279.9 458.7 264.3 493.8 Q 232.6 483.2 197.4 491.2 Q 199.5 447.9 199.7 418.4" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="1.4"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path><path x="235" y="452" scale="1" d="M -24 0 L -6 20 L 30 -26" fill="none" stroke="#2f9e44" sw="8" at="1.6"><anim prop="draw" from="0" to="1" at="0" dur="0.35" ease="io"/></path>
+      <text x="320" y="455" size="66" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@r2" at="1.4"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      
+      
+      <path d="M 199.5 557 Q 239.3 553.9 273.3 561.8 Q 275.0 597.2 271.5 632.7 Q 232.1 632.2 199.7 626 Q 195.2 589.7 196.5 560.1" fill="none" stroke="#2b2b2b" sw="4" at="1.7999999999999998"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 200.2 554.2 Q 237.8 562.0 273.4 559.5 Q 275.5 602.0 269.8 637.6 Q 227.4 627.4 197.5 627 Q 202.0 591.0 204.5 560.8" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="1.9999999999999998"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path><path x="235" y="592" scale="1" d="M -24 0 L -6 20 L 30 -26" fill="none" stroke="#2f9e44" sw="8" at="2.2"><anim prop="draw" from="0" to="1" at="0" dur="0.35" ease="io"/></path>
+      <text x="320" y="595" size="66" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@r3" at="2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      
+      
+      <path d="M 202.8 699.3 Q 233.2 706.1 271.9 703.5 Q 266.7 740.9 273.4 771.7 Q 235.9 771.9 203.2 767.5 Q 199.8 734.3 202.2 702" fill="none" stroke="#2b2b2b" sw="4" at="2.4"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 205.9 698.1 Q 232.1 696.2 278.6 702.6 Q 264.5 738.8 272.3 769.1 Q 239.7 773.7 197.5 771.6 Q 207.1 739.2 199.6 699.5" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="2.6"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path><path x="235" y="732" scale="1" d="M -24 0 L -6 20 L 30 -26" fill="none" stroke="#2f9e44" sw="8" at="2.8"><anim prop="draw" from="0" to="1" at="0" dur="0.35" ease="io"/></path>
+      <text x="320" y="735" size="66" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@r4" at="2.5999999999999996"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      
+      
+      <path d="M 198.9 841.6 Q 229.7 838.9 266.6 838.4 Q 268.3 872.6 269.1 906.1 Q 233.7 908.9 202.4 912.6 Q 194.3 874.3 200.6 841.1" fill="none" stroke="#2b2b2b" sw="4" at="3"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path>
+      <path d="M 200.4 833.2 Q 238.5 832.2 273.8 843.6 Q 267.0 885.5 271.9 914.6 Q 227.0 909.7 199 905.8 Q 199.5 869.4 202.9 834" fill="none" stroke="#2b2b2b" sw="2" opacity="0.6" at="3.2"><anim prop="draw" from="0" to="1" at="0" dur="0.9" ease="io"/></path><path x="235" y="872" scale="1" d="M -24 0 L -6 20 L 30 -26" fill="none" stroke="#2f9e44" sw="8" at="3.4"><anim prop="draw" from="0" to="1" at="0" dur="0.35" ease="io"/></path>
+      <text x="320" y="875" size="66" font="Caveat" weight="700" align="left" fill="#2b2b2b" text="@r5" at="3.2"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+      <rect x="310" y="830" w="=560*ease((T-4.2)/0.5,'out')" h="40" r="6" fill="#ffe14d" opacity="0.65" rot="-1.2" blend="multiply" at="4.2"/>
+      <group x="1300" y="560" scale="2.2" at="1">
+        <path d="M 24 -1.1 Q 22.8 10.0 16.1 19.8 Q 6.4 19.5 0.9 26.7 Q -7.8 22.5 -16.2 16.2 Q -23.6 6.9 -26.5 -0.7 Q -23.9 -12.0 -19.4 -18 Q -6.0 -24.2 0.1 -25.5 Q 6.6 -19.3 18.7 -17.1 Q 24.8 -7.8 24.6 -0.5" fill="#ffffff" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0" dur="0.5" ease="io"/></path>
+        <path d="M 0 28 L 0 90 M 0 50 L -30 72 M 0 50 L 30 72 M 0 90 L -22 130 M 0 90 L 22 130" fill="none" stroke="#2b2b2b" sw="4"><anim prop="draw" from="0" to="1" at="0.3" dur="0.6" ease="io"/></path>
+        <circle x="-9" y="-4" r="3" fill="#2b2b2b"/><circle x="9" y="-4" r="3" fill="#2b2b2b"/><path d="M -9 9 Q 0 16 9 9" fill="none" stroke="#2b2b2b" sw="3"/></group><path x="1180" y="420" scale="0.8" d="M 0 30 C -60 -10 -40 -60 0 -30 C 40 -60 60 -10 0 30 Z" fill="#ff8fb1" stroke="#2b2b2b" sw="4" at="2.4"><anim prop="draw" from="0" to="1" at="0" dur="0.6" ease="io"/></path>
+      <path d="M 1780.5 314.5 Q 1782.2 345.8 1800.2 379.8 Q 1771.1 411.8 1742.9 433.9 Q 1672.3 446.6 1630.5 467.9 Q 1562.5 472.0 1489.8999999999999 468.59999999999997 Q 1432.1 449.4 1372.8 432.7 Q 1341.0 404.4 1322.5 374.90000000000003 Q 1325.0 345.9 1336.7 315.9 Q 1376.0 282.8 1430 269.2 Q 1496.6 266.1 1556.5 252.9 Q 1625.6 255.7 1688.8000000000002 264.3 Q 1726.9 279.4 1769.8 306.09999999999997 Q 1777.8 342.6 1800.8 367.7" fill="none" stroke="#2b2b2b" sw="5" at="1.8"><anim prop="draw" from="0" to="1" at="0" dur="0.8" ease="io"/></path>
+      <path d="M 1420 440 L 1380 520 L 1460 455" fill="none" stroke="#2b2b2b" sw="5" at="2.2"><anim prop="draw" from="0" to="1" at="0" dur="0.3" ease="io"/></path>
+      <text x="1560" y="360" size="64" font="Caveat" weight="700" align="center" fill="#1c4fa0" text="@r_bub" at="2.4"><anim prop="reveal" from="0" to="1" dur="0.9" ease="linear"/></text>
+    </scene>
+  </timeline>
+  <overlay>
+
+  </overlay>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo_action" lang="en" src="voice/sketchnote-doodle/en/vo_action.43c57fdcda.ogg" dur="4.41" hash="43c57fdcda" engine="kokoro:af_heart"/>
+    <voice say="vo_follow" lang="en" src="voice/sketchnote-doodle/en/vo_follow.140855eb15.ogg" dur="5.21" hash="140855eb15" engine="kokoro:af_heart"/>
+    <voice say="vo_gather" lang="en" src="voice/sketchnote-doodle/en/vo_gather.97339322dc.ogg" dur="5.51" hash="97339322dc" engine="kokoro:af_heart"/>
+    <voice say="vo_intro" lang="en" src="voice/sketchnote-doodle/en/vo_intro.dddb73610f.ogg" dur="6.91" hash="dddb73610f" engine="kokoro:af_heart"/>
+    <voice say="vo_outro" lang="en" src="voice/sketchnote-doodle/en/vo_outro.ce5fc23df0.ogg" dur="3.71" hash="ce5fc23df0" engine="kokoro:af_heart"/>
+    <voice say="vo_stage" lang="en" src="voice/sketchnote-doodle/en/vo_stage.7c10fb01cb.ogg" dur="5.61" hash="7c10fb01cb" engine="kokoro:af_heart"/>
+    <voice say="vo_vote" lang="en" src="voice/sketchnote-doodle/en/vo_vote.8467ad2a2b.ogg" dur="4.81" hash="8467ad2a2b" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,12 @@
+{
+  "id": "meditation-breathing",
+  "title": "Guided breathing",
+  "category": "Wellness",
+  "summary": "Calm 4-4-6 breathing guide: soft gradient, a circle that grows and shrinks with the breath, phase arc and counts.",
+  "duration": 69.5,
+  "layouts": [
+    "landscape",
+    "portrait"
+  ],
+  "thumbT": 21
+}

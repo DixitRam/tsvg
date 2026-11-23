@@ -1,0 +1,11 @@
+{
+  "id": "pictogram-people",
+  "title": "Pictogram people",
+  "category": "Data & science",
+  "summary": "Herd immunity with 100 icon people: infection spreading, 70 immune, outbreak fizzling, people regrouping, threshold chart.",
+  "duration": 66.0,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 15
+}

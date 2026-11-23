@@ -1,0 +1,11 @@
+{
+  "id": "math-animation-dark",
+  "title": "Dark maths animation",
+  "category": "education",
+  "summary": "Axes draw on, a sine curve traces, a tangent slides and the slope becomes cosine; coloured equation terms and path morphs.",
+  "duration": 57,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 21.2
+}

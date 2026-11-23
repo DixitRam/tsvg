@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: mind map. A central topic, coloured branches growing to sub-topics, a camera that travels between branches. -->
+<tsvg version="0.2" title="@title" font="Space Grotesk, Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/><layout id="portrait" w="1080" h="1920"/></layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:bf_emma"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" default="paper"><choice id="paper" label="Paper"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.25" sfx="0.5"/><mix id="speech" voice="1" music="0" sfx="0"/></mixes>
+  <themes><theme id="paper" bg="#fbf6ee" fg="#2b2622" teal="#2a9d8f" coral="#e76f51" violet="#8e7dbe" amber="#e9a23b" blue="#457b9d"/></themes>
+  <strings>
+    <s id="title" en="Weekend in Udaipur"/>
+    <s id="ch0" en="Budget"/>
+    <s id="chE" en="Whole map"/>
+    <s id="tag" en="MIND MAP"/>
+    <s id="one" en="One page. Whole trip."/>
+    <s id="vo0" en="Planning a weekend away can feel like a hundred decisions. A mind map turns them into five."/>
+    <s id="vo6" en="Zoom out, and the whole weekend fits on one page."/>
+    <s id="b0" en="Budget"/>
+    <s id="vo1" en="Start with the budget. Set one total for two people, book the trains early, and keep ten percent spare."/>
+    <s id="l00" en="₹12,000 for two"/>
+    <s id="l01" en="Book trains early"/>
+    <s id="l02" en="Keep 10% spare"/>
+    <s id="b1" en="Getting there"/>
+    <s id="ch1" en="Getting there"/>
+    <s id="vo2" en="Getting there: an overnight train saves a hotel night. In town, auto rickshaws and your own feet do the rest."/>
+    <s id="l10" en="Overnight train"/>
+    <s id="l11" en="Autos in town"/>
+    <s id="l12" en="Walk the old city"/>
+    <s id="b2" en="Stay"/>
+    <s id="ch2" en="Stay"/>
+    <s id="vo3" en="Where to stay: a guesthouse with a lake view, close to the palace. Read the recent reviews first."/>
+    <s id="l20" en="Lake-view guesthouse"/>
+    <s id="l21" en="Near City Palace"/>
+    <s id="l22" en="Read recent reviews"/>
+    <s id="b3" en="Food"/>
+    <s id="ch3" en="Food"/>
+    <s id="vo4" en="Food is half the trip. Try dal baati churma, a rooftop dinner at sunset, and plenty of street chai."/>
+    <s id="l30" en="Dal baati churma"/>
+    <s id="l31" en="Rooftop dinner"/>
+    <s id="l32" en="Street chai"/>
+    <s id="b4" en="Things to do"/>
+    <s id="ch4" en="Things to do"/>
+    <s id="vo5" en="And things to do: a boat on Lake Pichola, the City Palace, and sunset from the hilltop palace."/>
+    <s id="l40" en="Boat on Lake Pichola"/>
+    <s id="l41" en="City Palace"/>
+    <s id="l42" en="Sunset viewpoint"/>
+  </strings>
+  <defs>
+    <radial id="core" x="-50" y="-60" r="260"><stop at="0" color="#4a3f8f"/><stop at="1" color="#2b2357"/></radial>
+  </defs>
+  <assets>
+    <asset id="bright" src="audio/bright.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="bright" loop="1" vol="0.5"/>
+  <backdrop>
+    <circle repeat="60" as="k" x="=rand(k)*W" y="=rand(k+31)*H" r="3" fill="$fg" opacity="0.07"/>
+  </backdrop>
+  <timeline>
+    <scene id="overview" dur="8" chapter="@ch0">
+      <say at="0.5" text="@vo0"/>
+      <sfx at="0.3" src="pop"/>
+      <group x="=W/2 - (portrait ? lerp(0.62, 0.62, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(0.95, 0.95, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(0, 0, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" y="=H/2 - (portrait ? lerp(0.62, 0.62, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(0.95, 0.95, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(-40, -40, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" scale="=(portrait ? lerp(0.62, 0.62, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(0.95, 0.95, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))">
+      <group at="2.0"><anim prop="opacity" from="0" to="1" dur="0.5"/><path d="M 0 0 C -320 8 -320 -298 -640 -290" stroke="$teal" sw="14" fill="none" opacity="0.35"><anim prop="draw" from="0" to="1" dur="0.6"/></path><group opacity="0.55"><group x="-640" y="-290"><anim prop="scale" from="0" to="1" at="0.3" dur="0.45" ease="back"/>
+          <rect x="-114" y="-46" w="228" h="91" r="46" fill="$teal" stroke="$teal" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b0"/></group></group></group>
+      <group at="2.6"><anim prop="opacity" from="0" to="1" dur="0.5"/><path d="M 0 0 C 320 -37 320 -253 640 -290" stroke="$coral" sw="14" fill="none" opacity="0.35"><anim prop="draw" from="0" to="1" dur="0.6"/></path><group opacity="0.55"><group x="640" y="-290"><anim prop="scale" from="0" to="1" at="0.3" dur="0.45" ease="back"/>
+          <rect x="-208" y="-46" w="417" h="91" r="46" fill="$coral" stroke="$coral" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b1"/></group></group></group>
+      <group at="3.2"><anim prop="opacity" from="0" to="1" dur="0.5"/><path d="M 0 0 C -280 36 -280 294 -560 330" stroke="$violet" sw="14" fill="none" opacity="0.35"><anim prop="draw" from="0" to="1" dur="0.6"/></path><group opacity="0.55"><group x="-560" y="330"><anim prop="scale" from="0" to="1" at="0.3" dur="0.45" ease="back"/>
+          <rect x="-87" y="-46" w="175" h="91" r="46" fill="$violet" stroke="$violet" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b2"/></group></group></group>
+      <group at="3.8"><anim prop="opacity" from="0" to="1" dur="0.5"/><path d="M 0 0 C 280 -3 280 333 560 330" stroke="$amber" sw="14" fill="none" opacity="0.35"><anim prop="draw" from="0" to="1" dur="0.6"/></path><group opacity="0.55"><group x="560" y="330"><anim prop="scale" from="0" to="1" at="0.3" dur="0.45" ease="back"/>
+          <rect x="-87" y="-46" w="175" h="91" r="46" fill="$amber" stroke="$amber" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b3"/></group></group></group>
+      <group at="4.4"><anim prop="opacity" from="0" to="1" dur="0.5"/><path d="M 0 0 C 0 -24 0 -447 0 -470" stroke="$blue" sw="14" fill="none" opacity="0.35"><anim prop="draw" from="0" to="1" dur="0.6"/></path><group opacity="0.55"><group x="0" y="-470"><anim prop="scale" from="0" to="1" at="0.3" dur="0.45" ease="back"/>
+          <rect x="-195" y="-46" w="390" h="91" r="46" fill="$blue" stroke="$blue" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b4"/></group></group></group>
+      <group><circle r="190" fill="url(#core)" shadow="0 20 50 #3a2a1a33"><anim prop="scale" from="0" to="1" at="0.3" dur="0.7" ease="back"/></circle>
+        <circle r="210" fill="none" stroke="$fg" sw="3" opacity="0.15"/>
+        <text x="0" y="-60" size="30" weight="800" align="center" fill="#ffffffcc" text="@tag"/>
+        <text x="0" y="20" size="58" weight="800" align="center" fill="#fff" maxw="320" lh="1.05" text="@title"><anim prop="opacity" from="0" to="1" at="0.7" dur="0.5"/></text></group>
+    </group>
+    </scene>
+    <scene id="br1" dur="9" chapter="@ch0">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.2" src="pop"/>
+      <group x="=W/2 - (portrait ? lerp(0.62, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(0.95, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(0, -895, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" y="=H/2 - (portrait ? lerp(0.62, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(0.95, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(-40, -275, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" scale="=(portrait ? lerp(0.62, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(0.95, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))">
+      <group at="0"><group>
+        <path d="M 0 0 C -320 8 -320 -298 -640 -290" stroke="$teal" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -640 -290 C -870 -290 -870 -470 -1100 -470" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -895 -279 -895 -281 -1150 -270" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -860 -271 -860 -99 -1080 -80" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-114" y="-46" w="228" h="91" r="46" fill="$teal" stroke="$teal" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b0"/></group>
+        <group x="-1100" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l00"/></group>
+        <group x="-1150" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l01"/></group>
+        <group x="-1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-176" y="-36" w="351" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l02"/></group>
+      </group></group>
+      <path d="M 0 0 C 320 -37 320 -253 640 -290" stroke="$coral" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <path d="M 0 0 C -280 36 -280 294 -560 330" stroke="$violet" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <path d="M 0 0 C 280 -3 280 333 560 330" stroke="$amber" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <path d="M 0 0 C 0 -24 0 -447 0 -470" stroke="$blue" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <group><circle r="190" fill="url(#core)" shadow="0 20 50 #3a2a1a33"></circle>
+        <circle r="210" fill="none" stroke="$fg" sw="3" opacity="0.15"/>
+        <text x="0" y="-60" size="30" weight="800" align="center" fill="#ffffffcc" text="@tag"/>
+        <text x="0" y="20" size="58" weight="800" align="center" fill="#fff" maxw="320" lh="1.05" text="@title"></text></group>
+    </group>
+    </scene>
+    <scene id="br2" dur="10" chapter="@ch1">
+      <say at="0.5" text="@vo2"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.2" src="pop"/>
+      <group x="=W/2 - (portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(-895, 885, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" y="=H/2 - (portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(-275, -275, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" scale="=(portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))">
+      <group at="-30"><group>
+        <path d="M 0 0 C -320 8 -320 -298 -640 -290" stroke="$teal" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -640 -290 C -870 -290 -870 -470 -1100 -470" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -895 -279 -895 -281 -1150 -270" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -860 -271 -860 -99 -1080 -80" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-114" y="-46" w="228" h="91" r="46" fill="$teal" stroke="$teal" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b0"/></group>
+        <group x="-1100" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l00"/></group>
+        <group x="-1150" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l01"/></group>
+        <group x="-1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-176" y="-36" w="351" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l02"/></group>
+      </group></group>
+      <group at="0"><group>
+        <path d="M 0 0 C 320 -37 320 -253 640 -290" stroke="$coral" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 640 -290 C 860 -308 860 -452 1080 -470" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 885 -299 885 -261 1130 -270" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 860 -288 860 -82 1080 -80" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-208" y="-46" w="417" h="91" r="46" fill="$coral" stroke="$coral" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b1"/></group>
+        <group x="1080" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l10"/></group>
+        <group x="1130" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-165" y="-36" w="330" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l11"/></group>
+        <group x="1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l12"/></group>
+      </group></group>
+      <path d="M 0 0 C -280 36 -280 294 -560 330" stroke="$violet" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <path d="M 0 0 C 280 -3 280 333 560 330" stroke="$amber" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <path d="M 0 0 C 0 -24 0 -447 0 -470" stroke="$blue" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <group><circle r="190" fill="url(#core)" shadow="0 20 50 #3a2a1a33"></circle>
+        <circle r="210" fill="none" stroke="$fg" sw="3" opacity="0.15"/>
+        <text x="0" y="-60" size="30" weight="800" align="center" fill="#ffffffcc" text="@tag"/>
+        <text x="0" y="20" size="58" weight="800" align="center" fill="#fff" maxw="320" lh="1.05" text="@title"></text></group>
+    </group>
+    </scene>
+    <scene id="br3" dur="9" chapter="@ch2">
+      <say at="0.5" text="@vo3"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.2" src="pop"/>
+      <group x="=W/2 - (portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(885, -780, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" y="=H/2 - (portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(-275, 430, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" scale="=(portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))">
+      <group at="-30"><group>
+        <path d="M 0 0 C -320 8 -320 -298 -640 -290" stroke="$teal" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -640 -290 C -870 -290 -870 -470 -1100 -470" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -895 -279 -895 -281 -1150 -270" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -860 -271 -860 -99 -1080 -80" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-114" y="-46" w="228" h="91" r="46" fill="$teal" stroke="$teal" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b0"/></group>
+        <group x="-1100" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l00"/></group>
+        <group x="-1150" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l01"/></group>
+        <group x="-1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-176" y="-36" w="351" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l02"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C 320 -37 320 -253 640 -290" stroke="$coral" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 640 -290 C 860 -308 860 -452 1080 -470" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 885 -299 885 -261 1130 -270" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 860 -288 860 -82 1080 -80" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-208" y="-46" w="417" h="91" r="46" fill="$coral" stroke="$coral" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b1"/></group>
+        <group x="1080" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l10"/></group>
+        <group x="1130" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-165" y="-36" w="330" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l11"/></group>
+        <group x="1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l12"/></group>
+      </group></group>
+      <group at="0"><group>
+        <path d="M 0 0 C -280 36 -280 294 -560 330" stroke="$violet" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -560 330 C -780 335 -780 245 -1000 250" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -560 330 C -780 345 -780 435 -1000 450" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -560 330 C -590 345 -590 595 -620 610" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-560" y="330"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-87" y="-46" w="175" h="91" r="46" fill="$violet" stroke="$violet" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b2"/></group>
+        <group x="-1000" y="250"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-239" y="-36" w="479" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l20"/></group>
+        <group x="-1000" y="450"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-197" y="-36" w="394" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l21"/></group>
+        <group x="-620" y="610"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-229" y="-36" w="458" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l22"/></group>
+      </group></group>
+      <path d="M 0 0 C 280 -3 280 333 560 330" stroke="$amber" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <path d="M 0 0 C 0 -24 0 -447 0 -470" stroke="$blue" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <group><circle r="190" fill="url(#core)" shadow="0 20 50 #3a2a1a33"></circle>
+        <circle r="210" fill="none" stroke="$fg" sw="3" opacity="0.15"/>
+        <text x="0" y="-60" size="30" weight="800" align="center" fill="#ffffffcc" text="@tag"/>
+        <text x="0" y="20" size="58" weight="800" align="center" fill="#fff" maxw="320" lh="1.05" text="@title"></text></group>
+    </group>
+    </scene>
+    <scene id="br4" dur="10" chapter="@ch3">
+      <say at="0.5" text="@vo4"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.2" src="pop"/>
+      <group x="=W/2 - (portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(-780, 780, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" y="=H/2 - (portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(430, 430, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" scale="=(portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))">
+      <group at="-30"><group>
+        <path d="M 0 0 C -320 8 -320 -298 -640 -290" stroke="$teal" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -640 -290 C -870 -290 -870 -470 -1100 -470" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -895 -279 -895 -281 -1150 -270" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -860 -271 -860 -99 -1080 -80" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-114" y="-46" w="228" h="91" r="46" fill="$teal" stroke="$teal" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b0"/></group>
+        <group x="-1100" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l00"/></group>
+        <group x="-1150" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l01"/></group>
+        <group x="-1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-176" y="-36" w="351" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l02"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C 320 -37 320 -253 640 -290" stroke="$coral" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 640 -290 C 860 -308 860 -452 1080 -470" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 885 -299 885 -261 1130 -270" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 860 -288 860 -82 1080 -80" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-208" y="-46" w="417" h="91" r="46" fill="$coral" stroke="$coral" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b1"/></group>
+        <group x="1080" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l10"/></group>
+        <group x="1130" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-165" y="-36" w="330" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l11"/></group>
+        <group x="1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l12"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C -280 36 -280 294 -560 330" stroke="$violet" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -560 330 C -780 335 -780 245 -1000 250" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -560 330 C -780 345 -780 435 -1000 450" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -560 330 C -590 345 -590 595 -620 610" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-560" y="330"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-87" y="-46" w="175" h="91" r="46" fill="$violet" stroke="$violet" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b2"/></group>
+        <group x="-1000" y="250"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-239" y="-36" w="479" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l20"/></group>
+        <group x="-1000" y="450"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-197" y="-36" w="394" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l21"/></group>
+        <group x="-620" y="610"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-229" y="-36" w="458" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l22"/></group>
+      </group></group>
+      <group at="0"><group>
+        <path d="M 0 0 C 280 -3 280 333 560 330" stroke="$amber" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 560 330 C 780 317 780 263 1000 250" stroke="$amber" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 560 330 C 780 327 780 453 1000 450" stroke="$amber" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 560 330 C 600 342 600 598 640 610" stroke="$amber" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="560" y="330"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-87" y="-46" w="175" h="91" r="46" fill="$amber" stroke="$amber" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b3"/></group>
+        <group x="1000" y="250"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-197" y="-36" w="394" h="72" r="36" fill="#ffffff" stroke="$amber" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l30"/></group>
+        <group x="1000" y="450"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-176" y="-36" w="351" h="72" r="36" fill="#ffffff" stroke="$amber" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l31"/></group>
+        <group x="640" y="610"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-144" y="-36" w="287" h="72" r="36" fill="#ffffff" stroke="$amber" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l32"/></group>
+      </group></group>
+      <path d="M 0 0 C 0 -24 0 -447 0 -470" stroke="$blue" sw="22" fill="none" opacity="0.12" draw="0.25"/>
+      <group><circle r="190" fill="url(#core)" shadow="0 20 50 #3a2a1a33"></circle>
+        <circle r="210" fill="none" stroke="$fg" sw="3" opacity="0.15"/>
+        <text x="0" y="-60" size="30" weight="800" align="center" fill="#ffffffcc" text="@tag"/>
+        <text x="0" y="20" size="58" weight="800" align="center" fill="#fff" maxw="320" lh="1.05" text="@title"></text></group>
+    </group>
+    </scene>
+    <scene id="br5" dur="9" chapter="@ch4">
+      <say at="0.5" text="@vo5"/>
+      <sfx at="0.1" src="whoosh"/><sfx at="1.2" src="pop"/>
+      <group x="=W/2 - (portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(780, 0, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" y="=H/2 - (portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(430, -630, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" scale="=(portrait ? lerp(0.82, 0.82, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 1.25, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))">
+      <group at="-30"><group>
+        <path d="M 0 0 C -320 8 -320 -298 -640 -290" stroke="$teal" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -640 -290 C -870 -290 -870 -470 -1100 -470" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -895 -279 -895 -281 -1150 -270" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -860 -271 -860 -99 -1080 -80" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-114" y="-46" w="228" h="91" r="46" fill="$teal" stroke="$teal" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b0"/></group>
+        <group x="-1100" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l00"/></group>
+        <group x="-1150" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l01"/></group>
+        <group x="-1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-176" y="-36" w="351" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l02"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C 320 -37 320 -253 640 -290" stroke="$coral" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 640 -290 C 860 -308 860 -452 1080 -470" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 885 -299 885 -261 1130 -270" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 860 -288 860 -82 1080 -80" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-208" y="-46" w="417" h="91" r="46" fill="$coral" stroke="$coral" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b1"/></group>
+        <group x="1080" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l10"/></group>
+        <group x="1130" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-165" y="-36" w="330" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l11"/></group>
+        <group x="1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l12"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C -280 36 -280 294 -560 330" stroke="$violet" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -560 330 C -780 335 -780 245 -1000 250" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -560 330 C -780 345 -780 435 -1000 450" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -560 330 C -590 345 -590 595 -620 610" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-560" y="330"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-87" y="-46" w="175" h="91" r="46" fill="$violet" stroke="$violet" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b2"/></group>
+        <group x="-1000" y="250"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-239" y="-36" w="479" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l20"/></group>
+        <group x="-1000" y="450"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-197" y="-36" w="394" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l21"/></group>
+        <group x="-620" y="610"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-229" y="-36" w="458" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l22"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C 280 -3 280 333 560 330" stroke="$amber" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 560 330 C 780 317 780 263 1000 250" stroke="$amber" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 560 330 C 780 327 780 453 1000 450" stroke="$amber" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 560 330 C 600 342 600 598 640 610" stroke="$amber" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="560" y="330"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-87" y="-46" w="175" h="91" r="46" fill="$amber" stroke="$amber" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b3"/></group>
+        <group x="1000" y="250"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-197" y="-36" w="394" h="72" r="36" fill="#ffffff" stroke="$amber" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l30"/></group>
+        <group x="1000" y="450"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-176" y="-36" w="351" h="72" r="36" fill="#ffffff" stroke="$amber" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l31"/></group>
+        <group x="640" y="610"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-144" y="-36" w="287" h="72" r="36" fill="#ffffff" stroke="$amber" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l32"/></group>
+      </group></group>
+      <group at="0"><group>
+        <path d="M 0 0 C 0 -24 0 -447 0 -470" stroke="$blue" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 0 -470 C -210 -474 -210 -716 -420 -720" stroke="$blue" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 0 -470 C 0 -486 0 -774 0 -790" stroke="$blue" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 0 -470 C 210 -491 210 -699 420 -720" stroke="$blue" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="0" y="-470"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-195" y="-46" w="390" h="91" r="46" fill="$blue" stroke="$blue" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b4"/></group>
+        <group x="-420" y="-720"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-239" y="-36" w="479" h="72" r="36" fill="#ffffff" stroke="$blue" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l40"/></group>
+        <group x="0" y="-790"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-144" y="-36" w="287" h="72" r="36" fill="#ffffff" stroke="$blue" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l41"/></group>
+        <group x="420" y="-720"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-197" y="-36" w="394" h="72" r="36" fill="#ffffff" stroke="$blue" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l42"/></group>
+      </group></group>
+      <group><circle r="190" fill="url(#core)" shadow="0 20 50 #3a2a1a33"></circle>
+        <circle r="210" fill="none" stroke="$fg" sw="3" opacity="0.15"/>
+        <text x="0" y="-60" size="30" weight="800" align="center" fill="#ffffffcc" text="@tag"/>
+        <text x="0" y="20" size="58" weight="800" align="center" fill="#fff" maxw="320" lh="1.05" text="@title"></text></group>
+    </group>
+    </scene>
+    <scene id="all" dur="7" chapter="@chE">
+      <say at="0.4" text="@vo6"/>
+      <sfx at="0.1" src="whoosh"/>
+      <group x="=W/2 - (portrait ? lerp(0.82, 0.38, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 0.58, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(0, 0, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" y="=H/2 - (portrait ? lerp(0.82, 0.38, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 0.58, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*lerp(-630, -110, ease(clamp((T - 0.1)/1.6, 0, 1), 'io'))" scale="=(portrait ? lerp(0.82, 0.38, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')) : lerp(1.25, 0.58, ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))*(1 - 0.18*sin(PI*ease(clamp((T - 0.1)/1.6, 0, 1), 'io')))">
+      <group at="-30"><group>
+        <path d="M 0 0 C -320 8 -320 -298 -640 -290" stroke="$teal" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -640 -290 C -870 -290 -870 -470 -1100 -470" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -895 -279 -895 -281 -1150 -270" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -640 -290 C -860 -271 -860 -99 -1080 -80" stroke="$teal" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-114" y="-46" w="228" h="91" r="46" fill="$teal" stroke="$teal" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b0"/></group>
+        <group x="-1100" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l00"/></group>
+        <group x="-1150" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l01"/></group>
+        <group x="-1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-176" y="-36" w="351" h="72" r="36" fill="#ffffff" stroke="$teal" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l02"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C 320 -37 320 -253 640 -290" stroke="$coral" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 640 -290 C 860 -308 860 -452 1080 -470" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 885 -299 885 -261 1130 -270" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 640 -290 C 860 -288 860 -82 1080 -80" stroke="$coral" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="640" y="-290"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-208" y="-46" w="417" h="91" r="46" fill="$coral" stroke="$coral" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b1"/></group>
+        <group x="1080" y="-470"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-186" y="-36" w="372" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l10"/></group>
+        <group x="1130" y="-270"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-165" y="-36" w="330" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l11"/></group>
+        <group x="1080" y="-80"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-207" y="-36" w="415" h="72" r="36" fill="#ffffff" stroke="$coral" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l12"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C -280 36 -280 294 -560 330" stroke="$violet" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M -560 330 C -780 335 -780 245 -1000 250" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M -560 330 C -780 345 -780 435 -1000 450" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M -560 330 C -590 345 -590 595 -620 610" stroke="$violet" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="-560" y="330"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-87" y="-46" w="175" h="91" r="46" fill="$violet" stroke="$violet" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b2"/></group>
+        <group x="-1000" y="250"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-239" y="-36" w="479" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l20"/></group>
+        <group x="-1000" y="450"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-197" y="-36" w="394" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l21"/></group>
+        <group x="-620" y="610"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-229" y="-36" w="458" h="72" r="36" fill="#ffffff" stroke="$violet" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l22"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C 280 -3 280 333 560 330" stroke="$amber" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 560 330 C 780 317 780 263 1000 250" stroke="$amber" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 560 330 C 780 327 780 453 1000 450" stroke="$amber" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 560 330 C 600 342 600 598 640 610" stroke="$amber" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="560" y="330"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-87" y="-46" w="175" h="91" r="46" fill="$amber" stroke="$amber" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b3"/></group>
+        <group x="1000" y="250"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-197" y="-36" w="394" h="72" r="36" fill="#ffffff" stroke="$amber" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l30"/></group>
+        <group x="1000" y="450"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-176" y="-36" w="351" h="72" r="36" fill="#ffffff" stroke="$amber" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l31"/></group>
+        <group x="640" y="610"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-144" y="-36" w="287" h="72" r="36" fill="#ffffff" stroke="$amber" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l32"/></group>
+      </group></group>
+      <group at="-30"><group>
+        <path d="M 0 0 C 0 -24 0 -447 0 -470" stroke="$blue" sw="22" fill="none"><anim prop="draw" from="0" to="1" at="0.4" dur="1.0" ease="io"/></path>
+        <path d="M 0 -470 C -210 -474 -210 -716 -420 -720" stroke="$blue" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="1.8" dur="0.6" ease="io"/></path>
+        <path d="M 0 -470 C 0 -486 0 -774 0 -790" stroke="$blue" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="2.7" dur="0.6" ease="io"/></path>
+        <path d="M 0 -470 C 210 -491 210 -699 420 -720" stroke="$blue" sw="8" fill="none" opacity="0.8"><anim prop="draw" from="0" to="1" at="3.6" dur="0.6" ease="io"/></path>
+        <group x="0" y="-470"><anim prop="scale" from="0" to="1" at="1.2" dur="0.45" ease="back"/>
+          <rect x="-195" y="-46" w="390" h="91" r="46" fill="$blue" stroke="$blue" sw="0" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="48" weight="800" align="center" fill="#ffffff" text="@b4"/></group>
+        <group x="-420" y="-720"><anim prop="scale" from="0" to="1" at="2.3" dur="0.45" ease="back"/>
+          <rect x="-239" y="-36" w="479" h="72" r="36" fill="#ffffff" stroke="$blue" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l40"/></group>
+        <group x="0" y="-790"><anim prop="scale" from="0" to="1" at="3.2" dur="0.45" ease="back"/>
+          <rect x="-144" y="-36" w="287" h="72" r="36" fill="#ffffff" stroke="$blue" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l41"/></group>
+        <group x="420" y="-720"><anim prop="scale" from="0" to="1" at="4.1" dur="0.45" ease="back"/>
+          <rect x="-197" y="-36" w="394" h="72" r="36" fill="#ffffff" stroke="$blue" sw="5" shadow="0 10 24 #3a2a1a22"/>
+          <text x="0" y="2" size="38" weight="600" align="center" fill="$fg" text="@l42"/></group>
+      </group></group>
+      <group><circle r="190" fill="url(#core)" shadow="0 20 50 #3a2a1a33"></circle>
+        <circle r="210" fill="none" stroke="$fg" sw="3" opacity="0.15"/>
+        <text x="0" y="-60" size="30" weight="800" align="center" fill="#ffffffcc" text="@tag"/>
+        <text x="0" y="20" size="58" weight="800" align="center" fill="#fff" maxw="320" lh="1.05" text="@title"></text></group>
+    </group>
+      <group x="=W/2" y="70" y.portrait="=H - 200" at="2"><anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="scale" from="0.8" to="1" dur="0.5" ease="back"/>
+        <rect x="-330" y="-46" w="660" h="92" r="46" fill="$fg"/><text x="0" y="2" size="44" weight="800" align="center" fill="$bg" text="@one"/></group>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo0" lang="en" src="voice/mind-map/en/vo0.dc2ba70c87.ogg" dur="5.41" hash="dc2ba70c87" engine="kokoro:bf_emma"/>
+    <voice say="vo1" lang="en" src="voice/mind-map/en/vo1.9b0a6990c6.ogg" dur="5.71" hash="9b0a6990c6" engine="kokoro:bf_emma"/>
+    <voice say="vo2" lang="en" src="voice/mind-map/en/vo2.f485673962.ogg" dur="6.21" hash="f485673962" engine="kokoro:bf_emma"/>
+    <voice say="vo3" lang="en" src="voice/mind-map/en/vo3.9e37e3d7c2.ogg" dur="5.11" hash="9e37e3d7c2" engine="kokoro:bf_emma"/>
+    <voice say="vo4" lang="en" src="voice/mind-map/en/vo4.718ecb7050.ogg" dur="5.71" hash="718ecb7050" engine="kokoro:bf_emma"/>
+    <voice say="vo5" lang="en" src="voice/mind-map/en/vo5.68650a0484.ogg" dur="5.11" hash="68650a0484" engine="kokoro:bf_emma"/>
+    <voice say="vo6" lang="en" src="voice/mind-map/en/vo6.6da582bb21.ogg" dur="2.84" hash="6da582bb21" engine="kokoro:bf_emma"/>
+  </voices>
+</tsvg>

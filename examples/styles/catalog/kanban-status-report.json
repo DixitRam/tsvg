@@ -1,0 +1,11 @@
+{
+  "id": "kanban-status-report",
+  "title": "Kanban status report",
+  "category": "Business & reporting",
+  "summary": "Sprint status on a kanban board: cards slide between columns, burndown with projection, risks callout, one ask.",
+  "duration": 62.5,
+  "layouts": [
+    "landscape"
+  ],
+  "thumbT": 18.5
+}

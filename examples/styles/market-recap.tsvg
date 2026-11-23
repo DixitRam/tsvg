@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Style: stock market recap. Index tiles (green/red) with sparklines, an intraday candlestick
+     chart built with repeat + data, top gainers and losers, a sector heatmap and a scrolling ticker.
+     All companies and indices are fictional. -->
+<tsvg version="0.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:am_adam"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Full"/><choice id="speech" label="Speech only"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.22" sfx="0.5"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="terminal" bg="#07090d" fg="#e8edf5" muted="#7a8496" grid="#1a2030" panel="#10151f" panel2="#161d2b" up="#16c784" down="#ff4d5e" amber="#ffb020" blue="#4d9fff"/>
+  </themes>
+
+  <strings>
+    <s id="title" en="Market close: tech leads, small caps slip"/>
+    <s id="brand" en="MARKETS"/>
+    <s id="close" en="CLOSING BELL"/>
+    <s id="date" en="Tuesday · 4:00 PM ET"/>
+    <s id="ch1" en="Intro"/><s id="ch2" en="Indices"/><s id="ch3" en="Intraday"/><s id="ch4" en="Gainers"/>
+    <s id="ch5" en="Losers"/><s id="ch6" en="Sectors"/><s id="ch7" en="Tomorrow"/>
+    <s id="ix1" en="LARGE CAP 500"/><s id="ix2" en="TECH 100"/><s id="ix3" en="INDUSTRIAL 30"/><s id="ix4" en="SMALL CAP 2000"/>
+    <s id="cd" en="LARGE CAP 500 · INTRADAY · 13-MINUTE CANDLES"/>
+    <s id="ev" en="2:00 PM  Central bank minutes"/>
+    <s id="g0" en="TOP GAINERS"/><s id="l0" en="TOP LOSERS"/>
+    <s id="s0" en="SECTORS · DAY CHANGE"/>
+    <s id="t0" en="TOMORROW"/>
+    <s id="t1" en="8:30 AM  Jobs report"/>
+    <s id="t2" en="Before the open  Earnings: VOLT, ORBN"/>
+    <s id="disc" en="Fictional companies and figures, for illustration only."/>
+    <s id="tick" en="NOVA 412.80 ▲ 6.4%    KRLX 88.15 ▲ 5.1%    BRYT 23.40 ▼ 7.9%    ORBN 151.02 ▲ 0.8%    VOLT 64.33 ▼ 1.2%    HALO 9.87 ▲ 4.4%    MERI 205.60 ▼ 0.3%    QUAN 47.12 ▲ 3.6%    TIDE 31.75 ▼ 5.5%    ARCX 118.40 ▲ 2.2%    "/>
+    <s id="vo1" en="Here's your closing bell. A mixed day: tech led the way, while smaller companies slipped."/>
+    <s id="vo2" en="The Large Cap 500 rose half a percent, Tech 100 gained one point two. Industrials and small caps finished in the red."/>
+    <s id="vo3" en="Intraday, stocks drifted higher until two o'clock, when the central bank minutes sparked a sharp sell off. Buyers stepped back in within the hour."/>
+    <s id="vo4" en="Chip designer Nova led the gainers, up six point four percent after raising its full year outlook."/>
+    <s id="vo5" en="On the other side, retailer Bryt fell almost eight percent on a weak holiday forecast."/>
+    <s id="vo6" en="By sector, technology and communication were green. Energy and consumer stocks took the biggest hits."/>
+    <s id="vo7" en="Tomorrow, all eyes on the jobs report at eight thirty. That's the close."/>
+  </strings>
+
+  <defs>
+    <data id="o" v="5210.0,5210.8,5213.5,5213.9,5217.0,5216.3,5219.9,5219.7,5217.0,5219.1,5220.8,5221.1,5219.0,5216.4,5206.2,5189.4,5184.0,5187.5,5193.6,5201.7,5206.2,5209.2,5213.6,5214.9,5217.7,5220.8,5224.2,5225.8,5228.5,5232.7"/>
+    <data id="c" v="5210.8,5213.5,5213.9,5217.0,5216.3,5219.9,5219.7,5217.0,5219.1,5220.8,5221.1,5219.0,5216.4,5206.2,5189.4,5184.0,5187.5,5193.6,5201.7,5206.2,5209.2,5213.6,5214.9,5217.7,5220.8,5224.2,5225.8,5228.5,5232.7,5235.9"/>
+    <data id="h" v="5212.1,5215.5,5216.1,5220.4,5220.8,5220.8,5221.1,5222.4,5220.1,5222.9,5222.8,5223.7,5220.7,5219.6,5209.1,5191.2,5189.8,5196.5,5205.7,5209.2,5210.4,5215.2,5217.2,5221.2,5224.4,5225.7,5227.4,5231.1,5235.5,5239.2"/>
+    <data id="l" v="5207.1,5209.8,5212.5,5212.7,5213.6,5212.7,5217.9,5214.1,5216.0,5217.3,5217.4,5216.5,5212.4,5204.9,5186.2,5180.9,5180.5,5186.5,5190.1,5200.8,5205.2,5207.1,5211.0,5213.3,5213.8,5219.2,5223.4,5221.9,5225.5,5229.1"/>
+    <data id="vol" v="38,57,41,52,47,49,58,49,45,53,53,62,49,90,117,78,73,79,74,66,71,81,69,50,51,65,49,65,51,63"/>
+    <!-- price → y inside the chart (5175…5245 over 520 units, bottom at 640) -->
+    <fn id="py" args="v">640 - (v - 5175)*520/70</fn>
+    <!-- how many candles are drawn so far (scene time) -->
+    <fn id="shown">clamp((T - 0.8)/0.2, 0, 30)</fn>
+
+    <!-- index tiles -->
+    <data id="ixv" v="5235.9, 18402.6, 38110.4, 2011.7"/>
+    <data id="ixc" v="0.50, 1.21, -0.62, -0.94"/>
+    <!-- gainers / losers -->
+    <data id="gs" v="NOVA, KRLX, HALO, QUAN, ARCX"/>
+    <data id="gp" v="6.4, 5.1, 4.4, 3.6, 2.2"/>
+    <data id="gn" v="Nova Semiconductor, Kiralux Health, Halo Robotics, Quanta Freight, Arcx Software"/>
+    <data id="ls" v="BRYT, TIDE, FERN, VOLT, LUMA"/>
+    <data id="lp" v="-7.9, -5.5, -3.8, -1.2, -1.1"/>
+    <data id="ln" v="Bryt Retail Group, Tidewater Energy, Fernhill Foods, Volt Mobility, Luma Apparel"/>
+    <!-- sectors: label, change, grid cell x, y, w, h (treemap by weight) -->
+    <data id="sn" v="Technology, Communication, Health care, Financials, Consumer, Industrials, Energy, Utilities, Materials"/>
+    <data id="sc" v="1.4, 0.9, 0.2, -0.1, -1.3, -0.5, -1.8, 0.3, -0.4"/>
+    <data id="sx" v="0, 0, 620, 620, 1040, 1040, 1380, 620, 1380"/>
+    <data id="sy" v="0, 380, 0, 300, 0, 300, 300, 520, 0"/>
+    <data id="sw" v="610, 610, 410, 410, 330, 330, 290, 410, 290"/>
+    <data id="sh" v="370, 250, 290, 210, 290, 330, 330, 110, 290"/>
+
+    <linear id="upfade" x1="0" y1="0" x2="0" y2="120"><stop at="0" color="$up" opacity="0.35"/><stop at="1" color="$up" opacity="0"/></linear>
+    <linear id="downfade" x1="0" y1="0" x2="0" y2="120"><stop at="0" color="$down" opacity="0.35"/><stop at="1" color="$down" opacity="0"/></linear>
+    <clip id="tickclip"><rect x="250" y="1000" w="1670" h="80"/></clip>
+  </defs>
+
+  <assets>
+    <asset id="pulse" src="audio/pulse.ogg"/>
+    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="click" src="audio/click.ogg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+    <font family="Anton" src="fonts/Anton.ttf"/>
+  </assets>
+
+  <music src="pulse" start="0" loop="1" vol="0.55"/>
+
+  <backdrop>
+    <!-- faint grid -->
+    <line repeat="20" as="k" x1="=k*100" x2="=k*100" y1="0" y2="1000" stroke="$grid" sw="1" opacity="0.6"/>
+    <line repeat="10" as="k" x1="0" x2="1920" y1="=k*100" y2="=k*100" stroke="$grid" sw="1" opacity="0.6"/>
+  </backdrop>
+
+  <overlay>
+    <!-- header strip + ticker -->
+    <group when="t &gt; 6">
+      <rect x="0" y="0" w="1920" h="70" fill="$panel"/>
+      <rect x="0" y="68" w="1920" h="2" fill="$amber"/>
+      <text x="60" y="36" size="28" weight="900" fill="$amber" font="JetBrains Mono" text="@brand"/>
+      <text x="1860" y="36" size="24" weight="600" align="right" fill="$muted" font="JetBrains Mono" text="@date"/>
+    </group>
+    <rect x="0" y="1000" w="1920" h="80" fill="$panel"/>
+    <rect x="0" y="1000" w="250" h="80" fill="$amber"/>
+    <text x="125" y="1041" size="34" weight="900" align="center" fill="#07090d" font="JetBrains Mono" text="@brand"/>
+    <group clip="url(#tickclip)">
+      <text x="=1920 - (t*140 % 3834)" y="1041" size="30" weight="700" fill="$fg" font="JetBrains Mono" text="@tick"/>
+      <text x="=1920 - (t*140 % 3834) + 3834" y="1041" size="30" weight="700" fill="$fg" font="JetBrains Mono" text="@tick"/>
+    </group>
+  </overlay>
+
+  <timeline>
+    <!-- 1 · intro -->
+    <scene id="intro" dur="7" chapter="@ch1">
+      <say at="0.5" text="@vo1"/>
+      <sfx at="0.4" src="ding"/>
+      <text x="=W/2" y="330" size="40" weight="700" align="center" fill="$amber" font="JetBrains Mono" text="@date">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+      </text>
+      <text x="=W/2" y="480" size="170" weight="900" align="center" fill="$fg" font="Anton" text="@close">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <anim prop="scale" from="1.2" to="1" dur="0.6" ease="out"/>
+      </text>
+      <!-- animated mini chart under the title -->
+      <path x="=W/2 - 600" y="700" d="M 0 40 L 80 30 L 160 44 L 240 20 L 320 26 L 400 8 L 480 70 L 560 90 L 640 50 L 720 34 L 800 20 L 880 10 L 960 -6 L 1040 0 L 1120 -20 L 1200 -30" fill="none" stroke="$up" sw="6">
+        <anim prop="draw" from="0" to="1" at="0.8" dur="2.2" ease="io"/>
+      </path>
+    </scene>
+
+    <!-- 2 · index tiles -->
+    <scene id="indices" dur="10" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <sfx at="0.4" src="blip"/><sfx at="0.7" src="blip"/><sfx at="1.0" src="blip"/><sfx at="1.3" src="blip"/>
+      <group repeat="4" as="k" x="=100 + (k % 2)*880" y="=130 + floor(k/2)*420" at="=0.3 + k*0.3">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <anim prop="y" from="=170 + floor(k/2)*420" to="=130 + floor(k/2)*420" dur="0.4"/>
+        <rect w="840" h="380" r="10" fill="$panel" stroke="=data('ixc', k) &gt; 0 ? $up : $down" sw="2"/>
+        <rect w="10" h="380" r="5" fill="=data('ixc', k) &gt; 0 ? $up : $down"/>
+        <text x="50" y="60" size="34" weight="800" fill="$muted" font="JetBrains Mono" text="@ix1" when="k == 0"/>
+        <text x="50" y="60" size="34" weight="800" fill="$muted" font="JetBrains Mono" text="@ix2" when="k == 1"/>
+        <text x="50" y="60" size="34" weight="800" fill="$muted" font="JetBrains Mono" text="@ix3" when="k == 2"/>
+        <text x="50" y="60" size="34" weight="800" fill="$muted" font="JetBrains Mono" text="@ix4" when="k == 3"/>
+        <text x="50" y="150" size="86" weight="800" fill="$fg" font="JetBrains Mono" text="{fmt(data('ixv', k)*(0.98 + 0.02*ease((T - 0.6 - k*0.3)/1.4, 'out')), 1)}"/>
+        <group x="50" y="240">
+          <rect w="280" h="64" r="8" fill="=data('ixc', k) &gt; 0 ? $up : $down"/>
+          <text x="140" y="33" size="38" weight="800" align="center" fill="#07090d" font="JetBrains Mono" text="{data('ixc', k) &gt; 0 ? '▲ +' : '▼ '}{fmt(data('ixc', k), 2)}%"/>
+        </group>
+        <!-- sparkline: 24 points of a noisy trend ending at the day's change -->
+        <group x="420" y="220">
+          <path repeat="24" as="s" d="=('M ' + (s*16) + ' ' + (-data('ixc', k)*60*s/23 + 18*noise(s*0.7 + k*9)) + ' L ' + ((s + 1)*16) + ' ' + (-data('ixc', k)*60*(s + 1)/23 + 18*noise((s + 1)*0.7 + k*9)))"
+                stroke="=data('ixc', k) &gt; 0 ? $up : $down" sw="5" fill="none" when="s &lt; 23 &amp;&amp; s &lt; (T - 1 - k*0.3)*20"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 3 · intraday candlesticks -->
+    <scene id="intraday" dur="12.5" chapter="@ch3">
+      <say at="0.4" text="@vo3"/>
+      <text x="100" y="130" size="32" weight="800" fill="$muted" font="JetBrains Mono" text="@cd"/>
+      <group x="100" y="160">
+        <rect w="1720" h="800" r="10" fill="$panel"/>
+        <!-- price grid -->
+        <group repeat="8" as="g">
+          <line x1="20" x2="1560" y1="=py(5180 + g*10)" y2="=py(5180 + g*10)" stroke="$grid" sw="2"/>
+          <text x="1580" y="=py(5180 + g*10)" size="22" fill="$muted" font="JetBrains Mono" text="{5180 + g*10}"/>
+        </group>
+        <!-- event marker -->
+        <group at="3.2">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <line x1="=60 + 13.5*50" x2="=60 + 13.5*50" y1="100" y2="760" stroke="$amber" sw="2"/>
+          <rect x="=60 + 13.5*50 + 12" y="100" w="430" h="48" r="6" fill="$amber"/>
+          <text x="=60 + 13.5*50 + 28" y="125" size="24" weight="800" fill="#07090d" font="JetBrains Mono" text="@ev"/>
+        </group>
+        <!-- candles -->
+        <group repeat="30" as="k" x="=60 + k*50" when="k &lt; shown()">
+          <line x1="0" x2="0" y1="=py(data('h', k))" y2="=py(data('l', k))" stroke="=data('c', k) &gt;= data('o', k) ? $up : $down" sw="3"/>
+          <rect x="-15" y="=py(max(data('o', k), data('c', k)))" w="30" h="=max(3, abs(data('c', k) - data('o', k))*520/70)" r="2"
+                fill="=data('c', k) &gt;= data('o', k) ? $up : $down" opacity="=clamp((shown() - k)*2, 0, 1)"/>
+          <rect x="-15" y="=780 - data('vol', k)*1.0" w="30" h="=data('vol', k)*1.0" fill="=data('c', k) &gt;= data('o', k) ? $up : $down" opacity="0.35"/>
+        </group>
+        <!-- last price line + tag -->
+        <group when="shown() &gt;= 1">
+          <line x1="20" x2="1560" y1="=py(data('c', floor(shown()) - 1))" y2="=py(data('c', floor(shown()) - 1))" stroke="$blue" sw="2" opacity="0.7"/>
+          <rect x="1560" y="=py(data('c', floor(shown()) - 1)) - 22" w="150" h="44" r="6" fill="$blue"/>
+          <text x="1635" y="=py(data('c', floor(shown()) - 1))" size="24" weight="800" align="center" fill="#07090d" font="JetBrains Mono" text="{fmt(data('c', floor(shown()) - 1), 1)}"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 4 · top gainers -->
+    <scene id="gainers" dur="9" chapter="@ch4">
+      <say at="0.4" text="@vo4"/>
+      <sfx at="0.3" src="click"/>
+      <group x="100" y="120">
+        <rect w="1720" h="90" r="10" fill="$up"/>
+        <text x="40" y="47" size="52" weight="900" fill="#07090d" font="Anton" text="@g0"/>
+      </group>
+      <group repeat="5" as="k" x="100" y="=270 + k*140" at="=0.4 + k*0.2">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <anim prop="x" from="160" to="100" dur="0.4"/>
+        <rect w="1720" h="120" r="10" fill="=k == 0 ? $panel2 : $panel" stroke="=k == 0 ? $up : '#00000000'" sw="3"/>
+        <text x="40" y="60" size="50" weight="800" fill="$fg" font="JetBrains Mono" text="{data('gs', k)}"/>
+        <text x="270" y="60" size="32" fill="$muted" text="{data('gn', k)}"/>
+        <rect x="900" y="30" w="=data('gp', k)*70*ease((T - 0.8 - k*0.2)/0.8, 'out')" h="60" r="6" fill="url(#upfade)"/>
+        <rect x="900" y="30" w="=data('gp', k)*70*ease((T - 0.8 - k*0.2)/0.8, 'out')" h="60" r="6" fill="none" stroke="$up" sw="3"/>
+        <text x="1680" y="60" size="50" weight="800" align="right" fill="$up" font="JetBrains Mono" text="+{fmt(data('gp', k), 1)}%"/>
+      </group>
+    </scene>
+
+    <!-- 5 · top losers -->
+    <scene id="losers" dur="8" chapter="@ch5">
+      <say at="0.4" text="@vo5"/>
+      <sfx at="0.3" src="click"/>
+      <group x="100" y="120">
+        <rect w="1720" h="90" r="10" fill="$down"/>
+        <text x="40" y="47" size="52" weight="900" fill="#07090d" font="Anton" text="@l0"/>
+      </group>
+      <group repeat="5" as="k" x="100" y="=270 + k*140" at="=0.4 + k*0.2">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <anim prop="x" from="160" to="100" dur="0.4"/>
+        <rect w="1720" h="120" r="10" fill="=k == 0 ? $panel2 : $panel" stroke="=k == 0 ? $down : '#00000000'" sw="3"/>
+        <text x="40" y="60" size="50" weight="800" fill="$fg" font="JetBrains Mono" text="{data('ls', k)}"/>
+        <text x="270" y="60" size="32" fill="$muted" text="{data('ln', k)}"/>
+        <rect x="900" y="30" w="=-data('lp', k)*70*ease((T - 0.8 - k*0.2)/0.8, 'out')" h="60" r="6" fill="url(#downfade)"/>
+        <rect x="900" y="30" w="=-data('lp', k)*70*ease((T - 0.8 - k*0.2)/0.8, 'out')" h="60" r="6" fill="none" stroke="$down" sw="3"/>
+        <text x="1680" y="60" size="50" weight="800" align="right" fill="$down" font="JetBrains Mono" text="{fmt(data('lp', k), 1)}%"/>
+      </group>
+    </scene>
+
+    <!-- 6 · sector heatmap -->
+    <scene id="sectors" dur="9" chapter="@ch6">
+      <say at="0.4" text="@vo6"/>
+      <text x="100" y="130" size="32" weight="800" fill="$muted" font="JetBrains Mono" text="@s0"/>
+      <group x="100" y="170">
+        <group repeat="9" as="k" x="=data('sx', k)" y="=data('sy', k)" at="=0.3 + k*0.12">
+          <anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <rect w="=data('sw', k)" h="=data('sh', k)" r="6"
+                fill="=data('sc', k) &gt; 0 ? mix('#16352a', '#16c784', clamp(data('sc', k)/1.5, 0, 1)) : mix('#3a1a20', '#ff4d5e', clamp(-data('sc', k)/1.8, 0, 1))"/>
+          <text x="24" y="40" size="=data('sh', k) &gt; 150 ? 34 : 26" weight="800" fill="#ffffff" text="{data('sn', k)}"/>
+          <text x="24" y="=data('sh', k) &gt; 150 ? 100 : 76" size="=data('sh', k) &gt; 150 ? 54 : 34" weight="800" fill="#ffffff" font="JetBrains Mono" text="{data('sc', k) &gt; 0 ? '+' : ''}{fmt(data('sc', k), 1)}%"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 7 · tomorrow -->
+    <scene id="tomorrow" dur="7" chapter="@ch7">
+      <say at="0.4" text="@vo7"/>
+      <sfx at="4.8" src="ding"/>
+      <text x="100" y="230" size="120" weight="900" fill="$amber" font="Anton" text="@t0">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+      </text>
+      <group repeat="2" as="k" x="100" y="=380 + k*150" at="=0.6 + k*0.4">
+        <anim prop="opacity" from="0" to="1" dur="0.3"/>
+        <rect w="1300" h="120" r="10" fill="$panel"/>
+        <rect w="10" h="120" r="5" fill="$amber"/>
+        <text x="50" y="60" size="44" weight="700" fill="$fg" font="JetBrains Mono" text="@t1" when="k == 0"/>
+        <text x="50" y="60" size="44" weight="700" fill="$fg" font="JetBrains Mono" text="@t2" when="k == 1"/>
+      </group>
+      <text x="100" y="900" size="24" fill="$muted" text="@disc"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/market-recap/en/vo1.e4bb9fa4f9.ogg" dur="4.71" hash="e4bb9fa4f9" engine="kokoro:am_adam"/>
+    <voice say="vo2" lang="en" src="voice/market-recap/en/vo2.da0e71d827.ogg" dur="8.01" hash="da0e71d827" engine="kokoro:am_adam"/>
+    <voice say="vo3" lang="en" src="voice/market-recap/en/vo3.52be00b530.ogg" dur="8.31" hash="52be00b530" engine="kokoro:am_adam"/>
+    <voice say="vo4" lang="en" src="voice/market-recap/en/vo4.7e0b5dc3a4.ogg" dur="5.71" hash="7e0b5dc3a4" engine="kokoro:am_adam"/>
+    <voice say="vo5" lang="en" src="voice/market-recap/en/vo5.537bd7b4da.ogg" dur="4.91" hash="537bd7b4da" engine="kokoro:am_adam"/>
+    <voice say="vo6" lang="en" src="voice/market-recap/en/vo6.d270e57a2e.ogg" dur="6.21" hash="d270e57a2e" engine="kokoro:am_adam"/>
+    <voice say="vo7" lang="en" src="voice/market-recap/en/vo7.4c010742f5.ogg" dur="4.11" hash="4c010742f5" engine="kokoro:am_adam"/>
+  </voices>
+</tsvg>
