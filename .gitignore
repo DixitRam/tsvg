@@ -1,0 +1,8 @@
+node_modules/
+tests/out/
+dist/
+.tsvg-bake/
+.tsvg-export-*/
+.DS_Store
+flutter/**/build/
+flutter/**/.dart_tool/

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ORCH-78 · Vector Video Format (VVF) 0.1 — research, spec draft, playground</title>
+<style>
+  :root{--bg:#0c0e13;--panel:#151922;--line:#262c39;--fg:#e9edf5;--muted:#97a1b5;--accent:#7aa2ff;--pink:#ff6b9a;--good:#5fd39a;--warm:#ffb35c;--bad:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:15.5px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+  main{max-width:1120px;margin:0 auto;padding:28px 20px 80px}
+  h1{font-size:30px;margin:0 0 4px;letter-spacing:-.01em}
+  h2{font-size:21px;margin:44px 0 10px;padding-top:12px;border-top:1px solid var(--line)}
+  h3{font-size:16px;margin:24px 0 6px;color:var(--accent)}
+  p,li{color:#d4d9e4} .muted{color:var(--muted)}
+  code{font:13px ui-monospace,Menlo,monospace;background:#1d2230;padding:1px 5px;border-radius:4px}
+  pre{font:12.5px/1.5 ui-monospace,Menlo,monospace;background:#11141b;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto}
+  table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+  th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.05em}
+  .y{color:var(--good)} .n{color:var(--bad)} .m{color:var(--warm)}
+  .tldr{background:linear-gradient(135deg,#1a2240,#1b1526);border:1px solid #2e3a66;border-radius:14px;padding:16px 20px;margin:18px 0}
+  .tldr li{margin:4px 0}
+  nav{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+  nav a{color:var(--fg);text-decoration:none;background:var(--panel);border:1px solid var(--line);padding:4px 10px;border-radius:20px;font-size:13px}
+  .play{display:grid;grid-template-columns:1fr 380px;gap:14px;align-items:start}
+  @media (max-width:900px){.play{grid-template-columns:1fr}}
+  .stage{display:flex;flex-direction:column;gap:8px}
+  .frame{width:100%;aspect-ratio:16/9;transition:aspect-ratio .3s}
+  .frame.portrait{aspect-ratio:9/16;height:min(78vh,760px);width:auto;align-self:center}
+  .frame{position:relative} .frame > .vvp{position:absolute;inset:0}
+  .tools{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .tools button{background:var(--panel);color:var(--fg);border:1px solid var(--line);padding:5px 10px;border-radius:8px;cursor:pointer;font:inherit;font-size:13px}
+  .tools button.on{border-color:var(--accent);color:var(--accent)}
+  .ed{display:flex;flex-direction:column;gap:6px}
+  textarea{width:100%;height:560px;background:#0f1218;color:#d8deea;border:1px solid var(--line);border-radius:10px;padding:10px;font:12px/1.45 ui-monospace,Menlo,monospace;resize:vertical;tab-size:2;white-space:pre}
+  .err{color:var(--bad);font:12px ui-monospace,monospace;min-height:16px}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+  .card b{display:block;margin-bottom:4px}
+  .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:10px;background:#263052;color:#b9c8ff;margin-left:6px;vertical-align:2px}
+</style>
+</head>
+<body>
+<main>
+<h1>Vector Video Format — <span style="color:var(--accent)">VVF 0.1</span> draft</h1>
+<div class="muted">ORCH-78 · research, format spec, working reference player · 2026-11-23 · name <code>.vvf</code> is a placeholder (see decisions)</div>
+
+<div class="tldr"><b>TL;DR</b><ul>
+  <li><b>Nothing existing fits all of it.</b> Closest is <b>Lottie / dotLottie</b> (vector, JSON, players on web/Android/iOS/Flutter, themes, experimental audio). It has no languages, no audio mixes, no layouts, no captions, no chapters, and its keyframe JSON is painful to hand- or AI-write.</li>
+  <li><b>Proposal:</b> own format = one XML file (or a zip with assets) + a tiny side-effect-free expression language. A frame is a pure function <code>f(time, options)</code>. No HTML, no JS inside.</li>
+  <li><b>Built and running below:</b> reference web engine (canvas, ~400 lines core) with real video controls: timeline + chapters, scrub thumbnails, ±10 s, double-tap skip, speed, captions, pinch/scroll zoom that stays sharp, and viewer options for language, audio mix, theme, portrait/landscape.</li>
+  <li><b>Demo file:</b> 40 s, 1 XML (~12 KB) → 2 layouts × 2 languages × 3 audio mixes × 2 themes = 24 variants. Edit the XML on the right; it re-plays instantly.</li>
+  <li><b>Next:</b> your call on name, repo, phase-1 scope (Flutter engine? MP4 export? agent skill?). Questions on the ticket.</li>
+</ul></div>
+
+<nav><a href="#play">Playground</a><a href="#exists">Does it exist?</a><a href="#spec">Format spec</a><a href="#lang">Expression language</a><a href="#audio">Audio &amp; languages</a><a href="#engines">Native engines</a><a href="#roadmap">Roadmap</a><a href="#limits">Prototype limits</a><a href="#decide">Decisions</a></nav>
+
+<h2 id="play">Playground</h2>
+<p class="muted">Click the video to play (sound on). <b>⚙</b> = options. Keys: <code>space</code>/<code>k</code> play · <code>j</code>/<code>l</code> or arrows ±10 s · <code>0–9</code> jump · <code>c</code> captions · <code>f</code> fullscreen. Scroll/pinch the picture to zoom — try the centre of chapter 2. Hover the timeline for frame previews.</p>
+<div class="play">
+  <div class="stage">
+    <div class="tools">
+      <span class="muted" style="font-size:13px">Screen:</span>
+      <button data-shape="landscape" class="on">Landscape 16:9</button><button data-shape="portrait">Phone portrait 9:16</button>
+      <span class="muted" style="font-size:13px;margin-left:8px" id="optline"></span>
+    </div>
+    <div class="frame" id="frame"></div>
+  </div>
+  <div class="ed">
+    <div class="tools"><b style="font-size:14px">demo.vvf.xml</b><span class="grow" style="flex:1"></span><button id="apply">Apply (⌘↵)</button><button id="reset">Reset</button></div>
+    <textarea id="src" spellcheck="false"></textarea>
+    <div class="err" id="err"></div>
+  </div>
+</div>
+
+<h2 id="exists">Does it already exist?</h2>
+<p>Short answer: pieces exist, the whole thing does not. <code>.vvf</code> itself is taken — mostly by a CCTV/DVR recording format, plus a small itch.io experiment (SVG frames + audio). Neither is related or has an ecosystem.</p>
+<table>
+<tr><th>Format</th><th>AI can write it</th><th>Native players</th><th>Real video UX</th><th>Lang / audio mixes / layouts</th><th>Verdict</th></tr>
+<tr><td><b>Lottie / dotLottie</b> (LAC, Linux Foundation)</td><td class="m">JSON, but verbose keyframes; meant to be exported from After Effects</td><td class="y">web, Android, iOS, Flutter, Rust (ThorVG)</td><td class="m">segments + state machines; no chapters/captions</td><td class="m">themes yes; audio experimental; no languages, mixes or layouts</td><td>Closest. Good <i>export target</i> later; wrong authoring model.</td></tr>
+<tr><td><b>Rive</b></td><td class="n">binary, editor-made</td><td class="y">all platforms</td><td class="m">interactive state machines</td><td class="n">no</td><td>Great runtime, closed authoring. No.</td></tr>
+<tr><td><b>SVG + SMIL</b></td><td class="y">yes</td><td class="m">browsers only; no Flutter/native</td><td class="n">no timeline/audio</td><td class="n">no</td><td>Shape model worth copying (path syntax).</td></tr>
+<tr><td><b>Remotion / Motion Canvas / Manim</b></td><td class="y">code</td><td class="n">they render <i>to MP4</i></td><td>MP4's</td><td class="n">one render per variant</td><td>Authoring tools, not a format. Your exact pain.</td></tr>
+<tr><td><b>Flash SWF</b></td><td class="n">binary</td><td class="n">dead</td><td class="y">yes</td><td class="n">no</td><td>Proved the idea (vector + timeline + sound), died with its plugin.</td></tr>
+<tr><td><b>MP4 / HLS</b></td><td>—</td><td class="y">everywhere</td><td class="y">yes</td><td class="m">alt audio + subtitle tracks, but pixels and fixed layout</td><td>Keep as the <i>export</i> for sharing.</td></tr>
+</table>
+<p><b>Take from them:</b> dotLottie's container (zip + manifest + assets folder), Lottie's theme slots, SVG path syntax, HLS's idea of alternate audio/subtitle tracks, SMIL's sequential timeline. <b>Add what nobody has:</b> viewer options as first-class, per-attribute variants for layout/language/theme, an audio mixer with buses, captions from the script, chapters.</p>
+
+<h2 id="spec">The format — VVF 0.1 (draft)</h2>
+<h3>File</h3>
+<ul>
+  <li><code>name.vvf</code> — a zip: <code>video.xml</code> + <code>assets/</code> (images, fonts, audio). Or plain <code>name.vvf.xml</code> when everything is vector/remote. Same document either way.</li>
+  <li>Time is <b>continuous seconds</b>. No frame rate in the file; the engine draws at the screen's rate (60/120 Hz). Size is in <b>layout units</b>, not pixels.</li>
+</ul>
+<h3>Document</h3>
+<pre>&lt;vvf version="0.1" title="@title"&gt;
+  &lt;layouts&gt;   &lt;layout id="landscape" w="1920" h="1080"/&gt; &lt;layout id="portrait" w="1080" h="1920"/&gt;
+  &lt;options&gt;   &lt;option id="lang" label="Language" default="en"&gt; &lt;choice id="en"/&gt; &lt;choice id="gu" label="ગુજરાતી"/&gt;
+  &lt;mixes&gt;     &lt;mix id="speech" voice="1" music="0" sfx="0"/&gt;       ← gains per audio bus
+  &lt;themes&gt;    &lt;theme id="dark" bg="#0e1117" fg="#eef1f7" accent="#7aa2ff"/&gt;   ← tokens: fill="$accent"
+  &lt;strings&gt;   &lt;s id="title" en="Vector Video" gu="વેક્ટર વિડિયો"/&gt;            ← text="@title"
+  &lt;defs&gt;      &lt;fn id="wave" args="i,s"&gt;sin(t*s + i)&lt;/fn&gt;   &lt;symbol id="logo"&gt;…&lt;/symbol&gt;
+  &lt;assets&gt;    &lt;asset id="pad" src="assets/pad.ogg"/&gt;
+  &lt;music src="pad" loop="1"/&gt;
+  &lt;backdrop&gt; … nodes under every scene … &lt;/backdrop&gt;
+  &lt;timeline&gt;
+    &lt;scene id="intro" dur="7" chapter="@ch1"&gt;          ← scenes play in order; chapter = timeline mark
+      &lt;say at="0.6" text="@vo1" src.en="vo1_en"/&gt;       ← narration: audio clip per language + caption text
+      &lt;sfx at="0.3" src="whoosh"/&gt;
+      &lt;text x="=W/2" y="=H/2" y.portrait="=H/2-80" size="150" text="@title"&gt;
+        &lt;anim prop="opacity" from="0" to="1" dur="0.8"/&gt;
+        &lt;keys prop="x" v="0:100; 1.2:300; 2:250" ease="io"/&gt;
+      &lt;/text&gt;
+    &lt;/scene&gt;
+  &lt;/timeline&gt;
+  &lt;overlay&gt; … nodes over every scene (logo, watermark) … &lt;/overlay&gt;
+&lt;/vvf&gt;</pre>
+<h3>Nodes (the whole drawing model)</h3>
+<table>
+<tr><th>Node</th><th>Attributes</th></tr>
+<tr><td><code>rect</code></td><td><code>x y w h r ax ay</code> (anchor 0–1)</td></tr>
+<tr><td><code>circle</code> / <code>ellipse</code></td><td><code>x y r</code> / <code>rx ry</code>, <code>from to</code> (degrees → pie/arc)</td></tr>
+<tr><td><code>line</code></td><td><code>x1 y1 x2 y2 draw</code> (0–1 reveal)</td></tr>
+<tr><td><code>path</code></td><td><code>d</code> (SVG path syntax) <code>x y draw</code></td></tr>
+<tr><td><code>text</code></td><td><code>text size weight font align maxw lh reveal</code> (typewriter 0–1)</td></tr>
+<tr><td><code>image</code></td><td><code>src x y w h r ax ay</code> — raster allowed, as an asset</td></tr>
+<tr><td><code>group</code> / <code>use</code></td><td><code>x y</code> + children / <code>ref</code> to a symbol</td></tr>
+<tr><td><i>all</i></td><td><code>fill stroke sw opacity rot scale</code> · <code>at dur</code> (when visible, scene-relative) · <code>when</code> (expression) · <code>only="portrait gu"</code></td></tr>
+</table>
+<h3>Attribute values</h3>
+<table>
+<tr><th>Form</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>literal</td><td>number, colour, string</td><td><code>size="48"</code> <code>fill="#ff0"</code></td></tr>
+<tr><td><code>$token</code></td><td>theme token (switches with theme)</td><td><code>fill="$accent"</code></td></tr>
+<tr><td><code>@id</code></td><td>string table, current language</td><td><code>text="@title"</code></td></tr>
+<tr><td><code>=expr</code></td><td>expression, re-evaluated every frame</td><td><code>x="=W/2 + 40*sin(T*2)"</code></td></tr>
+<tr><td><code>{expr}</code> in text</td><td>template</td><td><code>text="{layout} {W}×{H}"</code></td></tr>
+<tr><td><code>name.variant</code></td><td>override when the layout or an option value matches</td><td><code>y.portrait="300"</code> <code>size.gu="40"</code> <code>fill.light="#222"</code></td></tr>
+</table>
+<h3>Animation</h3>
+<ul>
+  <li><code>&lt;anim prop from to at dur ease/&gt;</code> — tween; <code>from</code>/<code>to</code> default to the base value. Colours tween too. Several anims on one prop chain in order.</li>
+  <li><code>&lt;keys prop v="t:value; t:value"/&gt;</code> — keyframes.</li>
+  <li>Or just an expression on the attribute — any continuous motion (orbits, waves, counters).</li>
+  <li>Eases: <code>linear in out io back elastic step</code>.</li>
+</ul>
+
+<h2 id="lang">Expression language (the "light script")</h2>
+<ul>
+  <li>Numbers, <code>'strings'</code>, <code>+ - * / % ^</code>, <code>== != &lt; &gt; &lt;= &gt;=</code>, <code>&amp;&amp; || !</code>, <code>c ? a : b</code>, calls. <b>No</b> assignment, loops, I/O, DOM, clocks. Always terminates; same input → same output.</li>
+  <li>Variables: <code>t</code> (video time), <code>T</code> (scene time), <code>p</code> (scene progress 0–1), <code>W H</code>, <code>portrait</code>, <code>layout</code>, every option (<code>lang mix theme …</code>), <code>$tokens</code>.</li>
+  <li>Functions: <code>sin cos tan abs sqrt min max floor ceil round pow exp log atan2 sign clamp lerp step smooth fract ease(k,'out') fmt str</code> + your <code>&lt;fn&gt;</code>s.</li>
+  <li>Why so small: a parser + evaluator is ~120 lines in any language, so every native engine gets it exactly right. It is enough for every scene I could think of in tutorials and QA reels.</li>
+</ul>
+
+<h2 id="audio">Audio, languages, captions</h2>
+<ul>
+  <li><b>Buses:</b> <code>voice</code> (<code>&lt;say&gt;</code>), <code>music</code> (<code>&lt;music&gt;</code>), <code>sfx</code> (<code>&lt;sfx&gt;</code>). A <code>&lt;mix&gt;</code> sets gains per bus; the viewer picks "Full", "Speech only", "No voice" — no re-encode.</li>
+  <li><b><code>&lt;say&gt;</code> is the narration line:</b> its text (string table, per language) is the caption; <code>src.&lt;lang&gt;</code> points at a pre-recorded clip. No clip for that language → the engine may speak it with on-device TTS, else captions only.</li>
+  <li><b>Pipeline idea:</b> the author writes only text; a <code>vvf bake</code> tool calls a TTS (Kokoro for English, Sarvam/Google for Gujarati) and fills in <code>src.*</code> + exact durations. Change the script → re-bake only changed lines.</li>
+  <li><b>Chapters</b> come from <code>scene chapter=</code>; they mark the timeline and label the scrub preview.</li>
+</ul>
+
+<h2 id="engines">Native engines</h2>
+<div class="cards">
+  <div class="card"><b>Web <span class="tag">built</span></b>Canvas 2D. <code>vvf-core.js</code> (parse, expressions, render) + <code>vvf-player.js</code> (controls, WebAudio mixer). Zero dependencies.</div>
+  <div class="card"><b>Flutter</b><code>CustomPainter</code> + <code>Path</code>/<code>TextPainter</code>; <code>just_audio</code> for buses. Same nodes, same expression evaluator in Dart.</div>
+  <div class="card"><b>Android / iOS</b>Compose <code>Canvas</code> / SwiftUI <code>Canvas</code> (or one shared Rust core + Skia/ThorVG, like dotLottie does).</div>
+  <div class="card"><b>MP4 export</b>Headless: render frames at 30/60 fps + mix audio → ffmpeg. For sharing on WhatsApp/YouTube; one export per chosen option set.</div>
+  <div class="card"><b>Conformance</b>Golden frames: <code>(file, t, options) → PNG</code>. Every engine must match within a tolerance. Determinism makes this trivial to test.</div>
+  <div class="card"><b>For agents</b>A skill: "write a .vvf instead of a video-like HTML page". The TaskManager thread could play <code>.vvf</code> attachments inline with this player.</div>
+</div>
+
+<h2 id="roadmap">Roadmap (proposal)</h2>
+<table>
+<tr><th>Phase</th><th>What</th></tr>
+<tr><td>0 <span class="tag">done</span></td><td>Survey, spec draft, web reference engine, demo (this page)</td></tr>
+<tr><td>1</td><td>Repo + spec as served docs, zip container, <code>vvf validate</code> CLI, golden-frame tests, <code>vvf bake</code> (TTS per language), <code>vvf export mp4</code></td></tr>
+<tr><td>2</td><td>Flutter engine + conformance; TaskManager inline player for <code>.vvf</code> attachments; agent skill</td></tr>
+<tr><td>3</td><td>Gradients, masks/clips, blur/shadow, font embedding, embedded raster clips, text along path, symbol parameters</td></tr>
+<tr><td>4</td><td>QA/tutorial pipelines: generate scenes from Playwright traces/screens; editor (Digital Canvas could export <code>.vvf</code>)</td></tr>
+</table>
+
+<h2 id="limits">Prototype limits (honest)</h2>
+<ul>
+  <li><b>Gujarati voice is not baked</b> — no Gujarati TTS on this Mac. Gujarati plays with Gujarati captions; voice only if the browser has a <code>gu</code> TTS voice. Phase 1 <code>bake</code> fixes it.</li>
+  <li>Audio pauses at speeds ≠ 1× (no pitch-corrected time-stretch yet).</li>
+  <li>Spec is a draft; no gradients, masks, filters, font embedding, zip loader yet.</li>
+  <li>Only the web engine exists; tested in Chrome (Playwright). Safari/Firefox not checked.</li>
+</ul>
+
+<h2 id="decide">Decisions needed (on the ticket)</h2>
+<ol>
+  <li><b>Name / extension</b> — <code>.vvf</code> clashes with a CCTV format. Options: keep <code>.vvf</code>, <code>.vvx</code>, <code>.scene</code>, or your pick.</li>
+  <li><b>Repo</b> — <code>~/Dev/PROJECTS/VectorVideo</code> (prototype lives there now), open source on GitHub?</li>
+  <li><b>Phase 1 scope</b> — which of: CLI + tests, TTS bake, MP4 export, Flutter engine, TaskManager inline player, agent skill.</li>
+</ol>
+</main>
+
+<script>/*CORE*/</script>
+<script>/*PLAYER*/</script>
+<script>
+const DEMO = /*DEMO*/;
+const ASSETS = /*ASSETS*/;
+const frame = document.getElementById('frame'), src = document.getElementById('src'), err = document.getElementById('err');
+const player = new VVFPlayer(frame, { assets: ASSETS, onOptions: showOpts });
+function showOpts(o) { document.getElementById('optline').textContent = Object.entries(o).map(([k, v]) => k + '=' + v).join(' · '); }
+async function apply() { try { await player.load(src.value); err.textContent = ''; showOpts(player.opts); } catch (e) { err.textContent = e.message; } }
+src.value = DEMO; apply();
+document.getElementById('apply').onclick = apply;
+document.getElementById('reset').onclick = () => { src.value = DEMO; apply(); };
+src.addEventListener('keydown', (e) => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); apply(); } if (e.key === 'Tab') { e.preventDefault(); document.execCommand('insertText', false, '  '); } });
+let deb; src.addEventListener('input', () => { clearTimeout(deb); deb = setTimeout(apply, 600); });
+document.querySelectorAll('[data-shape]').forEach((b) => b.onclick = () => {
+  document.querySelectorAll('[data-shape]').forEach((x) => x.classList.toggle('on', x === b));
+  frame.classList.toggle('portrait', b.dataset.shape === 'portrait');
+});
+</script>
+</body>
+</html>

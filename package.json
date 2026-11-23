@@ -1,0 +1,18 @@
+{
+  "name": "tsvg",
+  "version": "0.1.0",
+  "description": "TSVG — Timeseries Scalable Vector Graphics: a vector video format with real video controls, languages, audio mixes, themes and layouts.",
+  "license": "MIT",
+  "type": "module",
+  "bin": { "tsvg": "cli/tsvg.mjs" },
+  "files": ["web", "cli", "spec", "skill", "README.md", "LICENSE"],
+  "scripts": {
+    "test": "node cli/tsvg.mjs test",
+    "test:update": "node cli/tsvg.mjs test --update",
+    "validate": "node cli/tsvg.mjs validate examples/demo/demo.tsvg",
+    "pack": "node cli/tsvg.mjs pack examples/demo/demo.tsvg -o dist/demo.tsvgz",
+    "playground": "node playground/build.mjs",
+    "docs": "node cli/tsvg.mjs serve ."
+  },
+  "dependencies": { "playwright-core": "^1.56.0" }
+}

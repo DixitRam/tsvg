@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TSVG 0.1 demo: one file → 2 layouts × 2 languages × 3 audio mixes × 2 themes = 24 videos. -->
+<tsvg version="0.1" title="@title" font="Inter, Noto Sans Gujarati">
+
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait"  w="1080" h="1920"/>
+  </layouts>
+
+  <!-- what the viewer (or the embedding app) may choose -->
+  <options>
+    <option id="lang" label="Language" default="en">
+      <choice id="en" label="English" tts="kokoro:af_heart"/>
+      <choice id="gu" label="ગુજરાતી" tts="sarvam:shubh"/>
+    </option>
+    <option id="mix" label="Audio" default="full">
+      <choice id="full"   label="Full (voice + music + sfx)"/>
+      <choice id="speech" label="Speech only"/>
+      <choice id="ambient" label="No voice"/>
+    </option>
+    <option id="theme" label="Theme" default="dark">
+      <choice id="dark"  label="Dark"/>
+      <choice id="light" label="Light"/>
+    </option>
+  </options>
+
+  <mixes>
+    <mix id="full"    voice="1" music="0.35" sfx="0.7"/>
+    <mix id="speech"  voice="1" music="0"    sfx="0"/>
+    <mix id="ambient" voice="0" music="0.6"  sfx="0.7"/>
+  </mixes>
+
+  <themes>
+    <theme id="dark"  bg="#0e1117" fg="#eef1f7" muted="#7d879a" panel="#1a1f2b" accent="#7aa2ff" warm="#ffb35c" good="#5fd39a" pink="#ff6b9a"/>
+    <theme id="light" bg="#f6f3ec" fg="#1b1e26" muted="#6b7280" panel="#ffffff" accent="#2f5bea" warm="#d9731a" good="#178a55" pink="#d6336c"/>
+  </themes>
+
+  <strings>
+    <s id="title"   en="TSVG" gu="TSVG"/>
+    <s id="sub"     en="Timeseries Scalable Vector Graphics: a video that is a script, not pixels" gu="ટાઇમસિરીઝ સ્કેલેબલ વેક્ટર ગ્રાફિક્સ: પિક્સેલ નહીં, સ્ક્રિપ્ટથી બનેલો વિડિયો"/>
+    <s id="ch1" en="Intro" gu="પરિચય"/>
+    <s id="ch2" en="Zoom" gu="ઝૂમ"/>
+    <s id="ch3" en="One file, many videos" gu="એક ફાઇલ, અનેક વિડિયો"/>
+    <s id="ch4" en="Time is a function" gu="સમય એક ફંક્શન"/>
+    <s id="ch5" en="Outro" gu="અંત"/>
+    <s id="ch6" en="Gradients, masks, shadows" gu="ગ્રેડિયન્ટ, માસ્ક, પડછાયા"/>
+    <s id="fx1" en="Gradients" gu="ગ્રેડિયન્ટ"/>
+    <s id="fx2" en="Clips, masks, shadows, real fonts and photos. Still one small text file." gu="ક્લિપ, માસ્ક, પડછાયા, સાચા ફોન્ટ અને ફોટા. છતાં એક નાની ટેક્સ્ટ ફાઇલ."/>
+    <s id="zoom"    en="Pinch or scroll to zoom. It stays sharp." gu="ઝૂમ કરો. ચિત્ર હંમેશાં સ્પષ્ટ રહે છે."/>
+    <s id="many"    en="One file. Many videos." gu="એક ફાઇલ. અનેક વિડિયો."/>
+    <s id="k_lang"  en="Language" gu="ભાષા"/>
+    <s id="k_audio" en="Audio" gu="ઓડિયો"/>
+    <s id="k_theme" en="Theme" gu="થીમ"/>
+    <s id="k_lay"   en="Layout" gu="લેઆઉટ"/>
+    <s id="fn"      en="frame = f(time, options)" gu="ફ્રેમ = f(સમય, વિકલ્પો)"/>
+    <s id="fn2"     en="Seek anywhere instantly. Skip 10 s. Scrub with previews." gu="ગમે ત્યાં તરત જાઓ. 10 સેકન્ડ આગળ-પાછળ. પ્રિવ્યૂ સાથે."/>
+    <s id="out1"    en="Write it like HTML." gu="HTML જેવું લખો."/>
+    <s id="out2"    en="Play it like a video." gu="વિડિયોની જેમ જુઓ."/>
+    <!-- narration (also the captions) -->
+    <s id="vo1" en="This is a TSVG video. It is a small script, not a grid of pixels." gu="આ TSVG વિડિયો છે. તે પિક્સેલનો ગ્રીડ નહીં, પણ નાની સ્ક્રિપ્ટ છે."/>
+    <s id="vo1_say" en="This is a T. S. V. G. video. It is a small script, not a grid of pixels." gu="આ ટી એસ વી જી વિડિયો છે. તે પિક્સેલનો ગ્રીડ નહીં, પણ નાની સ્ક્રિપ્ટ છે."/>
+    <s id="vo2" en="Zoom in as far as you like. Every frame is drawn fresh, so nothing gets blurry." gu="જેટલું ઝૂમ કરવું હોય કરો. દરેક ફ્રેમ નવી દોરાય છે, તેથી કંઈ ઝાંખું થતું નથી."/>
+    <s id="vo3" en="The same file plays in English or Gujarati, with full sound or speech only, light or dark, portrait or landscape." gu="આ જ ફાઇલ અંગ્રેજી કે ગુજરાતીમાં, પૂરા અવાજ સાથે કે ફક્ત બોલીમાં, લાઇટ કે ડાર્ક, ઊભી કે આડી ચાલે છે."/>
+    <s id="vo4" en="Every frame is a function of time and options. So seeking, skipping and previews are free." gu="દરેક ફ્રેમ સમય અને વિકલ્પોનું ફંક્શન છે. તેથી આગળ-પાછળ જવું અને પ્રિવ્યૂ મફત છે."/>
+    <s id="vo5" en="Write it like HTML. Play it like a video." gu="HTML જેવું લખો. વિડિયોની જેમ જુઓ."/>
+    <s id="vo6" en="Gradients, clips, masks and shadows. Real fonts, even photos. Still one small text file." gu="ગ્રેડિયન્ટ, ક્લિપ, માસ્ક અને પડછાયા. સાચા ફોન્ટ, ફોટા પણ. છતાં એક નાની ટેક્સ્ટ ફાઇલ."/>
+  </strings>
+
+  <defs>
+    <fn id="wave" args="i,speed">sin(t*speed + i*0.6)</fn>
+    <symbol id="dot"><circle r="10" fill="$accent"/></symbol>
+    <linear id="ink" x1="0" y1="0" x2="620" y2="0"><stop at="0" color="$accent"/><stop at="1" color="$pink"/></linear>
+    <linear id="sky" x1="0" y1="-240" x2="0" y2="240"><stop at="0" color="$accent"/><stop at="1" color="$pink"/></linear>
+    <radial id="glow" x="0" y="0" r="330"><stop at="0" color="$warm" opacity="0.55"/><stop at="1" color="$warm" opacity="0"/></radial>
+    <linear id="fade" x1="0" y1="0" x2="160" y2="0"><stop at="0" color="#000"/><stop at="1" color="#000" opacity="0"/></linear>
+    <clip id="porthole"><circle x="0" y="0" r="=210 + 14*sin(T*2)"/></clip>
+    <!-- a soft wipe: solid up to the edge, then a 160-unit fade -->
+    <mask id="wipe">
+      <rect x="0" y="-140" w="=max(0, 760*ease((T-0.5)/1.6,'io'))" h="280" fill="#000"/>
+      <group x="=max(0, 760*ease((T-0.5)/1.6,'io'))"><rect y="-140" w="160" h="280" fill="url(#fade)"/></group>
+    </mask>
+  </defs>
+
+  <assets>
+    <asset id="pad"  src="assets/pad.ogg"/>
+    <asset id="blip" src="assets/blip.ogg"/>
+    <asset id="whoosh" src="assets/whoosh.ogg"/>
+    <asset id="fractal" src="images/fractal.jpg"/>
+    <!-- fonts travel with the video (OFL) -->
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Noto Sans Gujarati" src="fonts/NotoSansGujarati.ttf"/>
+  </assets>
+
+  <music src="pad" start="0" loop="1" vol="0.8"/>
+
+  <!-- drawn under every scene: a slow drifting grid of dots -->
+  <backdrop>
+    <group opacity="0.18">
+      <circle x="=W*0.15 + 30*wave(1,0.3)" y="=H*0.2" r="180" fill="$accent"/>
+      <circle x="=W*0.85" y="=H*0.8 + 40*wave(2,0.25)" r="240" fill="$pink"/>
+    </group>
+  </backdrop>
+
+  <timeline>
+    <!-- 1 · intro -->
+    <scene id="intro" dur="7" chapter="@ch1">
+      <say at="0.6" text="@vo1" speak="@vo1_say"/>
+      <sfx at="0.3" src="whoosh"/>
+      <text x="=W/2" y="=H/2 - 40" y.portrait="=H/2 - 80" size="150" size.portrait="130" weight="800" align="center" text="@title" fill="$fg">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+        <anim prop="scale" from="0.85" to="1" dur="1.2" ease="back"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 90" size="48" size.portrait="46" maxw.portrait="900" align="center" text="@sub" fill="$muted" at="0.8">
+        <anim prop="opacity" from="0" to="1" dur="0.8"/>
+        <anim prop="y" from="=H/2 + 130" to="=H/2 + 90" dur="0.8"/>
+      </text>
+      <rect x="=W/2" y="=H/2 + 170" ax="0.5" w="0" h="6" r="3" fill="$accent" at="1.2">
+        <anim prop="w" from="0" to="420" dur="1.1" ease="io"/>
+      </rect>
+    </scene>
+
+    <!-- 2 · zoom: fine detail that stays crisp -->
+    <scene id="zoom" dur="8" chapter="@ch2">
+      <say at="0.4" text="@vo2"/>
+      <group x="=W/2" y="=H/2 - 40" y.portrait="=H/2 - 160">
+        <circle r="=300*ease(T/1.2,'out')" fill="none" stroke="$accent" sw="3"/>
+        <circle r="=220*ease((T-0.2)/1.2,'out')" fill="none" stroke="$pink" sw="2"/>
+        <circle r="=140*ease((T-0.4)/1.2,'out')" fill="none" stroke="$warm" sw="1.5"/>
+        <path d="M-260 0 C-180 -160 -80 160 0 0 S 180 -160 260 0" stroke="$good" sw="5" fill="none">
+          <anim prop="draw" from="0" to="1" at="0.6" dur="2" ease="io"/>
+        </path>
+        <group rot="=T*12">
+          <circle x="=300*cos(T*0.8)" y="=300*sin(T*0.8)" r="16" fill="$warm"/>
+          <text x="0" y="-12" size="3" align="center" fill="$muted" text="tiny text: zoom in here to read it — still vector" at="1"/>
+        </group>
+        <text x="0" y="12" size="1.4" align="center" fill="$muted" text="you found the 1.4 px line. Pixels would be mush by now." at="1"/>
+      </group>
+      <text x="=W/2" y="=H - 130" y.portrait="=H - 360" size="46" maxw="900" align="center" text="@zoom" fill="$fg" at="1.5">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+      </text>
+    </scene>
+
+    <!-- 3 · options: chips show the live option values -->
+    <scene id="options" dur="10" chapter="@ch3">
+      <say at="0.3" text="@vo3"/>
+      <sfx at="1.0" src="blip"/><sfx at="1.4" src="blip"/><sfx at="1.8" src="blip"/><sfx at="2.2" src="blip"/>
+      <text x="=W/2" y="200" y.portrait="330" size="84" weight="800" align="center" text="@many" fill="$fg">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+      </text>
+      <!-- 2×2 grid in landscape, a column in portrait -->
+      <group x="=W/2 - 560" y="420" x.portrait="=W/2 - 420" y.portrait="560" at="1.0">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="520" h="220" w.portrait="840" h.portrait="200" r="28" fill="$panel"/>
+        <text x="40" y="70" size="34" fill="$muted" text="@k_lang"/>
+        <text x="40" y="145" size="64" weight="700" fill="$accent" text="=lang == 'gu' ? 'ગુજરાતી' : 'English'"/>
+      </group>
+      <group x="=W/2 + 40" y="420" x.portrait="=W/2 - 420" y.portrait="800" at="1.4">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="520" h="220" w.portrait="840" h.portrait="200" r="28" fill="$panel"/>
+        <text x="40" y="70" size="34" fill="$muted" text="@k_audio"/>
+        <text x="40" y="145" size="64" weight="700" fill="$pink" text="=mix == 'full' ? '♫ + 🗣 + ✦' : mix == 'speech' ? '🗣 only' : '♫ + ✦'"/>
+      </group>
+      <group x="=W/2 - 560" y="680" x.portrait="=W/2 - 420" y.portrait="1040" at="1.8">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="520" h="220" w.portrait="840" h.portrait="200" r="28" fill="$panel"/>
+        <text x="40" y="70" size="34" fill="$muted" text="@k_theme"/>
+        <text x="40" y="145" size="64" weight="700" fill="$warm" text="{theme}"/>
+      </group>
+      <group x="=W/2 + 40" y="680" x.portrait="=W/2 - 420" y.portrait="1280" at="2.2">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/>
+        <rect w="520" h="220" w.portrait="840" h.portrait="200" r="28" fill="$panel"/>
+        <text x="40" y="70" size="34" fill="$muted" text="@k_lay"/>
+        <text x="40" y="145" size="48" weight="700" fill="$good" text="{layout} {W}×{H}"/>
+      </group>
+      <text x="=W/2" y="=H - 90" y.portrait="=H - 300" size="30" align="center" fill="$muted" text="⚙ → try them now" at="3">
+        <anim prop="opacity" from="0" to="=0.6 + 0.4*sin(T*4)" dur="0.5"/>
+      </text>
+    </scene>
+
+    <!-- 4 · the look: gradients, clip, mask, shadow, raster image -->
+    <scene id="look" dur="9" chapter="@ch6">
+      <say at="0.3" text="@vo6"/>
+      <group x="560" y="560" x.portrait="=W/2" y.portrait="640">
+        <circle r="330" fill="url(#glow)">
+          <anim prop="scale" from="0.6" to="1" dur="1.5"/>
+        </circle>
+        <group clip="url(#porthole)" rot="=T*4">
+          <image src="fractal" x="-260" y="-260" w="520" h="520"/>
+        </group>
+        <circle r="=214 + 14*sin(T*2)" fill="none" stroke="url(#sky)" sw="10" shadow="0 0 30 $accent"/>
+      </group>
+      <group x="1000" y="430" x.portrait="=W/2 - 380" y.portrait="1150" mask="url(#wipe)">
+        <text x="0" y="0" size="132" weight="800" fill="url(#ink)" text="@fx1"/>
+      </group>
+      <group x="1000" y="560" x.portrait="=W/2 - 420" y.portrait="1290" at="1.6">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <rect w="760" w.portrait="840" h="200" r="28" fill="$panel" shadow="0 24 48 #0007"/>
+        <text x="40" y="100" size="40" maxw="680" maxw.portrait="760" lh="1.35" fill="$fg" text="@fx2"/>
+      </group>
+    </scene>
+
+    <!-- 5 · time is a function -->
+    <scene id="fn" dur="9" chapter="@ch4">
+      <say at="0.3" text="@vo4"/>
+      <text x="=W/2" y="230" y.portrait="420" size="76" weight="800" align="center" text="@fn" fill="$fg" font="ui-monospace, Menlo, monospace">
+        <anim prop="reveal" from="0" to="1" dur="1.4" ease="linear"/>
+      </text>
+      <!-- a mini timeline with a moving playhead and frame strip -->
+      <group x="=W/2 - 700" x.portrait="=W/2 - 440" y="=H/2 + 40" at="1.2">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect w="1400" w.portrait="880" h="10" r="5" fill="$panel"/>
+        <rect w="=(portrait ? 880 : 1400) * fract(T/4)" h="10" r="5" fill="$pink"/>
+        <circle x="=(portrait ? 880 : 1400) * fract(T/4)" y="5" r="22" fill="$pink"/>
+        <group y="-210">
+          <rect x="0"   w="200" h="140" r="16" fill="$panel"/>
+          <rect x="240" w="200" h="140" r="16" fill="$panel"/>
+          <rect x="480" w="200" h="140" r="16" fill="$panel"/>
+          <rect x="720" w="200" h="140" r="16" fill="$panel" only="landscape"/>
+          <rect x="960" w="200" h="140" r="16" fill="$panel" only="landscape"/>
+          <rect x="1200" w="200" h="140" r="16" fill="$panel" only="landscape"/>
+          <circle x="=100 + 240*floor(fract(T/4)*(portrait ? 3.6 : 5.83))" y="70" r="36" fill="$accent"/>
+        </group>
+      </group>
+      <text x="=W/2" y="=H/2 + 200" y.portrait="=H/2 + 260" size="40" maxw="1000" maxw.portrait="860" align="center" fill="$muted" text="@fn2" at="2.5">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+      </text>
+    </scene>
+
+    <!-- 6 · outro -->
+    <scene id="outro" dur="6" chapter="@ch5">
+      <say at="0.3" text="@vo5"/>
+      <sfx at="0.2" src="whoosh"/>
+      <text x="=W/2" y="=H/2 - 70" size="96" size.portrait="84" weight="800" align="center" text="@out1" fill="$fg">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+      </text>
+      <text x="=W/2" y="=H/2 + 70" size="96" size.portrait="84" weight="800" align="center" text="@out2" fill="$accent" at="1.2">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        <anim prop="scale" from="1.15" to="1" dur="0.8" ease="back"/>
+      </text>
+      <use ref="dot" x="=W/2 - 60 + 60*floor(fract(T)*3)" y="=H/2 + 200" at="2"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="vo1" lang="en" src="voice/en/vo1.3fe474e0d2.ogg" dur="5.21" hash="3fe474e0d2" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="gu" src="voice/gu/vo1.62f1d9dfa4.ogg" dur="5.61" hash="62f1d9dfa4" engine="sarvam:shubh"/>
+    <voice say="vo2" lang="en" src="voice/en/vo2.5c73876bc9.ogg" dur="4.81" hash="5c73876bc9" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="gu" src="voice/gu/vo2.4fa1cfddb5.ogg" dur="5.31" hash="4fa1cfddb5" engine="sarvam:shubh"/>
+    <voice say="vo3" lang="en" src="voice/en/vo3.0b5dba3e28.ogg" dur="7.61" hash="0b5dba3e28" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="gu" src="voice/gu/vo3.c9594a5dcb.ogg" dur="7.61" hash="c9594a5dcb" engine="sarvam:shubh"/>
+    <voice say="vo4" lang="en" src="voice/en/vo4.5348e61a98.ogg" dur="5.41" hash="5348e61a98" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="gu" src="voice/gu/vo4.1a522e706a.ogg" dur="6.31" hash="1a522e706a" engine="sarvam:shubh"/>
+    <voice say="vo5" lang="en" src="voice/en/vo5.2c4397f9b2.ogg" dur="2.78" hash="2c4397f9b2" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="gu" src="voice/gu/vo5.f17e98848f.ogg" dur="2.99" hash="f17e98848f" engine="sarvam:shubh"/>
+    <voice say="vo6" lang="en" src="voice/en/vo6.39ca3ff5d6.ogg" dur="6.11" hash="39ca3ff5d6" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="gu" src="voice/gu/vo6.e9cfb2a0d8.ogg" dur="7.91" hash="e9cfb2a0d8" engine="sarvam:shubh"/>
+  </voices>
+</tsvg>
