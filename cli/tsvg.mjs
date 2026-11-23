@@ -7,7 +7,7 @@
 //   tsvg bake     <file.tsvg> [--tts gu=sarvam:shubh] [--only en,gu] [--force]
 //                                                record every <say> line per language, write <voices>
 //   tsvg render   <file> -t 3.5 [-o frame.png] [--width 960] [--layout portrait] [--lang gu …]
-//   tsvg export   <file> [-o out.mp4] [--fps 30] [--width 1920] [--layout …] [--lang …] [--mix …]
+//   tsvg export   <file> [-o out.mp4] [--fps 30] [--width 1920] [--layout …] [--lang …] [--mix …] [--captions]
 //   tsvg test     [--update]                     golden frames (tests/cases.json)
 //   tsvg serve    [dir] [--port 4380]            static server for the spec + playground
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, statSync, rmSync, unlinkSync } from 'node:fs';
@@ -201,14 +201,27 @@ window.setup = async (xml) => {
   await document.fonts.ready; return null;
 };
 window.meta = () => ({ duration: doc.duration, layouts: doc.layouts, defaults: TSVG.defaults(doc), plan: null });
-window.frame = (t, opts, layoutId, width, type, q) => {
+window.frame = (t, opts, layoutId, width, type, q, cc) => {
   const L = doc.layouts.find((l) => l.id === layoutId) || doc.layouts[0];
   const w = Math.round(width || L.w), h = Math.round(w * L.h / L.w);
   if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
   const ctx = cv.getContext('2d'); ctx.setTransform(w / L.w, 0, 0, w / L.w, 0, 0);
-  TSVG.renderFrame(ctx, doc, t, Object.assign(TSVG.defaults(doc), opts), L, images);
+  const o = Object.assign(TSVG.defaults(doc), opts);
+  TSVG.renderFrame(ctx, doc, t, o, L, images);
+  if (cc) burnCaption(ctx, t, o, L);
   return cv.toDataURL(type || 'image/png', q || 0.92);
 };
+// captions burned into exported video (--captions): same look as the web player
+function burnCaption(ctx, t, o, L) {
+  const ln = TSVG.sayLines(doc, o).find((l) => t >= l.start && t < l.start + l.dur + 0.3); if (!ln) return;
+  const size = Math.round(Math.min(L.w, L.h) * 0.034), pad = size * 0.45, maxw = L.w * 0.8;
+  ctx.save(); ctx.font = '500 ' + size + "px 'Inter', 'Noto Sans Gujarati', system-ui, sans-serif"; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  const words = ln.text.split(' '); const lines = []; let cur = '';
+  for (const w of words) { const tr = cur ? cur + ' ' + w : w; if (ctx.measureText(tr).width > maxw && cur) { lines.push(cur); cur = w; } else cur = tr; } lines.push(cur);
+  const lh = size * 1.35; const y0 = L.h - L.h * 0.07 - (lines.length - 1) * lh;
+  lines.forEach((s, i) => { const w = ctx.measureText(s).width + pad * 2; const y = y0 + i * lh; ctx.fillStyle = 'rgba(0,0,0,0.72)'; ctx.beginPath(); ctx.roundRect(L.w / 2 - w / 2, y - lh / 2, w, lh, size * 0.2); ctx.fill(); ctx.fillStyle = '#fff'; ctx.fillText(s, L.w / 2, y); });
+  ctx.restore();
+}
 window.compare = async (a, b, tol) => {
   const load = (u) => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = u; });
   const [A, B] = await Promise.all([load(a), load(b)]);
@@ -249,7 +262,7 @@ async function exportMp4() {
   const done = new Promise((ok, no) => enc.on('close', (c) => (c === 0 ? ok() : no(new Error('ffmpeg exit ' + c)))));
   const t0 = Date.now();
   for (let i = 0; i < n; i++) {
-    const url = await page.evaluate(([t, o, l, w]) => window.frame(t, o, l, w, 'image/jpeg', 0.95), [i / fps, opts, L.id, width]);
+    const url = await page.evaluate(([t, o, l, w, cc]) => window.frame(t, o, l, w, 'image/jpeg', 0.95, cc), [i / fps, opts, L.id, width, !!flag('captions')]);
     if (!enc.stdin.write(fromDataURL(url))) await new Promise((r) => enc.stdin.once('drain', r));
     if (i % fps === 0) process.stdout.write(`\r  ${Math.round((i / n) * 100)}%`);
   }

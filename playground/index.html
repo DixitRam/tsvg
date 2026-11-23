@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>TSVG playground</title>
+<style>
+  :root{--bg:#0c0e13;--panel:#151922;--line:#262c39;--fg:#e9edf5;--muted:#97a1b5;--accent:#7aa2ff;--bad:#ff6b6b;--warm:#ffb35c}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--fg);font:14.5px/1.5 system-ui,-apple-system,sans-serif}
+  header{display:flex;align-items:center;gap:12px;padding:12px 18px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  header b{font-size:16px} header a{color:var(--accent);text-decoration:none;font-size:13px}
+  .grow{flex:1}
+  button,label.btn{background:var(--panel);color:var(--fg);border:1px solid var(--line);padding:5px 10px;border-radius:8px;cursor:pointer;font:inherit;font-size:13px}
+  button.on{border-color:var(--accent);color:var(--accent)}
+  .play{display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:14px;padding:14px 18px;align-items:start}
+  @media (max-width:980px){.play{grid-template-columns:1fr}}
+  .stage{display:flex;flex-direction:column;gap:8px;min-width:0}
+  .frame{position:relative;width:100%;aspect-ratio:16/9}
+  .frame.portrait{aspect-ratio:9/16;height:min(80vh,820px);width:auto;align-self:center}
+  .frame > .tsvgp{position:absolute;inset:0}
+  .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  .muted{color:var(--muted);font-size:13px}
+  textarea{width:100%;height:calc(100vh - 170px);min-height:420px;background:#0f1218;color:#d8deea;border:1px solid var(--line);border-radius:10px;padding:10px;font:12px/1.45 ui-monospace,Menlo,monospace;resize:vertical;tab-size:2;white-space:pre}
+  .msg{font:12px ui-monospace,monospace;min-height:18px;white-space:pre-wrap} .msg.err{color:var(--bad)} .msg.warn{color:var(--warm)}
+</style>
+</head>
+<body>
+<header>
+  <b>TSVG playground</b><span class="muted">Timeseries Scalable Vector Graphics 0.1</span>
+  <span class="grow"></span>
+  <a href="../spec/">Spec</a><a href="https://github.com/Panth977/tsvg">GitHub</a>
+  <label class="btn">Open .tsvg / .tsvgz<input type="file" id="file" accept=".tsvg,.tsvgz,.xml,.zip" hidden></label>
+</header>
+<div class="play">
+  <div class="stage">
+    <div class="row"><span class="muted">Screen:</span><button data-shape="landscape" class="on">Landscape 16:9</button><button data-shape="portrait">Phone 9:16</button><span class="muted" id="optline" style="margin-left:8px"></span></div>
+    <div class="frame" id="frame"></div>
+    <div class="muted">Click to play · ⚙ options · space/k play · j/l ±10 s · 0–9 jump · c captions · f fullscreen · scroll/pinch to zoom (still sharp) · hover the timeline for previews</div>
+  </div>
+  <div class="row" style="flex-direction:column;align-items:stretch">
+    <div class="row"><b id="name">demo.tsvg</b><span class="grow"></span><button id="apply">Apply (⌘↵)</button><button id="reset">Reset</button></div>
+    <textarea id="src" spellcheck="false"></textarea>
+    <div class="msg" id="msg"></div>
+  </div>
+</div>
+<script src="../web/tsvg-core.js"></script>
+<script src="../web/tsvg-zip.js"></script>
+<script src="../web/tsvg-player.js"></script>
+<script>
+const frame = document.getElementById('frame'), src = document.getElementById('src'), msg = document.getElementById('msg');
+const player = new TSVGPlayer(frame, { base: new URL('../examples/demo/', location.href).href, onOptions: showOpts });
+let original = '';
+function showOpts(o) { document.getElementById('optline').textContent = Object.entries(o).map(([k, v]) => k + '=' + v).join(' · '); }
+async function apply() {
+  const r = TSVG.validate(src.value);
+  msg.className = 'msg ' + (r.ok ? (r.warnings.length ? 'warn' : '') : 'err');
+  msg.textContent = r.ok ? (r.warnings.length ? r.warnings.slice(0, 4).join('\n') : 'ok · ' + r.stats.duration + 's · ' + r.stats.variants + ' variants') : r.errors.slice(0, 4).join('\n');
+  if (!r.doc) return;
+  try { await player.load(src.value); showOpts(player.opts); } catch (e) { msg.className = 'msg err'; msg.textContent = e.message; }
+}
+async function boot() {
+  if (window.TSVG_EMBED) {                       // self-contained build: package inlined as base64
+    const bytes = Uint8Array.from(atob(window.TSVG_EMBED), (c) => c.charCodeAt(0));
+    const files = await TSVGZip.read(bytes); original = TSVGZip.text(files.get(TSVGZip.MAIN));
+    await player.loadPackage(bytes);
+  } else {
+    original = await (await fetch('../examples/demo/demo.tsvg')).text();
+  }
+  src.value = original; apply();
+}
+document.getElementById('apply').onclick = apply;
+document.getElementById('reset').onclick = () => { src.value = original; apply(); };
+src.addEventListener('keydown', (e) => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); apply(); } if (e.key === 'Tab') { e.preventDefault(); document.execCommand('insertText', false, '  '); } });
+let deb; src.addEventListener('input', () => { clearTimeout(deb); deb = setTimeout(apply, 700); });
+document.querySelectorAll('[data-shape]').forEach((b) => b.onclick = () => {
+  document.querySelectorAll('[data-shape]').forEach((x) => x.classList.toggle('on', x === b));
+  frame.classList.toggle('portrait', b.dataset.shape === 'portrait');
+});
+document.getElementById('file').onchange = async (e) => {
+  const f = e.target.files[0]; if (!f) return; const b = new Uint8Array(await f.arrayBuffer());
+  document.getElementById('name').textContent = f.name;
+  if (TSVGZip.isZip(b)) { await player.loadPackage(b); original = TSVGZip.text((await TSVGZip.read(b)).get(TSVGZip.MAIN)); src.value = original; apply(); }
+  else { original = new TextDecoder().decode(b); src.value = original; apply(); }
+};
+boot();
+</script>
+</body>
+</html>

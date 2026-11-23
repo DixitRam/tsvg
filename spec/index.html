@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>TSVG 0.1: Timeseries Scalable Vector Graphics (specification)</title>
+<style>
+  :root{--bg:#0c0e13;--panel:#151922;--line:#262c39;--fg:#e9edf5;--muted:#97a1b5;--accent:#7aa2ff;--pink:#ff6b9a;--good:#5fd39a;--warm:#ffb35c}
+  *{box-sizing:border-box} html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);font:15.5px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{display:grid;grid-template-columns:240px 1fr;max-width:1200px;margin:0 auto}
+  aside{position:sticky;top:0;height:100vh;overflow:auto;padding:28px 16px;border-right:1px solid var(--line);font-size:13.5px}
+  aside a{display:block;color:var(--muted);text-decoration:none;padding:3px 8px;border-radius:6px} aside a:hover{color:var(--fg);background:var(--panel)}
+  aside .sub{padding-left:20px;font-size:12.5px}
+  main{padding:28px 36px 120px;min-width:0}
+  @media (max-width:860px){.wrap{grid-template-columns:1fr} aside{display:none} main{padding:20px}}
+  h1{font-size:32px;margin:0;letter-spacing:-.015em} h1 span{color:var(--accent)}
+  h2{font-size:22px;margin:48px 0 10px;padding-top:14px;border-top:1px solid var(--line)}
+  h3{font-size:16.5px;margin:26px 0 6px;color:var(--accent)}
+  p,li{color:#d4d9e4} .muted{color:var(--muted)} a{color:var(--accent)}
+  code{font:13px ui-monospace,Menlo,monospace;background:#1d2230;padding:1px 5px;border-radius:4px}
+  pre{font:12.5px/1.55 ui-monospace,Menlo,monospace;background:#11141b;border:1px solid var(--line);border-radius:10px;padding:14px;overflow:auto}
+  table{border-collapse:collapse;width:100%;font-size:14px;margin:8px 0}
+  th,td{border-bottom:1px solid var(--line);padding:7px 8px;text-align:left;vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+  .note{background:var(--panel);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0}
+  .must{color:var(--warm);font-weight:600}
+  .hero{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 6px}
+  .hero a{background:var(--panel);border:1px solid var(--line);color:var(--fg);padding:6px 12px;border-radius:8px;text-decoration:none;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<aside>
+  <b style="display:block;padding:0 8px 10px">TSVG 0.1</b>
+  <a href="#intro">1. Introduction</a>
+  <a href="#files">2. Files</a>
+  <a href="#doc">3. Document</a>
+  <a class="sub" href="#layouts">layouts</a><a class="sub" href="#options">options &amp; mixes</a><a class="sub" href="#themes">themes &amp; strings</a><a class="sub" href="#defs">defs</a><a class="sub" href="#assets">assets &amp; fonts</a><a class="sub" href="#timeline">timeline</a>
+  <a href="#values">4. Attribute values</a>
+  <a href="#nodes">5. Nodes</a>
+  <a href="#paint">6. Paint &amp; effects</a>
+  <a href="#anim">7. Animation</a>
+  <a href="#expr">8. Expression language</a>
+  <a href="#audio">9. Audio, voices, captions</a>
+  <a href="#render">10. Rendering model</a>
+  <a href="#player">11. Player requirements</a>
+  <a href="#conf">12. Conformance</a>
+  <a href="#tools">13. Tools</a>
+  <a href="#future">14. Not in 0.1</a>
+</aside>
+<main>
+<h1><span>TSVG</span> 0.1: Timeseries Scalable Vector Graphics</h1>
+<div class="muted">Draft specification · 2026-11-23 · MIT · reference engine: <code>web/tsvg-core.js</code></div>
+<div class="hero"><a href="../playground/">▶ Playground</a><a href="https://github.com/Panth977/tsvg">GitHub</a><a href="#tools">CLI</a></div>
+
+<h2 id="intro">1. Introduction</h2>
+<p>TSVG is a video format whose content is a small program rather than pixels. A TSVG document describes vector shapes, text and images on a timeline, plus the options a viewer may choose: language, audio mix, theme and layout. An engine draws every frame live. So a TSVG video:</p>
+<ul>
+  <li>stays sharp at any zoom and any screen density;</li>
+  <li>is one file for many variants (e.g. 2 layouts × 2 languages × 3 audio mixes × 2 themes = 24 videos);</li>
+  <li>is cheap to produce (text in, no encoding) and cheap to change (edit a line, the video changes);</li>
+  <li>contains no HTML and no JavaScript. Engines can be native (web canvas, Flutter, Android, iOS) and still be safe;</li>
+  <li>plays like a real video: timeline, chapters, ±10 s, speed, captions, scrub previews.</li>
+</ul>
+<p>The core rule: <b>a frame is a pure function of (time, options, layout)</b>. Every engine <span class="must">MUST</span> draw the same picture for the same inputs, within the tolerance of its rasteriser (§12).</p>
+<p>Keywords <span class="must">MUST</span>, <span class="must">SHOULD</span> and <span class="must">MAY</span> are used as in RFC 2119.</p>
+
+<h2 id="files">2. Files</h2>
+<table>
+<tr><th>Extension</th><th>What</th><th>MIME</th></tr>
+<tr><td><code>.tsvg</code></td><td>The document: UTF-8 XML, root <code>&lt;tsvg&gt;</code>. Relative paths resolve against the file's location.</td><td><code>application/tsvg+xml</code></td></tr>
+<tr><td><code>.tsvgz</code></td><td>A package: a zip with <code>main.tsvg</code> at the root plus every file it references, at the same relative paths. Entries are stored (0) or deflated (8). Paths use <code>/</code> and <span class="must">MUST NOT</span> contain <code>..</code>.</td><td><code>application/tsvg+zip</code></td></tr>
+</table>
+<p>The pair mirrors <code>.svg</code> / <code>.svgz</code>. Engines <span class="must">SHOULD</span> detect a package by its zip magic bytes (<code>PK\3\4</code>), not by extension.</p>
+
+<h2 id="doc">3. Document</h2>
+<pre>&lt;tsvg version="0.1" title="@title" font="Inter, Noto Sans Gujarati" [duration="…"]&gt;
+  &lt;layouts&gt; &lt;options&gt; &lt;mixes&gt; &lt;themes&gt; &lt;strings&gt; &lt;defs&gt; &lt;assets&gt;
+  &lt;music …/&gt;*
+  &lt;backdrop&gt; nodes &lt;/backdrop&gt;
+  &lt;timeline&gt; &lt;scene&gt;… &lt;/timeline&gt;
+  &lt;overlay&gt; nodes &lt;/overlay&gt;
+  &lt;voices&gt; (written by tools) &lt;/voices&gt;
+&lt;/tsvg&gt;</pre>
+<p>Order of sections is free. Unknown elements <span class="must">MUST</span> be ignored (forward compatibility). The root <code>font</code> is the default family list for text. <code>duration</code> overrides the computed end of the last scene.</p>
+
+<h3 id="layouts">3.1 Layouts</h3>
+<pre>&lt;layouts&gt;
+  &lt;layout id="landscape" w="1920" h="1080"/&gt;
+  &lt;layout id="portrait"  w="1080" h="1920"/&gt;
+&lt;/layouts&gt;</pre>
+<p>A layout is a coordinate space in abstract units (not pixels). The engine scales it to fit the screen. With "auto", the player picks the layout whose aspect ratio is closest to the screen (log-ratio distance). The first layout is the default. The layout id is a <b>variant tag</b> (§4).</p>
+
+<h3 id="options">3.2 Options and mixes</h3>
+<pre>&lt;options&gt;
+  &lt;option id="lang" label="Language" default="en"&gt;
+    &lt;choice id="en" label="English" tts="kokoro:af_heart"/&gt;
+    &lt;choice id="gu" label="ગુજરાતી"  tts="sarvam:shubh"/&gt;
+  &lt;/option&gt;
+  &lt;option id="mix" label="Audio" default="full"&gt; &lt;choice id="full"/&gt; &lt;choice id="speech"/&gt; &lt;/option&gt;
+  &lt;option id="theme" default="dark"&gt; &lt;choice id="dark"/&gt; &lt;choice id="light"/&gt; &lt;/option&gt;
+&lt;/options&gt;
+&lt;mixes&gt;
+  &lt;mix id="full"   voice="1" music="0.35" sfx="0.7"/&gt;
+  &lt;mix id="speech" voice="1" music="0"    sfx="0"/&gt;
+&lt;/mixes&gt;</pre>
+<p>Options are what a viewer, or an embedding app, may choose. Any number of options may exist; four ids have meaning to engines:</p>
+<table>
+<tr><th>id</th><th>meaning</th></tr>
+<tr><td><code>lang</code></td><td>Selects strings (<code>@id</code>), voice clips and captions.</td></tr>
+<tr><td><code>mix</code></td><td>Each choice names a <code>&lt;mix&gt;</code>: gain per audio bus (<code>voice</code>, <code>music</code>, <code>sfx</code>, or custom buses).</td></tr>
+<tr><td><code>theme</code></td><td>Each choice names a <code>&lt;theme&gt;</code> (§3.3).</td></tr>
+<tr><td>anything else</td><td>Available as a variable in expressions and as a variant tag. For example, <code>&lt;option id="detail"&gt;</code> with choices <code>brief</code>/<code>full</code> lets one video skip or show sections via <code>when</code>.</td></tr>
+</table>
+<p>Every option value is a variable in expressions (<code>lang == 'gu'</code>) and a variant tag (<code>size.gu="40"</code>). The <code>tts</code> attribute on a <code>lang</code> choice tells <code>tsvg bake</code> which voice to record with (§9). Players <span class="must">MUST</span> let the viewer change every option while playing, and <span class="must">MAY</span> accept initial values from the host (URL, API).</p>
+
+<h3 id="themes">3.3 Themes and strings</h3>
+<pre>&lt;themes&gt;
+  &lt;theme id="dark"  bg="#0e1117" fg="#eef1f7" accent="#7aa2ff"/&gt;
+  &lt;theme id="light" bg="#f6f3ec" fg="#1b1e26" accent="#2f5bea"/&gt;
+&lt;/themes&gt;
+&lt;strings&gt;
+  &lt;s id="title" en="TSVG" gu="TSVG"/&gt;
+  &lt;s id="hello" en="Hello {lang}" gu="નમસ્તે"/&gt;
+&lt;/strings&gt;</pre>
+<p>A theme is a set of tokens, used as <code>$name</code>. <code>bg</code> paints the frame background, and <code>fg</code> is the default text colour. A string has one attribute per language. A missing language falls back to <code>en</code>, then to the first attribute. Strings may contain <code>{expr}</code> templates.</p>
+
+<h3 id="defs">3.4 Defs</h3>
+<pre>&lt;defs&gt;
+  &lt;fn id="wave" args="i,speed"&gt;sin(t*speed + i*0.6)&lt;/fn&gt;
+  &lt;symbol id="dot"&gt;&lt;circle r="10" fill="$accent"/&gt;&lt;/symbol&gt;
+  &lt;linear id="ink" x1="0" y1="0" x2="620" y2="0"&gt;&lt;stop at="0" color="$accent"/&gt;&lt;stop at="1" color="$pink" opacity="1"/&gt;&lt;/linear&gt;
+  &lt;radial id="glow" x="0" y="0" r="330" [fx fy]&gt;&lt;stop …/&gt;&lt;/radial&gt;
+  &lt;clip id="porthole"&gt;&lt;circle r="=210 + 14*sin(T*2)"/&gt;&lt;/clip&gt;
+  &lt;mask id="wipe"&gt;&lt;rect w="=760*ease(T/1.6,'io')" h="280" y="-140" fill="#000"/&gt;&lt;/mask&gt;
+&lt;/defs&gt;</pre>
+<p>Defs may use expressions. They are evaluated with the variables of the node that uses them, so clips and masks can animate.</p>
+
+<h3 id="assets">3.5 Assets and fonts</h3>
+<pre>&lt;assets&gt;
+  &lt;asset id="pad"  src="assets/pad.ogg"/&gt;        &lt;!-- type by extension: audio | image | font --&gt;
+  &lt;asset id="photo" src="images/photo.jpg"/&gt;
+  &lt;font family="Inter" src="fonts/Inter.ttf" [weight="400"] [style="normal"]/&gt;
+&lt;/assets&gt;</pre>
+<p>Engines <span class="must">MUST</span> support PNG, JPEG, WebP images; Ogg Opus and MP3 audio; TTF/OTF fonts. Engines <span class="must">SHOULD</span> wait for fonts before drawing the first frame (with a timeout). Wherever a node takes an asset (<code>src</code>), the value may be an asset id or a relative path.</p>
+
+<h3 id="timeline">3.6 Timeline</h3>
+<pre>&lt;music src="pad" [start="0"] [loop="1"] [vol="0.8"] [bus="music"] [when="…"]/&gt;
+&lt;timeline&gt;
+  &lt;scene id="intro" dur="7" [start="…"] [chapter="@ch1"]&gt;
+    &lt;say at="0.6" text="@vo1" [speak="@vo1_say"] [src.en="clip.ogg"] [voice="…"] [when]/&gt;
+    &lt;sfx at="0.3" src="whoosh" [vol] [bus="sfx"]/&gt;
+    …nodes…
+  &lt;/scene&gt;
+&lt;/timeline&gt;</pre>
+<p>Scenes play in order. Each starts where the previous one ended, unless it gives <code>start</code>. Time is continuous seconds. There is no frame rate in the file; engines draw at the display rate. A scene with <code>chapter</code> adds a chapter mark at its start. At or after the end of the video, the last scene holds its final frame.</p>
+
+<h2 id="values">4. Attribute values</h2>
+<table>
+<tr><th>Form</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>literal</td><td>number (<code>-?[0-9]*\.?[0-9]+</code>), colour or string</td><td><code>size="48"</code> <code>fill="#ff0"</code></td></tr>
+<tr><td><code>$token</code></td><td>theme token</td><td><code>fill="$accent"</code></td></tr>
+<tr><td><code>@id</code></td><td>string in the current language</td><td><code>text="@title"</code></td></tr>
+<tr><td><code>=expr</code></td><td>expression (§8), evaluated each frame</td><td><code>x="=W/2 + 40*sin(T*2)"</code></td></tr>
+<tr><td><code>…{expr}…</code></td><td>string template</td><td><code>text="{layout} {W}×{H}"</code></td></tr>
+<tr><td><code>name.<i>tag</i></code></td><td>variant: used instead of <code>name</code> when <i>tag</i> is active</td><td><code>y.portrait="300"</code> <code>size.gu="40"</code></td></tr>
+</table>
+<p><b>Variant resolution.</b> The active tags are, in order: the layout id, then the value of each option in declared order. For attribute <code>name</code>, the first active tag with a <code>name.tag</code> attribute wins; otherwise <code>name</code> itself is used. Colours are <code>#rgb</code>, <code>#rgba</code>, <code>#rrggbb</code>, <code>#rrggbbaa</code> or <code>rgba(r,g,b,a)</code>.</p>
+
+<h2 id="nodes">5. Nodes</h2>
+<table>
+<tr><th>Node</th><th>Attributes (defaults)</th></tr>
+<tr><td><code>rect</code></td><td><code>x y</code> (0) <code>w h</code> (100) <code>r</code> corner (0) <code>ax ay</code> anchor 0–1 (0)</td></tr>
+<tr><td><code>circle</code></td><td><code>x y</code> centre, <code>r</code> (50), <code>from to</code> degrees (0, 360) → pie</td></tr>
+<tr><td><code>ellipse</code></td><td><code>x y rx ry from to</code></td></tr>
+<tr><td><code>line</code></td><td><code>x1 y1 x2 y2</code>, <code>draw</code> 0–1 (1). Stroke defaults to <code>fill</code> or <code>$fg</code>, width 4</td></tr>
+<tr><td><code>path</code></td><td><code>d</code> (SVG path data), <code>x y</code> offset, <code>draw</code> 0–1 (stroke reveal; fill only at 1)</td></tr>
+<tr><td><code>text</code></td><td><code>text x y size</code> (48) <code>weight</code> (400) <code>italic font</code> (family list) <code>align</code> left|center|right <code>maxw</code> (wrap width, 0 = none) <code>lh</code> (1.25) <code>reveal</code> 0–1. <code>y</code> is the vertical centre of the text block</td></tr>
+<tr><td><code>image</code></td><td><code>src x y w h r ax ay fit</code> cover|contain|fill</td></tr>
+<tr><td><code>group</code></td><td><code>x y</code> + children</td></tr>
+<tr><td><code>use</code></td><td><code>ref</code> symbol id, <code>x y</code></td></tr>
+</table>
+<p><b>Common to all:</b> <code>fill stroke sw</code> (stroke width, 0) <code>opacity</code> (multiplies down the tree) <code>rot</code> degrees <code>scale</code> (around the shape's centre; around x,y for group/use/path/text) <code>shadow clip mask blend</code>, plus timing: <code>at</code> (appears at, scene time), <code>dur</code> (visible for), <code>when</code> (expression; hidden when 0), <code>only="portrait gu"</code> (visible only if any tag is active).</p>
+
+<h2 id="paint">6. Paint and effects</h2>
+<ul>
+  <li><b>Paint</b>: <code>fill</code>/<code>stroke</code> take a colour, a token, or <code>url(#gradient)</code>. Gradient coordinates are in the node's own coordinate space. Stops take <code>at</code> (0–1), <code>color</code> and <code>opacity</code>; all may be expressions.</li>
+  <li><b>Clip</b>: <code>clip="url(#id)"</code> clips the node, or a group's children, to the union of the clip's shapes (rect, circle, ellipse, path).</li>
+  <li><b>Mask</b>: <code>mask="url(#id)"</code> keeps the node's pixels in proportion to the alpha of the mask's drawing. For group/use/path, the mask is in the node's coordinate space after its <code>x y</code>. Engines implement it as an offscreen layer composited with destination-in (Flutter: <code>saveLayer</code> + <code>BlendMode.dstIn</code>).</li>
+  <li><b>Shadow</b>: <code>shadow="dx dy blur color"</code> in layout units. The colour may be a token. On a node with both fill and stroke, only the fill casts it.</li>
+  <li><b>Blend</b>: <code>blend</code> = a Canvas composite operation (<code>multiply</code>, <code>screen</code>, <code>lighter</code>…). Optional for engines.</li>
+</ul>
+
+<h2 id="anim">7. Animation</h2>
+<pre>&lt;text …&gt;
+  &lt;anim prop="opacity" from="0" to="1" [at="0"] [dur="0.5"] [ease="out"]/&gt;
+  &lt;keys prop="x" v="0:100; 1.2:300; 2:250" [ease="io"]/&gt;
+&lt;/text&gt;</pre>
+<ul>
+  <li>Anim times are relative to the node's own <code>at</code>, or else the nearest ancestor's <code>at</code>, or else the scene start.</li>
+  <li><code>&lt;anim&gt;</code>: <code>from</code>/<code>to</code> default to the property's base value. Before <code>at</code>, the first anim of a property holds <code>from</code>; after <code>at+dur</code>, it holds <code>to</code>. Several anims on one property apply in document order. Once a later one has started, it wins.</li>
+  <li><code>&lt;keys&gt;</code>: keyframes <code>time:value</code> separated by <code>;</code>. It holds the first value before the first key and the last value after the last key.</li>
+  <li>Numbers interpolate linearly through the ease. Colours interpolate per RGBA channel. Anything else switches at the end.</li>
+  <li>Eases: <code>linear in out io back elastic step</code> (cubic in/out/in-out; see the reference engine for exact formulas).</li>
+</ul>
+
+<h2 id="expr">8. Expression language</h2>
+<pre>expr    := ternary
+ternary := or ('?' expr ':' expr)?
+or      := and ('||' and)*         and := cmp ('&amp;&amp;' cmp)*
+cmp     := add (('=='|'!='|'&lt;'|'&gt;'|'&lt;='|'&gt;=') add)*
+add     := mul (('+'|'-') mul)*      mul := pow (('*'|'/'|'%') pow)*
+pow     := unary ('^' pow)?          unary := ('-'|'!') unary | atom
+atom    := number | 'string' | "string" | name | $token | name '(' args ')' | '(' expr ')'</pre>
+<ul>
+  <li>No assignment, loops, I/O or clocks. Evaluation always terminates and is deterministic.</li>
+  <li><code>+</code> concatenates if either side is a string. <code>%</code> is floored modulo. Booleans are 1/0.</li>
+  <li><b>Variables</b>: <code>t</code> video time, <code>T</code> scene time, <code>p</code> scene progress 0–1, <code>sdur</code> scene duration, <code>dur</code> video duration, <code>W H</code> layout size, <code>portrait</code> 1/0, <code>layout</code> id, every option id, <code>$token</code>s, <code>PI true false</code>.</li>
+  <li><b>Functions</b>: <code>sin cos tan abs sqrt min max floor ceil round pow exp log atan2 sign clamp(v,a,b) lerp(a,b,k) step(e,x) smooth(a,b,x) fract ease(k,'name') fmt(n,digits) str rgba(r,g,b,a) mix(colorA,colorB,k)</code>, plus document <code>&lt;fn&gt;</code>s (arguments become variables).</li>
+  <li>An unknown variable, token, string or function is an error. Validators report it (§13).</li>
+</ul>
+
+<h2 id="audio">9. Audio, voices, captions</h2>
+<ul>
+  <li><b>Buses.</b> Every sound plays on a bus: <code>&lt;say&gt;</code> → <code>voice</code>, <code>&lt;music&gt;</code> → <code>music</code>, <code>&lt;sfx&gt;</code> → <code>sfx</code> (or its <code>bus</code>). The current <code>&lt;mix&gt;</code> sets each bus's gain. A missing bus gets gain 1.</li>
+  <li><b>Say lines.</b> A <code>&lt;say&gt;</code> is one narration line. Its key is its <code>id</code>, else the string id of its <code>text</code>. <code>text</code> is also the caption. <code>speak</code> (optional) is the pronunciation text sent to TTS.</li>
+  <li><b>Clip lookup</b> for language <i>L</i>: <code>src.<i>L</i></code> on the say, else the <code>&lt;voice say="key" lang="L"&gt;</code> entry, else none. With no clip, a player <span class="must">MAY</span> use on-device TTS; it <span class="must">MUST</span> still show captions.</li>
+  <li><b>Voices table</b> (written by <code>tsvg bake</code>): <code>&lt;voice say lang src dur hash engine/&gt;</code>. <code>hash</code> = sha1(engine|voice|text), so only changed lines are re-recorded.</li>
+  <li><b>Caption timing</b>: from the say's start for the clip's duration (or <code>dur</code>, or 0.42 s per word, minimum 1.5 s).</li>
+</ul>
+
+<h2 id="render">10. Rendering model</h2>
+<ol>
+  <li>Pick the layout and options. Build the variant tags and the environment (§8 variables).</li>
+  <li>Fill the frame with theme <code>bg</code>. Draw <code>&lt;backdrop&gt;</code> with <code>T = t</code>.</li>
+  <li>For each scene active at <i>t</i> (start ≤ t &lt; start+dur, or the last scene once t ≥ its end), draw its nodes with <code>T = t − start</code>.</li>
+  <li>Draw <code>&lt;overlay&gt;</code>. Captions and controls belong to the player, not the frame.</li>
+</ol>
+<p>Nodes draw in document order (painter's algorithm). Transforms compose down the tree: translate(x,y) for groups, then rotate/scale about the pivot.</p>
+
+<h2 id="player">11. Player requirements</h2>
+<p>A conforming player <span class="must">MUST</span> offer: play/pause, a seekable timeline with chapter marks, back/forward 10 s, playback position and duration, captions on/off, every document option, and layout auto/explicit. It <span class="must">SHOULD</span> offer: speed, scrub previews (rendered frames, which are free here), double-tap sides to skip, pinch/scroll zoom that re-renders (never bitmap-scales), fullscreen, and keyboard shortcuts (space/k, j/l, arrows, 0–9, c, f).</p>
+
+<h2 id="conf">12. Conformance</h2>
+<p><code>tests/cases.json</code> lists (file, t, options, layout, width). <code>tests/golden/*.png</code> are the reference frames from the web engine in Chrome. Engines render the same cases and compare per pixel (max channel difference &gt; 40/255 counts as off). The web engine must match its goldens exactly (0.3 % allowed). Other engines report their ratio; differences come mainly from font rasterisation and anti-aliasing.</p>
+
+<h2 id="tools">13. Tools</h2>
+<pre>tsvg validate demo.tsvg          # parse, references, translations, voice overlaps, dry run of every variant
+tsvg info     demo.tsvgz
+tsvg bake     demo.tsvg          # record every &lt;say&gt; per language (Kokoro, Sarvam), write &lt;voices&gt;
+tsvg pack     demo.tsvg -o demo.tsvgz
+tsvg render   demo.tsvg -t 12 --lang gu --layout portrait -o frame.png
+tsvg export   demo.tsvg --lang gu --mix speech --layout portrait --captions -o demo.mp4
+tsvg test     [--update]         # golden frames + zip round trip</pre>
+
+<h2 id="future">14. Not in 0.1</h2>
+<ul>
+  <li>Scene duration per language (e.g. <code>dur.gu</code>); for now, size scenes for the longest language.</li>
+  <li>Filters (blur, colour matrix), text on a path, symbol parameters, embedded raster video clips.</li>
+  <li>Interactivity (choices, branches). TSVG is a video, not an app.</li>
+  <li>Pitch-preserving audio at speeds other than 1×.</li>
+</ul>
+</main>
+</div>
+</body>
+</html>

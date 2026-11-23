@@ -1,17 +1,14 @@
-// Inline player + demo + assets into one self-contained HTML (dist/report.html).
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+// Build dist/playground.html: one self-contained file (engine inlined + a .tsvgz as base64).
+//   node playground/build.mjs [package.tsvgz]   (default: packs examples/demo/demo.tsvg first)
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 const root = new URL('..', import.meta.url).pathname;
-const rd = (p) => readFileSync(root + p, 'utf8');
-const assets = {};
-for (const f of readdirSync(root + 'examples/assets')) {
-  const mime = f.endsWith('.ogg') ? 'audio/ogg' : f.endsWith('.png') ? 'image/png' : 'application/octet-stream';
-  assets['assets/' + f] = `data:${mime};base64,` + readFileSync(root + 'examples/assets/' + f).toString('base64');
-}
-const esc = (s) => s.replace(/</g, '\\u003c');
-let html = rd('tools/report.template.html')
-  .replace('/*CORE*/', () => rd('player/vvf-core.js'))
-  .replace('/*PLAYER*/', () => rd('player/vvf-player.js'))
-  .replace('/*DEMO*/', () => JSON.stringify(rd('examples/demo.vvf.xml')).replace(/</g, '\\u003c'))
-  .replace('/*ASSETS*/', () => esc(JSON.stringify(assets)));
-writeFileSync(root + 'dist/report.html', html);
-console.log('dist/report.html', (html.length / 1024).toFixed(0) + ' KB');
+let pkg = process.argv[2];
+if (!pkg) { pkg = root + 'dist/demo.tsvgz'; mkdirSync(root + 'dist', { recursive: true }); execFileSync('node', [root + 'cli/tsvg.mjs', 'pack', root + 'examples/demo/demo.tsvg', '-o', pkg], { stdio: 'inherit' }); }
+let html = readFileSync(root + 'playground/index.html', 'utf8');
+for (const f of ['tsvg-core.js', 'tsvg-zip.js', 'tsvg-player.js'])
+  html = html.replace(`<script src="../web/${f}"></script>`, () => '<script>' + readFileSync(root + 'web/' + f, 'utf8').replace(/<\/script/g, '<\\/script') + '</script>');
+html = html.replace('<script>\nconst frame', () => '<script>window.TSVG_EMBED = "' + readFileSync(pkg).toString('base64') + '";</script>\n<script>\nconst frame');
+html = html.replace('href="../spec/"', 'href="https://github.com/Panth977/tsvg/blob/main/spec/index.html"');
+writeFileSync(root + 'dist/playground.html', html);
+console.log('dist/playground.html', (html.length / 1024 / 1024).toFixed(2) + ' MB');
