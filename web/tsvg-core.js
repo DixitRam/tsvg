@@ -185,7 +185,7 @@
       else if (d.name === 'mask') doc.masks[id] = buildNodes(d);
     }
     for (const a of kids(one('assets') || r)) {
-      if (a.name === 'font') doc.fonts.push({ id: a.attrs.id, family: a.attrs.family || a.attrs.id, src: a.attrs.src, weight: a.attrs.weight || '400', style: a.attrs.style || 'normal' });
+      if (a.name === 'font') doc.fonts.push({ id: a.attrs.id, family: a.attrs.family || a.attrs.id, src: a.attrs.src, weight: a.attrs.weight || '1 1000', style: a.attrs.style || 'normal' });
       else if (a.name === 'asset') doc.assets[a.attrs.id] = { src: a.attrs.src, type: a.attrs.type || guessType(a.attrs.src) };
     }
     for (const v of kids(one('voices') || r, 'voice')) doc.voices[v.attrs.say + '|' + v.attrs.lang] = { src: v.attrs.src, dur: +v.attrs.dur || 0, hash: v.attrs.hash || '', engine: v.attrs.engine || '' };

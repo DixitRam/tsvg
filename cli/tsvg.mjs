@@ -243,7 +243,7 @@ async function render() {
   const src = await openSource(pos[0]); const doc = TSVG.parse(src.xml);
   const t = +flag('t', 0); const L = layoutOf(doc); const opts = optsFromFlags(doc);
   const { b, page } = await browser(src);
-  const url = await page.evaluate(([t, o, l, w]) => window.frame(t, o, l, w), [t, opts, L.id, +flag('width', L.w)]);
+  const url = await page.evaluate(([t, o, l, w]) => window.frame(t, o, l, w), [t, opts, L.id, +flag('width', L.w)]).catch((e) => { b.close(); die('render t=' + t + ': ' + e.message.split('\n')[0].replace(/^page.evaluate: Error: /, '')); });
   const out = flag('o', 'frame.png'); writeFileSync(out, fromDataURL(url)); await b.close();
   console.log(out);
 }

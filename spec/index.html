@@ -142,7 +142,7 @@
 <pre>&lt;assets&gt;
   &lt;asset id="pad"  src="assets/pad.ogg"/&gt;        &lt;!-- type by extension: audio | image | font --&gt;
   &lt;asset id="photo" src="images/photo.jpg"/&gt;
-  &lt;font family="Inter" src="fonts/Inter.ttf" [weight="400"] [style="normal"]/&gt;
+  &lt;font family="Inter" src="fonts/Inter.ttf" [weight="1 1000"] [style="normal"]/&gt;  &lt;!-- weight: one value, or a range for variable fonts (default) --&gt;
 &lt;/assets&gt;</pre>
 <p>Engines <span class="must">MUST</span> support PNG, JPEG, WebP images; Ogg Opus and MP3 audio; TTF/OTF fonts. Engines <span class="must">SHOULD</span> wait for fonts before drawing the first frame (with a timeout). Wherever a node takes an asset (<code>src</code>), the value may be an asset id or a relative path.</p>
 
