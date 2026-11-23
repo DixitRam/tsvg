@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>TSVG style gallery: explainer video styles in one format</title>
+<style>
+  :root{--bg:#0c0e13;--panel:#151922;--line:#262c39;--fg:#e9edf5;--muted:#97a1b5;--accent:#7aa2ff}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.5 system-ui,-apple-system,sans-serif}
+  header{padding:22px 24px 6px;max-width:1400px;margin:0 auto} h1{margin:0;font-size:28px} header p{color:var(--muted);margin:6px 0 0}
+  header a{color:var(--accent);text-decoration:none}
+  .bar{display:flex;gap:6px;flex-wrap:wrap;padding:12px 24px;max-width:1400px;margin:0 auto}
+  .bar button{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:20px;padding:4px 12px;cursor:pointer;font:inherit;font-size:13px}
+  .bar button.on{border-color:var(--accent);color:var(--accent)}
+  .bar input{flex:1;min-width:180px;background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:20px;padding:5px 12px;font:inherit}
+  main{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;padding:12px 24px 60px;max-width:1400px;margin:0 auto}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .15s,border-color .15s}
+  .card:hover{transform:translateY(-2px);border-color:var(--accent)}
+  .card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+  .card div{padding:10px 12px} .card b{display:block} .card small{color:var(--muted)} .card .cat{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--accent)}
+  dialog{border:0;padding:0;background:#000;border-radius:14px;width:min(1200px,96vw);max-height:96vh;color:var(--fg)}
+  dialog::backdrop{background:#000c}
+  .dlg{display:flex;flex-direction:column}
+  .dlg header{display:flex;align-items:center;gap:10px;padding:10px 14px;max-width:none;background:var(--panel)}
+  .dlg header b{flex:1} .dlg header button,.dlg header a{background:none;border:1px solid var(--line);color:var(--fg);border-radius:8px;padding:4px 10px;cursor:pointer;font:inherit;font-size:13px;text-decoration:none}
+  #stage{position:relative;width:100%;aspect-ratio:16/9;max-height:80vh}
+  #stage.portrait{aspect-ratio:9/16;width:auto;height:80vh;margin:0 auto}
+  #stage > .tsvgp{position:absolute;inset:0;border-radius:0}
+</style>
+</head>
+<body>
+<header>
+  <h1>TSVG style gallery</h1>
+  <p>Common no-face explainer video styles, each a ~1-minute <a href="../spec/">TSVG</a> video: one small XML document, drawn live, with narration, captions, chapters and options. Click to play. <a href="https://github.com/Panth977/tsvg/tree/main/examples/styles">Sources</a> · <a href="../playground/">Playground</a></p>
+</header>
+<div class="bar" id="bar"><input id="q" placeholder="Filter styles…"></div>
+<main id="grid"></main>
+<dialog id="dlg"><div class="dlg"><header><b id="title"></b><span id="meta" style="color:var(--muted);font-size:13px"></span><a id="src" target="_blank">Source</a><button id="close">Close ✕</button></header><div id="stage"></div></div></dialog>
+<script src="../web/tsvg-core.js"></script><script src="../web/tsvg-zip.js"></script><script src="../web/tsvg-player.js"></script>
+<script>
+const grid = document.getElementById('grid'), bar = document.getElementById('bar'), q = document.getElementById('q');
+const dlg = document.getElementById('dlg'), stage = document.getElementById('stage');
+let items = [], cat = 'All', player = null;
+function draw() {
+  const f = q.value.toLowerCase();
+  grid.innerHTML = '';
+  for (const c of items.filter((c) => (cat === 'All' || c.category === cat) && (!f || (c.title + c.summary + c.id).toLowerCase().includes(f)))) {
+    const el = document.createElement('div'); el.className = 'card';
+    el.innerHTML = `<img loading="lazy" alt=""><div><span class="cat"></span><b></b><small></small></div>`;
+    el.querySelector('img').src = '../examples/styles/thumbs/' + c.id + '.png';
+    el.querySelector('.cat').textContent = c.category; el.querySelector('b').textContent = c.title; el.querySelector('small').textContent = c.summary + ' · ' + Math.round(c.duration) + ' s';
+    el.onclick = () => open(c); grid.appendChild(el);
+  }
+}
+async function open(c) {
+  location.hash = c.id;
+  document.getElementById('title').textContent = c.title;
+  document.getElementById('meta').textContent = c.category + ' · ' + Math.round(c.duration) + ' s · ' + (c.layouts || []).join(' / ');
+  document.getElementById('src').href = 'https://github.com/Panth977/tsvg/blob/main/examples/styles/' + c.id + '.tsvg';
+  const portrait = (c.layouts || [])[0] === 'portrait' || ((c.layouts || []).includes('portrait') && innerWidth < innerHeight);
+  stage.classList.toggle('portrait', portrait);
+  stage.innerHTML = ''; if (player) player.pause();
+  dlg.showModal();
+  player = new TSVGPlayer(stage, {});
+  await player.open('../examples/styles/' + c.id + '.tsvg');
+  player.play();
+}
+document.getElementById('close').onclick = () => dlg.close();
+dlg.addEventListener('close', () => { if (player) player.pause(); stage.innerHTML = ''; player = null; history.replaceState(null, '', location.pathname); });
+q.oninput = draw;
+fetch('../examples/styles/catalog.json').then((r) => r.json()).then((list) => {
+  items = list;
+  for (const k of ['All', ...new Set(list.map((c) => c.category))]) { const b = document.createElement('button'); b.textContent = k; b.className = k === cat ? 'on' : ''; b.onclick = () => { cat = k; bar.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); draw(); }; bar.appendChild(b); }
+  draw();
+  const id = location.hash.slice(1); const hit = items.find((c) => c.id === id); if (hit) open(hit);
+});
+</script>
+</body>
+</html>

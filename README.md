@@ -68,6 +68,11 @@ Embed the player:
 <script>new TSVGPlayer(document.getElementById('v')).open('demo.tsvgz');</script>
 ```
 
+## Style gallery
+
+<!-- styles:start -->
+<!-- styles:end -->
+
 ## Voices
 
 `tsvg bake` records every `<say>` line in every language and writes a `<voices>` table (with content hashes, so only changed lines are re-recorded):
