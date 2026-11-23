@@ -124,7 +124,7 @@ async function bake() {
       const say = doc.says.find((s) => s.key === ln.key); if (say.raw['src.' + l]) continue; // hand-recorded clip wins
       const v = say.raw['voice.' + l] || say.raw.voice || voice;
       const hash = createHash('sha1').update(engine + '|' + v + '|' + ln.speak).digest('hex').slice(0, 10);
-      const path = `voice/${docName}/${l}/${ln.key}.${hash}.ogg`; const k = ln.key + '|' + l;
+      const path = `voice/${docName}/${l}/${ln.key}.${hash}.m4a`; const k = ln.key + '|' + l;
       if (!flag('force') && voices[k] && voices[k].hash === hash && src.has(voices[k].src)) continue;
       jobs.push({ k, key: ln.key, lang: l, engine, voice: v, text: ln.speak, hash, path });
     }
@@ -150,7 +150,7 @@ async function bake() {
   for (const j of jobs.filter((x) => !['kokoro', 'sarvam'].includes(x.engine))) die('unknown TTS engine ' + j.engine + ' (kokoro | sarvam)');
   for (const j of jobs) {
     const out = join(src.dir, j.path); mkdirSync(dirname(out), { recursive: true });
-    ff(['-i', j.wav, '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000', '-ac', '1', '-c:a', 'libopus', '-b:a', '32k', out]);
+    ff(['-i', j.wav, '-af', 'loudnorm=I=-16:TP=-1.5:LRA=11,aresample=48000', '-ac', '1', '-c:a', 'aac', '-b:a', '48k', '-movflags', '+faststart', out]);
     voices[j.k] = { src: j.path, dur: probeDur(out), hash: j.hash, engine: j.engine + ':' + j.voice };
   }
   rmSync(tmp, { recursive: true, force: true });
@@ -326,7 +326,7 @@ async function test() {
 
 function serve() {
   const dir = resolve(pos[0] || ROOT); const port = +flag('port', 4380);
-  const types = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.ogg': 'audio/ogg', '.ttf': 'font/ttf', '.tsvg': 'application/xml', '.tsvgz': 'application/zip', '.mp4': 'video/mp4' };
+  const types = { '.html': 'text/html', '.js': 'text/javascript', '.mjs': 'text/javascript', '.css': 'text/css', '.json': 'application/json', '.svg': 'image/svg+xml', '.png': 'image/png', '.ogg': 'audio/ogg', '.m4a': 'audio/mp4', '.mp3': 'audio/mpeg', '.jpg': 'image/jpeg', '.webp': 'image/webp', '.ttf': 'font/ttf', '.tsvg': 'application/xml', '.tsvgz': 'application/zip', '.mp4': 'video/mp4' };
   createServer((q, s) => {
     let p = join(dir, decodeURIComponent(new URL(q.url, 'http://x').pathname)); if (!p.startsWith(dir)) { s.writeHead(403); return s.end(); }
     if (existsSync(p) && statSync(p).isDirectory()) p = join(p, 'index.html');

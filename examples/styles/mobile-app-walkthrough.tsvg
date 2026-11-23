@@ -85,10 +85,10 @@
 
   <assets>
     <asset id="shot" src="images/ui-phone-playground.jpg"/>
-    <asset id="bed" src="audio/bright.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="bed" src="audio/bright.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
   </assets>
@@ -298,12 +298,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/mobile-app-walkthrough/en/vo1.6dc08b6c8e.ogg" dur="7.11" hash="6dc08b6c8e" engine="kokoro:af_bella"/>
-    <voice say="vo2" lang="en" src="voice/mobile-app-walkthrough/en/vo2.8dd550c46b.ogg" dur="5.61" hash="8dd550c46b" engine="kokoro:af_bella"/>
-    <voice say="vo3" lang="en" src="voice/mobile-app-walkthrough/en/vo3.1ce89de7bd.ogg" dur="5.11" hash="1ce89de7bd" engine="kokoro:af_bella"/>
-    <voice say="vo4" lang="en" src="voice/mobile-app-walkthrough/en/vo4.07efe8ddba.ogg" dur="5.61" hash="07efe8ddba" engine="kokoro:af_bella"/>
-    <voice say="vo5" lang="en" src="voice/mobile-app-walkthrough/en/vo5.86c7b3dcd1.ogg" dur="4.81" hash="86c7b3dcd1" engine="kokoro:af_bella"/>
-    <voice say="vo6" lang="en" src="voice/mobile-app-walkthrough/en/vo6.2aaab176b0.ogg" dur="3.81" hash="2aaab176b0" engine="kokoro:af_bella"/>
-    <voice say="vo7" lang="en" src="voice/mobile-app-walkthrough/en/vo7.35e3f7ad69.ogg" dur="2.61" hash="35e3f7ad69" engine="kokoro:af_bella"/>
+    <voice say="vo1" lang="en" src="voice/mobile-app-walkthrough/en/vo1.6dc08b6c8e.m4a" dur="7.11" hash="6dc08b6c8e" engine="kokoro:af_bella"/>
+    <voice say="vo2" lang="en" src="voice/mobile-app-walkthrough/en/vo2.8dd550c46b.m4a" dur="5.61" hash="8dd550c46b" engine="kokoro:af_bella"/>
+    <voice say="vo3" lang="en" src="voice/mobile-app-walkthrough/en/vo3.1ce89de7bd.m4a" dur="5.11" hash="1ce89de7bd" engine="kokoro:af_bella"/>
+    <voice say="vo4" lang="en" src="voice/mobile-app-walkthrough/en/vo4.07efe8ddba.m4a" dur="5.61" hash="07efe8ddba" engine="kokoro:af_bella"/>
+    <voice say="vo5" lang="en" src="voice/mobile-app-walkthrough/en/vo5.86c7b3dcd1.m4a" dur="4.81" hash="86c7b3dcd1" engine="kokoro:af_bella"/>
+    <voice say="vo6" lang="en" src="voice/mobile-app-walkthrough/en/vo6.2aaab176b0.m4a" dur="3.81" hash="2aaab176b0" engine="kokoro:af_bella"/>
+    <voice say="vo7" lang="en" src="voice/mobile-app-walkthrough/en/vo7.35e3f7ad69.m4a" dur="2.61" hash="35e3f7ad69" engine="kokoro:af_bella"/>
   </voices>
 </tsvg>

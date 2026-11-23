@@ -131,12 +131,12 @@
   </defs>
 
   <assets>
-    <asset id="bed" src="audio/pad.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="typing" src="audio/typing.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="bed" src="audio/pad.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="typing" src="audio/typing.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
   </assets>
@@ -366,12 +366,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/screencast-cursor/en/vo1.8a5866ea4a.ogg" dur="6.71" hash="8a5866ea4a" engine="kokoro:am_michael"/>
-    <voice say="vo2" lang="en" src="voice/screencast-cursor/en/vo2.83f37c0521.ogg" dur="5.21" hash="83f37c0521" engine="kokoro:am_michael"/>
-    <voice say="vo3" lang="en" src="voice/screencast-cursor/en/vo3.60c3dd7720.ogg" dur="6.51" hash="60c3dd7720" engine="kokoro:am_michael"/>
-    <voice say="vo4" lang="en" src="voice/screencast-cursor/en/vo4.24e0099792.ogg" dur="5.81" hash="24e0099792" engine="kokoro:am_michael"/>
-    <voice say="vo5" lang="en" src="voice/screencast-cursor/en/vo5.0ff4986b3f.ogg" dur="6.51" hash="0ff4986b3f" engine="kokoro:am_michael"/>
-    <voice say="vo6" lang="en" src="voice/screencast-cursor/en/vo6.1c14724a65.ogg" dur="6.71" hash="1c14724a65" engine="kokoro:am_michael"/>
-    <voice say="vo7" lang="en" src="voice/screencast-cursor/en/vo7.a2bef96634.ogg" dur="5.41" hash="a2bef96634" engine="kokoro:am_michael"/>
+    <voice say="vo1" lang="en" src="voice/screencast-cursor/en/vo1.8a5866ea4a.m4a" dur="6.71" hash="8a5866ea4a" engine="kokoro:am_michael"/>
+    <voice say="vo2" lang="en" src="voice/screencast-cursor/en/vo2.83f37c0521.m4a" dur="5.21" hash="83f37c0521" engine="kokoro:am_michael"/>
+    <voice say="vo3" lang="en" src="voice/screencast-cursor/en/vo3.60c3dd7720.m4a" dur="6.51" hash="60c3dd7720" engine="kokoro:am_michael"/>
+    <voice say="vo4" lang="en" src="voice/screencast-cursor/en/vo4.24e0099792.m4a" dur="5.81" hash="24e0099792" engine="kokoro:am_michael"/>
+    <voice say="vo5" lang="en" src="voice/screencast-cursor/en/vo5.0ff4986b3f.m4a" dur="6.51" hash="0ff4986b3f" engine="kokoro:am_michael"/>
+    <voice say="vo6" lang="en" src="voice/screencast-cursor/en/vo6.1c14724a65.m4a" dur="6.71" hash="1c14724a65" engine="kokoro:am_michael"/>
+    <voice say="vo7" lang="en" src="voice/screencast-cursor/en/vo7.a2bef96634.m4a" dur="5.41" hash="a2bef96634" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

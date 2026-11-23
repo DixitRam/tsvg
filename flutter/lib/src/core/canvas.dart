@@ -16,10 +16,12 @@ class RectShape extends TsvgShape {
 
 /// Full ellipse, or a pie slice (centre → arc → centre) when [sweep] is set.
 /// Angles are radians, 0 = +x axis, clockwise (canvas convention).
+/// With [open] (0.2.2 `arc="1"`) the slice is just the arc, no lines to the centre.
 class EllipseShape extends TsvgShape {
-  const EllipseShape(this.cx, this.cy, this.rx, this.ry, {this.start, this.sweep});
+  const EllipseShape(this.cx, this.cy, this.rx, this.ry, {this.start, this.sweep, this.open = false});
   final double cx, cy, rx, ry;
   final double? start, sweep;
+  final bool open;
 }
 
 class LineShape extends TsvgShape {
@@ -73,15 +75,28 @@ class ShadowSpec {
 }
 
 /// Canvas2D state that applies to every draw call: globalAlpha,
-/// globalCompositeOperation and the shadow.
+/// globalCompositeOperation, the shadow and the blur filter.
 class DrawState {
-  const DrawState({this.alpha = 1, this.blend, this.shadow});
+  const DrawState({this.alpha = 1, this.blend, this.shadow, this.blur = 0, this.dash});
   final double alpha;
   final String? blend;
   final ShadowSpec? shadow;
+
+  /// Gaussian blur standard deviation in device pixels (Canvas2D
+  /// `filter = blur(Npx)`, fixed when the node set it); 0 = none.
+  final double blur;
+
+  /// Canvas2D line dash (`dash="a b …"`, 0.2.2), already normalised: even
+  /// length, all finite and ≥ 0, not all zero. Null = solid.
+  final List<double>? dash;
   static const DrawState plain = DrawState();
-  DrawState copyWith({double? alpha, String? blend, ShadowSpec? shadow, bool noShadow = false}) =>
-      DrawState(alpha: alpha ?? this.alpha, blend: blend ?? this.blend, shadow: noShadow ? null : (shadow ?? this.shadow));
+  DrawState copyWith({double? alpha, String? blend, ShadowSpec? shadow, bool noShadow = false, double? blur, List<double>? dash}) =>
+      DrawState(
+          alpha: alpha ?? this.alpha,
+          blend: blend ?? this.blend,
+          shadow: noShadow ? null : (shadow ?? this.shadow),
+          blur: blur ?? this.blur,
+          dash: dash ?? this.dash);
 }
 
 class StrokeSpec {
@@ -112,7 +127,12 @@ abstract class TsvgCanvas {
   void restore();
   void translate(double dx, double dy);
   void rotate(double radians);
-  void scale(double s);
+  /// Scale by [sx] horizontally and [sy] (default [sx]) vertically.
+  void scale(double sx, [double? sy]);
+
+  /// sqrt(|det|) of the current user → device transform (how many device
+  /// pixels one layout unit covers). Used to fix `blur` in device pixels.
+  double get deviceScale => 1;
 
   /// Intersect the clip with the union of [shapes].
   void clip(List<TsvgShape> shapes);
@@ -151,7 +171,7 @@ class RecordingCanvas extends TsvgCanvas {
   @override
   void rotate(double radians) {}
   @override
-  void scale(double s) {}
+  void scale(double sx, [double? sy]) {}
   @override
   void clip(List<TsvgShape> shapes) {}
   @override

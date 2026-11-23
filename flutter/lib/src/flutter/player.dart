@@ -107,6 +107,7 @@ class TsvgPlayerController extends ChangeNotifier {
     final d = doc, s = source;
     if (!enableAudio || d == null || s == null) return;
     _audio ??= TsvgAudioEngine(d, s);
+    await _audio!.setRate(rate);
     await _audio!.prepare(audioPlan(d, options));
     _syncLines();
   }
@@ -117,15 +118,17 @@ class TsvgPlayerController extends ChangeNotifier {
     if (t >= d.duration - 0.05) t = 0;
     playing = true;
     notifyListeners();
-    _ticker ??= Ticker(_onTick, debugLabel: 'tsvg');
-    _last = Duration.zero;
-    if (!_ticker!.isActive) _ticker!.start();
+    // like the web player: load the clips first, then start the clock and the audio together
     try {
       await _ensureAudio();
     } catch (e) {
       debugPrint('tsvg audio: $e');
     }
-    if (playing) await _resyncAudio();
+    if (!playing) return;
+    _ticker ??= Ticker(_onTick, debugLabel: 'tsvg');
+    _last = Duration.zero;
+    if (!_ticker!.isActive) _ticker!.start();
+    await _resyncAudio();
   }
 
   void pause() {
@@ -138,10 +141,13 @@ class TsvgPlayerController extends ChangeNotifier {
 
   void toggle() => playing ? pause() : play();
 
+  /// Hard re-sync of every clip to the playhead (play, seek, option change).
   Future<void> _resyncAudio() async {
-    // pitch-correct speed change is out of scope (same as the web player)
-    await _audio?.sync(t, playing: playing && rate == 1);
+    await _audio?.sync(t, playing: playing);
   }
+
+  /// Drift / start statistics of the audio engine (null before audio loads).
+  TsvgAudioStats? get audioStats => _audio?.stats;
 
   void seek(double to) {
     final d = doc;
@@ -160,7 +166,7 @@ class TsvgPlayerController extends ChangeNotifier {
     _last = elapsed;
     final prev = t;
     t += dt * rate;
-    if (rate == 1) _audio?.tick(prev, t);
+    if (prev != t) _audio?.update(t);
     if (t >= d.duration) {
       t = d.duration;
       pause();
@@ -169,9 +175,11 @@ class TsvgPlayerController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Playback speed. Speed is the player's (TSVG 0.2): the timeline and every
+  /// audio clip run at [r], pitch preserved where the platform allows.
   void setRate(double r) {
     rate = r;
-    if (playing) unawaited(_resyncAudio());
+    unawaited(_audio?.setRate(r));
     notifyListeners();
   }
 
@@ -624,10 +632,13 @@ class _TsvgPlayerState extends State<TsvgPlayer> {
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         _Timeline(controller: c, layout: layout, onHover: (t) => setState(() => _hoverT = t), hoverT: _hoverT, onInteract: _wake),
         const SizedBox(height: 4),
-        Row(children: [
+        // narrow players (phones in portrait) drop ±10 s and CC: double-tap skips, CC is in the options panel
+        LayoutBuilder(builder: (context, box) {
+          final compact = box.maxWidth < 440;
+          return Row(children: [
           _btn(Icon(c.playing ? Icons.pause_rounded : Icons.play_arrow_rounded, color: ic), 'Play / pause (k, space)', c.toggle),
-          _btn(const Icon(Icons.replay_10_rounded, color: ic), 'Back 10 s (j, ←)', () => _skip(-1)),
-          _btn(const Icon(Icons.forward_10_rounded, color: ic), 'Forward 10 s (l, →)', () => _skip(1)),
+          if (!compact) _btn(const Icon(Icons.replay_10_rounded, color: ic), 'Back 10 s (j, ←)', () => _skip(-1)),
+          if (!compact) _btn(const Icon(Icons.forward_10_rounded, color: ic), 'Forward 10 s (l, →)', () => _skip(1)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Text('${_fmtT(c.t)} / ${_fmtT(c.duration)}', style: const TextStyle(fontFeatures: [FontFeature.tabularFigures()])),
@@ -636,12 +647,14 @@ class _TsvgPlayerState extends State<TsvgPlayer> {
             child: Text(ch != null ? '• ${c.label(ch.label)}' : '',
                 overflow: TextOverflow.ellipsis, maxLines: 1, style: const TextStyle(color: Color(0xbfffffff))),
           ),
-          _btn(const Text('CC', style: TextStyle(fontWeight: FontWeight.w700)), 'Captions (c)', () => c.setCaptions(!c.captions),
-              opacity: c.captions ? 1 : 0.45),
+          if (!compact)
+            _btn(const Text('CC', style: TextStyle(fontWeight: FontWeight.w700)), 'Captions (c)', () => c.setCaptions(!c.captions),
+                opacity: c.captions ? 1 : 0.45),
           _btn(Text('${_rateStr(c.rate)}×'), 'Speed', () => c.setRate(switch (c.rate) { 0.5 => 1.0, 1.0 => 1.5, 1.5 => 2.0, _ => 0.5 })),
           _btn(const Icon(Icons.settings_rounded, color: ic), 'Options', () => setState(() => _menu = !_menu)),
           if (widget.allowFullscreen) _btn(const Icon(Icons.fullscreen_rounded, color: ic), 'Fullscreen (f)', _fullscreen),
-        ]),
+          ]);
+        }),
       ]),
     );
   }

@@ -105,10 +105,10 @@
   </defs>
 
   <assets>
-    <asset id="pad" src="audio/pad.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
     <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
@@ -247,12 +247,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/line-chart-reveal/en/vo1.f7af0c3e5b.ogg" dur="5.71" hash="f7af0c3e5b" engine="kokoro:bf_emma"/>
-    <voice say="vo2" lang="en" src="voice/line-chart-reveal/en/vo2.8f0a75561f.ogg" dur="5.51" hash="8f0a75561f" engine="kokoro:bf_emma"/>
-    <voice say="vo3" lang="en" src="voice/line-chart-reveal/en/vo3.cb2f5c04cc.ogg" dur="5.61" hash="cb2f5c04cc" engine="kokoro:bf_emma"/>
-    <voice say="vo4" lang="en" src="voice/line-chart-reveal/en/vo4.d3eee01a00.ogg" dur="6.71" hash="d3eee01a00" engine="kokoro:bf_emma"/>
-    <voice say="vo5" lang="en" src="voice/line-chart-reveal/en/vo5.d7620f5808.ogg" dur="6.71" hash="d7620f5808" engine="kokoro:bf_emma"/>
-    <voice say="vo6" lang="en" src="voice/line-chart-reveal/en/vo6.abe5831560.ogg" dur="8.81" hash="abe5831560" engine="kokoro:bf_emma"/>
-    <voice say="vo7" lang="en" src="voice/line-chart-reveal/en/vo7.fcdac886bf.ogg" dur="6.21" hash="fcdac886bf" engine="kokoro:bf_emma"/>
+    <voice say="vo1" lang="en" src="voice/line-chart-reveal/en/vo1.f7af0c3e5b.m4a" dur="5.71" hash="f7af0c3e5b" engine="kokoro:bf_emma"/>
+    <voice say="vo2" lang="en" src="voice/line-chart-reveal/en/vo2.8f0a75561f.m4a" dur="5.51" hash="8f0a75561f" engine="kokoro:bf_emma"/>
+    <voice say="vo3" lang="en" src="voice/line-chart-reveal/en/vo3.cb2f5c04cc.m4a" dur="5.61" hash="cb2f5c04cc" engine="kokoro:bf_emma"/>
+    <voice say="vo4" lang="en" src="voice/line-chart-reveal/en/vo4.d3eee01a00.m4a" dur="6.71" hash="d3eee01a00" engine="kokoro:bf_emma"/>
+    <voice say="vo5" lang="en" src="voice/line-chart-reveal/en/vo5.d7620f5808.m4a" dur="6.71" hash="d7620f5808" engine="kokoro:bf_emma"/>
+    <voice say="vo6" lang="en" src="voice/line-chart-reveal/en/vo6.abe5831560.m4a" dur="8.81" hash="abe5831560" engine="kokoro:bf_emma"/>
+    <voice say="vo7" lang="en" src="voice/line-chart-reveal/en/vo7.fcdac886bf.m4a" dur="6.21" hash="fcdac886bf" engine="kokoro:bf_emma"/>
   </voices>
 </tsvg>

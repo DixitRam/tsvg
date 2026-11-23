@@ -108,10 +108,10 @@
   </defs>
 
   <assets>
-    <asset id="pulse" src="audio/pulse.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
+    <asset id="pulse" src="audio/pulse.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Anton" src="fonts/Anton.ttf"/>
   </assets>
@@ -234,11 +234,11 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/bar-chart-race/en/vo1.ee52a06c11.ogg" dur="7.91" hash="ee52a06c11" engine="kokoro:am_michael"/>
-    <voice say="vo2" lang="en" src="voice/bar-chart-race/en/vo2.bd2a06d525.ogg" dur="9.61" hash="bd2a06d525" engine="kokoro:am_michael"/>
-    <voice say="vo3" lang="en" src="voice/bar-chart-race/en/vo3.646a8cd909.ogg" dur="7.91" hash="646a8cd909" engine="kokoro:am_michael"/>
-    <voice say="vo4" lang="en" src="voice/bar-chart-race/en/vo4.1046d26ff9.ogg" dur="6.71" hash="1046d26ff9" engine="kokoro:am_michael"/>
-    <voice say="vo5" lang="en" src="voice/bar-chart-race/en/vo5.a7c7e05235.ogg" dur="9.21" hash="a7c7e05235" engine="kokoro:am_michael"/>
-    <voice say="vo6" lang="en" src="voice/bar-chart-race/en/vo6.b3ca510870.ogg" dur="6.91" hash="b3ca510870" engine="kokoro:am_michael"/>
+    <voice say="vo1" lang="en" src="voice/bar-chart-race/en/vo1.ee52a06c11.m4a" dur="7.91" hash="ee52a06c11" engine="kokoro:am_michael"/>
+    <voice say="vo2" lang="en" src="voice/bar-chart-race/en/vo2.bd2a06d525.m4a" dur="9.61" hash="bd2a06d525" engine="kokoro:am_michael"/>
+    <voice say="vo3" lang="en" src="voice/bar-chart-race/en/vo3.646a8cd909.m4a" dur="7.91" hash="646a8cd909" engine="kokoro:am_michael"/>
+    <voice say="vo4" lang="en" src="voice/bar-chart-race/en/vo4.1046d26ff9.m4a" dur="6.71" hash="1046d26ff9" engine="kokoro:am_michael"/>
+    <voice say="vo5" lang="en" src="voice/bar-chart-race/en/vo5.a7c7e05235.m4a" dur="9.21" hash="a7c7e05235" engine="kokoro:am_michael"/>
+    <voice say="vo6" lang="en" src="voice/bar-chart-race/en/vo6.b3ca510870.m4a" dur="6.91" hash="b3ca510870" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

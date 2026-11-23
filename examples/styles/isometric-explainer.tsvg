@@ -60,12 +60,12 @@
   <assets>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
-    <asset id="pulse" src="audio/pulse.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="pulse" src="audio/pulse.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
 
   </assets>
   <music src="pulse" start="0" loop="1" vol="0.6"/>
@@ -496,12 +496,12 @@
 
   </overlay>
   <voices>
-    <voice say="vo_cdn" lang="en" src="voice/isometric-explainer/en/vo_cdn.bb431e06c8.ogg" dur="5.81" hash="bb431e06c8" engine="kokoro:am_michael"/>
-    <voice say="vo_gate" lang="en" src="voice/isometric-explainer/en/vo_gate.410ab5795a.ogg" dur="4.31" hash="410ab5795a" engine="kokoro:am_michael"/>
-    <voice say="vo_intro" lang="en" src="voice/isometric-explainer/en/vo_intro.153932544c.ogg" dur="5.01" hash="153932544c" engine="kokoro:am_michael"/>
-    <voice say="vo_outro" lang="en" src="voice/isometric-explainer/en/vo_outro.52bc8ed12d.ogg" dur="3.51" hash="52bc8ed12d" engine="kokoro:am_michael"/>
-    <voice say="vo_store" lang="en" src="voice/isometric-explainer/en/vo_store.0bdf0e8ac6.ogg" dur="5.71" hash="0bdf0e8ac6" engine="kokoro:am_michael"/>
-    <voice say="vo_upload" lang="en" src="voice/isometric-explainer/en/vo_upload.d9f16e69ec.ogg" dur="6.01" hash="d9f16e69ec" engine="kokoro:am_michael"/>
-    <voice say="vo_work" lang="en" src="voice/isometric-explainer/en/vo_work.84ed3b891f.ogg" dur="5.01" hash="84ed3b891f" engine="kokoro:am_michael"/>
+    <voice say="vo_cdn" lang="en" src="voice/isometric-explainer/en/vo_cdn.bb431e06c8.m4a" dur="5.81" hash="bb431e06c8" engine="kokoro:am_michael"/>
+    <voice say="vo_gate" lang="en" src="voice/isometric-explainer/en/vo_gate.410ab5795a.m4a" dur="4.31" hash="410ab5795a" engine="kokoro:am_michael"/>
+    <voice say="vo_intro" lang="en" src="voice/isometric-explainer/en/vo_intro.153932544c.m4a" dur="5.01" hash="153932544c" engine="kokoro:am_michael"/>
+    <voice say="vo_outro" lang="en" src="voice/isometric-explainer/en/vo_outro.52bc8ed12d.m4a" dur="3.51" hash="52bc8ed12d" engine="kokoro:am_michael"/>
+    <voice say="vo_store" lang="en" src="voice/isometric-explainer/en/vo_store.0bdf0e8ac6.m4a" dur="5.71" hash="0bdf0e8ac6" engine="kokoro:am_michael"/>
+    <voice say="vo_upload" lang="en" src="voice/isometric-explainer/en/vo_upload.d9f16e69ec.m4a" dur="6.01" hash="d9f16e69ec" engine="kokoro:am_michael"/>
+    <voice say="vo_work" lang="en" src="voice/isometric-explainer/en/vo_work.84ed3b891f.m4a" dur="5.01" hash="84ed3b891f" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

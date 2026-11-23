@@ -83,7 +83,7 @@
     <linear id="woodg" x1="0" y1="0" x2="0" y2="60"><stop at="0" color="$wood"/><stop at="1" color="$wood2"/></linear>
   </defs>
   <assets>
-    <asset id="pad" src="audio/pad.ogg"/><asset id="click" src="audio/click.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/><asset id="click" src="audio/click.m4a"/>
     <font family="Caveat" src="fonts/Caveat.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.6"/>
@@ -166,12 +166,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/chalkboard-lesson/en/vo1.198473b8f9.ogg" dur="7.31" hash="198473b8f9" engine="kokoro:bm_george"/>
-    <voice say="vo2" lang="en" src="voice/chalkboard-lesson/en/vo2.90ef135a04.ogg" dur="7.11" hash="90ef135a04" engine="kokoro:bm_george"/>
-    <voice say="vo3" lang="en" src="voice/chalkboard-lesson/en/vo3.9dea44279d.ogg" dur="8.21" hash="9dea44279d" engine="kokoro:bm_george"/>
-    <voice say="vo4" lang="en" src="voice/chalkboard-lesson/en/vo4.3676d2824e.ogg" dur="7.61" hash="3676d2824e" engine="kokoro:bm_george"/>
-    <voice say="vo5" lang="en" src="voice/chalkboard-lesson/en/vo5.923d7cbbe7.ogg" dur="7.31" hash="923d7cbbe7" engine="kokoro:bm_george"/>
-    <voice say="vo6" lang="en" src="voice/chalkboard-lesson/en/vo6.e75c85c541.ogg" dur="6.21" hash="e75c85c541" engine="kokoro:bm_george"/>
-    <voice say="vo7" lang="en" src="voice/chalkboard-lesson/en/vo7.77b53d4abf.ogg" dur="6.51" hash="77b53d4abf" engine="kokoro:bm_george"/>
+    <voice say="vo1" lang="en" src="voice/chalkboard-lesson/en/vo1.198473b8f9.m4a" dur="7.31" hash="198473b8f9" engine="kokoro:bm_george"/>
+    <voice say="vo2" lang="en" src="voice/chalkboard-lesson/en/vo2.90ef135a04.m4a" dur="7.11" hash="90ef135a04" engine="kokoro:bm_george"/>
+    <voice say="vo3" lang="en" src="voice/chalkboard-lesson/en/vo3.9dea44279d.m4a" dur="8.21" hash="9dea44279d" engine="kokoro:bm_george"/>
+    <voice say="vo4" lang="en" src="voice/chalkboard-lesson/en/vo4.3676d2824e.m4a" dur="7.61" hash="3676d2824e" engine="kokoro:bm_george"/>
+    <voice say="vo5" lang="en" src="voice/chalkboard-lesson/en/vo5.923d7cbbe7.m4a" dur="7.31" hash="923d7cbbe7" engine="kokoro:bm_george"/>
+    <voice say="vo6" lang="en" src="voice/chalkboard-lesson/en/vo6.e75c85c541.m4a" dur="6.21" hash="e75c85c541" engine="kokoro:bm_george"/>
+    <voice say="vo7" lang="en" src="voice/chalkboard-lesson/en/vo7.77b53d4abf.m4a" dur="6.51" hash="77b53d4abf" engine="kokoro:bm_george"/>
   </voices>
 </tsvg>

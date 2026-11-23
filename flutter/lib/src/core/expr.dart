@@ -5,6 +5,15 @@ import 'dart:math' as math;
 import 'color.dart';
 import 'js.dart';
 
+/// Something that holds `<data>` lists (the document). Kept as an interface so
+/// this file stays free of model imports.
+abstract interface class TsvgDataHost {
+  Map<String, List<Object>> get data;
+
+  /// `s('id')` (0.2.2): the string in the current language.
+  String stringOf(String id, Env env);
+}
+
 /// Evaluation environment of one node (see `makeEnv` in the reference).
 class Env {
   Env({
@@ -94,7 +103,39 @@ final Map<String, Object? Function(List<Object?> a)> builtins = {
   'rgba': (a) =>
       'rgba(${numStr(jsRound(_n(a, 0)))},${numStr(jsRound(_n(a, 1)))},${numStr(jsRound(_n(a, 2)))},${_a(a, 3) == null ? '1' : toStr(a[3])})',
   'mix': (a) => lerpAny(_a(a, 0), _a(a, 1), _n(a, 2)),
+  // deterministic pseudo-random 0…1 for a seed, and smooth 1-D value noise (same formulas as tsvg-core.js)
+  'rand': (a) {
+    final n = _n(a, 0);
+    return rand01(n.isNaN ? 0 : n);
+  },
+  'noise': (a) => noise1(_n(a, 0)),
 };
+
+/// `rand(seed)` = fract(sin(seed·12.9898 + 78.233)·43758.5453), with JS's sin.
+double rand01(double n) {
+  final x = jsSin(n * 12.9898 + 78.233) * 43758.5453;
+  return x - x.floorToDouble();
+}
+
+/// `noise(x)`: [rand01] at the integers around x, smoothstep-interpolated.
+double noise1(double x) {
+  final i = x.isFinite ? x.floorToDouble() : x, f = x - i, u = f * f * (3 - 2 * f);
+  final r0 = rand01(i), r1 = rand01(i + 1);
+  return r0 + (r1 - r0) * u;
+}
+
+/// `data('id', i)` (index wraps) and `count('id')`.
+Object? _dataFn(String name, List<Object?> vals, Env env) {
+  final host = env.doc;
+  final key = toStr(vals.isEmpty ? null : vals[0]);
+  final list = host is TsvgDataHost ? host.data[key] : null;
+  if (list == null) throw TsvgError('unknown data $key');
+  if (name == 'count') return list.length.toDouble();
+  final i = toNum(vals.length > 1 ? vals[1] : null);
+  if (!i.isFinite || list.isEmpty) return null;
+  // Dart's % on doubles is already the non-negative (wrapping) modulo
+  return list[(i.floorToDouble() % list.length).toInt()];
+}
 
 class _Tok {
   _Tok(this.t, this.v);
@@ -245,6 +286,12 @@ Expr compileExpr(String src) {
         final builtin = builtins[name];
         return (env) {
           final vals = [for (final a in args) a(env)];
+          if (name == 'data' || name == 'count') return _dataFn(name, vals, env);
+          if (name == 's') {
+            final host = env.doc;
+            if (host is! TsvgDataHost) throw TsvgError('unknown string @${toStr(vals.isEmpty ? null : vals[0])}');
+            return host.stringOf(toStr(vals.isEmpty ? null : vals[0]), env);
+          }
           if (builtin != null) return builtin(vals);
           final f = env.fns[name];
           if (f == null) throw TsvgError('unknown function $name()');

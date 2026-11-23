@@ -56,7 +56,7 @@
     <clip id="c95"><rect x="560" y="0" w="=800*ease((T-4.8)/0.8,'io')" h="1080"/></clip>
   </defs>
   <assets>
-    <asset id="bright" src="audio/bright.ogg"/><asset id="click" src="audio/click.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <asset id="bright" src="audio/bright.m4a"/><asset id="click" src="audio/click.m4a"/><asset id="pop" src="audio/pop.m4a"/><asset id="ding" src="audio/ding.m4a"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="bright" loop="1" vol="0.5"/>
@@ -191,12 +191,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/probability-visual/en/vo1.73bc351526.ogg" dur="6.01" hash="73bc351526" engine="kokoro:af_heart"/>
-    <voice say="vo2" lang="en" src="voice/probability-visual/en/vo2.4c8bf1bcdb.ogg" dur="5.91" hash="4c8bf1bcdb" engine="kokoro:af_heart"/>
-    <voice say="vo3" lang="en" src="voice/probability-visual/en/vo3.56ac94aaaa.ogg" dur="6.31" hash="56ac94aaaa" engine="kokoro:af_heart"/>
-    <voice say="vo4" lang="en" src="voice/probability-visual/en/vo4.ea57963f7b.ogg" dur="7.31" hash="ea57963f7b" engine="kokoro:af_heart"/>
-    <voice say="vo5" lang="en" src="voice/probability-visual/en/vo5.c4a5e08c26.ogg" dur="5.21" hash="c4a5e08c26" engine="kokoro:af_heart"/>
-    <voice say="vo6" lang="en" src="voice/probability-visual/en/vo6.de6c877aa9.ogg" dur="7.71" hash="de6c877aa9" engine="kokoro:af_heart"/>
-    <voice say="vo7" lang="en" src="voice/probability-visual/en/vo7.e1b96b2f3d.ogg" dur="2.57" hash="e1b96b2f3d" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="en" src="voice/probability-visual/en/vo1.73bc351526.m4a" dur="6.01" hash="73bc351526" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/probability-visual/en/vo2.4c8bf1bcdb.m4a" dur="5.91" hash="4c8bf1bcdb" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/probability-visual/en/vo3.56ac94aaaa.m4a" dur="6.31" hash="56ac94aaaa" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/probability-visual/en/vo4.ea57963f7b.m4a" dur="7.31" hash="ea57963f7b" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/probability-visual/en/vo5.c4a5e08c26.m4a" dur="5.21" hash="c4a5e08c26" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/probability-visual/en/vo6.de6c877aa9.m4a" dur="7.71" hash="de6c877aa9" engine="kokoro:af_heart"/>
+    <voice say="vo7" lang="en" src="voice/probability-visual/en/vo7.e1b96b2f3d.m4a" dur="2.57" hash="e1b96b2f3d" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

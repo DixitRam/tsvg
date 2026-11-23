@@ -62,13 +62,13 @@
     <radial id="coverG" x="960" y="540" r="1100"><stop at="0" color="#ffe14a"/><stop at="0.55" color="#ff9a3c"/><stop at="1" color="#e0322a"/></radial>
   </defs>
   <assets>
-    <asset id="bed" src="audio/bright.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="typing" src="audio/typing.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="bed" src="audio/bright.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="typing" src="audio/typing.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
     <font family="Anton" src="fonts/Anton.ttf"/>
     <font family="Caveat" src="fonts/Caveat.ttf"/>
@@ -341,13 +341,13 @@
     </scene>
   </timeline>
   <voices>
-    <voice say="vo0" lang="en" src="voice/comic-storyboard/en/vo0.6d20ac6c99.ogg" dur="5.41" hash="6d20ac6c99" engine="kokoro:af_sky"/>
-    <voice say="vo1" lang="en" src="voice/comic-storyboard/en/vo1.3b01b4e872.ogg" dur="4.71" hash="3b01b4e872" engine="kokoro:af_sky"/>
-    <voice say="vo2" lang="en" src="voice/comic-storyboard/en/vo2.d584025516.ogg" dur="3.61" hash="d584025516" engine="kokoro:af_sky"/>
-    <voice say="vo3" lang="en" src="voice/comic-storyboard/en/vo3.7b74c688c9.ogg" dur="3.61" hash="7b74c688c9" engine="kokoro:af_sky"/>
-    <voice say="vo4" lang="en" src="voice/comic-storyboard/en/vo4.b97a39b7ec.ogg" dur="4.41" hash="b97a39b7ec" engine="kokoro:af_sky"/>
-    <voice say="vo5" lang="en" src="voice/comic-storyboard/en/vo5.7dc2d6540e.ogg" dur="3.51" hash="7dc2d6540e" engine="kokoro:af_sky"/>
-    <voice say="vo6" lang="en" src="voice/comic-storyboard/en/vo6.9025bb6ef6.ogg" dur="4.11" hash="9025bb6ef6" engine="kokoro:af_sky"/>
-    <voice say="vo7" lang="en" src="voice/comic-storyboard/en/vo7.dd189ccbc8.ogg" dur="3.31" hash="dd189ccbc8" engine="kokoro:af_sky"/>
+    <voice say="vo0" lang="en" src="voice/comic-storyboard/en/vo0.6d20ac6c99.m4a" dur="5.41" hash="6d20ac6c99" engine="kokoro:af_sky"/>
+    <voice say="vo1" lang="en" src="voice/comic-storyboard/en/vo1.3b01b4e872.m4a" dur="4.71" hash="3b01b4e872" engine="kokoro:af_sky"/>
+    <voice say="vo2" lang="en" src="voice/comic-storyboard/en/vo2.d584025516.m4a" dur="3.61" hash="d584025516" engine="kokoro:af_sky"/>
+    <voice say="vo3" lang="en" src="voice/comic-storyboard/en/vo3.7b74c688c9.m4a" dur="3.61" hash="7b74c688c9" engine="kokoro:af_sky"/>
+    <voice say="vo4" lang="en" src="voice/comic-storyboard/en/vo4.b97a39b7ec.m4a" dur="4.41" hash="b97a39b7ec" engine="kokoro:af_sky"/>
+    <voice say="vo5" lang="en" src="voice/comic-storyboard/en/vo5.7dc2d6540e.m4a" dur="3.51" hash="7dc2d6540e" engine="kokoro:af_sky"/>
+    <voice say="vo6" lang="en" src="voice/comic-storyboard/en/vo6.9025bb6ef6.m4a" dur="4.11" hash="9025bb6ef6" engine="kokoro:af_sky"/>
+    <voice say="vo7" lang="en" src="voice/comic-storyboard/en/vo7.dd189ccbc8.m4a" dur="3.31" hash="dd189ccbc8" engine="kokoro:af_sky"/>
   </voices>
 </tsvg>

@@ -92,11 +92,11 @@
   </defs>
 
   <assets>
-    <asset id="bed" src="audio/pad.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="typing" src="audio/typing.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="bed" src="audio/pad.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="typing" src="audio/typing.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
   </assets>
@@ -247,12 +247,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/code-walkthrough/en/vo1.8f594d4788.ogg" dur="7.01" hash="8f594d4788" engine="kokoro:am_michael"/>
-    <voice say="vo2" lang="en" src="voice/code-walkthrough/en/vo2.da89542411.ogg" dur="7.21" hash="da89542411" engine="kokoro:am_michael"/>
-    <voice say="vo3" lang="en" src="voice/code-walkthrough/en/vo3.c364d4431c.ogg" dur="4.91" hash="c364d4431c" engine="kokoro:am_michael"/>
-    <voice say="vo4" lang="en" src="voice/code-walkthrough/en/vo4.7c2bd92a65.ogg" dur="9.21" hash="7c2bd92a65" engine="kokoro:am_michael"/>
-    <voice say="vo5" lang="en" src="voice/code-walkthrough/en/vo5.dabff9afb6.ogg" dur="9.11" hash="dabff9afb6" engine="kokoro:am_michael"/>
-    <voice say="vo6" lang="en" src="voice/code-walkthrough/en/vo6.a683b67f46.ogg" dur="7.11" hash="a683b67f46" engine="kokoro:am_michael"/>
-    <voice say="vo7" lang="en" src="voice/code-walkthrough/en/vo7.a09db8de9a.ogg" dur="5.21" hash="a09db8de9a" engine="kokoro:am_michael"/>
+    <voice say="vo1" lang="en" src="voice/code-walkthrough/en/vo1.8f594d4788.m4a" dur="7.01" hash="8f594d4788" engine="kokoro:am_michael"/>
+    <voice say="vo2" lang="en" src="voice/code-walkthrough/en/vo2.da89542411.m4a" dur="7.21" hash="da89542411" engine="kokoro:am_michael"/>
+    <voice say="vo3" lang="en" src="voice/code-walkthrough/en/vo3.c364d4431c.m4a" dur="4.91" hash="c364d4431c" engine="kokoro:am_michael"/>
+    <voice say="vo4" lang="en" src="voice/code-walkthrough/en/vo4.7c2bd92a65.m4a" dur="9.21" hash="7c2bd92a65" engine="kokoro:am_michael"/>
+    <voice say="vo5" lang="en" src="voice/code-walkthrough/en/vo5.dabff9afb6.m4a" dur="9.11" hash="dabff9afb6" engine="kokoro:am_michael"/>
+    <voice say="vo6" lang="en" src="voice/code-walkthrough/en/vo6.a683b67f46.m4a" dur="7.11" hash="a683b67f46" engine="kokoro:am_michael"/>
+    <voice say="vo7" lang="en" src="voice/code-walkthrough/en/vo7.a09db8de9a.m4a" dur="5.21" hash="a09db8de9a" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

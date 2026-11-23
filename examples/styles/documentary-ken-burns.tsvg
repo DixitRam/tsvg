@@ -50,8 +50,8 @@
     <asset id="city" src="images/city.jpg"/>
     <asset id="factory" src="images/factory.jpg"/>
     <asset id="mountains" src="images/mountains.jpg"/>
-    <asset id="drone" src="audio/drone.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="drone" src="audio/drone.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
@@ -178,11 +178,11 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/documentary-ken-burns/en/vo1.051c7b5950.ogg" dur="5.31" hash="051c7b5950" engine="kokoro:bm_daniel"/>
-    <voice say="vo2" lang="en" src="voice/documentary-ken-burns/en/vo2.be67117ddb.ogg" dur="7.11" hash="be67117ddb" engine="kokoro:bm_daniel"/>
-    <voice say="vo3" lang="en" src="voice/documentary-ken-burns/en/vo3.5d7f246bbe.ogg" dur="6.51" hash="5d7f246bbe" engine="kokoro:bm_daniel"/>
-    <voice say="vo4" lang="en" src="voice/documentary-ken-burns/en/vo4.90089b7d0d.ogg" dur="7.41" hash="90089b7d0d" engine="kokoro:bm_daniel"/>
-    <voice say="vo5" lang="en" src="voice/documentary-ken-burns/en/vo5.6e447f79c9.ogg" dur="6.71" hash="6e447f79c9" engine="kokoro:bm_daniel"/>
-    <voice say="vo6" lang="en" src="voice/documentary-ken-burns/en/vo6.c6b2e4475e.ogg" dur="5.11" hash="c6b2e4475e" engine="kokoro:bm_daniel"/>
+    <voice say="vo1" lang="en" src="voice/documentary-ken-burns/en/vo1.051c7b5950.m4a" dur="5.31" hash="051c7b5950" engine="kokoro:bm_daniel"/>
+    <voice say="vo2" lang="en" src="voice/documentary-ken-burns/en/vo2.be67117ddb.m4a" dur="7.11" hash="be67117ddb" engine="kokoro:bm_daniel"/>
+    <voice say="vo3" lang="en" src="voice/documentary-ken-burns/en/vo3.5d7f246bbe.m4a" dur="6.51" hash="5d7f246bbe" engine="kokoro:bm_daniel"/>
+    <voice say="vo4" lang="en" src="voice/documentary-ken-burns/en/vo4.90089b7d0d.m4a" dur="7.41" hash="90089b7d0d" engine="kokoro:bm_daniel"/>
+    <voice say="vo5" lang="en" src="voice/documentary-ken-burns/en/vo5.6e447f79c9.m4a" dur="6.71" hash="6e447f79c9" engine="kokoro:bm_daniel"/>
+    <voice say="vo6" lang="en" src="voice/documentary-ken-burns/en/vo6.c6b2e4475e.m4a" dur="5.11" hash="c6b2e4475e" engine="kokoro:bm_daniel"/>
   </voices>
 </tsvg>

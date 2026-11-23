@@ -58,7 +58,7 @@
     <clip id="sc5"><rect x="-30" y="-32" h="64" w="=316.0*ease((T-0.9)/1.3,'out')"/></clip>
   </defs>
   <assets>
-    <asset id="pad" src="audio/pad.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="ding" src="audio/ding.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/><asset id="pop" src="audio/pop.m4a"/><asset id="ding" src="audio/ding.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/><font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.8"/>
@@ -343,12 +343,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_cta" lang="en" src="voice/testimonial-cards/en/vo_cta.a341a29456.ogg" dur="4.91" hash="a341a29456" engine="kokoro:af_heart"/>
-    <voice say="vo_intro" lang="en" src="voice/testimonial-cards/en/vo_intro.5d17c42cc1.ogg" dur="7.31" hash="5d17c42cc1" engine="kokoro:af_heart"/>
-    <voice say="vo_r1" lang="en" src="voice/testimonial-cards/en/vo_r1.7465282f75.ogg" dur="7.61" hash="7465282f75" engine="kokoro:af_heart"/>
-    <voice say="vo_r2" lang="en" src="voice/testimonial-cards/en/vo_r2.84d3999451.ogg" dur="6.41" hash="84d3999451" engine="kokoro:af_heart"/>
-    <voice say="vo_r3" lang="en" src="voice/testimonial-cards/en/vo_r3.ecf1f6879d.ogg" dur="7.21" hash="ecf1f6879d" engine="kokoro:af_heart"/>
-    <voice say="vo_r4" lang="en" src="voice/testimonial-cards/en/vo_r4.c91ea8d316.ogg" dur="4.81" hash="c91ea8d316" engine="kokoro:af_heart"/>
-    <voice say="vo_summary" lang="en" src="voice/testimonial-cards/en/vo_summary.f7415137f0.ogg" dur="7.81" hash="f7415137f0" engine="kokoro:af_heart"/>
+    <voice say="vo_cta" lang="en" src="voice/testimonial-cards/en/vo_cta.a341a29456.m4a" dur="4.91" hash="a341a29456" engine="kokoro:af_heart"/>
+    <voice say="vo_intro" lang="en" src="voice/testimonial-cards/en/vo_intro.5d17c42cc1.m4a" dur="7.31" hash="5d17c42cc1" engine="kokoro:af_heart"/>
+    <voice say="vo_r1" lang="en" src="voice/testimonial-cards/en/vo_r1.7465282f75.m4a" dur="7.61" hash="7465282f75" engine="kokoro:af_heart"/>
+    <voice say="vo_r2" lang="en" src="voice/testimonial-cards/en/vo_r2.84d3999451.m4a" dur="6.41" hash="84d3999451" engine="kokoro:af_heart"/>
+    <voice say="vo_r3" lang="en" src="voice/testimonial-cards/en/vo_r3.ecf1f6879d.m4a" dur="7.21" hash="ecf1f6879d" engine="kokoro:af_heart"/>
+    <voice say="vo_r4" lang="en" src="voice/testimonial-cards/en/vo_r4.c91ea8d316.m4a" dur="4.81" hash="c91ea8d316" engine="kokoro:af_heart"/>
+    <voice say="vo_summary" lang="en" src="voice/testimonial-cards/en/vo_summary.f7415137f0.m4a" dur="7.81" hash="f7415137f0" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

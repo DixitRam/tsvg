@@ -62,11 +62,11 @@
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
     <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
     <font family="VT323" src="fonts/VT323.ttf"/>
-    <asset id="drone" src="audio/drone.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="drone" src="audio/drone.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
 
   </assets>
   <music src="drone" start="0" loop="1" vol="0.7"/>
@@ -322,12 +322,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_dump" lang="en" src="voice/glitch-tech/en/vo_dump.0d0b407a7e.ogg" dur="4.61" hash="0d0b407a7e" engine="kokoro:am_adam"/>
-    <voice say="vo_intro" lang="en" src="voice/glitch-tech/en/vo_intro.13eb011090.ogg" dur="4.81" hash="13eb011090" engine="kokoro:am_adam"/>
-    <voice say="vo_otp" lang="en" src="voice/glitch-tech/en/vo_otp.04a6eb30a0.ogg" dur="4.71" hash="04a6eb30a0" engine="kokoro:am_adam"/>
-    <voice say="vo_outro" lang="en" src="voice/glitch-tech/en/vo_outro.47c9117660.ogg" dur="3.31" hash="47c9117660" engine="kokoro:am_adam"/>
-    <voice say="vo_pass" lang="en" src="voice/glitch-tech/en/vo_pass.9221ceccec.ogg" dur="5.11" hash="9221ceccec" engine="kokoro:am_adam"/>
-    <voice say="vo_proxy" lang="en" src="voice/glitch-tech/en/vo_proxy.9d6d733c87.ogg" dur="5.41" hash="9d6d733c87" engine="kokoro:am_adam"/>
-    <voice say="vo_stuff" lang="en" src="voice/glitch-tech/en/vo_stuff.9554b75a45.ogg" dur="5.91" hash="9554b75a45" engine="kokoro:am_adam"/>
+    <voice say="vo_dump" lang="en" src="voice/glitch-tech/en/vo_dump.0d0b407a7e.m4a" dur="4.61" hash="0d0b407a7e" engine="kokoro:am_adam"/>
+    <voice say="vo_intro" lang="en" src="voice/glitch-tech/en/vo_intro.13eb011090.m4a" dur="4.81" hash="13eb011090" engine="kokoro:am_adam"/>
+    <voice say="vo_otp" lang="en" src="voice/glitch-tech/en/vo_otp.04a6eb30a0.m4a" dur="4.71" hash="04a6eb30a0" engine="kokoro:am_adam"/>
+    <voice say="vo_outro" lang="en" src="voice/glitch-tech/en/vo_outro.47c9117660.m4a" dur="3.31" hash="47c9117660" engine="kokoro:am_adam"/>
+    <voice say="vo_pass" lang="en" src="voice/glitch-tech/en/vo_pass.9221ceccec.m4a" dur="5.11" hash="9221ceccec" engine="kokoro:am_adam"/>
+    <voice say="vo_proxy" lang="en" src="voice/glitch-tech/en/vo_proxy.9d6d733c87.m4a" dur="5.41" hash="9d6d733c87" engine="kokoro:am_adam"/>
+    <voice say="vo_stuff" lang="en" src="voice/glitch-tech/en/vo_stuff.9554b75a45.m4a" dur="5.91" hash="9554b75a45" engine="kokoro:am_adam"/>
   </voices>
 </tsvg>

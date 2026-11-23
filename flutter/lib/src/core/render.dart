@@ -60,6 +60,7 @@ Object? value(String? raw, Env env, TsvgDoc doc) {
   if (raw == null) return null;
   if (raw.isEmpty) return '';
   final c = raw[0];
+  if (c == r'\') return raw.substring(1); // escape (0.2.2): \=> is the literal text "=>"
   if (c == '=') return compiled(raw.substring(1))(env);
   if (c == '@') return strOf(doc, raw.substring(1), env);
   if (c == r'$' && _token.hasMatch(raw)) return lookup(env, raw);
@@ -208,6 +209,17 @@ TsvgShape? shapePath(TsvgNode n, Env env) {
   return null;
 }
 
+/// `dash="a b …"` → the Canvas2D setLineDash list: null when invalid (ignored),
+/// [] for solid (empty or all zeros), odd lists repeated.
+List<double>? _dashOf(String s) {
+  final t = s.trim();
+  final parts = t.isEmpty ? <String>[] : t.split(RegExp(r'[\s,]+'));
+  final v = [for (final x in parts) toNum(x)];
+  if (v.any((x) => !x.isFinite || x < 0)) return null;
+  if (v.every((x) => x == 0)) return const [];
+  return v.length.isOdd ? [...v, ...v] : v;
+}
+
 ShadowSpec? _shadowOf(Object? raw, Env env, ShadowSpec? inherited) {
   if (raw == null || raw == 'none' || raw == '') return inherited;
   final parts = toStr(raw).trim().split(RegExp(r'\s+'));
@@ -268,7 +280,22 @@ class _Walker {
     }
   }
 
+  /// `repeat="n"` [`as="i"`] (0.2): the node n times with i = 0…n-1 and i_n = n.
   void node(TsvgNode n, Env parentEnv, DrawState parentSt) {
+    final r = n.a['repeat'];
+    if (r == null) return one(n, parentEnv, parentSt);
+    final c = toNum(value(pick(n.a, 'repeat', parentEnv), parentEnv, doc));
+    final count = c.isNaN ? 0 : math.min(10000.0, math.max(0.0, c.floorToDouble())).toInt();
+    final as = n.a['as'] ?? 'i';
+    for (var k = 0; k < count; k++) {
+      final vars = Map<String, Object?>.of(parentEnv.vars)
+        ..[as] = k.toDouble()
+        ..['${as}_n'] = count.toDouble();
+      one(n, parentEnv.withVars(vars), parentSt);
+    }
+  }
+
+  void one(TsvgNode n, Env parentEnv, DrawState parentSt) {
     if (!visible(n, parentEnv)) return;
     final atRaw = n.a['at'];
     final env = parentEnv.withVars(Map<String, Object?>.of(parentEnv.vars)
@@ -285,16 +312,24 @@ class _Walker {
       alpha: opacity.isNaN ? parentSt.alpha : parentSt.alpha * math.min(1.0, opacity),
       blend: blend != null && blend.isNotEmpty ? blend : null,
     );
-    final rot = pn('rot', 0), scale = pn('scale', 1);
+    final blur = pn('blur', 0);
+    if (blur > 0) st = st.copyWith(blur: double.parse(jsFixed(blur * c.deviceScale, 2)));
+    final rot = pn('rot', 0), scale = pn('scale', 1), sx = pn('sx', 1) * scale, sy = pn('sy', 1) * scale;
     final fillRaw = p('fill', n.type == 'text' ? (env.theme['fg'] ?? '#fff') : null);
     final strokeRaw = p('stroke');
     final sw = pn('sw', 0);
     st = st.copyWith(shadow: _shadowOf(p('shadow'), env, st.shadow));
+    final dashRaw = p('dash');
+    if (truthy(dashRaw) && dashRaw != 'none') {
+      final d = _dashOf(toStr(dashRaw));
+      // Canvas2D setLineDash: invalid lists are ignored, [] (or all zeros) = solid
+      if (d != null) st = DrawState(alpha: st.alpha, blend: st.blend, shadow: st.shadow, blur: st.blur, dash: d.isEmpty ? null : d);
+    }
     void pivot(double px, double py) {
-      if (truthy(rot) || scale != 1) {
+      if (truthy(rot) || sx != 1 || sy != 1) {
         c.translate(px, py);
         if (truthy(rot)) c.rotate(rot * math.pi / 180);
-        if (scale != 1) c.scale(scale);
+        if (sx != 1 || sy != 1) c.scale(sx, sy);
         c.translate(-px, -py);
       }
     }
@@ -346,8 +381,9 @@ class _Walker {
         final span = a1 - a0;
         if (span < 360) {
           final sweep = ((span % 360) + 360) % 360;
+          // arc="1" (0.2.2): an open arc, no lines to the centre
           paint(EllipseShape(cx, cy, math.max(0, rx), math.max(0, ry),
-              start: (a0 - 90) * math.pi / 180, sweep: sweep * math.pi / 180));
+              start: (a0 - 90) * math.pi / 180, sweep: sweep * math.pi / 180, open: truthy(p('arc', 0.0))));
         } else {
           paint(EllipseShape(cx, cy, math.max(0, rx), math.max(0, ry)));
         }
@@ -373,7 +409,9 @@ class _Walker {
           c.stroke(shape, s, StrokeSpec(sw, trim: draw < 1 ? draw : null), f != null ? st.copyWith(noShadow: true) : st);
         }
       case 'text':
-        var txt = toStr(value(pick(n.a, 'text', env), env, doc) ?? '');
+        // a numeric literal renders exactly as written ("01"), 0.2.2
+        final rawText = pick(n.a, 'text', env);
+        var txt = rawText != null && _numeric.hasMatch(rawText) ? rawText : toStr(value(rawText, env, doc) ?? '');
         final reveal = pn('reveal', 1);
         if (reveal < 1) {
           final cps = txt.runes.toList();
@@ -426,10 +464,10 @@ class _Walker {
     if (shapes == null) throw TsvgError('unknown mask $maskRef');
     final plainAttrs = <String, String>{
       for (final e in n.a.entries)
-        if (e.key != 'mask' && !e.key.startsWith('mask.')) e.key: e.value,
+        if (e.key != 'mask' && e.key != 'repeat' && !e.key.startsWith('mask.')) e.key: e.value,
     };
     c.beginLayer();
-    node(n.withAttrs(plainAttrs), env, DrawState(alpha: parentSt.alpha));
+    one(n.withAttrs(plainAttrs), env, DrawState(alpha: parentSt.alpha));
     c.beginMask();
     // the mask is drawn in the node's coordinate space (after its x/y for groups)
     if (n.type == 'group' || n.type == 'use' || n.type == 'path') {

@@ -54,7 +54,7 @@
     <radial id="sunG" x="-20" y="-20" r="110"><stop at="0" color="#fff1a8"/><stop at="1" color="#ffc23a"/></radial>
   </defs>
   <assets>
-    <asset id="pad" src="audio/pad.ogg"/><asset id="pop" src="audio/pop.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/><asset id="pop" src="audio/pop.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.7"/>
@@ -415,12 +415,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/science-diagram/en/vo1.42fc124f0a.ogg" dur="5.31" hash="42fc124f0a" engine="kokoro:bf_emma"/>
-    <voice say="vo2" lang="en" src="voice/science-diagram/en/vo2.284bacfe29.ogg" dur="5.31" hash="284bacfe29" engine="kokoro:bf_emma"/>
-    <voice say="vo3" lang="en" src="voice/science-diagram/en/vo3.6d80c8c816.ogg" dur="5.51" hash="6d80c8c816" engine="kokoro:bf_emma"/>
-    <voice say="vo4" lang="en" src="voice/science-diagram/en/vo4.61c0587e88.ogg" dur="4.61" hash="61c0587e88" engine="kokoro:bf_emma"/>
-    <voice say="vo5" lang="en" src="voice/science-diagram/en/vo5.457639d4dd.ogg" dur="3.61" hash="457639d4dd" engine="kokoro:bf_emma"/>
-    <voice say="vo6" lang="en" src="voice/science-diagram/en/vo6.6d49f3938f.ogg" dur="4.61" hash="6d49f3938f" engine="kokoro:bf_emma"/>
-    <voice say="vo7" lang="en" src="voice/science-diagram/en/vo7.6c7e09f539.ogg" dur="4.91" hash="6c7e09f539" engine="kokoro:bf_emma"/>
+    <voice say="vo1" lang="en" src="voice/science-diagram/en/vo1.42fc124f0a.m4a" dur="5.31" hash="42fc124f0a" engine="kokoro:bf_emma"/>
+    <voice say="vo2" lang="en" src="voice/science-diagram/en/vo2.284bacfe29.m4a" dur="5.31" hash="284bacfe29" engine="kokoro:bf_emma"/>
+    <voice say="vo3" lang="en" src="voice/science-diagram/en/vo3.6d80c8c816.m4a" dur="5.51" hash="6d80c8c816" engine="kokoro:bf_emma"/>
+    <voice say="vo4" lang="en" src="voice/science-diagram/en/vo4.61c0587e88.m4a" dur="4.61" hash="61c0587e88" engine="kokoro:bf_emma"/>
+    <voice say="vo5" lang="en" src="voice/science-diagram/en/vo5.457639d4dd.m4a" dur="3.61" hash="457639d4dd" engine="kokoro:bf_emma"/>
+    <voice say="vo6" lang="en" src="voice/science-diagram/en/vo6.6d49f3938f.m4a" dur="4.61" hash="6d49f3938f" engine="kokoro:bf_emma"/>
+    <voice say="vo7" lang="en" src="voice/science-diagram/en/vo7.6c7e09f539.m4a" dur="4.91" hash="6c7e09f539" engine="kokoro:bf_emma"/>
   </voices>
 </tsvg>

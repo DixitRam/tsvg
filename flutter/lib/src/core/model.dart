@@ -1,9 +1,10 @@
 // TSVG document model and parser (port of `parse` in tsvg-core.js).
 import 'expr.dart';
+import 'render.dart' show strOf;
 import 'js.dart';
 import 'xml.dart';
 
-const String tsvgVersion = '0.1';
+const String tsvgVersion = '0.2.2';
 
 class TsvgLayout {
   const TsvgLayout(this.id, this.w, this.h);
@@ -132,7 +133,7 @@ class TsvgFnSrc {
   final String src;
 }
 
-class TsvgDoc {
+class TsvgDoc implements TsvgDataHost {
   String version = tsvgVersion;
   String title = '';
   String font = '';
@@ -143,6 +144,13 @@ class TsvgDoc {
   final Map<String, Map<String, String>> strings = {};
   final Map<String, UserFn> fns = {};
   final Map<String, TsvgFnSrc> fnSrc = {};
+
+  /// `<data id v>` lists (0.2): numbers stay numbers (double), the rest are strings.
+  @override
+  final Map<String, List<Object>> data = {};
+
+  @override
+  String stringOf(String id, Env env) => strOf(this, id, env);
   final Map<String, List<TsvgNode>> symbols = {};
   final Map<String, TsvgGradient> gradients = {};
   final Map<String, List<TsvgNode>> clips = {};
@@ -275,6 +283,11 @@ TsvgDoc parseTsvg(String xml) {
         doc.clips[id] = buildNodes(d);
       } else if (d.name == 'mask') {
         doc.masks[id] = buildNodes(d);
+      } else if (d.name == 'data') {
+        doc.data[id] = [
+          for (final x in (d.attrs['v'] ?? d.text).split(RegExp(r'[,\n]')).map((x) => x.trim()))
+            if (x.isNotEmpty) _numericRe.hasMatch(x) ? double.parse(x) : x.replaceAll(RegExp(r'''^['"]|['"]$'''), ''),
+        ];
       }
     }
   }
@@ -348,6 +361,8 @@ TsvgDoc parseTsvg(String xml) {
   if (d != null && d.isNotEmpty) doc.duration = _plus(d);
   return doc;
 }
+
+final RegExp _numericRe = RegExp(r'^-?[0-9]*\.?[0-9]+$');
 
 /// JS `a || b` for optional attribute strings.
 String _or(String? a, String b) => a == null || a.isEmpty ? b : a;

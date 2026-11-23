@@ -141,17 +141,17 @@
 
 <h3 id="assets">3.5 Assets and fonts</h3>
 <pre>&lt;assets&gt;
-  &lt;asset id="pad"  src="assets/pad.ogg"/&gt;        &lt;!-- type by extension: audio | image | font --&gt;
+  &lt;asset id="pad"  src="assets/pad.m4a"/&gt;        &lt;!-- type by extension: audio | image | font --&gt;
   &lt;asset id="photo" src="images/photo.jpg"/&gt;
   &lt;font family="Inter" src="fonts/Inter.ttf" [weight="1 1000"] [style="normal"]/&gt;  &lt;!-- weight: one value, or a range for variable fonts (default) --&gt;
 &lt;/assets&gt;</pre>
-<p>Engines <span class="must">MUST</span> support PNG, JPEG, WebP images; Ogg Opus and MP3 audio; TTF/OTF fonts. Engines <span class="must">SHOULD</span> wait for fonts before drawing the first frame (with a timeout). Wherever a node takes an asset (<code>src</code>), the value may be an asset id or a relative path.</p>
+<p>Engines <span class="must">MUST</span> support PNG, JPEG, WebP images; AAC (<code>.m4a</code>) and MP3 audio; TTF/OTF fonts. Authors <span class="must">SHOULD</span> ship audio as AAC <code>.m4a</code> (what <code>tsvg bake</code> writes): it plays everywhere, while Ogg Opus doesn't play on Apple's native players (iOS/macOS AVPlayer). Engines <span class="must">SHOULD</span> wait for fonts before drawing the first frame (with a timeout). Wherever a node takes an asset (<code>src</code>), the value may be an asset id or a relative path.</p>
 
 <h3 id="timeline">3.6 Timeline</h3>
 <pre>&lt;music src="pad" [start="0"] [loop="1"] [vol="0.8"] [bus="music"] [when="…"]/&gt;
 &lt;timeline&gt;
   &lt;scene id="intro" dur="7" [start="…"] [chapter="@ch1"]&gt;
-    &lt;say at="0.6" text="@vo1" [speak="@vo1_say"] [src.en="clip.ogg"] [voice="…"] [when]/&gt;
+    &lt;say at="0.6" text="@vo1" [speak="@vo1_say"] [src.en="clip.m4a"] [voice="…"] [when]/&gt;
     &lt;sfx at="0.3" src="whoosh" [vol] [bus="sfx"]/&gt;
     …nodes…
   &lt;/scene&gt;

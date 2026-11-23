@@ -73,9 +73,9 @@
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Caveat" src="fonts/Caveat.ttf"/>
     <font family="VT323" src="fonts/VT323.ttf"/>
-    <asset id="pulse" src="audio/pulse.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="pulse" src="audio/pulse.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
 
   </assets>
   <music src="pulse" start="0" loop="1" vol="0.8"/>
@@ -260,11 +260,11 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_env" lang="en" src="voice/retro-synthwave/en/vo_env.5b2b48f9af.ogg" dur="6.71" hash="5b2b48f9af" engine="kokoro:am_adam"/>
-    <voice say="vo_filt" lang="en" src="voice/retro-synthwave/en/vo_filt.82ce141902.ogg" dur="5.51" hash="82ce141902" engine="kokoro:am_adam"/>
-    <voice say="vo_intro" lang="en" src="voice/retro-synthwave/en/vo_intro.688a0d985c.ogg" dur="4.61" hash="688a0d985c" engine="kokoro:am_adam"/>
-    <voice say="vo_osc" lang="en" src="voice/retro-synthwave/en/vo_osc.da2671af40.ogg" dur="5.91" hash="da2671af40" engine="kokoro:am_adam"/>
-    <voice say="vo_outro" lang="en" src="voice/retro-synthwave/en/vo_outro.885c870a5f.ogg" dur="3.21" hash="885c870a5f" engine="kokoro:am_adam"/>
-    <voice say="vo_seq" lang="en" src="voice/retro-synthwave/en/vo_seq.1b32fc5208.ogg" dur="3.61" hash="1b32fc5208" engine="kokoro:am_adam"/>
+    <voice say="vo_env" lang="en" src="voice/retro-synthwave/en/vo_env.5b2b48f9af.m4a" dur="6.71" hash="5b2b48f9af" engine="kokoro:am_adam"/>
+    <voice say="vo_filt" lang="en" src="voice/retro-synthwave/en/vo_filt.82ce141902.m4a" dur="5.51" hash="82ce141902" engine="kokoro:am_adam"/>
+    <voice say="vo_intro" lang="en" src="voice/retro-synthwave/en/vo_intro.688a0d985c.m4a" dur="4.61" hash="688a0d985c" engine="kokoro:am_adam"/>
+    <voice say="vo_osc" lang="en" src="voice/retro-synthwave/en/vo_osc.da2671af40.m4a" dur="5.91" hash="da2671af40" engine="kokoro:am_adam"/>
+    <voice say="vo_outro" lang="en" src="voice/retro-synthwave/en/vo_outro.885c870a5f.m4a" dur="3.21" hash="885c870a5f" engine="kokoro:am_adam"/>
+    <voice say="vo_seq" lang="en" src="voice/retro-synthwave/en/vo_seq.1b32fc5208.m4a" dur="3.61" hash="1b32fc5208" engine="kokoro:am_adam"/>
   </voices>
 </tsvg>

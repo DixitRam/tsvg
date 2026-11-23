@@ -64,7 +64,7 @@
     <data id="short" v="Tortoise, Whale, Shark, Clam, Jellyfish"/>
   </defs>
   <assets>
-    <asset id="bright" src="audio/bright.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="ding" src="audio/ding.ogg"/><asset id="pop" src="audio/pop.ogg"/>
+    <asset id="bright" src="audio/bright.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/><asset id="ding" src="audio/ding.m4a"/><asset id="pop" src="audio/pop.m4a"/>
     <font family="Anton" src="fonts/Anton.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="bright" loop="1" vol="0.8"/>
@@ -390,12 +390,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_intro" lang="en" src="voice/listicle-countdown/en/vo_intro.726403da9e.ogg" dur="6.31" hash="726403da9e" engine="kokoro:am_michael"/>
-    <voice say="vo_n1" lang="en" src="voice/listicle-countdown/en/vo_n1.75d1a50966.ogg" dur="9.31" hash="75d1a50966" engine="kokoro:am_michael"/>
-    <voice say="vo_n2" lang="en" src="voice/listicle-countdown/en/vo_n2.39cdd256b1.ogg" dur="8.01" hash="39cdd256b1" engine="kokoro:am_michael"/>
-    <voice say="vo_n3" lang="en" src="voice/listicle-countdown/en/vo_n3.415cdf845c.ogg" dur="9.81" hash="415cdf845c" engine="kokoro:am_michael"/>
-    <voice say="vo_n4" lang="en" src="voice/listicle-countdown/en/vo_n4.73e925e45a.ogg" dur="7.41" hash="73e925e45a" engine="kokoro:am_michael"/>
-    <voice say="vo_n5" lang="en" src="voice/listicle-countdown/en/vo_n5.20015643af.ogg" dur="9.31" hash="20015643af" engine="kokoro:am_michael"/>
-    <voice say="vo_outro" lang="en" src="voice/listicle-countdown/en/vo_outro.33100d8af2.ogg" dur="3.81" hash="33100d8af2" engine="kokoro:am_michael"/>
+    <voice say="vo_intro" lang="en" src="voice/listicle-countdown/en/vo_intro.726403da9e.m4a" dur="6.31" hash="726403da9e" engine="kokoro:am_michael"/>
+    <voice say="vo_n1" lang="en" src="voice/listicle-countdown/en/vo_n1.75d1a50966.m4a" dur="9.31" hash="75d1a50966" engine="kokoro:am_michael"/>
+    <voice say="vo_n2" lang="en" src="voice/listicle-countdown/en/vo_n2.39cdd256b1.m4a" dur="8.01" hash="39cdd256b1" engine="kokoro:am_michael"/>
+    <voice say="vo_n3" lang="en" src="voice/listicle-countdown/en/vo_n3.415cdf845c.m4a" dur="9.81" hash="415cdf845c" engine="kokoro:am_michael"/>
+    <voice say="vo_n4" lang="en" src="voice/listicle-countdown/en/vo_n4.73e925e45a.m4a" dur="7.41" hash="73e925e45a" engine="kokoro:am_michael"/>
+    <voice say="vo_n5" lang="en" src="voice/listicle-countdown/en/vo_n5.20015643af.m4a" dur="9.31" hash="20015643af" engine="kokoro:am_michael"/>
+    <voice say="vo_outro" lang="en" src="voice/listicle-countdown/en/vo_outro.33100d8af2.m4a" dur="3.81" hash="33100d8af2" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

@@ -54,11 +54,11 @@
   </defs>
 
   <assets>
-    <asset id="bed" src="audio/bright.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="bed" src="audio/bright.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
   </assets>
@@ -311,12 +311,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/feature-onboarding/en/vo1.740e882afe.ogg" dur="5.21" hash="740e882afe" engine="kokoro:af_heart"/>
-    <voice say="vo2" lang="en" src="voice/feature-onboarding/en/vo2.4e5b8f6b0e.ogg" dur="4.31" hash="4e5b8f6b0e" engine="kokoro:af_heart"/>
-    <voice say="vo3" lang="en" src="voice/feature-onboarding/en/vo3.b52e6a9f64.ogg" dur="4.91" hash="b52e6a9f64" engine="kokoro:af_heart"/>
-    <voice say="vo4" lang="en" src="voice/feature-onboarding/en/vo4.2980ac036c.ogg" dur="4.61" hash="2980ac036c" engine="kokoro:af_heart"/>
-    <voice say="vo5" lang="en" src="voice/feature-onboarding/en/vo5.3381a60a34.ogg" dur="3.91" hash="3381a60a34" engine="kokoro:af_heart"/>
-    <voice say="vo6" lang="en" src="voice/feature-onboarding/en/vo6.389d0ec079.ogg" dur="4.81" hash="389d0ec079" engine="kokoro:af_heart"/>
-    <voice say="vo7" lang="en" src="voice/feature-onboarding/en/vo7.7ce4672694.ogg" dur="3.21" hash="7ce4672694" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="en" src="voice/feature-onboarding/en/vo1.740e882afe.m4a" dur="5.21" hash="740e882afe" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/feature-onboarding/en/vo2.4e5b8f6b0e.m4a" dur="4.31" hash="4e5b8f6b0e" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/feature-onboarding/en/vo3.b52e6a9f64.m4a" dur="4.91" hash="b52e6a9f64" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/feature-onboarding/en/vo4.2980ac036c.m4a" dur="4.61" hash="2980ac036c" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/feature-onboarding/en/vo5.3381a60a34.m4a" dur="3.91" hash="3381a60a34" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/feature-onboarding/en/vo6.389d0ec079.m4a" dur="4.81" hash="389d0ec079" engine="kokoro:af_heart"/>
+    <voice say="vo7" lang="en" src="voice/feature-onboarding/en/vo7.7ce4672694.m4a" dur="3.21" hash="7ce4672694" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

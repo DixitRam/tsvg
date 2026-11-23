@@ -103,10 +103,10 @@
   </defs>
 
   <assets>
-    <asset id="bright" src="audio/bright.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
+    <asset id="bright" src="audio/bright.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
   </assets>
@@ -302,11 +302,11 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/weather-report/en/vo1.2693c642d7.ogg" dur="5.11" hash="2693c642d7" engine="kokoro:af_heart"/>
-    <voice say="vo2" lang="en" src="voice/weather-report/en/vo2.3f952d26a5.ogg" dur="7.31" hash="3f952d26a5" engine="kokoro:af_heart"/>
-    <voice say="vo3" lang="en" src="voice/weather-report/en/vo3.05fd43db5a.ogg" dur="6.31" hash="05fd43db5a" engine="kokoro:af_heart"/>
-    <voice say="vo4" lang="en" src="voice/weather-report/en/vo4.ddec1d7de1.ogg" dur="6.51" hash="ddec1d7de1" engine="kokoro:af_heart"/>
-    <voice say="vo5" lang="en" src="voice/weather-report/en/vo5.1c8e01a7ea.ogg" dur="7.41" hash="1c8e01a7ea" engine="kokoro:af_heart"/>
-    <voice say="vo6" lang="en" src="voice/weather-report/en/vo6.5bc71e340a.ogg" dur="6.51" hash="5bc71e340a" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="en" src="voice/weather-report/en/vo1.2693c642d7.m4a" dur="5.11" hash="2693c642d7" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/weather-report/en/vo2.3f952d26a5.m4a" dur="7.31" hash="3f952d26a5" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/weather-report/en/vo3.05fd43db5a.m4a" dur="6.31" hash="05fd43db5a" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/weather-report/en/vo4.ddec1d7de1.m4a" dur="6.51" hash="ddec1d7de1" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/weather-report/en/vo5.1c8e01a7ea.m4a" dur="7.41" hash="1c8e01a7ea" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/weather-report/en/vo6.5bc71e340a.m4a" dur="6.51" hash="5bc71e340a" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

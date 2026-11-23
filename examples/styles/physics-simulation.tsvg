@@ -55,7 +55,7 @@
     <clip id="trail"><rect x="0" y="0" w="=(200 + 480.83261120685233*clamp((T - 1.2)*0.62, 0, 2.886))" h="1080"/></clip>
   </defs>
   <assets>
-    <asset id="pulse" src="audio/pulse.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="click" src="audio/click.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <asset id="pulse" src="audio/pulse.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/><asset id="click" src="audio/click.m4a"/><asset id="ding" src="audio/ding.m4a"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/><font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="pulse" loop="1" vol="0.5"/>
@@ -217,12 +217,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/physics-simulation/en/vo1.7d360d368e.ogg" dur="6.31" hash="7d360d368e" engine="kokoro:am_adam"/>
-    <voice say="vo2" lang="en" src="voice/physics-simulation/en/vo2.08eb80a9f5.ogg" dur="8.51" hash="08eb80a9f5" engine="kokoro:am_adam"/>
-    <voice say="vo3" lang="en" src="voice/physics-simulation/en/vo3.34d9d2199a.ogg" dur="7.81" hash="34d9d2199a" engine="kokoro:am_adam"/>
-    <voice say="vo4" lang="en" src="voice/physics-simulation/en/vo4.79eef568c9.ogg" dur="7.01" hash="79eef568c9" engine="kokoro:am_adam"/>
-    <voice say="vo5" lang="en" src="voice/physics-simulation/en/vo5.8f3b45d58e.ogg" dur="5.51" hash="8f3b45d58e" engine="kokoro:am_adam"/>
-    <voice say="vo6" lang="en" src="voice/physics-simulation/en/vo6.f34a8de2c2.ogg" dur="5.21" hash="f34a8de2c2" engine="kokoro:am_adam"/>
-    <voice say="vo7" lang="en" src="voice/physics-simulation/en/vo7.86a21984f7.ogg" dur="2.82" hash="86a21984f7" engine="kokoro:am_adam"/>
+    <voice say="vo1" lang="en" src="voice/physics-simulation/en/vo1.7d360d368e.m4a" dur="6.31" hash="7d360d368e" engine="kokoro:am_adam"/>
+    <voice say="vo2" lang="en" src="voice/physics-simulation/en/vo2.08eb80a9f5.m4a" dur="8.51" hash="08eb80a9f5" engine="kokoro:am_adam"/>
+    <voice say="vo3" lang="en" src="voice/physics-simulation/en/vo3.34d9d2199a.m4a" dur="7.81" hash="34d9d2199a" engine="kokoro:am_adam"/>
+    <voice say="vo4" lang="en" src="voice/physics-simulation/en/vo4.79eef568c9.m4a" dur="7.01" hash="79eef568c9" engine="kokoro:am_adam"/>
+    <voice say="vo5" lang="en" src="voice/physics-simulation/en/vo5.8f3b45d58e.m4a" dur="5.51" hash="8f3b45d58e" engine="kokoro:am_adam"/>
+    <voice say="vo6" lang="en" src="voice/physics-simulation/en/vo6.f34a8de2c2.m4a" dur="5.21" hash="f34a8de2c2" engine="kokoro:am_adam"/>
+    <voice say="vo7" lang="en" src="voice/physics-simulation/en/vo7.86a21984f7.m4a" dur="2.82" hash="86a21984f7" engine="kokoro:am_adam"/>
   </voices>
 </tsvg>

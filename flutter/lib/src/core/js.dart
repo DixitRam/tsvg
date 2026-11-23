@@ -6,6 +6,8 @@
 // truthiness, loose ==, mixed + and comparisons).
 import 'dart:math' as math;
 
+import 'sin.dart';
+
 /// Error raised by the parser, the expression language or the renderer.
 class TsvgError implements Exception {
   TsvgError(this.message);
@@ -119,3 +121,7 @@ double jsMax(List<double> xs) {
   }
   return m;
 }
+
+/// `Math.sin` for rand()/noise(): a pure-Dart fdlibm port (see sin.dart), so
+/// every Flutter platform gets the same doubles (math.sin uses the platform libm).
+double jsSin(double x) => fdlibmSin(x);

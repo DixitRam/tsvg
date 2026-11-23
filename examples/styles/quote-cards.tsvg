@@ -57,7 +57,7 @@
     <asset id="city" src="images/city.jpg"/>
     <asset id="nebula" src="images/nebula.jpg"/>
     <asset id="factory" src="images/factory.jpg"/>
-    <asset id="pad" src="audio/pad.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.9"/>
@@ -325,12 +325,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_intro" lang="en" src="voice/quote-cards/en/vo_intro.f5434ca1b0.ogg" dur="4.51" hash="f5434ca1b0" engine="kokoro:bf_emma"/>
-    <voice say="vo_outro" lang="en" src="voice/quote-cards/en/vo_outro.6666c3af71.ogg" dur="2.95" hash="6666c3af71" engine="kokoro:bf_emma"/>
-    <voice say="vo_q1" lang="en" src="voice/quote-cards/en/vo_q1.53689b86eb.ogg" dur="4.61" hash="53689b86eb" engine="kokoro:bf_emma"/>
-    <voice say="vo_q2" lang="en" src="voice/quote-cards/en/vo_q2.014218dfe6.ogg" dur="4.31" hash="014218dfe6" engine="kokoro:bf_emma"/>
-    <voice say="vo_q3" lang="en" src="voice/quote-cards/en/vo_q3.fa5ac042b4.ogg" dur="4.21" hash="fa5ac042b4" engine="kokoro:bf_emma"/>
-    <voice say="vo_q4" lang="en" src="voice/quote-cards/en/vo_q4.4d1ce914aa.ogg" dur="3.61" hash="4d1ce914aa" engine="kokoro:bf_emma"/>
-    <voice say="vo_q5" lang="en" src="voice/quote-cards/en/vo_q5.98807f8a03.ogg" dur="3.91" hash="98807f8a03" engine="kokoro:bf_emma"/>
+    <voice say="vo_intro" lang="en" src="voice/quote-cards/en/vo_intro.f5434ca1b0.m4a" dur="4.51" hash="f5434ca1b0" engine="kokoro:bf_emma"/>
+    <voice say="vo_outro" lang="en" src="voice/quote-cards/en/vo_outro.6666c3af71.m4a" dur="2.95" hash="6666c3af71" engine="kokoro:bf_emma"/>
+    <voice say="vo_q1" lang="en" src="voice/quote-cards/en/vo_q1.53689b86eb.m4a" dur="4.61" hash="53689b86eb" engine="kokoro:bf_emma"/>
+    <voice say="vo_q2" lang="en" src="voice/quote-cards/en/vo_q2.014218dfe6.m4a" dur="4.31" hash="014218dfe6" engine="kokoro:bf_emma"/>
+    <voice say="vo_q3" lang="en" src="voice/quote-cards/en/vo_q3.fa5ac042b4.m4a" dur="4.21" hash="fa5ac042b4" engine="kokoro:bf_emma"/>
+    <voice say="vo_q4" lang="en" src="voice/quote-cards/en/vo_q4.4d1ce914aa.m4a" dur="3.61" hash="4d1ce914aa" engine="kokoro:bf_emma"/>
+    <voice say="vo_q5" lang="en" src="voice/quote-cards/en/vo_q5.98807f8a03.m4a" dur="3.91" hash="98807f8a03" engine="kokoro:bf_emma"/>
   </voices>
 </tsvg>

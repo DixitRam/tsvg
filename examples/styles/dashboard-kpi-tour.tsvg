@@ -132,11 +132,11 @@
   </defs>
 
   <assets>
-    <asset id="bed" src="audio/pad.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="bed" src="audio/pad.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
 
@@ -239,12 +239,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/dashboard-kpi-tour/en/vo1.120ab4f272.ogg" dur="5.81" hash="120ab4f272" engine="kokoro:bm_george"/>
-    <voice say="vo2" lang="en" src="voice/dashboard-kpi-tour/en/vo2.c1efb5a4d8.ogg" dur="7.61" hash="c1efb5a4d8" engine="kokoro:bm_george"/>
-    <voice say="vo3" lang="en" src="voice/dashboard-kpi-tour/en/vo3.390f73393b.ogg" dur="8.01" hash="390f73393b" engine="kokoro:bm_george"/>
-    <voice say="vo4" lang="en" src="voice/dashboard-kpi-tour/en/vo4.493bed7656.ogg" dur="6.71" hash="493bed7656" engine="kokoro:bm_george"/>
-    <voice say="vo5" lang="en" src="voice/dashboard-kpi-tour/en/vo5.0d00483907.ogg" dur="6.91" hash="0d00483907" engine="kokoro:bm_george"/>
-    <voice say="vo6" lang="en" src="voice/dashboard-kpi-tour/en/vo6.b3d60cdab5.ogg" dur="7.01" hash="b3d60cdab5" engine="kokoro:bm_george"/>
-    <voice say="vo7" lang="en" src="voice/dashboard-kpi-tour/en/vo7.0d25dacbcf.ogg" dur="5.31" hash="0d25dacbcf" engine="kokoro:bm_george"/>
+    <voice say="vo1" lang="en" src="voice/dashboard-kpi-tour/en/vo1.120ab4f272.m4a" dur="5.81" hash="120ab4f272" engine="kokoro:bm_george"/>
+    <voice say="vo2" lang="en" src="voice/dashboard-kpi-tour/en/vo2.c1efb5a4d8.m4a" dur="7.61" hash="c1efb5a4d8" engine="kokoro:bm_george"/>
+    <voice say="vo3" lang="en" src="voice/dashboard-kpi-tour/en/vo3.390f73393b.m4a" dur="8.01" hash="390f73393b" engine="kokoro:bm_george"/>
+    <voice say="vo4" lang="en" src="voice/dashboard-kpi-tour/en/vo4.493bed7656.m4a" dur="6.71" hash="493bed7656" engine="kokoro:bm_george"/>
+    <voice say="vo5" lang="en" src="voice/dashboard-kpi-tour/en/vo5.0d00483907.m4a" dur="6.91" hash="0d00483907" engine="kokoro:bm_george"/>
+    <voice say="vo6" lang="en" src="voice/dashboard-kpi-tour/en/vo6.b3d60cdab5.m4a" dur="7.01" hash="b3d60cdab5" engine="kokoro:bm_george"/>
+    <voice say="vo7" lang="en" src="voice/dashboard-kpi-tour/en/vo7.0d25dacbcf.m4a" dur="5.31" hash="0d25dacbcf" engine="kokoro:bm_george"/>
   </voices>
 </tsvg>

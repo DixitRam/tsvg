@@ -93,7 +93,7 @@
     <s id="cd4" en="&lt;/body&gt;"/>
   </strings>
   <assets>
-    <asset id="pad" src="audio/pad.ogg"/><asset id="click" src="audio/click.ogg"/><asset id="blip" src="audio/blip.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/><asset id="click" src="audio/click.m4a"/><asset id="blip" src="audio/blip.m4a"/><asset id="ding" src="audio/ding.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/><font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.6"/>
@@ -613,13 +613,13 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo0" lang="en" src="voice/step-by-step-howto/en/vo0.e8f8c03201.ogg" dur="4.31" hash="e8f8c03201" engine="kokoro:af_heart"/>
-    <voice say="vo1" lang="en" src="voice/step-by-step-howto/en/vo1.f3272f5e24.ogg" dur="6.31" hash="f3272f5e24" engine="kokoro:af_heart"/>
-    <voice say="vo2" lang="en" src="voice/step-by-step-howto/en/vo2.37f9e9f766.ogg" dur="6.71" hash="37f9e9f766" engine="kokoro:af_heart"/>
-    <voice say="vo3" lang="en" src="voice/step-by-step-howto/en/vo3.45f685a3aa.ogg" dur="5.41" hash="45f685a3aa" engine="kokoro:af_heart"/>
-    <voice say="vo4" lang="en" src="voice/step-by-step-howto/en/vo4.58f5e057df.ogg" dur="5.81" hash="58f5e057df" engine="kokoro:af_heart"/>
-    <voice say="vo5" lang="en" src="voice/step-by-step-howto/en/vo5.75947d5893.ogg" dur="6.11" hash="75947d5893" engine="kokoro:af_heart"/>
-    <voice say="vo6" lang="en" src="voice/step-by-step-howto/en/vo6.aa05a8635f.ogg" dur="6.81" hash="aa05a8635f" engine="kokoro:af_heart"/>
-    <voice say="vo7" lang="en" src="voice/step-by-step-howto/en/vo7.3504543953.ogg" dur="2.78" hash="3504543953" engine="kokoro:af_heart"/>
+    <voice say="vo0" lang="en" src="voice/step-by-step-howto/en/vo0.e8f8c03201.m4a" dur="4.31" hash="e8f8c03201" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="en" src="voice/step-by-step-howto/en/vo1.f3272f5e24.m4a" dur="6.31" hash="f3272f5e24" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/step-by-step-howto/en/vo2.37f9e9f766.m4a" dur="6.71" hash="37f9e9f766" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/step-by-step-howto/en/vo3.45f685a3aa.m4a" dur="5.41" hash="45f685a3aa" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/step-by-step-howto/en/vo4.58f5e057df.m4a" dur="5.81" hash="58f5e057df" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/step-by-step-howto/en/vo5.75947d5893.m4a" dur="6.11" hash="75947d5893" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/step-by-step-howto/en/vo6.aa05a8635f.m4a" dur="6.81" hash="aa05a8635f" engine="kokoro:af_heart"/>
+    <voice say="vo7" lang="en" src="voice/step-by-step-howto/en/vo7.3504543953.m4a" dur="2.78" hash="3504543953" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

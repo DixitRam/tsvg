@@ -70,7 +70,7 @@
     <linear id="gold" x1="0" y1="-110" x2="0" y2="110"><stop at="0" color="#fff1a6"/><stop at="0.5" color="#ffc93c"/><stop at="1" color="#ff8a00"/></linear>
   </defs>
   <assets>
-    <asset id="pulse" src="audio/pulse.ogg"/><asset id="click" src="audio/click.ogg"/><asset id="ding" src="audio/ding.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="pulse" src="audio/pulse.m4a"/><asset id="click" src="audio/click.m4a"/><asset id="ding" src="audio/ding.m4a"/><asset id="pop" src="audio/pop.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Anton" src="fonts/Anton.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="pulse" loop="1" vol="0.7"/>
@@ -379,13 +379,13 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="va0" lang="en" src="voice/quiz-countdown/en/va0.61a085338d.ogg" dur="3.71" hash="61a085338d" engine="kokoro:am_michael"/>
-    <voice say="va1" lang="en" src="voice/quiz-countdown/en/va1.57ea0a547b.ogg" dur="4.31" hash="57ea0a547b" engine="kokoro:am_michael"/>
-    <voice say="va2" lang="en" src="voice/quiz-countdown/en/va2.b5feb2430f.ogg" dur="5.21" hash="b5feb2430f" engine="kokoro:am_michael"/>
-    <voice say="vo0" lang="en" src="voice/quiz-countdown/en/vo0.b8e4976d1c.ogg" dur="5.41" hash="b8e4976d1c" engine="kokoro:am_michael"/>
-    <voice say="voE" lang="en" src="voice/quiz-countdown/en/voE.a4b301b47b.ogg" dur="4.41" hash="a4b301b47b" engine="kokoro:am_michael"/>
-    <voice say="vq0" lang="en" src="voice/quiz-countdown/en/vq0.24dc5ec060.ogg" dur="3.11" hash="24dc5ec060" engine="kokoro:am_michael"/>
-    <voice say="vq1" lang="en" src="voice/quiz-countdown/en/vq1.b0af2067e0.ogg" dur="3.81" hash="b0af2067e0" engine="kokoro:am_michael"/>
-    <voice say="vq2" lang="en" src="voice/quiz-countdown/en/vq2.a2b673c84a.ogg" dur="4.41" hash="a2b673c84a" engine="kokoro:am_michael"/>
+    <voice say="va0" lang="en" src="voice/quiz-countdown/en/va0.61a085338d.m4a" dur="3.71" hash="61a085338d" engine="kokoro:am_michael"/>
+    <voice say="va1" lang="en" src="voice/quiz-countdown/en/va1.57ea0a547b.m4a" dur="4.31" hash="57ea0a547b" engine="kokoro:am_michael"/>
+    <voice say="va2" lang="en" src="voice/quiz-countdown/en/va2.b5feb2430f.m4a" dur="5.21" hash="b5feb2430f" engine="kokoro:am_michael"/>
+    <voice say="vo0" lang="en" src="voice/quiz-countdown/en/vo0.b8e4976d1c.m4a" dur="5.41" hash="b8e4976d1c" engine="kokoro:am_michael"/>
+    <voice say="voE" lang="en" src="voice/quiz-countdown/en/voE.a4b301b47b.m4a" dur="4.41" hash="a4b301b47b" engine="kokoro:am_michael"/>
+    <voice say="vq0" lang="en" src="voice/quiz-countdown/en/vq0.24dc5ec060.m4a" dur="3.11" hash="24dc5ec060" engine="kokoro:am_michael"/>
+    <voice say="vq1" lang="en" src="voice/quiz-countdown/en/vq1.b0af2067e0.m4a" dur="3.81" hash="b0af2067e0" engine="kokoro:am_michael"/>
+    <voice say="vq2" lang="en" src="voice/quiz-countdown/en/vq2.a2b673c84a.m4a" dur="4.41" hash="a2b673c84a" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

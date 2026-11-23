@@ -53,11 +53,11 @@
     <symbol id="diamond"><path d="M 0 -95 L 230 0 L 0 95 L -230 0 Z" fill="$node" stroke="$dia" sw="4"/></symbol>
   </defs>
   <assets>
-    <asset id="bed" src="audio/drone.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="bed" src="audio/drone.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
     <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
@@ -236,12 +236,12 @@
     </scene>
   </timeline>
   <voices>
-    <voice say="vo1" lang="en" src="voice/flowchart-decision/en/vo1.d321aa68b3.ogg" dur="7.51" hash="d321aa68b3" engine="kokoro:bm_george"/>
-    <voice say="vo2" lang="en" src="voice/flowchart-decision/en/vo2.a7e91c1c8d.ogg" dur="7.51" hash="a7e91c1c8d" engine="kokoro:bm_george"/>
-    <voice say="vo3" lang="en" src="voice/flowchart-decision/en/vo3.17c34014e2.ogg" dur="5.91" hash="17c34014e2" engine="kokoro:bm_george"/>
-    <voice say="vo4" lang="en" src="voice/flowchart-decision/en/vo4.d3969627e3.ogg" dur="8.21" hash="d3969627e3" engine="kokoro:bm_george"/>
-    <voice say="vo5" lang="en" src="voice/flowchart-decision/en/vo5.a9b2258b6d.ogg" dur="9.71" hash="a9b2258b6d" engine="kokoro:bm_george"/>
-    <voice say="vo6" lang="en" src="voice/flowchart-decision/en/vo6.4048d3c6ad.ogg" dur="6.61" hash="4048d3c6ad" engine="kokoro:bm_george"/>
-    <voice say="vo7" lang="en" src="voice/flowchart-decision/en/vo7.b1e59d9557.ogg" dur="5.01" hash="b1e59d9557" engine="kokoro:bm_george"/>
+    <voice say="vo1" lang="en" src="voice/flowchart-decision/en/vo1.d321aa68b3.m4a" dur="7.51" hash="d321aa68b3" engine="kokoro:bm_george"/>
+    <voice say="vo2" lang="en" src="voice/flowchart-decision/en/vo2.a7e91c1c8d.m4a" dur="7.51" hash="a7e91c1c8d" engine="kokoro:bm_george"/>
+    <voice say="vo3" lang="en" src="voice/flowchart-decision/en/vo3.17c34014e2.m4a" dur="5.91" hash="17c34014e2" engine="kokoro:bm_george"/>
+    <voice say="vo4" lang="en" src="voice/flowchart-decision/en/vo4.d3969627e3.m4a" dur="8.21" hash="d3969627e3" engine="kokoro:bm_george"/>
+    <voice say="vo5" lang="en" src="voice/flowchart-decision/en/vo5.a9b2258b6d.m4a" dur="9.71" hash="a9b2258b6d" engine="kokoro:bm_george"/>
+    <voice say="vo6" lang="en" src="voice/flowchart-decision/en/vo6.4048d3c6ad.m4a" dur="6.61" hash="4048d3c6ad" engine="kokoro:bm_george"/>
+    <voice say="vo7" lang="en" src="voice/flowchart-decision/en/vo7.b1e59d9557.m4a" dur="5.01" hash="b1e59d9557" engine="kokoro:bm_george"/>
   </voices>
 </tsvg>

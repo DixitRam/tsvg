@@ -40,13 +40,28 @@ List<double>? parseColor(Object? c) {
 
 String _alphaStr(double a) => numStr(double.parse(jsFixed(a, 3)));
 
-/// Interpolates numbers or colours; anything else switches at the end.
+final RegExp _nums = RegExp(r'-?(?:[0-9]+\.?[0-9]*|\.[0-9]+)(?:e[-+]?[0-9]+)?', caseSensitive: false);
+
+/// Interpolates numbers, colours, or (0.2 morph) two strings with the same
+/// skeleton number by number; anything else switches at the end.
 Object? lerpAny(Object? a, Object? b, double k) {
   if (a is num && b is num) return a + (b - a) * k;
   final ca = parseColor(a), cb = parseColor(b);
   if (ca != null && cb != null) {
     final rgb = [for (var i = 0; i < 3; i++) numStr(jsRound(ca[i] + (cb[i] - ca[i]) * k))];
     return 'rgba(${rgb.join(',')},${_alphaStr(ca[3] + (cb[3] - ca[3]) * k)})';
+  }
+  if (a is String && b is String) {
+    final na = _nums.allMatches(a).map((m) => m[0]!).toList();
+    final nb = _nums.allMatches(b).map((m) => m[0]!).toList();
+    if (na.isNotEmpty && na.length == nb.length && a.replaceAll(_nums, '#') == b.replaceAll(_nums, '#')) {
+      var i = 0;
+      return a.replaceAllMapped(_nums, (_) {
+        final x = toNum(na[i]), y = toNum(nb[i]);
+        i++;
+        return _alphaStr(x + (y - x) * k);
+      });
+    }
   }
   return k < 1 ? a : b;
 }

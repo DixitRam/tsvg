@@ -69,11 +69,11 @@
     <fn id="back">ease(clamp(T/1.0, 0, 1), 'io')</fn>
   </defs>
   <assets>
-    <asset id="bed" src="audio/bright.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="bed" src="audio/bright.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
   </assets>
@@ -231,12 +231,12 @@
     </scene>
   </timeline>
   <voices>
-    <voice say="vo1" lang="en" src="voice/pictogram-people/en/vo1.d0786a4daf.ogg" dur="6.41" hash="d0786a4daf" engine="kokoro:af_bella"/>
-    <voice say="vo2" lang="en" src="voice/pictogram-people/en/vo2.201a81af6e.ogg" dur="7.31" hash="201a81af6e" engine="kokoro:af_bella"/>
-    <voice say="vo3" lang="en" src="voice/pictogram-people/en/vo3.37a9560dcc.ogg" dur="6.51" hash="37a9560dcc" engine="kokoro:af_bella"/>
-    <voice say="vo4" lang="en" src="voice/pictogram-people/en/vo4.ac011e0460.ogg" dur="8.41" hash="ac011e0460" engine="kokoro:af_bella"/>
-    <voice say="vo5" lang="en" src="voice/pictogram-people/en/vo5.5e1981d966.ogg" dur="7.61" hash="5e1981d966" engine="kokoro:af_bella"/>
-    <voice say="vo6" lang="en" src="voice/pictogram-people/en/vo6.5f85e6843b.ogg" dur="6.21" hash="5f85e6843b" engine="kokoro:af_bella"/>
-    <voice say="vo7" lang="en" src="voice/pictogram-people/en/vo7.dacd48ca74.ogg" dur="6.31" hash="dacd48ca74" engine="kokoro:af_bella"/>
+    <voice say="vo1" lang="en" src="voice/pictogram-people/en/vo1.d0786a4daf.m4a" dur="6.41" hash="d0786a4daf" engine="kokoro:af_bella"/>
+    <voice say="vo2" lang="en" src="voice/pictogram-people/en/vo2.201a81af6e.m4a" dur="7.31" hash="201a81af6e" engine="kokoro:af_bella"/>
+    <voice say="vo3" lang="en" src="voice/pictogram-people/en/vo3.37a9560dcc.m4a" dur="6.51" hash="37a9560dcc" engine="kokoro:af_bella"/>
+    <voice say="vo4" lang="en" src="voice/pictogram-people/en/vo4.ac011e0460.m4a" dur="8.41" hash="ac011e0460" engine="kokoro:af_bella"/>
+    <voice say="vo5" lang="en" src="voice/pictogram-people/en/vo5.5e1981d966.m4a" dur="7.61" hash="5e1981d966" engine="kokoro:af_bella"/>
+    <voice say="vo6" lang="en" src="voice/pictogram-people/en/vo6.5f85e6843b.m4a" dur="6.21" hash="5f85e6843b" engine="kokoro:af_bella"/>
+    <voice say="vo7" lang="en" src="voice/pictogram-people/en/vo7.dacd48ca74.m4a" dur="6.31" hash="dacd48ca74" engine="kokoro:af_bella"/>
   </voices>
 </tsvg>

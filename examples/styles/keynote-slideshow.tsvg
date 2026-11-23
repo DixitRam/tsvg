@@ -63,7 +63,7 @@
   </defs>
   <assets>
     <asset id="factory" src="images/factory.jpg"/>
-    <asset id="pad" src="audio/pad.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="click" src="audio/click.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/><asset id="click" src="audio/click.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.8"/>
@@ -205,12 +205,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_close" lang="en" src="voice/keynote-slideshow/en/vo_close.cff4b34e3b.ogg" dur="3.71" hash="cff4b34e3b" engine="kokoro:am_michael"/>
-    <voice say="vo_cost" lang="en" src="voice/keynote-slideshow/en/vo_cost.5525a5f3f3.ogg" dur="5.01" hash="5525a5f3f3" engine="kokoro:am_michael"/>
-    <voice say="vo_fix" lang="en" src="voice/keynote-slideshow/en/vo_fix.0ec0aa2234.ogg" dur="5.61" hash="0ec0aa2234" engine="kokoro:am_michael"/>
-    <voice say="vo_how" lang="en" src="voice/keynote-slideshow/en/vo_how.8c6b9d6adf.ogg" dur="10.21" hash="8c6b9d6adf" engine="kokoro:am_michael"/>
-    <voice say="vo_line" lang="en" src="voice/keynote-slideshow/en/vo_line.929210c044.ogg" dur="7.71" hash="929210c044" engine="kokoro:am_michael"/>
-    <voice say="vo_result" lang="en" src="voice/keynote-slideshow/en/vo_result.8f10d6899a.ogg" dur="6.21" hash="8f10d6899a" engine="kokoro:am_michael"/>
-    <voice say="vo_title" lang="en" src="voice/keynote-slideshow/en/vo_title.eeb50da829.ogg" dur="5.81" hash="eeb50da829" engine="kokoro:am_michael"/>
+    <voice say="vo_close" lang="en" src="voice/keynote-slideshow/en/vo_close.cff4b34e3b.m4a" dur="3.71" hash="cff4b34e3b" engine="kokoro:am_michael"/>
+    <voice say="vo_cost" lang="en" src="voice/keynote-slideshow/en/vo_cost.5525a5f3f3.m4a" dur="5.01" hash="5525a5f3f3" engine="kokoro:am_michael"/>
+    <voice say="vo_fix" lang="en" src="voice/keynote-slideshow/en/vo_fix.0ec0aa2234.m4a" dur="5.61" hash="0ec0aa2234" engine="kokoro:am_michael"/>
+    <voice say="vo_how" lang="en" src="voice/keynote-slideshow/en/vo_how.8c6b9d6adf.m4a" dur="10.21" hash="8c6b9d6adf" engine="kokoro:am_michael"/>
+    <voice say="vo_line" lang="en" src="voice/keynote-slideshow/en/vo_line.929210c044.m4a" dur="7.71" hash="929210c044" engine="kokoro:am_michael"/>
+    <voice say="vo_result" lang="en" src="voice/keynote-slideshow/en/vo_result.8f10d6899a.m4a" dur="6.21" hash="8f10d6899a" engine="kokoro:am_michael"/>
+    <voice say="vo_title" lang="en" src="voice/keynote-slideshow/en/vo_title.eeb50da829.m4a" dur="5.81" hash="eeb50da829" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

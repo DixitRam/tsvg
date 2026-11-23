@@ -67,9 +67,9 @@
   </defs>
   <assets>
     <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
-    <asset id="pad" src="audio/pad.ogg"/>
-    <asset id="typing" src="audio/typing.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/>
+    <asset id="typing" src="audio/typing.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
 
   </assets>
   <music src="pad" start="0" loop="1" vol="0.6"/>
@@ -295,12 +295,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_cog" lang="en" src="voice/blueprint-technical/en/vo_cog.3c3b3368cd.ogg" dur="5.21" hash="3c3b3368cd" engine="kokoro:bm_george"/>
-    <voice say="vo_dist" lang="en" src="voice/blueprint-technical/en/vo_dist.6549db594c.ogg" dur="6.21" hash="6549db594c" engine="kokoro:bm_george"/>
-    <voice say="vo_intro" lang="en" src="voice/blueprint-technical/en/vo_intro.4324e5bfc5.ogg" dur="5.81" hash="4324e5bfc5" engine="kokoro:bm_george"/>
-    <voice say="vo_outro" lang="en" src="voice/blueprint-technical/en/vo_outro.5ceacf7bc0.ogg" dur="5.51" hash="5ceacf7bc0" engine="kokoro:bm_george"/>
-    <voice say="vo_ratio" lang="en" src="voice/blueprint-technical/en/vo_ratio.f8fa54ed55.ogg" dur="6.41" hash="f8fa54ed55" engine="kokoro:bm_george"/>
-    <voice say="vo_ring" lang="en" src="voice/blueprint-technical/en/vo_ring.226c8a479e.ogg" dur="3.71" hash="226c8a479e" engine="kokoro:bm_george"/>
-    <voice say="vo_trade" lang="en" src="voice/blueprint-technical/en/vo_trade.714eb5c9bb.ogg" dur="7.31" hash="714eb5c9bb" engine="kokoro:bm_george"/>
+    <voice say="vo_cog" lang="en" src="voice/blueprint-technical/en/vo_cog.3c3b3368cd.m4a" dur="5.21" hash="3c3b3368cd" engine="kokoro:bm_george"/>
+    <voice say="vo_dist" lang="en" src="voice/blueprint-technical/en/vo_dist.6549db594c.m4a" dur="6.21" hash="6549db594c" engine="kokoro:bm_george"/>
+    <voice say="vo_intro" lang="en" src="voice/blueprint-technical/en/vo_intro.4324e5bfc5.m4a" dur="5.81" hash="4324e5bfc5" engine="kokoro:bm_george"/>
+    <voice say="vo_outro" lang="en" src="voice/blueprint-technical/en/vo_outro.5ceacf7bc0.m4a" dur="5.51" hash="5ceacf7bc0" engine="kokoro:bm_george"/>
+    <voice say="vo_ratio" lang="en" src="voice/blueprint-technical/en/vo_ratio.f8fa54ed55.m4a" dur="6.41" hash="f8fa54ed55" engine="kokoro:bm_george"/>
+    <voice say="vo_ring" lang="en" src="voice/blueprint-technical/en/vo_ring.226c8a479e.m4a" dur="3.71" hash="226c8a479e" engine="kokoro:bm_george"/>
+    <voice say="vo_trade" lang="en" src="voice/blueprint-technical/en/vo_trade.714eb5c9bb.m4a" dur="7.31" hash="714eb5c9bb" engine="kokoro:bm_george"/>
   </voices>
 </tsvg>

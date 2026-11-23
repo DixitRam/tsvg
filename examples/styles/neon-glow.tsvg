@@ -59,11 +59,11 @@
   <assets>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
     <font family="Caveat" src="fonts/Caveat.ttf"/>
-    <asset id="drone" src="audio/drone.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="drone" src="audio/drone.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
 
   </assets>
   <music src="drone" start="0" loop="1" vol="0.6"/>
@@ -310,12 +310,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_bend" lang="en" src="voice/neon-glow/en/vo_bend.25ac37c004.ogg" dur="5.41" hash="25ac37c004" engine="kokoro:am_michael"/>
-    <voice say="vo_col" lang="en" src="voice/neon-glow/en/vo_col.2ff9d167ee.ogg" dur="8.71" hash="2ff9d167ee" engine="kokoro:am_michael"/>
-    <voice say="vo_intro" lang="en" src="voice/neon-glow/en/vo_intro.71b048d04f.ogg" dur="6.11" hash="71b048d04f" engine="kokoro:am_michael"/>
-    <voice say="vo_light" lang="en" src="voice/neon-glow/en/vo_light.21c52f0d91.ogg" dur="6.51" hash="21c52f0d91" engine="kokoro:am_michael"/>
-    <voice say="vo_outro" lang="en" src="voice/neon-glow/en/vo_outro.be826d80aa.ogg" dur="3.11" hash="be826d80aa" engine="kokoro:am_michael"/>
-    <voice say="vo_tube" lang="en" src="voice/neon-glow/en/vo_tube.cc337c5662.ogg" dur="6.11" hash="cc337c5662" engine="kokoro:am_michael"/>
-    <voice say="vo_volt" lang="en" src="voice/neon-glow/en/vo_volt.2eed3845d2.ogg" dur="7.61" hash="2eed3845d2" engine="kokoro:am_michael"/>
+    <voice say="vo_bend" lang="en" src="voice/neon-glow/en/vo_bend.25ac37c004.m4a" dur="5.41" hash="25ac37c004" engine="kokoro:am_michael"/>
+    <voice say="vo_col" lang="en" src="voice/neon-glow/en/vo_col.2ff9d167ee.m4a" dur="8.71" hash="2ff9d167ee" engine="kokoro:am_michael"/>
+    <voice say="vo_intro" lang="en" src="voice/neon-glow/en/vo_intro.71b048d04f.m4a" dur="6.11" hash="71b048d04f" engine="kokoro:am_michael"/>
+    <voice say="vo_light" lang="en" src="voice/neon-glow/en/vo_light.21c52f0d91.m4a" dur="6.51" hash="21c52f0d91" engine="kokoro:am_michael"/>
+    <voice say="vo_outro" lang="en" src="voice/neon-glow/en/vo_outro.be826d80aa.m4a" dur="3.11" hash="be826d80aa" engine="kokoro:am_michael"/>
+    <voice say="vo_tube" lang="en" src="voice/neon-glow/en/vo_tube.cc337c5662.m4a" dur="6.11" hash="cc337c5662" engine="kokoro:am_michael"/>
+    <voice say="vo_volt" lang="en" src="voice/neon-glow/en/vo_volt.2eed3845d2.m4a" dur="7.61" hash="2eed3845d2" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

@@ -111,6 +111,8 @@ ui.Path shapeToPath(TsvgShape s) {
       final p = ui.Path();
       if (s.sweep == null) {
         p.addOval(r);
+      } else if (s.open) {
+        if (s.sweep! > 0) p.arcTo(r, s.start!, s.sweep!, true);
       } else {
         p.moveTo(s.cx, s.cy);
         if (s.sweep! > 0) p.arcTo(r, s.start!, s.sweep!, false);
@@ -140,6 +142,24 @@ ui.Path _trim(ui.Path p, double k) {
   return out;
 }
 
+/// Canvas2D setLineDash: on/off lengths, the pattern restarts on every subpath.
+ui.Path _dash(ui.Path p, List<double> dash) {
+  final total = dash.fold<double>(0, (a, b) => a + b);
+  if (!(total > 0)) return p;
+  final out = ui.Path();
+  for (final m in p.computeMetrics()) {
+    var d = 0.0, i = 0;
+    while (d < m.length) {
+      final len = dash[i % dash.length];
+      if (i.isEven && len > 0) out.addPath(m.extractPath(d, math.min(d + len, m.length)), Offset.zero);
+      d += len;
+      i++;
+      if (i > 1000000) break;
+    }
+  }
+  return out;
+}
+
 /// [TsvgCanvas] over a dart:ui [Canvas].
 class FlutterTsvgCanvas extends TsvgCanvas {
   FlutterTsvgCanvas(this.canvas, [this.media]);
@@ -159,7 +179,29 @@ class FlutterTsvgCanvas extends TsvgCanvas {
   @override
   void rotate(double radians) => canvas.rotate(radians);
   @override
-  void scale(double s) => canvas.scale(s, s);
+  void scale(double sx, [double? sy]) => canvas.scale(sx, sy ?? sx);
+
+  @override
+  double get deviceScale {
+    final m = canvas.getTransform();
+    return math.sqrt((m[0] * m[5] - m[1] * m[4]).abs());
+  }
+
+  /// Canvas2D `filter = blur(σ px)` applies per draw call, before compositing:
+  /// draw into a layer blurred by σ (device px), composite it with the blend mode.
+  void _blurred(DrawState st, void Function(DrawState st) draw) {
+    if (!(st.blur > 0)) return draw(st);
+    // saveLayer image filters are scaled by the current transform, so convert
+    // device pixels back to user units
+    final k = deviceScale;
+    final sigma = k > 0 ? st.blur / k : st.blur;
+    final lp = ui.Paint()..imageFilter = ui.ImageFilter.blur(sigmaX: sigma, sigmaY: sigma, tileMode: TileMode.decal);
+    final bm = _blend(st.blend);
+    if (bm != null) lp.blendMode = bm;
+    canvas.saveLayer(null, lp);
+    draw(DrawState(alpha: st.alpha, shadow: st.shadow));
+    canvas.restore();
+  }
 
   @override
   void clip(List<TsvgShape> shapes) {
@@ -240,7 +282,9 @@ class FlutterTsvgCanvas extends TsvgCanvas {
   }
 
   @override
-  void fill(TsvgShape shape, TsvgPaint paint, DrawState st) {
+  void fill(TsvgShape shape, TsvgPaint paint, DrawState st) => _blurred(st, (st) => _fill(shape, paint, st));
+
+  void _fill(TsvgShape shape, TsvgPaint paint, DrawState st) {
     if (shape is LineShape) return;
     final p = _paint(paint, st);
     if (p == null) return;
@@ -250,7 +294,10 @@ class FlutterTsvgCanvas extends TsvgCanvas {
   }
 
   @override
-  void stroke(TsvgShape shape, TsvgPaint paint, StrokeSpec spec, DrawState st) {
+  void stroke(TsvgShape shape, TsvgPaint paint, StrokeSpec spec, DrawState st) =>
+      _blurred(st, (st) => _stroke(shape, paint, spec, st));
+
+  void _stroke(TsvgShape shape, TsvgPaint paint, StrokeSpec spec, DrawState st) {
     final p = _paint(paint, st);
     if (p == null || !(spec.width > 0)) return;
     p
@@ -259,7 +306,11 @@ class FlutterTsvgCanvas extends TsvgCanvas {
       ..strokeCap = spec.roundCap ? ui.StrokeCap.round : ui.StrokeCap.butt
       ..strokeJoin = spec.roundJoin ? ui.StrokeJoin.round : ui.StrokeJoin.miter;
     var path = shapeToPath(shape);
-    if (spec.trim != null) path = _trim(path, spec.trim!);
+    if (spec.trim != null) {
+      path = _trim(path, spec.trim!); // `draw` replaces the line dash, as in the reference
+    } else if (st.dash != null) {
+      path = _dash(path, st.dash!);
+    }
     _shadow(st, p, (sp) => canvas.drawPath(path, sp));
     canvas.drawPath(path, p);
   }
@@ -343,6 +394,10 @@ class FlutterTsvgCanvas extends TsvgCanvas {
 
   @override
   void text(String text, double x, double y, FontSpec font, String align, TsvgPaint? fill, TsvgPaint? stroke,
+          double strokeWidth, DrawState st) =>
+      _blurred(st, (st) => _text(text, x, y, font, align, fill, stroke, strokeWidth, st));
+
+  void _text(String text, double x, double y, FontSpec font, String align, TsvgPaint? fill, TsvgPaint? stroke,
       double strokeWidth, DrawState st) {
     if (text.isEmpty || !(font.size > 0)) return;
     if (fill == null && stroke == null) return;
@@ -386,7 +441,10 @@ class FlutterTsvgCanvas extends TsvgCanvas {
   }
 
   @override
-  void image(String ref, double x, double y, double w, double h, DrawState st) {
+  void image(String ref, double x, double y, double w, double h, DrawState st) =>
+      _blurred(st, (st) => _image(ref, x, y, w, h, st));
+
+  void _image(String ref, double x, double y, double w, double h, DrawState st) {
     final img = media?.image(ref);
     if (img == null) return;
     final dst = Rect.fromLTWH(x, y, w, h);

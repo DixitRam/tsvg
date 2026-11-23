@@ -50,11 +50,11 @@
   </defs>
 
   <assets>
-    <asset id="bed" src="audio/drone.ogg"/>
-    <asset id="typing" src="audio/typing.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="bed" src="audio/drone.m4a"/>
+    <asset id="typing" src="audio/typing.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
     <font family="VT323" src="fonts/VT323.ttf"/>
@@ -187,12 +187,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/terminal-cli-demo/en/vo1.833306a160.ogg" dur="5.31" hash="833306a160" engine="kokoro:am_adam"/>
-    <voice say="vo2" lang="en" src="voice/terminal-cli-demo/en/vo2.7748fcfde8.ogg" dur="5.71" hash="7748fcfde8" engine="kokoro:am_adam"/>
-    <voice say="vo3" lang="en" src="voice/terminal-cli-demo/en/vo3.7404f4fb7f.ogg" dur="5.41" hash="7404f4fb7f" engine="kokoro:am_adam"/>
-    <voice say="vo4" lang="en" src="voice/terminal-cli-demo/en/vo4.196f8f2eb4.ogg" dur="5.41" hash="196f8f2eb4" engine="kokoro:am_adam"/>
-    <voice say="vo5" lang="en" src="voice/terminal-cli-demo/en/vo5.a0aa89abd6.ogg" dur="4.81" hash="a0aa89abd6" engine="kokoro:am_adam"/>
-    <voice say="vo6" lang="en" src="voice/terminal-cli-demo/en/vo6.4c3748b2fb.ogg" dur="5.51" hash="4c3748b2fb" engine="kokoro:am_adam"/>
-    <voice say="vo7" lang="en" src="voice/terminal-cli-demo/en/vo7.cdc96ea2bb.ogg" dur="3.61" hash="cdc96ea2bb" engine="kokoro:am_adam"/>
+    <voice say="vo1" lang="en" src="voice/terminal-cli-demo/en/vo1.833306a160.m4a" dur="5.31" hash="833306a160" engine="kokoro:am_adam"/>
+    <voice say="vo2" lang="en" src="voice/terminal-cli-demo/en/vo2.7748fcfde8.m4a" dur="5.71" hash="7748fcfde8" engine="kokoro:am_adam"/>
+    <voice say="vo3" lang="en" src="voice/terminal-cli-demo/en/vo3.7404f4fb7f.m4a" dur="5.41" hash="7404f4fb7f" engine="kokoro:am_adam"/>
+    <voice say="vo4" lang="en" src="voice/terminal-cli-demo/en/vo4.196f8f2eb4.m4a" dur="5.41" hash="196f8f2eb4" engine="kokoro:am_adam"/>
+    <voice say="vo5" lang="en" src="voice/terminal-cli-demo/en/vo5.a0aa89abd6.m4a" dur="4.81" hash="a0aa89abd6" engine="kokoro:am_adam"/>
+    <voice say="vo6" lang="en" src="voice/terminal-cli-demo/en/vo6.4c3748b2fb.m4a" dur="5.51" hash="4c3748b2fb" engine="kokoro:am_adam"/>
+    <voice say="vo7" lang="en" src="voice/terminal-cli-demo/en/vo7.cdc96ea2bb.m4a" dur="3.61" hash="cdc96ea2bb" engine="kokoro:am_adam"/>
   </voices>
 </tsvg>

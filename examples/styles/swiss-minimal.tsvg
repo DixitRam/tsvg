@@ -61,10 +61,10 @@
   </defs>
   <assets>
     <font family="Inter" src="fonts/Inter.ttf"/>
-    <asset id="pad" src="audio/pad.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
 
   </assets>
   <music src="pad" start="0" loop="1" vol="0.7"/>
@@ -285,12 +285,12 @@
 
   </overlay>
   <voices>
-    <voice say="vo_angle" lang="en" src="voice/swiss-minimal/en/vo_angle.8dacd2812b.ogg" dur="5.91" hash="8dacd2812b" engine="kokoro:bf_emma"/>
-    <voice say="vo_colour" lang="en" src="voice/swiss-minimal/en/vo_colour.c106ef1f8e.ogg" dur="5.01" hash="c106ef1f8e" engine="kokoro:bf_emma"/>
-    <voice say="vo_geo" lang="en" src="voice/swiss-minimal/en/vo_geo.86329f35f3.ogg" dur="5.71" hash="86329f35f3" engine="kokoro:bf_emma"/>
-    <voice say="vo_intro" lang="en" src="voice/swiss-minimal/en/vo_intro.b689a386f9.ogg" dur="4.41" hash="b689a386f9" engine="kokoro:bf_emma"/>
-    <voice say="vo_origin" lang="en" src="voice/swiss-minimal/en/vo_origin.9a64863883.ogg" dur="5.01" hash="9a64863883" engine="kokoro:bf_emma"/>
-    <voice say="vo_outro" lang="en" src="voice/swiss-minimal/en/vo_outro.9c0acd8150.ogg" dur="4.21" hash="9c0acd8150" engine="kokoro:bf_emma"/>
-    <voice say="vo_space" lang="en" src="voice/swiss-minimal/en/vo_space.0857f91cc6.ogg" dur="4.41" hash="0857f91cc6" engine="kokoro:bf_emma"/>
+    <voice say="vo_angle" lang="en" src="voice/swiss-minimal/en/vo_angle.8dacd2812b.m4a" dur="5.91" hash="8dacd2812b" engine="kokoro:bf_emma"/>
+    <voice say="vo_colour" lang="en" src="voice/swiss-minimal/en/vo_colour.c106ef1f8e.m4a" dur="5.01" hash="c106ef1f8e" engine="kokoro:bf_emma"/>
+    <voice say="vo_geo" lang="en" src="voice/swiss-minimal/en/vo_geo.86329f35f3.m4a" dur="5.71" hash="86329f35f3" engine="kokoro:bf_emma"/>
+    <voice say="vo_intro" lang="en" src="voice/swiss-minimal/en/vo_intro.b689a386f9.m4a" dur="4.41" hash="b689a386f9" engine="kokoro:bf_emma"/>
+    <voice say="vo_origin" lang="en" src="voice/swiss-minimal/en/vo_origin.9a64863883.m4a" dur="5.01" hash="9a64863883" engine="kokoro:bf_emma"/>
+    <voice say="vo_outro" lang="en" src="voice/swiss-minimal/en/vo_outro.9c0acd8150.m4a" dur="4.21" hash="9c0acd8150" engine="kokoro:bf_emma"/>
+    <voice say="vo_space" lang="en" src="voice/swiss-minimal/en/vo_space.0857f91cc6.m4a" dur="4.41" hash="0857f91cc6" engine="kokoro:bf_emma"/>
   </voices>
 </tsvg>

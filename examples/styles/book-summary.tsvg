@@ -105,10 +105,10 @@
   </defs>
   <assets>
     <asset id="paper" src="images/paper.jpg"/>
-    <asset id="bed" src="audio/pad.ogg"/>
-    <asset id="flip" src="audio/whoosh.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="bed" src="audio/pad.m4a"/>
+    <asset id="flip" src="audio/whoosh.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
   </assets>
@@ -342,13 +342,13 @@
     </scene>
   </timeline>
   <voices>
-    <voice say="vo1" lang="en" src="voice/book-summary/en/vo1.05bf22bd47.ogg" dur="6.41" hash="05bf22bd47" engine="kokoro:bm_lewis"/>
-    <voice say="vo2" lang="en" src="voice/book-summary/en/vo2.e5e2c624c7.ogg" dur="6.21" hash="e5e2c624c7" engine="kokoro:bm_lewis"/>
-    <voice say="vo7" lang="en" src="voice/book-summary/en/vo7.c51d575358.ogg" dur="6.31" hash="c51d575358" engine="kokoro:bm_lewis"/>
-    <voice say="vo8" lang="en" src="voice/book-summary/en/vo8.e3a71c64dd.ogg" dur="3.31" hash="e3a71c64dd" engine="kokoro:bm_lewis"/>
-    <voice say="vo_i1" lang="en" src="voice/book-summary/en/vo_i1.ed3a72adfc.ogg" dur="6.41" hash="ed3a72adfc" engine="kokoro:bm_lewis"/>
-    <voice say="vo_i2" lang="en" src="voice/book-summary/en/vo_i2.72223fa769.ogg" dur="7.01" hash="72223fa769" engine="kokoro:bm_lewis"/>
-    <voice say="vo_i3" lang="en" src="voice/book-summary/en/vo_i3.f2e7bb88c6.ogg" dur="7.81" hash="f2e7bb88c6" engine="kokoro:bm_lewis"/>
-    <voice say="vo_i4" lang="en" src="voice/book-summary/en/vo_i4.26714b8e2d.ogg" dur="5.91" hash="26714b8e2d" engine="kokoro:bm_lewis"/>
+    <voice say="vo1" lang="en" src="voice/book-summary/en/vo1.05bf22bd47.m4a" dur="6.41" hash="05bf22bd47" engine="kokoro:bm_lewis"/>
+    <voice say="vo2" lang="en" src="voice/book-summary/en/vo2.e5e2c624c7.m4a" dur="6.21" hash="e5e2c624c7" engine="kokoro:bm_lewis"/>
+    <voice say="vo7" lang="en" src="voice/book-summary/en/vo7.c51d575358.m4a" dur="6.31" hash="c51d575358" engine="kokoro:bm_lewis"/>
+    <voice say="vo8" lang="en" src="voice/book-summary/en/vo8.e3a71c64dd.m4a" dur="3.31" hash="e3a71c64dd" engine="kokoro:bm_lewis"/>
+    <voice say="vo_i1" lang="en" src="voice/book-summary/en/vo_i1.ed3a72adfc.m4a" dur="6.41" hash="ed3a72adfc" engine="kokoro:bm_lewis"/>
+    <voice say="vo_i2" lang="en" src="voice/book-summary/en/vo_i2.72223fa769.m4a" dur="7.01" hash="72223fa769" engine="kokoro:bm_lewis"/>
+    <voice say="vo_i3" lang="en" src="voice/book-summary/en/vo_i3.f2e7bb88c6.m4a" dur="7.81" hash="f2e7bb88c6" engine="kokoro:bm_lewis"/>
+    <voice say="vo_i4" lang="en" src="voice/book-summary/en/vo_i4.26714b8e2d.m4a" dur="5.91" hash="26714b8e2d" engine="kokoro:bm_lewis"/>
   </voices>
 </tsvg>

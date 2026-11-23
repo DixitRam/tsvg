@@ -2,10 +2,16 @@
 // `node cli/tsvg.mjs pack examples/demo/demo.tsvg -o flutter/example/assets/demo.tsvgz`).
 //
 // Query parameters on web: ?lang=gu&theme=light&mix=speech&t=12 (initial state).
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:tsvg/tsvg.dart';
 
-void main() => runApp(const TsvgExampleApp());
+void main() {
+  // --dart-define=TSVG_AUDIO_LOG=true prints audio starts, resyncs and drift stats
+  TsvgAudioEngine.log = const bool.fromEnvironment('TSVG_AUDIO_LOG');
+  runApp(const TsvgExampleApp());
+}
 
 class TsvgExampleApp extends StatelessWidget {
   const TsvgExampleApp({super.key});
@@ -42,11 +48,25 @@ class _DemoPageState extends State<DemoPage> {
   }
 
   Future<void> _open(double? t) async {
-    await controller.load(await openTsvgAsset('assets/demo.tsvgz'));
+    // iOS AVPlayer cannot decode Ogg: use the same demo with m4a clips there
+    // (built with ffmpeg -c:a aac from examples/demo). --dart-define=TSVG_ASSET=… overrides.
+    const forced = String.fromEnvironment('TSVG_ASSET');
+    final asset = forced.isNotEmpty
+        ? forced
+        : 'assets/demo.tsvgz';
+    await controller.load(await openTsvgAsset(asset));
     if (t != null) controller.seek(t);
     // ?autoplay=1 on web, --dart-define=TSVG_AUTOPLAY=true elsewhere
+    // ?rate=1.5 on web, --dart-define=TSVG_RATE=1.5 elsewhere
+    final rate = double.tryParse(Uri.base.queryParameters['rate'] ?? const String.fromEnvironment('TSVG_RATE'));
+    if (rate != null) controller.setRate(rate);
     if (Uri.base.queryParameters['autoplay'] == '1' || const bool.fromEnvironment('TSVG_AUTOPLAY')) {
       await controller.play();
+    }
+    if (TsvgAudioEngine.log) {
+      Timer.periodic(const Duration(seconds: 5), (_) {
+        if (controller.playing) debugPrint('tsvg audio stats t=${controller.t.toStringAsFixed(1)} ${controller.audioStats}');
+      });
     }
     if (mounted) setState(() => opts = controller.options);
   }

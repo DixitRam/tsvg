@@ -58,7 +58,7 @@
     </symbol>
   </defs>
   <assets>
-    <asset id="bright" src="audio/bright.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <asset id="bright" src="audio/bright.m4a"/><asset id="pop" src="audio/pop.m4a"/><asset id="ding" src="audio/ding.m4a"/>
     <font family="Caveat" src="fonts/Caveat.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="bright" loop="1" vol="0.6"/>
@@ -253,12 +253,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/whiteboard-drawing/en/vo1.04f60a3cd1.ogg" dur="5.41" hash="04f60a3cd1" engine="kokoro:af_bella"/>
-    <voice say="vo2" lang="en" src="voice/whiteboard-drawing/en/vo2.c0f73fba48.ogg" dur="5.71" hash="c0f73fba48" engine="kokoro:af_bella"/>
-    <voice say="vo3" lang="en" src="voice/whiteboard-drawing/en/vo3.de22041786.ogg" dur="5.41" hash="de22041786" engine="kokoro:af_bella"/>
-    <voice say="vo4" lang="en" src="voice/whiteboard-drawing/en/vo4.e4aad00997.ogg" dur="6.31" hash="e4aad00997" engine="kokoro:af_bella"/>
-    <voice say="vo5" lang="en" src="voice/whiteboard-drawing/en/vo5.816ea63ee0.ogg" dur="5.01" hash="816ea63ee0" engine="kokoro:af_bella"/>
-    <voice say="vo6" lang="en" src="voice/whiteboard-drawing/en/vo6.d428dedefd.ogg" dur="5.31" hash="d428dedefd" engine="kokoro:af_bella"/>
-    <voice say="vo7" lang="en" src="voice/whiteboard-drawing/en/vo7.88d8adb3a5.ogg" dur="4.11" hash="88d8adb3a5" engine="kokoro:af_bella"/>
+    <voice say="vo1" lang="en" src="voice/whiteboard-drawing/en/vo1.04f60a3cd1.m4a" dur="5.41" hash="04f60a3cd1" engine="kokoro:af_bella"/>
+    <voice say="vo2" lang="en" src="voice/whiteboard-drawing/en/vo2.c0f73fba48.m4a" dur="5.71" hash="c0f73fba48" engine="kokoro:af_bella"/>
+    <voice say="vo3" lang="en" src="voice/whiteboard-drawing/en/vo3.de22041786.m4a" dur="5.41" hash="de22041786" engine="kokoro:af_bella"/>
+    <voice say="vo4" lang="en" src="voice/whiteboard-drawing/en/vo4.e4aad00997.m4a" dur="6.31" hash="e4aad00997" engine="kokoro:af_bella"/>
+    <voice say="vo5" lang="en" src="voice/whiteboard-drawing/en/vo5.816ea63ee0.m4a" dur="5.01" hash="816ea63ee0" engine="kokoro:af_bella"/>
+    <voice say="vo6" lang="en" src="voice/whiteboard-drawing/en/vo6.d428dedefd.m4a" dur="5.31" hash="d428dedefd" engine="kokoro:af_bella"/>
+    <voice say="vo7" lang="en" src="voice/whiteboard-drawing/en/vo7.88d8adb3a5.m4a" dur="4.11" hash="88d8adb3a5" engine="kokoro:af_bella"/>
   </voices>
 </tsvg>

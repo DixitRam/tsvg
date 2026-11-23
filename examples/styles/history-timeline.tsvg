@@ -59,9 +59,9 @@
     <asset id="mountains" src="images/mountains.jpg"/>
     <asset id="nebula" src="images/nebula.jpg"/>
     <asset id="factory" src="images/factory.jpg"/>
-    <asset id="pad" src="audio/pad.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
   </assets>
@@ -239,12 +239,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/history-timeline/en/vo1.4d9acab28f.ogg" dur="6.31" hash="4d9acab28f" engine="kokoro:am_liam"/>
-    <voice say="vo2" lang="en" src="voice/history-timeline/en/vo2.e607f0be4a.ogg" dur="8.01" hash="e607f0be4a" engine="kokoro:am_liam"/>
-    <voice say="vo3" lang="en" src="voice/history-timeline/en/vo3.b057845a1d.ogg" dur="6.31" hash="b057845a1d" engine="kokoro:am_liam"/>
-    <voice say="vo4" lang="en" src="voice/history-timeline/en/vo4.fd383635c2.ogg" dur="6.41" hash="fd383635c2" engine="kokoro:am_liam"/>
-    <voice say="vo5" lang="en" src="voice/history-timeline/en/vo5.2b33cf382b.ogg" dur="6.71" hash="2b33cf382b" engine="kokoro:am_liam"/>
-    <voice say="vo6" lang="en" src="voice/history-timeline/en/vo6.3e5b102e1a.ogg" dur="6.71" hash="3e5b102e1a" engine="kokoro:am_liam"/>
-    <voice say="vo7" lang="en" src="voice/history-timeline/en/vo7.3f3943f344.ogg" dur="6.41" hash="3f3943f344" engine="kokoro:am_liam"/>
+    <voice say="vo1" lang="en" src="voice/history-timeline/en/vo1.4d9acab28f.m4a" dur="6.31" hash="4d9acab28f" engine="kokoro:am_liam"/>
+    <voice say="vo2" lang="en" src="voice/history-timeline/en/vo2.e607f0be4a.m4a" dur="8.01" hash="e607f0be4a" engine="kokoro:am_liam"/>
+    <voice say="vo3" lang="en" src="voice/history-timeline/en/vo3.b057845a1d.m4a" dur="6.31" hash="b057845a1d" engine="kokoro:am_liam"/>
+    <voice say="vo4" lang="en" src="voice/history-timeline/en/vo4.fd383635c2.m4a" dur="6.41" hash="fd383635c2" engine="kokoro:am_liam"/>
+    <voice say="vo5" lang="en" src="voice/history-timeline/en/vo5.2b33cf382b.m4a" dur="6.71" hash="2b33cf382b" engine="kokoro:am_liam"/>
+    <voice say="vo6" lang="en" src="voice/history-timeline/en/vo6.3e5b102e1a.m4a" dur="6.71" hash="3e5b102e1a" engine="kokoro:am_liam"/>
+    <voice say="vo7" lang="en" src="voice/history-timeline/en/vo7.3f3943f344.m4a" dur="6.41" hash="3f3943f344" engine="kokoro:am_liam"/>
   </voices>
 </tsvg>

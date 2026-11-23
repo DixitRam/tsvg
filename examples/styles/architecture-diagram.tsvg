@@ -130,11 +130,11 @@
   </defs>
 
   <assets>
-    <asset id="bed" src="audio/drone.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="blip" src="audio/blip.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="bed" src="audio/drone.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
   </assets>
@@ -262,12 +262,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/architecture-diagram/en/vo1.659d06fbda.ogg" dur="4.31" hash="659d06fbda" engine="kokoro:af_heart"/>
-    <voice say="vo2" lang="en" src="voice/architecture-diagram/en/vo2.6a5d358cc4.ogg" dur="6.21" hash="6a5d358cc4" engine="kokoro:af_heart"/>
-    <voice say="vo3" lang="en" src="voice/architecture-diagram/en/vo3.080923dcdf.ogg" dur="5.21" hash="080923dcdf" engine="kokoro:af_heart"/>
-    <voice say="vo4" lang="en" src="voice/architecture-diagram/en/vo4.a53e37b63c.ogg" dur="8.21" hash="a53e37b63c" engine="kokoro:af_heart"/>
-    <voice say="vo5" lang="en" src="voice/architecture-diagram/en/vo5.ea3abda5b1.ogg" dur="6.51" hash="ea3abda5b1" engine="kokoro:af_heart"/>
-    <voice say="vo6" lang="en" src="voice/architecture-diagram/en/vo6.05420dc0e3.ogg" dur="5.01" hash="05420dc0e3" engine="kokoro:af_heart"/>
-    <voice say="vo7" lang="en" src="voice/architecture-diagram/en/vo7.d95687a375.ogg" dur="5.71" hash="d95687a375" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="en" src="voice/architecture-diagram/en/vo1.659d06fbda.m4a" dur="4.31" hash="659d06fbda" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/architecture-diagram/en/vo2.6a5d358cc4.m4a" dur="6.21" hash="6a5d358cc4" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/architecture-diagram/en/vo3.080923dcdf.m4a" dur="5.21" hash="080923dcdf" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/architecture-diagram/en/vo4.a53e37b63c.m4a" dur="8.21" hash="a53e37b63c" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/architecture-diagram/en/vo5.ea3abda5b1.m4a" dur="6.51" hash="ea3abda5b1" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/architecture-diagram/en/vo6.05420dc0e3.m4a" dur="5.01" hash="05420dc0e3" engine="kokoro:af_heart"/>
+    <voice say="vo7" lang="en" src="voice/architecture-diagram/en/vo7.d95687a375.m4a" dur="5.71" hash="d95687a375" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

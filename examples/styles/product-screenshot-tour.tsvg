@@ -68,10 +68,10 @@
   <assets>
     <asset id="play" src="images/ui-playground.jpg"/>
     <asset id="gh" src="images/ui-github.jpg"/>
-    <asset id="bed" src="audio/pulse.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="bed" src="audio/pulse.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
 
@@ -362,12 +362,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/product-screenshot-tour/en/vo1.ffdae2c62d.ogg" dur="6.01" hash="ffdae2c62d" engine="kokoro:af_bella"/>
-    <voice say="vo2" lang="en" src="voice/product-screenshot-tour/en/vo2.7142a4f3d3.ogg" dur="8.01" hash="7142a4f3d3" engine="kokoro:af_bella"/>
-    <voice say="vo3" lang="en" src="voice/product-screenshot-tour/en/vo3.55f36dd4c6.ogg" dur="7.21" hash="55f36dd4c6" engine="kokoro:af_bella"/>
-    <voice say="vo4" lang="en" src="voice/product-screenshot-tour/en/vo4.4a018a0203.ogg" dur="5.71" hash="4a018a0203" engine="kokoro:af_bella"/>
-    <voice say="vo5" lang="en" src="voice/product-screenshot-tour/en/vo5.f67529546d.ogg" dur="5.81" hash="f67529546d" engine="kokoro:af_bella"/>
-    <voice say="vo6" lang="en" src="voice/product-screenshot-tour/en/vo6.00802dcbe8.ogg" dur="6.31" hash="00802dcbe8" engine="kokoro:af_bella"/>
-    <voice say="vo7" lang="en" src="voice/product-screenshot-tour/en/vo7.2fc8e2a378.ogg" dur="4.81" hash="2fc8e2a378" engine="kokoro:af_bella"/>
+    <voice say="vo1" lang="en" src="voice/product-screenshot-tour/en/vo1.ffdae2c62d.m4a" dur="6.01" hash="ffdae2c62d" engine="kokoro:af_bella"/>
+    <voice say="vo2" lang="en" src="voice/product-screenshot-tour/en/vo2.7142a4f3d3.m4a" dur="8.01" hash="7142a4f3d3" engine="kokoro:af_bella"/>
+    <voice say="vo3" lang="en" src="voice/product-screenshot-tour/en/vo3.55f36dd4c6.m4a" dur="7.21" hash="55f36dd4c6" engine="kokoro:af_bella"/>
+    <voice say="vo4" lang="en" src="voice/product-screenshot-tour/en/vo4.4a018a0203.m4a" dur="5.71" hash="4a018a0203" engine="kokoro:af_bella"/>
+    <voice say="vo5" lang="en" src="voice/product-screenshot-tour/en/vo5.f67529546d.m4a" dur="5.81" hash="f67529546d" engine="kokoro:af_bella"/>
+    <voice say="vo6" lang="en" src="voice/product-screenshot-tour/en/vo6.00802dcbe8.m4a" dur="6.31" hash="00802dcbe8" engine="kokoro:af_bella"/>
+    <voice say="vo7" lang="en" src="voice/product-screenshot-tour/en/vo7.2fc8e2a378.m4a" dur="4.81" hash="2fc8e2a378" engine="kokoro:af_bella"/>
   </voices>
 </tsvg>

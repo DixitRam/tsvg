@@ -54,11 +54,11 @@
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Anton" src="fonts/Anton.ttf"/>
     <font family="Caveat" src="fonts/Caveat.ttf"/>
-    <asset id="bright" src="audio/bright.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="bright" src="audio/bright.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
     <asset id="paper" src="images/paper.jpg"/>
   </assets>
   <music src="bright" start="0" loop="1" vol="0.6"/>
@@ -351,12 +351,12 @@
 
   </overlay>
   <voices>
-    <voice say="vo_boil" lang="en" src="voice/paper-cutout/en/vo_boil.4dae5d5fd1.ogg" dur="3.71" hash="4dae5d5fd1" engine="kokoro:bf_emma"/>
-    <voice say="vo_crush" lang="en" src="voice/paper-cutout/en/vo_crush.bed7f5ae3f.ogg" dur="4.21" hash="bed7f5ae3f" engine="kokoro:bf_emma"/>
-    <voice say="vo_ingr" lang="en" src="voice/paper-cutout/en/vo_ingr.0bb6bae90a.ogg" dur="5.11" hash="0bb6bae90a" engine="kokoro:bf_emma"/>
-    <voice say="vo_intro" lang="en" src="voice/paper-cutout/en/vo_intro.c2019c9c42.ogg" dur="4.11" hash="c2019c9c42" engine="kokoro:bf_emma"/>
-    <voice say="vo_milk" lang="en" src="voice/paper-cutout/en/vo_milk.3f0246677c.ogg" dur="4.71" hash="3f0246677c" engine="kokoro:bf_emma"/>
-    <voice say="vo_outro" lang="en" src="voice/paper-cutout/en/vo_outro.0ede5ca537.ogg" dur="1.88" hash="0ede5ca537" engine="kokoro:bf_emma"/>
-    <voice say="vo_strain" lang="en" src="voice/paper-cutout/en/vo_strain.4128c2e508.ogg" dur="2.35" hash="4128c2e508" engine="kokoro:bf_emma"/>
+    <voice say="vo_boil" lang="en" src="voice/paper-cutout/en/vo_boil.4dae5d5fd1.m4a" dur="3.71" hash="4dae5d5fd1" engine="kokoro:bf_emma"/>
+    <voice say="vo_crush" lang="en" src="voice/paper-cutout/en/vo_crush.bed7f5ae3f.m4a" dur="4.21" hash="bed7f5ae3f" engine="kokoro:bf_emma"/>
+    <voice say="vo_ingr" lang="en" src="voice/paper-cutout/en/vo_ingr.0bb6bae90a.m4a" dur="5.11" hash="0bb6bae90a" engine="kokoro:bf_emma"/>
+    <voice say="vo_intro" lang="en" src="voice/paper-cutout/en/vo_intro.c2019c9c42.m4a" dur="4.11" hash="c2019c9c42" engine="kokoro:bf_emma"/>
+    <voice say="vo_milk" lang="en" src="voice/paper-cutout/en/vo_milk.3f0246677c.m4a" dur="4.71" hash="3f0246677c" engine="kokoro:bf_emma"/>
+    <voice say="vo_outro" lang="en" src="voice/paper-cutout/en/vo_outro.0ede5ca537.m4a" dur="1.88" hash="0ede5ca537" engine="kokoro:bf_emma"/>
+    <voice say="vo_strain" lang="en" src="voice/paper-cutout/en/vo_strain.4128c2e508.m4a" dur="2.35" hash="4128c2e508" engine="kokoro:bf_emma"/>
   </voices>
 </tsvg>

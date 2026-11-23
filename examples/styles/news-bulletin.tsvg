@@ -71,10 +71,10 @@
 
   <assets>
     <asset id="city" src="images/city.jpg"/>
-    <asset id="pulse" src="audio/pulse.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
+    <asset id="pulse" src="audio/pulse.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Anton" src="fonts/Anton.ttf"/>
   </assets>
@@ -283,12 +283,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/news-bulletin/en/vo1.1abfda08a3.ogg" dur="6.81" hash="1abfda08a3" engine="kokoro:bm_george"/>
-    <voice say="vo2" lang="en" src="voice/news-bulletin/en/vo2.a1aadf524b.ogg" dur="8.01" hash="a1aadf524b" engine="kokoro:bm_george"/>
-    <voice say="vo3" lang="en" src="voice/news-bulletin/en/vo3.db38f34a5c.ogg" dur="7.91" hash="db38f34a5c" engine="kokoro:bm_george"/>
-    <voice say="vo4" lang="en" src="voice/news-bulletin/en/vo4.dd96efd4fd.ogg" dur="7.71" hash="dd96efd4fd" engine="kokoro:bm_george"/>
-    <voice say="vo5" lang="en" src="voice/news-bulletin/en/vo5.943adf10e1.ogg" dur="7.91" hash="943adf10e1" engine="kokoro:bm_george"/>
-    <voice say="vo6" lang="en" src="voice/news-bulletin/en/vo6.596e23eac5.ogg" dur="8.31" hash="596e23eac5" engine="kokoro:bm_george"/>
-    <voice say="vo7" lang="en" src="voice/news-bulletin/en/vo7.1f5772a022.ogg" dur="4.01" hash="1f5772a022" engine="kokoro:bm_george"/>
+    <voice say="vo1" lang="en" src="voice/news-bulletin/en/vo1.1abfda08a3.m4a" dur="6.81" hash="1abfda08a3" engine="kokoro:bm_george"/>
+    <voice say="vo2" lang="en" src="voice/news-bulletin/en/vo2.a1aadf524b.m4a" dur="8.01" hash="a1aadf524b" engine="kokoro:bm_george"/>
+    <voice say="vo3" lang="en" src="voice/news-bulletin/en/vo3.db38f34a5c.m4a" dur="7.91" hash="db38f34a5c" engine="kokoro:bm_george"/>
+    <voice say="vo4" lang="en" src="voice/news-bulletin/en/vo4.dd96efd4fd.m4a" dur="7.71" hash="dd96efd4fd" engine="kokoro:bm_george"/>
+    <voice say="vo5" lang="en" src="voice/news-bulletin/en/vo5.943adf10e1.m4a" dur="7.91" hash="943adf10e1" engine="kokoro:bm_george"/>
+    <voice say="vo6" lang="en" src="voice/news-bulletin/en/vo6.596e23eac5.m4a" dur="8.31" hash="596e23eac5" engine="kokoro:bm_george"/>
+    <voice say="vo7" lang="en" src="voice/news-bulletin/en/vo7.1f5772a022.m4a" dur="4.01" hash="1f5772a022" engine="kokoro:bm_george"/>
   </voices>
 </tsvg>

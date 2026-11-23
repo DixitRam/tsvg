@@ -92,7 +92,7 @@
     <data id="ce_cta" v="1.11,1.11,1.11,1.86,1.86,1.86,2.17,2.68,2.68,5.56,5.56"/>
   </defs>
   <assets>
-    <asset id="pulse" src="audio/pulse.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <asset id="pulse" src="audio/pulse.m4a"/><asset id="pop" src="audio/pop.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/><asset id="ding" src="audio/ding.m4a"/>
     <font family="Anton" src="fonts/Anton.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="pulse" loop="1" vol="0.8"/>
@@ -412,12 +412,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_bonus" lang="en" src="voice/social-short-vertical/en/vo_bonus.70fd8e3a72.ogg" dur="6.01" hash="70fd8e3a72" engine="kokoro:af_bella"/>
-    <voice say="vo_cta" lang="en" src="voice/social-short-vertical/en/vo_cta.4af3837023.ogg" dur="3.51" hash="4af3837023" engine="kokoro:af_bella"/>
-    <voice say="vo_hook" lang="en" src="voice/social-short-vertical/en/vo_hook.bda7855a5f.ogg" dur="3.71" hash="bda7855a5f" engine="kokoro:af_bella"/>
-    <voice say="vo_much" lang="en" src="voice/social-short-vertical/en/vo_much.4ea1f5de0e.ogg" dur="5.31" hash="4ea1f5de0e" engine="kokoro:af_bella"/>
-    <voice say="vo_myth" lang="en" src="voice/social-short-vertical/en/vo_myth.e6423cd032.ogg" dur="6.51" hash="e6423cd032" engine="kokoro:af_bella"/>
-    <voice say="vo_when" lang="en" src="voice/social-short-vertical/en/vo_when.b87d4d0e96.ogg" dur="5.11" hash="b87d4d0e96" engine="kokoro:af_bella"/>
-    <voice say="vo_why" lang="en" src="voice/social-short-vertical/en/vo_why.dc16ea0f5f.ogg" dur="7.11" hash="dc16ea0f5f" engine="kokoro:af_bella"/>
+    <voice say="vo_bonus" lang="en" src="voice/social-short-vertical/en/vo_bonus.70fd8e3a72.m4a" dur="6.01" hash="70fd8e3a72" engine="kokoro:af_bella"/>
+    <voice say="vo_cta" lang="en" src="voice/social-short-vertical/en/vo_cta.4af3837023.m4a" dur="3.51" hash="4af3837023" engine="kokoro:af_bella"/>
+    <voice say="vo_hook" lang="en" src="voice/social-short-vertical/en/vo_hook.bda7855a5f.m4a" dur="3.71" hash="bda7855a5f" engine="kokoro:af_bella"/>
+    <voice say="vo_much" lang="en" src="voice/social-short-vertical/en/vo_much.4ea1f5de0e.m4a" dur="5.31" hash="4ea1f5de0e" engine="kokoro:af_bella"/>
+    <voice say="vo_myth" lang="en" src="voice/social-short-vertical/en/vo_myth.e6423cd032.m4a" dur="6.51" hash="e6423cd032" engine="kokoro:af_bella"/>
+    <voice say="vo_when" lang="en" src="voice/social-short-vertical/en/vo_when.b87d4d0e96.m4a" dur="5.11" hash="b87d4d0e96" engine="kokoro:af_bella"/>
+    <voice say="vo_why" lang="en" src="voice/social-short-vertical/en/vo_why.dc16ea0f5f.m4a" dur="7.11" hash="dc16ea0f5f" engine="kokoro:af_bella"/>
   </voices>
 </tsvg>

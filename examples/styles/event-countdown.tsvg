@@ -63,7 +63,7 @@
   </defs>
   <assets>
     <asset id="city" src="images/city.jpg"/>
-    <asset id="pad" src="audio/bright.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="click" src="audio/click.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="ding" src="audio/ding.ogg"/>
+    <asset id="pad" src="audio/bright.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/><asset id="click" src="audio/click.m4a"/><asset id="pop" src="audio/pop.m4a"/><asset id="ding" src="audio/ding.m4a"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/><font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.7"/>
@@ -376,11 +376,11 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_agenda" lang="en" src="voice/event-countdown/en/vo_agenda.8e6fae8165.ogg" dur="5.71" hash="8e6fae8165" engine="kokoro:af_heart"/>
-    <voice say="vo_clock" lang="en" src="voice/event-countdown/en/vo_clock.e72848508b.ogg" dur="5.51" hash="e72848508b" engine="kokoro:af_heart"/>
-    <voice say="vo_register" lang="en" src="voice/event-countdown/en/vo_register.d20751ddd5.ogg" dur="5.01" hash="d20751ddd5" engine="kokoro:af_heart"/>
-    <voice say="vo_save" lang="en" src="voice/event-countdown/en/vo_save.1264ab259c.ogg" dur="5.81" hash="1264ab259c" engine="kokoro:af_heart"/>
-    <voice say="vo_speakers" lang="en" src="voice/event-countdown/en/vo_speakers.7f9998642b.ogg" dur="7.01" hash="7f9998642b" engine="kokoro:af_heart"/>
-    <voice say="vo_where" lang="en" src="voice/event-countdown/en/vo_where.037f431a36.ogg" dur="5.51" hash="037f431a36" engine="kokoro:af_heart"/>
+    <voice say="vo_agenda" lang="en" src="voice/event-countdown/en/vo_agenda.8e6fae8165.m4a" dur="5.71" hash="8e6fae8165" engine="kokoro:af_heart"/>
+    <voice say="vo_clock" lang="en" src="voice/event-countdown/en/vo_clock.e72848508b.m4a" dur="5.51" hash="e72848508b" engine="kokoro:af_heart"/>
+    <voice say="vo_register" lang="en" src="voice/event-countdown/en/vo_register.d20751ddd5.m4a" dur="5.01" hash="d20751ddd5" engine="kokoro:af_heart"/>
+    <voice say="vo_save" lang="en" src="voice/event-countdown/en/vo_save.1264ab259c.m4a" dur="5.81" hash="1264ab259c" engine="kokoro:af_heart"/>
+    <voice say="vo_speakers" lang="en" src="voice/event-countdown/en/vo_speakers.7f9998642b.m4a" dur="7.01" hash="7f9998642b" engine="kokoro:af_heart"/>
+    <voice say="vo_where" lang="en" src="voice/event-countdown/en/vo_where.037f431a36.m4a" dur="5.51" hash="037f431a36" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

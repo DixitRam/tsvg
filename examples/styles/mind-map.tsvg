@@ -51,7 +51,7 @@
     <radial id="core" x="-50" y="-60" r="260"><stop at="0" color="#4a3f8f"/><stop at="1" color="#2b2357"/></radial>
   </defs>
   <assets>
-    <asset id="bright" src="audio/bright.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="bright" src="audio/bright.m4a"/><asset id="pop" src="audio/pop.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/><font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="bright" loop="1" vol="0.5"/>
@@ -520,12 +520,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo0" lang="en" src="voice/mind-map/en/vo0.dc2ba70c87.ogg" dur="5.41" hash="dc2ba70c87" engine="kokoro:bf_emma"/>
-    <voice say="vo1" lang="en" src="voice/mind-map/en/vo1.9b0a6990c6.ogg" dur="5.71" hash="9b0a6990c6" engine="kokoro:bf_emma"/>
-    <voice say="vo2" lang="en" src="voice/mind-map/en/vo2.f485673962.ogg" dur="6.21" hash="f485673962" engine="kokoro:bf_emma"/>
-    <voice say="vo3" lang="en" src="voice/mind-map/en/vo3.9e37e3d7c2.ogg" dur="5.11" hash="9e37e3d7c2" engine="kokoro:bf_emma"/>
-    <voice say="vo4" lang="en" src="voice/mind-map/en/vo4.718ecb7050.ogg" dur="5.71" hash="718ecb7050" engine="kokoro:bf_emma"/>
-    <voice say="vo5" lang="en" src="voice/mind-map/en/vo5.68650a0484.ogg" dur="5.11" hash="68650a0484" engine="kokoro:bf_emma"/>
-    <voice say="vo6" lang="en" src="voice/mind-map/en/vo6.6da582bb21.ogg" dur="2.84" hash="6da582bb21" engine="kokoro:bf_emma"/>
+    <voice say="vo0" lang="en" src="voice/mind-map/en/vo0.dc2ba70c87.m4a" dur="5.41" hash="dc2ba70c87" engine="kokoro:bf_emma"/>
+    <voice say="vo1" lang="en" src="voice/mind-map/en/vo1.9b0a6990c6.m4a" dur="5.71" hash="9b0a6990c6" engine="kokoro:bf_emma"/>
+    <voice say="vo2" lang="en" src="voice/mind-map/en/vo2.f485673962.m4a" dur="6.21" hash="f485673962" engine="kokoro:bf_emma"/>
+    <voice say="vo3" lang="en" src="voice/mind-map/en/vo3.9e37e3d7c2.m4a" dur="5.11" hash="9e37e3d7c2" engine="kokoro:bf_emma"/>
+    <voice say="vo4" lang="en" src="voice/mind-map/en/vo4.718ecb7050.m4a" dur="5.71" hash="718ecb7050" engine="kokoro:bf_emma"/>
+    <voice say="vo5" lang="en" src="voice/mind-map/en/vo5.68650a0484.m4a" dur="5.11" hash="68650a0484" engine="kokoro:bf_emma"/>
+    <voice say="vo6" lang="en" src="voice/mind-map/en/vo6.6da582bb21.m4a" dur="2.84" hash="6da582bb21" engine="kokoro:bf_emma"/>
   </voices>
 </tsvg>

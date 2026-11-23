@@ -71,11 +71,11 @@
   </defs>
   <assets>
     <font family="Caveat" src="fonts/Caveat.ttf"/>
-    <asset id="bright" src="audio/bright.ogg"/>
-    <asset id="typing" src="audio/typing.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="ding" src="audio/ding.ogg"/>
+    <asset id="bright" src="audio/bright.m4a"/>
+    <asset id="typing" src="audio/typing.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
 
   </assets>
   <music src="bright" start="0" loop="1" vol="0.5"/>
@@ -290,12 +290,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_action" lang="en" src="voice/sketchnote-doodle/en/vo_action.43c57fdcda.ogg" dur="4.41" hash="43c57fdcda" engine="kokoro:af_heart"/>
-    <voice say="vo_follow" lang="en" src="voice/sketchnote-doodle/en/vo_follow.140855eb15.ogg" dur="5.21" hash="140855eb15" engine="kokoro:af_heart"/>
-    <voice say="vo_gather" lang="en" src="voice/sketchnote-doodle/en/vo_gather.97339322dc.ogg" dur="5.51" hash="97339322dc" engine="kokoro:af_heart"/>
-    <voice say="vo_intro" lang="en" src="voice/sketchnote-doodle/en/vo_intro.dddb73610f.ogg" dur="6.91" hash="dddb73610f" engine="kokoro:af_heart"/>
-    <voice say="vo_outro" lang="en" src="voice/sketchnote-doodle/en/vo_outro.ce5fc23df0.ogg" dur="3.71" hash="ce5fc23df0" engine="kokoro:af_heart"/>
-    <voice say="vo_stage" lang="en" src="voice/sketchnote-doodle/en/vo_stage.7c10fb01cb.ogg" dur="5.61" hash="7c10fb01cb" engine="kokoro:af_heart"/>
-    <voice say="vo_vote" lang="en" src="voice/sketchnote-doodle/en/vo_vote.8467ad2a2b.ogg" dur="4.81" hash="8467ad2a2b" engine="kokoro:af_heart"/>
+    <voice say="vo_action" lang="en" src="voice/sketchnote-doodle/en/vo_action.43c57fdcda.m4a" dur="4.41" hash="43c57fdcda" engine="kokoro:af_heart"/>
+    <voice say="vo_follow" lang="en" src="voice/sketchnote-doodle/en/vo_follow.140855eb15.m4a" dur="5.21" hash="140855eb15" engine="kokoro:af_heart"/>
+    <voice say="vo_gather" lang="en" src="voice/sketchnote-doodle/en/vo_gather.97339322dc.m4a" dur="5.51" hash="97339322dc" engine="kokoro:af_heart"/>
+    <voice say="vo_intro" lang="en" src="voice/sketchnote-doodle/en/vo_intro.dddb73610f.m4a" dur="6.91" hash="dddb73610f" engine="kokoro:af_heart"/>
+    <voice say="vo_outro" lang="en" src="voice/sketchnote-doodle/en/vo_outro.ce5fc23df0.m4a" dur="3.71" hash="ce5fc23df0" engine="kokoro:af_heart"/>
+    <voice say="vo_stage" lang="en" src="voice/sketchnote-doodle/en/vo_stage.7c10fb01cb.m4a" dur="5.61" hash="7c10fb01cb" engine="kokoro:af_heart"/>
+    <voice say="vo_vote" lang="en" src="voice/sketchnote-doodle/en/vo_vote.8467ad2a2b.m4a" dur="4.81" hash="8467ad2a2b" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

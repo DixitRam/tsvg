@@ -111,8 +111,8 @@
 
   <assets>
     <asset id="map" src="images/oldmap.jpg"/>
-    <asset id="drone" src="audio/pad.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
+    <asset id="drone" src="audio/pad.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
     <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
@@ -252,12 +252,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/map-route/en/vo1.ee08b907ea.ogg" dur="9.71" hash="ee08b907ea" engine="kokoro:bm_lewis"/>
-    <voice say="vo2" lang="en" src="voice/map-route/en/vo2.088678c530.ogg" dur="8.41" hash="088678c530" engine="kokoro:bm_lewis"/>
-    <voice say="vo3" lang="en" src="voice/map-route/en/vo3.4cd4136bd9.ogg" dur="9.61" hash="4cd4136bd9" engine="kokoro:bm_lewis"/>
-    <voice say="vo4" lang="en" src="voice/map-route/en/vo4.7816cc6d3f.ogg" dur="9.51" hash="7816cc6d3f" engine="kokoro:bm_lewis"/>
-    <voice say="vo5" lang="en" src="voice/map-route/en/vo5.c4666a5d55.ogg" dur="8.21" hash="c4666a5d55" engine="kokoro:bm_lewis"/>
-    <voice say="vo6" lang="en" src="voice/map-route/en/vo6.509b0837e5.ogg" dur="9.11" hash="509b0837e5" engine="kokoro:bm_lewis"/>
-    <voice say="vo7" lang="en" src="voice/map-route/en/vo7.a9e002488c.ogg" dur="7.71" hash="a9e002488c" engine="kokoro:bm_lewis"/>
+    <voice say="vo1" lang="en" src="voice/map-route/en/vo1.ee08b907ea.m4a" dur="9.71" hash="ee08b907ea" engine="kokoro:bm_lewis"/>
+    <voice say="vo2" lang="en" src="voice/map-route/en/vo2.088678c530.m4a" dur="8.41" hash="088678c530" engine="kokoro:bm_lewis"/>
+    <voice say="vo3" lang="en" src="voice/map-route/en/vo3.4cd4136bd9.m4a" dur="9.61" hash="4cd4136bd9" engine="kokoro:bm_lewis"/>
+    <voice say="vo4" lang="en" src="voice/map-route/en/vo4.7816cc6d3f.m4a" dur="9.51" hash="7816cc6d3f" engine="kokoro:bm_lewis"/>
+    <voice say="vo5" lang="en" src="voice/map-route/en/vo5.c4666a5d55.m4a" dur="8.21" hash="c4666a5d55" engine="kokoro:bm_lewis"/>
+    <voice say="vo6" lang="en" src="voice/map-route/en/vo6.509b0837e5.m4a" dur="9.11" hash="509b0837e5" engine="kokoro:bm_lewis"/>
+    <voice say="vo7" lang="en" src="voice/map-route/en/vo7.a9e002488c.m4a" dur="7.71" hash="a9e002488c" engine="kokoro:bm_lewis"/>
   </voices>
 </tsvg>

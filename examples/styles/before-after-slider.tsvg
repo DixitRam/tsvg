@@ -154,10 +154,10 @@
   </defs>
   <assets>
     <asset id="mount" src="images/mountains.jpg"/>
-    <asset id="bed" src="audio/pad.ogg"/>
-    <asset id="whoosh" src="audio/whoosh.ogg"/>
-    <asset id="click" src="audio/click.ogg"/>
-    <asset id="pop" src="audio/pop.ogg"/>
+    <asset id="bed" src="audio/pad.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
     <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
   </assets>
@@ -335,12 +335,12 @@
     </scene>
   </timeline>
   <voices>
-    <voice say="vo1" lang="en" src="voice/before-after-slider/en/vo1.f64eb39633.ogg" dur="5.91" hash="f64eb39633" engine="kokoro:af_heart"/>
-    <voice say="vo2" lang="en" src="voice/before-after-slider/en/vo2.be6dbc84ae.ogg" dur="7.91" hash="be6dbc84ae" engine="kokoro:af_heart"/>
-    <voice say="vo3" lang="en" src="voice/before-after-slider/en/vo3.fbf51b46b2.ogg" dur="6.91" hash="fbf51b46b2" engine="kokoro:af_heart"/>
-    <voice say="vo4" lang="en" src="voice/before-after-slider/en/vo4.837cb41d86.ogg" dur="7.21" hash="837cb41d86" engine="kokoro:af_heart"/>
-    <voice say="vo5" lang="en" src="voice/before-after-slider/en/vo5.a6e87d9c7c.ogg" dur="7.41" hash="a6e87d9c7c" engine="kokoro:af_heart"/>
-    <voice say="vo6" lang="en" src="voice/before-after-slider/en/vo6.99cfd1c7ab.ogg" dur="6.51" hash="99cfd1c7ab" engine="kokoro:af_heart"/>
-    <voice say="vo7" lang="en" src="voice/before-after-slider/en/vo7.78b6daae41.ogg" dur="3.61" hash="78b6daae41" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="en" src="voice/before-after-slider/en/vo1.f64eb39633.m4a" dur="5.91" hash="f64eb39633" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/before-after-slider/en/vo2.be6dbc84ae.m4a" dur="7.91" hash="be6dbc84ae" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/before-after-slider/en/vo3.fbf51b46b2.m4a" dur="6.91" hash="fbf51b46b2" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/before-after-slider/en/vo4.837cb41d86.m4a" dur="7.21" hash="837cb41d86" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/before-after-slider/en/vo5.a6e87d9c7c.m4a" dur="7.41" hash="a6e87d9c7c" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="en" src="voice/before-after-slider/en/vo6.99cfd1c7ab.m4a" dur="6.51" hash="99cfd1c7ab" engine="kokoro:af_heart"/>
+    <voice say="vo7" lang="en" src="voice/before-after-slider/en/vo7.78b6daae41.m4a" dur="3.61" hash="78b6daae41" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

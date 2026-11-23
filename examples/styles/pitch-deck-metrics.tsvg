@@ -85,7 +85,7 @@
   </defs>
   <assets>
     <asset id="city" src="images/city.jpg"/>
-    <asset id="pad" src="audio/pad.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="click" src="audio/click.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/><asset id="click" src="audio/click.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.7"/>
@@ -487,13 +487,13 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_ask" lang="en" src="voice/pitch-deck-metrics/en/vo_ask.ced1ca64b3.ogg" dur="6.01" hash="ced1ca64b3" engine="kokoro:am_michael"/>
-    <voice say="vo_market" lang="en" src="voice/pitch-deck-metrics/en/vo_market.a5c07b2bb0.ogg" dur="8.41" hash="a5c07b2bb0" engine="kokoro:am_michael"/>
-    <voice say="vo_model" lang="en" src="voice/pitch-deck-metrics/en/vo_model.f1a92e3ea4.ogg" dur="7.51" hash="f1a92e3ea4" engine="kokoro:am_michael"/>
-    <voice say="vo_problem" lang="en" src="voice/pitch-deck-metrics/en/vo_problem.1935ab7f2b.ogg" dur="8.71" hash="1935ab7f2b" engine="kokoro:am_michael"/>
-    <voice say="vo_solution" lang="en" src="voice/pitch-deck-metrics/en/vo_solution.fc6f167552.ogg" dur="8.91" hash="fc6f167552" engine="kokoro:am_michael"/>
-    <voice say="vo_team" lang="en" src="voice/pitch-deck-metrics/en/vo_team.b1b18eb6a5.ogg" dur="6.71" hash="b1b18eb6a5" engine="kokoro:am_michael"/>
-    <voice say="vo_title" lang="en" src="voice/pitch-deck-metrics/en/vo_title.c9974a3e04.ogg" dur="4.21" hash="c9974a3e04" engine="kokoro:am_michael"/>
-    <voice say="vo_traction" lang="en" src="voice/pitch-deck-metrics/en/vo_traction.e4d3631e5b.ogg" dur="8.21" hash="e4d3631e5b" engine="kokoro:am_michael"/>
+    <voice say="vo_ask" lang="en" src="voice/pitch-deck-metrics/en/vo_ask.ced1ca64b3.m4a" dur="6.01" hash="ced1ca64b3" engine="kokoro:am_michael"/>
+    <voice say="vo_market" lang="en" src="voice/pitch-deck-metrics/en/vo_market.a5c07b2bb0.m4a" dur="8.41" hash="a5c07b2bb0" engine="kokoro:am_michael"/>
+    <voice say="vo_model" lang="en" src="voice/pitch-deck-metrics/en/vo_model.f1a92e3ea4.m4a" dur="7.51" hash="f1a92e3ea4" engine="kokoro:am_michael"/>
+    <voice say="vo_problem" lang="en" src="voice/pitch-deck-metrics/en/vo_problem.1935ab7f2b.m4a" dur="8.71" hash="1935ab7f2b" engine="kokoro:am_michael"/>
+    <voice say="vo_solution" lang="en" src="voice/pitch-deck-metrics/en/vo_solution.fc6f167552.m4a" dur="8.91" hash="fc6f167552" engine="kokoro:am_michael"/>
+    <voice say="vo_team" lang="en" src="voice/pitch-deck-metrics/en/vo_team.b1b18eb6a5.m4a" dur="6.71" hash="b1b18eb6a5" engine="kokoro:am_michael"/>
+    <voice say="vo_title" lang="en" src="voice/pitch-deck-metrics/en/vo_title.c9974a3e04.m4a" dur="4.21" hash="c9974a3e04" engine="kokoro:am_michael"/>
+    <voice say="vo_traction" lang="en" src="voice/pitch-deck-metrics/en/vo_traction.e4d3631e5b.m4a" dur="8.21" hash="e4d3631e5b" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

@@ -58,7 +58,7 @@
     </symbol>
   </defs>
   <assets>
-    <asset id="pulse" src="audio/pulse.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="pop" src="audio/pop.ogg"/><asset id="ding" src="audio/ding.ogg"/><asset id="click" src="audio/click.ogg"/>
+    <asset id="pulse" src="audio/pulse.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/><asset id="pop" src="audio/pop.m4a"/><asset id="ding" src="audio/ding.m4a"/><asset id="click" src="audio/click.m4a"/>
     <font family="Anton" src="fonts/Anton.ttf"/><font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
   </assets>
   <music src="pulse" loop="1" vol="0.9"/>
@@ -267,12 +267,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_bar" lang="en" src="voice/promo-ad-spot/en/vo_bar.754fdb7a3d.ogg" dur="4.91" hash="754fdb7a3d" engine="kokoro:am_michael"/>
-    <voice say="vo_batt" lang="en" src="voice/promo-ad-spot/en/vo_batt.91f3f9a8d3.ogg" dur="5.21" hash="91f3f9a8d3" engine="kokoro:am_michael"/>
-    <voice say="vo_heat" lang="en" src="voice/promo-ad-spot/en/vo_heat.a39eda17a2.ogg" dur="4.11" hash="a39eda17a2" engine="kokoro:am_michael"/>
-    <voice say="vo_logo" lang="en" src="voice/promo-ad-spot/en/vo_logo.b2d91d6cef.ogg" dur="3.71" hash="b2d91d6cef" engine="kokoro:am_michael"/>
-    <voice say="vo_price" lang="en" src="voice/promo-ad-spot/en/vo_price.7e9a8fdddd.ogg" dur="5.11" hash="7e9a8fdddd" engine="kokoro:am_michael"/>
-    <voice say="vo_punch" lang="en" src="voice/promo-ad-spot/en/vo_punch.13e8bf7712.ogg" dur="2.76" hash="13e8bf7712" engine="kokoro:am_michael"/>
-    <voice say="vo_size" lang="en" src="voice/promo-ad-spot/en/vo_size.478ea23530.ogg" dur="5.41" hash="478ea23530" engine="kokoro:am_michael"/>
+    <voice say="vo_bar" lang="en" src="voice/promo-ad-spot/en/vo_bar.754fdb7a3d.m4a" dur="4.91" hash="754fdb7a3d" engine="kokoro:am_michael"/>
+    <voice say="vo_batt" lang="en" src="voice/promo-ad-spot/en/vo_batt.91f3f9a8d3.m4a" dur="5.21" hash="91f3f9a8d3" engine="kokoro:am_michael"/>
+    <voice say="vo_heat" lang="en" src="voice/promo-ad-spot/en/vo_heat.a39eda17a2.m4a" dur="4.11" hash="a39eda17a2" engine="kokoro:am_michael"/>
+    <voice say="vo_logo" lang="en" src="voice/promo-ad-spot/en/vo_logo.b2d91d6cef.m4a" dur="3.71" hash="b2d91d6cef" engine="kokoro:am_michael"/>
+    <voice say="vo_price" lang="en" src="voice/promo-ad-spot/en/vo_price.7e9a8fdddd.m4a" dur="5.11" hash="7e9a8fdddd" engine="kokoro:am_michael"/>
+    <voice say="vo_punch" lang="en" src="voice/promo-ad-spot/en/vo_punch.13e8bf7712.m4a" dur="2.76" hash="13e8bf7712" engine="kokoro:am_michael"/>
+    <voice say="vo_size" lang="en" src="voice/promo-ad-spot/en/vo_size.478ea23530.m4a" dur="5.41" hash="478ea23530" engine="kokoro:am_michael"/>
   </voices>
 </tsvg>

@@ -41,7 +41,7 @@
     <clip id="moonCut"><circle r="80"/></clip>
   </defs>
   <assets>
-    <asset id="nebula" src="images/nebula.jpg"/><asset id="pad" src="audio/pad.ogg"/><asset id="blip" src="audio/blip.ogg"/>
+    <asset id="nebula" src="images/nebula.jpg"/><asset id="pad" src="audio/pad.m4a"/><asset id="blip" src="audio/blip.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/><font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/><font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.9"/>
@@ -283,12 +283,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo_q1" lang="en" src="voice/podcast-audiogram/en/vo_q1.f5dca7a814.ogg" dur="5.01" hash="f5dca7a814" engine="kokoro:af_heart"/>
-    <voice say="vo_q2" lang="en" src="voice/podcast-audiogram/en/vo_q2.5f19f582a3.ogg" dur="7.21" hash="5f19f582a3" engine="kokoro:am_michael"/>
-    <voice say="vo_q3" lang="en" src="voice/podcast-audiogram/en/vo_q3.baea068d46.ogg" dur="5.41" hash="baea068d46" engine="kokoro:af_heart"/>
-    <voice say="vo_q4" lang="en" src="voice/podcast-audiogram/en/vo_q4.38392de7fd.ogg" dur="6.61" hash="38392de7fd" engine="kokoro:am_michael"/>
-    <voice say="vo_q5" lang="en" src="voice/podcast-audiogram/en/vo_q5.b168aaa929.ogg" dur="2.82" hash="b168aaa929" engine="kokoro:af_heart"/>
-    <voice say="vo_q6" lang="en" src="voice/podcast-audiogram/en/vo_q6.65492bd056.ogg" dur="7.61" hash="65492bd056" engine="kokoro:am_michael"/>
-    <voice say="vo_q7" lang="en" src="voice/podcast-audiogram/en/vo_q7.7731fb8e88.ogg" dur="5.61" hash="7731fb8e88" engine="kokoro:af_heart"/>
+    <voice say="vo_q1" lang="en" src="voice/podcast-audiogram/en/vo_q1.f5dca7a814.m4a" dur="5.01" hash="f5dca7a814" engine="kokoro:af_heart"/>
+    <voice say="vo_q2" lang="en" src="voice/podcast-audiogram/en/vo_q2.5f19f582a3.m4a" dur="7.21" hash="5f19f582a3" engine="kokoro:am_michael"/>
+    <voice say="vo_q3" lang="en" src="voice/podcast-audiogram/en/vo_q3.baea068d46.m4a" dur="5.41" hash="baea068d46" engine="kokoro:af_heart"/>
+    <voice say="vo_q4" lang="en" src="voice/podcast-audiogram/en/vo_q4.38392de7fd.m4a" dur="6.61" hash="38392de7fd" engine="kokoro:am_michael"/>
+    <voice say="vo_q5" lang="en" src="voice/podcast-audiogram/en/vo_q5.b168aaa929.m4a" dur="2.82" hash="b168aaa929" engine="kokoro:af_heart"/>
+    <voice say="vo_q6" lang="en" src="voice/podcast-audiogram/en/vo_q6.65492bd056.m4a" dur="7.61" hash="65492bd056" engine="kokoro:am_michael"/>
+    <voice say="vo_q7" lang="en" src="voice/podcast-audiogram/en/vo_q7.7731fb8e88.m4a" dur="5.61" hash="7731fb8e88" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

@@ -84,7 +84,7 @@
     <clip id="flip"><rect x="=960 - (960*abs(cos(PI*clamp((T - 3.4)/0.7, 0, 1))))/2" y="0" w="=(960*abs(cos(PI*clamp((T - 3.4)/0.7, 0, 1))))" h="1080"/></clip>
   </defs>
   <assets>
-    <asset id="pad" src="audio/pad.ogg"/><asset id="whoosh" src="audio/whoosh.ogg"/><asset id="pop" src="audio/pop.ogg"/>
+    <asset id="pad" src="audio/pad.m4a"/><asset id="whoosh" src="audio/whoosh.m4a"/><asset id="pop" src="audio/pop.m4a"/>
     <font family="Inter" src="fonts/Inter.ttf"/><font family="Noto Sans Gujarati" src="fonts/NotoSansGujarati.ttf"/><font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
   </assets>
   <music src="pad" loop="1" vol="0.7"/>
@@ -329,12 +329,12 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo0" lang="en" src="voice/flashcards-bilingual/en/vo0.3838b2a17d.ogg" dur="5.71" hash="3838b2a17d" engine="kokoro:af_heart"/>
-    <voice say="vo1" lang="en" src="voice/flashcards-bilingual/en/vo1.d03163b692.ogg" dur="3.81" hash="d03163b692" engine="kokoro:af_heart"/>
-    <voice say="vo2" lang="en" src="voice/flashcards-bilingual/en/vo2.9fc36f8313.ogg" dur="3.41" hash="9fc36f8313" engine="kokoro:af_heart"/>
-    <voice say="vo3" lang="en" src="voice/flashcards-bilingual/en/vo3.b8b391974f.ogg" dur="3.21" hash="b8b391974f" engine="kokoro:af_heart"/>
-    <voice say="vo4" lang="en" src="voice/flashcards-bilingual/en/vo4.2873477745.ogg" dur="2.65" hash="2873477745" engine="kokoro:af_heart"/>
-    <voice say="vo5" lang="en" src="voice/flashcards-bilingual/en/vo5.aec02fcbdc.ogg" dur="3.51" hash="aec02fcbdc" engine="kokoro:af_heart"/>
-    <voice say="voE" lang="en" src="voice/flashcards-bilingual/en/voE.4a499733db.ogg" dur="5.31" hash="4a499733db" engine="kokoro:af_heart"/>
+    <voice say="vo0" lang="en" src="voice/flashcards-bilingual/en/vo0.3838b2a17d.m4a" dur="5.71" hash="3838b2a17d" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="en" src="voice/flashcards-bilingual/en/vo1.d03163b692.m4a" dur="3.81" hash="d03163b692" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="en" src="voice/flashcards-bilingual/en/vo2.9fc36f8313.m4a" dur="3.41" hash="9fc36f8313" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="en" src="voice/flashcards-bilingual/en/vo3.b8b391974f.m4a" dur="3.21" hash="b8b391974f" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="en" src="voice/flashcards-bilingual/en/vo4.2873477745.m4a" dur="2.65" hash="2873477745" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="en" src="voice/flashcards-bilingual/en/vo5.aec02fcbdc.m4a" dur="3.51" hash="aec02fcbdc" engine="kokoro:af_heart"/>
+    <voice say="voE" lang="en" src="voice/flashcards-bilingual/en/voE.4a499733db.m4a" dur="5.31" hash="4a499733db" engine="kokoro:af_heart"/>
   </voices>
 </tsvg>

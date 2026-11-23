@@ -82,9 +82,9 @@
   </defs>
 
   <assets>
-    <asset id="pad"  src="assets/pad.ogg"/>
-    <asset id="blip" src="assets/blip.ogg"/>
-    <asset id="whoosh" src="assets/whoosh.ogg"/>
+    <asset id="pad"  src="assets/pad.m4a"/>
+    <asset id="blip" src="assets/blip.m4a"/>
+    <asset id="whoosh" src="assets/whoosh.m4a"/>
     <asset id="fractal" src="images/fractal.jpg"/>
     <!-- fonts travel with the video (OFL) -->
     <font family="Inter" src="fonts/Inter.ttf"/>
@@ -243,17 +243,17 @@
 
   <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
   <voices>
-    <voice say="vo1" lang="en" src="voice/en/vo1.3fe474e0d2.ogg" dur="5.21" hash="3fe474e0d2" engine="kokoro:af_heart"/>
-    <voice say="vo1" lang="gu" src="voice/gu/vo1.62f1d9dfa4.ogg" dur="5.61" hash="62f1d9dfa4" engine="sarvam:shubh"/>
-    <voice say="vo2" lang="en" src="voice/en/vo2.5c73876bc9.ogg" dur="4.81" hash="5c73876bc9" engine="kokoro:af_heart"/>
-    <voice say="vo2" lang="gu" src="voice/gu/vo2.4fa1cfddb5.ogg" dur="5.31" hash="4fa1cfddb5" engine="sarvam:shubh"/>
-    <voice say="vo3" lang="en" src="voice/en/vo3.0b5dba3e28.ogg" dur="7.61" hash="0b5dba3e28" engine="kokoro:af_heart"/>
-    <voice say="vo3" lang="gu" src="voice/gu/vo3.c9594a5dcb.ogg" dur="7.61" hash="c9594a5dcb" engine="sarvam:shubh"/>
-    <voice say="vo4" lang="en" src="voice/en/vo4.5348e61a98.ogg" dur="5.41" hash="5348e61a98" engine="kokoro:af_heart"/>
-    <voice say="vo4" lang="gu" src="voice/gu/vo4.1a522e706a.ogg" dur="6.31" hash="1a522e706a" engine="sarvam:shubh"/>
-    <voice say="vo5" lang="en" src="voice/en/vo5.2c4397f9b2.ogg" dur="2.78" hash="2c4397f9b2" engine="kokoro:af_heart"/>
-    <voice say="vo5" lang="gu" src="voice/gu/vo5.f17e98848f.ogg" dur="2.99" hash="f17e98848f" engine="sarvam:shubh"/>
-    <voice say="vo6" lang="en" src="voice/en/vo6.39ca3ff5d6.ogg" dur="6.11" hash="39ca3ff5d6" engine="kokoro:af_heart"/>
-    <voice say="vo6" lang="gu" src="voice/gu/vo6.e9cfb2a0d8.ogg" dur="7.91" hash="e9cfb2a0d8" engine="sarvam:shubh"/>
+    <voice say="vo1" lang="en" src="voice/en/vo1.3fe474e0d2.m4a" dur="5.21" hash="3fe474e0d2" engine="kokoro:af_heart"/>
+    <voice say="vo1" lang="gu" src="voice/gu/vo1.62f1d9dfa4.m4a" dur="5.61" hash="62f1d9dfa4" engine="sarvam:shubh"/>
+    <voice say="vo2" lang="en" src="voice/en/vo2.5c73876bc9.m4a" dur="4.81" hash="5c73876bc9" engine="kokoro:af_heart"/>
+    <voice say="vo2" lang="gu" src="voice/gu/vo2.4fa1cfddb5.m4a" dur="5.31" hash="4fa1cfddb5" engine="sarvam:shubh"/>
+    <voice say="vo3" lang="en" src="voice/en/vo3.0b5dba3e28.m4a" dur="7.61" hash="0b5dba3e28" engine="kokoro:af_heart"/>
+    <voice say="vo3" lang="gu" src="voice/gu/vo3.c9594a5dcb.m4a" dur="7.61" hash="c9594a5dcb" engine="sarvam:shubh"/>
+    <voice say="vo4" lang="en" src="voice/en/vo4.5348e61a98.m4a" dur="5.41" hash="5348e61a98" engine="kokoro:af_heart"/>
+    <voice say="vo4" lang="gu" src="voice/gu/vo4.1a522e706a.m4a" dur="6.31" hash="1a522e706a" engine="sarvam:shubh"/>
+    <voice say="vo5" lang="en" src="voice/en/vo5.2c4397f9b2.m4a" dur="2.78" hash="2c4397f9b2" engine="kokoro:af_heart"/>
+    <voice say="vo5" lang="gu" src="voice/gu/vo5.f17e98848f.m4a" dur="2.99" hash="f17e98848f" engine="sarvam:shubh"/>
+    <voice say="vo6" lang="en" src="voice/en/vo6.39ca3ff5d6.m4a" dur="6.11" hash="39ca3ff5d6" engine="kokoro:af_heart"/>
+    <voice say="vo6" lang="gu" src="voice/gu/vo6.e9cfb2a0d8.m4a" dur="7.91" hash="e9cfb2a0d8" engine="sarvam:shubh"/>
   </voices>
 </tsvg>
