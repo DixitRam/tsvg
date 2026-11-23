@@ -331,7 +331,10 @@ function serve() {
     let p = join(dir, decodeURIComponent(new URL(q.url, 'http://x').pathname)); if (!p.startsWith(dir)) { s.writeHead(403); return s.end(); }
     if (existsSync(p) && statSync(p).isDirectory()) p = join(p, 'index.html');
     if (!existsSync(p)) { s.writeHead(404); return s.end('not found'); }
-    s.writeHead(200, { 'content-type': types[extname(p)] || 'application/octet-stream' }); s.end(readFileSync(p));
+    const body = readFileSync(p); const type = types[extname(p)] || 'application/octet-stream';
+    const m = /^bytes=(\d*)-(\d*)$/.exec(q.headers.range || ''); // Safari needs ranges for media
+    if (m) { const a = m[1] ? +m[1] : body.length - +m[2]; const b = m[1] && m[2] ? Math.min(+m[2], body.length - 1) : body.length - 1; s.writeHead(206, { 'content-type': type, 'accept-ranges': 'bytes', 'content-range': `bytes ${a}-${b}/${body.length}`, 'content-length': b - a + 1 }); return s.end(body.subarray(a, b + 1)); }
+    s.writeHead(200, { 'content-type': type, 'accept-ranges': 'bytes', 'content-length': body.length }); s.end(body);
   }).listen(port, '127.0.0.1', () => console.log(`http://127.0.0.1:${port}/  (spec: /spec/  playground: /playground/)`));
 }
 

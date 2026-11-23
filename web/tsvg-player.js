@@ -128,6 +128,8 @@
         // cross-origin media without CORS would play silent through WebAudio: keep those on element volume
         if (this.ac && local) { try { const src = this.ac.createMediaElementSource(el); const g = this.ac.createGain(); g.gain.value = c.vol == null ? 1 : c.vol; src.connect(g); g.connect(this.bus(c.bus)); ce.gain = g; } catch (e) {} }
         el.addEventListener('loadedmetadata', () => this.syncLines());
+        // when the duration is unknown (streams, servers without ranges), 'ended' tells us where the clip stops
+        el.addEventListener('ended', () => { if (!c.loop) ce.endedAt = c.start + el.currentTime; });
         this.clipEls.set(k, ce);
       }
     }
@@ -144,7 +146,7 @@
       for (const ce of this.clipEls.values()) {
         const el = ce.el, c = ce.clip, d = el.duration, known = isFinite(d) && d > 0;
         let local = this.t - c.start; if (c.loop && known && local >= 0) local %= d;
-        const active = this.playing && local >= 0 && (c.loop || !known || local < d - 0.02);
+        const active = this.playing && local >= 0 && (c.loop || (known ? local < d - 0.02 : !(ce.endedAt != null && this.t >= ce.endedAt - 0.02)));
         if (!active) { if (!el.paused) el.pause(); continue; }
         if (el.playbackRate !== this.rate) el.playbackRate = this.rate;
         if (el.paused) { try { el.currentTime = local; } catch (e) {} el.play().catch(() => {}); }
