@@ -16,10 +16,10 @@
  * @example From a CDN, no build step
  * ```html
  * <script type="module">
- *   import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.2.0";
+ *   import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.2.1";
  * </script>
  * <!-- or as a classic script that defines window.TSVG, TSVGZip, TSVGPlayer -->
- * <script src="https://jsr.io/@panth977/tsvg/0.2.0/dist/tsvg.js"></script>
+ * <script src="https://esm.sh/jsr/@panth977/tsvg@0.2.1/dist/tsvg.js?raw"></script>
  * ```
  * @module
  */

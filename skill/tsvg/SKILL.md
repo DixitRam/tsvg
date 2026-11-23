@@ -56,7 +56,11 @@ A TSVG video is one XML file. The engine draws every frame live, so you write it
 - Variants: `attr.portrait`, `attr.gu`, `attr.light`. The first tag that matches wins, in the order layout, then options. Use them for every position that differs between portrait and landscape.
 - Nodes: `rect circle ellipse line path text image group use`. Common attributes: `fill stroke sw opacity rot scale shadow clip mask at dur when only`.
 - Expression variables: `t T p W H portrait lang theme mix dur sdur`. Functions: `sin cos lerp clamp ease(k,'out') smooth fract fmt …`.
+- 0.2: `repeat="n" as="i"` on any node (grids, bars, particles; `i` and `i_n` in expressions) · `<data id="x" v="1,2,3"/>` in defs + `data('x', i)`, `count('x')` · `blur="8"` · `rand(seed)`, `noise(x)` (deterministic) · morph: `<keys prop="d" v="0: M…; 2: M…"/>` with the same path commands interpolates point by point.
 - Anim: `<anim prop from to at dur ease/>` (times relative to the node's `at`); `<keys prop v="0:0; 1:100"/>`; eases `linear in out io back elastic step`.
+
+## Styles
+`~/Dev/PROJECTS/TSVG/examples/styles/` has a one-minute template per explainer style (product walkthrough, collage, math, whiteboard, data story, kinetic type, social short…), with the catalog in `catalog/*.json`. Pick the closest style, copy its file next to your work, and change the content.
 
 ## Rules of thumb
 - Design for both layouts: landscape 1920×1080, portrait 1080×1920. Keep 80 units of margin. Body text ≥ 40, headings 80–150.
