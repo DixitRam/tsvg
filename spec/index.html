@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="icon" href="data:,">
-<title>TSVG 0.2: Timeseries Scalable Vector Graphics (specification)</title>
+<title>TSVG 0.2.2: Timeseries Scalable Vector Graphics (specification)</title>
 <style>
   :root{--bg:#0c0e13;--panel:#151922;--line:#262c39;--fg:#e9edf5;--muted:#97a1b5;--accent:#7aa2ff;--pink:#ff6b9a;--good:#5fd39a;--warm:#ffb35c}
   *{box-sizing:border-box} html{scroll-behavior:smooth}
@@ -33,7 +33,7 @@
 <body>
 <div class="wrap">
 <aside>
-  <b style="display:block;padding:0 8px 10px">TSVG 0.2</b>
+  <b style="display:block;padding:0 8px 10px">TSVG 0.2.2</b>
   <a href="#intro">1. Introduction</a>
   <a href="#files">2. Files</a>
   <a href="#doc">3. Document</a>
@@ -51,7 +51,7 @@
   <a href="#future">14. Not in 0.1</a>
 </aside>
 <main>
-<h1><span>TSVG</span> 0.2: Timeseries Scalable Vector Graphics</h1>
+<h1><span>TSVG</span> 0.2.2: Timeseries Scalable Vector Graphics</h1>
 <div class="muted">Draft specification · 0.2 · 2026-11-24 (0.1 documents play unchanged) · MIT · reference engine: <code>web/tsvg-core.js</code></div>
 <div class="hero"><a href="../playground/">▶ Playground</a><a href="https://github.com/Panth977/tsvg">GitHub</a><a href="#tools">CLI</a></div>
 
@@ -161,7 +161,7 @@
 <h2 id="values">4. Attribute values</h2>
 <table>
 <tr><th>Form</th><th>Meaning</th><th>Example</th></tr>
-<tr><td>literal</td><td>number (<code>-?[0-9]*\.?[0-9]+</code>), colour or string</td><td><code>size="48"</code> <code>fill="#ff0"</code></td></tr>
+<tr><td>literal</td><td>number (<code>-?[0-9]*\.?[0-9]+</code>), colour or string. In <code>text</code>, a number is shown exactly as written (<code>"01"</code> stays 01). A leading <code>\</code> escapes: <code>\=&gt;</code> is the text "=&gt;" (0.2.2)</td><td><code>size="48"</code> <code>fill="#ff0"</code></td></tr>
 <tr><td><code>$token</code></td><td>theme token</td><td><code>fill="$accent"</code></td></tr>
 <tr><td><code>@id</code></td><td>string in the current language</td><td><code>text="@title"</code></td></tr>
 <tr><td><code>=expr</code></td><td>expression (§8), evaluated each frame</td><td><code>x="=W/2 + 40*sin(T*2)"</code></td></tr>
@@ -174,7 +174,7 @@
 <table>
 <tr><th>Node</th><th>Attributes (defaults)</th></tr>
 <tr><td><code>rect</code></td><td><code>x y</code> (0) <code>w h</code> (100) <code>r</code> corner (0) <code>ax ay</code> anchor 0–1 (0)</td></tr>
-<tr><td><code>circle</code></td><td><code>x y</code> centre, <code>r</code> (50), <code>from to</code> degrees (0, 360) → pie</td></tr>
+<tr><td><code>circle</code></td><td><code>x y</code> centre, <code>r</code> (50), <code>from to</code> degrees (0, 360) → pie; with <code>arc="1"</code> (0.2.2) an open arc with no lines to the centre (stroke it, e.g. progress rings)</td></tr>
 <tr><td><code>ellipse</code></td><td><code>x y rx ry from to</code></td></tr>
 <tr><td><code>line</code></td><td><code>x1 y1 x2 y2</code>, <code>draw</code> 0–1 (1). Stroke defaults to <code>fill</code> or <code>$fg</code>, width 4</td></tr>
 <tr><td><code>path</code></td><td><code>d</code> (SVG path data), <code>x y</code> offset, <code>draw</code> 0–1 (stroke reveal; fill only at 1)</td></tr>
@@ -184,7 +184,7 @@
 <tr><td><code>use</code></td><td><code>ref</code> symbol id, <code>x y</code></td></tr>
 </table>
 <p><b>Repeat (0.2).</b> Any node may carry <code>repeat="n"</code> (number or expression, at most 10 000) and <code>as="i"</code> (default <code>i</code>). The node is drawn n times; in its own attributes and its whole subtree the variable <code>i</code> is 0…n−1 and <code>i_n</code> is n. Repeats nest, e.g. a grid is a repeated group of repeated circles.</p>
-<p><b>Common to all:</b> <code>blur</code> (0.2; Gaussian blur radius in layout units; for a group, engines may blur each child or the group layer) <code>fill stroke sw</code> (stroke width, 0) <code>opacity</code> (multiplies down the tree) <code>rot</code> degrees <code>scale</code> (around the shape's centre; around x,y for group/use/path/text) <code>shadow clip mask blend</code>, plus timing: <code>at</code> (appears at, scene time), <code>dur</code> (visible for), <code>when</code> (expression; hidden when 0), <code>only="portrait gu"</code> (visible only if any tag is active).</p>
+<p><b>Common to all:</b> <code>blur</code> (0.2; Gaussian blur radius in layout units; for a group, engines may blur each child or the group layer) <code>fill stroke sw</code> (stroke width, 0) <code>opacity</code> (multiplies down the tree) <code>rot</code> degrees <code>scale</code>, <code>sx sy</code> per-axis scale (0.2.2; multiply with <code>scale</code>; card flips) <code>dash="24 16"</code> (0.2.2; stroke dash pattern) (around the shape's centre; around x,y for group/use/path/text) <code>shadow clip mask blend</code>, plus timing: <code>at</code> (appears at, scene time), <code>dur</code> (visible for), <code>when</code> (expression; hidden when 0), <code>only="portrait gu"</code> (visible only if any tag is active).</p>
 
 <h2 id="paint">6. Paint and effects</h2>
 <ul>
@@ -220,7 +220,7 @@ atom    := number | 'string' | "string" | name | $token | name '(' args ')' | '(
   <li>No assignment, loops, I/O or clocks. Evaluation always terminates and is deterministic.</li>
   <li><code>+</code> concatenates if either side is a string. <code>%</code> is floored modulo. Booleans are 1/0.</li>
   <li><b>Variables</b>: <code>t</code> video time, <code>T</code> scene time, <code>p</code> scene progress 0–1, <code>sdur</code> scene duration, <code>dur</code> video duration, <code>W H</code> layout size, <code>portrait</code> 1/0, <code>layout</code> id, every option id, <code>$token</code>s, <code>PI true false</code>.</li>
-  <li><b>Functions</b>: <code>sin cos tan abs sqrt min max floor ceil round pow exp log atan2 sign clamp(v,a,b) lerp(a,b,k) step(e,x) smooth(a,b,x) fract ease(k,'name') fmt(n,digits) str rgba(r,g,b,a) mix(colorA,colorB,k) data('id', i) count('id') rand(seed) noise(x)</code> (<code>rand</code> = fract(sin(seed·12.9898+78.233)·43758.5453); <code>noise</code> = smoothstep-interpolated <code>rand</code> between integers) (<code>data</code> wraps the index around the list), plus document <code>&lt;fn&gt;</code>s (arguments become variables).</li>
+  <li><b>Functions</b>: <code>sin cos tan abs sqrt min max floor ceil round pow exp log atan2 sign clamp(v,a,b) lerp(a,b,k) step(e,x) smooth(a,b,x) fract ease(k,'name') fmt(n,digits) str rgba(r,g,b,a) mix(colorA,colorB,k) data('id', i) count('id') rand(seed) noise(x) s('id')</code> (<code>s</code>, 0.2.2: a string from <code>&lt;strings&gt;</code> in the current language) (<code>rand</code> = fract(sin(seed·12.9898+78.233)·43758.5453); <code>noise</code> = smoothstep-interpolated <code>rand</code> between integers) (<code>data</code> wraps the index around the list), plus document <code>&lt;fn&gt;</code>s (arguments become variables).</li>
   <li>An unknown variable, token, string or function is an error. Validators report it (§13).</li>
 </ul>
 

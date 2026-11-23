@@ -109,5 +109,11 @@
     "file": "examples/features/features.tsvg",
     "t": 21.5,
     "layout": "portrait"
+  },
+  {
+    "name": "feat-extras",
+    "file": "examples/features/features.tsvg",
+    "t": 24.5,
+    "layout": "landscape"
   }
 ]

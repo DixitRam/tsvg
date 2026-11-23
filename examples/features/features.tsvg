@@ -16,6 +16,9 @@
     <data id="sales" v="12, 28, 19, 44, 37, 61, 52, 78"/>
     <data id="months" v="Jan, Feb, Mar, Apr, May, Jun, Jul, Aug"/>
   </defs>
+  <strings>
+    <s id="lbl" en="label from s()"/>
+  </strings>
   <timeline>
     <!-- repeat: a 16×9 grid of dots riding a wave -->
     <scene id="repeat" dur="5" chapter="repeat">
@@ -59,6 +62,17 @@
                                     4.5: M -200 -200 L 0 -200 L 200 -200 L 200 0 L 200 200 L 0 200 L -200 200 L -200 0 Z"/>
         <keys prop="fill" v="0.5: $warm; 2.5: $accent; 4.5: $pink"/>
       </path>
+    </scene>
+    <!-- 0.2.2: open arcs, dashes, per-axis scale, literal text -->
+    <scene id="extras" dur="4" chapter="extras">
+      <text x="=W/2" y="120" size="64" weight="700" align="center" text="extras"/>
+      <circle x="=W/2 - 500" y="=H/2" r="150" fill="none" stroke="$panel" sw="26"/>
+      <circle x="=W/2 - 500" y="=H/2" r="150" from="0" to="=360*clamp(T/3,0,1)" arc="1" fill="none" stroke="$accent" sw="26"/>
+      <line x1="=W/2 - 200" y1="=H/2 - 120" x2="=W/2 + 200" y2="=H/2 - 120" stroke="$pink" sw="8" dash="24 16"/>
+      <rect x="=W/2" y="=H/2 + 40" w="320" h="200" ax="0.5" ay="0.5" r="20" fill="$good" sx="=cos(T*PI/2)"/>
+      <text x="=W/2 + 500" y="=H/2 - 60" size="90" weight="800" align="center" fill="$warm" text="01"/>
+      <text x="=W/2 + 500" y="=H/2 + 40" size="40" align="center" fill="$fg" text="\=> literal"/>
+      <text x="=W/2 + 500" y="=H/2 + 110" size="34" align="center" fill="$muted" text="=s('lbl') + '!'"/>
     </scene>
   </timeline>
 </tsvg>

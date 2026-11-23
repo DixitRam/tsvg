@@ -6,7 +6,7 @@
 // thumbnails free, and what lets every native engine be tested against golden frames.
 (function (root) {
   'use strict';
-  const VERSION = '0.2';
+  const VERSION = '0.2.2';
 
   // ───────────────────────── XML (subset) ─────────────────────────
   // Elements, attributes, text, comments, <?…?>, <!…>, CDATA, the 5 named
@@ -119,6 +119,7 @@
           expect(')');
           return (env) => {
             const vals = args.map((a) => a(env));
+            if (name === 's') return strOf(env.doc, String(vals[0]), env);
             if (name === 'data' || name === 'count') {
               const list = env.doc && env.doc.data[vals[0]]; if (!list) throw new Error('unknown data ' + vals[0]);
               if (name === 'count') return list.length;
@@ -250,6 +251,7 @@
   function template(s, env) { return s.indexOf('{') < 0 ? s : s.replace(/\{([^}]+)\}/g, (_, e) => String(compiled(e)(env))); }
   function value(raw, env, doc) {
     if (raw == null) return undefined;
+    if (raw[0] === '\\') return raw.slice(1); // escape: \=> is the literal text "=>"
     if (raw[0] === '=') return compiled(raw.slice(1))(env);
     if (raw[0] === '@') return strOf(doc, raw.slice(1), env);
     if (raw[0] === '$' && /^\$[A-Za-z_]\w*$/.test(raw)) return lookup(env, raw);
@@ -385,11 +387,12 @@
     const blend = pick(n.a, 'blend', env); if (blend) ctx.globalCompositeOperation = blend;
     const blur = P('blur', 0);
     if (blur > 0 && 'filter' in ctx) { const m = ctx.getTransform(); ctx.filter = 'blur(' + (blur * Math.sqrt(Math.abs(m.a * m.d - m.b * m.c))).toFixed(2) + 'px)'; }
-    const rot = P('rot', 0), scale = P('scale', 1);
+    const rot = P('rot', 0), scale = P('scale', 1), sx = P('sx', 1) * scale, sy = P('sy', 1) * scale;
     const fillRaw = P('fill', n.type === 'text' ? env.theme.fg || '#fff' : undefined);
     const strokeRaw = P('stroke'), sw = P('sw', 0);
     shadowOf(ctx, P('shadow'), env);
-    const pivot = (px, py) => { if (rot || scale !== 1) { ctx.translate(px, py); if (rot) ctx.rotate((rot * PI) / 180); if (scale !== 1) ctx.scale(scale, scale); ctx.translate(-px, -py); } };
+    const dash = P('dash'); if (dash && dash !== 'none') ctx.setLineDash(String(dash).trim().split(/[\s,]+/).map(Number));
+    const pivot = (px, py) => { if (rot || sx !== 1 || sy !== 1) { ctx.translate(px, py); if (rot) ctx.rotate((rot * PI) / 180); if (sx !== 1 || sy !== 1) ctx.scale(sx, sy); ctx.translate(-px, -py); } };
     const clipTo = () => {
       const c = pick(n.a, 'clip', env); if (!c) return;
       const m = /^url\(#([\w-]+)\)$/.exec(c); const shapes = m && doc.clips[m[1]]; if (!shapes) throw new Error('unknown clip ' + c);
@@ -418,9 +421,10 @@
         const cx = P('x', 0), cy = P('y', 0), rx = P('r', P('rx', 50)), ry = n.type === 'ellipse' ? P('ry', rx) : rx;
         const a0 = P('from', 0), a1 = P('to', 360);
         pivot(cx, cy); clipTo();
-        const p = new Path2D(); if (a1 - a0 < 360) p.moveTo(cx, cy);
+        const arc = P('arc', 0) && a1 - a0 < 360; // arc="1": an open arc (stroke it), no lines to the centre
+        const p = new Path2D(); if (a1 - a0 < 360 && !arc) p.moveTo(cx, cy);
         p.ellipse(cx, cy, Math.max(0, rx), Math.max(0, ry), 0, ((a0 - 90) * PI) / 180, ((a1 - 90) * PI) / 180);
-        if (a1 - a0 < 360) p.closePath();
+        if (a1 - a0 < 360 && !arc) p.closePath();
         paint(p); break;
       }
       case 'line': {
@@ -439,7 +443,8 @@
         break;
       }
       case 'text': {
-        let txt = String(value(pick(n.a, 'text', env), env, doc) ?? '');
+        const rawText = pick(n.a, 'text', env);
+        let txt = rawText != null && NUMERIC.test(rawText) ? rawText : String(value(rawText, env, doc) ?? '');
         const reveal = P('reveal', 1); if (reveal < 1) txt = [...txt].slice(0, Math.round([...txt].length * reveal)).join('');
         const size = P('size', 48), weight = P('weight', 400), x = P('x', 0), y = P('y', 0);
         const align = P('align', 'left'), maxw = P('maxw', 0), lh = P('lh', 1.25), font = P('font', '');

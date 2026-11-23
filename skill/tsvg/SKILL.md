@@ -57,6 +57,7 @@ A TSVG video is one XML file. The engine draws every frame live, so you write it
 - Nodes: `rect circle ellipse line path text image group use`. Common attributes: `fill stroke sw opacity rot scale shadow clip mask at dur when only`.
 - Expression variables: `t T p W H portrait lang theme mix dur sdur`. Functions: `sin cos lerp clamp ease(k,'out') smooth fract fmt …`.
 - 0.2: `repeat="n" as="i"` on any node (grids, bars, particles; `i` and `i_n` in expressions) · `<data id="x" v="1,2,3"/>` in defs + `data('x', i)`, `count('x')` · `blur="8"` · `rand(seed)`, `noise(x)` (deterministic) · morph: `<keys prop="d" v="0: M…; 2: M…"/>` with the same path commands interpolates point by point.
+- 0.2.2: `s('id')` (a string inside expressions) · `arc="1"` on circle (open arc ring) · `dash="24 16"` · `sx`/`sy` (card flips) · numeric text keeps its zeros (`text="01"`) · `\=` escapes a literal leading `=`.
 - Anim: `<anim prop from to at dur ease/>` (times relative to the node's `at`); `<keys prop v="0:0; 1:100"/>`; eases `linear in out io back elastic step`.
 
 ## Styles
