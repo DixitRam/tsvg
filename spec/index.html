@@ -73,6 +73,7 @@
 <tr><td><code>.tsvg</code></td><td>The document: UTF-8 XML, root <code>&lt;tsvg&gt;</code>. Relative paths resolve against the file's location.</td><td><code>application/tsvg+xml</code></td></tr>
 <tr><td><code>.tsvgz</code></td><td>A package: a zip with <code>main.tsvg</code> at the root plus every file it references, at the same relative paths. Entries are stored (0) or deflated (8). Paths use <code>/</code> and <span class="must">MUST NOT</span> contain <code>..</code>.</td><td><code>application/tsvg+zip</code></td></tr>
 </table>
+<p><b>Preview page (0.3.3).</b> A package <span class="must">SHOULD</span> carry <code>index.html</code> at its root (<code>tsvg pack</code> writes it). It is a small page with the document inline that loads the web player from the CDN and plays the files beside it. Unzip the package, open <code>index.html</code> in any browser, and the video plays, from <code>file://</code> or any static host, with no TSVG player installed. Engines <span class="must">MUST</span> ignore it. <code>tsvg pack --html</code> also writes one self-contained <code>.html</code> (player + package inline) that plays offline.</p>
 <p>The pair mirrors <code>.svg</code> / <code>.svgz</code>. Engines <span class="must">SHOULD</span> detect a package by its zip magic bytes (<code>PK\3\4</code>), not by extension.</p>
 
 <h2 id="doc">3. Document</h2>

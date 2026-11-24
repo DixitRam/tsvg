@@ -45,7 +45,8 @@ npm install                                   # playwright-core, for render/expo
 node cli/tsvg.mjs serve .                     # http://127.0.0.1:4380/playground/ and /spec/
 node cli/tsvg.mjs validate examples/demo/demo.tsvg
 node cli/tsvg.mjs render examples/demo/demo.tsvg -t 30 --lang gu --layout portrait -o frame.png
-node cli/tsvg.mjs pack examples/demo/demo.tsvg -o demo.tsvgz
+node cli/tsvg.mjs pack examples/demo/demo.tsvg -o demo.tsvgz                 # the .tsvgz carries index.html: unzip, open it, it plays
+node cli/tsvg.mjs pack examples/demo/demo.tsvg --html demo.html          # one offline page, plays in any browser
 node cli/tsvg.mjs export examples/demo/demo.tsvg --lang gu --layout portrait --captions -o demo.mp4
 npm test
 ```

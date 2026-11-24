@@ -15,7 +15,7 @@ A TSVG video is one XML file. The engine draws every frame live, so you write it
 2. **Validate**: `tsvg validate x.tsvg`. Fix every ERROR. Warnings about missing clips go away after bake.
 3. **Look**: `tsvg render x.tsvg -t <sec> -o /tmp/f.png [--layout portrait] [--lang gu]`. Open the PNG and check it, at least once per scene and in each layout. Fix overlaps, text overflow and empty frames.
 4. **Bake voices**: `tsvg bake x.tsvg`. English uses local Kokoro; Gujarati and other Indian languages use Sarvam and need `SARVAM_API_KEY` (in `~/Dev/PROJECTS/Manager/packages/voice/sarvam/.env`; source it, never print it). Bake warns when a line overruns its scene; lengthen `dur` or shorten the line, then bake again (only changed lines are re-recorded).
-5. **Pack**: `tsvg pack x.tsvg -o x.tsvgz`. This is the file to attach or share. TaskManager plays `.tsvgz` attachments inline.
+5. **Pack**: `tsvg pack x.tsvg -o x.tsvgz` (the package includes `index.html`, so anyone can unzip it and open that page in a browser). To share outside TaskManager as one file that plays anywhere: `tsvg pack x.tsvg --html x.html`. This is the file to attach or share. TaskManager plays `.tsvgz` attachments inline.
 6. **MP4 only if asked** (WhatsApp/YouTube): `tsvg export x.tsvg --lang en --layout landscape --captions -o x.mp4`.
 7. **Test the engine** (only when you change engine code): `npm test` in the repo.
 
