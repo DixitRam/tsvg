@@ -23,6 +23,7 @@ const o = { base: pathToFileURL(ROOT + 'tests/x.tsvg').href, libBase: pathToFile
   eq([g.children[0].attrs.text, g.children[0].attrs['text.gu']], ['Hi', 'Kem'], 'prop + variant');
   eq(g.children[3].attrs.text, 'a/b/1/2', 'each fields'); eq(g.children[4].attrs.text, 'c//2/2', 'missing field is empty');
   const d = T.parse(x); eq(d.scenes[0].nodes[0].children.length, 7, 'parse expands local components');
+  eq(T.flatten(x.replace('sub=hello', 'sub=a == b')).root.children[1].children[0].children[0].children[1].attrs.text, 'S:a == b', 'if: == inside a prop value is text, not a comparison');
   const bad = T.flatten(x.replace('title="Hi"', 'titel="Hi"')).errors;
   ok(bad.some((e) => /unknown prop "titel" \(did you mean "title"\?\)/.test(e)), 'unknown prop with hint');
   ok(bad.some((e) => /missing prop "title"/.test(e)), 'missing prop');

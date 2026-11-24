@@ -56,7 +56,7 @@
   const PKG = '0.6.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
   const HEAD = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'music', 'backdrop', 'overlay'];
   const BUILTIN = new Set(['tsvg', 'layouts', 'layout', 'options', 'option', 'choice', 'mixes', 'mix', 'themes', 'theme', 'strings', 's', 'defs', 'fn', 'symbol', 'linear', 'radial', 'stop', 'clip', 'mask', 'data', 'assets', 'asset', 'font', 'voices', 'voice', 'music', 'backdrop', 'overlay', 'timeline', 'scene', 'say', 'sfx', 'anim', 'keys', 'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'import', 'component', 'prop', 'slot', 'each', 'if']);
-  const needsLibs = (xml) => /<(import|component)\b/.test(xml);
+  const needsLibs = (xml) => /<(import|component|dict)\b/.test(xml);
   function libBase(o) { return (o && o.libBase) || root.TSVG_LIB_BASE || 'https://jsr.io/@panth977/tsvg/' + PKG + '/libs/'; }
   function libUrl(src, from, o) {
     if (/^tsvg:/.test(src)) { const n = src.slice(5); return libBase(o) + n + '/' + n + '.tsvgl'; }
@@ -130,8 +130,15 @@
     for (const a of sec('assets')) for (const k of a.children) if (k.name === 'asset' && k.attrs.id) k.attrs.id = P + k.attrs.id;
     const comps = {};
     for (const c of t.children.concat(...sec('defs').map((d) => d.children))) if (c.name === 'component' && c.attrs.id) comps[c.attrs.id] = c;
+    const dicts = dictsOf(t);
     const params = propsOf({ attrs: { props: t.attrs.params || '' }, children: [] });
-    return { name, url, tree: t, comps, params, files, ids, version: t.attrs.version || '', doc: t.attrs.doc || '' };
+    return { name, url, tree: t, comps, params, files, ids, dicts, version: t.attrs.version || '', doc: t.attrs.doc || '' };
+  }
+  // <dict id="icons"><e k="check" v="M20 6 9 17l-5-5"/>…</dict>: static key → text tables for %{icons[name]}
+  function dictsOf(t) {
+    const out = {};
+    for (const d of t.children.concat(...t.children.filter((c) => c.name === 'defs').map((c) => c.children))) if (d.name === 'dict' && d.attrs.id) { const m = (out[d.attrs.id] = {}); for (const e of d.children) if (e.name === 'e') m[e.attrs.k] = e.attrs.v != null ? e.attrs.v : e.text; }
+    return out;
   }
   // the document (or a library) as a scope: its own components + the libraries it imports (by alias)
   function scopeOf(tree, from, libs, o, errors, own, outer) {
@@ -155,7 +162,9 @@
     const ownComps = {};
     for (const d of r.children.filter((c) => c.name === 'defs')) { for (const c of d.children) if (c.name === 'component') ownComps[c.attrs.id] = c; d.children = d.children.filter((c) => c.name !== 'component'); }
     for (const c of r.children) if (c.name === 'component') ownComps[c.attrs.id] = c;
-    const docScope = scopeOf(r, o.base, libs, o, errors, ownComps);
+    const docScope = scopeOf(r, o.base, libs, o, errors, ownComps); docScope.dicts = dictsOf(r);
+    for (const d of r.children.filter((c) => c.name === 'defs')) d.children = d.children.filter((c) => c.name !== 'dict');
+    r.children = r.children.filter((c) => c.name !== 'dict');
     // library scopes (cached), and each library's head merged into the document: earlier wins, the document first
     const scopes = new Map();
     // a library's scope depends on the params it was imported with (they flow into its own imports)
@@ -178,7 +187,7 @@
           continue;
         }
         const have = new Set(mine.children.map((c) => c.attrs.id || c.attrs.family).filter(Boolean));
-        for (const c of h.children) { if (c.name === 'component') continue; const id = c.attrs.id || c.attrs.family; if (id && have.has(id)) continue; c.fromLib = true; mine.children.push(c); }
+        for (const c of h.children) { if (c.name === 'component' || c.name === 'dict') continue; const id = c.attrs.id || c.attrs.family; if (id && have.has(id)) continue; c.fromLib = true; mine.children.push(c); }
       }
       if (!r.attrs.font && lib.tree.attrs.font) r.attrs.font = lib.tree.attrs.font;
     }
@@ -227,6 +236,7 @@
           else if (p.dflt != null) vals[p.name] = p.dflt;
           else { errors.push('line ' + c.line + ' <' + c.name + '>: missing prop "' + p.name + '"' + (p.doc ? ' (' + p.doc + ')' : '')); vals[p.name] = ''; }
         }
+        vals.__dicts = hit.scope.lib ? hit.scope.lib.dicts : hit.scope.dicts || {};
         vals._uid = c.attrs.id || c.name.replace(':', '-') + '-' + uidOf(JSON.stringify(c.attrs) + (c.text || ''));
         vals._line = String(c.line);
         const slots = expand({ children: c.children }, scope, depth + 1).map((s) => { s.done = true; return s; });
@@ -252,16 +262,35 @@
   // static template: %{prop} substitution, <if test>, <each items>, <slot>
   function applyStatic(nodes, vals, variants, slots, errors, line, who) {
     // %{p} = the prop's value; %{p#} = a short stable hash of it (ids that follow the content, e.g. say ids)
-    const sub = (s, v) => (s.indexOf('%{') < 0 ? s : s.replace(/%\{([A-Za-z_][\w.|-]*)(#|:count)?\}/g, (m, k, h) => { const val = k.indexOf('|') < 0 ? v[k] : k.split('|').map((x) => v[x]).find((x) => x != null && x !== '') ?? v[k.split('|').pop()]; if (val == null) { errors.push('line ' + line + ' <' + who + '>: %{' + k + '} is not a prop here'); return ''; } return h === '#' ? 'h' + uidOf(val) : h ? String(val.split(/[\n‖]/.test(val) ? /\n|‖/ : '|').filter((x) => x.trim() !== '').length) : val; }));
-    const truthy = (s) => {
-      let m = /^([\s\S]*?)\s*(==|!=)\s*([\s\S]*)$/.exec(s); if (m) return (m[1].trim() === m[3].trim()) === (m[2] === '==');
-      return !['', '0', 'false', 'no', 'none'].includes(s.trim());
+    // %{dict[p]}: the entry of <dict id="dict"> whose key is p's value; %{p:sum}: the sum of p's numbers
+    const dicts = vals.__dicts || {};
+    const sub = (s, v) => (s.indexOf('%{') < 0 ? s : s.replace(/%\{([A-Za-z_][\w.|-]*)(?:\[([A-Za-z_][\w.-]*)\])?(#|:count|:sum)?\}/g, (m, k, dk, h) => {
+      if (dk != null) {
+        const d = dicts[k]; const key = v[dk];
+        if (!d) { errors.push('line ' + line + ' <' + who + '>: no <dict id="' + k + '">'); return ''; }
+        if (key == null) { errors.push('line ' + line + ' <' + who + '>: %{' + dk + '} is not a prop here'); return ''; }
+        if (d[key] == null) { errors.push('line ' + line + ' <' + who + '>: "' + key + '" is not in ' + k + hint(String(key), Object.keys(d))); return ''; }
+        return d[key];
+      }
+      const val = k.indexOf('|') < 0 ? v[k] : k.split('|').map((x) => v[x]).find((x) => x != null && x !== '') ?? v[k.split('|').pop()];
+      if (val == null) { errors.push('line ' + line + ' <' + who + '>: %{' + k + '} is not a prop here'); return ''; }
+      if (h === '#') return 'h' + uidOf(val);
+      if (h === ':sum') return String(String(val).split(/[|,\s]+/).filter((x) => NUMERIC.test(x)).reduce((a, x) => a + +x, 0));
+      if (h) return String(val.split(/[\n‖]/.test(val) ? /\n|‖/ : '|').filter((x) => x.trim() !== '').length);
+      return val;
+    }));
+    // a test compares only where the template itself has == or != (a prop's text may contain them too)
+    const test = (raw, v) => {
+      const masked = raw.replace(/%\{[^}]*\}/g, (m) => '\u0000'.repeat(m.length));
+      const m = /^([\s\S]*?)\s*(==|!=)\s*([\s\S]*)$/.exec(masked);
+      if (m) { const a = sub(raw.slice(0, m[1].length), v).trim(), b = sub(raw.slice(masked.length - m[3].length), v).trim(); return (a === b) === (m[2] === '=='); }
+      return !['', '0', 'false', 'no', 'none'].includes(sub(raw, v).trim());
     };
     const out = [];
     for (const n of nodes) {
       if (n.name === 'slot') { const want = n.attrs.name || ''; for (const s of slots) if ((s.attrs.slot || '') === want) { delete s.attrs.slot; out.push(s); } continue; }
       if (n.name === 'if') {
-        const ok = n.attrs.test != null ? truthy(sub(n.attrs.test, vals)) : n.attrs.not != null ? !truthy(sub(n.attrs.not, vals)) : true;
+        const ok = n.attrs.test != null ? test(n.attrs.test, vals) : n.attrs.not != null ? !test(n.attrs.not, vals) : true;
         const kids = n.children.filter((c) => c.name !== 'else'); const els = n.children.find((c) => c.name === 'else');
         out.push(...applyStatic(ok ? kids : els ? els.children : [], vals, variants, slots, errors, line, who)); continue;
       }
@@ -271,7 +300,9 @@
         const items = n.attrs.n != null ? Array.from({ length: Math.max(0, Math.min(1000, Math.floor(+sub(n.attrs.n, vals) || 0))) }, (_, i) => String(i))
           : sub(n.attrs.items || '', vals).split(sep === 'lines' ? /\n|‖/ : sep).map((x) => (n.attrs.keep ? x.replace(/\s+$/, '') : x.trim())).filter((x, i, a) => (n.attrs.keep ? !(x === '' && (i === 0 || i === a.length - 1)) : x !== ''));
         items.forEach((it, i) => {
-          const v = Object.assign({}, vals, { [as]: it, [as + '_i']: String(i), [as + '_1']: String(i + 1), [as + '_n']: String(items.length), [as + '_last']: i === items.length - 1 ? '1' : '0' });
+          const acc = items.slice(0, i).filter((x) => NUMERIC.test(x)).reduce((a, x) => a + +x, 0);
+          const v = Object.assign({}, vals, { [as]: it, [as + '_i']: String(i), [as + '_1']: String(i + 1), [as + '_n']: String(items.length), [as + '_last']: i === items.length - 1 ? '1' : '0',
+            [as + '_prev']: i > 0 ? items[i - 1] : '', [as + '_next']: i < items.length - 1 ? items[i + 1] : '', [as + '_acc']: String(+acc.toFixed(6)) });
           const parts = it.split(fsep).map((x) => x.trim()); for (let j = 0; j < Math.max(4, parts.length); j++) v[as + '.' + j] = parts[j] != null ? parts[j] : ''; fields.forEach((f, j) => (v[as + '.' + f] = parts[j] != null ? parts[j] : ''));
           out.push(...applyStatic(n.children, v, variants, slots, errors, line, who));
         });
