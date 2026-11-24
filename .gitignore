@@ -9,4 +9,5 @@ flutter/**/.dart_tool/
 vendor/Edit-Kit.zip
 *.preview.png
 *.preview-*.png
-examples/libs/*.tsvgz
+examples/*/*.tsvgz
+!flutter/example/assets/*.tsvgz
