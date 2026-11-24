@@ -367,7 +367,8 @@ class FlutterTsvgCanvas extends TsvgCanvas {
     canvas.drawPath(path, p);
   }
 
-  static List<String> _fallbacks(FontSpec f) {
+  List<String> _fallbacks(FontSpec f) {
+    final m = media;
     final out = <String>[];
     void add(String s) {
       if (!out.contains(s)) out.add(s);
@@ -378,14 +379,14 @@ class FlutterTsvgCanvas extends TsvgCanvas {
       if (alias != null) {
         alias.forEach(add);
       } else {
-        add(fam);
+        add(m == null ? fam : m.font(fam));
       }
     }
     _systemStack.forEach(add);
     return out;
   }
 
-  static TextStyle _style(FontSpec f, ui.Paint? fg) {
+  TextStyle _style(FontSpec f, ui.Paint? fg) {
     final fams = _fallbacks(f);
     final w = f.weight.clamp(1, 1000).toDouble();
     return TextStyle(
@@ -402,7 +403,7 @@ class FlutterTsvgCanvas extends TsvgCanvas {
     );
   }
 
-  static StrutStyle _strut(FontSpec f) {
+  StrutStyle _strut(FontSpec f) {
     final fams = _fallbacks(f);
     return StrutStyle(
       fontFamily: fams.isEmpty ? null : fams.first,
@@ -412,7 +413,7 @@ class FlutterTsvgCanvas extends TsvgCanvas {
     );
   }
 
-  static TextPainter _layout(String text, FontSpec f, ui.Paint? fg) {
+  TextPainter _layout(String text, FontSpec f, ui.Paint? fg) {
     final tp = TextPainter(
       text: TextSpan(text: text, style: _style(f, fg)),
       textDirection: TextDirection.ltr,
@@ -421,8 +422,16 @@ class FlutterTsvgCanvas extends TsvgCanvas {
     return tp;
   }
 
+  // width / middle caches are shared by every canvas: key them by the engine family
+  String _fkey(FontSpec f) {
+    final m = media;
+    if (m == null || m.fontAliases.isEmpty) return f.key;
+    return '${f.key}|${f.families.map(m.font).join(',')}';
+  }
+
   void _measure(String text, FontSpec f) {
-    final key = '${f.key}|$text';
+    final fk = _fkey(f);
+    final key = '$fk|$text';
     if (_widths.containsKey(key)) return;
     if (_widths.length > 5000) {
       _widths.clear();
@@ -434,7 +443,7 @@ class FlutterTsvgCanvas extends TsvgCanvas {
     // descent are the font ascent and descent normalised to sum to 1 em.
     final asc = tp.computeDistanceToActualBaseline(TextBaseline.alphabetic);
     final desc = tp.height - asc;
-    _middles[f.key] = asc - (asc + desc > 0 ? f.size * (asc - desc) / (asc + desc) / 2 : 0);
+    _middles[fk] = asc - (asc + desc > 0 ? f.size * (asc - desc) / (asc + desc) / 2 : 0);
     tp.dispose();
   }
 
@@ -442,7 +451,7 @@ class FlutterTsvgCanvas extends TsvgCanvas {
   double measureText(String text, FontSpec font) {
     if (!(font.size > 0)) return 0;
     _measure(text, font);
-    return _widths['${font.key}|$text']!;
+    return _widths['${_fkey(font)}|$text']!;
   }
 
   @override
@@ -455,8 +464,9 @@ class FlutterTsvgCanvas extends TsvgCanvas {
     if (text.isEmpty || !(font.size > 0)) return;
     if (fill == null && stroke == null) return;
     _measure(text, font);
-    final w = _widths['${font.key}|$text']!;
-    final mid = _middles[font.key]!;
+    final fk = _fkey(font);
+    final w = _widths['$fk|$text']!;
+    final mid = _middles[fk]!;
     final dx = switch (align) { 'center' => x - w / 2, 'right' || 'end' => x - w, _ => x };
     final dy = y - mid;
     canvas.save();

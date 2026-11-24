@@ -2,9 +2,9 @@
 // native mobile players (same interaction model as web/tsvg-player.js): tap
 // shows the controls (centre ∓10 · play/pause · ±10), double-tap a side skips,
 // scrubber with chapter ticks and frame previews, volume / mute (a master gain
-// on the document mix), captions from <say> lines, a settings menu (speed,
-// captions, every <option>, layout), fullscreen, pinch / wheel zoom that
-// re-renders sharp. Mouse: click plays / pauses, double-click is fullscreen.
+// on the document mix), captions from <say> lines, a settings menu (chapters,
+// speed, captions, every <option>, layout), fullscreen, pinch / wheel zoom
+// that re-renders sharp. Mouse: click plays / pauses, double-click is fullscreen.
 import 'dart:async';
 import 'dart:math' as math;
 
@@ -345,7 +345,7 @@ String _rateStr(double r) => r == r.roundToDouble() ? r.toInt().toString() : r.t
 /// * Mouse: a click plays / pauses, a double-click toggles fullscreen, moving
 ///   over the player shows the controls; the wheel zooms.
 /// * The controls show while paused and hide 3 s after the last interaction
-///   while playing. Settings menu: speed, captions, every document option, layout.
+///   while playing. Settings menu: chapters, speed, captions, every document option, layout.
 class TsvgPlayer extends StatefulWidget {
   const TsvgPlayer({
     super.key,
@@ -864,7 +864,7 @@ class _TsvgPlayerState extends State<TsvgPlayer> {
                       fontSize: ccSize,
                       height: 1.55,
                       color: Colors.white,
-                      fontFamilyFallback: [for (final f in doc.fonts) f.family],
+                      fontFamilyFallback: [for (final f in doc.fonts) c.media?.font(f.family) ?? f.family],
                     ),
                   ),
                 ),
@@ -1120,7 +1120,14 @@ class _TsvgPlayerState extends State<TsvgPlayer> {
   // ── settings menu (web: menuRows / renderMenu) ──
   List<_MenuRow> _menuRows() {
     final doc = c.doc!;
+    // chapters (0.10): jump to any chapter of the current options' timeline
+    final chs = c.tl?.chapters ?? const <TsvgChapter>[];
+    final cur = c.chapterAt(c.t);
     return [
+      if (chs.length > 1)
+        _MenuRow('__chapter', 'Chapters', cur == null ? '' : c.label(cur.label), [
+          for (var i = 0; i < chs.length; i++) ('$i', '${_fmtT(chs[i].t)}  ${c.label(chs[i].label)}'),
+        ], cur == null ? '' : '${chs.indexOf(cur)}'),
       _MenuRow('__rate', 'Playback speed', c.rate == 1 ? 'Normal' : '${_rateStr(c.rate)}×', [
         for (final r in _speeds) ('$r', r == 1 ? 'Normal' : '${_rateStr(r)}×'),
       ], '${c.rate}'),
@@ -1152,6 +1159,10 @@ class _TsvgPlayerState extends State<TsvgPlayer> {
         c.setCaptions(v == 'on');
       case '__layout':
         c.setLayout(v);
+      case '__chapter':
+        final chs = c.tl?.chapters ?? const <TsvgChapter>[];
+        final i = int.parse(v);
+        if (i < chs.length) c.seek(chs[i].t);
       default:
         c.setOption(row, v);
     }
@@ -1163,7 +1174,7 @@ class _TsvgPlayerState extends State<TsvgPlayer> {
   }
 
   Widget _menuPanel(Size size, bool narrow) {
-    final fonts = [for (final f in c.doc!.fonts) f.family];
+    final fonts = [for (final f in c.doc!.fonts) c.media?.font(f.family) ?? f.family];
     final rows = _menuRows();
     final sub = _menuSub == null ? null : rows.where((r) => r.id == _menuSub).firstOrNull;
 

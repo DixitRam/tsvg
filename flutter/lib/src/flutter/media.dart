@@ -19,7 +19,18 @@ class TsvgMedia extends ChangeNotifier {
   /// Bumped whenever an image arrives (painters repaint).
   int version = 0;
 
-  static final Set<String> _loadedFonts = {};
+  /// Fonts registered with the engine: family → content key → engine family.
+  /// Packages may ship different files under the same family and path (e.g.
+  /// `tsvg pack` font subsets), so fonts are registered by content: the first
+  /// file of a family keeps its name, other files get `family#key`.
+  static final Map<String, Map<String, String>> _registered = {};
+
+  /// Document family → engine family, for this document's fonts registered
+  /// under another name (see [_registered]).
+  final Map<String, String> fontAliases = {};
+
+  /// The engine family for [family] in this document.
+  String font(String family) => fontAliases[family] ?? family;
 
   ui.Image? image(String ref) => _images[ref] ?? _images[assetPath(doc, ref) ?? ''];
 
@@ -34,30 +45,49 @@ class TsvgMedia extends ChangeNotifier {
     final byFamily = <String, List<TsvgFont>>{};
     for (final f in doc.fonts) {
       if (f.src == null) continue;
-      if (_loadedFonts.contains('${f.family}|${f.src}')) continue;
       byFamily.putIfAbsent(f.family, () => []).add(f);
     }
     for (final e in byFamily.entries) {
-      final loader = FontLoader(e.key);
-      var any = false;
+      final files = <Uint8List>[];
       for (final f in e.value) {
         final bytes = await source.read(f.src!);
         if (bytes == null) {
           errors.add('font ${f.family}: ${f.src} not found');
           continue;
         }
-        loader.addFont(Future.value(ByteData.sublistView(bytes)));
-        _loadedFonts.add('${f.family}|${f.src}');
-        any = true;
+        files.add(bytes);
       }
-      if (any) {
+      if (files.isEmpty) continue;
+      final key = _fontKey(files);
+      final known = _registered.putIfAbsent(e.key, () => {});
+      var name = known[key];
+      if (name == null) {
+        name = known.isEmpty ? e.key : '${e.key}#$key';
+        known[key] = name;
+        final loader = FontLoader(name);
+        for (final b in files) {
+          loader.addFont(Future.value(ByteData.sublistView(b)));
+        }
         try {
           await loader.load();
         } catch (err) {
           errors.add('font ${e.key}: $err');
         }
       }
+      if (name != e.key) fontAliases[e.key] = name;
     }
+  }
+
+  // FNV-1a over every file of a family + the lengths
+  static String _fontKey(List<Uint8List> files) {
+    var h = 0x811c9dc5;
+    for (final b in files) {
+      for (final x in b) {
+        h = ((h ^ x) * 0x01000193) & 0xffffffff;
+      }
+      h = ((h ^ b.length) * 0x01000193) & 0xffffffff;
+    }
+    return h.toRadixString(36);
   }
 
   Future<void> _loadImages(TsvgSource source) async {

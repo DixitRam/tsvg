@@ -226,6 +226,30 @@ void main() {
     await settle(tester, c);
   });
 
+  testWidgets('Chapters is the first settings row; picking one seeks to it', (tester) async {
+    final c = await mount(tester, const Size(960, 540));
+    final chs = c.tl!.chapters;
+    expect(chs.length, greaterThan(2));
+    await tester.tap(find.byKey(const ValueKey('tsvg-settings')));
+    await tester.pump();
+    final row = find.byKey(const ValueKey('tsvg-menu-__chapter'));
+    expect(row, findsOneWidget);
+    expect(tester.getTopLeft(row).dy, lessThan(tester.getTopLeft(find.byKey(const ValueKey('tsvg-menu-__rate'))).dy));
+    await tester.tap(row);
+    await tester.pump();
+    // m:ss  label per chapter, the current (first) one checked
+    expect(find.text('0:00  ${c.label(chs[0].label)}'), findsOneWidget);
+    expect(
+      find.descendant(of: find.byKey(const ValueKey('tsvg-choice-__chapter-0')), matching: find.byIcon(Icons.check_rounded)),
+      findsOneWidget,
+    );
+    await tester.tap(find.byKey(const ValueKey('tsvg-choice-__chapter-2')));
+    await tester.pump();
+    expect(c.t, chs[2].t);
+    expect(c.chapterAt(c.t), chs[2]);
+    await settle(tester, c);
+  });
+
   testWidgets('keys, zoom chip and mouse click', (tester) async {
     final c = await mount(tester, const Size(960, 540));
     await tester.sendKeyEvent(LogicalKeyboardKey.keyL);
