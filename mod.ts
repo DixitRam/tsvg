@@ -16,10 +16,10 @@
  * @example From a CDN, no build step
  * ```html
  * <script type="module">
- *   import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.2.2";
+ *   import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.3.0";
  * </script>
  * <!-- or as a classic script that defines window.TSVG, TSVGZip, TSVGPlayer -->
- * <script src="https://esm.sh/jsr/@panth977/tsvg@0.2.2/dist/tsvg.js?raw"></script>
+ * <script src="https://esm.sh/jsr/@panth977/tsvg@0.3.0/dist/tsvg.js?raw"></script>
  * ```
  * @module
  */
@@ -120,6 +120,8 @@ export interface TSVGPlayerInit {
   base?: string;
   /** Called whenever the viewer changes an option. */
   onOptions?: (opts: TSVGOptions) => void;
+  /** false: frames only, no controls (posters, thumbnails). Default true. */
+  controls?: boolean;
 }
 
 /** A player with real video controls, mounted into `host`. */
@@ -143,6 +145,13 @@ export interface TSVGPlayerInstance {
   seek(t: number): void;
   /** Set a document option, or `__layout` / `__rate` for the player's own. */
   setOption(id: string, value: string): void;
+  /** Playback speed (0.25–2); audio follows with pitch kept. */
+  setRate(rate: number): void;
+  /** Volume 0–1 (master gain after the document's mix). */
+  setVolume(volume: number): void;
+  toggleMute(): void;
+  /** Enter or leave fullscreen (falls back to filling the viewport where element fullscreen isn't available). */
+  fullscreen(): void;
 }
 
 /** Constructor of {@link TSVGPlayerInstance}. */
