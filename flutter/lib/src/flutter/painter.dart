@@ -344,6 +344,7 @@ class FlutterTsvgCanvas extends TsvgCanvas {
       // like CSS font-optical-sizing: auto (opsz = size in px) and the requested weight
       fontVariations: [ui.FontVariation('wght', w), ui.FontVariation('opsz', f.size)],
       fontStyle: f.italic ? FontStyle.italic : FontStyle.normal,
+      letterSpacing: f.ls != 0 ? f.ls : null,
       foreground: fg,
       color: fg == null ? const Color(0xff000000) : null,
     );
@@ -434,6 +435,14 @@ class FlutterTsvgCanvas extends TsvgCanvas {
     canvas.restore();
   }
 
+  static final Map<String, _Sampler> _samplers = {};
+
+  @override
+  PathSampler? pathSampler(String d) {
+    if (_samplers.length > 200) _samplers.clear();
+    return _samplers[d] ??= _Sampler(shapeToPath(PathShape(d, parsePathData(d))));
+  }
+
   @override
   ImageSize? imageSize(String ref) {
     final img = media?.image(ref);
@@ -463,6 +472,35 @@ class FlutterTsvgCanvas extends TsvgCanvas {
   void beginLayer() => canvas.saveLayer(null, ui.Paint());
   @override
   void beginMask() => canvas.saveLayer(null, ui.Paint()..blendMode = ui.BlendMode.dstIn);
+}
+
+/// SVG-style length sampling over every subpath of a path.
+class _Sampler extends PathSampler {
+  _Sampler(ui.Path p) : metrics = p.computeMetrics().toList() {
+    length = metrics.fold(0.0, (a, m) => a + m.length);
+  }
+  final List<ui.PathMetric> metrics;
+  @override
+  late final double length;
+
+  Offset _pos(double s) {
+    s = math.max(0, math.min(length, s));
+    for (final m in metrics) {
+      if (s <= m.length || identical(m, metrics.last)) {
+        return m.getTangentForOffset(math.min(s, m.length))?.position ?? Offset.zero;
+      }
+      s -= m.length;
+    }
+    return Offset.zero;
+  }
+
+  @override
+  PathPoint at(double s) {
+    final a = _pos(s), b = _pos(s + 0.5);
+    final c = s + 0.5 > length ? _pos(s - 0.5) : null;
+    final ang = c != null ? math.atan2(a.dy - c.dy, a.dx - c.dx) : math.atan2(b.dy - a.dy, b.dx - a.dx);
+    return PathPoint(a.dx, a.dy, ang);
+  }
 }
 
 /// Draws one frame into [size]: letterboxed on [background], scaled to fit,

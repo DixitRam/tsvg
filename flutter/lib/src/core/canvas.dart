@@ -109,12 +109,30 @@ class StrokeSpec {
 }
 
 class FontSpec {
-  const FontSpec(this.families, this.size, this.weight, this.italic);
+  const FontSpec(this.families, this.size, this.weight, this.italic, {this.ls = 0});
   final List<String> families;
   final double size;
   final double weight;
   final bool italic;
-  String get key => '${families.join(',')}|$size|$weight|$italic';
+
+  /// Letter spacing in layout units (Canvas2D `letterSpacing`, 0.6): added after
+  /// every character and included in measured widths.
+  final double ls;
+  String get key => '${families.join(',')}|$size|$weight|$italic|$ls';
+}
+
+/// A point on a path at some distance along it, with the tangent angle (radians).
+class PathPoint {
+  const PathPoint(this.x, this.y, this.a);
+  final double x, y, a;
+}
+
+/// Samples a path by length (SVG getTotalLength / getPointAtLength).
+abstract class PathSampler {
+  double get length;
+
+  /// The point at distance [s] (clamped to the path), angle from the next half unit.
+  PathPoint at(double s);
 }
 
 class ImageSize {
@@ -146,6 +164,10 @@ abstract class TsvgCanvas {
   /// "middle"); [align] is left | center | right | start | end.
   void text(String text, double x, double y, FontSpec font, String align, TsvgPaint? fill, TsvgPaint? stroke,
       double strokeWidth, DrawState st);
+
+  /// Length sampler for SVG path data (text on a path, 0.6); null when the
+  /// backend cannot measure paths.
+  PathSampler? pathSampler(String d) => null;
 
   /// Natural size of an image, or null when it is not (yet) loaded.
   ImageSize? imageSize(String ref);

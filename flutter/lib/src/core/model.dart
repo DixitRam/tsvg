@@ -123,7 +123,7 @@ class TsvgGradient {
 }
 
 class TsvgScene implements TsvgCueHost {
-  const TsvgScene(this.id, this.start, this.dur, this.nodes, {this.cues = const {}, this.line = 0});
+  const TsvgScene(this.id, this.start, this.dur, this.nodes, {this.cues = const {}, this.line = 0, this.trans});
   @override
   final String? id;
   final double start, dur;
@@ -133,6 +133,10 @@ class TsvgScene implements TsvgCueHost {
   @override
   final Map<String, TsvgCue> cues;
   final int line;
+
+  /// The incoming transition as written (`in="push 0.6 left io"`, or the
+  /// timeline's `in` default), 0.6; see [transitionOf].
+  final String? trans;
 }
 
 /// A `<say>` as written (its time is laid out by [timing]).
@@ -220,6 +224,9 @@ class TsvgDoc implements TsvgDataHost {
   /// The root `duration` attribute, as written.
   String? rootDuration;
 
+  /// `<timeline in="…">`: the default transition for every scene (0.6).
+  String? timelineIn;
+
   /// [forOptions] cache: option values → timed view.
   final Map<String, TsvgDoc> views = {};
 
@@ -294,6 +301,8 @@ class _TsvgView extends TsvgDoc {
   List<TsvgAudio> get music => base.music;
   @override
   String? get rootDuration => base.rootDuration;
+  @override
+  String? get timelineIn => base.timelineIn;
 }
 
 /// The document as timed for [opts] (the document itself when its timing does
@@ -375,7 +384,7 @@ TsvgTiming timing(TsvgDoc doc, Map<String, String> opts) {
         when: f['when'],
       ));
     }
-    scenes.add(TsvgScene(s.id, start, dur, s.nodes, cues: cues, line: s.line));
+    scenes.add(TsvgScene(s.id, start, dur, s.nodes, cues: cues, line: s.line, trans: pick(s.a, 'in', env) ?? doc.timelineIn));
     final chapter = s.a['chapter'];
     if (chapter != null && chapter.isNotEmpty) chapters.add(TsvgChapter(start, chapter));
     cursor = _ms(start + dur);
@@ -568,6 +577,7 @@ TsvgDoc parseTsvg(String xml) {
     doc.sceneSrc.add(src);
   }
   doc.music.addAll(doc.audio);
+  doc.timelineIn = one('timeline')?.attrs['in']; // default transition for every scene
   bool varied(Map<String, String> a, List<String> names) =>
       a.keys.any((k) => names.contains(k.split('.').first) && k.contains('.'));
   doc.timed = doc.sceneSrc.any((s) =>

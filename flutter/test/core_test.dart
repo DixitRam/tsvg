@@ -465,6 +465,42 @@ console.log(JSON.stringify(exprs.map((x) => T.compile(x)(env))));''';
       expect(lay('end').items.map((it) => it.x), [270, 380, 440]);
     });
   });
+
+  group('0.6 rich text and transitions', () {
+    List<List<Object?>> runs(String s, [bool on = true]) =>
+        [for (final r in parseRich(s, on)) [r.t, if (r.b) 'b', if (r.i) 'i', if (r.code) 'code', if (r.hl) 'hl', if (r.c != null) r.c]];
+    test('parseRich', () {
+      expect(runs('a **b** c'), [['a '], ['b', 'b'], [' c']], reason: 'bold');
+      expect(runs('*it* x'), [['it', 'i'], [' x']], reason: 'italic');
+      expect(runs('**bold *both***'), [['bold ', 'b'], ['both', 'b', 'i']], reason: 'nested');
+      expect(runs('call `f(*x*)` now'), [['call '], ['f(*x*)', 'code'], [' now']], reason: 'code is literal');
+      expect(runs('==hi== there'), [['hi', 'hl'], [' there']], reason: 'highlight');
+      expect(runs(r'[red]($accent) and [blue](#00f)'), [['red', r'$accent'], [' and '], ['blue', '#00f']], reason: 'colour spans');
+      expect(runs(r'\*not\* \`x\` [y]'), [[r'*not* `x` [y]']], reason: 'escapes; [ without (…) is text');
+      expect(runs('**a**', false), [['**a**']], reason: 'rich off: one plain run');
+    });
+    test('transitionOf', () {
+      final d = parseTsvg('<tsvg><timeline in="fade"><scene dur="2"/><scene dur="2" in="push 0.7 up linear"/>'
+          '<scene dur="2" in="none"/><scene dur="2" in="iris"/></timeline></tsvg>');
+      expect(d.scenes.map((s) => s.trans), ['fade', 'push 0.7 up linear', 'none', 'iris'], reason: 'timeline default');
+      final env = makeEnv(d, const {}, d.layouts.first, 0);
+      final p = transitionOf(d.scenes[1], env)!;
+      expect([p.kind, p.dur, p.dir, p.ease], ['push', 0.7, 'up', 'linear']);
+      final i = transitionOf(d.scenes[3], env)!;
+      expect([i.kind, i.dur, i.dir, i.ease], ['iris', 0.6, 'left', 'io'], reason: 'defaults');
+      expect(transitionOf(d.scenes[2], env), isNull, reason: 'none');
+      final plain = parseTsvg('<tsvg><timeline><scene dur="2"/><scene dur="2"/></timeline></tsvg>');
+      expect(transitionOf(plain.scenes[1], env), isNull, reason: 'no transition');
+    });
+    test('rich layout wraps across pieces', () {
+      final d = parseTsvg('<tsvg><timeline><scene dur="2"><text text="ab cd" ls="5" maxw="30"/></scene></timeline></tsvg>');
+      final env = makeEnv(d, const {}, d.layouts.first, 0);
+      final n = d.scenes.first.nodes.first;
+      expect(isRich(n), isTrue);
+      final b = boxOf(RecordingCanvas(), n, env);
+      expect([b.w, b.h], [20, 48 * 1.25 + 48], reason: 'two lines of "ab" / "cd" (recording canvas: 10 per char)');
+    });
+  });
 }
 
 bool _numEq(Object? a, Object? b) {

@@ -275,6 +275,177 @@ String textOf(TsvgNode n, Env env) {
   return raw != null && _numeric.hasMatch(raw) ? raw : toStr(value(raw, env, _doc(env)) ?? '');
 }
 
+// ───────── rich text (0.6): spans, letter spacing, split into words/letters, text on a path ─────────
+// rich="1": **bold**  *italic*  `code`  ==highlight==  [words]($accent)  (\ escapes). ls = letter spacing.
+// split="word|char|line" stagger="0.06": each unit runs the node's anims on its own clock (T0 + k·stagger),
+// with variables u (index) and u_n. path="M …" lays one line along a path (offset 0–1 slides it).
+
+/// True when a `<text>` uses the 0.6 rich text engine.
+bool isRich(TsvgNode n) => n.a['rich'] != null || n.a['split'] != null || n.a['ls'] != null || n.a['path'] != null;
+
+/// A span of rich text with its style.
+class RichRun {
+  const RichRun(this.t, {this.b = false, this.i = false, this.code = false, this.hl = false, this.c});
+  final String t;
+  final bool b, i, code, hl;
+
+  /// Colour of a `[words](colour)` span, as written (`$token` or `#hex`).
+  final String? c;
+}
+
+final RegExp _richLink = RegExp(r'\[([^\]]*)\]\(([^)]*)\)');
+
+/// Rich markup → runs. With [on] false the whole text is one plain run.
+List<RichRun> parseRich(String txt, bool on) {
+  if (!on) return [RichRun(txt)];
+  final runs = <RichRun>[];
+  var b = false, it = false, code = false, hl = false;
+  final cur = StringBuffer();
+  void push() {
+    if (cur.isNotEmpty) runs.add(RichRun(cur.toString(), b: b, i: it, code: code, hl: hl));
+    cur.clear();
+  }
+
+  for (var k = 0; k < txt.length; k++) {
+    final ch = txt[k];
+    final two = txt.substring(k, math.min(txt.length, k + 2));
+    if (ch == r'\' && k + 1 < txt.length) {
+      cur.write(txt[++k]);
+      continue;
+    }
+    if (code) {
+      if (ch == '`') {
+        push();
+        code = false;
+      } else {
+        cur.write(ch);
+      }
+      continue;
+    }
+    if (two == '**') {
+      push();
+      b = !b;
+      k++;
+      continue;
+    }
+    if (two == '==') {
+      push();
+      hl = !hl;
+      k++;
+      continue;
+    }
+    if (ch == '*') {
+      push();
+      it = !it;
+      continue;
+    }
+    if (ch == '`') {
+      push();
+      code = true;
+      continue;
+    }
+    if (ch == '[') {
+      final m = _richLink.matchAsPrefix(txt, k);
+      if (m != null) {
+        push();
+        runs.add(RichRun(m[1]!, b: b, i: it, code: code, hl: hl, c: m[2]));
+        k += m[0]!.length - 1;
+        continue;
+      }
+    }
+    cur.write(ch);
+  }
+  push();
+  return runs;
+}
+
+/// A word, a run of spaces or a line break, placed at [x] on its line.
+class RichPiece {
+  RichPiece(this.t, this.r, {this.nl = false, this.sp = false});
+  final String t;
+  final RichRun r;
+  final bool nl, sp;
+  double w = 0, x = 0;
+}
+
+class RichLine {
+  final List<RichPiece> pieces = [];
+  double w = 0;
+}
+
+/// Lines of pieces with x positions; widths include letter spacing.
+class RichLayout {
+  RichLayout(this.lines, this.size, this.lh, this.ls, this.fontFor, this.measure)
+      : w = jsMax([0, for (final l in lines) l.w]),
+        h = (lines.length - 1) * size * lh + size;
+  final List<RichLine> lines;
+  final double size, lh, ls, w, h;
+  final FontSpec Function(RichRun r) fontFor;
+  final double Function(String t, RichRun r) measure;
+}
+
+/// Property lookup of a node (name, default).
+typedef RichProp = Object? Function(String name, [Object? d]);
+
+final RegExp _richBreak = RegExp(r'\n|[ \t]+');
+final RegExp _richSpace = RegExp(r'^[ \t]+$');
+
+RichLayout richLayout(TsvgCanvas c, TsvgNode n, Env env, RichProp P, String txt) {
+  final doc = _doc(env);
+  double pn(String k, double d) => toNum(P(k, d));
+  final size = pn('size', 48), lh = pn('lh', 1.25), maxw = pn('maxw', 0), ls = pn('ls', 0);
+  final italic = truthy(P('italic', 0.0));
+  final base = fontSpecOf(P('font', ''), doc, size, P('weight', 400.0), italic);
+  final fonts = <RichRun, FontSpec>{};
+  FontSpec fontFor(RichRun r) => fonts[r] ??= FontSpec(
+        r.code ? const ['JetBrains Mono', 'ui-monospace', 'Menlo', 'monospace'] : base.families,
+        r.code ? size * 0.9 : size,
+        r.b ? math.max(700.0, base.weight) : base.weight,
+        r.i || italic,
+        ls: ls,
+      );
+  double measure(String t, RichRun r) => c.measureText(t, fontFor(r));
+  final pieces = <RichPiece>[];
+  final rich = n.a['rich'] != null && n.a['rich'] != '0';
+  for (final r in parseRich(txt, rich)) {
+    var at = 0;
+    void add(String t) {
+      if (t.isNotEmpty) pieces.add(RichPiece(t, r, nl: t == '\n', sp: _richSpace.hasMatch(t)));
+    }
+
+    for (final m in _richBreak.allMatches(r.t)) {
+      add(r.t.substring(at, m.start));
+      add(m[0]!);
+      at = m.end;
+    }
+    add(r.t.substring(at));
+  }
+  final lines = <RichLine>[];
+  var cur = RichLine();
+  void end() {
+    while (cur.pieces.isNotEmpty && cur.pieces.last.sp) {
+      cur.w -= cur.pieces.removeLast().w;
+    }
+    lines.add(cur);
+    cur = RichLine();
+  }
+
+  for (final pc in pieces) {
+    if (pc.nl) {
+      end();
+      continue;
+    }
+    pc.w = measure(pc.t, pc.r);
+    if (pc.sp && cur.pieces.isEmpty) continue;
+    if (!pc.sp && maxw > 0 && cur.w + pc.w > maxw && cur.pieces.any((q) => !q.sp)) end();
+    pc.x = cur.w;
+    cur.pieces.add(pc);
+    cur.w += pc.w;
+  }
+  end();
+  return RichLayout(lines, size, lh, ls, fontFor, measure);
+}
+
 /// A child placed by a `<row>`, `<col>` or `<grid>`: its box (w × h, origin
 /// offset ox/oy inside the box) and its top-left corner (x, y) in the container.
 class LayoutItem {
@@ -323,6 +494,11 @@ LayoutItem boxOf(TsvgCanvas c, TsvgNode n, Env env) {
       final rx = p('rx', 50), ry = toNum(prop(n, 'ry', env, doc, rx));
       return LayoutItem(2 * rx, 2 * ry, rx, ry);
     case 'text':
+      if (isRich(n) && n.a['path'] == null) {
+        final l = richLayout(c, n, env, (String k, [Object? d]) => prop(n, k, env, doc, d), textOf(n, env));
+        final al = toStr(prop(n, 'align', env, doc, 'left'));
+        return LayoutItem(l.w, l.h, al == 'center' ? l.w / 2 : (al == 'right' ? l.w : 0), l.h / 2);
+      }
       final size = p('size', 48), lh = p('lh', 1.25), maxw = p('maxw', 0);
       final font = fontSpecOf(prop(n, 'font', env, doc, ''), doc, size, prop(n, 'weight', env, doc, 400.0), truthy(prop(n, 'italic', env, doc, 0.0)));
       final txt = textOf(n, env);
@@ -496,7 +672,10 @@ class _Walker {
     if (mask != null && mask.isNotEmpty && c.supportsMasks) return masked(n, env, parentSt, mask);
     Object? p(String name, [Object? d]) => prop(n, name, env, doc, d);
     double pn(String name, double d) => toNum(p(name, d));
-    final opacity = pn('opacity', 1);
+    // split text runs opacity/scale/rot/x/y per unit, not on the whole (0.6)
+    final unitAnims = n.type == 'text' && n.a['split'] != null;
+    double sn(String name, double d) => toNum(unitAnims ? attr(n, name, env, doc, d) : p(name, d));
+    final opacity = sn('opacity', 1);
     if (opacity <= 0) return;
     c.save();
     final blend = pick(n.a, 'blend', env);
@@ -506,7 +685,7 @@ class _Walker {
     );
     final blur = pn('blur', 0);
     if (blur > 0) st = st.copyWith(blur: double.parse(jsFixed(blur * c.deviceScale, 2)));
-    final rot = pn('rot', 0), scale = pn('scale', 1), sx = pn('sx', 1) * scale, sy = pn('sy', 1) * scale;
+    final rot = sn('rot', 0), scale = sn('scale', 1), sx = sn('sx', 1) * scale, sy = sn('sy', 1) * scale;
     final fillRaw = p('fill', n.type == 'text' ? (env.theme['fg'] ?? '#fff') : null);
     final strokeRaw = p('stroke');
     final sw = pn('sw', 0);
@@ -620,6 +799,13 @@ class _Walker {
           c.stroke(shape, s, StrokeSpec(sw, trim: draw < 1 ? draw : null), f != null ? st.copyWith(noShadow: true) : st);
         }
       case 'text':
+        if (isRich(n)) {
+          final tx = sn('x', 0), ty = sn('y', 0);
+          pivot(tx, ty);
+          clipTo();
+          richText(n, env, p, paintOf(fillRaw, env), sw > 0 ? paintOf(strokeRaw, env) : null, sw, tx, ty, st);
+          break;
+        }
         var txt = textOf(n, env);
         final reveal = pn('reveal', 1);
         if (reveal < 1) {
@@ -666,6 +852,141 @@ class _Walker {
     c.restore();
   }
 
+  /// Rich / letter-spaced / split / path text (port of drawRichText).
+  void richText(TsvgNode n, Env env, RichProp P, TsvgPaint? fill, TsvgPaint? stroke, double sw, double x, double y, DrawState st) {
+    final txt = textOf(n, env);
+    final L = richLayout(c, n, env, P, txt);
+    final align = toStr(P('align', 'left'));
+    final reveal = toNum(P('reveal', 1.0));
+    int? budget; // characters left to show (null = all)
+    if (reveal < 1) {
+      final k = jsRound(txt.runes.length * reveal);
+      budget = k.isNaN ? 0 : k.toInt();
+    }
+    TsvgPaint? colorOf(RichRun r, TsvgPaint? fill) => r.c != null ? paintOf(value(r.c, env, doc), env) : fill;
+    TsvgPaint? hlFill() {
+      final h = P('hl', r'$accent');
+      final v = toStr(value(truthy(h) ? toStr(h) : '#ff0', env, doc));
+      return paintOf(_url.hasMatch(v) ? v : withAlpha(v, 0.35), env);
+    }
+
+    void piece(RichPiece pc, double px, double py, TsvgPaint? fill, DrawState st) {
+      var t = pc.t;
+      if (budget != null) {
+        final cs = t.runes.toList();
+        if (budget! <= 0) return;
+        if (cs.length > budget!) t = String.fromCharCodes(cs.take(budget!));
+        budget = budget! - cs.length;
+      }
+      final w = t == pc.t ? pc.w : L.measure(t, pc.r);
+      if ((pc.r.hl || pc.r.code) && !pc.sp) {
+        final bg = pc.r.code ? paintOf(env.theme['panel'] ?? '#8883', env) : hlFill();
+        final hh = L.size * (pc.r.code ? 1.15 : 1.1);
+        if (bg != null) c.fill(RectShape(px - 6, py - hh / 2, w + 12, hh, math.max(0, math.min(8, math.min((w + 12).abs() / 2, hh.abs() / 2)))), bg, st);
+      }
+      c.text(t, px, py, L.fontFor(pc.r), 'left', colorOf(pc.r, fill), stroke, sw, st);
+    }
+
+    // text on a path: one line, each letter turned with the path
+    final pd = P('path');
+    if (truthy(pd)) {
+      final smp = c.pathSampler(toStr(pd));
+      if (smp == null) return;
+      final total = L.lines.fold(0.0, (a, l) => a + l.w);
+      var s0 = toNum(P('offset', 0.0)) * smp.length +
+          (align == 'center' ? (smp.length - total) / 2 : (align == 'right' ? smp.length - total : 0));
+      c.save();
+      c.translate(x, y);
+      for (final l in L.lines) {
+        for (final pc in l.pieces) {
+          for (final rune in pc.t.runes) {
+            if (budget != null) {
+              final b = budget!;
+              budget = b - 1;
+              if (b <= 0) break;
+            }
+            final ch = String.fromCharCode(rune);
+            final cw = L.measure(ch, pc.r);
+            final pt = smp.at(s0 + cw / 2);
+            s0 += cw;
+            if (pc.sp) continue;
+            c.save();
+            c.translate(pt.x, pt.y);
+            c.rotate(pt.a);
+            c.text(ch, -cw / 2, 0, L.fontFor(pc.r), 'left', colorOf(pc.r, fill), stroke, sw, st);
+            c.restore();
+          }
+        }
+      }
+      c.restore();
+      return;
+    }
+    final y0 = y - (L.lines.length - 1) * L.size * L.lh / 2;
+    double lineX(RichLine l) => align == 'center' ? x - l.w / 2 : (align == 'right' ? x - l.w : x);
+    final split = n.a['split'];
+    if (split == null) {
+      for (var i = 0; i < L.lines.length; i++) {
+        final l = L.lines[i];
+        for (final pc in l.pieces) {
+          piece(pc, lineX(l) + pc.x, y0 + i * L.size * L.lh, fill, st);
+        }
+      }
+      return;
+    }
+    // split: every unit gets its own clock and transform
+    final units = <({List<(RichPiece, double)> pcs, double x, double y, double w})>[];
+    for (var i = 0; i < L.lines.length; i++) {
+      final l = L.lines[i];
+      final yy = y0 + i * L.size * L.lh;
+      if (split == 'line') {
+        units.add((pcs: [for (final pc in l.pieces) (pc, pc.x)], x: lineX(l), y: yy, w: l.w));
+        continue;
+      }
+      for (final pc in l.pieces) {
+        if (pc.sp) continue;
+        if (split == 'char') {
+          var cx = 0.0;
+          for (final rune in pc.t.runes) {
+            final ch = String.fromCharCode(rune);
+            final cw = L.measure(ch, pc.r);
+            final one = RichPiece(ch, pc.r, sp: pc.sp)
+              ..w = cw
+              ..x = pc.x;
+            units.add((pcs: [(one, 0.0)], x: lineX(l) + pc.x + cx, y: yy, w: cw));
+            cx += cw;
+          }
+        } else {
+          units.add((pcs: [(pc, 0.0)], x: lineX(l) + pc.x, y: yy, w: pc.w));
+        }
+      }
+    }
+    final stagger = toNum(P('stagger', 0.06));
+    final t0 = toNum(env.vars['T0']);
+    for (var k = 0; k < units.length; k++) {
+      final u = units[k];
+      final ue = env.withVars(Map<String, Object?>.of(env.vars)
+        ..['T0'] = t0 + k * stagger
+        ..['u'] = k.toDouble()
+        ..['u_n'] = units.length.toDouble());
+      double un(String name, double d) => toNum(prop(n, name, ue, doc, d));
+      final op = un('opacity', 1);
+      if (op <= 0) continue;
+      c.save();
+      final ust = op.isNaN ? st : st.copyWith(alpha: st.alpha * math.min(1.0, op));
+      c.translate(u.x + u.w / 2 + (un('x', 0) - x), u.y + (un('y', 0) - y));
+      final r = un('rot', 0);
+      if (truthy(r)) c.rotate(r * math.pi / 180);
+      final sc = un('scale', 1);
+      if (sc != 1) c.scale(sc, sc);
+      final f = prop(n, 'fill', ue, doc);
+      final uf = f != null ? paintOf(f, ue) : fill;
+      for (final (pc, dx) in u.pcs) {
+        piece(pc, -u.w / 2 + dx, 0, uf, ust);
+      }
+      c.restore();
+    }
+  }
+
   /// mask="url(#m)": node into a layer, mask shapes on top with dst-in.
   void masked(TsvgNode n, Env env, DrawState parentSt, String maskRef) {
     final m = _url.firstMatch(maskRef);
@@ -688,6 +1009,90 @@ class _Walker {
   }
 }
 
+// ───────── scene transitions (0.6) ─────────
+// <scene in="push 0.6 left io"> (kind, seconds, direction, ease) or <timeline in="fade"> for every scene.
+// The transition plays over the first seconds of the scene; the previous scene keeps running underneath.
+const List<String> transitionKinds = ['fade', 'slide', 'push', 'wipe', 'zoom', 'iris', 'blur', 'none'];
+
+/// A parsed scene transition.
+class TsvgTransition {
+  const TsvgTransition(this.kind, this.dur, this.dir, this.ease);
+  final String kind;
+  final double dur;
+
+  /// Where the old scene goes: left | right | up | down.
+  final String dir;
+  final String ease;
+}
+
+/// The incoming transition of a scene, or null (none, or not set).
+TsvgTransition? transitionOf(TsvgScene sc, Env env) {
+  final raw = sc.trans;
+  if (raw == null || raw.isEmpty) return null;
+  final p = toStr(value(raw, env, _doc(env))).trim().split(RegExp(r'\s+'));
+  if (p.first.isEmpty || p.first == 'none') return null;
+  final rest = p.skip(1);
+  final num = rest.where(_numeric.hasMatch).firstOrNull;
+  final dir = rest.where(const ['left', 'right', 'up', 'down'].contains).firstOrNull;
+  final e = rest.where(ease.containsKey).firstOrNull;
+  return TsvgTransition(p.first, num != null ? double.parse(num) : 0.6, dir ?? 'left', e ?? 'io');
+}
+
+void _transition(TsvgCanvas c, TsvgTransition tr, double k, TsvgLayout l, void Function(DrawState st) drawPrev,
+    void Function(DrawState st) drawCur) {
+  final W = l.w, H = l.h;
+  final (vx, vy) = switch (tr.dir) { 'right' => (1.0, 0.0), 'up' => (0.0, -1.0), 'down' => (0.0, 1.0), _ => (-1.0, 0.0) };
+  void layer(double alpha, void Function(DrawState st) f, [void Function()? tf, double Function()? blur]) {
+    c.save();
+    if (tf != null) tf();
+    final b = blur == null ? 0.0 : blur();
+    f(DrawState(alpha: alpha, blur: b > 0 ? b : 0));
+    c.restore();
+  }
+
+  void Function() around(double s) => () {
+        c.translate(W / 2, H / 2);
+        c.scale(s, s);
+        c.translate(-W / 2, -H / 2);
+      };
+  // Canvas2D filter blur(σ px) in device pixels, fixed to 2 decimals like the reference
+  double blurPx(double v) => double.parse(jsFixed(24 * v * c.deviceScale, 2));
+  switch (tr.kind) {
+    case 'fade':
+      layer(1 - k, drawPrev);
+      layer(k, drawCur);
+    case 'slide':
+      layer(1, drawPrev);
+      layer(1, drawCur, () => c.translate(-vx * W * (1 - k), -vy * H * (1 - k)));
+    case 'push':
+      layer(1, drawPrev, () => c.translate(vx * W * k, vy * H * k));
+      layer(1, drawCur, () => c.translate(-vx * W * (1 - k), -vy * H * (1 - k)));
+    case 'wipe':
+      layer(1, drawPrev);
+      layer(1, drawCur, () {
+        if (vx != 0) {
+          c.clip([RectShape(vx < 0 ? W * (1 - k) : 0, 0, W * k, H)]);
+        } else {
+          c.clip([RectShape(0, vy < 0 ? H * (1 - k) : 0, W, H * k)]);
+        }
+      });
+    case 'zoom':
+      layer(1 - k, drawPrev, around(1 + 0.25 * k));
+      layer(k, drawCur, around(0.85 + 0.15 * k));
+    case 'iris':
+      layer(1, drawPrev);
+      layer(1, drawCur, () {
+        final r = math.max(0.01, k * math.sqrt(W * W + H * H) / 2);
+        c.clip([EllipseShape(W / 2, H / 2, r, r)]);
+      });
+    case 'blur':
+      layer(1 - k, drawPrev, null, () => blurPx(k));
+      layer(k, drawCur, null, () => k < 1 ? blurPx(1 - k) : 0);
+    default:
+      drawCur(DrawState.plain);
+  }
+}
+
 /// Draws the frame at time [t]. The canvas must already map layout units
 /// (layout.w × layout.h) to the target.
 void renderFrame(TsvgCanvas canvas, TsvgDoc doc, double t, Map<String, String> opts, TsvgLayout layout) {
@@ -700,15 +1105,27 @@ void renderFrame(TsvgCanvas canvas, TsvgDoc doc, double t, Map<String, String> o
     if (bg != null) canvas.fill(RectShape(0, 0, layout.w, layout.h), bg, DrawState.plain);
     w.nodes(doc.backdrop, env, DrawState.plain);
     final last = doc.scenes.isEmpty ? null : doc.scenes.last;
-    for (final sc in doc.scenes) {
-      final active = (t >= sc.start && t < sc.start + sc.dur) || (identical(sc, last) && t >= sc.start + sc.dur);
-      if (!active) continue;
-      final T = math.min(t, sc.start + sc.dur - 1e-6) - sc.start;
+    void drawScene(TsvgScene sc, double T, DrawState st) {
       final vars = Map<String, Object?>.of(env.vars)
         ..['T'] = T
         ..['p'] = T / sc.dur
         ..['sdur'] = sc.dur;
-      w.nodes(sc.nodes, env.withScene(sc, vars), DrawState.plain);
+      w.nodes(sc.nodes, env.withScene(sc, vars), st);
+    }
+
+    for (var i = 0; i < doc.scenes.length; i++) {
+      final sc = doc.scenes[i];
+      final active = (t >= sc.start && t < sc.start + sc.dur) || (identical(sc, last) && t >= sc.start + sc.dur);
+      if (!active) continue;
+      final T = math.min(t, sc.start + sc.dur - 1e-6) - sc.start;
+      final tr = i > 0 ? transitionOf(sc, env) : null;
+      if (tr != null && T < tr.dur) {
+        final prev = doc.scenes[i - 1];
+        _transition(canvas, tr, (ease[tr.ease] ?? ease['io']!)(T / tr.dur), layout,
+            (st) => drawScene(prev, prev.dur + T, st), (st) => drawScene(sc, T, st));
+      } else {
+        drawScene(sc, T, DrawState.plain);
+      }
     }
     w.nodes(doc.overlay, env, DrawState.plain);
   } finally {
