@@ -1,12 +1,12 @@
 {
   "name": "@panth977/tsvg",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "license": "MIT",
   "exports": {
     ".": "./mod.ts"
   },
   "publish": {
-    "include": ["mod.ts", "web/*.js", "dist/tsvg.js", "spec/index.html", "README.md", "LICENSE"]
+    "include": ["mod.ts", "web/*.js", "web/preview.html", "dist/tsvg.js", "spec/index.html", "README.md", "LICENSE"]
   },
   "compilerOptions": { "lib": ["dom", "esnext"] }
 }

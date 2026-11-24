@@ -2,7 +2,8 @@
 // tsvg — command line tools for TSVG (Timeseries Scalable Vector Graphics).
 //   tsvg validate <file.tsvg|.tsvgz>             static checks + dry run of every variant
 //   tsvg info     <file>                         duration, options, chapters, voices
-//   tsvg pack     <file.tsvg> [-o out.tsvgz]     zip the document with every file it references
+//   tsvg pack     <file.tsvg> [-o out.tsvgz] [--html [out.html]] [--no-preview]
+//                                                zip the document with its files (+ index.html preview); --html: one offline page
 //   tsvg unpack   <file.tsvgz> [-o dir]
 //   tsvg bake     <file.tsvg> [--tts gu=sarvam:shubh] [--only en,gu] [--force]
 //                                                record every <say> line per language, write <voices>
@@ -88,8 +89,19 @@ const cmds = {
     const r = TSVG.validate(src.xml, { files: { has: src.has } }); if (!r.ok) { r.errors.forEach((e) => console.error('ERROR ' + e)); die('fix errors before packing'); }
     const entries = [{ path: Zip.MAIN, data: src.xml }];
     for (const p of referenced(doc)) entries.push({ path: p, data: new Uint8Array(src.get(p)) });
+    const deflateRaw = (b) => new Uint8Array(deflateRawSync(b, { level: 9 }));
+    // --html out.html: one self-contained page (player + package inline) that plays offline in any browser
+    if (flag('html')) {
+      const html = previewHtml(src.xml, doc, { pkg: Zip.write(entries, { deflateRaw }) });
+      const hout = flag('html') === true ? src.path.replace(/\.tsvg$/, '') + '.html' : flag('html');
+      mkdirSync(dirname(resolve(hout)), { recursive: true }); writeFileSync(hout, html);
+      console.log(`${hout} · offline preview · ${(html.length / 1024).toFixed(0)} KB`);
+      if (!flags.o) return;
+    }
+    // every package carries index.html: unzip it and open the page to preview without a player
+    if (!flag('no-preview')) entries.push({ path: 'index.html', data: previewHtml(src.xml, doc, {}) });
     const out = flag('o', src.path.replace(/\.tsvg$/, '') + '.tsvgz'); mkdirSync(dirname(resolve(out)), { recursive: true });
-    const bytes = Zip.write(entries, { deflateRaw: (b) => new Uint8Array(deflateRawSync(b, { level: 9 })) });
+    const bytes = Zip.write(entries, { deflateRaw });
     writeFileSync(out, bytes); console.log(`${out} · ${entries.length} files · ${(bytes.length / 1024).toFixed(0)} KB`);
   },
   async unpack() {
@@ -100,6 +112,24 @@ const cmds = {
   },
   bake, render, export: exportMp4, test, serve,
 };
+
+// ───────── preview page (web/preview.html) ─────────
+// pkg absent: the page loads the player from the CDN and plays the inline document with its files beside it.
+// pkg given: the player and the whole package are inlined, so the page works offline from anywhere.
+function previewHtml(xml, doc, { pkg }) {
+  const version = JSON.parse(readFileSync(join(ROOT, 'deno.json'), 'utf8')).version;
+  const env = TSVG.makeEnv(doc, TSVG.defaults(doc), doc.layouts[0], 0);
+  let title = 'TSVG video'; try { title = String(TSVG.value(doc.title, env, doc) || title); } catch {}
+  const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const engine = pkg
+    ? '<script>' + ['tsvg-core.js', 'tsvg-zip.js', 'tsvg-player.js'].map((f) => readFileSync(join(ROOT, 'web', f), 'utf8')).join('\n').replace(/<\/script/gi, '<\\/script') + '</script>'
+    : `<script src="https://esm.sh/jsr/@panth977/tsvg@${version}/dist/tsvg.js?raw"></script>`;
+  return readFileSync(join(ROOT, 'web/preview.html'), 'utf8')
+    .replace('__VERSION__', version).replace('__TITLE__', () => esc(title))
+    .replace('<!--TSVG_ENGINE-->', () => engine)
+    .replace('<!--TSVG_PACKAGE-->', () => (pkg ? `<script type="application/octet-stream" id="tsvg-pkg">${Buffer.from(pkg).toString('base64')}</script>` : ''))
+    .replace('__DOC__', () => (pkg ? '' : xml.replace(/<\/script/gi, '<\\/script')));
+}
 
 // ───────── bake: record every <say> line per language ─────────
 async function bake() {
@@ -338,5 +368,5 @@ function serve() {
   }).listen(port, '127.0.0.1', () => console.log(`http://127.0.0.1:${port}/  (spec: /spec/  playground: /playground/)`));
 }
 
-if (!cmds[cmd]) { console.log(readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n').slice(1, 13).map((l) => l.replace(/^\/\/ ?/, '')).join('\n')); process.exit(cmd ? 1 : 0); }
+if (!cmds[cmd]) { console.log(readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n').slice(1, 15).map((l) => l.replace(/^\/\/ ?/, '')).join('\n')); process.exit(cmd ? 1 : 0); }
 await cmds[cmd]();

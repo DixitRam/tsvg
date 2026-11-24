@@ -54,7 +54,7 @@
     const sorted = entries.slice().sort((a, b) => (a.path === MAIN ? -1 : b.path === MAIN ? 1 : a.path < b.path ? -1 : 1));
     for (const e of sorted) {
       const raw = typeof e.data === 'string' ? enc(e.data) : e.data;
-      const compressible = deflateRaw && /\.(tsvg|xml|json|svg|txt|vtt|ttf|otf)$/i.test(e.path);
+      const compressible = deflateRaw && /\.(tsvg|xml|json|svg|txt|vtt|ttf|otf|html)$/i.test(e.path);
       const body = compressible ? deflateRaw(raw) : raw; const method = compressible ? 8 : 0;
       const name = enc(e.path); const crc = crc32(raw);
       const h = new DataView(new ArrayBuffer(30));

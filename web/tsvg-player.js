@@ -216,7 +216,8 @@
         if (this.clipEls.has(k)) continue;
         const url = this.url(c.path); const el = new Audio();
         el.preload = 'auto'; el.loop = !!c.loop; el.preservesPitch = el.mozPreservesPitch = el.webkitPreservesPitch = true;
-        const local = /^(blob|data):/.test(url) || new URL(url, location.href).origin === location.origin;
+        const u = new URL(url, location.href); // file:// media is cross-origin to WebAudio (it would play silent): use element volume
+        const local = /^(blob|data):/.test(url) || (u.protocol !== 'file:' && u.origin === location.origin);
         el.src = url;
         const ce = { el, clip: c, gain: null };
         // cross-origin media without CORS would play silent through WebAudio: keep those on element volume

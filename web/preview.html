@@ -1,0 +1,47 @@
+<!doctype html>
+<!-- TSVG preview page. `tsvg pack` puts this file in every .tsvgz as index.html (the document inline,
+     the player from the CDN), and `tsvg pack --html` writes it as one offline file (player and package inline).
+     Open it in any browser: no TSVG player needed. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="generator" content="TSVG __VERSION__">
+<link rel="icon" href="data:,">
+<title>__TITLE__</title>
+<style>
+  html,body{margin:0;height:100%;background:#000;color:#ddd;font:14px/1.4 system-ui,-apple-system,"Segoe UI",sans-serif}
+  body{display:flex;flex-direction:column}
+  #v{flex:1;min-height:0}
+  #v>.tsvgp{border-radius:0}
+  #msg{position:fixed;inset:0;display:none;place-items:center;padding:24px;text-align:center;color:#ccc}
+  #msg a{color:#7aa2ff}
+</style>
+</head>
+<body>
+<div id="v"></div>
+<div id="msg"></div>
+<!--TSVG_ENGINE-->
+<!--TSVG_PACKAGE-->
+<script type="text/tsvg" id="tsvg-doc">__DOC__</script>
+<script>
+(async () => {
+  const msg = (html) => { const m = document.getElementById('msg'); m.innerHTML = html; m.style.display = 'grid'; };
+  if (!window.TSVGPlayer) return msg('The TSVG player could not be loaded (offline?).<br>Open this video in a TSVG player, or ask for the offline <code>.html</code> (<code>tsvg pack --html</code>).<br><a href="https://github.com/Panth977/tsvg">About TSVG</a>');
+  try {
+    const player = new TSVGPlayer(document.getElementById('v'), { base: location.href });
+    const pkg = document.getElementById('tsvg-pkg');
+    if (pkg) { // offline build: the whole .tsvgz inline (base64)
+      const bin = atob(pkg.textContent.trim()); const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      await player.loadPackage(bytes);
+    } else { // inside a package: the document inline, its files beside this page
+      await player.load(document.getElementById('tsvg-doc').textContent.replace(/<\\\/script/gi, '</script'));
+    }
+    player.el.focus();
+    window.player = player;
+  } catch (e) { msg('Could not play this video: ' + String(e && e.message || e).replace(/</g, '&lt;')); }
+})();
+</script>
+</body>
+</html>
