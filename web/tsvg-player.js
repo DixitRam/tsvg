@@ -372,7 +372,7 @@
       else m.innerHTML = `<button class="item head" data-back="1">${svg('left')}<span class="k">${esc(sub.label)}</span></button>` +
         sub.choices.map((c) => `<button class="item${c.id === sub.val ? ' on' : ''}" role="menuitemradio" aria-checked="${c.id === sub.val}" data-g="${esc(sub.id)}" data-c="${esc(c.id)}"><span class="ck">${svg('check')}</span><span class="k">${esc(c.label)}</span></button>`).join('');
     }
-    openMenu(sub) { this.menuSub = sub || null; this.renderMenu(); this.q('.menu').classList.add('open'); this.p.classList.add('menu-open'); this.showControls(true); }
+    openMenu(sub) { this.menuSub = sub || null; this.menuDirect = !!sub; this.renderMenu(); this.q('.menu').classList.add('open'); this.p.classList.add('menu-open'); this.showControls(true); }
     closeMenu() { this.q('.menu').classList.remove('open'); this.p.classList.remove('menu-open'); this.menuSub = null; this.showControls(true); }
     setOption(g, c) {
       if (g === '__layout') { this.layoutPref = c; this.zoom = 1; this.panX = this.panY = 0; }
@@ -415,8 +415,8 @@
       menu.addEventListener('click', (e) => {
         e.stopPropagation(); const b = e.target.closest('button'); if (!b) return;
         if (b.dataset.back) { this.menuSub = null; this.renderMenu(); }
-        else if (b.dataset.row) { this.menuSub = b.dataset.row; this.renderMenu(); }
-        else if (b.dataset.g) { this.setOption(b.dataset.g, b.dataset.c); this.menuSub = null; this.renderMenu(); if (this.p.classList.contains('narrow')) this.closeMenu(); }
+        else if (b.dataset.row) { this.menuSub = b.dataset.row; this.menuDirect = false; this.renderMenu(); }
+        else if (b.dataset.g) { this.setOption(b.dataset.g, b.dataset.c); this.menuSub = null; this.renderMenu(); if (this.menuDirect || this.p.classList.contains('narrow')) this.closeMenu(); }
       });
       this.q('.menu-bg').addEventListener('pointerdown', (e) => { e.stopPropagation(); e.preventDefault(); this.closeMenu(); });
       // scrubber: drag (mouse or touch) with a live preview frame; hover previews too
