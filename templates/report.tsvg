@@ -83,7 +83,7 @@
       <text x="=W/2" y="=H/2-50" size="96" size.portrait="72" maxw="1700" maxw.portrait="960" weight="800" align="center" text="@title" fill="url(#ink)">
         <anim prop="opacity" from="0" to="1" dur="0.7"/><anim prop="scale" from="0.94" to="1" dur="0.9" ease="back"/>
       </text>
-      <text x="=W/2" y="=H/2+90" y.portrait="=H/2+170" size="38" maxw="1500" maxw.portrait="940" align="center" fill="$muted" text="@sub" at="0.8">
+      <text x="=W/2" y="=H/2+150" y.portrait="=H/2+230" size="38" maxw="1500" maxw.portrait="940" align="center" fill="$muted" text="@sub" at="0.8">
         <anim prop="opacity" from="0" to="1" dur="0.6"/>
       </text>
     </scene>
