@@ -49,6 +49,22 @@ const o = { base: pathToFileURL(ROOT + 'tests/x.tsvg').href, libBase: pathToFile
   const gu = x.replace('<themes>', '<options><option id="lang" default="en"><choice id="en"/><choice id="gu"/></option></options><themes>');
   ok(T.parse(T.flatten(gu, libs, o).xml).fonts.some((f) => f.family === 'Noto Sans Gujarati'), 'gu font kept with a gu choice');
 }
+// auto timing: scene length follows the narration per language; chained says; cue(); variants
+{
+  const x = `<tsvg><options><option id="lang" default="en"><choice id="en"/><choice id="gu"/></option></options>
+    <timeline><scene id="a" dur="auto" pad="1" min="2"><say id="v1" text="one"/><say id="v2" text="two"/><rect at="=cue('v2')" w="=cueEnd(0)"/></scene>
+    <scene id="b" dur="3" dur.gu="5" chapter="B"><sfx at="1" at.gu="2" src="a/b.m4a"/></scene></timeline>
+    <voices><voice say="v1" lang="en" src="v/1.m4a" dur="2"/><voice say="v2" lang="en" src="v/2.m4a" dur="1"/><voice say="v1" lang="gu" src="v/3.m4a" dur="4"/><voice say="v2" lang="gu" src="v/4.m4a" dur="3"/></voices></tsvg>`;
+  const d = T.parse(x); const en = T.forOptions(d, { lang: 'en' }), gu = T.forOptions(d, { lang: 'gu' });
+  eq(en.scenes.map((s) => [+s.start.toFixed(2), +s.dur.toFixed(2)]), [[0, 4.7], [4.7, 3]], 'en timing: 0.4 + 2 + 0.3 + 1 + pad 1');
+  eq(gu.scenes.map((s) => [+s.start.toFixed(2), +s.dur.toFixed(2)]), [[0, 8.7], [8.7, 5]], 'gu timing');
+  eq([+en.duration.toFixed(2), +gu.duration.toFixed(2)], [7.7, 13.7], 'durations per language');
+  eq(gu.chapters[0].t, 8.7, 'chapter follows'); eq(T.sayLines(d, { lang: 'gu' }).map((l) => +l.start.toFixed(2)), [0.4, 4.7], 'say starts chained');
+  eq(T.audioPlan(d, { lang: 'gu' }).clips.find((c) => c.bus === 'sfx').start, 10.7, 'sfx at.gu');
+  ok(T.forOptions(d, { lang: 'gu' }) === gu, 'views cached'); ok(T.parse('<tsvg><timeline><scene dur="2"/></timeline></tsvg>').timed === false, 'plain docs untouched');
+  let rect = null; const ctx = { save() {}, restore() {}, translate() {}, fill() {}, stroke() {}, fillRect() {}, rotate() {}, scale() {}, getTransform: () => ({ a: 1, b: 0, c: 0, d: 1 }), setLineDash() {}, clip() {}, globalAlpha: 1 };
+  ok(T.validate(x).ok, 'validate auto: ' + T.validate(x).errors[0]);
+}
 // every built-in library example checks clean
 for (const f of ['examples/libs/report.tsvg', 'examples/libs/explainer.tsvg', 'templates/report.tsvg']) {
   const x = readFileSync(ROOT + f, 'utf8'); const oo = Object.assign({}, o, { base: pathToFileURL(ROOT + f).href });

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TSVG 0.5: auto layout (row / col / grid) and auto timing (dur="auto", cue()). No hand-placed x/y inside the containers. -->
+<tsvg version="0.5" title="Auto layout + auto timing">
+  <import src="tsvg:base" as="b" key="TSVG 0.5 · auto layout"/>
+  <timeline>
+    <!-- a card is a <col> with a fill: padding, gap and a rounded background, sized by its content -->
+    <scene id="cards" dur="auto" chapter="Cards">
+      <say text="A card is a column with padding and a background. Its size comes from its content."/>
+      <b:heading text="Cards size themselves"/>
+      <row x="=W/2" y="=H/2+40" ax="0.5" ay="0.5" gap="40" align="center">
+        <col pad="40" gap="16" fill="$panel" r="24" shadow="0 16 40 #0006" at="0.6">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="30" to="0" dur="0.5"/>
+          <text size="30" weight="700" fill="$accent" text="Short"/>
+          <text size="56" weight="800" text="42"/>
+        </col>
+        <col pad="40" gap="16" fill="$panel" r="24" shadow="0 16 40 #0006" at="1.1">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="30" to="0" dur="0.5"/>
+          <text size="30" weight="700" fill="$accent2" text="A longer title"/>
+          <text size="28" maxw="360" fill="$muted" text="Text wraps at maxw and the card grows to fit every line of it."/>
+        </col>
+        <col pad="40" gap="16" fill="$panel" r="24" shadow="0 16 40 #0006" align="center" at="1.6">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="30" to="0" dur="0.5"/>
+          <circle r="40" fill="$good"/>
+          <text size="30" weight="700" text="Centred"/>
+        </col>
+      </row>
+    </scene>
+    <!-- a grid of repeated items: cols, gap, cells sized by the widest item -->
+    <scene id="grid" dur="auto" chapter="Grid">
+      <say text="A grid places repeated items in rows and columns."/>
+      <say text="Each one appears in turn, and nothing jumps."/>
+      <b:heading text="Grids"/>
+      <grid x="=W/2" y="=H/2+50" ax="0.5" ay="0.5" cols="4" cols.portrait="2" gap="24" justify="stretch">
+        <row repeat="8" as="k" pad="28" gap="20" fill="$panel" r="20" align="center" at="=cue(0) + k*0.25">
+          <anim prop="scale" from="0.85" to="1" dur="0.4" ease="back"/><anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <circle r="22" fill="=k % 2 ? $accent : $accent2"/>
+          <text size="32" weight="700" text="Item {k+1}"/>
+        </row>
+      </grid>
+    </scene>
+    <!-- justify: start / center / between / end, and grow -->
+    <scene id="justify" dur="auto" min="6" chapter="Justify + grow">
+      <say text="Rows can spread their items, and a growing item takes the space that is left."/>
+      <b:heading text="justify and grow"/>
+      <col x="=W/2" y="=H/2+60" ax="0.5" ay="0.5" gap="28" w="1500" w.portrait="960" align="stretch">
+        <row repeat="3" as="j" pad="20" gap="20" fill="$panel" r="18" align="center" justify="=j == 0 ? 'start' : j == 1 ? 'center' : 'between'" at="=0.5 + j*0.6">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <text size="28" weight="700" fill="$muted" text="=j == 0 ? 'start' : j == 1 ? 'center' : 'between'"/>
+          <rect w="120" h="56" r="12" fill="$accent"/><rect w="120" h="56" r="12" fill="$accent2"/><rect w="120" h="56" r="12" fill="$good"/>
+        </row>
+        <row pad="20" gap="20" fill="$panel" r="18" align="center" at="2.4">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <text size="28" weight="700" fill="$muted" text="grow"/>
+          <rect w="120" h="56" r="12" fill="$accent"/><rect w="0" h="56" r="12" fill="$warn" grow="1"/><rect w="120" h="56" r="12" fill="$good"/>
+        </row>
+      </col>
+    </scene>
+    <!-- auto timing: each scene lasts as long as its narration in the chosen language; cue() follows the voice -->
+    <scene id="timing" dur="auto" chapter="Auto timing">
+      <say id="a" text="Scenes can last exactly as long as their narration."/>
+      <say id="b" text="In every language. And animations can follow the voice."/>
+      <b:heading text="dur = auto"/>
+      <col x="=W/2" y="=H/2+40" ax="0.5" ay="0.5" gap="24" align="center">
+        <text size="44" weight="700" text="This line appears with the first sentence" at="=cue('a')"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+        <text size="44" weight="700" fill="$accent" text="…and this one with the second" at="=cue('b')"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      </col>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="a" lang="en" src="voice/layout/en/a.8750eeaad0.m4a" dur="2.92" hash="8750eeaad0" engine="kokoro:af_heart"/>
+    <voice say="b" lang="en" src="voice/layout/en/b.90061165ff.m4a" dur="3.40" hash="90061165ff" engine="kokoro:af_heart"/>
+    <voice say="say0" lang="en" src="voice/layout/en/say0.91254aacde.m4a" dur="5.00" hash="91254aacde" engine="kokoro:af_heart"/>
+    <voice say="say1" lang="en" src="voice/layout/en/say1.2e28e7e961.m4a" dur="3.30" hash="2e28e7e961" engine="kokoro:af_heart"/>
+    <voice say="say2" lang="en" src="voice/layout/en/say2.7146caac31.m4a" dur="2.50" hash="7146caac31" engine="kokoro:af_heart"/>
+    <voice say="say3" lang="en" src="voice/layout/en/say3.be3d22640b.m4a" dur="4.60" hash="be3d22640b" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

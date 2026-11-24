@@ -76,6 +76,19 @@ A library (`.tsvgl`) packages **components with props**, **styles** (themes, fon
 - Override the look from the document: `<themes><theme id="dark" accent="#e4572e"/></themes>` changes one token; your own `<layouts>` or `<option id="lang">` replace the library's.
 - Packages are flattened: `main.tsvg` is plain TSVG (any player plays it), `source.tsvg` keeps your imports, library files ride along under `lib/`.
 
+## Layout and timing without numbers (0.5)
+
+```xml
+<scene dur="auto">                                   <!-- as long as its narration, in every language -->
+  <say id="a" text="Cards size themselves."/> <say id="b" text="And appear with the voice."/>
+  <row x="=W/2" y="=H/2" ax="0.5" ay="0.5" gap="40">  <!-- row / col / grid place their children -->
+    <col pad="40" gap="16" fill="$panel" r="24" at="=cue('a')"><text size="30" text="Short"/><text size="56" text="42"/></col>
+    <col pad="40" gap="16" fill="$panel" r="24" at="=cue('b')"><text size="28" maxw="360" text="Text wraps and the card grows."/></col>
+  </row>
+</scene>
+```
+[▶ layout + timing demo](https://panth977.github.io/tsvg/playground/?doc=../examples/layout/layout.tsvg) · spec [§3.6](https://panth977.github.io/tsvg/spec/#timeline), [§5](https://panth977.github.io/tsvg/spec/#nodes)
+
 ## Quick start
 
 ```sh
@@ -93,10 +106,10 @@ Install or load from a CDN ([JSR: @panth977/tsvg](https://jsr.io/@panth977/tsvg)
 
 ```ts
 import { TSVGPlayer, TSVG, TSVGZip } from "jsr:@panth977/tsvg";            // Deno / bundlers (npx jsr add @panth977/tsvg)
-import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.4.0";     // any browser, no build
+import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.5.0";     // any browser, no build
 ```
 ```html
-<script src="https://esm.sh/jsr/@panth977/tsvg@0.4.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
+<script src="https://esm.sh/jsr/@panth977/tsvg@0.5.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
 ```
 
 Embed the player:

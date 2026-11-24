@@ -174,9 +174,10 @@ async function runCheck(src, { fast = false, page } = {}) {
   const errors = r.errors.map((m) => loc(file, srcLine(src, m))), warnings = r.warnings.map((m) => loc(file, srcLine(src, m)));
   if (r.ok && !fast) {
     const own = !page; const br = own ? await browser(src) : { page };
-    const doc = r.doc; const times = []; for (const sc of doc.scenes) times.push(sc.start + sc.dur * 0.5, sc.start + sc.dur * 0.9);
+    const doc = r.doc;
     const seen = new Set();
     for (const L of doc.layouts) for (const opts of (TSVG.combos(doc).length ? TSVG.combos(doc) : [{}]).slice(0, 4)) {
+      const times = []; for (const sc of TSVG.forOptions(doc, Object.assign(TSVG.defaults(doc), opts)).scenes) times.push(sc.start + sc.dur * 0.5, sc.start + sc.dur * 0.9);
       const res = await br.page.evaluate(([t, o, l]) => window.bounds(t, o, l), [times, opts, L.id]);
       for (const b of res) {
         const key = b.kind + b.line + (b.line2 || '') + L.id; if (seen.has(key)) continue; seen.add(key);
@@ -435,19 +436,19 @@ window.bounds = (times, opts, layoutId) => {
 // contact sheet: one tile per scene (a late frame, after build-ins) with a label, for one layout
 window.sheet = (opts, layoutId, tileW, at) => {
   const L = doc.layouts.find((l) => l.id === layoutId) || doc.layouts[0];
-  const o = Object.assign(TSVG.defaults(doc), opts); const env = TSVG.makeEnv(doc, o, L, 0);
-  const n = doc.scenes.length, cols = L.w >= L.h ? Math.min(3, n) : Math.min(5, n), rows = Math.ceil(n / cols);
+  const o = Object.assign(TSVG.defaults(doc), opts); const V = TSVG.forOptions(doc, o); const env = TSVG.makeEnv(V, o, L, 0);
+  const n = V.scenes.length, cols = L.w >= L.h ? Math.min(3, n) : Math.min(5, n), rows = Math.ceil(n / cols);
   const tw = tileW, th = Math.round(tw * L.h / L.w), lab = 46, pad = 12;
   const c = document.createElement('canvas'); c.width = cols * (tw + pad) + pad; c.height = rows * (th + lab + pad) + pad + 40;
   const x = c.getContext('2d'); x.fillStyle = '#111'; x.fillRect(0, 0, c.width, c.height);
   x.fillStyle = '#ddd'; x.font = '600 18px system-ui'; x.fillText((doc.title ? String(TSVG.value(doc.title, env, doc)) + ' · ' : '') + L.id + ' ' + L.w + '×' + L.h + ' · ' + doc.duration + 's · ' + JSON.stringify(o), pad, 26);
   const lines = TSVG.sayLines(doc, o);
-  doc.scenes.forEach((sc, i) => {
+  V.scenes.forEach((sc, i) => {
     const t = sc.start + sc.dur * (at || 0.7), cx = pad + (i % cols) * (tw + pad), cy = 40 + pad + Math.floor(i / cols) * (th + lab + pad);
     x.save(); x.translate(cx, cy); x.beginPath(); x.rect(0, 0, tw, th); x.clip(); x.setTransform(tw / L.w, 0, 0, tw / L.w, cx, cy);
     try { TSVG.renderFrame(x, doc, t, o, L, images); } catch (e) { x.setTransform(1, 0, 0, 1, cx, cy); x.fillStyle = '#f55'; x.font = '13px monospace'; x.fillText(e.message.slice(0, 80), 6, 20); }
     x.restore();
-    const ch = doc.chapters.filter((q) => q.t <= sc.start + 1e-6).pop();
+    const ch = V.chapters.filter((q) => q.t <= sc.start + 1e-6).pop();
     x.fillStyle = '#fff'; x.font = '600 15px system-ui'; x.fillText((i + 1) + ' · ' + sc.id + ' · ' + Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0') + (ch ? ' · ' + String(TSVG.value(ch.label, env, doc)) : ''), cx, cy + th + 18);
     const say = lines.find((l) => l.start >= sc.start && l.start < sc.start + sc.dur);
     if (say) { x.fillStyle = '#9aa'; x.font = '13px system-ui'; let s = say.text; while (x.measureText(s).width > tw && s.length > 4) s = s.slice(0, -4) + '…'; x.fillText(s, cx, cy + th + 37); }
@@ -482,8 +483,8 @@ async function render() {
 
 // ───────── export: frames from Chrome → ffmpeg, audio mixed from the plan ─────────
 async function exportMp4() {
-  const src = await openSource(pos[0]); const doc = TSVG.parse(src.xml);
-  const L = layoutOf(doc); const opts = optsFromFlags(doc); const fps = +flag('fps', 30);
+  const src = await openSource(pos[0]); const doc0 = TSVG.parse(src.xml);
+  const L = layoutOf(doc0); const opts = optsFromFlags(doc0); const fps = +flag('fps', 30); const doc = TSVG.forOptions(doc0, opts);
   const width = +flag('width', L.w) & ~1; const height = Math.round((width * L.h) / L.w) & ~1;
   const out = resolve(flag('o', basename(src.path).replace(/\.tsvgz?$/, '') + '-' + Object.values(opts).join('-') + '-' + L.id + '.mp4'));
   const tmp = join(dirname(out), '.tsvg-export-' + process.pid); mkdirSync(tmp, { recursive: true });

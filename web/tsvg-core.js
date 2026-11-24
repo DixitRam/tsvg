@@ -6,7 +6,7 @@
 // thumbnails free, and what lets every native engine be tested against golden frames.
 (function (root) {
   'use strict';
-  const VERSION = '0.2.2';
+  const VERSION = '0.5';
 
   // ───────────────────────── XML (subset) ─────────────────────────
   // Elements, attributes, text, comments, <?…?>, <!…>, CDATA, the 5 named
@@ -53,7 +53,7 @@
   // symbols, gradients, fns) and document defaults. <r:title text="…"/> expands a component with props.
   // Expansion is static and happens before parse: flatten() turns a document with imports into plain TSVG
   // (packages carry the flattened main.tsvg, so every player plays them). Local components live in <defs>.
-  const PKG = '0.4.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
+  const PKG = '0.5.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
   const HEAD = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'music', 'backdrop', 'overlay'];
   const BUILTIN = new Set(['tsvg', 'layouts', 'layout', 'options', 'option', 'choice', 'mixes', 'mix', 'themes', 'theme', 'strings', 's', 'defs', 'fn', 'symbol', 'linear', 'radial', 'stop', 'clip', 'mask', 'data', 'assets', 'asset', 'font', 'voices', 'voice', 'music', 'backdrop', 'overlay', 'timeline', 'scene', 'say', 'sfx', 'anim', 'keys', 'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'import', 'component', 'prop', 'slot', 'each', 'if']);
   const needsLibs = (xml) => /<(import|component)\b/.test(xml);
@@ -252,7 +252,7 @@
   // static template: %{prop} substitution, <if test>, <each items>, <slot>
   function applyStatic(nodes, vals, variants, slots, errors, line, who) {
     // %{p} = the prop's value; %{p#} = a short stable hash of it (ids that follow the content, e.g. say ids)
-    const sub = (s, v) => (s.indexOf('%{') < 0 ? s : s.replace(/%\{([A-Za-z_][\w.|-]*)(#)?\}/g, (m, k, h) => { const val = k.indexOf('|') < 0 ? v[k] : k.split('|').map((x) => v[x]).find((x) => x != null && x !== '') ?? v[k.split('|').pop()]; if (val == null) { errors.push('line ' + line + ' <' + who + '>: %{' + k + '} is not a prop here'); return ''; } return h ? 'h' + uidOf(val) : val; }));
+    const sub = (s, v) => (s.indexOf('%{') < 0 ? s : s.replace(/%\{([A-Za-z_][\w.|-]*)(#|:count)?\}/g, (m, k, h) => { const val = k.indexOf('|') < 0 ? v[k] : k.split('|').map((x) => v[x]).find((x) => x != null && x !== '') ?? v[k.split('|').pop()]; if (val == null) { errors.push('line ' + line + ' <' + who + '>: %{' + k + '} is not a prop here'); return ''; } return h === '#' ? 'h' + uidOf(val) : h ? String(val.split(/[\n‖]/.test(val) ? /\n|‖/ : '|').filter((x) => x.trim() !== '').length) : val; }));
     const truthy = (s) => {
       let m = /^([\s\S]*?)\s*(==|!=)\s*([\s\S]*)$/.exec(s); if (m) return (m[1].trim() === m[3].trim()) === (m[2] === '==');
       return !['', '0', 'false', 'no', 'none'].includes(s.trim());
@@ -385,6 +385,11 @@
           return (env) => {
             const vals = args.map((a) => a(env));
             if (name === 's') return strOf(env.doc, String(vals[0]), env);
+            if (name === 'cue' || name === 'cueEnd') {
+              const sc = env.scene; const c = sc && sc.cues[vals[0]];
+              if (!c) throw new Error(sc ? 'no <say> "' + vals[0] + '" in scene ' + sc.id + ' (cue takes a say id or 0, 1, …)' : name + '() works inside a scene');
+              return name === 'cue' ? c.at : c.end;
+            }
             if (name === 'aspect') { const im = env.images && env.images[vals[0]]; const w = im && (im.naturalWidth || im.width), h = im && (im.naturalHeight || im.height); return w && h ? w / h : vals[1] != null ? vals[1] : 1.6; } // width / height of a loaded image
             if (name === 'data' || name === 'count') {
               const list = env.doc && env.doc.data[vals[0]]; if (!list) throw new Error('unknown data ' + vals[0]);
@@ -426,7 +431,8 @@
   }
 
   // ───────────────────────── document model ─────────────────────────
-  const SHAPES = new Set(['rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use']);
+  const SHAPES = new Set(['rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'row', 'col', 'grid']);
+  const LAYOUTS = new Set(['row', 'col', 'grid']); // auto layout containers (0.5)
   const NUMERIC = /^-?[0-9]*\.?[0-9]+$/;
   const AUDIO_EXT = /\.(ogg|opus|mp3|m4a|wav|aac|flac)$/i;
   const FONT_EXT = /\.(ttf|otf|woff2?)$/i;
@@ -470,22 +476,21 @@
     for (const m of kids(r, 'music')) doc.audio.push({ bus: m.attrs.bus || 'music', src: m.attrs.src, start: +(m.attrs.start || 0), loop: m.attrs.loop === '1', vol: +(m.attrs.vol || 1), when: m.attrs.when });
     const bd = one('backdrop'); if (bd) doc.backdrop = buildNodes(bd);
     const ov = one('overlay'); if (ov) doc.overlay = buildNodes(ov);
-    let cursor = 0;
+    // the timeline is kept as written; timing() lays it out for one option set (scene lengths may follow the narration)
+    doc.sceneSrc = []; let sayN = 0;
     for (const sc of kids(one('timeline') || r, 'scene')) {
-      const start = sc.attrs.start != null ? +sc.attrs.start : cursor;
-      const dur = +sc.attrs.dur; if (!(dur > 0)) throw new Error('<scene id="' + sc.attrs.id + '"> needs dur > 0');
-      doc.scenes.push({ id: sc.attrs.id, start, dur, nodes: buildNodes(sc) });
-      if (sc.attrs.chapter) doc.chapters.push({ t: start, label: sc.attrs.chapter });
+      const src = { id: sc.attrs.id, a: sc.attrs, nodes: buildNodes(sc), says: [], sfx: [], line: sc.line };
       walk(sc, (el) => {
-        if (el.name === 'say') {
-          const key = el.attrs.id || (el.attrs.text && el.attrs.text[0] === '@' ? el.attrs.text.slice(1) : 'say' + doc.says.length);
-          doc.says.push({ key, start: start + +(el.attrs.at || 0), raw: el.attrs, scene: sc.attrs.id });
-        }
-        if (el.name === 'sfx') doc.audio.push({ bus: el.attrs.bus || 'sfx', src: el.attrs.src, start: start + +(el.attrs.at || 0), vol: +(el.attrs.vol || 1), when: el.attrs.when });
+        if (el.name === 'say') { src.says.push({ key: el.attrs.id || (el.attrs.text && el.attrs.text[0] === '@' ? el.attrs.text.slice(1) : 'say' + sayN), raw: el.attrs, scene: sc.attrs.id }); sayN++; }
+        if (el.name === 'sfx') src.sfx.push(el.attrs);
       });
-      cursor = start + dur; doc.duration = Math.max(doc.duration, cursor);
+      doc.sceneSrc.push(src);
     }
-    if (r.attrs.duration) doc.duration = +r.attrs.duration;
+    doc.music = doc.audio.slice();
+    const varied = (a, names) => Object.keys(a).some((k) => names.includes(k.split('.')[0]) && k.includes('.'));
+    doc.timed = doc.sceneSrc.some((s) => s.a.dur === 'auto' || varied(s.a, ['dur', 'start']) || s.says.some((x) => varied(x.raw, ['at'])) || s.sfx.some((x) => varied(x, ['at'])));
+    doc.rootDuration = r.attrs.duration;
+    Object.assign(doc, timing(doc, defaults(doc)));
     return doc;
 
     function walk(el, f) { for (const c of el.children) { f(c); walk(c, f); } }
@@ -499,13 +504,60 @@
           if (k.name === 'anim') node.anims.push({ prop: k.attrs.prop, a: k.attrs });
           else if (k.name === 'keys') node.anims.push({ prop: k.attrs.prop, keys: parseKeys(k.attrs.v || k.text), ease: k.attrs.ease || 'io' });
         }
-        if (c.name === 'group') node.children = buildNodes(c);
+        if (c.name === 'group' || LAYOUTS.has(c.name)) node.children = buildNodes(c);
         out.push(node);
       }
       return out;
     }
   }
   function guessType(src) { return AUDIO_EXT.test(src || '') ? 'audio' : FONT_EXT.test(src || '') ? 'font' : 'image'; }
+  // ───────────────────────── timing ─────────────────────────
+  // Scene starts/lengths, say and sfx times for one option set. dur="auto": the scene lasts as long as its narration
+  // in the chosen language (+ pad, at least min); a <say> without at= in such a scene follows the previous one (+ gap).
+  // dur.gu / start.gu / at.gu variants work too. cue('key') / cueEnd('key') (or cue(0) = the scene's first line) give
+  // a line's start / end inside the scene, so animations can follow the voice.
+  function lineDur(doc, x, lang, env) {
+    const baked = doc.voices[x.key + '|' + lang];
+    if (baked && baked.dur) return baked.dur;
+    if (x.raw.dur) return +x.raw.dur;
+    let text = ''; try { text = String(value(x.raw.text, env, doc)); } catch (e) {}
+    return Math.max(1.5, text.split(/\s+/).length * 0.42);
+  }
+  function timing(doc, opts) {
+    const env = makeEnv(doc, opts, doc.layouts[0], 0, null);
+    const num = (a, k, d) => { const raw = pick(a, k, env); if (raw == null) return d; try { return value(raw, env, doc); } catch (e) { throw where(e, k + '="' + raw + '"'); } };
+    const scenes = [], says = [], audio = doc.music.slice(), chapters = []; let cursor = 0, duration = 0;
+    for (const s of doc.sceneSrc) {
+      const start = +num(s.a, 'start', cursor); const rawDur = num(s.a, 'dur', null); const auto = rawDur === 'auto';
+      const gap = +num(s.a, 'gap', 0.3); const cues = {}; let prevEnd = null, last = 0, i = 0;
+      for (const x of s.says) {
+        const on = !x.raw.when || compiled(x.raw.when[0] === '=' ? x.raw.when.slice(1) : x.raw.when)(env);
+        const explicit = pick(x.raw, 'at', env);
+        const at = explicit != null ? +value(explicit, env, doc) : auto ? (prevEnd == null ? 0.4 : prevEnd + gap) : 0;
+        const d = lineDur(doc, x, opts.lang, env);
+        says.push({ key: x.key, start: start + at, raw: x.raw, scene: s.id });
+        if (on) { cues[x.key] = cues[i] = { at, end: at + d }; i++; prevEnd = at + d; last = Math.max(last, at + d); }
+      }
+      let dur;
+      if (auto) dur = Math.round(Math.max(+num(s.a, 'min', 2), last + +num(s.a, 'pad', 0.8)) * 1000) / 1000;
+      else { dur = +rawDur; if (!(dur > 0)) throw new Error('<scene id="' + s.id + '"> needs dur > 0 (or dur="auto")'); }
+      for (const f of s.sfx) audio.push({ bus: f.bus || 'sfx', src: f.src, start: start + +num(f, 'at', 0), vol: +(f.vol || 1), when: f.when });
+      scenes.push({ id: s.id, start, dur, nodes: s.nodes, cues, line: s.line });
+      if (s.a.chapter) chapters.push({ t: start, label: s.a.chapter });
+      cursor = Math.round((start + dur) * 1000) / 1000; duration = Math.max(duration, cursor);
+    }
+    if (doc.rootDuration) duration = +doc.rootDuration;
+    return { scenes, says, audio, chapters, duration };
+  }
+  // the document as timed for these options (itself when nothing depends on them)
+  function forOptions(doc, opts) {
+    if (!doc.timed || !opts) return doc;
+    const key = doc.options.map((o) => opts[o.id]).join('|');
+    if (!doc.views) Object.defineProperty(doc, 'views', { value: new Map(), enumerable: false });
+    let v = doc.views.get(key);
+    if (!v) { v = Object.assign({}, doc, timing(doc, Object.assign(defaults(doc), opts))); Object.defineProperty(v, 'views', { value: new Map(), enumerable: false }); v.timed = false; doc.views.set(key, v); }
+    return v;
+  }
   function parseKeys(s) { return s.split(';').map((x) => x.trim()).filter(Boolean).map((x) => { const i = x.indexOf(':'); return { at: +x.slice(0, i), v: x.slice(i + 1).trim() }; }); }
 
   // ───────────────────────── value resolution ─────────────────────────
@@ -642,6 +694,100 @@
     const c = parts[3] || '#0008'; ctx.shadowColor = c[0] === '$' ? lookup(env, c) : c;
   }
 
+  function fontOf(P, doc) {
+    const fams = String(P('font', '') || doc.font || '').split(',').map((f) => f.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean);
+    return (P('italic', 0) ? 'italic ' : '') + P('weight', 400) + ' ' + P('size', 48) + 'px ' + fams.map((f) => "'" + f + "', ").join('') + FONT;
+  }
+  function textOf(n, env) { const raw = pick(n.a, 'text', env); return raw != null && NUMERIC.test(raw) ? raw : String(value(raw, env, env.doc) ?? ''); }
+
+  // ───────── auto layout: <row>, <col>, <grid> ─────────
+  // Children are placed by the container: no hand-computed x/y. A child's own x/y still offsets it (handy for
+  // entrance animations). Sizes: rect/image/group/use/path w×h, circle 2r, ellipse 2rx×2ry, text measured
+  // (wrapped at maxw), nested containers their own size. when=/only= false takes the child out of the flow;
+  // at= keeps its place (it just isn't drawn yet), so staggered entrances never make the layout jump.
+  function inFlow(n, env) {
+    const w = pick(n.a, 'when', env);
+    if (w != null && !compiled(w[0] === '=' ? w.slice(1) : w)(env)) return false;
+    if (n.a.only) { const want = n.a.only.split(/[ ,]+/); if (!want.some((x) => env.tags.includes(x))) return false; }
+    return true;
+  }
+  function boxOf(ctx, n, env) {
+    const P = (k, d) => prop(n, k, env, env.doc, d);
+    switch (n.type) {
+      case 'rect': case 'image': { const w = P('w', 100), h = P('h', 100); return { w, h, ox: w * P('ax', 0), oy: h * P('ay', 0) }; }
+      case 'circle': { const r = P('r', 50); return { w: 2 * r, h: 2 * r, ox: r, oy: r }; }
+      case 'ellipse': { const rx = P('rx', 50), ry = P('ry', rx); return { w: 2 * rx, h: 2 * ry, ox: rx, oy: ry }; }
+      case 'text': {
+        ctx.save(); ctx.font = fontOf(P, env.doc);
+        const txt = textOf(n, env); const maxw = P('maxw', 0); const size = P('size', 48), lh = P('lh', 1.25);
+        const lines = maxw > 0 ? wrap(ctx, txt, maxw) : txt.split('\n');
+        const w = Math.max(0, ...lines.map((l) => ctx.measureText(l).width)); ctx.restore();
+        const h = (lines.length - 1) * size * lh + size; const al = P('align', 'left');
+        return { w, h, ox: al === 'center' ? w / 2 : al === 'right' ? w : 0, oy: h / 2 };
+      }
+      case 'row': case 'col': case 'grid': { const L = arrange(ctx, n, env); return { w: L.w, h: L.h, ox: L.w * P('ax', 0), oy: L.h * P('ay', 0) }; }
+      default: return { w: P('w', 0), h: P('h', 0), ox: 0, oy: 0 };
+    }
+  }
+  function arrange(ctx, n, env) {
+    const doc = env.doc; const P = (k, d) => prop(n, k, env, doc, d);
+    const gap = +P('gap', 0), pad = +P('pad', 0), align = P('align', 'start'), justify = P('justify', 'start');
+    const items = [];
+    for (const c of n.children) {
+      const reps = c.a.repeat != null ? Math.min(1000, Math.max(0, Math.floor(+value(pick(c.a, 'repeat', env), env, doc)))) : -1;
+      const as = c.a.as || 'i'; const plain = reps < 0 ? c : Object.assign({}, c, { a: Object.assign({}, c.a, { repeat: undefined }) });
+      for (let k = 0; k < Math.max(1, reps); k++) {
+        if (reps === 0) break;
+        const e = reps < 0 ? env : Object.assign({}, env, { vars: Object.assign({}, env.vars, { [as]: k, [as + '_n']: reps }) });
+        if (!inFlow(plain, e)) continue;
+        const b = boxOf(ctx, plain, e);
+        items.push(Object.assign(b, { node: plain, env: e, grow: +prop(plain, 'grow', e, doc, 0) || 0 }));
+      }
+    }
+    const W0 = n.a.w != null ? +P('w') : null, H0 = n.a.h != null ? +P('h') : null;
+    const stretchable = (it) => ['rect', 'image', 'group', 'use', 'row', 'col', 'grid'].includes(it.node.type);
+    const resize = (it, k, v) => { if (!stretchable(it)) return; const ax = k === 'w' ? 'ax' : 'ay'; it[k] = v; it['o' + (k === 'w' ? 'x' : 'y')] = v * prop(it.node, ax, it.env, doc, 0); it.node = Object.assign({}, it.node, { a: Object.assign({}, it.node.a, { [k]: String(v) }) }); };
+    const inAlign = (mode, room, size) => (mode === 'center' ? (room - size) / 2 : mode === 'end' ? room - size : 0);
+    let W, H;
+    if (n.type === 'grid') {
+      const cols = Math.max(1, Math.floor(+P('cols', 2))); const rows = Math.ceil(items.length / cols);
+      const cellW = W0 != null ? (W0 - 2 * pad - gap * (cols - 1)) / cols : Math.max(0, ...items.map((it) => it.w));
+      const rowH = []; for (let r = 0; r < rows; r++) rowH.push(H0 != null && !items.length ? 0 : Math.max(0, ...items.slice(r * cols, r * cols + cols).map((it) => it.h)));
+      if (H0 != null && rows) { const each = (H0 - 2 * pad - gap * (rows - 1)) / rows; for (let r = 0; r < rows; r++) rowH[r] = each; }
+      let top = pad;
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          const it = items[r * cols + c]; if (!it) break;
+          if (justify === 'stretch') resize(it, 'w', cellW); if (align === 'stretch') resize(it, 'h', rowH[r]);
+          it.x = pad + c * (cellW + gap) + inAlign(justify, cellW, it.w); it.y = top + inAlign(align, rowH[r], it.h);
+        }
+        top += rowH[r] + gap;
+      }
+      W = W0 != null ? W0 : 2 * pad + cols * cellW + gap * (cols - 1);
+      H = H0 != null ? H0 : 2 * pad + rowH.reduce((a, b) => a + b, 0) + gap * Math.max(0, rows - 1);
+    } else {
+      const row = n.type === 'row'; const M = row ? 'w' : 'h', C = row ? 'h' : 'w';
+      const sumMain = items.reduce((a, it) => a + it[M], 0) + gap * Math.max(0, items.length - 1);
+      const maxCross = Math.max(0, ...items.map((it) => it[C]));
+      W = W0 != null ? W0 : row ? sumMain + 2 * pad : maxCross + 2 * pad;
+      H = H0 != null ? H0 : row ? maxCross + 2 * pad : sumMain + 2 * pad;
+      const innerMain = (row ? W : H) - 2 * pad, innerCross = (row ? H : W) - 2 * pad;
+      let free = innerMain - sumMain; const grows = items.reduce((a, it) => a + (stretchable(it) ? it.grow : 0), 0);
+      if (free > 0 && grows > 0) { for (const it of items) if (it.grow && stretchable(it)) resize(it, M, it[M] + (free * it.grow) / grows); free = 0; }
+      let pos = pad, step = gap;
+      if (justify === 'center') pos += free / 2; else if (justify === 'end') pos += free;
+      else if (justify === 'between' && items.length > 1) step += free / (items.length - 1);
+      else if (justify === 'around' && items.length) { step += free / items.length; pos += free / items.length / 2; }
+      for (const it of items) {
+        if (align === 'stretch') resize(it, C, innerCross);
+        const cp = pad + inAlign(align, innerCross, it[C]);
+        if (row) { it.x = pos; it.y = cp; } else { it.x = cp; it.y = pos; }
+        pos += it[M] + step;
+      }
+    }
+    return { w: W, h: H, items };
+  }
+
   // repeat="n" [as="i"]: draw the node n times with i = 0…n-1 (and i_n = n) in its expressions
   function drawNode(ctx, n, parentEnv) {
     try { drawNodeIn(ctx, n, parentEnv); }
@@ -692,6 +838,14 @@
         drawNodes(ctx, n.type === 'use' ? doc.symbols[n.a.ref] : n.children, env);
         break;
       }
+      case 'row': case 'col': case 'grid': {
+        const L = arrange(ctx, n, env);
+        ctx.translate(P('x', 0) - L.w * P('ax', 0), P('y', 0) - L.h * P('ay', 0)); pivot(L.w / 2, L.h / 2); clipTo();
+        if ((fillRaw && fillRaw !== 'none') || (strokeRaw && sw > 0)) { const p = new Path2D(); const r = P('r', 0); if (r > 0 && p.roundRect) p.roundRect(0, 0, L.w, L.h, Math.min(r, L.w / 2, L.h / 2)); else p.rect(0, 0, L.w, L.h); paint(p); }
+        ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetX = ctx.shadowOffsetY = 0; ctx.setLineDash([]); // the card's shadow/dash are its own
+        for (const it of L.items) { ctx.save(); ctx.translate(it.x + it.ox, it.y + it.oy); drawNode(ctx, it.node, it.env); ctx.restore(); }
+        break;
+      }
       case 'rect': {
         const w = P('w', 100), h = P('h', 100), x = P('x', 0) - w * P('ax', 0), y = P('y', 0) - h * P('ay', 0), r = P('r', 0);
         pivot(x + w / 2, y + h / 2); clipTo();
@@ -729,8 +883,7 @@
         const reveal = P('reveal', 1); if (reveal < 1) txt = [...txt].slice(0, Math.round([...txt].length * reveal)).join('');
         const size = P('size', 48), weight = P('weight', 400), x = P('x', 0), y = P('y', 0);
         const align = P('align', 'left'), maxw = P('maxw', 0), lh = P('lh', 1.25), font = P('font', '');
-        const fams = String(font || doc.font || '').split(',').map((f) => f.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean);
-        ctx.font = (P('italic', 0) ? 'italic ' : '') + weight + ' ' + size + 'px ' + fams.map((f) => "'" + f + "', ").join('') + FONT;
+        ctx.font = fontOf(P, doc);
         ctx.textAlign = align; ctx.textBaseline = 'middle';
         const lines = maxw > 0 ? wrap(ctx, txt, maxw) : txt.split('\n');
         pivot(x, y); clipTo();
@@ -782,6 +935,7 @@
 
   // draw the frame at time t; ctx already maps layout units (layout.w × layout.h) to the target
   function renderFrame(ctx, doc, t, opts, layout, images) {
+    doc = forOptions(doc, opts);
     const env = makeEnv(doc, opts, layout, t, images);
     ctx.save();
     ctx.fillStyle = paintOf(ctx, env.theme.bg || '#000', env); ctx.fillRect(0, 0, layout.w, layout.h);
@@ -791,7 +945,7 @@
       const active = (t >= sc.start && t < sc.start + sc.dur) || (sc === last && t >= sc.start + sc.dur);
       if (!active) continue;
       const T = Math.min(t, sc.start + sc.dur - 1e-6) - sc.start;
-      drawNodes(ctx, sc.nodes, Object.assign({}, env, { vars: Object.assign({}, env.vars, { T, p: T / sc.dur, sdur: sc.dur }) }));
+      drawNodes(ctx, sc.nodes, Object.assign({}, env, { scene: sc, vars: Object.assign({}, env.vars, { T, p: T / sc.dur, sdur: sc.dur }) }));
     }
     drawNodes(ctx, doc.overlay, env);
     ctx.restore();
@@ -800,17 +954,19 @@
   // ───────────────────────── audio plan ─────────────────────────
   // Everything an engine needs to play sound for one option set: clips on buses + captions.
   function sayLines(doc, opts) {
+    doc = forOptions(doc, opts);
     const env = makeEnv(doc, opts, doc.layouts[0], 0, null);
     return doc.says.filter((s) => !s.raw.when || compiled(s.raw.when.replace(/^=/, ''))(env)).map((s) => {
       const text = String(value(s.raw.text, env, doc));
       const baked = doc.voices[s.key + '|' + opts.lang];
       const clip = s.raw['src.' + opts.lang] || (baked && baked.src) || null;
-      const dur = baked && baked.dur ? baked.dur : s.raw.dur ? +s.raw.dur : Math.max(1.5, text.split(/\s+/).length * 0.42);
+      const dur = lineDur(doc, s, opts.lang, env);
       const sp = s.raw['speak.' + opts.lang] || s.raw.speak; // pronunciation text for TTS (captions keep `text`)
       return { key: s.key, start: s.start, dur, text, speak: sp ? String(value(sp, env, doc)) : text, clip, lang: opts.lang, voice: s.raw.voice };
     });
   }
   function audioPlan(doc, opts) {
+    doc = forOptions(doc, opts);
     const env = makeEnv(doc, opts, doc.layouts[0], 0, null);
     const mix = doc.mixes[opts.mix] || { voice: 1, music: 1, sfx: 1 };
     const clips = doc.audio.filter((a) => !a.when || compiled(a.when.replace(/^=/, ''))(env)).map((a) => Object.assign({}, a));
@@ -831,15 +987,16 @@
   // Static checks + a dry run of every frame sample under every option set and layout
   // against a recording context (no canvas needed). files: Set of paths in the package (optional).
   // ───────── lint: static checks on the source, with line numbers and "did you mean" ─────────
-  const COMMON = ['x', 'y', 'fill', 'stroke', 'sw', 'opacity', 'rot', 'scale', 'sx', 'sy', 'shadow', 'clip', 'mask', 'blend', 'blur', 'dash', 'at', 'dur', 'when', 'only', 'repeat', 'as', 'id'];
+  const COMMON = ['x', 'y', 'fill', 'stroke', 'sw', 'opacity', 'rot', 'scale', 'sx', 'sy', 'shadow', 'clip', 'mask', 'blend', 'blur', 'dash', 'at', 'dur', 'when', 'only', 'repeat', 'as', 'id', 'grow'];
   const ATTRS = {
     rect: ['w', 'h', 'r', 'ax', 'ay'], circle: ['r', 'from', 'to', 'arc'], ellipse: ['rx', 'ry', 'from', 'to', 'arc'],
     line: ['x1', 'y1', 'x2', 'y2', 'draw'], path: ['d', 'draw'], text: ['text', 'size', 'weight', 'italic', 'font', 'align', 'maxw', 'lh', 'reveal'],
-    image: ['src', 'w', 'h', 'r', 'ax', 'ay', 'fit'], group: [], use: ['ref'],
+    image: ['src', 'w', 'h', 'r', 'ax', 'ay', 'fit'], group: ['w', 'h'], use: ['ref', 'w', 'h'],
+    row: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r'], col: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r'], grid: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r', 'cols'],
   };
   const OTHER = {
     anim: ['prop', 'from', 'to', 'at', 'dur', 'ease'], keys: ['prop', 'v', 'ease'], say: ['at', 'text', 'speak', 'voice', 'dur', 'id', 'when', 'src'],
-    sfx: ['at', 'src', 'vol', 'bus', 'when'], scene: ['id', 'dur', 'start', 'chapter'], music: ['src', 'start', 'loop', 'vol', 'bus', 'when'],
+    sfx: ['at', 'src', 'vol', 'bus', 'when'], scene: ['id', 'dur', 'start', 'chapter', 'min', 'pad', 'gap'], music: ['src', 'start', 'loop', 'vol', 'bus', 'when'],
   };
   const CONTAINERS = new Set(['scene', 'group', 'backdrop', 'overlay', 'symbol', 'clip', 'mask']);
   const ROOT_KIDS = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'voices', 'music', 'backdrop', 'timeline', 'overlay'];
@@ -855,7 +1012,7 @@
     const vars = new Set(['t', 'T', 'T0', 'p', 'W', 'H', 'dur', 'sdur', 'portrait', 'layout', 'PI', 'true', 'false'].concat(doc.options.map((o) => o.id)));
     (function scan(el) { for (const c of el.children) { if (c.attrs.repeat != null) { const a = c.attrs.as || 'i'; vars.add(a); vars.add(a + '_n'); } scan(c); } })(r);
     for (const f of Object.values(doc.fnSrc)) for (const a of f.args) vars.add(a);
-    const fnNames = Object.keys(FNS).concat(Object.keys(doc.fns), ['data', 'count', 's', 'aspect']);
+    const fnNames = Object.keys(FNS).concat(Object.keys(doc.fns), ['data', 'count', 's', 'aspect', 'cue', 'cueEnd']);
     const exprIssues = (src) => {
       const out = []; let toks; try { toks = tokenize(src); } catch (e) { return out; }
       toks.forEach((k, i) => {
@@ -895,7 +1052,7 @@
     const walk = (el, container, inScene) => {
       for (const c of el.children) {
         if ((c.name === 'anim' || c.name === 'keys') && container === 'group') continue; // the group's own, checked with it
-        if (SHAPES.has(c.name)) { checkAttrs(c, COMMON.concat(ATTRS[c.name])); for (const k of c.children) { if (k.name === 'anim' || k.name === 'keys') checkAttrs(k, OTHER[k.name], c.name); else if (!(c.name === 'group' && (SHAPES.has(k.name) || (inScene && (k.name === 'say' || k.name === 'sfx'))))) warnings.push(at(k) + 'not allowed inside <' + c.name + '>, ignored' + hint(k.name, c.name === 'group' ? [...SHAPES] : ['anim', 'keys'])); } if (c.name === 'group') walk(c, 'group', inScene); }
+        if (SHAPES.has(c.name)) { const box = c.name === 'group' || LAYOUTS.has(c.name); checkAttrs(c, COMMON.concat(ATTRS[c.name])); for (const k of c.children) { if (k.name === 'anim' || k.name === 'keys') checkAttrs(k, OTHER[k.name], c.name); else if (!(box && (SHAPES.has(k.name) || (inScene && (k.name === 'say' || k.name === 'sfx'))))) warnings.push(at(k) + 'not allowed inside <' + c.name + '>, ignored' + hint(k.name, box ? [...SHAPES] : ['anim', 'keys'])); } if (box) walk(c, 'group', inScene); }
         else if ((c.name === 'say' || c.name === 'sfx') && inScene) checkAttrs(c, OTHER[c.name]);
         else if (c.name === 'say' || c.name === 'sfx') warnings.push(at(c) + 'only works directly inside a <scene>');
         else warnings.push(at(c) + 'unknown element, ignored' + hint(c.name, [...SHAPES, 'say', 'sfx']));
@@ -943,7 +1100,7 @@
         if (!ln.clip) warnings.push('say ' + ln.key + ' [' + l + ']: no recorded clip yet (tsvg make bakes it)');
         const next = lines[i + 1]; const end = ln.start + ln.dur;
         if (next && end > next.start + 0.05) warnings.push('say ' + ln.key + ' [' + l + '] ends at ' + end.toFixed(2) + 's, overlaps ' + next.key + ' at ' + next.start.toFixed(2) + 's');
-        if (end > doc.duration + 0.05) warnings.push('say ' + ln.key + ' [' + l + '] runs past the end (' + end.toFixed(2) + 's > ' + doc.duration + 's)');
+        if (end > forOptions(doc, Object.assign(defaults(doc), { lang: l })).duration + 0.05) warnings.push('say ' + ln.key + ' [' + l + '] runs past the end (' + end.toFixed(2) + 's > ' + forOptions(doc, Object.assign(defaults(doc), { lang: l })).duration.toFixed(2) + 's)');
       });
     }
     // dry run
@@ -951,7 +1108,7 @@
     const sets = combos(doc); const seen = new Set();
     outer: for (const L of doc.layouts) for (const opts of sets.length ? sets : [{}]) {
       for (let i = 0; i <= samples * doc.scenes.length; i++) {
-        const t = (doc.duration * i) / (samples * doc.scenes.length);
+        const V = forOptions(doc, Object.assign(defaults(doc), opts)); const t = (V.duration * i) / (samples * V.scenes.length);
         try { renderFrame(ctx, doc, t, Object.assign(defaults(doc), opts), L, null); }
         catch (e) { const k = e.message; if (!seen.has(k)) { seen.add(k); errors.push('render ' + L.id + ' ' + JSON.stringify(opts) + ' t=' + t.toFixed(2) + ': ' + e.message); } if (errors.length > 30) break outer; }
       }
@@ -968,6 +1125,6 @@
     root.Path2D = class { constructor() {} moveTo() {} lineTo() {} rect() {} roundRect() {} ellipse() {} closePath() {} addPath() {} };
   }
 
-  root.TSVG = { VERSION, PKG, needsLibs, loadLibs, flatten, serializeXML, describeLib, libUrl, lint, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
+  root.TSVG = { VERSION, PKG, forOptions, needsLibs, loadLibs, flatten, serializeXML, describeLib, libUrl, lint, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.TSVG;
 })(typeof window !== 'undefined' ? window : globalThis);

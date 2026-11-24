@@ -157,6 +157,8 @@
     }
 
     url(path) { return this.files[path] || new URL(path, this.base).href; }
+    // the document as timed for the current options (scene lengths may follow the narration's language)
+    get tl() { return TSVG.forOptions(this.doc, this.opts); }
     async load(xml) {
       // imports / components: load the libraries (tsvg:<name> from jsr.io at this engine's version), flatten, serve their files
       if (TSVG.needsLibs(xml)) {
@@ -175,7 +177,7 @@
       }
       this.syncLines();
       await Promise.race([this.loadFonts(), new Promise((r) => setTimeout(r, 3000))]);
-      this.t = Math.min(this.t, doc.duration);
+      this.t = Math.min(this.t, this.tl.duration);
       this.buildTicks(); this.syncLines(); this.renderMenu(); this.draw();
       if (this.playing) this.ensureAudio().then(() => this.syncAudio(true));
       return doc;
@@ -273,20 +275,20 @@
 
     // ── transport ──
     async play() {
-      if (this.t >= this.doc.duration - 0.05) this.t = 0;
+      if (this.t >= this.tl.duration - 0.05) this.t = 0;
       this.playing = true; this.p.classList.add('playing'); await this.ensureAudio();
       this.clock = performance.now(); this.syncAudio(true); this.loop(); this.ui(); this.showControls(false);
     }
     pause() { this.playing = false; this.p.classList.remove('playing'); this.stopAudio(); this.ui(); this.showControls(true); }
     toggle() { this.playing ? this.pause() : this.play(); }
-    seek(t) { this.t = Math.min(this.doc.duration, Math.max(0, t)); if (this.playing) { this.clock = performance.now(); this.syncAudio(true); } this.draw(); }
+    seek(t) { this.t = Math.min(this.tl.duration, Math.max(0, t)); if (this.playing) { this.clock = performance.now(); this.syncAudio(true); } this.draw(); }
     setRate(r) { this.rate = +r; this.syncAudio(true); this.ui(); }
     loop() {
       if (!this.playing) return;
       const now = performance.now(); const prev = this.t;
       this.t += ((now - this.clock) / 1000) * this.rate; this.clock = now;
       this.ttsCross(prev, this.t); this.syncAudio();
-      if (this.t >= this.doc.duration) { this.t = this.doc.duration; this.draw(); return this.pause(); }
+      if (this.t >= this.tl.duration) { this.t = this.tl.duration; this.draw(); return this.pause(); }
       this.draw(); requestAnimationFrame(() => this.loop());
     }
 
@@ -330,7 +332,7 @@
 
     ui() {
       if (!this.doc || !this.controls) return;
-      const d = this.doc.duration, k = d ? this.t / d : 0, ended = !this.playing && this.t >= d - 0.05;
+      const d = this.tl.duration, k = d ? this.t / d : 0, ended = !this.playing && this.t >= d - 0.05;
       this.q('.fill').style.width = k * 100 + '%'; this.q('.knob').style.left = k * 100 + '%';
       this.q('.track').setAttribute('aria-valuenow', Math.round(this.t)); this.q('.track').setAttribute('aria-valuemax', Math.round(d));
       this.q('.time').textContent = fmtT(this.t) + ' / ' + fmtT(d);
@@ -344,7 +346,7 @@
       const vr = this.q('.vol input'); if (this.sr.activeElement !== vr) vr.value = this.muted ? 0 : this.volume;
       const fsOn = !!(document.fullscreenElement || document.webkitFullscreenElement) || this.el.classList.contains('tsvgp-pfs');
       const fb = this.q('[data-a=fs]'); const fi = fsOn ? 'exitFull' : 'full'; if (fb.dataset.icon !== fi) { fb.innerHTML = svg(fi); fb.dataset.icon = fi; }
-      const ch = this.doc.chapters.filter((c) => c.t <= this.t + 1e-6).pop();
+      const ch = this.tl.chapters.filter((c) => c.t <= this.t + 1e-6).pop();
       this.q('.chap').textContent = ch ? '· ' + this.str(ch.label) : '';
       const line = this.cc && this.lines.find((l) => this.t >= l.start && this.t < l.start + l.dur);
       const cc = this.q('.cc'); const want = line ? line.text : '';
@@ -364,7 +366,7 @@
       } else this.p.classList.remove('show');
     }
 
-    buildTicks() { if (this.controls) this.q('.ticks').innerHTML = this.doc.chapters.filter((c) => c.t > 0).map((c) => `<div class="tick" style="left:${(c.t / this.doc.duration) * 100}%"></div>`).join(''); }
+    buildTicks() { if (this.controls) this.q('.ticks').innerHTML = this.tl.chapters.filter((c) => c.t > 0).map((c) => `<div class="tick" style="left:${(c.t / this.tl.duration) * 100}%"></div>`).join(''); }
 
     // settings menu: a list of rows (Speed ›, Captions, each document option ›, Layout ›), each opening a submenu
     menuRows() {
@@ -387,7 +389,7 @@
       if (g === '__layout') { this.layoutPref = c; this.zoom = 1; this.panX = this.panY = 0; }
       else if (g === '__rate') { this.setRate(+c); }
       else if (g === '__cc') { this.cc = c === 'on'; }
-      else { this.opts[g] = c; this.syncLines(); if (g === 'mix') this.applyMix(); if (this.playing) this.ensureAudio().then(() => this.syncAudio(true)); }
+      else { this.opts[g] = c; this.t = Math.min(this.t, this.tl.duration); this.buildTicks(); this.syncLines(); if (g === 'mix') this.applyMix(); if (this.playing) this.ensureAudio().then(() => this.syncAudio(true)); }
       if (this.onOptions) this.onOptions(this.opts);
       this.renderMenu(); this.draw();
     }
@@ -430,11 +432,11 @@
       this.q('.menu-bg').addEventListener('pointerdown', (e) => { e.stopPropagation(); e.preventDefault(); this.closeMenu(); });
       // scrubber: drag (mouse or touch) with a live preview frame; hover previews too
       const track = this.q('.track'); const tip = this.q('.tip');
-      const at = (e) => { const r = track.getBoundingClientRect(); return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * this.doc.duration; };
+      const at = (e) => { const r = track.getBoundingClientRect(); return Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)) * this.tl.duration; };
       const preview = (t) => {
         const r = track.getBoundingClientRect(); tip.style.display = 'block'; this.thumb(t);
-        const half = (tip.offsetWidth || 180) / 2; tip.style.left = Math.min(r.width - half, Math.max(half, (t / this.doc.duration) * r.width)) + 'px';
-        const ch = this.doc.chapters.filter((c) => c.t <= t).pop(); tip.querySelector('span').textContent = fmtT(t) + (ch ? ' · ' + this.str(ch.label) : '');
+        const half = (tip.offsetWidth || 180) / 2; tip.style.left = Math.min(r.width - half, Math.max(half, (t / this.tl.duration) * r.width)) + 'px';
+        const ch = this.tl.chapters.filter((c) => c.t <= t).pop(); tip.querySelector('span').textContent = fmtT(t) + (ch ? ' · ' + this.str(ch.label) : '');
       };
       track.addEventListener('pointerdown', (e) => { e.stopPropagation(); this._dragging = true; this.p.classList.add('drag'); track.setPointerCapture(e.pointerId); this.seek(at(e)); preview(at(e)); this.showControls(true); });
       track.addEventListener('pointermove', (e) => { const t = at(e); if (this._dragging) this.seek(t); if (this._dragging || e.pointerType === 'mouse') preview(t); });
@@ -495,7 +497,7 @@
         if (k) { e.preventDefault(); act[k](); this.showControls(true); }
         else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') { e.preventDefault(); this.setVolume((this.muted ? 0 : this.volume) + (e.key === 'ArrowUp' ? 0.1 : -0.1)); this.showControls(true); }
         else if (e.key === '>' || e.key === '<') { const i = SPEEDS.indexOf(this.rate); const n = SPEEDS[Math.min(SPEEDS.length - 1, Math.max(0, (i < 0 ? 3 : i) + (e.key === '>' ? 1 : -1)))]; this.setRate(n); this.renderMenu(); }
-        else if (/^[0-9]$/.test(e.key)) this.seek((this.doc.duration * +e.key) / 10);
+        else if (/^[0-9]$/.test(e.key)) this.seek((this.tl.duration * +e.key) / 10);
       });
     }
   }
