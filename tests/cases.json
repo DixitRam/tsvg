@@ -202,5 +202,32 @@
     "file": "examples/text/text.tsvg",
     "t": 20.6,
     "layout": "landscape"
+  },
+  {
+    "name": "charts-bars",
+    "file": "examples/charts/charts.tsvg",
+    "t": 1.4,
+    "layout": "landscape"
+  },
+  {
+    "name": "charts-line-mid",
+    "file": "examples/charts/charts.tsvg",
+    "t": 8.6,
+    "layout": "landscape"
+  },
+  {
+    "name": "charts-donut-light",
+    "file": "examples/charts/charts.tsvg",
+    "t": 14.6,
+    "layout": "landscape",
+    "opts": {
+      "theme": "light"
+    }
+  },
+  {
+    "name": "charts-kpis-portrait",
+    "file": "examples/charts/charts.tsvg",
+    "t": 21.8,
+    "layout": "portrait"
   }
 ]

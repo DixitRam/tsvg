@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TSVG 0.7: tsvg:charts and tsvg:icons. Every chart is one tag with a list of numbers. -->
+<tsvg version="0.7" title="Charts + icons">
+  <import src="tsvg:base" as="b" key="TSVG 0.7 · tsvg:charts + tsvg:icons"/>
+  <import src="tsvg:charts" as="c"/>
+  <import src="tsvg:icons" as="i"/>
+  <timeline in="fade 0.5">
+    <scene id="bars" dur="auto" min="6" chapter="Bars">
+      <say text="A bar chart is one tag with a list of numbers. The bars grow in, one after another."/>
+      <b:heading text="Revenue by quarter"/>
+      <c:bars values="12, 30, 22, 41" labels="Q1 | Q2 | Q3 | Q4" colors="$accent, $accent, $accent, $accent2" prefix="$" suffix="k" x="=W/2" y="=H/2+70" w="1300" w.portrait="960" h="620" at="0.6"/>
+    </scene>
+    <scene id="line" dur="auto" min="6" chapter="Line" in="push 0.6 left">
+      <say text="A line chart draws itself point by point, with an area under it."/>
+      <b:heading text="Weekly active users"/>
+      <c:line values="3, 5, 4, 8, 9, 12, 15" labels="W1 | W2 | W3 | W4 | W5 | W6 | W7" show="1" suffix="k" x="=W/2" y="=H/2+70" w="1300" w.portrait="940" h="620" at="0.6" dur="2.4"/>
+    </scene>
+    <scene id="pie" dur="auto" min="6" chapter="Donut" in="zoom 0.7">
+      <say text="Shares become a donut, with a legend that adds up the percentages for you."/>
+      <b:heading text="Where visitors come from"/>
+      <c:pie values="45, 30, 15, 10" labels="Search | Social | Direct | Email" x="=W/2" y="=H/2+60" r="240" r.portrait="200" at="0.6"/>
+    </scene>
+    <scene id="kpis" dur="auto" min="7" chapter="Rings, counters, ranked bars" in="wipe 0.6 right">
+      <say text="Rings, counters, ranked bars and sparklines sit in a grid, with an icon for each."/>
+      <grid x="=W/2" y="=H/2" ax="0.5" ay="0.5" cols="2" cols.portrait="1" gap="36" justify="center" align="center">
+        <col pad="36" gap="18" fill="$panel" r="24" align="center" at="0.4"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <i:icon name="gauge" size="56" color="$accent" drawin="0.8" at="0.4"/>
+          <c:ring value="72" label="sprint done" r="120" size="56" at="0.6"/>
+        </col>
+        <col pad="36" gap="18" fill="$panel" r="24" align="center" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <i:icon name="users" size="56" color="$accent2" drawin="0.8" at="0.8"/>
+          <c:counter value="12840" label="new users" size="96" w="440" at="1"/>
+          <c:spark values="3, 4, 3, 6, 7, 6, 9, 11" w="360" h="70" color="$accent2" at="1.2"/>
+        </col>
+        <col pad="36" gap="18" fill="$panel" r="24" align="center" at="1.2"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <i:icon name="trophy" size="56" color="$warn" drawin="0.8" at="1.2"/>
+          <c:hbars values="92, 71, 64" labels="Speed | Price | Support" suffix="%" w="560" h="230" labelw="170" size="26" colors="$good, $warn, $muted" at="1.4"/>
+        </col>
+        <col pad="36" gap="18" fill="$panel" r="24" align="center" at="1.6"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <row gap="28" align="center">
+            <i:icon name="rocket" size="64" color="$accent" drawin="0.8" at="1.6"/><i:icon name="circle-check" size="64" color="$good" drawin="0.8" at="1.8"/>
+            <i:icon name="heart" size="64" color="$bad" drawin="0.8" at="2"/><i:icon name="chart-bar" size="64" color="$warn" drawin="0.8" at="2.2"/>
+          </row>
+          <text size="26" fill="$muted" text="2,104 icons: &lt;i:icon name=&quot;rocket&quot;/&gt;"/>
+        </col>
+      </grid>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="say0" lang="en" src="voice/charts/en/say0.c2e3d9edd2.m4a" dur="5.40" hash="c2e3d9edd2" engine="kokoro:af_heart"/>
+    <voice say="say1" lang="en" src="voice/charts/en/say1.0aa99f99f1.m4a" dur="3.70" hash="0aa99f99f1" engine="kokoro:af_heart"/>
+    <voice say="say2" lang="en" src="voice/charts/en/say2.ae36ffa064.m4a" dur="4.20" hash="ae36ffa064" engine="kokoro:af_heart"/>
+    <voice say="say3" lang="en" src="voice/charts/en/say3.ddd375a427.m4a" dur="5.30" hash="ddd375a427" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  tsvg:charts — charts from a list of numbers. Every chart is a box centred on x, y (w × h), so it also sits in
+  <row>/<col>/<grid>. at = when it starts; values are comma-separated; labels are |-separated; colours cycle.
+    <import src="tsvg:charts" as="c"/>
+    <c:bars values="12, 30, 22, 41" labels="Q1 | Q2 | Q3 | Q4" x="=W/2" y="=H/2" suffix="k"/>
+    <c:line values="3, 5, 4, 8, 9, 12" labels="Jan | Feb | Mar | Apr | May | Jun" x="=W/2" y="=H/2"/>
+    <c:pie values="45, 30, 25" labels="Search | Social | Direct" x="=W/2" y="=H/2" suffix="%"/>
+    <c:hbars values="92, 71, 64" labels="Speed | Price | Support"/>   <c:ring value="72" label="done"/>   <c:counter value="1234"/>
+-->
+<tsvglib name="charts" version="1.0.0" doc="Charts from numbers: bars, hbars, line (area), pie/donut with legend, ring, counter, spark. Boxes centred on x, y; animate in from at.">
+  <import src="../base/base.tsvgl" as="b"/>
+
+  <component id="bars" props="values, labels='', colors=$accent, w=1200, h=520, x=0, y=0, at=0, stagger=0.12, grow=0.7, max='', decimals=0, prefix='', suffix='', size=28, gap=0.35"
+             doc="Vertical bars that grow in one after another, value on top, label below.">
+    <group x="%{x}" y="%{y}" w="%{w}" h="%{h}" ax="0.5" ay="0.5" at="%{at}">
+      <line x1="0" y1="=%{h} - 50" x2="%{w}" y2="=%{h} - 50" stroke="$line" sw="3"/>
+      <each items="%{values}" sep="," as="v">
+        <group x="=(%{v_i} + 0.5) * %{w} / %{v_n}" y="=%{h} - 50" at="=%{at} + %{v_i} * %{stagger}">
+          <rect x="0" y="0" ax="0.5" ay="1" r="10" w="=%{w} / %{v_n} * (1 - %{gap})" fill="=nth('%{colors}', %{v_i})"
+                h="=max(0.01, (%{v}) / max(%{max|values}) * (%{h} - 120) * ease(clamp((T - T0) / %{grow}, 0, 1), 'out'))"/>
+          <text x="0" y="=-(%{v}) / max(%{max|values}) * (%{h} - 120) * ease(clamp((T - T0) / %{grow}, 0, 1), 'out') - %{size}" size="%{size}" weight="700" align="center"
+                text="='%{prefix}' + fmt((%{v}) * ease(clamp((T - T0) / %{grow}, 0, 1), 'out'), %{decimals}) + '%{suffix}'"/>
+        </group>
+      </each>
+      <each items="%{labels}" as="l">
+        <text x="=(%{l_i} + 0.5) * %{w} / %{l_n}" y="=%{h} - 18" size="=%{size} * 0.85" align="center" fill="$muted" text="%{l}" at="=%{at} + %{l_i} * %{stagger}"><anim prop="opacity" from="0" to="1" dur="0.3"/></text>
+      </each>
+    </group>
+  </component>
+
+  <component id="hbars" props="values, labels='', colors=$accent, w=1200, h=420, x=0, y=0, at=0, stagger=0.15, grow=0.8, max='', decimals=0, prefix='', suffix='', size=30, labelw=260"
+             doc="Horizontal ranked bars: label on the left, value at the end of the bar.">
+    <group x="%{x}" y="%{y}" w="%{w}" h="%{h}" ax="0.5" ay="0.5" at="%{at}">
+      <each items="%{labels}" as="l">
+        <text x="=%{labelw} - 24" y="=(%{l_i} + 0.5) * %{h} / %{l_n}" size="%{size}" weight="600" align="right" text="%{l}" at="=%{at} + %{l_i} * %{stagger}"><anim prop="opacity" from="0" to="1" dur="0.3"/></text>
+      </each>
+      <each items="%{values}" sep="," as="v">
+        <group x="%{labelw}" y="=(%{v_i} + 0.5) * %{h} / %{v_n}" at="=%{at} + %{v_i} * %{stagger}">
+          <rect x="0" y="0" ay="0.5" r="10" h="=min(64, %{h} / %{v_n} * 0.62)" fill="=nth('%{colors}', %{v_i})"
+                w="=max(0.01, (%{v}) / max(%{max|values}) * (%{w} - %{labelw} - 150) * ease(clamp((T - T0) / %{grow}, 0, 1), 'out'))"/>
+          <text x="=(%{v}) / max(%{max|values}) * (%{w} - %{labelw} - 150) * ease(clamp((T - T0) / %{grow}, 0, 1), 'out') + 18" y="0" size="%{size}" weight="700"
+                text="='%{prefix}' + fmt((%{v}) * ease(clamp((T - T0) / %{grow}, 0, 1), 'out'), %{decimals}) + '%{suffix}'"/>
+        </group>
+      </each>
+    </group>
+  </component>
+
+  <component id="line" props="values, labels='', color=$accent, w=1200, h=520, x=0, y=0, at=0, dur=1.6, max='', min=0, area=1, dots=1, sw=6, size=26, decimals=0, prefix='', suffix='', show=0"
+             doc="A line that draws itself point to point, with dots, an optional area under it and labels below.">
+    <group x="%{x}" y="%{y}" w="%{w}" h="%{h}" ax="0.5" ay="0.5" at="%{at}">
+      <line x1="0" y1="=%{h} - 50" x2="%{w}" y2="=%{h} - 50" stroke="$line" sw="3"/>
+      <each items="%{values}" sep="," as="v">
+        <if test="%{v_i} != 0">
+          <if test="%{area}">
+            <path at="=%{at} + (%{v_i} - 1) * %{dur} / max(1, %{v_n} - 1)" fill="%{color}" opacity="0.14"
+                  d="='M ' + (%{v_i} - 1) / max(1, %{v_n} - 1) * %{w} + ' ' + (%{h} - 50) + ' L ' + (%{v_i} - 1) / max(1, %{v_n} - 1) * %{w} + ' ' + ((%{h} - 50) - ((%{v_prev}) - %{min}) / (max(%{max|values}) - %{min}) * (%{h} - 120)) + ' L ' + %{v_i} / max(1, %{v_n} - 1) * %{w} + ' ' + ((%{h} - 50) - ((%{v}) - %{min}) / (max(%{max|values}) - %{min}) * (%{h} - 120)) + ' L ' + %{v_i} / max(1, %{v_n} - 1) * %{w} + ' ' + (%{h} - 50) + ' Z'">
+              <anim prop="opacity" from="0" to="0.14" dur="=%{dur} / max(1, %{v_n} - 1)"/>
+            </path>
+          </if>
+          <line x1="=(%{v_i} - 1) / max(1, %{v_n} - 1) * %{w}" y1="=(%{h} - 50) - ((%{v_prev}) - %{min}) / (max(%{max|values}) - %{min}) * (%{h} - 120)"
+                x2="=%{v_i} / max(1, %{v_n} - 1) * %{w}" y2="=(%{h} - 50) - ((%{v}) - %{min}) / (max(%{max|values}) - %{min}) * (%{h} - 120)"
+                stroke="%{color}" sw="%{sw}" at="=%{at} + (%{v_i} - 1) * %{dur} / max(1, %{v_n} - 1)" draw="=clamp((T - T0) / (%{dur} / max(1, %{v_n} - 1)), 0, 1)"/>
+        </if>
+        <if test="%{dots}">
+          <circle x="=%{v_i} / max(1, %{v_n} - 1) * %{w}" y="=(%{h} - 50) - ((%{v}) - %{min}) / (max(%{max|values}) - %{min}) * (%{h} - 120)" r="=%{sw} * 1.5" fill="%{color}" stroke="$bg" sw="3"
+                  at="=%{at} + max(0, %{v_i} - 0.05) * %{dur} / max(1, %{v_n} - 1)"><anim prop="scale" from="0" to="1" dur="0.3" ease="back"/></circle>
+        </if>
+        <if test="%{show}">
+          <text x="=%{v_i} / max(1, %{v_n} - 1) * %{w}" y="=(%{h} - 50) - ((%{v}) - %{min}) / (max(%{max|values}) - %{min}) * (%{h} - 120) - %{size} - 6" size="%{size}" weight="700" align="center"
+                text="%{prefix}%{v}%{suffix}" at="=%{at} + %{v_i} * %{dur} / max(1, %{v_n} - 1)"><anim prop="opacity" from="0" to="1" dur="0.3"/></text>
+        </if>
+      </each>
+      <each items="%{labels}" as="l">
+        <text x="=%{l_i} / max(1, %{l_n} - 1) * %{w}" y="=%{h} - 18" size="=%{size} * 0.9" align="center" fill="$muted" text="%{l}"/>
+      </each>
+    </group>
+  </component>
+
+  <component id="pie" props="values, labels='', colors='$accent, $accent2, $good, $warn, $bad, $muted', r=220, hole=0.6, x=0, y=0, at=0, dur=1.2, legend=1, size=30, decimals=0, suffix='', percent=1"
+             doc="Donut (hole 0–0.9) or pie (hole=0) that sweeps in, with a legend of labels and shares on the right.">
+    <group x="%{x}" y="%{y}" w="=2 * %{r} + (%{legend} ? 560 : 0)" h="=2 * %{r}" ax="0.5" ay="0.5" at="%{at}">
+      <each items="%{values}" sep="," as="v">
+        <if test="%{hole} != 0">
+          <circle x="%{r}" y="%{r}" r="=%{r} * (1 + %{hole}) / 2" arc="1" cap="butt" fill="none" stroke="=nth('%{colors}', %{v_i})" sw="=%{r} * (1 - %{hole})"
+                  from="=360 * %{v_acc} / %{values:sum}" to="=max(360 * %{v_acc} / %{values:sum}, min(360 * (%{v_acc} + (%{v})) / %{values:sum}, 360 * ease(clamp((T - T0) / %{dur}, 0, 1), 'io')))"/>
+          <else>
+            <circle x="%{r}" y="%{r}" r="%{r}" fill="=nth('%{colors}', %{v_i})"
+                    from="=360 * %{v_acc} / %{values:sum}" to="=max(360 * %{v_acc} / %{values:sum}, min(360 * (%{v_acc} + (%{v})) / %{values:sum}, 360 * ease(clamp((T - T0) / %{dur}, 0, 1), 'io')))"/>
+          </else>
+        </if>
+      </each>
+      <if test="%{legend}">
+        <col x="=2 * %{r} + 70" y="%{r}" ay="0.5" gap="22">
+          <each items="%{labels}" as="l">
+            <row gap="16" align="center" at="=%{at} + %{dur} * 0.5 + %{l_i} * 0.15"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+              <circle r="=%{size} * 0.4" fill="=nth('%{colors}', %{l_i})"/>
+              <text size="%{size}" weight="600" text="%{l}"/>
+              <text size="%{size}" fill="$muted" text="=fmt(nth('%{values}', %{l_i}) / %{values:sum} * (%{percent} ? 100 : %{values:sum}), %{decimals}) + (%{percent} ? '%' : '%{suffix}')"/>
+            </row>
+          </each>
+        </col>
+      </if>
+    </group>
+  </component>
+
+  <component id="ring" props="value, label='', max=100, color=$accent, r=160, sw=26, x=0, y=0, at=0, dur=1.2, size=72, decimals=0, suffix='%'"
+             doc="A progress ring that fills to value/max with the number counting up inside.">
+    <group x="%{x}" y="%{y}" w="=2 * %{r}" h="=2 * %{r}" ax="0.5" ay="0.5" at="%{at}">
+      <circle x="%{r}" y="%{r}" r="%{r}" fill="none" stroke="$line" sw="%{sw}"/>
+      <circle x="%{r}" y="%{r}" r="%{r}" arc="1" fill="none" stroke="%{color}" sw="%{sw}" from="0" to="=max(0.01, 360 * (%{value}) / (%{max}) * ease(clamp((T - T0) / %{dur}, 0, 1), 'io'))"/>
+      <text x="%{r}" y="=%{r} - (str('%{label}') != '' ? %{size} * 0.2 : 0)" size="%{size}" weight="800" align="center" text="=fmt((%{value}) * ease(clamp((T - T0) / %{dur}, 0, 1), 'io'), %{decimals}) + '%{suffix}'"/>
+      <if test="%{label}"><text x="%{r}" y="=%{r} + %{size} * 0.55" size="=%{size} * 0.36" align="center" fill="$muted" text="%{label}"/></if>
+    </group>
+  </component>
+
+  <component id="counter" props="value, label='', prefix='', suffix='', decimals=0, commas=1, size=160, color=$fg, x=0, y=0, at=0, dur=1.6, w=900"
+             doc="A big number that counts up, with an optional label under it.">
+    <group x="%{x}" y="%{y}" w="%{w}" h="=%{size} * 1.6" ax="0.5" ay="0.5" at="%{at}">
+      <text x="=%{w} / 2" y="=%{size} * 0.55" size="%{size}" weight="800" align="center" fill="%{color}" text="='%{prefix}' + (%{commas} ? commas((%{value}) * ease(clamp((T - T0) / %{dur}, 0, 1), 'out'), %{decimals}) : fmt((%{value}) * ease(clamp((T - T0) / %{dur}, 0, 1), 'out'), %{decimals})) + '%{suffix}'"/>
+      <if test="%{label}"><text x="=%{w} / 2" y="=%{size} * 1.35" size="=%{size} * 0.26" weight="600" align="center" fill="$muted" text="%{label}"/></if>
+    </group>
+  </component>
+
+  <component id="spark" props="values, color=$accent, w=300, h=80, x=0, y=0, at=0, dur=1, sw=4" doc="A small sparkline (no axes), for cards and tables.">
+    <group x="%{x}" y="%{y}" w="%{w}" h="%{h}" ax="0.5" ay="0.5" at="%{at}">
+      <each items="%{values}" sep="," as="v">
+        <if test="%{v_i} != 0">
+          <line x1="=(%{v_i} - 1) / max(1, %{v_n} - 1) * %{w}" y1="=%{h} - ((%{v_prev}) - min(%{values})) / max(0.001, max(%{values}) - min(%{values})) * %{h}"
+                x2="=%{v_i} / max(1, %{v_n} - 1) * %{w}" y2="=%{h} - ((%{v}) - min(%{values})) / max(0.001, max(%{values}) - min(%{values})) * %{h}"
+                stroke="%{color}" sw="%{sw}" at="=%{at} + (%{v_i} - 1) * %{dur} / max(1, %{v_n} - 1)" draw="=clamp((T - T0) / (%{dur} / max(1, %{v_n} - 1)), 0, 1)"/>
+        </if>
+      </each>
+    </group>
+  </component>
+</tsvglib>

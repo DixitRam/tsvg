@@ -36,6 +36,7 @@ node ~/Dev/PROJECTS/TaskManager/workspaces/ws.mjs upload <workspace> <KEY> /tmp/
 - Animation: `<anim prop from to at dur ease/>` (times relative to the node's `at`), `<keys prop v="0:0; 1:100"/>`; eases are `linear in out io back elastic step`. Path `d` keys morph.
 - Text: `size` ≥ 34 for body, 64–110 for headings. Use `maxw` to wrap. `y` is the vertical centre of the block.
 - Layout without numbers: `<row>`, `<col>`, `<grid cols="3">` place their children (`gap pad align justify`, `grow="1"`, `fill r shadow` = a card). Use them instead of computing x/y.
+- Charts and icons: `<import src="tsvg:charts" as="c"/>` → `<c:bars values="12, 30, 22" labels="Q1 | Q2 | Q3"/>` (also hbars line pie ring counter spark); `<import src="tsvg:icons" as="i"/>` → `<i:icon name="rocket" size="64" color="$accent" drawin="0.8"/>`; `tsvg icons <word>` finds icon names.
 - Text: `rich="1"` → `**bold** *italic* \`code\` ==highlight== [word]($accent)`; `split="word|char"` + `stagger` animates piece by piece; `ls` letter spacing; `path="M…"` text on a curve.
 - Transitions: `<timeline in="fade 0.5">` or `<scene in="push 0.6 left">` (fade slide push wipe zoom iris blur).
 - Timing without numbers: `<scene dur="auto">` lasts as long as its narration in each language (+`pad`, ≥`min`); says without `at` follow each other; `at="=cue('v2')"` starts a node with that line.

@@ -6,6 +6,7 @@
 //   tsvg make     <file.tsvg>                    check → bake voices → check → preview sheets → pack .tsvgz (one step)
 //   tsvg styles                                  list the 60 style templates
 //   tsvg lib [name]                              the built-in libraries; with a name: its components and props
+//   tsvg icons [word]                            icon names in tsvg:icons
 //   tsvg validate <file.tsvg|.tsvgz>             static checks + dry run of every variant
 //   tsvg info     <file>                         duration, options, chapters, voices
 //   tsvg pack     <file.tsvg> [-o out.tsvgz] [--html [out.html]] [--no-preview]
@@ -136,8 +137,16 @@ const cmds = {
     for (const p of src.list()) { if (p.includes('..')) die('unsafe path in package: ' + p); const f = join(out, p); mkdirSync(dirname(f), { recursive: true }); writeFileSync(f, src.get(p)); }
     console.log(out);
   },
-  bake, render, export: exportMp4, test, serve, check, preview, make, new: scaffold, styles, lib: libCmd, libs: libCmd,
+  bake, render, export: exportMp4, test, serve, check, preview, make, new: scaffold, styles, lib: libCmd, libs: libCmd, icons: iconsCmd,
 };
+// tsvg icons [word]: icon names in tsvg:icons that contain the word
+function iconsCmd() {
+  const names = [...readFileSync(join(ROOT, 'libs/icons/icons.tsvgl'), 'utf8').matchAll(/<e k="([^"]+)"/g)].map((m) => m[1]);
+  const tags = existsSync(join(ROOT, 'libs/icons/tags.json')) ? JSON.parse(readFileSync(join(ROOT, 'libs/icons/tags.json'), 'utf8')) : {};
+  const q = (pos[0] || '').toLowerCase(); const hit = names.filter((n) => n.includes(q)).concat(names.filter((n) => !n.includes(q) && (tags[n] || '').includes(q))); // names first, then tags (lucide tags.json)
+  console.log(hit.slice(0, 200).join('  ') + (hit.length > 200 ? `  … (${hit.length - 200} more)` : ''));
+  console.log(`\n${hit.length} of ${names.length} · <i:icon name="${hit[0] || 'rocket'}" size="64" color="$accent"/> after <import src="tsvg:icons" as="i"/>`);
+}
 // tsvg lib            the built-in libraries
 // tsvg lib <name|path|jsr:…>   its components and props, as one line each (what an agent needs to write with it)
 async function libCmd() {

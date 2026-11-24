@@ -73,8 +73,20 @@ const o = { base: pathToFileURL(ROOT + 'tests/x.tsvg').href, libBase: pathToFile
   const v = T.validate('<tsvg><timeline><scene dur="2"/><scene dur="2" in="zom 0.5"><text split="wrd" text="b"/></scene></timeline></tsvg>');
   ok(v.warnings.some((w) => /unknown transition "zom".*did you mean "zoom"/.test(w)), 'transition lint'); ok(v.warnings.some((w) => /split="wrd"/.test(w)), 'split lint');
 }
+// dicts, nth, :sum, each prev/acc, quoted defaults, commas
+{
+  const x = `<tsvg><dict id="col"><e k="ok" v="#0f0"/></dict><defs><component id="c" props="k, vs, cs='$a, $b'">
+    <text fill="%{col[k]}" text="%{vs:sum}|%{cs}"/><each items="%{vs}" sep="," as="v"><rect w="%{v_prev}" h="%{v_acc}"/></each></component></defs>
+    <themes><theme id="t" a="#111" b="#222"/></themes><timeline><scene dur="1"><c k="ok" vs="1, 2, 3"/></scene></timeline></tsvg>`;
+  const f = T.flatten(x); eq(f.errors, [], 'dict errors'); const sc = f.root.children.find((c) => c.name === 'timeline').children[0];
+  eq([sc.children[0].attrs.fill, sc.children[0].attrs.text], ['#0f0', '6|$a, $b'], 'dict lookup, :sum, quoted default with commas');
+  eq(sc.children.slice(1).map((r) => [r.attrs.w, r.attrs.h]), [['', '0'], ['1', '1'], ['2', '3']], 'each _prev/_acc');
+  ok(T.flatten(x.replace('<c k="ok"', '<c k="okk"')).errors.some((e) => /"okk" is not in col.*did you mean "ok"/.test(e)), 'dict miss hint');
+  const d = T.parse(x); const env = T.makeEnv(d, T.defaults(d), d.layouts[0], 0);
+  eq([T.compile("nth('$a, $b', 3)")(env), T.compile("nth('x | y', 0)")(env), T.compile("nth('1, 2', 1)")(env), T.compile('commas(1234567.891, 1)')(env)], ['#222', 'x', 2, '1,234,567.9'], 'nth + commas');
+}
 // every built-in library example checks clean
-for (const f of ['examples/libs/report.tsvg', 'examples/libs/explainer.tsvg', 'templates/report.tsvg']) {
+for (const f of ['examples/libs/report.tsvg', 'examples/libs/explainer.tsvg', 'templates/report.tsvg', 'examples/charts/charts.tsvg']) {
   const x = readFileSync(ROOT + f, 'utf8'); const oo = Object.assign({}, o, { base: pathToFileURL(ROOT + f).href });
   const libs = await T.loadLibs(x, oo); const v = T.validate(x, Object.assign({ libs }, oo)); ok(v.ok, f + ': ' + v.errors[0]);
 }

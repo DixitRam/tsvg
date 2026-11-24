@@ -6,7 +6,7 @@
 // thumbnails free, and what lets every native engine be tested against golden frames.
 (function (root) {
   'use strict';
-  const VERSION = '0.6';
+  const VERSION = '0.7';
 
   // ───────────────────────── XML (subset) ─────────────────────────
   // Elements, attributes, text, comments, <?…?>, <!…>, CDATA, the 5 named
@@ -53,7 +53,7 @@
   // symbols, gradients, fns) and document defaults. <r:title text="…"/> expands a component with props.
   // Expansion is static and happens before parse: flatten() turns a document with imports into plain TSVG
   // (packages carry the flattened main.tsvg, so every player plays them). Local components live in <defs>.
-  const PKG = '0.6.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
+  const PKG = '0.7.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
   const HEAD = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'music', 'backdrop', 'overlay'];
   const BUILTIN = new Set(['tsvg', 'layouts', 'layout', 'options', 'option', 'choice', 'mixes', 'mix', 'themes', 'theme', 'strings', 's', 'defs', 'fn', 'symbol', 'linear', 'radial', 'stop', 'clip', 'mask', 'data', 'assets', 'asset', 'font', 'voices', 'voice', 'music', 'backdrop', 'overlay', 'timeline', 'scene', 'say', 'sfx', 'anim', 'keys', 'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'import', 'component', 'prop', 'slot', 'each', 'if']);
   const needsLibs = (xml) => /<(import|component|dict)\b/.test(xml);
@@ -68,7 +68,11 @@
   // props="a, b=default, c?" plus <prop name doc default required/> children
   function propsOf(comp) {
     const out = {};
-    for (const p of (comp.attrs.props || '').split(',').map((x) => x.trim()).filter(Boolean)) {
+    // split on commas outside quotes: colors='$a, $b' is one default
+    const parts = []; let cur = '', q = null;
+    for (const ch of comp.attrs.props || '') { if (q) { if (ch === q) q = null; cur += ch; } else if (ch === "'" || ch === '"') { q = ch; cur += ch; } else if (ch === ',') { parts.push(cur); cur = ''; } else cur += ch; }
+    parts.push(cur);
+    for (const p of parts.map((x) => x.trim()).filter(Boolean)) {
       const m = /^([A-Za-z_][\w-]*)(\?)?(?:\s*=\s*(.*))?$/.exec(p); if (!m) continue;
       out[m[1]] = { name: m[1], required: !m[2] && m[3] == null, dflt: m[3] != null ? m[3].trim().replace(/^(['"])(.*)\1$/, '$2') : m[2] ? '' : null, doc: '' };
     }
@@ -363,6 +367,7 @@
     fract: (x) => x - Math.floor(x),
     ease: (k, name) => (EASE[name] || EASE.linear)(Math.min(1, Math.max(0, k))),
     fmt: (n, d) => Number(n).toFixed(d || 0),
+    commas: (n, d) => { const [a, b] = Number(n).toFixed(d || 0).split('.'); return a.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + (b ? '.' + b : ''); }, // 12840 → 12,840
     // size of a picture of aspect a (w/h) fitted inside bw × bh (fit="contain")
     fitw: (a, bw, bh) => Math.min(bw, bh * a), fith: (a, bw, bh) => Math.min(bw / a, bh),
     num: (list, i) => { const p = String(list).trim().split(/[\s,]+/); return +p[((Math.floor(i) % p.length) + p.length) % p.length] || 0; }, // i-th number of "0.1 0.2 0.3"
@@ -416,6 +421,11 @@
           return (env) => {
             const vals = args.map((a) => a(env));
             if (name === 's') return strOf(env.doc, String(vals[0]), env);
+            if (name === 'nth') { // nth('a | b | c', i) or nth('$accent, #f00', i): i-th item (wraps); $tokens resolve, numbers stay numbers
+              const sl = String(vals[0]); const items = sl.split(sl.indexOf('|') >= 0 ? '|' : ',').map((x) => x.trim());
+              const it = items[((Math.floor(+vals[1] || 0) % items.length) + items.length) % items.length];
+              return it[0] === '$' ? lookup(env, it) : NUMERIC.test(it) ? parseFloat(it) : it;
+            }
             if (name === 'cue' || name === 'cueEnd') {
               const sc = env.scene; const c = sc && sc.cues[vals[0]];
               if (!c) throw new Error(sc ? 'no <say> "' + vals[0] + '" in scene ' + sc.id + ' (cue takes a say id or 0, 1, …)' : name + '() works inside a scene');
@@ -875,7 +885,7 @@
         return { w, h, ox: al === 'center' ? w / 2 : al === 'right' ? w : 0, oy: h / 2 };
       }
       case 'row': case 'col': case 'grid': { const L = arrange(ctx, n, env); return { w: L.w, h: L.h, ox: L.w * P('ax', 0), oy: L.h * P('ay', 0) }; }
-      default: return { w: P('w', 0), h: P('h', 0), ox: 0, oy: 0 };
+      default: { const w = P('w', 0), h = P('h', 0); return { w, h, ox: w * P('ax', 0), oy: h * P('ay', 0) }; }
     }
   }
   function arrange(ctx, n, env) {
@@ -980,11 +990,13 @@
     const paint = (path) => {
       const f = paintOf(ctx, fillRaw, env); const s = sw > 0 ? paintOf(ctx, strokeRaw, env) : null;
       if (f) { ctx.fillStyle = f; ctx.fill(path); }
-      if (s) { if (f) ctx.shadowColor = 'transparent'; ctx.strokeStyle = s; ctx.lineWidth = sw; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.stroke(path); }
+      if (s) { if (f) ctx.shadowColor = 'transparent'; ctx.strokeStyle = s; ctx.lineWidth = sw; ctx.lineCap = P('cap', 'round'); ctx.lineJoin = 'round'; ctx.stroke(path); }
     };
     switch (n.type) {
       case 'group': case 'use': {
-        ctx.translate(P('x', 0), P('y', 0)); pivot(0, 0); clipTo();
+        // a group/use with a box (w h) and an anchor (ax ay) is placed by that anchor (0.7): icons centred on x, y
+        const gw = n.a.ax != null ? P('w', 0) * P('ax', 0) : 0, gh = n.a.ay != null ? P('h', 0) * P('ay', 0) : 0;
+        ctx.translate(P('x', 0) - gw, P('y', 0) - gh); pivot(gw, gh); clipTo();
         if (n.type === 'use' && !doc.symbols[n.a.ref]) throw new Error('unknown symbol ' + n.a.ref);
         drawNodes(ctx, n.type === 'use' ? doc.symbols[n.a.ref] : n.children, env);
         break;
@@ -1168,11 +1180,11 @@
   // Static checks + a dry run of every frame sample under every option set and layout
   // against a recording context (no canvas needed). files: Set of paths in the package (optional).
   // ───────── lint: static checks on the source, with line numbers and "did you mean" ─────────
-  const COMMON = ['x', 'y', 'fill', 'stroke', 'sw', 'opacity', 'rot', 'scale', 'sx', 'sy', 'shadow', 'clip', 'mask', 'blend', 'blur', 'dash', 'at', 'dur', 'when', 'only', 'repeat', 'as', 'id', 'grow'];
+  const COMMON = ['x', 'y', 'fill', 'stroke', 'sw', 'cap', 'opacity', 'rot', 'scale', 'sx', 'sy', 'shadow', 'clip', 'mask', 'blend', 'blur', 'dash', 'at', 'dur', 'when', 'only', 'repeat', 'as', 'id', 'grow'];
   const ATTRS = {
     rect: ['w', 'h', 'r', 'ax', 'ay'], circle: ['r', 'from', 'to', 'arc'], ellipse: ['rx', 'ry', 'from', 'to', 'arc'],
     line: ['x1', 'y1', 'x2', 'y2', 'draw'], path: ['d', 'draw'], text: ['text', 'size', 'weight', 'italic', 'font', 'align', 'maxw', 'lh', 'reveal', 'rich', 'ls', 'split', 'stagger', 'path', 'offset', 'hl'],
-    image: ['src', 'w', 'h', 'r', 'ax', 'ay', 'fit'], group: ['w', 'h'], use: ['ref', 'w', 'h'],
+    image: ['src', 'w', 'h', 'r', 'ax', 'ay', 'fit'], group: ['w', 'h', 'ax', 'ay'], use: ['ref', 'w', 'h', 'ax', 'ay'],
     row: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r'], col: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r'], grid: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r', 'cols'],
   };
   const OTHER = {
@@ -1193,7 +1205,7 @@
     const vars = new Set(['t', 'T', 'T0', 'p', 'W', 'H', 'dur', 'sdur', 'portrait', 'layout', 'PI', 'true', 'false'].concat(doc.options.map((o) => o.id)));
     (function scan(el) { for (const c of el.children) { if (c.attrs.repeat != null) { const a = c.attrs.as || 'i'; vars.add(a); vars.add(a + '_n'); } scan(c); } })(r);
     for (const f of Object.values(doc.fnSrc)) for (const a of f.args) vars.add(a);
-    const fnNames = Object.keys(FNS).concat(Object.keys(doc.fns), ['data', 'count', 's', 'aspect', 'cue', 'cueEnd']);
+    const fnNames = Object.keys(FNS).concat(Object.keys(doc.fns), ['data', 'count', 's', 'aspect', 'cue', 'cueEnd', 'nth']);
     const exprIssues = (src) => {
       const out = []; let toks; try { toks = tokenize(src); } catch (e) { return out; }
       toks.forEach((k, i) => {

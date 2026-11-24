@@ -35,7 +35,7 @@
 | [`flutter/`](flutter) | Flutter engine and player widget |
 | [`playground/`](playground) | Edit a TSVG and watch it play |
 | [`examples/demo/`](examples/demo) | The demo: 6 scenes, en + gu voices, gradients, masks, clip, shadow, fonts, a photo |
-| [`libs/`](libs) | Built-in libraries: `base`, `report`, `explainer` (components + styles) |
+| [`libs/`](libs) | Built-in libraries: `base`, `report`, `explainer`, `charts`, `icons` (components + styles) |
 | [`skill/tsvg/SKILL.md`](skill/tsvg/SKILL.md) | Agent skill: how an AI agent writes, checks and ships a TSVG video |
 | [`tests/`](tests) | Conformance cases and golden frames |
 
@@ -70,7 +70,9 @@ A library (`.tsvgl`) packages **components with props**, **styles** (themes, fon
 | --- | --- | --- |
 | `tsvg:report` | `title` `list` (change / check / open / step / no) `shot` `stat` `compare` `code` | [▶ report](https://panth977.github.io/tsvg/playground/?doc=../examples/libs/report.tsvg) |
 | `tsvg:explainer` | `title` `point` `chapter` `steps` `stat` `quote` `picture` `versus` `outro` | [▶ explainer](https://panth977.github.io/tsvg/playground/?doc=../examples/libs/explainer.tsvg) |
-| `tsvg:base` | `num` `heading` `pill` + themes, fonts, music, symbols (`b:tick` `b:dot` `b:cross` `b:arrow`) | used by both |
+| `tsvg:charts` | `bars` `hbars` `line` `pie` (donut) `ring` `counter` `spark`: one tag with a list of numbers | [▶ charts + icons](https://panth977.github.io/tsvg/playground/?doc=../examples/charts/charts.tsvg) |
+| `tsvg:icons` | `icon`: 2,104 [Lucide](https://lucide.dev/icons) line icons (ISC), `<i:icon name="rocket" size="64" color="$accent" drawin="0.8"/>`; `tsvg icons rock` finds names | same |
+| `tsvg:base` | `num` `heading` `pill` + themes, fonts, music, symbols (`b:tick` `b:dot` `b:cross` `b:arrow`) | used by all |
 
 - Make your own: a `<tsvglib name="…">` file with `<component id props>` bodies (`%{prop}`, `<if>`, `<each>`, `<slot/>`), publish it anywhere (`jsr:@you/pkg@1.0.0/my.tsvgl`, a URL, a relative path). Spec: [§13 Libraries](https://panth977.github.io/tsvg/spec/#libs).
 - Override the look from the document: `<themes><theme id="dark" accent="#e4572e"/></themes>` changes one token; your own `<layouts>` or `<option id="lang">` replace the library's.
@@ -120,10 +122,10 @@ Install or load from a CDN ([JSR: @panth977/tsvg](https://jsr.io/@panth977/tsvg)
 
 ```ts
 import { TSVGPlayer, TSVG, TSVGZip } from "jsr:@panth977/tsvg";            // Deno / bundlers (npx jsr add @panth977/tsvg)
-import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.6.0";     // any browser, no build
+import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.7.0";     // any browser, no build
 ```
 ```html
-<script src="https://esm.sh/jsr/@panth977/tsvg@0.6.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
+<script src="https://esm.sh/jsr/@panth977/tsvg@0.7.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
 ```
 
 Embed the player:
