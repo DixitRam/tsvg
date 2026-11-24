@@ -6,7 +6,7 @@
 // thumbnails free, and what lets every native engine be tested against golden frames.
 (function (root) {
   'use strict';
-  const VERSION = '0.7';
+  const VERSION = '0.8';
 
   // ───────────────────────── XML (subset) ─────────────────────────
   // Elements, attributes, text, comments, <?…?>, <!…>, CDATA, the 5 named
@@ -53,7 +53,7 @@
   // symbols, gradients, fns) and document defaults. <r:title text="…"/> expands a component with props.
   // Expansion is static and happens before parse: flatten() turns a document with imports into plain TSVG
   // (packages carry the flattened main.tsvg, so every player plays them). Local components live in <defs>.
-  const PKG = '0.7.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
+  const PKG = '0.8.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
   const HEAD = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'music', 'backdrop', 'overlay'];
   const BUILTIN = new Set(['tsvg', 'layouts', 'layout', 'options', 'option', 'choice', 'mixes', 'mix', 'themes', 'theme', 'strings', 's', 'defs', 'fn', 'symbol', 'linear', 'radial', 'stop', 'clip', 'mask', 'data', 'assets', 'asset', 'font', 'voices', 'voice', 'music', 'backdrop', 'overlay', 'timeline', 'scene', 'say', 'sfx', 'anim', 'keys', 'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'import', 'component', 'prop', 'slot', 'each', 'if']);
   const needsLibs = (xml) => /<(import|component|dict)\b/.test(xml);
@@ -472,7 +472,8 @@
   }
 
   // ───────────────────────── document model ─────────────────────────
-  const SHAPES = new Set(['rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'row', 'col', 'grid']);
+  const SHAPES = new Set(['rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'video', 'group', 'use', 'row', 'col', 'grid']);
+  const VIDEO_EXT = /\.(mp4|webm|mov|m4v)$/i;
   const LAYOUTS = new Set(['row', 'col', 'grid']); // auto layout containers (0.5)
   const NUMERIC = /^-?[0-9]*\.?[0-9]+$/;
   const AUDIO_EXT = /\.(ogg|opus|mp3|m4a|wav|aac|flac)$/i;
@@ -511,7 +512,7 @@
     }
     for (const a of kids(one('assets') || r)) {
       if (a.name === 'font') doc.fonts.push({ id: a.attrs.id, family: a.attrs.family || a.attrs.id, src: a.attrs.src, weight: a.attrs.weight || '1 1000', style: a.attrs.style || 'normal' });
-      else if (a.name === 'asset') doc.assets[a.attrs.id] = { src: a.attrs.src, type: a.attrs.type || guessType(a.attrs.src) };
+      else if (a.name === 'asset') doc.assets[a.attrs.id] = { src: a.attrs.src, type: a.attrs.type || guessType(a.attrs.src), poster: a.attrs.poster, dur: a.attrs.dur != null ? +a.attrs.dur : undefined };
     }
     for (const v of kids(one('voices') || r, 'voice')) doc.voices[v.attrs.say + '|' + v.attrs.lang] = { src: v.attrs.src, dur: +v.attrs.dur || 0, hash: v.attrs.hash || '', engine: v.attrs.engine || '' };
     for (const m of kids(r, 'music')) doc.audio.push({ bus: m.attrs.bus || 'music', src: m.attrs.src, start: +(m.attrs.start || 0), loop: m.attrs.loop === '1', vol: +(m.attrs.vol || 1), when: m.attrs.when });
@@ -541,7 +542,7 @@
       for (const c of el.children) {
         if (!SHAPES.has(c.name)) continue;
         const node = { type: c.name, a: c.attrs, anims: [], children: [], line: c.line };
-        if (c.name === 'image' && c.attrs.src && !doc.assets[c.attrs.src] && /[/.]/.test(c.attrs.src)) doc.assets[c.attrs.src] = { src: c.attrs.src, type: 'image' }; // <image src="path.png"> needs no <asset>
+        if ((c.name === 'image' || c.name === 'video') && c.attrs.src && !doc.assets[c.attrs.src] && /[/.]/.test(c.attrs.src)) doc.assets[c.attrs.src] = { src: c.attrs.src, type: c.name, poster: c.attrs.poster }; // <image src="path.png"> needs no <asset>
         for (const k of c.children) {
           if (k.name === 'anim') node.anims.push({ prop: k.attrs.prop, a: k.attrs });
           else if (k.name === 'keys') node.anims.push({ prop: k.attrs.prop, keys: parseKeys(k.attrs.v || k.text), ease: k.attrs.ease || 'io' });
@@ -552,7 +553,7 @@
       return out;
     }
   }
-  function guessType(src) { return AUDIO_EXT.test(src || '') ? 'audio' : FONT_EXT.test(src || '') ? 'font' : 'image'; }
+  function guessType(src) { return AUDIO_EXT.test(src || '') ? 'audio' : FONT_EXT.test(src || '') ? 'font' : VIDEO_EXT.test(src || '') ? 'video' : 'image'; }
   // ───────────────────────── timing ─────────────────────────
   // Scene starts/lengths, say and sfx times for one option set. dur="auto": the scene lasts as long as its narration
   // in the chosen language (+ pad, at least min); a <say> without at= in such a scene follows the previous one (+ gap).
@@ -872,7 +873,7 @@
   function boxOf(ctx, n, env) {
     const P = (k, d) => prop(n, k, env, env.doc, d);
     switch (n.type) {
-      case 'rect': case 'image': { const w = P('w', 100), h = P('h', 100); return { w, h, ox: w * P('ax', 0), oy: h * P('ay', 0) }; }
+      case 'rect': case 'image': case 'video': { const w = P('w', n.type === 'video' ? 1280 : 100), h = P('h', n.type === 'video' ? 720 : 100); return { w, h, ox: w * P('ax', 0), oy: h * P('ay', 0) }; }
       case 'circle': { const r = P('r', 50); return { w: 2 * r, h: 2 * r, ox: r, oy: r }; }
       case 'ellipse': { const rx = P('rx', 50), ry = P('ry', rx); return { w: 2 * rx, h: 2 * ry, ox: rx, oy: ry }; }
       case 'text': {
@@ -904,7 +905,7 @@
       }
     }
     const W0 = n.a.w != null ? +P('w') : null, H0 = n.a.h != null ? +P('h') : null;
-    const stretchable = (it) => ['rect', 'image', 'group', 'use', 'row', 'col', 'grid'].includes(it.node.type);
+    const stretchable = (it) => ['rect', 'image', 'video', 'group', 'use', 'row', 'col', 'grid'].includes(it.node.type);
     const resize = (it, k, v) => { if (!stretchable(it)) return; const ax = k === 'w' ? 'ax' : 'ay'; it[k] = v; it['o' + (k === 'w' ? 'x' : 'y')] = v * prop(it.node, ax, it.env, doc, 0); it.node = Object.assign({}, it.node, { a: Object.assign({}, it.node.a, { [k]: String(v) }) }); };
     const inAlign = (mode, room, size) => (mode === 'center' ? (room - size) / 2 : mode === 'end' ? room - size : 0);
     let W, H;
@@ -1056,6 +1057,20 @@
         lines.forEach((ln, i) => { const yy = y0 + i * size * lh; if (s) { ctx.strokeStyle = s; ctx.lineWidth = sw; ctx.lineJoin = 'round'; ctx.strokeText(ln, x, yy); } if (f) { ctx.fillStyle = f; ctx.fillText(ln, x, yy); } });
         break;
       }
+      case 'video': {
+        // a clip plays from `start` at `rate` while the node is visible: clip time = start + (T − at)·rate (wraps when loop="1")
+        const asset = doc.assets[n.a.src] || {};
+        let ct = P('start', 0) + Math.max(0, env.vars.T - env.vars.T0) * P('rate', 1);
+        const vd = P('cliplen', asset.dur || 0); if (P('loop', 0) && vd > 0) ct = ct % vd; else if (vd > 0) ct = Math.min(ct, vd - 0.04);
+        const v = env.images && env.images[n.a.src];
+        let pic = v && v.frame ? v.frame(ct, P('rate', 1), P('vol', 0), n) : null;
+        if (!pic && env.images) pic = env.images[pick(n.a, 'poster', env) || asset.poster];
+        const w = P('w', 1280), h = P('h', 720), x = P('x', 0) - w * P('ax', 0), y = P('y', 0) - h * P('ay', 0), r = P('r', 0);
+        pivot(x + w / 2, y + h / 2); clipTo();
+        if (r > 0) { const p = new Path2D(); p.roundRect(x, y, w, h, r); ctx.clip(p); }
+        drawPicture(ctx, pic, x, y, w, h, P('fit', 'cover'));
+        break;
+      }
       case 'image': {
         const img = env.images && env.images[n.a.src];
         const w = P('w', 100), h = P('h', 100), x = P('x', 0) - w * P('ax', 0), y = P('y', 0) - h * P('ay', 0), r = P('r', 0);
@@ -1070,6 +1085,14 @@
       }
     }
     ctx.restore();
+  }
+  // a picture (image, video element, canvas) fitted into a box; a grey box while it isn't ready
+  function drawPicture(ctx, img, x, y, w, h, fit) {
+    const iw = img && (img.videoWidth || img.naturalWidth || img.width), ih = img && (img.videoHeight || img.naturalHeight || img.height);
+    if (!img || !iw || img.complete === false || (img.readyState != null && img.readyState < 2)) { ctx.fillStyle = '#8884'; ctx.fillRect(x, y, w, h); return; }
+    if (fit === 'fill') { ctx.drawImage(img, x, y, w, h); return; }
+    const k = fit === 'contain' ? Math.min(w / iw, h / ih) : Math.max(w / iw, h / ih); const dw = iw * k, dh = ih * k;
+    ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip(); ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh); ctx.restore();
   }
   // mask="url(#m)": draw the node and the mask into offscreen layers, keep node pixels where the mask has alpha
   function drawMasked(ctx, n, env, maskRef) {
@@ -1184,7 +1207,7 @@
   const ATTRS = {
     rect: ['w', 'h', 'r', 'ax', 'ay'], circle: ['r', 'from', 'to', 'arc'], ellipse: ['rx', 'ry', 'from', 'to', 'arc'],
     line: ['x1', 'y1', 'x2', 'y2', 'draw'], path: ['d', 'draw'], text: ['text', 'size', 'weight', 'italic', 'font', 'align', 'maxw', 'lh', 'reveal', 'rich', 'ls', 'split', 'stagger', 'path', 'offset', 'hl'],
-    image: ['src', 'w', 'h', 'r', 'ax', 'ay', 'fit'], group: ['w', 'h', 'ax', 'ay'], use: ['ref', 'w', 'h', 'ax', 'ay'],
+    image: ['src', 'w', 'h', 'r', 'ax', 'ay', 'fit'], video: ['src', 'w', 'h', 'r', 'ax', 'ay', 'fit', 'start', 'rate', 'loop', 'vol', 'poster', 'cliplen'], group: ['w', 'h', 'ax', 'ay'], use: ['ref', 'w', 'h', 'ax', 'ay'],
     row: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r'], col: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r'], grid: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r', 'cols'],
   };
   const OTHER = {
@@ -1238,7 +1261,7 @@
       }
       if (el.attrs.ease && !EASE[el.attrs.ease]) warnings.push(at(el) + 'ease "' + el.attrs.ease + '" is unknown (linear in out io back elastic step)' + hint(el.attrs.ease, Object.keys(EASE)));
       if (el.name === 'anim' || el.name === 'keys') { const p = el.attrs.prop; const ok = parentType && (COMMON.concat(ATTRS[parentType] || [])); if (!p) errors.push(at(el) + 'needs prop="…"'); else if (ok && !ok.includes(p)) warnings.push(at(el) + 'prop "' + p + '" is not an attribute of <' + parentType + '>' + hint(p, ok)); }
-      if ((el.name === 'image') && el.attrs.src && !doc.assets[el.attrs.src] && !/[/.]/.test(el.attrs.src)) errors.push(at(el) + 'src "' + el.attrs.src + '" is not an asset id' + hint(el.attrs.src, Object.keys(doc.assets)));
+      if ((el.name === 'image' || el.name === 'video') && el.attrs.src && !doc.assets[el.attrs.src] && !/[/.]/.test(el.attrs.src)) errors.push(at(el) + 'src "' + el.attrs.src + '" is not an asset id' + hint(el.attrs.src, Object.keys(doc.assets)));
       if ((el.name === 'sfx' || el.name === 'music') && el.attrs.src && !doc.assets[el.attrs.src] && !/[/.]/.test(el.attrs.src)) errors.push(at(el) + 'src "' + el.attrs.src + '" is not an asset id' + hint(el.attrs.src, Object.keys(doc.assets)));
       for (const k of Object.keys(el.attrs)) if (el.name === 'scene' && k.split('.')[0] === 'in') { const w = String(el.attrs[k]).trim().split(/\s+/)[0]; if (w && w[0] !== '=' && !TRANSITIONS.includes(w)) warnings.push(at(el) + k + ': unknown transition "' + w + '" (' + TRANSITIONS.join(' ') + ')' + hint(w, TRANSITIONS)); }
       if (el.name === 'text' && el.attrs.split && !['word', 'char', 'line'].includes(el.attrs.split)) warnings.push(at(el) + 'split="' + el.attrs.split + '": use word, char or line' + hint(el.attrs.split, ['word', 'char', 'line']));

@@ -111,22 +111,34 @@ const cmds = {
   async pack() {
     const src = await openSource(pos[0]); if (src.kind !== 'file') die('pack takes a .tsvg file');
     if (src.flatErrors && src.flatErrors.length) { src.flatErrors.forEach((e) => console.error('ERROR ' + e)); die('fix errors before packing'); }
-    const doc = TSVG.parse(src.xml);
+    const doc = TSVG.parse(src.xml); const extraFiles = {};
     const r = TSVG.validate(src.xml, { files: { has: src.has } }); if (!r.ok) { r.errors.forEach((e) => console.error('ERROR ' + srcLine(src, e))); die('fix errors before packing'); }
-    const entries = [{ path: Zip.MAIN, data: src.xml }];
+    // <video> clips: a poster frame (shown until the clip can play, and by engines without video) and the clip length
+    let mainXml = src.xml;
+    for (const [id, a] of Object.entries(doc.assets)) {
+      if (a.type !== 'video' || /^(https?|data):/.test(a.src) || a.poster || src.kind !== 'file' || !existsSync(join(src.dir, a.src))) continue;
+      const poster = a.src.replace(/\.[^./]+$/, '') + '.poster.jpg'; const tmp = join(src.dir, '.tsvg-poster-' + process.pid + '.jpg');
+      const r = spawnSync('ffmpeg', ['-loglevel', 'error', '-y', '-i', join(src.dir, a.src), '-frames:v', '1', '-q:v', '4', '-vf', 'scale=min(960\\,iw):-2', tmp], { encoding: 'utf8' });
+      if (r.status !== 0) { console.error('warn  no poster for ' + a.src + ' (ffmpeg)'); continue; }
+      const d = probeDur(join(src.dir, a.src)); a.poster = poster; extraFiles[poster] = readFileSync(tmp); rmSync(tmp, { force: true });
+      const esc = a.src.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      mainXml = mainXml.replace(new RegExp('<(asset|video)(\\s[^>]*?)src="' + esc + '"', 'g'), (m, tag, pre) => (m.includes('poster=') ? m : '<' + tag + pre + 'src="' + a.src + '" poster="' + poster + '"' + (d ? (tag === 'asset' ? ' dur="' : ' cliplen="') + d.toFixed(3) + '"' : '')));
+    }
+    const entries = [{ path: Zip.MAIN, data: mainXml }];
+    for (const [p, b] of Object.entries(extraFiles)) entries.push({ path: p, data: new Uint8Array(b) });
     if (src.srcXml) entries.push({ path: 'source.tsvg', data: src.srcXml }); // the document as written (imports kept); main.tsvg is flattened
     for (const p of referenced(doc)) entries.push({ path: p, data: new Uint8Array(src.get(p)) });
     const deflateRaw = (b) => new Uint8Array(deflateRawSync(b, { level: 9 }));
     // --html out.html: one self-contained page (player + package inline) that plays offline in any browser
     if (flag('html')) {
-      const html = previewHtml(src.xml, doc, { pkg: Zip.write(entries, { deflateRaw }) });
+      const html = previewHtml(mainXml, doc, { pkg: Zip.write(entries, { deflateRaw }) });
       const hout = flag('html') === true ? src.path.replace(/\.tsvg$/, '') + '.html' : flag('html');
       mkdirSync(dirname(resolve(hout)), { recursive: true }); writeFileSync(hout, html);
       console.log(`${hout} · offline preview · ${(html.length / 1024).toFixed(0)} KB`);
       if (!flags.o) return;
     }
     // every package carries index.html: unzip it and open the page to preview without a player
-    if (!flag('no-preview')) entries.push({ path: 'index.html', data: previewHtml(src.xml, doc, {}) });
+    if (!flag('no-preview')) entries.push({ path: 'index.html', data: previewHtml(mainXml, doc, {}) });
     const out = flag('o', src.path.replace(/\.tsvg$/, '') + '.tsvgz'); mkdirSync(dirname(resolve(out)), { recursive: true });
     const bytes = Zip.write(entries, { deflateRaw });
     writeFileSync(out, bytes); console.log(`${out} · ${entries.length} files · ${(bytes.length / 1024).toFixed(0)} KB`);
@@ -381,15 +393,33 @@ window.setup = async (xml) => {
   try { doc = TSVG.parse(xml); } catch (e) { return e.message; }
   await Promise.all(doc.fonts.map(async (f) => { const ff = new FontFace(f.family, 'url(/' + f.src + ')', { weight: f.weight, style: f.style }); await ff.load(); document.fonts.add(ff); }));
   await Promise.all(Object.entries(doc.assets).filter(([, a]) => a.type === 'image').map(([id, a]) => new Promise((ok) => { const im = new Image(); im.onload = im.onerror = ok; im.src = '/' + a.src; images[id] = images[a.src] = im; })));
+  await Promise.all(Object.entries(doc.assets).filter(([, a]) => a.type === 'video').map(async ([id, a]) => {
+    let url = null; try { url = URL.createObjectURL(await (await fetch('/' + a.src)).blob()); } catch (e) {}
+    const pool = new Map(); // one element per clip node, as in the player
+    const make = async () => { const el = document.createElement('video'); el.muted = true; el.preload = 'auto'; el.src = url; await new Promise((ok) => { el.onloadeddata = ok; el.onerror = ok; setTimeout(ok, 8000); }); const v = { el, want: null }; vids.push(v); return v; };
+    const first = await make();
+    images[id] = images[a.src] = { frame(ct, rate, vol, n) { const key = n ? (n.line || 0) + '|' + n.a.start + '|' + n.a.rate : ''; let v = pool.get(key); if (!v) { if (!pool.size) v = first; else { v = { el: first.el.cloneNode(), want: null, fresh: true }; vids.push(v); } pool.set(key, v); } v.want = ct; return v.el.readyState >= 2 ? v.el : null; } };
+    if (a.poster) await new Promise((ok) => { const im = new Image(); im.onload = im.onerror = ok; im.src = '/' + a.poster; images[a.poster] = im; });
+  }));
   await document.fonts.ready; return null;
 };
+// <video>: a dry render collects the clip times a frame needs; seek every clip there, then draw for real
+const vids = [];
+async function prep(t, o, L) {
+  if (!vids.length) return;
+  for (const v of vids) v.want = null;
+  const sc = document.createElement('canvas'); sc.width = 8; sc.height = 8;
+  try { TSVG.renderFrame(sc.getContext('2d'), doc, t, o, L, images); } catch (e) {}
+  await Promise.all(vids.filter((v) => v.fresh).map((v) => { v.fresh = false; return new Promise((ok) => { v.el.onloadeddata = ok; v.el.onerror = ok; v.el.load(); setTimeout(ok, 8000); }); }));
+  await Promise.all(vids.filter((v) => v.want != null && Math.abs(v.el.currentTime - v.want) > 0.001).map((v) => new Promise((ok) => { v.el.onseeked = ok; v.el.currentTime = v.want; setTimeout(ok, 4000); })));
+}
 window.meta = () => ({ duration: doc.duration, layouts: doc.layouts, defaults: TSVG.defaults(doc), plan: null });
-window.frame = (t, opts, layoutId, width, type, q, cc) => {
+window.frame = async (t, opts, layoutId, width, type, q, cc) => {
   const L = doc.layouts.find((l) => l.id === layoutId) || doc.layouts[0];
   const w = Math.round(width || L.w), h = Math.round(w * L.h / L.w);
+  const o = Object.assign(TSVG.defaults(doc), opts); await prep(t, o, L);
   if (cv.width !== w || cv.height !== h) { cv.width = w; cv.height = h; }
   const ctx = cv.getContext('2d'); ctx.setTransform(w / L.w, 0, 0, w / L.w, 0, 0);
-  const o = Object.assign(TSVG.defaults(doc), opts);
   TSVG.renderFrame(ctx, doc, t, o, L, images);
   if (cc) burnCaption(ctx, t, o, L);
   return cv.toDataURL(type || 'image/png', q || 0.92);
@@ -443,7 +473,7 @@ window.bounds = (times, opts, layoutId) => {
   return out;
 };
 // contact sheet: one tile per scene (a late frame, after build-ins) with a label, for one layout
-window.sheet = (opts, layoutId, tileW, at) => {
+window.sheet = async (opts, layoutId, tileW, at) => {
   const L = doc.layouts.find((l) => l.id === layoutId) || doc.layouts[0];
   const o = Object.assign(TSVG.defaults(doc), opts); const V = TSVG.forOptions(doc, o); const env = TSVG.makeEnv(V, o, L, 0);
   const n = V.scenes.length, cols = L.w >= L.h ? Math.min(3, n) : Math.min(5, n), rows = Math.ceil(n / cols);
@@ -452,16 +482,16 @@ window.sheet = (opts, layoutId, tileW, at) => {
   const x = c.getContext('2d'); x.fillStyle = '#111'; x.fillRect(0, 0, c.width, c.height);
   x.fillStyle = '#ddd'; x.font = '600 18px system-ui'; x.fillText((doc.title ? String(TSVG.value(doc.title, env, doc)) + ' · ' : '') + L.id + ' ' + L.w + '×' + L.h + ' · ' + doc.duration + 's · ' + JSON.stringify(o), pad, 26);
   const lines = TSVG.sayLines(doc, o);
-  V.scenes.forEach((sc, i) => {
+  for (const [i, sc] of V.scenes.entries()) {
     const t = sc.start + sc.dur * (at || 0.7), cx = pad + (i % cols) * (tw + pad), cy = 40 + pad + Math.floor(i / cols) * (th + lab + pad);
     x.save(); x.translate(cx, cy); x.beginPath(); x.rect(0, 0, tw, th); x.clip(); x.setTransform(tw / L.w, 0, 0, tw / L.w, cx, cy);
-    try { TSVG.renderFrame(x, doc, t, o, L, images); } catch (e) { x.setTransform(1, 0, 0, 1, cx, cy); x.fillStyle = '#f55'; x.font = '13px monospace'; x.fillText(e.message.slice(0, 80), 6, 20); }
+    await prep(t, o, L); try { TSVG.renderFrame(x, doc, t, o, L, images); } catch (e) { x.setTransform(1, 0, 0, 1, cx, cy); x.fillStyle = '#f55'; x.font = '13px monospace'; x.fillText(e.message.slice(0, 80), 6, 20); }
     x.restore();
     const ch = V.chapters.filter((q) => q.t <= sc.start + 1e-6).pop();
     x.fillStyle = '#fff'; x.font = '600 15px system-ui'; x.fillText((i + 1) + ' · ' + sc.id + ' · ' + Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0') + (ch ? ' · ' + String(TSVG.value(ch.label, env, doc)) : ''), cx, cy + th + 18);
     const say = lines.find((l) => l.start >= sc.start && l.start < sc.start + sc.dur);
     if (say) { x.fillStyle = '#9aa'; x.font = '13px system-ui'; let s = say.text; while (x.measureText(s).width > tw && s.length > 4) s = s.slice(0, -4) + '…'; x.fillText(s, cx, cy + th + 37); }
-  });
+  }
   return c.toDataURL('image/png');
 };
 window.compare = async (a, b, tol) => {

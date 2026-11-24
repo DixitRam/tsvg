@@ -229,5 +229,23 @@
     "file": "examples/charts/charts.tsvg",
     "t": 21.8,
     "layout": "portrait"
+  },
+  {
+    "name": "video-full",
+    "file": "examples/video/video.tsvg",
+    "t": 3,
+    "layout": "landscape",
+    "skip": [
+      "flutter"
+    ]
+  },
+  {
+    "name": "video-layout",
+    "file": "examples/video/video.tsvg",
+    "t": 10,
+    "layout": "landscape",
+    "skip": [
+      "flutter"
+    ]
   }
 ]

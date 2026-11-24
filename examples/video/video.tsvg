@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TSVG 0.8: <video> clips inside scenes: they seek with the timeline, play at the player's speed, export frame-exact. -->
+<tsvg version="0.8" title="Video clips">
+  <import src="tsvg:base" as="b" key="TSVG 0.8 · video clips"/>
+  <import src="tsvg:icons" as="i"/>
+  <assets>
+    <asset id="fractal" src="clips/fractal.mp4"/>
+    <asset id="tc" src="clips/timecode.mp4"/>
+  </assets>
+  <timeline in="fade 0.5">
+    <scene id="full" dur="auto" min="6" chapter="Footage">
+      <say text="A video clip is a node like an image. It plays inside the scene and seeks with the timeline."/>
+      <video src="fractal" x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=W" h="=H" fit="cover"/>
+      <rect x="0" y="=H-260" w="=W" h="260" fill="#000a"/>
+      <text x="=W/2" y="=H-130" size="64" size.portrait="52" weight="800" align="center" fill="#fff" split="word" stagger="0.1" text="Footage inside the vector video" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+    <scene id="frames" dur="auto" min="7" chapter="Frames on a canvas" in="push 0.6 left">
+      <say text="Clips are just pictures to the engine: rounded, rotated, masked, laid out, with graphics on top."/>
+      <b:heading text="Clips in a layout"/>
+      <grid x="=W/2" y="=H/2+60" ax="0.5" ay="0.5" cols="2" cols.portrait="1" gap="40">
+        <col gap="14" align="center" at="0.4"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <video src="tc" w="640" h="360" r="24" start="2" shadow="0 20 50 #0008"/>
+          <text size="28" fill="$muted" text="start = 2 s"/>
+        </col>
+        <col gap="14" align="center" at="0.9"><anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <video src="tc" w="640" h="360" r="24" rate="0.5" rot="-3" shadow="0 20 50 #0008"/>
+          <text size="28" fill="$muted" text="rate = 0.5, rotated"/>
+        </col>
+      </grid>
+      <i:icon name="clapperboard" x="=W-140" y="140" size="80" color="$accent" drawin="0.8" at="1.2"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="say0" lang="en" src="voice/video/en/say0.ff91284274.m4a" dur="5.60" hash="ff91284274" engine="kokoro:af_heart"/>
+    <voice say="say1" lang="en" src="voice/video/en/say1.4a078446e3.m4a" dur="6.10" hash="4a078446e3" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

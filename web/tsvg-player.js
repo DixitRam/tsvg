@@ -171,6 +171,12 @@
       const doc = TSVG.parse(xml);
       this.doc = doc; this.opts = Object.assign(TSVG.defaults(doc), this.keepOpts(doc));
       for (const [id, a] of Object.entries(doc.assets)) {
+        if (a.type === 'video') { // a <video> clip: an element the frame drives (seek when paused, play in sync when playing)
+          if (!this.images[a.src]) this.images[a.src] = this.makeVideo(a.src);
+          this.images[id] = this.images[a.src];
+          if (a.poster && !this.images[a.poster]) { const im = new Image(); im.onload = () => this.draw(); im.src = this.url(a.poster); this.images[a.poster] = im; }
+          continue;
+        }
         if (a.type !== 'image') continue;
         if (!this.images[a.src]) { const im = new Image(); im.onload = () => this.draw(); im.src = this.url(a.src); this.images[a.src] = im; }
         this.images[id] = this.images[a.src];
@@ -182,11 +188,33 @@
       if (this.playing) this.ensureAudio().then(() => this.syncAudio(true));
       return doc;
     }
+    // one <video> element per clip node (two nodes may show the same file at different times)
+    makeVideo(path) {
+      const pl = this; const pool = new Map();
+      const make = () => {
+        const el = document.createElement('video');
+        el.muted = true; el.playsInline = true; el.preload = 'auto'; el.setAttribute('playsinline', ''); el.src = this.url(path);
+        el.addEventListener('seeked', () => { if (!pl.playing) pl.draw(); });
+        el.addEventListener('loadeddata', () => pl.draw());
+        const v = { el, used: 0 }; (pl.videos = pl.videos || []).push(v); return v;
+      };
+      return { frame(ct, rate, vol, n) {
+        const key = n ? (n.line || 0) + '|' + n.a.start + '|' + n.a.rate : '';
+        let v = pool.get(key); if (!v) { v = make(); pool.set(key, v); }
+        const el = v.el; v.used = pl.drawId;
+        if (pl.thumbing) return el.readyState >= 2 ? el : null; // scrub previews never seek the real clip
+        el.muted = !(vol > 0) || pl.muted; el.volume = Math.min(1, Math.max(0, (vol || 0) * pl.volume)); el.playbackRate = (rate || 1) * pl.rate;
+        const d = el.currentTime - ct;
+        if (pl.playing) { if (el.paused) { el.currentTime = ct; el.play().catch(() => {}); } else if (Math.abs(d) > 0.3) el.currentTime = ct; }
+        else { if (!el.paused) el.pause(); if (Math.abs(d) > 0.03 && !el.seeking) el.currentTime = ct; }
+        return el.readyState >= 2 ? el : null;
+      } };
+    }
     // .tsvgz bytes (or a URL to .tsvg / .tsvgz)
     async loadPackage(bytes) {
       const files = await root.TSVGZip.read(bytes);
       for (const u of Object.values(this.files)) if (String(u).startsWith('blob:')) URL.revokeObjectURL(u);
-      this.files = {}; this.images = {}; this.loadedFonts = new Set(); if (this.clipEls) { for (const ce of this.clipEls.values()) ce.el.pause(); this.clipEls.clear(); }
+      this.files = {}; this.images = {}; this.loadedFonts = new Set(); for (const v of this.videos || []) { v.el.pause(); v.el.removeAttribute('src'); } this.videos = []; if (this.clipEls) { for (const ce of this.clipEls.values()) ce.el.pause(); this.clipEls.clear(); }
       for (const [path, data] of files) if (path !== root.TSVGZip.MAIN) this.files[path] = URL.createObjectURL(new Blob([data], { type: mimeOf(path) }));
       return this.load(root.TSVGZip.text(files.get(root.TSVGZip.MAIN)));
     }
@@ -313,7 +341,9 @@
       const ox = (W * dpr - L.w * s) / 2 + this.panX * dpr, oy = (H * dpr - L.h * s) / 2 + this.panY * dpr;
       ctx.setTransform(s, 0, 0, s, ox, oy);
       ctx.save(); ctx.beginPath(); ctx.rect(0, 0, L.w, L.h); ctx.clip();
+      this.drawId = (this.drawId || 0) + 1;
       try { TSVG.renderFrame(ctx, this.doc, this.t, this.opts, L, this.images); this.err = null; } catch (e) { this.err = e; console.error(e); }
+      for (const v of this.videos || []) if (v.used !== this.drawId && !v.el.paused) v.el.pause(); // clips off screen stop
       ctx.restore();
       this.q('.err').textContent = this.err ? 'render error: ' + this.err.message : '';
       const narrow = W < 600;
@@ -327,7 +357,7 @@
       const c = this.q('.tip canvas'); const L = this.layout(); const w = L.w > L.h ? 176 : 96; const h = Math.round((w * L.h) / L.w);
       c.width = w * 2; c.height = h * 2; c.style.width = w + 'px'; c.style.height = h + 'px';
       const ctx = c.getContext('2d'); ctx.setTransform((w * 2) / L.w, 0, 0, (w * 2) / L.w, 0, 0);
-      try { TSVG.renderFrame(ctx, this.doc, t, this.opts, L, this.images); } catch (e) {}
+      this.thumbing = true; try { TSVG.renderFrame(ctx, this.doc, t, this.opts, L, this.images); } catch (e) {} this.thumbing = false;
     }
 
     ui() {
@@ -503,7 +533,7 @@
   }
   function mimeOf(p) {
     const e = (p.split('.').pop() || '').toLowerCase();
-    return { ogg: 'audio/ogg', opus: 'audio/ogg', mp3: 'audio/mpeg', m4a: 'audio/mp4', wav: 'audio/wav', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp', svg: 'image/svg+xml', gif: 'image/gif', ttf: 'font/ttf', otf: 'font/otf', woff: 'font/woff', woff2: 'font/woff2' }[e] || 'application/octet-stream';
+    return { ogg: 'audio/ogg', opus: 'audio/ogg', mp3: 'audio/mpeg', m4a: 'audio/mp4', wav: 'audio/wav', png: 'image/png', jpg: 'image/jpeg', jpeg: 'image/jpeg', webp: 'image/webp', svg: 'image/svg+xml', gif: 'image/gif', ttf: 'font/ttf', otf: 'font/otf', woff: 'font/woff', woff2: 'font/woff2', mp4: 'video/mp4', m4v: 'video/mp4', webm: 'video/webm', mov: 'video/quicktime' }[e] || 'application/octet-stream';
   }
   root.TSVGPlayer = Player;
 })(typeof window !== "undefined" ? window : globalThis);

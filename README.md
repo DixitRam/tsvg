@@ -105,6 +105,18 @@ A library (`.tsvgl`) packages **components with props**, **styles** (themes, fon
 ```
 [▶ rich text + transitions demo](https://panth977.github.io/tsvg/playground/?doc=../examples/text/text.tsvg)
 
+## Video clips (0.8)
+
+```xml
+<assets><asset id="clip" src="clips/fractal.mp4"/></assets>
+<scene dur="auto">
+  <video src="clip" x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=W" h="=H" fit="cover"/>     <!-- full-bleed footage -->
+  <video src="clip" w="640" h="360" r="24" start="2" rate="0.5" rot="-3"/>              <!-- trimmed, slowed, rounded -->
+  <text text="Graphics on top" .../>
+</scene>
+```
+Clips seek with the timeline, play at the player's speed, sit in layouts, take masks and transforms, and export frame-exact. `tsvg pack` adds a poster frame. [▶ video demo](https://panth977.github.io/tsvg/playground/?doc=../examples/video/video.tsvg)
+
 ## Quick start
 
 ```sh
@@ -122,10 +134,10 @@ Install or load from a CDN ([JSR: @panth977/tsvg](https://jsr.io/@panth977/tsvg)
 
 ```ts
 import { TSVGPlayer, TSVG, TSVGZip } from "jsr:@panth977/tsvg";            // Deno / bundlers (npx jsr add @panth977/tsvg)
-import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.7.0";     // any browser, no build
+import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.8.0";     // any browser, no build
 ```
 ```html
-<script src="https://esm.sh/jsr/@panth977/tsvg@0.7.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
+<script src="https://esm.sh/jsr/@panth977/tsvg@0.8.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
 ```
 
 Embed the player:
