@@ -251,7 +251,11 @@ atom    := number | 'string' | "string" | name | $token | name '(' args ')' | '(
 <p><code>tests/cases.json</code> lists (file, t, options, layout, width). <code>tests/golden/*.png</code> are the reference frames from the web engine in Chrome. Engines render the same cases and compare per pixel (max channel difference &gt; 40/255 counts as off). The web engine must match its goldens exactly (0.3 % allowed). Other engines report their ratio; differences come mainly from font rasterisation and anti-aliasing.</p>
 
 <h2 id="tools">13. Tools</h2>
-<pre>tsvg validate demo.tsvg          # parse, references, translations, voice overlaps, dry run of every variant
+<pre>tsvg new      report            # start from the report template (or --style &lt;id&gt;; tsvg styles lists them)
+tsvg check    report.tsvg       # compiler: lint (unknown tags/attributes/variants, strings, tokens, refs, expressions) + off-frame/overlap text
+tsvg preview  report.tsvg       # contact sheet per layout: every scene + its narration line
+tsvg make     report.tsvg       # check → bake → check → preview → pack, in one step
+tsvg validate demo.tsvg          # parse, references, translations, voice overlaps, dry run of every variant
 tsvg info     demo.tsvgz
 tsvg bake     demo.tsvg          # record every &lt;say&gt; per language (Kokoro, Sarvam), write &lt;voices&gt;
 tsvg pack     demo.tsvg -o demo.tsvgz

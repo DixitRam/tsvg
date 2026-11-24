@@ -38,6 +38,16 @@
 | [`skill/tsvg/SKILL.md`](skill/tsvg/SKILL.md) | Agent skill: how an AI agent writes, checks and ships a TSVG video |
 | [`tests/`](tests) | Conformance cases and golden frames |
 
+## For agents (and people in a hurry)
+
+```sh
+tsvg new my-report                 # template with fonts, music and a screenshot slot; edit the <strings> block
+tsvg check my-report/my-report.tsvg  # compiler: errors with line numbers + "did you mean", off-frame / overlapping text
+tsvg make  my-report/my-report.tsvg  # check → bake voices → contact sheets (one PNG per layout) → my-report.tsvgz
+tsvg styles                        # 60 style templates; tsvg new <dir> --style <id>
+```
+No rendering or encoding: `make` takes seconds. The agent skill is in [`skill/tsvg/SKILL.md`](skill/tsvg/SKILL.md).
+
 ## Quick start
 
 ```sh
@@ -55,10 +65,10 @@ Install or load from a CDN ([JSR: @panth977/tsvg](https://jsr.io/@panth977/tsvg)
 
 ```ts
 import { TSVGPlayer, TSVG, TSVGZip } from "jsr:@panth977/tsvg";            // Deno / bundlers (npx jsr add @panth977/tsvg)
-import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.3.3";     // any browser, no build
+import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.3.4";     // any browser, no build
 ```
 ```html
-<script src="https://esm.sh/jsr/@panth977/tsvg@0.3.3/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
+<script src="https://esm.sh/jsr/@panth977/tsvg@0.3.4/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
 ```
 
 Embed the player:

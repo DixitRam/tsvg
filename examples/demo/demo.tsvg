@@ -202,7 +202,7 @@
     <!-- 5 · time is a function -->
     <scene id="fn" dur="9" chapter="@ch4">
       <say at="0.3" text="@vo4"/>
-      <text x="=W/2" y="230" y.portrait="420" size="76" weight="800" align="center" text="@fn" fill="$fg" font="ui-monospace, Menlo, monospace">
+      <text x="=W/2" y="230" y.portrait="420" size="76" size.portrait="62" weight="800" align="center" text="@fn" fill="$fg" font="ui-monospace, Menlo, monospace">
         <anim prop="reveal" from="0" to="1" dur="1.4" ease="linear"/>
       </text>
       <!-- a mini timeline with a moving playhead and frame strip -->

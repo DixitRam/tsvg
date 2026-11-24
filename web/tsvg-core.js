@@ -263,7 +263,13 @@
     for (const tag of env.tags) { const k = name + '.' + tag; if (k in a) return a[k]; }
     return a[name];
   }
-  function attr(node, name, env, doc, dflt) { const v = value(pick(node.a, name, env), env, doc); return v === undefined ? dflt : v; }
+  function attr(node, name, env, doc, dflt) {
+    const raw = pick(node.a, name, env);
+    let v; try { v = value(raw, env, doc); } catch (e) { throw where(e, name + '="' + raw + '"'); }
+    return v === undefined ? dflt : v;
+  }
+  // errors say where they happened: the attribute, then the element's line (added once, innermost first)
+  function where(e, ctx) { if (!(e instanceof Error)) e = new Error(String(e)); if (!e.tsvgAttr) { e.tsvgAttr = true; e.message = ctx + ': ' + e.message; } return e; }
 
   function parseColor(c) {
     if (typeof c !== 'string') return null;
@@ -369,15 +375,21 @@
 
   // repeat="n" [as="i"]: draw the node n times with i = 0…n-1 (and i_n = n) in its expressions
   function drawNode(ctx, n, parentEnv) {
+    try { drawNodeIn(ctx, n, parentEnv); }
+    catch (e) { if (!(e instanceof Error)) e = new Error(String(e)); if (!e.tsvgLine && n.line) { e.tsvgLine = n.line; e.message = 'line ' + n.line + ' <' + n.type + '>: ' + e.message; } throw e; }
+  }
+  function drawNodeIn(ctx, n, parentEnv) {
     const r = n.a.repeat;
     if (r == null) return drawOne(ctx, n, parentEnv);
     const count = Math.min(10000, Math.max(0, Math.floor(+value(pick(n.a, 'repeat', parentEnv), parentEnv, parentEnv.doc)))); const as = n.a.as || 'i';
     for (let k = 0; k < count; k++) drawOne(ctx, n, Object.assign({}, parentEnv, { vars: Object.assign({}, parentEnv.vars, { [as]: k, [as + '_n']: count }) }));
   }
   function drawOne(ctx, n, parentEnv) {
+    ctx.__tsvgNode = n; // lets tools (tsvg check) map drawing back to the source line
+    ctx.__tsvgClipped = !!(parentEnv.clipped || n.a.clip || n.a.mask);
     if (!visible(n, parentEnv)) return;
     const doc = parentEnv.doc;
-    const env = Object.assign({}, parentEnv, { vars: Object.assign({}, parentEnv.vars, { T0: n.a.at != null ? +value(pick(n.a, 'at', parentEnv), parentEnv, doc) : parentEnv.vars.T0 }) });
+    const env = Object.assign({}, parentEnv, { clipped: !!(parentEnv.clipped || n.a.clip || n.a.mask), vars: Object.assign({}, parentEnv.vars, { T0: n.a.at != null ? +value(pick(n.a, 'at', parentEnv), parentEnv, doc) : parentEnv.vars.T0 }) });
     const mask = pick(n.a, 'mask', env);
     if (mask && ctx.canvas && typeof ctx.canvas.getContext === 'function') return drawMasked(ctx, n, env, mask);
     const P = (name, d) => prop(n, name, env, doc, d);
@@ -549,10 +561,91 @@
   // ───────────────────────── validation ─────────────────────────
   // Static checks + a dry run of every frame sample under every option set and layout
   // against a recording context (no canvas needed). files: Set of paths in the package (optional).
+  // ───────── lint: static checks on the source, with line numbers and "did you mean" ─────────
+  const COMMON = ['x', 'y', 'fill', 'stroke', 'sw', 'opacity', 'rot', 'scale', 'sx', 'sy', 'shadow', 'clip', 'mask', 'blend', 'blur', 'dash', 'at', 'dur', 'when', 'only', 'repeat', 'as', 'id'];
+  const ATTRS = {
+    rect: ['w', 'h', 'r', 'ax', 'ay'], circle: ['r', 'from', 'to', 'arc'], ellipse: ['rx', 'ry', 'from', 'to', 'arc'],
+    line: ['x1', 'y1', 'x2', 'y2', 'draw'], path: ['d', 'draw'], text: ['text', 'size', 'weight', 'italic', 'font', 'align', 'maxw', 'lh', 'reveal'],
+    image: ['src', 'w', 'h', 'r', 'ax', 'ay', 'fit'], group: [], use: ['ref'],
+  };
+  const OTHER = {
+    anim: ['prop', 'from', 'to', 'at', 'dur', 'ease'], keys: ['prop', 'v', 'ease'], say: ['at', 'text', 'speak', 'voice', 'dur', 'id', 'when', 'src'],
+    sfx: ['at', 'src', 'vol', 'bus', 'when'], scene: ['id', 'dur', 'start', 'chapter'], music: ['src', 'start', 'loop', 'vol', 'bus', 'when'],
+  };
+  const CONTAINERS = new Set(['scene', 'group', 'backdrop', 'overlay', 'symbol', 'clip', 'mask']);
+  const ROOT_KIDS = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'voices', 'music', 'backdrop', 'timeline', 'overlay'];
+  function lev(a, b) { const d = []; for (let i = 0; i <= a.length; i++) { d[i] = [i]; for (let j = 1; j <= b.length; j++) d[i][j] = i === 0 ? j : Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); } return d[a.length][b.length]; }
+  function hint(x, list) { let best = null, bd = 3; for (const c of list) { const v = lev(x, c); if (v < bd) { bd = v; best = c; } } return best && bd <= Math.max(1, Math.floor(x.length / 3)) + 1 ? ' (did you mean "' + best + '"?)' : ''; }
+  function lint(xml, doc) {
+    const errors = [], warnings = [];
+    const r = parseXML(xml);
+    const tags = new Set(doc.layouts.map((l) => l.id)); for (const o of doc.options) for (const c of o.choices) tags.add(c.id);
+    const langs = (doc.options.find((o) => o.id === 'lang') || { choices: [{ id: 'en' }] }).choices.map((c) => c.id);
+    const themes = Object.entries(doc.themes);
+    // names an expression may use: built-in variables, option ids, repeat variables, <fn> arguments
+    const vars = new Set(['t', 'T', 'T0', 'p', 'W', 'H', 'dur', 'sdur', 'portrait', 'layout', 'PI', 'true', 'false'].concat(doc.options.map((o) => o.id)));
+    (function scan(el) { for (const c of el.children) { if (c.attrs.repeat != null) { const a = c.attrs.as || 'i'; vars.add(a); vars.add(a + '_n'); } scan(c); } })(r);
+    for (const f of Object.values(doc.fnSrc)) for (const a of f.args) vars.add(a);
+    const fnNames = Object.keys(FNS).concat(Object.keys(doc.fns), ['data', 'count', 's']);
+    const exprIssues = (src) => {
+      const out = []; let toks; try { toks = tokenize(src); } catch (e) { return out; }
+      toks.forEach((k, i) => {
+        if (k.t !== 'id' || k.v[0] === '$') return;
+        const call = toks[i + 1] && toks[i + 1].v === '(';
+        if (call && !fnNames.includes(k.v)) out.push('unknown function ' + k.v + '()' + hint(k.v, fnNames));
+        if (!call && !vars.has(k.v)) out.push('unknown variable ' + k.v + hint(k.v, [...vars]));
+      });
+      return out;
+    };
+    const at = (el) => 'line ' + el.line + ' <' + el.name + '>: ';
+    for (const k of r.children) if (!ROOT_KIDS.includes(k.name)) warnings.push(at(k) + 'unknown section, ignored' + hint(k.name, ROOT_KIDS));
+    const checkValue = (el, name, v) => {
+      if (v == null) return;
+      if (v[0] === '@' && !doc.strings[v.slice(1)]) errors.push(at(el) + name + ': unknown string "' + v + '"' + hint(v.slice(1), Object.keys(doc.strings)));
+      for (const m of v.matchAll(/\$([A-Za-z_]\w*)/g)) for (const [tid, th] of themes) if (th[m[1]] === undefined) errors.push(at(el) + name + ': theme "' + tid + '" has no token $' + m[1] + hint(m[1], Object.keys(th)));
+      for (const m of v.matchAll(/url\(#([\w-]+)\)/g)) { const all = Object.keys(doc.gradients).concat(Object.keys(doc.clips), Object.keys(doc.masks)); if (!all.includes(m[1])) errors.push(at(el) + name + ': nothing in <defs> has id "' + m[1] + '"' + hint(m[1], all)); }
+      for (const m of v.matchAll(/\bs\(\s*['"]([^'"]+)['"]\s*\)/g)) if (!doc.strings[m[1]]) errors.push(at(el) + name + ': s("' + m[1] + '"): unknown string' + hint(m[1], Object.keys(doc.strings)));
+      for (const m of v.matchAll(/\b(?:data|count)\(\s*['"]([^'"]+)['"]\s*[,)]/g)) if (!doc.data[m[1]]) errors.push(at(el) + name + ': unknown data "' + m[1] + '"' + hint(m[1], Object.keys(doc.data)));
+      if (v[0] === '=') { try { compile(v.slice(1)); for (const m of exprIssues(v.slice(1))) errors.push(at(el) + name + ': ' + m); } catch (e) { errors.push(at(el) + name + ': ' + e.message); } }
+      else if (v.indexOf('{') >= 0 && v[0] !== '\\') for (const m of v.matchAll(/\{([^}]*)\}/g)) { try { compile(m[1]); for (const x of exprIssues(m[1])) errors.push(at(el) + name + ': in {' + m[1] + '}: ' + x); } catch (e) { errors.push(at(el) + name + ': in {' + m[1] + '}: ' + e.message); } }
+    };
+    const checkAttrs = (el, known, parentType) => {
+      for (const [k, v] of Object.entries(el.attrs)) {
+        const dot = k.indexOf('.'); const base = dot < 0 ? k : k.slice(0, dot); const tag = dot < 0 ? null : k.slice(dot + 1);
+        if (!known.includes(base)) warnings.push(at(el) + 'unknown attribute "' + k + '", ignored' + hint(base, known));
+        if (tag != null && !tags.has(tag) && !langs.includes(tag)) warnings.push(at(el) + 'attribute "' + k + '": no layout or option value "' + tag + '", so it never applies' + hint(tag, [...tags]));
+        if (!['text', 'speak', 'd', 'v', 'id', 'as', 'chapter', 'font', 'only', 'blend', 'ease', 'prop', 'fit', 'align', 'src', 'ref', 'bus'].includes(base) || v[0] === '=' || v[0] === '@' || /\{/.test(v)) checkValue(el, k, v);
+        else if (base === 'text' || base === 'speak' || base === 'chapter') checkValue(el, k, v);
+      }
+      if (el.attrs.ease && !EASE[el.attrs.ease]) warnings.push(at(el) + 'ease "' + el.attrs.ease + '" is unknown (linear in out io back elastic step)' + hint(el.attrs.ease, Object.keys(EASE)));
+      if (el.name === 'anim' || el.name === 'keys') { const p = el.attrs.prop; const ok = parentType && (COMMON.concat(ATTRS[parentType] || [])); if (!p) errors.push(at(el) + 'needs prop="…"'); else if (ok && !ok.includes(p)) warnings.push(at(el) + 'prop "' + p + '" is not an attribute of <' + parentType + '>' + hint(p, ok)); }
+      if ((el.name === 'image') && el.attrs.src && !doc.assets[el.attrs.src] && !/[/.]/.test(el.attrs.src)) errors.push(at(el) + 'src "' + el.attrs.src + '" is not an asset id' + hint(el.attrs.src, Object.keys(doc.assets)));
+      if ((el.name === 'sfx' || el.name === 'music') && el.attrs.src && !doc.assets[el.attrs.src] && !/[/.]/.test(el.attrs.src)) errors.push(at(el) + 'src "' + el.attrs.src + '" is not an asset id' + hint(el.attrs.src, Object.keys(doc.assets)));
+      if (el.name === 'use' && !doc.symbols[el.attrs.ref]) errors.push(at(el) + 'ref "' + el.attrs.ref + '": no <symbol> with that id' + hint(el.attrs.ref || '', Object.keys(doc.symbols)));
+    };
+    const walk = (el, container, inScene) => {
+      for (const c of el.children) {
+        if ((c.name === 'anim' || c.name === 'keys') && container === 'group') continue; // the group's own, checked with it
+        if (SHAPES.has(c.name)) { checkAttrs(c, COMMON.concat(ATTRS[c.name])); for (const k of c.children) { if (k.name === 'anim' || k.name === 'keys') checkAttrs(k, OTHER[k.name], c.name); else if (!(c.name === 'group' && (SHAPES.has(k.name) || (inScene && (k.name === 'say' || k.name === 'sfx'))))) warnings.push(at(k) + 'not allowed inside <' + c.name + '>, ignored' + hint(k.name, c.name === 'group' ? [...SHAPES] : ['anim', 'keys'])); } if (c.name === 'group') walk(c, 'group', inScene); }
+        else if ((c.name === 'say' || c.name === 'sfx') && inScene) checkAttrs(c, OTHER[c.name]);
+        else if (c.name === 'say' || c.name === 'sfx') warnings.push(at(c) + 'only works directly inside a <scene>');
+        else warnings.push(at(c) + 'unknown element, ignored' + hint(c.name, [...SHAPES, 'say', 'sfx']));
+      }
+    };
+    for (const k of r.children) {
+      if (k.name === 'timeline') for (const sc of k.children) { if (sc.name !== 'scene') { warnings.push(at(sc) + 'only <scene> goes in <timeline>' + hint(sc.name, ['scene'])); continue; } checkAttrs(sc, OTHER.scene); walk(sc, 'scene', true); }
+      else if (k.name === 'backdrop' || k.name === 'overlay') walk(k, k.name);
+      else if (k.name === 'music') checkAttrs(k, OTHER.music);
+      else if (k.name === 'defs') for (const d of k.children) if (d.name === 'symbol' || d.name === 'clip' || d.name === 'mask') walk(d, d.name);
+    }
+    return { errors, warnings };
+  }
+
   function validate(xml, { files, samples = 4 } = {}) {
     const errors = [], warnings = [];
     let doc;
     try { doc = parse(xml); } catch (e) { return { ok: false, errors: [e.message], warnings, doc: null }; }
+    try { const l = lint(xml, doc); errors.push(...l.errors); warnings.push(...l.warnings); } catch (e) { warnings.push('lint failed: ' + e.message); }
     const langs = (doc.options.find((o) => o.id === 'lang') || { choices: [] }).choices.map((c) => c.id);
     for (const [id, s] of Object.entries(doc.strings)) for (const l of langs) if (s[l] == null) warnings.push('string @' + id + ' has no "' + l + '" text (falls back)');
     for (const o of doc.options) if (o.default && !o.choices.some((c) => c.id === o.default)) errors.push('option ' + o.id + ': default "' + o.default + '" is not a choice');
@@ -570,7 +663,7 @@
     for (const l of langs.length ? langs : ['en']) {
       const lines = sayLines(doc, Object.assign(defaults(doc), { lang: l })).sort((a, b) => a.start - b.start);
       lines.forEach((ln, i) => {
-        if (!ln.clip) warnings.push('say ' + ln.key + ' [' + l + ']: no recorded clip (engine TTS or captions only) — run `tsvg bake`');
+        if (!ln.clip) warnings.push('say ' + ln.key + ' [' + l + ']: no recorded clip yet (tsvg make bakes it)');
         const next = lines[i + 1]; const end = ln.start + ln.dur;
         if (next && end > next.start + 0.05) warnings.push('say ' + ln.key + ' [' + l + '] ends at ' + end.toFixed(2) + 's, overlaps ' + next.key + ' at ' + next.start.toFixed(2) + 's');
         if (end > doc.duration + 0.05) warnings.push('say ' + ln.key + ' [' + l + '] runs past the end (' + end.toFixed(2) + 's > ' + doc.duration + 's)');
@@ -598,6 +691,6 @@
     root.Path2D = class { constructor() {} moveTo() {} lineTo() {} rect() {} roundRect() {} ellipse() {} closePath() {} addPath() {} };
   }
 
-  root.TSVG = { VERSION, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
+  root.TSVG = { VERSION, lint, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.TSVG;
 })(typeof window !== 'undefined' ? window : globalThis);

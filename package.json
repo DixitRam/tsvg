@@ -1,6 +1,6 @@
 {
   "name": "tsvg",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "TSVG \u2014 Timeseries Scalable Vector Graphics: a vector video format with real video controls, languages, audio mixes, themes and layouts.",
   "license": "MIT",
   "bin": {

@@ -1,5 +1,10 @@
 #!/usr/bin/env node
 // tsvg — command line tools for TSVG (Timeseries Scalable Vector Graphics).
+//   tsvg new      <dir> [--style id]             start a video from the report template or a style (tsvg styles)
+//   tsvg check    <file> [--fast]                compiler: errors with line numbers, typos, off-frame/overlapping text
+//   tsvg preview  <file>                         contact sheet PNG per layout (every scene + its narration)
+//   tsvg make     <file.tsvg>                    check → bake voices → check → preview sheets → pack .tsvgz (one step)
+//   tsvg styles                                  list the 60 style templates
 //   tsvg validate <file.tsvg|.tsvgz>             static checks + dry run of every variant
 //   tsvg info     <file>                         duration, options, chapters, voices
 //   tsvg pack     <file.tsvg> [-o out.tsvgz] [--html [out.html]] [--no-preview]
@@ -110,8 +115,96 @@ const cmds = {
     for (const p of src.list()) { if (p.includes('..')) die('unsafe path in package: ' + p); const f = join(out, p); mkdirSync(dirname(f), { recursive: true }); writeFileSync(f, src.get(p)); }
     console.log(out);
   },
-  bake, render, export: exportMp4, test, serve,
+  bake, render, export: exportMp4, test, serve, check, preview, make, new: scaffold, styles,
 };
+
+// ───────── agent tools: check (compiler), preview (contact sheet), make (one step), new (templates) ─────────
+const loc = (file, m) => { const k = /^line (\d+) /.exec(m); return k ? `${file}:${k[1]}: ` + m.slice(k[0].length) : `${file}: ` + m; };
+// static checks + a browser pass over every layout: text off the frame, text on top of text. Returns { errors, warnings }.
+async function runCheck(src, { fast = false, page } = {}) {
+  const r = TSVG.validate(src.xml, { files: { has: src.has } });
+  const rel = relative(process.cwd(), src.path); const file = rel && !rel.startsWith('..') ? rel : src.path;
+  const errors = r.errors.map((m) => loc(file, m)), warnings = r.warnings.map((m) => loc(file, m));
+  if (r.ok && !fast) {
+    const own = !page; const br = own ? await browser(src) : { page };
+    const doc = r.doc; const times = []; for (const sc of doc.scenes) times.push(sc.start + sc.dur * 0.5, sc.start + sc.dur * 0.9);
+    const seen = new Set();
+    for (const L of doc.layouts) for (const opts of (TSVG.combos(doc).length ? TSVG.combos(doc) : [{}]).slice(0, 4)) {
+      const res = await br.page.evaluate(([t, o, l]) => window.bounds(t, o, l), [times, opts, L.id]);
+      for (const b of res) {
+        const key = b.kind + b.line + (b.line2 || '') + L.id; if (seen.has(key)) continue; seen.add(key);
+        const when = ` (${L.id}${opts.lang ? ' ' + opts.lang : ''}, t=${b.t.toFixed(1)}s)`;
+        if (b.error) errors.push(loc(file, b.error) + when);
+        else if (b.kind === 'off') warnings.push(loc(file, `line ${b.line} text "${b.text}" runs off the ${b.where} edge by ${b.by} units${when}`));
+        else warnings.push(loc(file, `line ${b.line} text "${b.text}" overlaps line ${b.line2} "${b.text2}"${when}`));
+      }
+    }
+    if (own) await br.b.close();
+  }
+  return { errors, warnings, doc: r.doc, stats: r.stats };
+}
+function printIssues({ errors, warnings }) {
+  for (const w of warnings) console.log('warning: ' + w);
+  for (const e of errors) console.log('error:   ' + e);
+}
+async function check() {
+  const src = await openSource(pos[0]); const r = await runCheck(src, { fast: !!flag('fast') });
+  printIssues(r);
+  console.log(`${r.errors.length ? 'FAILED' : 'ok'} · ${r.errors.length} errors · ${r.warnings.length} warnings` + (r.stats ? ` · ${+r.stats.duration.toFixed(2)}s · ${r.stats.variants} variants` : ''));
+  process.exit(r.errors.length ? 1 : 0);
+}
+// one PNG per layout: every scene as a tile + its narration line. Agents look at this instead of rendering frames one by one.
+async function writeSheets(src, doc, page, base) {
+  const opts = optsFromFlags(doc); const outs = [];
+  for (const L of doc.layouts) {
+    const url = await page.evaluate(([o, l, w]) => window.sheet(o, l, w), [opts, L.id, L.w >= L.h ? 560 : 240]);
+    const f = doc.layouts.length > 1 ? base.replace(/\.png$/, '') + '-' + L.id + '.png' : base; writeFileSync(f, fromDataURL(url)); outs.push(f);
+  }
+  return outs;
+}
+async function preview() {
+  const src = await openSource(pos[0]); const doc = TSVG.parse(src.xml);
+  const { b, page } = await browser(src);
+  const outs = await writeSheets(src, doc, page, flag('o', src.path.replace(/\.tsvgz?$/, '') + '.preview.png'));
+  await b.close(); for (const f of outs) console.log(f);
+  for (const l of TSVG.sayLines(doc, optsFromFlags(doc))) console.log(`  ${l.start.toFixed(1).padStart(5)}s  ${l.text}`);
+}
+// make = check → bake missing voices → check timing again → contact sheets → pack (with index.html). Stops on errors.
+async function make() {
+  const src0 = await openSource(pos[0]); if (src0.kind !== 'file') die('make takes a .tsvg file');
+  const t0 = Date.now();
+  let r = await runCheck(src0, { fast: true }); if (r.errors.length) { printIssues(r); die(`${r.errors.length} error(s): fix them and run make again`); }
+  const doc0 = r.doc; const langs = (doc0.options.find((o) => o.id === 'lang') || { choices: [{ id: 'en' }] }).choices.map((c) => c.id);
+  const missing = langs.some((l) => TSVG.sayLines(doc0, Object.assign(TSVG.defaults(doc0), { lang: l })).some((x) => !x.clip));
+  if (missing && !flag('no-bake')) { console.log('· baking voices'); await bake(); }
+  const src = await openSource(pos[0]); const { b, page } = await browser(src);
+  r = await runCheck(src, { page }); printIssues(r);
+  if (r.errors.length) { await b.close(); die(`${r.errors.length} error(s): fix them and run make again`); }
+  const base = flag('o', src.path.replace(/\.tsvg$/, '') + '.tsvgz');
+  const sheets = await writeSheets(src, r.doc, page, base.replace(/\.tsvgz$/, '') + '.preview.png'); await b.close();
+  flags.o = [base]; await cmds.pack();
+  console.log(`\nmade in ${((Date.now() - t0) / 1000).toFixed(0)}s · ${r.warnings.length} warning(s)`);
+  console.log('look at:  ' + sheets.join('  '));
+  console.log('attach:   ' + resolve(base) + '   (e.g. node ~/Dev/PROJECTS/TaskManager/workspaces/ws.mjs upload <ws> <KEY> ' + resolve(base) + ')');
+}
+// new <dir> [--style id | --template report]: a ready-to-edit .tsvg with its files copied in, no baked voices
+async function scaffold() {
+  const name = pos[0] || die('usage: tsvg new <dir> [--style <id>] [--template report]');
+  const style = flag('style'); const tplPath = style ? join(ROOT, 'examples/styles', style + '.tsvg') : join(ROOT, 'templates', (flag('template') || 'report') + '.tsvg');
+  if (!existsSync(tplPath)) die('no such ' + (style ? 'style' : 'template') + ': ' + (style || flag('template')) + (style ? ' (see: tsvg styles)' : ''));
+  const dir = resolve(name); if (existsSync(dir) && readdirSync(dir).length) die(dir + ' is not empty');
+  mkdirSync(dir, { recursive: true });
+  let xml = readFileSync(tplPath, 'utf8').replace(/\n?\s*<!-- written by `tsvg bake`[^\n]*-->/, '').replace(/\s*<voices\b[\s\S]*?<\/voices>/, '');
+  const doc = TSVG.parse(xml); const from = dirname(tplPath); let n = 0;
+  for (const p of referenced(doc)) { const f = join(from, p); if (!existsSync(f)) continue; mkdirSync(dirname(join(dir, p)), { recursive: true }); writeFileSync(join(dir, p), readFileSync(f)); n++; }
+  const out = join(dir, basename(dir) + '.tsvg'); writeFileSync(out, xml);
+  console.log(`${out}  (${n} files copied from ${style ? 'style ' + style : 'template ' + (flag('template') || 'report')})\nnext: edit it, then  tsvg check ${out}   →   tsvg make ${out}`);
+}
+function styles() {
+  const cat = JSON.parse(readFileSync(join(ROOT, 'examples/styles/catalog.json'), 'utf8'));
+  let cur = ''; for (const c of cat) { if (c.category !== cur) { cur = c.category; console.log('\n' + cur); } console.log(`  ${c.id.padEnd(26)} ${c.summary}`); }
+  console.log('\nuse one:  tsvg new <dir> --style <id>    (default: tsvg new <dir>, the report template)');
+}
 
 // ───────── preview page (web/preview.html) ─────────
 // pkg absent: the page loads the player from the CDN and plays the inline document with its files beside it.
@@ -253,6 +346,65 @@ function burnCaption(ctx, t, o, L) {
   lines.forEach((s, i) => { const w = ctx.measureText(s).width + pad * 2; const y = y0 + i * lh; ctx.fillStyle = 'rgba(0,0,0,0.72)'; ctx.beginPath(); ctx.roundRect(L.w / 2 - w / 2, y - lh / 2, w, lh, size * 0.2); ctx.fill(); ctx.fillStyle = '#fff'; ctx.fillText(s, L.w / 2, y); });
   ctx.restore();
 }
+// layout check: every text drawn at the sample times, as boxes in layout units → off-frame and overlapping text
+window.bounds = (times, opts, layoutId) => {
+  const L = doc.layouts.find((l) => l.id === layoutId) || doc.layouts[0];
+  const k = 0.5, w = Math.round(L.w * k), h = Math.round(L.h * k);
+  const c = document.createElement('canvas'); c.width = w; c.height = h; const ctx = c.getContext('2d');
+  const proto = CanvasRenderingContext2D.prototype; const orig = proto.fillText; let boxes = [];
+  proto.fillText = function (txt, x, y, mw) {
+    const n = this.__tsvgNode; const m = this.measureText(txt); const tf = this.getTransform();
+    const al = this.textAlign, wd = m.width; const x0 = al === 'center' ? x - wd / 2 : al === 'right' || al === 'end' ? x - wd : x;
+    const asc = m.actualBoundingBoxAscent || 0, desc = m.actualBoundingBoxDescent || 0;
+    const pts = [[x0, y - asc], [x0 + wd, y - asc], [x0, y + desc], [x0 + wd, y + desc]].map(([px, py]) => [(tf.a * px + tf.c * py + tf.e) / k, (tf.b * px + tf.d * py + tf.f) / k]);
+    const xs = pts.map((p) => p[0]), ys = pts.map((p) => p[1]);
+    if (this.globalAlpha > 0.2 && String(txt).trim()) boxes.push({ clipped: this.__tsvgClipped, line: n && n.line, text: String(txt).slice(0, 40), x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys) });
+    return orig.call(this, txt, x, y, mw);
+  };
+  const out = [];
+  try {
+    for (const t of times) {
+      boxes = []; ctx.setTransform(k, 0, 0, k, 0, 0);
+      try { TSVG.renderFrame(ctx, doc, t, Object.assign(TSVG.defaults(doc), opts), L, images); } catch (e) { out.push({ t, error: e.message }); continue; }
+      const m = 6;
+      for (const b of boxes) {
+        const off = [b.x0 < -m && 'left', b.x1 > L.w + m && 'right', b.y0 < -m && 'top', b.y1 > L.h + m && 'bottom'].filter(Boolean);
+        const visible = b.x1 > 0 && b.x0 < L.w && b.y1 > 0 && b.y0 < L.h; // wholly off-screen text is usually on purpose (tickers, camera moves)
+        if (off.length && visible && !b.clipped) out.push({ t, line: b.line, text: b.text, kind: 'off', where: off.join('+'), by: Math.round(Math.max(-b.x0, b.x1 - L.w, -b.y0, b.y1 - L.h)) });
+      }
+      for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
+        const a = boxes[i], b = boxes[j]; if (a.line === b.line) continue;
+        const ix = Math.min(a.x1, b.x1) - Math.max(a.x0, b.x0), iy = Math.min(a.y1, b.y1) - Math.max(a.y0, b.y0);
+        if (ix <= 0 || iy <= 0 || a.clipped || b.clipped) continue;
+        const area = (q) => Math.max(1, (q.x1 - q.x0) * (q.y1 - q.y0));
+        if ((ix * iy) / Math.min(area(a), area(b)) > 0.3) out.push({ t, line: a.line, line2: b.line, text: a.text, text2: b.text, kind: 'overlap' });
+      }
+    }
+  } finally { proto.fillText = orig; }
+  return out;
+};
+// contact sheet: one tile per scene (a late frame, after build-ins) with a label, for one layout
+window.sheet = (opts, layoutId, tileW, at) => {
+  const L = doc.layouts.find((l) => l.id === layoutId) || doc.layouts[0];
+  const o = Object.assign(TSVG.defaults(doc), opts); const env = TSVG.makeEnv(doc, o, L, 0);
+  const n = doc.scenes.length, cols = L.w >= L.h ? Math.min(3, n) : Math.min(5, n), rows = Math.ceil(n / cols);
+  const tw = tileW, th = Math.round(tw * L.h / L.w), lab = 46, pad = 12;
+  const c = document.createElement('canvas'); c.width = cols * (tw + pad) + pad; c.height = rows * (th + lab + pad) + pad + 40;
+  const x = c.getContext('2d'); x.fillStyle = '#111'; x.fillRect(0, 0, c.width, c.height);
+  x.fillStyle = '#ddd'; x.font = '600 18px system-ui'; x.fillText((doc.title ? String(TSVG.value(doc.title, env, doc)) + ' · ' : '') + L.id + ' ' + L.w + '×' + L.h + ' · ' + doc.duration + 's · ' + JSON.stringify(o), pad, 26);
+  const lines = TSVG.sayLines(doc, o);
+  doc.scenes.forEach((sc, i) => {
+    const t = sc.start + sc.dur * (at || 0.7), cx = pad + (i % cols) * (tw + pad), cy = 40 + pad + Math.floor(i / cols) * (th + lab + pad);
+    x.save(); x.translate(cx, cy); x.beginPath(); x.rect(0, 0, tw, th); x.clip(); x.setTransform(tw / L.w, 0, 0, tw / L.w, cx, cy);
+    try { TSVG.renderFrame(x, doc, t, o, L, images); } catch (e) { x.setTransform(1, 0, 0, 1, cx, cy); x.fillStyle = '#f55'; x.font = '13px monospace'; x.fillText(e.message.slice(0, 80), 6, 20); }
+    x.restore();
+    const ch = doc.chapters.filter((q) => q.t <= sc.start + 1e-6).pop();
+    x.fillStyle = '#fff'; x.font = '600 15px system-ui'; x.fillText((i + 1) + ' · ' + sc.id + ' · ' + Math.floor(t / 60) + ':' + String(Math.floor(t % 60)).padStart(2, '0') + (ch ? ' · ' + String(TSVG.value(ch.label, env, doc)) : ''), cx, cy + th + 18);
+    const say = lines.find((l) => l.start >= sc.start && l.start < sc.start + sc.dur);
+    if (say) { x.fillStyle = '#9aa'; x.font = '13px system-ui'; let s = say.text; while (x.measureText(s).width > tw && s.length > 4) s = s.slice(0, -4) + '…'; x.fillText(s, cx, cy + th + 37); }
+  });
+  return c.toDataURL('image/png');
+};
 window.compare = async (a, b, tol) => {
   const load = (u) => new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = u; });
   const [A, B] = await Promise.all([load(a), load(b)]);
@@ -368,5 +520,5 @@ function serve() {
   }).listen(port, '127.0.0.1', () => console.log(`http://127.0.0.1:${port}/  (spec: /spec/  playground: /playground/)`));
 }
 
-if (!cmds[cmd]) { console.log(readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n').slice(1, 15).map((l) => l.replace(/^\/\/ ?/, '')).join('\n')); process.exit(cmd ? 1 : 0); }
+if (!cmds[cmd]) { console.log(readFileSync(fileURLToPath(import.meta.url), 'utf8').split('\n').slice(1, 18).map((l) => l.replace(/^\/\/ ?/, '')).join('\n')); process.exit(cmd ? 1 : 0); }
 await cmds[cmd]();

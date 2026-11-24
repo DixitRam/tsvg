@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  TSVG report template (tsvg new <dir>). For agents: edit ONLY the <strings> block below,
+  swap images/screenshot.jpg for your own screenshot (keep the name or change the asset src),
+  delete scenes you don't need, then run:  tsvg make <file>.tsvg
+  Lines: keep each vo* to 1–3 short sentences; make lengthens nothing for you, check warns if a line overruns its scene.
+-->
+<tsvg version="0.2.2" title="@title" font="Inter">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait"  w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Voice + music"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="dark"><choice id="dark" label="Dark"/><choice id="light" label="Light"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.18" sfx="0.5"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="dark"  bg="#0d1016" fg="#eef1f7" muted="#8a93a6" panel="#171c27" line="#273042" accent="#7aa2ff" pink="#ff6b9a" good="#5fd39a" warn="#ffb35c"/>
+    <theme id="light" bg="#f6f3ec" fg="#1b1e26" muted="#626a78" panel="#ffffff" line="#e2ddd2" accent="#2f5bea" pink="#d6336c" good="#178a55" warn="#c2650f"/>
+  </themes>
+
+  <!-- ✏️ EDIT THESE ─────────────────────────────────────────────────────────── -->
+  <strings>
+    <s id="key"     en="TICKET-1"/>
+    <s id="title"   en="What this report is about"/>
+    <s id="sub"     en="One line: the outcome, in plain words"/>
+    <!-- what changed: up to 4 items (an empty item hides its row) -->
+    <s id="c1" en="First change, short"/>
+    <s id="c2" en="Second change, short"/>
+    <s id="c3" en="Third change, short"/>
+    <s id="c4" en=""/>
+    <!-- the screenshot scene: a caption and where the highlight box goes (fractions of the image, 0–1) -->
+    <s id="shot"    en="Where to look on the screenshot"/>
+    <!-- how it was verified: up to 3 -->
+    <s id="v1" en="Tests: 42/42 pass"/>
+    <s id="v2" en="Checked in the browser on phone and desktop"/>
+    <s id="v3" en=""/>
+    <!-- still open: up to 3 (empty = "Nothing open") -->
+    <s id="o1" en="Anything not verified, or a decision needed"/>
+    <s id="o2" en=""/>
+    <s id="o3" en=""/>
+    <!-- narration, one line per scene: this is also the caption -->
+    <s id="vo1" en="Here is what changed in this ticket, in under a minute."/>
+    <s id="vo2" en="Three things changed. Say them in one or two plain sentences."/>
+    <s id="vo3" en="This is where to look. The box marks the part that matters."/>
+    <s id="vo4" en="How it was checked: the tests pass and it was tried by hand."/>
+    <s id="vo5" en="One thing is still open. It is listed here."/>
+  </strings>
+  <defs>
+    <!-- highlight box on the screenshot, as fractions of the image (x, y, w, h) -->
+    <data id="box" v="0.08, 0.10, 0.42, 0.40"/>
+    <linear id="ink" x1="0" y1="0" x2="1100" y2="0"><stop at="0" color="$accent"/><stop at="1" color="$pink"/></linear>
+    <symbol id="tick"><circle r="18" fill="$good"/><path d="M -8 0 L -2 7 L 9 -6" fill="none" stroke="$bg" sw="4"/></symbol>
+    <symbol id="dot"><circle r="18" fill="$warn"/><text x="0" y="1" size="22" weight="800" align="center" fill="$bg" text="!"/></symbol>
+  </defs>
+  <!-- ─────────────────────────────────────────────────────────────────────────── -->
+
+  <assets>
+    <asset id="pad" src="audio/pad.m4a"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="shot" src="images/screenshot.jpg"/>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.8"/>
+
+  <backdrop>
+    <circle x="=W*0.9" y="=H*0.1" r="260" fill="$accent" opacity="0.08"/>
+    <circle x="=W*0.05" y="=H*0.95" r="320" fill="$pink" opacity="0.06"/>
+  </backdrop>
+  <overlay>
+    <text x="60" y="=H-44" size="24" fill="$muted" text="@key"/>
+  </overlay>
+
+  <timeline>
+    <!-- 1 · title -->
+    <scene id="title" dur="7" chapter="@key">
+      <say at="0.5" text="@vo1"/>
+      <text x="=W/2" y="=H/2-50" size="96" size.portrait="72" maxw="1700" maxw.portrait="960" weight="800" align="center" text="@title" fill="url(#ink)">
+        <anim prop="opacity" from="0" to="1" dur="0.7"/><anim prop="scale" from="0.94" to="1" dur="0.9" ease="back"/>
+      </text>
+      <text x="=W/2" y="=H/2+90" y.portrait="=H/2+170" size="38" maxw="1500" maxw.portrait="940" align="center" fill="$muted" text="@sub" at="0.8">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/>
+      </text>
+    </scene>
+
+    <!-- 2 · what changed: rows appear one by one; empty strings hide their row -->
+    <scene id="changed" dur="10" chapter="What changed">
+      <say at="0.4" text="@vo2"/>
+      <text x="=W/2" y="150" y.portrait="230" size="64" weight="800" align="center" text="What changed"/>
+      <group x="=W/2-700" y="320" x.portrait="90" y.portrait="460" repeat="4" as="k">
+        <group y="=k*150" y.portrait="=k*200" at="=0.8 + k*0.9" when="str(s('c' + (k+1))) != ''">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="-30" to="0" dur="0.5"/>
+          <rect x="-30" y="-58" w="1460" w.portrait="930" h="116" r="22" fill="$panel"/>
+          <use ref="tick" x="30" y="0"/>
+          <text x="80" y="0" size="40" size.portrait="34" maxw="1320" maxw.portrait="800" fill="$fg" text="=s('c' + (k+1))"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 3 · screenshot with a highlight box -->
+    <scene id="look" dur="9" chapter="Where to look">
+      <say at="0.4" text="@vo3"/>
+      <group x="=W/2" y="=H/2-10" y.portrait="=H/2-40">
+        <image src="shot" x="0" y="0" ax="0.5" ay="0.5" w="1500" h="938" w.portrait="1000" h.portrait="625" r="16" shadow="0 24 60 #0009" fit="contain">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        </image>
+        <rect x="=(data('box',0) - 0.5) * (portrait ? 1000 : 1500)" y="=(data('box',1) - 0.5) * (portrait ? 625 : 938)"
+              w="=data('box',2) * (portrait ? 1000 : 1500)" h="=data('box',3) * (portrait ? 625 : 938)" r="14" fill="none" stroke="$pink" sw="6" at="1.5"
+              shadow="0 0 24 $pink">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="scale" from="1.15" to="1" dur="0.6" ease="back"/>
+        </rect>
+      </group>
+      <group x="=W/2" y="=H-90" y.portrait="=H/2+380" at="2">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect x="-700" x.portrait="-470" y="-40" w="1400" w.portrait="940" h="80" r="40" fill="$panel"/>
+        <text x="0" y="0" size="32" align="center" fill="$fg" text="@shot"/>
+      </group>
+    </scene>
+
+    <!-- 4 · how it was verified -->
+    <scene id="verified" dur="9" chapter="Verified">
+      <say at="0.4" text="@vo4"/>
+      <text x="=W/2" y="150" y.portrait="230" size="64" weight="800" align="center" text="How it was checked"/>
+      <group x="=W/2-700" y="340" x.portrait="90" y.portrait="480" repeat="3" as="k">
+        <group y="=k*150" y.portrait="=k*200" at="=0.8 + k*0.8" when="str(s('v' + (k+1))) != ''">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <use ref="tick" x="30" y="0"/>
+          <text x="80" y="0" size="40" size.portrait="34" maxw="1320" maxw.portrait="800" fill="$fg" text="=s('v' + (k+1))"/>
+        </group>
+      </group>
+    </scene>
+
+    <!-- 5 · still open -->
+    <scene id="open" dur="8" chapter="Open">
+      <say at="0.4" text="@vo5"/>
+      <text x="=W/2" y="150" y.portrait="230" size="64" weight="800" align="center" text="Still open"/>
+      <text x="=W/2" y="=H/2" size="44" align="center" fill="$good" text="Nothing open ✓" when="str(s('o1')) == ''"/>
+      <group x="=W/2-700" y="340" x.portrait="90" y.portrait="480" repeat="3" as="k">
+        <group y="=k*150" y.portrait="=k*200" at="=0.8 + k*0.8" when="str(s('o' + (k+1))) != ''">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/>
+          <use ref="dot" x="30" y="0"/>
+          <text x="80" y="0" size="40" size.portrait="34" maxw="1320" maxw.portrait="800" fill="$fg" text="=s('o' + (k+1))"/>
+        </group>
+      </group>
+    </scene>
+  </timeline>
+</tsvg>
