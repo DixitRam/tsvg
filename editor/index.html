@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>TSVG editor</title>
+<style>
+  :root{--bg:#0c0e13;--panel:#151922;--panel2:#11141b;--line:#262c39;--fg:#e9edf5;--muted:#97a1b5;--dim:#6b7489;--accent:#7aa2ff;--bad:#ff6b6b;--warm:#ffb35c;--good:#5fd38d;--sel:#ffb35c}
+  *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,-apple-system,sans-serif;display:flex;flex-direction:column;overflow:hidden}
+  header{display:flex;align-items:center;gap:10px;padding:8px 14px;border-bottom:1px solid var(--line);flex:none}
+  header b{font-size:15px} .grow{flex:1} .muted{color:var(--muted);font-size:12.5px}
+  .badge{font-size:11px;padding:1px 8px;border-radius:10px;border:1px solid var(--line);color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+  .badge.live{border-color:#5fd38d66;color:var(--good)}
+  .dirty{width:8px;height:8px;border-radius:50%;background:var(--warm);display:none} .dirty.on{display:inline-block}
+  button,select{background:var(--panel);color:var(--fg);border:1px solid var(--line);padding:4px 10px;border-radius:8px;cursor:pointer;font:inherit;font-size:12.5px}
+  button:hover{border-color:#3a4356} button.on{border-color:var(--accent);color:var(--accent)} button:disabled{opacity:.4;cursor:default}
+  button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  button.primary{background:#22305a;border-color:#3d58a8}
+  kbd{font:11px ui-monospace,Menlo,monospace;color:var(--dim)}
+  main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 400px}
+  .left{min-width:0;min-height:0;display:flex;flex-direction:column;gap:8px;padding:10px 12px 10px 14px}
+  .bar{display:flex;gap:6px;align-items:center;flex-wrap:wrap;flex:none}
+  .bar .time{font:12.5px ui-monospace,Menlo,monospace;color:var(--muted);min-width:110px}
+  .sep{width:1px;height:20px;background:var(--line);margin:0 4px}
+  .box{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;position:relative}
+  .frame{position:relative;max-width:100%;max-height:100%}
+  .frame > .tsvgp{position:absolute;inset:0;border-radius:8px}
+  #hit{position:absolute;inset:0;z-index:2;cursor:crosshair;outline:none}
+  #hit.movable{cursor:move}
+  #selbox{position:absolute;border:1.5px solid var(--sel);border-radius:3px;pointer-events:none;display:none;box-shadow:0 0 0 1px #0008}
+  #selbox span{position:absolute;left:-1.5px;bottom:100%;margin-bottom:2px;background:var(--sel);color:#1a1205;font:600 11px/1.5 ui-monospace,Menlo,monospace;padding:0 6px;border-radius:3px;white-space:nowrap}
+  #selbox.below span{bottom:auto;top:100%;margin:2px 0 0}
+  .rerr{position:absolute;left:10px;right:10px;top:10px;z-index:3;background:#2a1215f2;border:1px solid #ff6b6b66;color:#ffd0d0;border-radius:8px;padding:8px 12px;font:12px/1.5 ui-monospace,Menlo,monospace;white-space:pre-wrap;display:none;max-height:40%;overflow:auto}
+  .rerr.on{display:block}
+  /* timeline strip */
+  .strip{position:relative;height:46px;flex:none;background:var(--panel2);border:1px solid var(--line);border-radius:8px;cursor:pointer;user-select:none;overflow:hidden;touch-action:none}
+  .strip .sc{position:absolute;top:5px;bottom:5px;border-radius:5px;background:#1c2232;border:1px solid #2b3347;padding:3px 7px;font-size:11.5px;line-height:1.25;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:#c3cbdb}
+  .strip .sc small{display:block;color:var(--dim);font:10.5px ui-monospace,Menlo,monospace}
+  .strip .sc.cur{background:#22305a;border-color:#3d58a8;color:#fff}
+  .strip .sc.has{box-shadow:inset 0 -3px 0 var(--sel)}
+  .strip .head{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:#ff2d48;pointer-events:none;box-shadow:0 0 0 1px #0006}
+  .issueline{font:12px ui-monospace,Menlo,monospace;color:var(--muted);flex:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;min-height:18px}
+  .issueline.err{color:var(--bad)} .issueline.warn{color:var(--warm)}
+  /* right side */
+  .right{border-left:1px solid var(--line);min-height:0;display:flex;flex-direction:column;background:#0f1218}
+  .tabs{display:flex;gap:2px;padding:8px 10px 0;border-bottom:1px solid var(--line);flex:none}
+  .tabs button{border:none;background:none;border-bottom:2px solid transparent;border-radius:0;padding:6px 10px;color:var(--muted)}
+  .tabs button.on{color:var(--fg);border-bottom-color:var(--accent)}
+  .tabs button .n{font-size:11px;color:var(--dim);margin-left:4px}
+  .pane{flex:1;min-height:0;overflow:auto;padding:12px 14px;display:none}
+  .pane.on{display:block}
+  #pane-source.on{display:flex;flex-direction:column;padding:8px}
+  .crumbs{font:12px ui-monospace,Menlo,monospace;color:var(--dim);margin-bottom:6px;display:flex;flex-wrap:wrap;gap:2px}
+  .crumbs a{color:var(--muted);cursor:pointer;text-decoration:none;padding:0 2px;border-radius:3px} .crumbs a:hover{color:var(--accent);background:#7aa2ff14}
+  .el-head{display:flex;align-items:baseline;gap:8px;margin-bottom:4px}
+  .el-head code{font:600 15px ui-monospace,Menlo,monospace;color:var(--accent)}
+  .doc{color:var(--muted);font-size:12.5px;margin:0 0 8px}
+  .note{font-size:12.5px;padding:6px 9px;border-radius:7px;margin:6px 0 10px;background:#ffb35c14;color:#ffd29b;border:1px solid #ffb35c33}
+  .note.ok{background:#5fd38d10;color:#a8e9c2;border-color:#5fd38d33}
+  .fields{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:5px 8px;align-items:start}
+  .fields label{font:12.5px/28px ui-monospace,Menlo,monospace;color:var(--fg);white-space:nowrap;max-width:130px;overflow:hidden;text-overflow:ellipsis}
+  .fields label.unset{color:var(--dim)} .fields label.req::after{content:' *';color:var(--warm)}
+  .fields .ctl{display:flex;flex-direction:column;gap:2px;min-width:0}
+  .fields .ctl > div{display:flex;gap:5px;min-width:0}
+  .fields .ctl small{color:var(--dim);font-size:11.5px;line-height:1.35}
+  input[type=text],input[type=number],textarea.v{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 7px;font:12.5px ui-monospace,Menlo,monospace;width:100%;min-width:0}
+  textarea.v{resize:vertical;min-height:52px;line-height:1.4}
+  input::placeholder,textarea::placeholder{color:#5a6377}
+  input[type=color]{width:30px;height:28px;padding:0 2px;border:1px solid var(--line);border-radius:6px;background:var(--panel2);flex:none;cursor:pointer}
+  .x{width:24px;height:28px;padding:0;color:var(--dim);border-color:transparent;background:none}
+  .x:hover{color:var(--bad)}
+  h4{margin:14px 0 6px;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .add{display:flex;gap:5px;margin-top:8px}
+  .add input{flex:1}
+  .empty{color:var(--muted);font-size:13px;line-height:1.6}
+  .empty kbd{color:var(--fg)}
+  table.str{border-collapse:collapse;width:100%}
+  table.str th{text-align:left;font:600 11.5px system-ui;color:var(--muted);padding:4px;position:sticky;top:-12px;background:#0f1218}
+  table.str td{padding:3px 4px;vertical-align:top} table.str td:first-child{font:12px/26px ui-monospace,Menlo,monospace;color:var(--accent);white-space:nowrap}
+  table.str textarea{min-height:28px;resize:none;overflow:hidden}
+  #src{flex:1;min-height:0;width:100%;background:var(--panel2);color:#d8deea;border:1px solid var(--line);border-radius:8px;padding:10px;font:12px/1.5 ui-monospace,Menlo,monospace;resize:none;tab-size:2;white-space:pre;overflow:auto}
+  .issues div{font:12px/1.45 ui-monospace,Menlo,monospace;white-space:pre-wrap;padding:4px 6px;border-radius:5px;cursor:default}
+  .issues div[data-line]{cursor:pointer} .issues div[data-line]:hover{background:#ffffff0a}
+  .issues .err{color:var(--bad)} .issues .warn{color:var(--warm)} .issues .ok{color:var(--good)}
+  .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#1d2333;border:1px solid var(--line);padding:7px 14px;border-radius:9px;font-size:13px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10}
+  .toast.on{opacity:1}
+  .ext{display:none;gap:8px;align-items:center;font-size:12.5px;color:var(--warm)} .ext.on{display:flex}
+</style>
+</head>
+<body>
+<header>
+  <b>TSVG editor</b>
+  <span id="name" class="muted"></span><span class="dirty" id="dirty" title="unsaved changes"></span>
+  <span class="badge" id="mode">read-only</span>
+  <span class="ext" id="ext">changed on disk <button id="extload">Load it</button></span>
+  <span class="grow"></span>
+  <span class="muted" id="status"></span>
+  <button id="undo" title="Undo (⌘Z)">Undo</button><button id="redo" title="Redo (⇧⌘Z)">Redo</button>
+  <button id="save" class="primary" title="Save (⌘S)">Save</button>
+</header>
+<main>
+  <section class="left">
+    <div class="bar">
+      <button id="prev" title="Previous scene ([)">⏮</button><button id="play" title="Play / pause (space)" style="min-width:64px">▶ Play</button><button id="next" title="Next scene (])">⏭</button>
+      <span class="time" id="time">0:00.0</span>
+      <span class="sep"></span><span id="layouts" class="bar"></span>
+      <span class="sep"></span><span id="options" class="bar"></span>
+    </div>
+    <div class="box" id="box">
+      <div class="frame" id="frame"><div id="hit" tabindex="0" aria-label="Canvas: click to select, drag to move"></div><div id="selbox"><span></span></div></div>
+      <div class="rerr" id="rerr"></div>
+    </div>
+    <div class="strip" id="strip" title="Scenes: click or drag to seek, double-click to select the scene"></div>
+    <div class="issueline" id="issueline"></div>
+  </section>
+  <section class="right">
+    <div class="tabs" role="tablist">
+      <button data-tab="inspector" class="on" title="Alt+1">Inspector</button>
+      <button data-tab="strings" title="Alt+2">Strings<span class="n" id="nstr"></span></button>
+      <button data-tab="source" title="Alt+3">Source</button>
+      <button data-tab="checks" title="Alt+4">Checks<span class="n" id="nchk"></span></button>
+    </div>
+    <div class="pane on" id="pane-inspector"></div>
+    <div class="pane" id="pane-strings"></div>
+    <div class="pane" id="pane-source"><textarea id="src" spellcheck="false" aria-label="Source"></textarea></div>
+    <div class="pane issues" id="pane-checks"></div>
+  </section>
+</main>
+<div class="toast" id="toast"></div>
+<script src="../web/tsvg-core.js"></script>
+<script src="../web/tsvg-zip.js"></script>
+<script src="../web/tsvg-player.js"></script>
+<script src="live.js"></script>
+<script src="editor.js"></script>
+</body>
+</html>

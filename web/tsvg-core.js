@@ -6,7 +6,7 @@
 // thumbnails free, and what lets every native engine be tested against golden frames.
 (function (root) {
   'use strict';
-  const VERSION = '0.9';
+  const VERSION = '0.10';
 
   // ───────────────────────── XML (subset) ─────────────────────────
   // Elements, attributes, text, comments, <?…?>, <!…>, CDATA, the 5 named
@@ -53,7 +53,7 @@
   // symbols, gradients, fns) and document defaults. <r:title text="…"/> expands a component with props.
   // Expansion is static and happens before parse: flatten() turns a document with imports into plain TSVG
   // (packages carry the flattened main.tsvg, so every player plays them). Local components live in <defs>.
-  const PKG = '0.9.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
+  const PKG = '0.10.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
   const HEAD = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'music', 'backdrop', 'overlay'];
   const BUILTIN = new Set(['tsvg', 'layouts', 'layout', 'options', 'option', 'choice', 'mixes', 'mix', 'themes', 'theme', 'strings', 's', 'defs', 'fn', 'symbol', 'linear', 'radial', 'stop', 'clip', 'mask', 'data', 'assets', 'asset', 'font', 'voices', 'voice', 'music', 'backdrop', 'overlay', 'timeline', 'scene', 'say', 'sfx', 'anim', 'keys', 'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'import', 'component', 'prop', 'slot', 'each', 'if']);
   const needsLibs = (xml) => /<(import|component|dict)\b/.test(xml);

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>tsvg watch</title>
+<style>
+  :root{--bg:#0c0e13;--panel:#151922;--line:#262c39;--fg:#e9edf5;--muted:#97a1b5;--accent:#7aa2ff;--bad:#ff6b6b;--warm:#ffb35c;--good:#5fd38d}
+  *{box-sizing:border-box} html,body{height:100%} body{margin:0;background:var(--bg);color:var(--fg);font:14.5px/1.5 system-ui,-apple-system,sans-serif;display:flex;flex-direction:column}
+  header{display:flex;align-items:center;gap:12px;padding:10px 18px;border-bottom:1px solid var(--line)}
+  header b{font-size:16px} .grow{flex:1} .muted{color:var(--muted);font-size:13px}
+  button{background:var(--panel);color:var(--fg);border:1px solid var(--line);padding:4px 10px;border-radius:8px;cursor:pointer;font:inherit;font-size:13px}
+  button.on{border-color:var(--accent);color:var(--accent)} button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--muted);display:inline-block;margin-right:6px;vertical-align:middle}
+  .dot.on{background:var(--good);box-shadow:0 0 0 3px #5fd38d33} .dot.flash{background:var(--accent);box-shadow:0 0 0 5px #7aa2ff44}
+  main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:14px;padding:14px 18px}
+  .stage{min-width:0;min-height:0;display:flex;flex-direction:column;gap:8px}
+  .box{flex:1;min-height:0;display:flex;align-items:center;justify-content:center;position:relative}
+  .frame{position:relative;max-width:100%;max-height:100%}
+  .frame > .tsvgp{position:absolute;inset:0}
+  .side{display:flex;flex-direction:column;gap:12px;min-height:0}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .card h3{margin:0 0 6px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;display:flex;gap:8px}
+  .row{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+  #scenes{list-style:none;margin:0;padding:0;overflow:auto;max-height:36vh}
+  #scenes li{display:flex;gap:8px;padding:4px 8px;border-radius:7px;cursor:pointer;font-size:13px}
+  #scenes li:hover{background:#ffffff0d} #scenes li.cur{background:#7aa2ff22;color:var(--accent)}
+  #scenes .t{font:12px ui-monospace,Menlo,monospace;color:var(--muted);min-width:44px} #scenes li.cur .t{color:var(--accent)}
+  #scenes .n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .issues{flex:1;min-height:80px;overflow:auto}
+  .issues div{font:12px/1.45 ui-monospace,Menlo,monospace;white-space:pre-wrap;padding:3px 0;border-bottom:1px solid #ffffff08}
+  .issues .err{color:var(--bad)} .issues .warn{color:var(--warm)} .issues .ok{color:var(--good)}
+  .banner{position:absolute;left:12px;right:12px;bottom:12px;background:#2a1215f2;border:1px solid #ff6b6b66;color:#ffd0d0;border-radius:10px;padding:10px 14px;font:12.5px/1.5 ui-monospace,Menlo,monospace;white-space:pre-wrap;display:none;z-index:5;max-height:45%;overflow:auto}
+  .banner b{color:var(--bad);font-family:system-ui,sans-serif}
+  .banner.on{display:block}
+  @media (max-width:900px){main{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <b><span class="dot" id="dot" title="live"></span><span id="name">tsvg watch</span></b>
+  <span class="muted" id="status">connecting…</span>
+  <span class="grow"></span>
+  <span class="muted">space play · j/l ±10 s · [ ] scene · c captions</span>
+</header>
+<main>
+  <div class="stage">
+    <div class="box" id="box"><div class="frame" id="frame"></div><div class="banner" id="banner"></div></div>
+  </div>
+  <div class="side">
+    <div class="card"><h3>Layout</h3><div class="row" id="layouts"></div></div>
+    <div class="card" style="min-height:0;display:flex;flex-direction:column"><h3>Scenes <span class="grow"></span><span id="dur"></span></h3><ul id="scenes"></ul></div>
+    <div class="card issues-card" style="flex:1;min-height:0;display:flex;flex-direction:column"><h3>Checks <span class="grow"></span><span id="counts"></span></h3><div class="issues" id="issues"></div></div>
+  </div>
+</main>
+<script src="../web/tsvg-core.js"></script>
+<script src="../web/tsvg-zip.js"></script>
+<script src="../web/tsvg-player.js"></script>
+<script src="live.js"></script>
+<script>
+window.TSVG_LIB_BASE = new URL('../libs/', location.href).href; // tsvg:<lib> imports resolve to this repo's libs/
+const $ = (id) => document.getElementById(id); const { esc, fmtT } = TSVGLive;
+const docUrl = new URL(TSVGLive.params.get('doc') || '../examples/demo/demo.tsvg', location.href).href;
+const fileName = decodeURIComponent(docUrl.split('/').pop());
+$('name').textContent = fileName; document.title = fileName + ' · tsvg watch';
+const frame = $('frame'), box = $('box');
+const player = new TSVGPlayer(frame, { base: docUrl });
+let layoutPref = 'auto', files = null, lastSrc = null, building = false, again = false;
+
+function fit() { // the frame keeps the layout's aspect inside the stage
+  if (!player.doc) return;
+  const L = layoutPref === 'auto' ? player.doc.layouts[0] : player.doc.layouts.find((l) => l.id === layoutPref) || player.doc.layouts[0];
+  const W = box.clientWidth, H = box.clientHeight; const k = Math.min(W / L.w, H / L.h);
+  frame.style.width = Math.floor(L.w * k) + 'px'; frame.style.height = Math.floor(L.h * k) + 'px';
+}
+new ResizeObserver(fit).observe(box);
+function showLayouts() {
+  const L = player.doc.layouts; const opts = [{ id: 'auto', label: 'Auto' }].concat(L.map((l) => ({ id: l.id, label: l.id + ' ' + l.w + '×' + l.h })));
+  $('layouts').innerHTML = opts.map((o) => `<button data-l="${esc(o.id)}" class="${o.id === layoutPref ? 'on' : ''}">${esc(o.label)}</button>`).join('');
+  $('layouts').querySelectorAll('button').forEach((b) => b.onclick = () => { layoutPref = b.dataset.l; player.layoutPref = layoutPref === 'auto' ? 'auto' : layoutPref; fit(); player.draw(); showLayouts(); });
+}
+function showScenes() {
+  const tl = player.tl; const env = TSVG.makeEnv(player.doc, player.opts, player.doc.layouts[0], 0);
+  $('dur').textContent = fmtT(tl.duration);
+  $('scenes').innerHTML = tl.scenes.map((s, i) => {
+    const ch = tl.chapters.find((c) => Math.abs(c.t - s.start) < 1e-6); let label = s.id; try { if (ch) label = String(TSVG.value(ch.label, env, player.doc)); } catch {}
+    return `<li data-t="${s.start}" data-i="${i}" tabindex="0"><span class="t">${fmtT(s.start)}</span><span class="n">${esc(label)}</span><span class="muted">${s.dur.toFixed(1)}s</span></li>`;
+  }).join('');
+  $('scenes').querySelectorAll('li').forEach((li) => { li.onclick = () => { player.seek(+li.dataset.t + 0.01); player.el.focus(); }; li.onkeydown = (e) => { if (e.key === 'Enter') li.onclick(); }; });
+}
+function showIssues(errors, warnings, note) {
+  const fix = (m) => m.replace(/^(XML )?line (\d+)/, fileName + ':$2');
+  $('issues').innerHTML = errors.map((m) => `<div class="err">${esc(fix(m))}</div>`).join('') + warnings.map((m) => `<div class="warn">${esc(fix(m))}</div>`).join('') + (note ? `<div class="ok">${esc(note)}</div>` : '');
+  $('counts').textContent = errors.length + (errors.length === 1 ? ' error · ' : ' errors · ') + warnings.length + (warnings.length === 1 ? ' warning' : ' warnings');
+  $('counts').style.color = errors.length ? 'var(--bad)' : warnings.length ? 'var(--warm)' : 'var(--good)';
+}
+function banner(errors, kept = true) {
+  const b = $('banner'); if (!errors.length) { b.classList.remove('on'); return; }
+  b.innerHTML = `<b>${errors.length} error${errors.length > 1 ? 's' : ''}${kept ? ' · showing the last good version' : ''}</b>\n` + esc(errors.slice(0, 8).map((m) => m.replace(/^(XML )?line (\d+)/, fileName + ':$2')).join('\n'));
+  b.classList.add('on');
+}
+let curScene = -1;
+(function tick() { // current scene in the list
+  if (player.doc) { const i = player.tl.scenes.findIndex((s) => player.t >= s.start - 1e-6 && player.t < s.start + s.dur); if (i !== curScene) { curScene = i; $('scenes').querySelectorAll('li').forEach((li) => li.classList.toggle('cur', +li.dataset.i === i)); } }
+  requestAnimationFrame(tick);
+})();
+
+async function reload(reason) {
+  if (building) { again = true; return; } building = true;
+  const t0 = performance.now();
+  try {
+    let src;
+    try { const r = await fetch(docUrl, { cache: 'no-store' }); if (!r.ok) throw new Error('HTTP ' + r.status); src = await r.text(); } catch (e) { banner(['cannot load ' + fileName + ': ' + e.message]); return; }
+    if (reason === 'change' && src === lastSrc) return; lastSrc = src;
+    let b;
+    try { b = await TSVGLive.build(src, docUrl); }
+    catch (e) { const errs = e.all || [TSVGLive.fixLines(e.message)]; showIssues(errs, []); banner(errs); status('error', t0); return; }
+    const has = files ? { has: (p) => files.has(p) || p in b.files || /^lib\//.test(p) } : undefined;
+    const r = TSVG.validate(src, { libs: b.libs, base: docUrl, files: has });
+    if (!r.doc) { showIssues(r.errors, r.warnings); banner(r.errors); status('error', t0); return; }
+    Object.assign(player.files, b.files);
+    try { await player.load(b.xml); } catch (e) { showIssues([e.message].concat(r.errors), r.warnings); banner([e.message]); status('error', t0); return; }
+    if (layoutPref !== 'auto' && !player.doc.layouts.some((l) => l.id === layoutPref)) layoutPref = 'auto';
+    player.layoutPref = layoutPref; fit(); player.draw();
+    showLayouts(); showScenes(); curScene = -1;
+    showIssues(r.errors, r.warnings, r.ok ? `ok · ${(+r.stats.duration).toFixed(1)}s · ${r.stats.scenes} scenes · ${r.stats.variants} variants` : '');
+    banner(r.errors, false); status(r.ok ? 'ok' : 'error', t0);
+  } finally { building = false; if (again) { again = false; reload('change'); } }
+}
+let loads = 0;
+function status(kind, t0) {
+  loads++; const d = new Date();
+  $('status').textContent = (loads > 1 ? 'reloaded ' : 'loaded ') + d.toLocaleTimeString() + ' · ' + Math.round(performance.now() - t0) + ' ms' + (kind === 'error' ? ' · has errors' : '');
+  $('status').style.color = kind === 'error' ? 'var(--bad)' : '';
+  const dot = $('dot'); dot.classList.add('flash'); setTimeout(() => dot.classList.remove('flash'), 400);
+}
+window.__live = { player, reload, get loads() { return loads; } }; // for tests
+
+document.addEventListener('keydown', (e) => {
+  if (e.target.closest && e.target.closest('input,textarea')) return;
+  if ((e.key === '[' || e.key === ']') && player.doc) {
+    const sc = player.tl.scenes; let i = sc.findIndex((s) => player.t >= s.start - 1e-6 && player.t < s.start + s.dur);
+    i = Math.max(0, Math.min(sc.length - 1, i + (e.key === ']' ? 1 : -1))); player.seek(sc[i].start + 0.01);
+  } else if (e.target === document.body && [' ', 'k', 'j', 'l', 'c', 'f', 'm', 'ArrowLeft', 'ArrowRight'].includes(e.key)) { player.el.focus(); player.el.dispatchEvent(new KeyboardEvent('keydown', { key: e.key, bubbles: true })); e.preventDefault(); }
+});
+
+(async function boot() {
+  const info = await TSVGLive.liveInfo();
+  if (info) {
+    files = await TSVGLive.liveFiles();
+    TSVGLive.events((ev) => { if (ev.lib) TSVGLive.textCache.clear(); reload(ev.lib ? 'lib' : 'change'); }, (on) => { $('dot').classList.toggle('on', on); if (!on) $('status').textContent = 'disconnected · retrying…'; });
+  } else $('status').textContent = 'static (no live server)';
+  await reload('boot');
+})();
+</script>
+</body>
+</html>

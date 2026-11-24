@@ -8,6 +8,8 @@
 //   tsvg lib [name]                              the built-in libraries; with a name: its components and props
 //   tsvg icons [word]                            icon names in tsvg:icons
 //   tsvg captions <file> [--lang gu] [--srt] [-o out.vtt]   the narration as WebVTT / SRT
+//   tsvg watch    <file.tsvg> [--port 4390]      live preview: reloads on every save, keeps the position, shows errors
+//   tsvg edit     <file.tsvg> [--port 4391]      visual editor: click, drag, edit attributes/props/strings, save
 //   tsvg validate <file.tsvg|.tsvgz>             static checks + dry run of every variant
 //   tsvg info     <file>                         duration, options, chapters, voices
 //   tsvg pack     <file.tsvg> [-o out.tsvgz] [--html [out.html]] [--no-preview]
@@ -157,8 +159,19 @@ const cmds = {
     for (const p of src.list()) { if (p.includes('..')) die('unsafe path in package: ' + p); const f = join(out, p); mkdirSync(dirname(f), { recursive: true }); writeFileSync(f, src.get(p)); }
     console.log(out);
   },
-  bake, render, export: exportMp4, test, serve, check, preview, make, new: scaffold, styles, lib: libCmd, libs: libCmd, icons: iconsCmd, captions: captionsCmd,
+  bake, render, export: exportMp4, test, serve, check, preview, make, new: scaffold, styles, lib: libCmd, libs: libCmd, icons: iconsCmd, captions: captionsCmd, watch: liveCmd, edit: liveCmd,
 };
+// tsvg watch <file> (live preview) · tsvg edit <file> (visual editor): cli/live.mjs; the next free port from --port
+async function liveCmd() {
+  if (!pos[0]) die('usage: tsvg ' + cmd + ' <file.tsvg> [--port N]');
+  const { startLive } = await import('./live.mjs');
+  let port = +flag('port', cmd === 'watch' ? 4390 : 4391);
+  for (let k = 0; k < 20; k++) {
+    try { const s = await startLive({ file: resolve(pos[0]), port: port + k, mode: cmd, root: ROOT }); console.log(`${cmd === 'watch' ? 'live preview' : 'editor'}: ${s.url}  (Ctrl+C to stop)`); return; }
+    catch (e) { if (!/EADDRINUSE/.test(String(e && (e.code || e.message)))) die(e.message); }
+  }
+  die('no free port from ' + port);
+}
 // ───────── smaller packages ─────────
 // fonts → subset to every character the document can show (all strings in every language, literal texts, ASCII and
 // common punctuation, whole scripts its languages use); JPEG/PNG over 150 KB → WebP when that saves 20 %+;

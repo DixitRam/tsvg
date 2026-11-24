@@ -26,6 +26,7 @@ node ~/Dev/PROJECTS/TaskManager/workspaces/ws.mjs upload <workspace> <KEY> /tmp/
 - Warnings matter too: text running off the frame, overlapping text, or a narration line longer than its scene. Fix them.
 - Read the preview PNGs with your image tool before posting. Don't render single frames one by one.
 - Want a different look? `tsvg styles` lists 60 hand-written style templates; `tsvg new <dir> --style <id>`. The old strings-based report: `--template report-classic`.
+- People editing by hand: `tsvg watch x.tsvg` (live preview) or `tsvg edit x.tsvg` (visual editor). Packs carry captions (`captions/<lang>.vtt`) and are size-optimised by default.
 - To share as one file that plays anywhere without a player: `tsvg pack x.tsvg --html x.html`. Every `.tsvgz` also contains `index.html`.
 
 ## Writing the document
