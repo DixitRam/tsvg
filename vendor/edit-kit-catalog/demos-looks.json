@@ -1,0 +1,142 @@
+{
+ "anime-cel/sets": {
+  "reel": "looks-1",
+  "t": 0
+ },
+ "anime-cel": {
+  "reel": "looks-1",
+  "t": 5.6
+ },
+ "video-clone/style/anime-cel": {
+  "reel": "looks-1",
+  "t": 10.8
+ },
+ "pixel-art/palettes": {
+  "reel": "looks-1",
+  "t": 15.4
+ },
+ "pixel-art/rpg-box": {
+  "reel": "looks-1",
+  "t": 20.8
+ },
+ "pixel-art": {
+  "reel": "looks-1",
+  "t": 26
+ },
+ "video-clone/style/pixel-story": {
+  "reel": "looks-1",
+  "t": 31.2
+ },
+ "crayon-storybook/captions": {
+  "reel": "looks-1",
+  "t": 36.4
+ },
+ "crayon-storybook/fills": {
+  "reel": "looks-1",
+  "t": 41.6
+ },
+ "crayon-storybook": {
+  "reel": "looks-1",
+  "t": 47
+ },
+ "video-clone/style/crayon-storybook": {
+  "reel": "looks-1",
+  "t": 52.4
+ },
+ "painted-animation": {
+  "reel": "looks-1",
+  "t": 57.2
+ },
+ "painted-animation/example/xiaozhen": {
+  "reel": "looks-1",
+  "t": 62.4
+ },
+ "video-clone/style/painted-story-mv": {
+  "reel": "looks-1",
+  "t": 68
+ },
+ "whiteboard/board/paper": {
+  "reel": "looks-1",
+  "t": 73.6
+ },
+ "whiteboard/captions": {
+  "reel": "looks-1",
+  "t": 78.8
+ },
+ "video-clone": {
+  "reel": "looks-1",
+  "t": 83.8
+ },
+ "video-clone/style/remotion-react": {
+  "reel": "looks-1",
+  "t": 89.4
+ },
+ "vox-director/captions": {
+  "reel": "looks-1",
+  "t": 94.4
+ },
+ "vox-director/arcs": {
+  "reel": "looks-1",
+  "t": 99.4
+ },
+ "vox-director/theme/american-retro": {
+  "reel": "looks-1",
+  "t": 104.8
+ },
+ "vox-director/theme/swiss-modern": {
+  "reel": "looks-1",
+  "t": 109.4
+ },
+ "vox-director/theme/punk-zine": {
+  "reel": "looks-1",
+  "t": 114
+ },
+ "vox-director/theme/soviet-constructivist": {
+  "reel": "looks-1",
+  "t": 118.6
+ },
+ "vox-director/theme/wpa-propaganda": {
+  "reel": "looks-1",
+  "t": 123.2
+ },
+ "vox-director/theme/70s-groovy": {
+  "reel": "looks-1",
+  "t": 127.8
+ },
+ "vox-director/theme/chinese-ink": {
+  "reel": "looks-1",
+  "t": 132.4
+ },
+ "vox-director/theme/atomic-age": {
+  "reel": "looks-1",
+  "t": 137
+ },
+ "vox-director/theme/gilded-deco": {
+  "reel": "looks-1",
+  "t": 141.6
+ },
+ "vox-director/era/tang": {
+  "reel": "looks-1",
+  "t": 146.2
+ },
+ "vox-director/era/song": {
+  "reel": "looks-1",
+  "t": 150.8
+ },
+ "vox-director/era/ming": {
+  "reel": "looks-1",
+  "t": 155.4
+ },
+ "vox-director/era/qing": {
+  "reel": "looks-1",
+  "t": 160
+ },
+ "vox-director/era/modern": {
+  "reel": "looks-1",
+  "t": 164.6
+ },
+ "vox-director/era/rising": {
+  "reel": "looks-1",
+  "t": 169.2
+ }
+}

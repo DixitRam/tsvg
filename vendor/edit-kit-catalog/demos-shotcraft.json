@@ -1,0 +1,466 @@
+{
+ "video-shotcraft/typography/blur-slide": {
+  "reel": "shotcraft-1",
+  "t": 0
+ },
+ "video-shotcraft/typography/brace-expand": {
+  "reel": "shotcraft-1",
+  "t": 4.5
+ },
+ "video-shotcraft/typography/countdown-arc-scatter": {
+  "reel": "shotcraft-1",
+  "t": 8.7
+ },
+ "video-shotcraft/typography/gradient-word-sweep": {
+  "reel": "shotcraft-1",
+  "t": 13.3
+ },
+ "video-shotcraft/typography/lead-word-zoom-assemble": {
+  "reel": "shotcraft-1",
+  "t": 17.7
+ },
+ "video-shotcraft/typography/marker-underline-title": {
+  "reel": "shotcraft-1",
+  "t": 21.9
+ },
+ "video-shotcraft/typography/outline-word-fill": {
+  "reel": "shotcraft-1",
+  "t": 25.9
+ },
+ "video-shotcraft/typography/paper-title-card": {
+  "reel": "shotcraft-1",
+  "t": 30.3
+ },
+ "video-shotcraft/typography/pill-chip-slot-cycle-handled": {
+  "reel": "shotcraft-1",
+  "t": 34.7
+ },
+ "video-shotcraft/typography/pill-slot-cycle": {
+  "reel": "shotcraft-1",
+  "t": 39.1
+ },
+ "video-shotcraft/typography/text-column-converge": {
+  "reel": "shotcraft-1",
+  "t": 43.3
+ },
+ "video-shotcraft/typography/title-demote-to-label": {
+  "reel": "shotcraft-1",
+  "t": 47.5
+ },
+ "video-shotcraft/typography/typewriter-moves": {
+  "reel": "shotcraft-1",
+  "t": 51.9
+ },
+ "video-shotcraft/typography/vertical-word-roll-blur-cycle": {
+  "reel": "shotcraft-1",
+  "t": 56.3
+ },
+ "video-shotcraft/typography/word-relay-filmstrip": {
+  "reel": "shotcraft-1",
+  "t": 60.7
+ },
+ "video-shotcraft/typography/word-relay-geometry": {
+  "reel": "shotcraft-1",
+  "t": 65.1
+ },
+ "video-shotcraft/typography/document-typewriter-reveal": {
+  "reel": "shotcraft-1",
+  "t": 69.9
+ },
+ "video-shotcraft/opening/brand-ink-open": {
+  "reel": "shotcraft-1",
+  "t": 74.3
+ },
+ "video-shotcraft/opening/icon-field-colorize": {
+  "reel": "shotcraft-1",
+  "t": 78.9
+ },
+ "video-shotcraft/opening/letterspace-materialize": {
+  "reel": "shotcraft-1",
+  "t": 83.1
+ },
+ "video-shotcraft/opening/orbit-ring-title-open": {
+  "reel": "shotcraft-1",
+  "t": 87.3
+ },
+ "video-shotcraft/opening/stroke-segment-build": {
+  "reel": "shotcraft-1",
+  "t": 91.9
+ },
+ "video-shotcraft/opening/text-as-mask": {
+  "reel": "shotcraft-1",
+  "t": 96.9
+ },
+ "video-shotcraft/opening/crane-rise-reveal": {
+  "reel": "shotcraft-1",
+  "t": 101.3
+ },
+ "video-shotcraft/opening/dataviz-landscape-open": {
+  "reel": "shotcraft-1",
+  "t": 105.9
+ },
+ "video-shotcraft/opening/fracture": {
+  "reel": "shotcraft-1",
+  "t": 110.5
+ },
+ "video-shotcraft/opening/magician-card-flourish": {
+  "reel": "shotcraft-1",
+  "t": 115.1
+ },
+ "video-shotcraft/opening/spotlight-hero-card": {
+  "reel": "shotcraft-1",
+  "t": 119.7
+ },
+ "video-shotcraft/outro/grain-dissolve": {
+  "reel": "shotcraft-1",
+  "t": 124.5
+ },
+ "video-shotcraft/outro/logo-shrink-wordmark-lockup": {
+  "reel": "shotcraft-1",
+  "t": 128.7
+ },
+ "video-shotcraft/outro/ui-strip-away-outro": {
+  "reel": "shotcraft-1",
+  "t": 133.3
+ },
+ "video-shotcraft/outro/ui-to-brand-morph": {
+  "reel": "shotcraft-1",
+  "t": 137.9
+ },
+ "video-shotcraft/outro/outro-group-photo-launch": {
+  "reel": "shotcraft-1",
+  "t": 142.3
+ },
+ "video-shotcraft/ui-entrance/avatar-bracket-carousel": {
+  "reel": "shotcraft-2",
+  "t": 0
+ },
+ "video-shotcraft/ui-entrance/card-stack": {
+  "reel": "shotcraft-2",
+  "t": 4.4
+ },
+ "video-shotcraft/ui-entrance/cloner-depth-echo": {
+  "reel": "shotcraft-2",
+  "t": 8.8
+ },
+ "video-shotcraft/ui-entrance/doc-park-left-pill-deal": {
+  "reel": "shotcraft-2",
+  "t": 13.2
+ },
+ "video-shotcraft/ui-entrance/draw-svg-trace": {
+  "reel": "shotcraft-2",
+  "t": 17.8
+ },
+ "video-shotcraft/ui-entrance/element-body-moves": {
+  "reel": "shotcraft-2",
+  "t": 22
+ },
+ "video-shotcraft/ui-entrance/integration-hub-map": {
+  "reel": "shotcraft-2",
+  "t": 26.4
+ },
+ "video-shotcraft/ui-entrance/list-reveal": {
+  "reel": "shotcraft-2",
+  "t": 31
+ },
+ "video-shotcraft/ui-entrance/list-stack-press": {
+  "reel": "shotcraft-2",
+  "t": 35
+ },
+ "video-shotcraft/ui-entrance/product-card-progressive-assemble": {
+  "reel": "shotcraft-2",
+  "t": 39.2
+ },
+ "video-shotcraft/ui-entrance/radial-wave": {
+  "reel": "shotcraft-2",
+  "t": 43.6
+ },
+ "video-shotcraft/ui-entrance/research-card-stack-scroll": {
+  "reel": "shotcraft-2",
+  "t": 47.8
+ },
+ "video-shotcraft/ui-entrance/row-embed": {
+  "reel": "shotcraft-2",
+  "t": 52
+ },
+ "video-shotcraft/ui-entrance/value-stagger-gradient": {
+  "reel": "shotcraft-2",
+  "t": 56.2
+ },
+ "video-shotcraft/ui-entrance/wall-reveal-moves": {
+  "reel": "shotcraft-2",
+  "t": 60.6
+ },
+ "video-shotcraft/ui-entrance/carousel-3d": {
+  "reel": "shotcraft-2",
+  "t": 65
+ },
+ "video-shotcraft/ui-entrance/deck-deal-flyin": {
+  "reel": "shotcraft-2",
+  "t": 69.4
+ },
+ "video-shotcraft/ui-entrance/neon-frame-forerun": {
+  "reel": "shotcraft-2",
+  "t": 74.2
+ },
+ "video-shotcraft/ui-entrance/neon-frame-orbit-drop": {
+  "reel": "shotcraft-2",
+  "t": 78.8
+ },
+ "video-shotcraft/ui-entrance/page-waterfall-wall": {
+  "reel": "shotcraft-2",
+  "t": 83.4
+ },
+ "video-shotcraft/interaction/autolayout-gap-dial": {
+  "reel": "shotcraft-2",
+  "t": 88
+ },
+ "video-shotcraft/interaction/chip-grid-single-select-blackout": {
+  "reel": "shotcraft-2",
+  "t": 92.4
+ },
+ "video-shotcraft/interaction/glass-pill-dictation-typing": {
+  "reel": "shotcraft-2",
+  "t": 96.8
+ },
+ "video-shotcraft/interaction/hashtag-to-pill-materialize": {
+  "reel": "shotcraft-2",
+  "t": 101.2
+ },
+ "video-shotcraft/interaction/picker-carousel-feature-cycle": {
+  "reel": "shotcraft-2",
+  "t": 105.6
+ },
+ "video-shotcraft/interaction/segmented-thumb-hero": {
+  "reel": "shotcraft-2",
+  "t": 110
+ },
+ "video-shotcraft/interaction/theme-switch-moves": {
+  "reel": "shotcraft-2",
+  "t": 114.2
+ },
+ "video-shotcraft/data/scroll-brake-moves": {
+  "reel": "shotcraft-2",
+  "t": 118.6
+ },
+ "video-shotcraft/effects/aurora-bloom-bg-flip": {
+  "reel": "shotcraft-3",
+  "t": 0
+ },
+ "video-shotcraft/effects/fui-hud-moves": {
+  "reel": "shotcraft-3",
+  "t": 4.4
+ },
+ "video-shotcraft/effects/glow-flyline-moves": {
+  "reel": "shotcraft-3",
+  "t": 8.6
+ },
+ "video-shotcraft/effects/icon-performance-moves": {
+  "reel": "shotcraft-3",
+  "t": 13
+ },
+ "video-shotcraft/effects/light-play-moves": {
+  "reel": "shotcraft-3",
+  "t": 17.4
+ },
+ "video-shotcraft/effects/riso-print-hits": {
+  "reel": "shotcraft-3",
+  "t": 21.8
+ },
+ "video-shotcraft/effects/scan-bracket-sweep": {
+  "reel": "shotcraft-3",
+  "t": 26
+ },
+ "video-shotcraft/effects/scanline-annotate-focus": {
+  "reel": "shotcraft-3",
+  "t": 30.6
+ },
+ "video-shotcraft/effects/scanline-assemble-flyin": {
+  "reel": "shotcraft-3",
+  "t": 35.2
+ },
+ "video-shotcraft/effects/slam-entrance-moves": {
+  "reel": "shotcraft-3",
+  "t": 39.8
+ },
+ "video-shotcraft/effects/spotlight-sweep-moves": {
+  "reel": "shotcraft-3",
+  "t": 44
+ },
+ "video-shotcraft/effects/assemble-then-type-flyin": {
+  "reel": "shotcraft-3",
+  "t": 48.4
+ },
+ "video-shotcraft/effects/brand-frame-snap": {
+  "reel": "shotcraft-3",
+  "t": 53
+ },
+ "video-shotcraft/effects/impact-feedback": {
+  "reel": "shotcraft-3",
+  "t": 57.6
+ },
+ "video-shotcraft/rhythm/beat-cut-moves": {
+  "reel": "shotcraft-3",
+  "t": 62.2
+ },
+ "video-shotcraft/rhythm/quad-split-parallel-scenes": {
+  "reel": "shotcraft-3",
+  "t": 66.4
+ },
+ "video-shotcraft/rhythm/rhythm-interrupt-moves": {
+  "reel": "shotcraft-3",
+  "t": 70.6
+ },
+ "video-shotcraft/rhythm/sakuga-timing-shift": {
+  "reel": "shotcraft-3",
+  "t": 74.8
+ },
+ "video-shotcraft/rhythm/speed-ramp-freeze": {
+  "reel": "shotcraft-3",
+  "t": 79
+ },
+ "video-shotcraft/rhythm/trailer-grammar-moves": {
+  "reel": "shotcraft-3",
+  "t": 83.4
+ },
+ "video-shotcraft/rhythm/beat-step-list-theme-cycle": {
+  "reel": "shotcraft-3",
+  "t": 87.6
+ },
+ "video-shotcraft/camera/crash-zoom-punch": {
+  "reel": "shotcraft-3",
+  "t": 91.8
+ },
+ "video-shotcraft/camera/depth-layer-moves": {
+  "reel": "shotcraft-3",
+  "t": 96
+ },
+ "video-shotcraft/camera/basic-3d-scene": {
+  "reel": "shotcraft-3",
+  "t": 100.4
+ },
+ "video-shotcraft/camera/graze-face-tour": {
+  "reel": "shotcraft-3",
+  "t": 105
+ },
+ "video-shotcraft/camera/overhead-camera-moves": {
+  "reel": "shotcraft-3",
+  "t": 109.6
+ },
+ "video-shotcraft/camera/space-camera-moves": {
+  "reel": "shotcraft-3",
+  "t": 114.2
+ },
+ "video-shotcraft/camera/steep-tilt-glide": {
+  "reel": "shotcraft-3",
+  "t": 118.8
+ },
+ "video-shotcraft/camera/tension-camera-moves": {
+  "reel": "shotcraft-3",
+  "t": 123.4
+ },
+ "video-shotcraft/transition/bottom-push-stack-wipe": {
+  "reel": "shotcraft-4",
+  "t": 0
+ },
+ "video-shotcraft/transition/circle-match-iris": {
+  "reel": "shotcraft-4",
+  "t": 4.2
+ },
+ "video-shotcraft/transition/line-carry-transition": {
+  "reel": "shotcraft-4",
+  "t": 8.6
+ },
+ "video-shotcraft/transition/mosaic-reframe": {
+  "reel": "shotcraft-4",
+  "t": 13
+ },
+ "video-shotcraft/transition/page-turn-transitions": {
+  "reel": "shotcraft-4",
+  "t": 17.6
+ },
+ "video-shotcraft/transition/shot-transitions": {
+  "reel": "shotcraft-4",
+  "t": 21.8
+ },
+ "video-shotcraft/transition/transition-hidden-cut": {
+  "reel": "shotcraft-4",
+  "t": 26.4
+ },
+ "video-shotcraft/transition/transition-travel": {
+  "reel": "shotcraft-4",
+  "t": 31
+ },
+ "video-shotcraft/transition/card-flip-reveal": {
+  "reel": "shotcraft-4",
+  "t": 35.4
+ },
+ "video-shotcraft/transition/card-flock-tumble": {
+  "reel": "shotcraft-4",
+  "t": 40
+ },
+ "video-shotcraft/transition/gradient-transition": {
+  "reel": "shotcraft-4",
+  "t": 44.6
+ },
+ "video-shotcraft/transition/print-texture-transitions": {
+  "reel": "shotcraft-4",
+  "t": 49.2
+ },
+ "video-shotcraft/transition/white-flash-logo-simplify-cut": {
+  "reel": "shotcraft-4",
+  "t": 53.8
+ },
+ "video-shotcraft/transition/wipe-transitions": {
+  "reel": "shotcraft-4",
+  "t": 58
+ },
+ "video-shotcraft/theme/coral-burst": {
+  "reel": "shotcraft-4",
+  "t": 62.4
+ },
+ "video-shotcraft/theme/deep-ocean": {
+  "reel": "shotcraft-4",
+  "t": 66
+ },
+ "video-shotcraft/theme/ink-press": {
+  "reel": "shotcraft-4",
+  "t": 69.6
+ },
+ "video-shotcraft/theme/color-play": {
+  "reel": "shotcraft-4",
+  "t": 73.2
+ },
+ "video-shotcraft/theme/midnight": {
+  "reel": "shotcraft-4",
+  "t": 76.8
+ },
+ "video-shotcraft/theme/modern-light": {
+  "reel": "shotcraft-4",
+  "t": 80.4
+ },
+ "video-shotcraft/theme/obsidian-violet": {
+  "reel": "shotcraft-4",
+  "t": 84
+ },
+ "video-shotcraft/theme/solar-pop": {
+  "reel": "shotcraft-4",
+  "t": 87.6
+ },
+ "video-shotcraft/theme/vintage-kraft": {
+  "reel": "shotcraft-4",
+  "t": 91.2
+ },
+ "video-shotcraft/demo-looks": {
+  "reel": "shotcraft-4",
+  "t": 94.8
+ },
+ "video-shotcraft/sequence/promo-energy-arc": {
+  "reel": "shotcraft-4",
+  "t": 100
+ },
+ "video-shotcraft/template/ink-press": {
+  "reel": "shotcraft-4",
+  "t": 107
+ }
+}

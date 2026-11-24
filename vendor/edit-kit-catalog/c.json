@@ -1,0 +1,4111 @@
+[
+  {
+    "id": "video-shotcraft",
+    "name": "Cinematic product promo (video-shotcraft)",
+    "skill": "video-shotcraft",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Web/desktop product promo from real page screenshots: 2.5D camera, beat-synced cuts, SFX, 124 shot cards",
+    "needs": [
+      "screenshots",
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Screenshots, 2D motion, SFX are native; CSS-3D camera moves become 2.5D fakes; beat map must be precomputed",
+    "tsvg_demo": "product-screenshot-tour",
+    "source": "skills/video-shotcraft/SKILL.md"
+  },
+  {
+    "id": "video-shotcraft/template/ink-press",
+    "name": "Ink Press promo template",
+    "skill": "video-shotcraft",
+    "kind": "template",
+    "count": 1,
+    "summary": "36 s paper-and-ink amber promo: ink open, spotlight hero card, deck deal, title cards, group-photo outro",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Most shots native; spotlight lift, deck-deal table orbit and crane are 3D, faked in 2.5D",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/TEMPLATE.md"
+  },
+  {
+    "id": "video-shotcraft/sequence/promo-energy-arc",
+    "name": "Promo energy arc (sequence)",
+    "skill": "video-shotcraft",
+    "kind": "template",
+    "count": 1,
+    "summary": "Whole-film skeleton: low brand open, one hero shot, feature climb with breathing title cards, peak outro",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "A scene/chapter structure; maps directly onto TSVG timeline scenes",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/sequences/promo-energy-arc.md"
+  },
+  {
+    "id": "video-shotcraft/theme/ink-press",
+    "name": "Ink Press theme",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 1,
+    "summary": "Template palette preset: paper #f2eee6, ink text, serif titles, amber accent (raster screenshots)",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Seven semantic colours map to a TSVG theme option",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/THEMES.md"
+  },
+  {
+    "id": "video-shotcraft/theme/modern-light",
+    "name": "Modern Light theme",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 1,
+    "summary": "Template palette preset: pale blue-white page, white cards, navy text, blue accent",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Seven semantic colours map to a TSVG theme option",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/THEMES.md"
+  },
+  {
+    "id": "video-shotcraft/theme/midnight",
+    "name": "Midnight theme",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 1,
+    "summary": "Template palette preset: near-black navy page, cyan accent",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Seven semantic colours map to a TSVG theme option",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/THEMES.md"
+  },
+  {
+    "id": "video-shotcraft/theme/solar-pop",
+    "name": "Sage theme",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 1,
+    "summary": "Template palette preset: pale sage surfaces, dark green text, olive accent",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Seven semantic colours map to a TSVG theme option",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/THEMES.md"
+  },
+  {
+    "id": "video-shotcraft/theme/coral-burst",
+    "name": "Coral theme",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 1,
+    "summary": "Template palette preset: white surfaces, dark violet text, coral accent",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Seven semantic colours map to a TSVG theme option",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/THEMES.md"
+  },
+  {
+    "id": "video-shotcraft/theme/color-play",
+    "name": "Iris theme",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 1,
+    "summary": "Template palette preset: pale lavender surfaces, violet accent",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Seven semantic colours map to a TSVG theme option",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/THEMES.md"
+  },
+  {
+    "id": "video-shotcraft/theme/deep-ocean",
+    "name": "Deep Ocean theme",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 1,
+    "summary": "Template palette preset: deep teal-navy page, mint accent",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Seven semantic colours map to a TSVG theme option",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/THEMES.md"
+  },
+  {
+    "id": "video-shotcraft/theme/obsidian-violet",
+    "name": "Obsidian Violet theme",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 1,
+    "summary": "Template palette preset: charcoal-violet page, lilac accent",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Seven semantic colours map to a TSVG theme option",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/THEMES.md"
+  },
+  {
+    "id": "video-shotcraft/theme/vintage-kraft",
+    "name": "Vintage Kraft theme",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 1,
+    "summary": "Template palette preset: kraft-paper tan with procedural paper texture, rust accent",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Palette as a TSVG theme option; paper texture as an image layer",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/template/THEMES.md"
+  },
+  {
+    "id": "video-shotcraft/demo-looks",
+    "name": "Shot-card demo looks",
+    "skill": "video-shotcraft",
+    "kind": "style",
+    "count": 8,
+    "summary": "Eight demo art directions: midnight, aurora, ember, graphite, lime (dark), paper, porcelain, sand (light)",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Palettes, key/rim light gradients, vignette and grain are all vector/image layers",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/demos/_fixtures/Look.tsx"
+  },
+  {
+    "id": "video-shotcraft/effects/assemble-then-type-flyin",
+    "name": "assemble-then-type-flyin",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Wordless component skeletons fly in onto a dark grid, then letters spin in from 3D space and land",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "letter 3D spin faked with scaleX/rotation; no true perspective",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/assemble-then-type-flyin.md"
+  },
+  {
+    "id": "video-shotcraft/effects/aurora-bloom-bg-flip",
+    "name": "aurora-bloom-bg-flip",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Soft purple/orange blobs rise on light grey, then the whole background snaps dark; copy blurs out and in",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/aurora-bloom-bg-flip.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/autolayout-gap-dial",
+    "name": "autolayout-gap-dial",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A gap dial pushes a row of link blocks apart with spacing labels and badge counters, then springs back",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/interaction/autolayout-gap-dial.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/avatar-bracket-carousel",
+    "name": "avatar-bracket-carousel",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "'Your ___ agent' sentence; avatars spring-roll through fixed focus brackets with blur and role label swaps",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/avatar-bracket-carousel.md"
+  },
+  {
+    "id": "video-shotcraft/camera/basic-3d-scene",
+    "name": "basic-3d-scene",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "impress.js-style: cards scattered in 3D space, camera flies to each pose, ends on an overview",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "2.5D fake: group transforms with scale for depth; no real perspective rotation",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/camera/basic-3d-scene.md"
+  },
+  {
+    "id": "video-shotcraft/rhythm/beat-cut-moves",
+    "name": "beat-cut-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Three white flashes hard-cut wide, card and close-up crops of one frame, settling on the close-up",
+    "needs": [
+      "screenshots",
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/rhythm/beat-cut-moves.md"
+  },
+  {
+    "id": "video-shotcraft/rhythm/beat-step-list-theme-cycle",
+    "name": "beat-step-list-theme-cycle",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Adjective list steps up per beat; a fixed pill catches each word and the whole field recolours on the beat",
+    "needs": [
+      "script",
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "needs a precomputed beat map in data()",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/rhythm/beat-step-list-theme-cycle.md"
+  },
+  {
+    "id": "video-shotcraft/data/before-after-slider-scrub",
+    "name": "before-after-slider-scrub",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Before/after versions stacked; a divider whips then slowly sweeps, revealing the new version",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "before-after-slider",
+    "source": "skills/video-shotcraft/references/shots/data/before-after-slider-scrub.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/bezier-source-converge-merge",
+    "name": "bezier-source-converge-merge",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Four source nodes draw bezier curves to one hub, slide along them and merge; packets ride the paths",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "architecture-diagram",
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/bezier-source-converge-merge.md"
+  },
+  {
+    "id": "video-shotcraft/typography/blur-slide",
+    "name": "blur-slide",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Title words enter with rise + blur-to-sharp + fade on one ease, subtitle staggered behind",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/blur-slide.md"
+  },
+  {
+    "id": "video-shotcraft/transition/bottom-push-stack-wipe",
+    "name": "bottom-push-stack-wipe",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Each new chapter pushes up from the bottom on its own saturated colour, shoving the old one out",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/bottom-push-stack-wipe.md"
+  },
+  {
+    "id": "video-shotcraft/typography/brace-expand",
+    "name": "brace-expand",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A pair of curly braces springs apart to title size, unveiling the text between them like a curtain",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/brace-expand.md"
+  },
+  {
+    "id": "video-shotcraft/effects/brand-frame-snap",
+    "name": "brand-frame-snap",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A thick brand-colour frame grows around a screen recording; frame colour flips on each mode change",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "screen recording must become stills or vector UI; no video node",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/brand-frame-snap.md"
+  },
+  {
+    "id": "video-shotcraft/opening/brand-ink-open",
+    "name": "brand-ink-open",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Ink crosshair draws on, wordmark stamps letter by letter, typewriter subtitle, 1 s hold, float away",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/brand-ink-open.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/canvas-materialize-moves",
+    "name": "canvas-materialize-moves [panel-to-canvas, diagram-cascade]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "Panel rows arc out and morph into canvas cards; or a prompt types and a node tree cascades out",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "flowchart-decision",
+    "source": "skills/video-shotcraft/references/shots/interaction/canvas-materialize-moves.md"
+  },
+  {
+    "id": "video-shotcraft/transition/card-flip-reveal",
+    "name": "card-flip-reveal",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Feature cards flip 180 on Y with a moving edge highlight, revealing a big result number on the back",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Y flip faked with scaleX; no perspective foreshortening",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/card-flip-reveal.md"
+  },
+  {
+    "id": "video-shotcraft/transition/card-flock-tumble",
+    "name": "card-flock-tumble",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Three UI cards tumble edge-on into a staircase, spin, collapse to centre into a smoke ring, giant word",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "3D tumble faked; turbulent smoke ring approximated with blurred shapes",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/card-flock-tumble.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/card-stack",
+    "name": "card-stack",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Template cards spring up into a pile, the pile fans out by index, then the centre card is pulled out",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/card-stack.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/carousel-3d",
+    "name": "carousel-3d",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Eight cards on a rotating ring stepping every 45 deg, billboarded, front card lit, caption swaps",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "ring depth via sin() scale and z-order; no true 3D projection",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/carousel-3d.md"
+  },
+  {
+    "id": "video-shotcraft/data/chart-live-moves",
+    "name": "chart-live-moves [oscilloscope-stream, unit-dot-swarm-regroup, axis-rescale-shock]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 3,
+    "summary": "Live charts: oscilloscope stream with spikes, unit-dot swarm regrouping, axis rescale shock",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "dashboard-kpi-tour",
+    "source": "skills/video-shotcraft/references/shots/data/chart-live-moves.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/chip-grid-single-select-blackout",
+    "name": "chip-grid-single-select-blackout",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Five option chips fade in; one is pressed and turns ink-black, others dim; a price rises below",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/interaction/chip-grid-single-select-blackout.md"
+  },
+  {
+    "id": "video-shotcraft/transition/circle-match-iris",
+    "name": "circle-match-iris",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Iris opens from a circular element's centre; the new page's circular chart continues the same circle",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/circle-match-iris.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/cloner-depth-echo",
+    "name": "cloner-depth-echo",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Hero card copies itself into 7 translucent clones receding diagonally, then they snap back with a bounce",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/cloner-depth-echo.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/collab-cursor-moves",
+    "name": "collab-cursor-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Five collaborator cursors fly in, drift, type cameos and gather around a target",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "screencast-cursor",
+    "source": "skills/video-shotcraft/references/shots/interaction/collab-cursor-moves.md"
+  },
+  {
+    "id": "video-shotcraft/typography/countdown-arc-scatter",
+    "name": "countdown-arc-scatter",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Nine numbers on a paper dial sweep 96 deg and stop; '5' drops into the title, the rest blur away",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/countdown-arc-scatter.md"
+  },
+  {
+    "id": "video-shotcraft/opening/crane-rise-reveal",
+    "name": "crane-rise-reveal",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Opens on a data row close-up, camera cranes up and back until the full dashboard fills the frame",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "crane tilt faked with scale + translate; no perspective",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/crane-rise-reveal.md"
+  },
+  {
+    "id": "video-shotcraft/camera/crash-zoom-punch",
+    "name": "crash-zoom-punch",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Wide to target close-up in 6 frames, landing with overshoot bounce or a hard stop with shake",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/camera/crash-zoom-punch.md"
+  },
+  {
+    "id": "video-shotcraft/camera/cursor-flyover",
+    "name": "cursor-flyover",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Page overview, camera flies to four regions; an SVG cursor clicks with ripples, then pulls back",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "product-screenshot-tour",
+    "source": "skills/video-shotcraft/references/shots/camera/cursor-flyover.md"
+  },
+  {
+    "id": "video-shotcraft/opening/dataviz-landscape-open",
+    "name": "dataviz-landscape-open",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Dark field of tributary flow lines merging into a trunk, ID tags floating, slow deep-focus flyover",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "depth of field and flyover perspective approximated with blur layers",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/dataviz-landscape-open.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/deck-deal-flyin",
+    "name": "deck-deal-flyin",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Card deck on a graphite table, light moves to the board, cards are dealt into a grid, camera cranes up",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "table orbit and crane are 3D; faked with 2.5D layers",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/deck-deal-flyin.md"
+  },
+  {
+    "id": "video-shotcraft/camera/depth-layer-moves",
+    "name": "depth-layer-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Three parallax layers slide at different speeds; the hero layer lifts as the slide settles",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/camera/depth-layer-moves.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/doc-park-left-pill-deal",
+    "name": "doc-park-left-pill-deal",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Document slides left to 35 percent and keeps scrolling; three outlined pills are dealt in with captions",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/doc-park-left-pill-deal.md"
+  },
+  {
+    "id": "video-shotcraft/typography/document-typewriter-reveal",
+    "name": "document-typewriter-reveal",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A floating document window writes itself behind a cursor; camera pulls back from an oblique close-up",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "oblique camera angle approximated with skew; typing is native",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/document-typewriter-reveal.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/draw-svg-trace",
+    "name": "draw-svg-trace",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A pen line traces round an element's outline, closes, flashes and the content fades in; also underlines",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/draw-svg-trace.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/element-body-moves",
+    "name": "element-body-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Contact-shadow lift: a card rises and its shadow on the table grows and softens",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/element-body-moves.md"
+  },
+  {
+    "id": "video-shotcraft/typography/flying-words",
+    "name": "flying-words",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "22 keywords on a golden-angle ellipse fly from far away past the camera, looping seamlessly",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "perspective projection written as x/z expressions",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/video-shotcraft/references/shots/typography/flying-words.md"
+  },
+  {
+    "id": "video-shotcraft/opening/fracture",
+    "name": "fracture",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "5x5 tiles assemble from 3D shards into a poster, title lights, then shards spin away from centre",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "shard 3D rotation faked with 2D rotation and scale",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/fracture.md"
+  },
+  {
+    "id": "video-shotcraft/effects/fui-hud-moves",
+    "name": "fui-hud-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Four L-shaped corner brackets fly in, overshoot and lock onto a target (FUI reticle)",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/fui-hud-moves.md"
+  },
+  {
+    "id": "video-shotcraft/data/gauge-readout-moves",
+    "name": "gauge-readout-moves [needle-sweep-selftest, tape-scroll-fixed-pointer]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "Gauge needle self-test sweep, or a fixed pointer over a scrolling tape that brakes to the value",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/video-shotcraft/references/shots/data/gauge-readout-moves.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/glass-pill-dictation-typing",
+    "name": "glass-pill-dictation-typing",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A frosted glass pill pops in with warm accent light; dictated text types while the light fades",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "backdrop blur done with a blurred, clipped copy of the background",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/interaction/glass-pill-dictation-typing.md"
+  },
+  {
+    "id": "video-shotcraft/typography/glitch-cycle",
+    "name": "glitch-cycle",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "One monospace slot cycles four status phrases with probabilistic glyph scramble and RGB split",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/video-shotcraft/references/shots/typography/glitch-cycle.md"
+  },
+  {
+    "id": "video-shotcraft/effects/glow-flyline-moves",
+    "name": "glow-flyline-moves [glow-orb-ambient, flyline-arc, orb-flyline-relay]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 3,
+    "summary": "Dark field with ambient glow orbs, arcing fly-lines connecting points, orbs and lines pulsing together",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/glow-flyline-moves.md"
+  },
+  {
+    "id": "video-shotcraft/transition/gradient-transition",
+    "name": "gradient-transition",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Background morphs smoothly between linear, radial and conic gradients, parameters interpolated",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "no conic gradient in TSVG; linear/radial only",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/gradient-transition.md"
+  },
+  {
+    "id": "video-shotcraft/typography/gradient-word-sweep",
+    "name": "gradient-word-sweep",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A gradient light charges a keyword left to right, then lightning arcs link letters and it breathes",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/gradient-word-sweep.md"
+  },
+  {
+    "id": "video-shotcraft/outro/grain-dissolve",
+    "name": "grain-dissolve",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A text line bursts into boiling grain particles inside a selection box and re-forms as a glowing short mark",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "grain as repeat particles driven by rand/noise",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/outro/grain-dissolve.md"
+  },
+  {
+    "id": "video-shotcraft/camera/graze-face-tour",
+    "name": "graze-face-tour",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Camera glides low across a tilted UI surface; floating text drops back onto the interface as it passes",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "steep tilt needs perspective; faked with skew and scale",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/camera/graze-face-tour.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/hashtag-to-pill-materialize",
+    "name": "hashtag-to-pill-materialize",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "'#word' is typed, hard-cuts into a wide pill, shrinks into the page's tag slot, hard-cut to the page",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/interaction/hashtag-to-pill-materialize.md"
+  },
+  {
+    "id": "video-shotcraft/opening/icon-field-colorize",
+    "name": "icon-field-colorize",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Grey icon grid fills the screen, then brand-colour bands sweep down and colourise everything",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/icon-field-colorize.md"
+  },
+  {
+    "id": "video-shotcraft/effects/icon-performance-moves",
+    "name": "icon-performance-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Attention bounce: an icon hops higher each time, squashes on landing and pulls the camera to it",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/icon-performance-moves.md"
+  },
+  {
+    "id": "video-shotcraft/effects/impact-feedback",
+    "name": "impact-feedback [hit-counter, anime-impact]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "Hit-stop with combo counter and damage numbers, or an anime impact frame (negative, focus lines, RGB)",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "negative flash via difference blend; chromatic split by offset copies; no per-pixel invert of footage",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/impact-feedback.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/integration-hub-map",
+    "name": "integration-hub-map",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Old page flips 180 into a hub page; five app icons pop and rainbow light pipes connect with pulses",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "flip faked with scaleX",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/integration-hub-map.md"
+  },
+  {
+    "id": "video-shotcraft/typography/lead-word-zoom-assemble",
+    "name": "lead-word-zoom-assemble",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "First word fills the frame at 2.3x, then shrinks and slides into line as the other words push in",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/lead-word-zoom-assemble.md"
+  },
+  {
+    "id": "video-shotcraft/opening/letterspace-materialize",
+    "name": "letterspace-materialize",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A wide-tracked wordmark writes all strokes in parallel like handwriting and resolves at once",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "glyphs converted to path data for stroke-on",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/letterspace-materialize.md"
+  },
+  {
+    "id": "video-shotcraft/effects/light-play-moves",
+    "name": "light-play-moves [spotlight-sweep, sheen-sweep]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "A spotlight sweeps across type, or a single sheen glint passes over a surface",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/light-play-moves.md"
+  },
+  {
+    "id": "video-shotcraft/transition/line-carry-transition",
+    "name": "line-carry-transition",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A progress bar extends out of frame, camera follows it; it bends to draw the next scene's card frame",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/line-carry-transition.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/list-reveal",
+    "name": "list-reveal",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Six menu items scale in 10 frames apart with soft overshoot while the whole list drifts upward",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/list-reveal.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/list-stack-press",
+    "name": "list-stack-press",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "List cards fly up and stack; each landing presses the stack and ticks a counter",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/list-stack-press.md"
+  },
+  {
+    "id": "video-shotcraft/outro/logo-shrink-wordmark-lockup",
+    "name": "logo-shrink-wordmark-lockup",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A neon ring collapses into a white O, swaps to the logo, slides left and the wordmark letters slide in",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/outro/logo-shrink-wordmark-lockup.md"
+  },
+  {
+    "id": "video-shotcraft/opening/magician-card-flourish",
+    "name": "magician-card-flourish",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Blue star flash, a card shoots out spinning toward the camera, freezes large with sheen, copy reveals",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "spin toward camera faked with scale + rotation",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/magician-card-flourish.md"
+  },
+  {
+    "id": "video-shotcraft/typography/marker-underline-title",
+    "name": "marker-underline-title",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Once the title lands, a rough marker underline draws under the key word, slightly slanted",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/marker-underline-title.md"
+  },
+  {
+    "id": "video-shotcraft/transition/mosaic-reframe",
+    "name": "mosaic-reframe",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "12 tiles morph between a regular grid, a feature mosaic and a diagonal cascade with slight stagger",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/mosaic-reframe.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/neon-frame-forerun",
+    "name": "neon-frame-forerun",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A perspective neon frame draws itself; the page lights inside it as components drop in with shadows",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "strong perspective frame faked with skewed paths",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/neon-frame-forerun.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/neon-frame-orbit-drop",
+    "name": "neon-frame-orbit-drop",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Neon frame draws first, camera arcs left to right, all page components drop into place together",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "camera orbit is 3D; faked with skew",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/neon-frame-orbit-drop.md"
+  },
+  {
+    "id": "video-shotcraft/outro/neon-triple-marquee",
+    "name": "neon-triple-marquee",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Three rows of hollow neon words scroll in opposite directions on an angled brick wall, then power down",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "angled wall perspective faked with skew",
+    "tsvg_demo": "neon-glow",
+    "source": "skills/video-shotcraft/references/shots/outro/neon-triple-marquee.md"
+  },
+  {
+    "id": "video-shotcraft/opening/orbit-ring-title-open",
+    "name": "orbit-ring-title-open",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Eight dark cards orbit an ellipse with sin-based depth scale and blur; title de-blurs in the centre",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/orbit-ring-title-open.md"
+  },
+  {
+    "id": "video-shotcraft/typography/outline-word-fill",
+    "name": "outline-word-fill",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A hollow word shrinks in, a dashed circle closes round it and spins, then the word flashes solid white",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/outline-word-fill.md"
+  },
+  {
+    "id": "video-shotcraft/outro/outro-group-photo-launch",
+    "name": "outro-group-photo-launch",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Every element of the film flies in around the wordmark for a group photo; crane, stage light, gold dust",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "crane and stage light approximated in 2.5D",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/outro/outro-group-photo-launch.md"
+  },
+  {
+    "id": "video-shotcraft/camera/overhead-camera-moves",
+    "name": "overhead-camera-moves [tilt-reveal, overhead-tabletop-drop]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "Tilt-up reveal from overhead, or a tabletop card array slides then dives in",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "camera tilt is 3D; faked with scale/skew",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/camera/overhead-camera-moves.md"
+  },
+  {
+    "id": "video-shotcraft/transition/page-turn-transitions",
+    "name": "page-turn-transitions",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Barn-door split: the old page splits in two and slides apart as the new page comes forward",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/page-turn-transitions.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/page-waterfall-wall",
+    "name": "page-waterfall-wall",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Page screenshots cut into columns scroll in opposite directions on a wall tilted back, slow push-in",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "tilted 3D wall faked with skew",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/page-waterfall-wall.md"
+  },
+  {
+    "id": "video-shotcraft/rhythm/panel-grid-moves",
+    "name": "panel-grid-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Comic panel split: diagonal panels show three angles, freeze in turn, the last grows into a poster",
+    "needs": [
+      "screenshots",
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "comic-storyboard",
+    "source": "skills/video-shotcraft/references/shots/rhythm/panel-grid-moves.md"
+  },
+  {
+    "id": "video-shotcraft/typography/paper-title-card",
+    "name": "paper-title-card",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A sentence is stamped onto paper word by word, one word in accent italic, closed by a dash",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/paper-title-card.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/picker-carousel-feature-cycle",
+    "name": "picker-carousel-feature-cycle",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Mobile-style vertical picker: content scrolls through a fixed focus pill and snaps with outQuint",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/interaction/picker-carousel-feature-cycle.md"
+  },
+  {
+    "id": "video-shotcraft/typography/pill-chip-slot-cycle-handled",
+    "name": "pill-chip-slot-cycle-handled",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "'Your [chip] Handled': words roll in a dark pill that resizes and pushes the sentence, ghost items shown",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/pill-chip-slot-cycle-handled.md"
+  },
+  {
+    "id": "video-shotcraft/typography/pill-slot-cycle",
+    "name": "pill-slot-cycle",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Fixed sentence stem with a slot-machine pill at the end, rolling feature words until the sentence lands",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/pill-slot-cycle.md"
+  },
+  {
+    "id": "video-shotcraft/transition/print-texture-transitions",
+    "name": "print-texture-transitions",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Ink-bleed reveal: a feathered ink stain spreads and eats the old scene",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "per-pixel ink bleed approximated with an ink-shape mask image scaling up",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/print-texture-transitions.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/product-card-progressive-assemble",
+    "name": "product-card-progressive-assemble",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A product card builds field by field behind a fill cursor: image, title, struck price, new price, button",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/product-card-progressive-assemble.md"
+  },
+  {
+    "id": "video-shotcraft/rhythm/quad-split-parallel-scenes",
+    "name": "quad-split-parallel-scenes",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Hard cut to a 2x2 grid, four micro-scenes running in parallel with beats offset 3-6 frames",
+    "needs": [
+      "screenshots",
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/rhythm/quad-split-parallel-scenes.md"
+  },
+  {
+    "id": "video-shotcraft/effects/radial-ripple-phone-chips",
+    "name": "radial-ripple-phone-chips",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Concentric circles breathe like water round a phone mockup with a scrolling feed; chips pop at its sides",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "mobile-app-walkthrough",
+    "source": "skills/video-shotcraft/references/shots/effects/radial-ripple-phone-chips.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/radial-wave",
+    "name": "radial-wave",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A 17x9 dot grid lights by distance from a source with overshoot, then a blue pulse returns inward",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/radial-wave.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/research-card-stack-scroll",
+    "name": "research-card-stack-scroll",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Dark paper cards fly in every 12 frames and stack; only the top is sharp, deeper ones blur and dim",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/research-card-stack-scroll.md"
+  },
+  {
+    "id": "video-shotcraft/rhythm/rhythm-interrupt-moves",
+    "name": "rhythm-interrupt-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Jump-cut punch-in: three hard zoom steps on the same framing toward the target",
+    "needs": [
+      "screenshots",
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/rhythm/rhythm-interrupt-moves.md"
+  },
+  {
+    "id": "video-shotcraft/effects/riso-print-hits",
+    "name": "riso-print-hits",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A title slams and splits into two-colour riso plates, jitters twice and snaps into register",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/riso-print-hits.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/row-embed",
+    "name": "row-embed",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Content rows drop from above, flatten from a tilt and embed with an accent seam flash at the bottom",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "rotateX flatten faked with scaleY",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/row-embed.md"
+  },
+  {
+    "id": "video-shotcraft/rhythm/sakuga-timing-shift",
+    "name": "sakuga-timing-shift",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Moves on threes (stepped) then switches to smooth on ones for the climactic dash",
+    "needs": [
+      "screenshots",
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/rhythm/sakuga-timing-shift.md"
+  },
+  {
+    "id": "video-shotcraft/effects/scan-bracket-sweep",
+    "name": "scan-bracket-sweep",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A document pops to centre, corner brackets drop, a scan band with a gradient tail sweeps it 5 times",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/scan-bracket-sweep.md"
+  },
+  {
+    "id": "video-shotcraft/effects/scanline-annotate-focus",
+    "name": "scanline-annotate-focus",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A scanline passes down a page; each block it passes gets corner brackets and a typed machine label",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/scanline-annotate-focus.md"
+  },
+  {
+    "id": "video-shotcraft/effects/scanline-assemble-flyin",
+    "name": "scanline-assemble-flyin",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Blueprint board with dashed slots; a scanline passes and each slot's component flies in and locks",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/scanline-assemble-flyin.md"
+  },
+  {
+    "id": "video-shotcraft/data/scroll-brake-moves",
+    "name": "scroll-brake-moves [changelog-scroll-brake, brake-reticle-lock]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "A long changelog scrolls fast, brakes exponentially onto the target entry, optionally with a reticle lock",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/data/scroll-brake-moves.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/segmented-thumb-hero",
+    "name": "segmented-thumb-hero",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A huge segmented control floats in, a cursor presses, the white thumb slides and the new icon pops",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/interaction/segmented-thumb-hero.md"
+  },
+  {
+    "id": "video-shotcraft/transition/shot-transitions",
+    "name": "shot-transitions [flash-cut, whip-pan, mask-wipe]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 3,
+    "summary": "Shot hand-offs: flash cut to white, whip pan with brake, or mask wipe through a window",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "whip-pan motion smear approximated with blur",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/shot-transitions.md"
+  },
+  {
+    "id": "video-shotcraft/effects/slam-entrance-moves",
+    "name": "slam-entrance-moves [kanada-perspective-snap, score-slam, impact-burst-kit]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 3,
+    "summary": "High-energy slams: Kanada perspective snap, score slam, impact burst that shakes neighbouring cards",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/slam-entrance-moves.md"
+  },
+  {
+    "id": "video-shotcraft/camera/space-camera-moves",
+    "name": "space-camera-moves [exploded-view, drone-dive-landing]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "Exploded view (parts separate along Z and rejoin) or a drone dive landing onto the page",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Z separation and dive faked with scale and parallax",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/camera/space-camera-moves.md"
+  },
+  {
+    "id": "video-shotcraft/rhythm/speed-ramp-freeze",
+    "name": "speed-ramp-freeze",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Non-linear time remap: motion flows, freezes for a circled annotation, then resumes",
+    "needs": [
+      "screenshots",
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "time remap via expressions; works on vector motion, not footage",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/rhythm/speed-ramp-freeze.md"
+  },
+  {
+    "id": "video-shotcraft/opening/spotlight-hero-card",
+    "name": "spotlight-hero-card",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Dark theatre, a tungsten spotlight with a volumetric beam finds one card; it lifts, gets traced, returns",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "volumetric beam as gradient; 3D lift and annotations faked in 2.5D",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/spotlight-hero-card.md"
+  },
+  {
+    "id": "video-shotcraft/effects/spotlight-sweep-moves",
+    "name": "spotlight-sweep-moves [glow-wake-sleep-panel, slide-spotlight-pan, corner-spotlight-reveal]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 3,
+    "summary": "Dark-field spotlight reveals: wake/sleep sweep, edge-glow pan, corner radial reveal",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/effects/spotlight-sweep-moves.md"
+  },
+  {
+    "id": "video-shotcraft/camera/steep-tilt-glide",
+    "name": "steep-tilt-glide",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Page stands at a 60 deg perspective and slides past a fixed camera with ghosting, lighting up",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "60 deg perspective not available; skew approximation",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/camera/steep-tilt-glide.md"
+  },
+  {
+    "id": "video-shotcraft/opening/stroke-segment-build",
+    "name": "stroke-segment-build",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "The title is broken into a dozen strokes lit in random order; the last one makes it readable",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "glyphs converted to path segments",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/stroke-segment-build.md"
+  },
+  {
+    "id": "video-shotcraft/transition/tear-streak-transitions",
+    "name": "tear-streak-transitions",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Glitch displace: 16 horizontal strips jitter and offset during the hard cut",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/video-shotcraft/references/shots/transition/tear-streak-transitions.md"
+  },
+  {
+    "id": "video-shotcraft/camera/tension-camera-moves",
+    "name": "tension-camera-moves [bullet-time-freeze-orbit, pull-back-isolation]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "Emotional camera: bullet-time freeze orbit, or a pull-back that isolates the subject",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "bullet-time orbit is 3D; pull-back is native",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/camera/tension-camera-moves.md"
+  },
+  {
+    "id": "video-shotcraft/camera/terminal-3d",
+    "name": "terminal-3d",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Three terminal windows in 3D space; camera flies between them, each types a command and prints output",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "3D flight faked with 2.5D scale/translate; typing is native",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/video-shotcraft/references/shots/camera/terminal-3d.md"
+  },
+  {
+    "id": "video-shotcraft/opening/text-as-mask",
+    "name": "text-as-mask",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Giant bold title cut out of a white stage shows a moving product panel inside, then zooms 46x to take over",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/opening/text-as-mask.md"
+  },
+  {
+    "id": "video-shotcraft/typography/text-column-converge",
+    "name": "text-column-converge",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Fixed 'NEW' on the left, feature words hard-cut on the right; the last word slides to centre to lock",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/text-column-converge.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/theme-switch-moves",
+    "name": "theme-switch-moves [theme-sweep-toggle, palette-theme-ripple]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "Theme change by a diagonal sweep re-skinning in place, or a palette panel shrinking into a ripple",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/interaction/theme-switch-moves.md"
+  },
+  {
+    "id": "video-shotcraft/data/timeline-travel",
+    "name": "timeline-travel",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Camera rushes along a horizontal version axis; cards pop up at each tick, last one brakes and pushes in",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "history-timeline",
+    "source": "skills/video-shotcraft/references/shots/data/timeline-travel.md"
+  },
+  {
+    "id": "video-shotcraft/typography/title-demote-to-label",
+    "name": "title-demote-to-label",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A big centred title holds, then shrinks to a corner section label as content grows below",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/title-demote-to-label.md"
+  },
+  {
+    "id": "video-shotcraft/rhythm/trailer-grammar-moves",
+    "name": "trailer-grammar-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Trailer bumper: three 9-frame quick shots, a beat of black silence, then the title",
+    "needs": [
+      "screenshots",
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/rhythm/trailer-grammar-moves.md"
+  },
+  {
+    "id": "video-shotcraft/transition/transition-hidden-cut",
+    "name": "transition-hidden-cut [invisible-cut, versus-slam, light-leak-burn]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 3,
+    "summary": "Hidden cuts: foreground wipe, versus slam, or warm light-leak burn hiding the cut",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/transition-hidden-cut.md"
+  },
+  {
+    "id": "video-shotcraft/transition/transition-travel",
+    "name": "transition-travel",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Through-the-letter: camera dives into a giant chapter title's counter to reach the next scene",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/transition-travel.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/type-and-filter",
+    "name": "type-and-filter",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Typing a search on real UI, the grid narrows to one card, a click drills into the detail page",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "screencast-cursor",
+    "source": "skills/video-shotcraft/references/shots/interaction/type-and-filter.md"
+  },
+  {
+    "id": "video-shotcraft/typography/type-assembly-moves",
+    "name": "type-assembly-moves [split-text-stagger, drift-assembly, text-on-path]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 3,
+    "summary": "Split-text stagger rise, letterforms drifting together, or text flowing along a path",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "text-on-path done with per-glyph positions along the path",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/video-shotcraft/references/shots/typography/type-assembly-moves.md"
+  },
+  {
+    "id": "video-shotcraft/typography/type-entrance-moves",
+    "name": "type-entrance-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Letter-drop physics: characters fall, bounce, tilt, then all snap upright",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/video-shotcraft/references/shots/typography/type-entrance-moves.md"
+  },
+  {
+    "id": "video-shotcraft/typography/type-rhythm-sync",
+    "name": "type-rhythm-sync [font-weight-pump, karaoke-fill-sync]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "Font-weight pump on drum hits, or karaoke fill lighting words with narration",
+    "needs": [
+      "script",
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "beat/word timing precomputed into data; weight pump faked with stroke width",
+    "tsvg_demo": "lyric-karaoke",
+    "source": "skills/video-shotcraft/references/shots/typography/type-rhythm-sync.md"
+  },
+  {
+    "id": "video-shotcraft/typography/typewriter-moves",
+    "name": "typewriter-moves",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Error-retype: types a bland word, hesitates, backspaces, types the selling word faster",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/typewriter-moves.md"
+  },
+  {
+    "id": "video-shotcraft/outro/ui-strip-away-outro",
+    "name": "ui-strip-away-outro",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "After Publish is clicked, the editor UI evaporates edge to centre leaving the button, which hands to the logo",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/outro/ui-strip-away-outro.md"
+  },
+  {
+    "id": "video-shotcraft/outro/ui-to-brand-morph",
+    "name": "ui-to-brand-morph [icon-flip-bloom, input-morph-assemble]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "An icon flips edge-on into a line and blooms into the logo, or an input box morphs into the mark",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/outro/ui-to-brand-morph.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/value-stagger-gradient",
+    "name": "value-stagger-gradient",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "16 bars enter staggered with height, hue, offset and blur as gradients, then re-pulse from the centre",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/value-stagger-gradient.md"
+  },
+  {
+    "id": "video-shotcraft/typography/vertical-word-roll-blur-cycle",
+    "name": "vertical-word-roll-blur-cycle",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Sentence end becomes a vertical roller; three word swaps with blur by distance and accent colour snap",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/vertical-word-roll-blur-cycle.md"
+  },
+  {
+    "id": "video-shotcraft/interaction/voice-waveform-live",
+    "name": "voice-waveform-live",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Recording pill with 64 bars rising with speech, shrinking to dots in pauses, scrolling, then collapsing",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "speech envelope precomputed or noise-driven",
+    "tsvg_demo": "podcast-audiogram",
+    "source": "skills/video-shotcraft/references/shots/interaction/voice-waveform-live.md"
+  },
+  {
+    "id": "video-shotcraft/ui-entrance/wall-reveal-moves",
+    "name": "wall-reveal-moves [bento-light-up, wireframe-draw-on]",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 2,
+    "summary": "Whole-wall reveals in place: bento cells light up one by one, or wireframe lines draw on",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/ui-entrance/wall-reveal-moves.md"
+  },
+  {
+    "id": "video-shotcraft/transition/white-flash-logo-simplify-cut",
+    "name": "white-flash-logo-simplify-cut",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "A liquid-metal colour wordmark gleams, bursts into a white flash and settles as the flat wordmark",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "liquid-metal material approximated with animated gradients",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/white-flash-logo-simplify-cut.md"
+  },
+  {
+    "id": "video-shotcraft/transition/wipe-transitions",
+    "name": "wipe-transitions",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Blinds slice: 12 3D slats flip in a wave, turning page A into page B",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "slat flip faked with scaleY",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/transition/wipe-transitions.md"
+  },
+  {
+    "id": "video-shotcraft/typography/word-relay-filmstrip",
+    "name": "word-relay-filmstrip",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Left filmstrip of page cards steps on each word change; a big serif word relays on the right",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/word-relay-filmstrip.md"
+  },
+  {
+    "id": "video-shotcraft/typography/word-relay-geometry",
+    "name": "word-relay-geometry",
+    "skill": "video-shotcraft",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Three benefit words each with their own geometry: spinning dashed circle, trimmed rings, chrome sheen",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure 2D motion of vector, text and screenshot images; tweens, keyframes and expressions cover it",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/shots/typography/word-relay-geometry.md"
+  },
+  {
+    "id": "video-shotcraft/workbench",
+    "name": "Shotcraft workbench (timeline editor)",
+    "skill": "video-shotcraft",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Browser editor that splits the Remotion film into tracks",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "Browser editor that splits the Remotion film into tracks; TSVG edits scenes as code, no GUI timeline yet",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/workbench/README.md"
+  },
+  {
+    "id": "video-shotcraft/jianying-export",
+    "name": "JianYing (CapCut) draft export",
+    "skill": "video-shotcraft",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Exports to a CapCut draft",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "Exports to a CapCut draft; TSVG has no NLE export",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/jianying-export.md"
+  },
+  {
+    "id": "video-shotcraft/publish-upload-post",
+    "name": "Social upload (upload-post)",
+    "skill": "video-shotcraft",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Posting to social platforms",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "Posting to social platforms; outside TSVG",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/publish-upload-post.md"
+  },
+  {
+    "id": "video-shotcraft/music-beat-sync",
+    "name": "Music beat-sync method",
+    "skill": "video-shotcraft",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "librosa beat grid",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "librosa beat grid; TSVG can only use it as a precomputed beat list in data()",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/music-beat-sync.md"
+  },
+  {
+    "id": "video-shotcraft/sound-design",
+    "name": "Sound design + SFX library",
+    "skill": "video-shotcraft",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "~140 SFX",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "~140 SFX; TSVG equivalent: sfx on buses with mixes",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/sound-design.md"
+  },
+  {
+    "id": "video-shotcraft/final-review",
+    "name": "Final review / QA",
+    "skill": "video-shotcraft",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Stills + ffmpeg checks",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "Stills + ffmpeg checks; TSVG equivalent: tsvg check",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/references/final-review.md"
+  },
+  {
+    "id": "video-shotcraft/shot-polish",
+    "name": "Shot polish compare tooling",
+    "skill": "video-shotcraft",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Side-by-side version picker for demos",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "Side-by-side version picker for demos; no TSVG equivalent needed",
+    "tsvg_demo": null,
+    "source": "skills/video-shotcraft/shot-polish/BRIEF.md"
+  },
+  {
+    "id": "vox-director",
+    "name": "Vox-style paper-collage explainer",
+    "skill": "vox-director",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Narrated explainer/ad: each beat an AI-made torn-paper collage poster brought to life, VO, music, captions",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "AI posters usable as images with parallax, push-ins and pieces flying in; loses AI image-to-video \"living poster\" motion",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/vox-director/SKILL.md"
+  },
+  {
+    "id": "vox-director/mode/b-roll",
+    "name": "B-roll (topic to collage)",
+    "skill": "vox-director",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Default: topic to beat map, AI collage keyframes, AI-animated clips, narration, music, captions",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Keyframes as still images animated in TSVG; AI video motion inside the poster is lost",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/vox-director/SKILL.md"
+  },
+  {
+    "id": "vox-director/mode/a-roll",
+    "name": "A-roll (talking-head to collage)",
+    "skill": "vox-director",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Restyles a real talking-head video into a paper-cutout sticker presenter in a collage world",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Needs AI video-to-video on footage and the original lip-synced performance; TSVG cannot play clips",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/SKILL.md"
+  },
+  {
+    "id": "vox-director/mode/c-roll",
+    "name": "C-roll (one photo to collage)",
+    "skill": "vox-director",
+    "kind": "mode",
+    "count": 1,
+    "summary": "One photo (person or product) cut out as a photo sticker, collage posters generated around it",
+    "needs": [
+      "script",
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Cut-out photo and edited posters work as images; AI clip motion is lost",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/vox-director/SKILL.md"
+  },
+  {
+    "id": "vox-director/mode/host",
+    "name": "Host mode (lip-synced presenter)",
+    "skill": "vox-director",
+    "kind": "mode",
+    "count": 1,
+    "summary": "A digital presenter from one still speaks the narration on camera, keyed into the collage world",
+    "needs": [
+      "script",
+      "audio"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Lip-synced presenter is AI-generated video plus chroma key; TSVG has no video node",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/references/host-mode.md"
+  },
+  {
+    "id": "vox-director/mode/element-motion",
+    "name": "Element-level motion collage (local engine)",
+    "skill": "vox-director",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Poster cut into pieces that fly in, slap, drop and settle back into place; confetti, zoom, shake, whip",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Cut-out PNG pieces keyframed with fly-in/slap/drop easings, camera shake and confetti are core TSVG features",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/vox-director/references/local-engine.md"
+  },
+  {
+    "id": "vox-director/mode/ken-burns",
+    "name": "Ken Burns fallback",
+    "skill": "vox-director",
+    "kind": "mode",
+    "count": 1,
+    "summary": "No AI video: each collage card on a blurred cover with a slow alternating push in/out",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Image with blurred copy behind, scale tweens",
+    "tsvg_demo": "documentary-ken-burns",
+    "source": "skills/vox-director/scripts/kenburns.py"
+  },
+  {
+    "id": "vox-director/mode/scrapbook",
+    "name": "Scrapbook MG assembly",
+    "skill": "vox-director",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Tilted cards on a cream desk joined by whip slides, ending in a scrapbook layout with drifting confetti",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Desk, whips, layout and confetti native; the cards are Kling video clips, so stills only",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/vox-director/scripts/mg_scrapbook.py"
+  },
+  {
+    "id": "vox-director/theme/american-retro",
+    "name": "American retro collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: bold retro primaries red, mustard, teal, cream; mid-century cut-outs",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/theme/swiss-modern",
+    "name": "Swiss modern collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: flat two-colour plus red accent, lots of white, grid type",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/theme/punk-zine",
+    "name": "Punk zine collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: black and white photocopy with one fluorescent spot colour, ransom type",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/theme/soviet-constructivist",
+    "name": "Soviet constructivist collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: photomontage with bold diagonal geometry, red/black",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/theme/wpa-propaganda",
+    "name": "WPA propaganda collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: 1930s WPA / travel silkscreen poster look",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/theme/70s-groovy",
+    "name": "70s groovy collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: mustard, rust, avocado, cream 1970s print",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/theme/chinese-ink",
+    "name": "Chinese ink collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: ink black and vermilion on aged paper, seals",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/theme/atomic-age",
+    "name": "Atomic age collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: 1950s retro-futurism, teal and orange on cream",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/theme/newsprint-editorial",
+    "name": "Newsprint editorial collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: cream newsprint, deep red, mustard, charcoal clippings",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/theme/gilded-deco",
+    "name": "Gilded deco collage theme",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Collage theme preset: art-deco cream, champagne and deep gold, charcoal",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Look lives in AI-generated poster images; TSVG composes and animates them but cannot generate them",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/era/tang",
+    "name": "Tang court painting era style",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Era style for history films: gongbi fine-line and Dunhuang mural on cracked silk, mineral pigments",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Painted look must come from generated images; TSVG animates the stills",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/era/song",
+    "name": "Song ink-wash era style",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Era style for history films: minimal one-corner literati ink wash, vast empty space",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Painted look must come from generated images; TSVG animates the stills",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/era/ming",
+    "name": "Ming blue-and-white era style",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Era style for history films: cobalt underglaze porcelain illustration with crackle glaze",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Painted look must come from generated images; TSVG animates the stills",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/era/qing",
+    "name": "Qing court painting era style",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Era style for history films: dark-silk Sino-European court painting in twilight crimson and gold",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Painted look must come from generated images; TSVG animates the stills",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/era/modern",
+    "name": "1930s woodcut era style",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Era style for history films: high-contrast Chinese modern woodcut with sepia photo grain",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Painted look must come from generated images; TSVG animates the stills",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/era/rising",
+    "name": "Rising (contemporary) era style",
+    "skill": "vox-director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Era style for history films: new-Chinese flat poster, red, ink and gold linework, upward motion",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Painted look must come from generated images; TSVG animates the stills",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/scripts/styles.py"
+  },
+  {
+    "id": "vox-director/arcs",
+    "name": "Narrative arc presets",
+    "skill": "vox-director",
+    "kind": "template",
+    "count": 14,
+    "summary": "14 story skeletons: hook_payoff, pas, bab, aida, storybrand, how_it_works, timeline, man_in_hole, listicle, three_act...",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Story structure only; maps onto TSVG scenes/chapters",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/references/beat-layer.md"
+  },
+  {
+    "id": "vox-director/camera-flat",
+    "name": "Flat-safe camera moves",
+    "skill": "vox-director",
+    "kind": "transition",
+    "count": 7,
+    "summary": "static, push_in, pull_out, pan, tilt, parallax, element slide-in, varied per beat",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group transforms and layered parallax",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/vox-director/references/beat-layer.md"
+  },
+  {
+    "id": "vox-director/camera-bold",
+    "name": "Bold camera moves",
+    "skill": "vox-director",
+    "kind": "transition",
+    "count": 4,
+    "summary": "orbit, dolly_zoom, roll/dutch, whip; experimental moves that warp flat art",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "roll and whip native; orbit and dolly zoom need 3D, faked with scale/skew",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/references/beat-layer.md"
+  },
+  {
+    "id": "vox-director/captions",
+    "name": "Caption styles (white / paper)",
+    "skill": "vox-director",
+    "kind": "mode",
+    "count": 2,
+    "summary": "Burned-in captions: clean white subtitle or cream paper cut-out label",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Captions from narration with paper label shape",
+    "tsvg_demo": null,
+    "source": "skills/vox-director/SKILL.md"
+  },
+  {
+    "id": "vox-director/confetti",
+    "name": "Torn-paper confetti overlay",
+    "skill": "vox-director",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Drifting confetti and paper scraps over the whole film for tactile motion",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat particles with rand and sin drift",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/vox-director/scripts/confetti.py"
+  },
+  {
+    "id": "video-clone",
+    "name": "Reference-video style clone",
+    "skill": "video-clone",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Analyses a reference video (cuts, BPM, camera, palette, climax) and remakes its style with a 2D engine skill",
+    "needs": [
+      "url",
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "TSVG can be the output engine for 2D styles; reference analysis (cuts, BPM, peaks) must be precomputed outside",
+    "tsvg_demo": null,
+    "source": "skills/video-clone/SKILL.md"
+  },
+  {
+    "id": "video-clone/style/painted-story-mv",
+    "name": "Painted story MV",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Watercolour-and-ink lyric MV: one shot per lyric line, boiling ink lines, emotes, karaoke",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Watercolour brush texture and boil approximated with textures and jitter; needs beat map",
+    "tsvg_demo": null,
+    "source": "skills/video-clone/styles/painted-story-mv.md"
+  },
+  {
+    "id": "video-clone/style/paper-cutout",
+    "name": "Paper cut-out stop motion",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Jointed paper puppets with torn edges and drop shadows, 8-12 fps stepped jitter",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Paper pieces, shadows, stepped time all native",
+    "tsvg_demo": "paper-cutout",
+    "source": "skills/video-clone/styles/paper-cutout.md"
+  },
+  {
+    "id": "video-clone/style/anime-cel",
+    "name": "Anime cel",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "TV-anime cel look: tapered lines, hard shadow, big eyes, focus lines, impact frames",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Flat cel paths and FX native; procedural turning character rig must be rebuilt in vector",
+    "tsvg_demo": null,
+    "source": "skills/video-clone/styles/anime-cel.md"
+  },
+  {
+    "id": "video-clone/style/crayon-storybook",
+    "name": "Crayon storybook",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Children's picture book in crayon and coloured pencil on cream paper, page turns",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Waxy crayon fills need texture images and masks; page curl approximated",
+    "tsvg_demo": null,
+    "source": "skills/video-clone/styles/crayon-storybook.md"
+  },
+  {
+    "id": "video-clone/style/faceless-explainer",
+    "name": "Faceless explainer",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Illustrated knowledge video: diagrams, charts, big titles, narration and music",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector illustrations, charts, narration and captions",
+    "tsvg_demo": "flat-vector-science",
+    "source": "skills/video-clone/styles/faceless-explainer.md"
+  },
+  {
+    "id": "video-clone/style/motion-graphics",
+    "name": "Motion graphics",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Kinetic type, data, logo stings; text is the hero, cuts on the beat",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Core TSVG territory",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/video-clone/styles/motion-graphics.md"
+  },
+  {
+    "id": "video-clone/style/music-kinetic",
+    "name": "Music kinetic / lyric promo",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Beat-driven lyric typography and slideshow cuts, one song, no narration",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Needs a precomputed beat map and LRC timing in data()",
+    "tsvg_demo": "lyric-karaoke",
+    "source": "skills/video-clone/styles/music-kinetic.md"
+  },
+  {
+    "id": "video-clone/style/narrated-comic-vlog",
+    "name": "Narrated comic vlog",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "First-person narration, one chibi comic frame per sentence, exaggerated close-ups",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector rig characters, captions and narration",
+    "tsvg_demo": "comic-storyboard",
+    "source": "skills/video-clone/styles/narrated-comic-vlog.md"
+  },
+  {
+    "id": "video-clone/style/pixel-story",
+    "name": "Pixel story",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Retro-game pixel story: limited palette, dither, sprites, RPG dialog box",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Pixel grid via rect repeat or upscaled sprites; nearest-neighbour scaling and dither fills not guaranteed",
+    "tsvg_demo": null,
+    "source": "skills/video-clone/styles/pixel-story.md"
+  },
+  {
+    "id": "video-clone/style/product-promo",
+    "name": "Product promo",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Product/app/site promo: screenshots, UI clicks, feature beats, logo + CTA",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Screenshots, cursor, callouts and CTA end card",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/video-clone/styles/product-promo.md"
+  },
+  {
+    "id": "video-clone/style/remotion-react",
+    "name": "Remotion data-driven",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "React-component videos, one template filled from many data rows",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "TSVG options + data() lists do templated variants",
+    "tsvg_demo": null,
+    "source": "skills/video-clone/styles/remotion-react.md"
+  },
+  {
+    "id": "video-clone/style/whiteboard-explainer",
+    "name": "Whiteboard explainer",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Marker lines drawn by a hand, handwriting, arrows and icons, camera pans the board",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Stroke-on paths, hand image following the pen tip",
+    "tsvg_demo": "whiteboard-drawing",
+    "source": "skills/video-clone/styles/whiteboard-explainer.md"
+  },
+  {
+    "id": "video-clone/style/premium-product-3d",
+    "name": "Premium 3D product (disabled)",
+    "skill": "video-clone",
+    "kind": "style",
+    "count": 1,
+    "summary": "Photoreal 3D product film: dark stage, rim light, macro and orbit, glass/metal",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Real 3D render with PBR materials and lighting",
+    "tsvg_demo": null,
+    "source": "skills/video-clone/styles/_disabled/premium-product-3d.md"
+  },
+  {
+    "id": "anime-cel",
+    "name": "Anime cel animation",
+    "skill": "anime-cel",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Code-drawn TV-anime: cel-shaded characters, big eyes, hair locks, anime reactions and staging",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Flat cel colours, tapered line paths, FX native; procedural sphere-projected head turns and rig need rebuilding in vector",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/sets",
+    "name": "Anime sets and time of day",
+    "skill": "anime-cel",
+    "kind": "style",
+    "count": 7,
+    "summary": "Painted line-free backgrounds: street, classroom, rooftop; day, morning, evening, night",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Gradient skies and flat painted shapes; or background images",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/GUIDE.md"
+  },
+  {
+    "id": "anime-cel/reactions",
+    "name": "Anime reaction emotes",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 5,
+    "summary": "Sweat drop, anger vein, steam, gloom lines, sparkles on characters",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Small vector symbols with pop timing",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/fx/focus-lines",
+    "name": "Focus lines",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Radial concentration lines on a flat gradient for emotional beats",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat of lines with noise lengths",
+    "tsvg_demo": "comic-storyboard",
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/fx/speed-lines",
+    "name": "Speed lines",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Parallel streaks behind fast motion",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat lines with scroll",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/fx/impact-frame",
+    "name": "Impact frame",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Black/white negative hit frame with burst",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "high-contrast flat frame swap; difference blend for inversion",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/fx/flash",
+    "name": "Flash",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 1,
+    "summary": "White flash on hits",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "opacity tween",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/fx/dramatic-zoom",
+    "name": "Dramatic zoom",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Sudden punch-in on a reaction",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "group scale",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/fx/smear",
+    "name": "Smear frames",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Smeared shapes and smear lines on fast actions",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "stretched paths on single frames",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/fx/blur-band",
+    "name": "Blur band",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Band of motion blur across the frame",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "blur filter on a clipped copy",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/fx/sparkles",
+    "name": "Sparkles",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Twinkling star sparkles",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat star paths",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/fx/petals",
+    "name": "Petals",
+    "skill": "anime-cel",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Falling cherry petals",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat particles with sin drift",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/tr/slash-wipe",
+    "name": "Slash wipe",
+    "skill": "anime-cel",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Diagonal slash wipe between shots",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Clip path tween",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "anime-cel/tr/iris-wipe",
+    "name": "Iris wipe",
+    "skill": "anime-cel",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Circular iris close/open between shots",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Circle clip scale",
+    "tsvg_demo": null,
+    "source": "skills/anime-cel/SKILL.md"
+  },
+  {
+    "id": "pixel-art",
+    "name": "Pixel-art animation",
+    "skill": "pixel-art",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Indie-game pixel art: 480x270 upscaled x4, limited palettes, dither, sprites, RPG captions",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Pixel grid as rects/repeat or upscaled sprite images; nearest-neighbour scaling and dither gradients not guaranteed sharp",
+    "tsvg_demo": null,
+    "source": "skills/pixel-art/SKILL.md"
+  },
+  {
+    "id": "pixel-art/palettes",
+    "name": "Pixel palettes (day / dusk / night)",
+    "skill": "pixel-art",
+    "kind": "style",
+    "count": 3,
+    "summary": "Hue-shifted colour ramps per time of day",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Palettes as theme colours",
+    "tsvg_demo": null,
+    "source": "skills/pixel-art/GUIDE.md"
+  },
+  {
+    "id": "pixel-art/weather",
+    "name": "Pixel weather and particles",
+    "skill": "pixel-art",
+    "kind": "effect",
+    "count": 7,
+    "summary": "rain, snow, sparkles, fireflies, birds, petals, puffs on 12 fps steps",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "repeat particles native; snapping to the art-pixel grid needs floor() in every expression",
+    "tsvg_demo": null,
+    "source": "skills/pixel-art/GUIDE.md"
+  },
+  {
+    "id": "pixel-art/rpg-box",
+    "name": "RPG dialog box captions",
+    "skill": "pixel-art",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Pixel dialog box with name tag, typewriter text and blinking arrow",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Box shapes, pixel font, typewriter reveal",
+    "tsvg_demo": null,
+    "source": "skills/pixel-art/GUIDE.md"
+  },
+  {
+    "id": "pixel-art/tr/dissolve",
+    "name": "Dither dissolve",
+    "skill": "pixel-art",
+    "kind": "transition",
+    "count": 1,
+    "summary": "8x8 Bayer dither fade to a colour",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Bayer pattern as a repeat grid or mask image; heavy at full res",
+    "tsvg_demo": null,
+    "source": "skills/pixel-art/GUIDE.md"
+  },
+  {
+    "id": "pixel-art/tr/iris",
+    "name": "Pixel iris",
+    "skill": "pixel-art",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Circle/diamond/square iris closing on a point",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Clip shape scale",
+    "tsvg_demo": null,
+    "source": "skills/pixel-art/GUIDE.md"
+  },
+  {
+    "id": "pixel-art/tr/diamonds",
+    "name": "Diamond wipe",
+    "skill": "pixel-art",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Classic diamond-tile wipe in a direction",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat diamonds with staggered scale",
+    "tsvg_demo": null,
+    "source": "skills/pixel-art/GUIDE.md"
+  },
+  {
+    "id": "pixel-art/tr/blocks",
+    "name": "Blocks wipe",
+    "skill": "pixel-art",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Chunky stair-stepped block slide",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat rects with stagger",
+    "tsvg_demo": null,
+    "source": "skills/pixel-art/GUIDE.md"
+  },
+  {
+    "id": "pixel-art/tr/cross-dither",
+    "name": "Cross dither",
+    "skill": "pixel-art",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Dither dissolve between two full drawings",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "dither mask needed between two scenes",
+    "tsvg_demo": null,
+    "source": "skills/pixel-art/GUIDE.md"
+  },
+  {
+    "id": "whiteboard",
+    "name": "Whiteboard doodle explainer",
+    "skill": "whiteboard",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Marker lines draw themselves on, a cartoon hand follows the pen, handwriting, icons, doodle characters",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Stroke-on paths, handwriting reveal, hand image following the tip, camera pans",
+    "tsvg_demo": "whiteboard-drawing",
+    "source": "skills/whiteboard/SKILL.md"
+  },
+  {
+    "id": "whiteboard/board/white",
+    "name": "White whiteboard",
+    "skill": "whiteboard",
+    "kind": "style",
+    "count": 1,
+    "summary": "Off-white board with speckle, eraser swirls and ghost writing",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Background image or vector speckle",
+    "tsvg_demo": "whiteboard-drawing",
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "whiteboard/board/paper",
+    "name": "Ruled notebook paper",
+    "skill": "whiteboard",
+    "kind": "style",
+    "count": 1,
+    "summary": "Ruled cream notebook page with optional red margin",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Lines via repeat",
+    "tsvg_demo": null,
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "whiteboard/board/grid",
+    "name": "Grid paper",
+    "skill": "whiteboard",
+    "kind": "style",
+    "count": 1,
+    "summary": "Squared paper board",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Grid via repeat",
+    "tsvg_demo": "sketchnote-doodle",
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "whiteboard/icons",
+    "name": "Whiteboard icon library",
+    "skill": "whiteboard",
+    "kind": "effect",
+    "count": 19,
+    "summary": "Drawn-on icons: bulb, clock, coin, money, heart, check, phone, house, chart, gear, trophy...",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Path icons with stroke-on",
+    "tsvg_demo": "whiteboard-drawing",
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "whiteboard/highlighter",
+    "name": "Highlighter and scribble fills",
+    "skill": "whiteboard",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Translucent highlighter, hatch and scribble colouring slightly off-register",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "multiply blend, hatch paths",
+    "tsvg_demo": "sketchnote-doodle",
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "whiteboard/tr/camera-pan",
+    "name": "Camera pan across the board",
+    "skill": "whiteboard",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Camera travels to the next area of one big board",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "group transform",
+    "tsvg_demo": "whiteboard-drawing",
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "whiteboard/tr/eraser-wipe",
+    "name": "Eraser wipe",
+    "skill": "whiteboard",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Hand scrubs the board in zigzag passes leaving a faint ghost",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "zigzag mask path + hand image",
+    "tsvg_demo": null,
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "whiteboard/tr/page-flip",
+    "name": "Page flip",
+    "skill": "whiteboard",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Last frame curls away from the bottom-right corner with shadow and paper back",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "page curl approximated with a folding clipped flap",
+    "tsvg_demo": null,
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "whiteboard/tr/erase-area",
+    "name": "Erase one area",
+    "skill": "whiteboard",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Erase a rectangle to swap part of the diagram",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "mask tween",
+    "tsvg_demo": null,
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "whiteboard/captions",
+    "name": "Whiteboard captions",
+    "skill": "whiteboard",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Handwritten caption on a white card with accent-coloured words, popping in",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text with accent spans and overshoot",
+    "tsvg_demo": null,
+    "source": "skills/whiteboard/GUIDE.md"
+  },
+  {
+    "id": "paper-cutout",
+    "name": "Paper cut-out stop motion",
+    "skill": "paper-cutout",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Construction paper, kraft and felt pieces with torn edges and shadows; jointed puppets at 12 steps/s",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Cut paths, drop shadows, paper texture images, stepped floor(t*12) time",
+    "tsvg_demo": "paper-cutout",
+    "source": "skills/paper-cutout/SKILL.md"
+  },
+  {
+    "id": "paper-cutout/materials",
+    "name": "Paper materials",
+    "skill": "paper-cutout",
+    "kind": "style",
+    "count": 7,
+    "summary": "paper, card, kraft, felt, tissue, corrugated, wood pieces",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Texture images clipped to piece shapes",
+    "tsvg_demo": "paper-cutout",
+    "source": "skills/paper-cutout/GUIDE.md"
+  },
+  {
+    "id": "paper-cutout/tr/book",
+    "name": "Book fold",
+    "skill": "paper-cutout",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Pop-up book fold between shots",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "fold perspective faked with scaleX",
+    "tsvg_demo": null,
+    "source": "skills/paper-cutout/GUIDE.md"
+  },
+  {
+    "id": "paper-cutout/tr/tear",
+    "name": "Torn reveal",
+    "skill": "paper-cutout",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Old shot torn away along a rough edge",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "torn-edge clip path tween",
+    "tsvg_demo": null,
+    "source": "skills/paper-cutout/GUIDE.md"
+  },
+  {
+    "id": "paper-cutout/tr/flip",
+    "name": "Flip card",
+    "skill": "paper-cutout",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Card flips to the next shot",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "flip faked with scaleX",
+    "tsvg_demo": null,
+    "source": "skills/paper-cutout/GUIDE.md"
+  },
+  {
+    "id": "paper-cutout/tr/slide",
+    "name": "Sheet slide",
+    "skill": "paper-cutout",
+    "kind": "transition",
+    "count": 1,
+    "summary": "A paper sheet slides in/out in a direction",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "translate with shadow",
+    "tsvg_demo": null,
+    "source": "skills/paper-cutout/GUIDE.md"
+  },
+  {
+    "id": "paper-cutout/captions",
+    "name": "Paper captions (label / letters)",
+    "skill": "paper-cutout",
+    "kind": "mode",
+    "count": 2,
+    "summary": "Captions as a paper label or individually cut letters",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text on paper shapes, per-letter jitter",
+    "tsvg_demo": "paper-cutout",
+    "source": "skills/paper-cutout/GUIDE.md"
+  },
+  {
+    "id": "paper-cutout/pop-up",
+    "name": "Pop-up book element",
+    "skill": "paper-cutout",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Scenery that pops up from the page",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Pop-up hinge faked with scaleY",
+    "tsvg_demo": null,
+    "source": "skills/paper-cutout/SKILL.md"
+  },
+  {
+    "id": "crayon-storybook",
+    "name": "Crayon picture-book animation",
+    "skill": "crayon-storybook",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Warm children's book in crayon, coloured pencil and pastel on cream paper; 8 fps boil, page turns",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Waxy scribble fills and paper tooth need brush texture images and masks; vector approximation loses the grain",
+    "tsvg_demo": null,
+    "source": "skills/crayon-storybook/SKILL.md"
+  },
+  {
+    "id": "crayon-storybook/fills",
+    "name": "Crayon fills",
+    "skill": "crayon-storybook",
+    "kind": "style",
+    "count": 5,
+    "summary": "scribble, hatch, cross-hatch, smudge, flat colouring-in",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "hatch/scribble as paths native; waxy texture needs images",
+    "tsvg_demo": null,
+    "source": "skills/crayon-storybook/GUIDE.md"
+  },
+  {
+    "id": "crayon-storybook/tr/page-turn",
+    "name": "Page turn",
+    "skill": "crayon-storybook",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Old page curls away showing its paper back and a ghost of the picture",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "curl approximated with a clipped folding flap",
+    "tsvg_demo": null,
+    "source": "skills/crayon-storybook/GUIDE.md"
+  },
+  {
+    "id": "crayon-storybook/tr/crayon-wipe",
+    "name": "Crayon wipe",
+    "skill": "crayon-storybook",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Big crayon bands scribble across and away",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "band paths native; crayon grain needs texture image",
+    "tsvg_demo": null,
+    "source": "skills/crayon-storybook/GUIDE.md"
+  },
+  {
+    "id": "crayon-storybook/tr/iris",
+    "name": "Paper iris",
+    "skill": "crayon-storybook",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Iris or heart-shaped iris to paper colour",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "clip shape scale",
+    "tsvg_demo": null,
+    "source": "skills/crayon-storybook/GUIDE.md"
+  },
+  {
+    "id": "crayon-storybook/tr/fade-paper",
+    "name": "Fade from/to paper",
+    "skill": "crayon-storybook",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Open and close on blank cream paper",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "opacity tween",
+    "tsvg_demo": null,
+    "source": "skills/crayon-storybook/GUIDE.md"
+  },
+  {
+    "id": "crayon-storybook/book-page",
+    "name": "Book page framing",
+    "skill": "crayon-storybook",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Cream border with a hand-drawn frame line, vignette and paper tooth",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "border shapes + texture image",
+    "tsvg_demo": null,
+    "source": "skills/crayon-storybook/GUIDE.md"
+  },
+  {
+    "id": "crayon-storybook/captions",
+    "name": "Storybook captions",
+    "skill": "crayon-storybook",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Hand-lettered text written on character by character on a torn cream label",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "typewriter text on label shape",
+    "tsvg_demo": null,
+    "source": "skills/crayon-storybook/GUIDE.md"
+  },
+  {
+    "id": "painted-animation",
+    "name": "Painted watercolour cartoon",
+    "skill": "painted-animation",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Hand-painted watercolour fills and boiling ink lines (p5.brush), Clawd or any character, no text",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Shapes, emotes and boil jitter native; watercolour bleed and brush texture approximated with textures",
+    "tsvg_demo": null,
+    "source": "skills/painted-animation/SKILL.md"
+  },
+  {
+    "id": "painted-animation/music-video",
+    "name": "Painted lyric music video",
+    "skill": "painted-animation",
+    "kind": "mode",
+    "count": 1,
+    "summary": "One painted gag per lyric line on the beat grid, karaoke lyrics, chapters per song section",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Karaoke native; needs precomputed beat grid and LRC in data(); painted look approximated",
+    "tsvg_demo": "lyric-karaoke",
+    "source": "skills/painted-animation/references/music-video.md"
+  },
+  {
+    "id": "painted-animation/example/xiaozhen",
+    "name": "Xiaozhen (small-town girl) example",
+    "skill": "painted-animation",
+    "kind": "template",
+    "count": 1,
+    "summary": "Worked painted MV example with storyboard, set and shots",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Same limits as painted MV",
+    "tsvg_demo": null,
+    "source": "skills/painted-animation/examples/xiaozhen/STORYBOARD.md"
+  },
+  {
+    "id": "painted-animation/tr/brush-wipe",
+    "name": "Brush wipe",
+    "skill": "painted-animation",
+    "kind": "transition",
+    "count": 1,
+    "summary": "A painted brush stroke wipes across",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "stroke path native; brush texture needs image",
+    "tsvg_demo": null,
+    "source": "skills/painted-animation/template/ANIMATION_GUIDE.md"
+  },
+  {
+    "id": "painted-animation/tr/iris",
+    "name": "Iris / shaped iris",
+    "skill": "painted-animation",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Iris or shaped iris closing on a point",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "clip shape scale",
+    "tsvg_demo": null,
+    "source": "skills/painted-animation/template/ANIMATION_GUIDE.md"
+  },
+  {
+    "id": "painted-animation/tr/whip-pan",
+    "name": "Whip pan with smear",
+    "skill": "painted-animation",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Fast pan with smeared motion",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "translate + blur",
+    "tsvg_demo": null,
+    "source": "skills/painted-animation/template/ANIMATION_GUIDE.md"
+  },
+  {
+    "id": "painted-animation/tr/match-cut",
+    "name": "Match cut",
+    "skill": "painted-animation",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Same shape or motion across the cut",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "scene design",
+    "tsvg_demo": null,
+    "source": "skills/painted-animation/template/ANIMATION_GUIDE.md"
+  },
+  {
+    "id": "painted-animation/tr/cut-on-action",
+    "name": "Cut on action",
+    "skill": "painted-animation",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Cut mid-move and finish it in the next shot",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "scene timing",
+    "tsvg_demo": null,
+    "source": "skills/painted-animation/template/ANIMATION_GUIDE.md"
+  },
+  {
+    "id": "painted-animation/tr/carry-through",
+    "name": "Camera carry-through",
+    "skill": "painted-animation",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Camera move continues into the next shot",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "group transform",
+    "tsvg_demo": null,
+    "source": "skills/painted-animation/template/ANIMATION_GUIDE.md"
+  },
+  {
+    "id": "painted-animation/tr/fade-paper",
+    "name": "Fade/push from paper or black",
+    "skill": "painted-animation",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Open or close through paper or black",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "opacity tween",
+    "tsvg_demo": null,
+    "source": "skills/painted-animation/template/ANIMATION_GUIDE.md"
+  },
+  {
+    "id": "blender-product-film",
+    "name": "Blender 3D product film",
+    "skill": "blender-product-film",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Photoreal product film: dark studio, rim light, light sweeps, glass/liquid/metal, macro and orbit, DOF",
+    "needs": [
+      "3d",
+      "screenshots"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Real 3D path-traced render with PBR materials; TSVG could only animate prerendered stills",
+    "tsvg_demo": null,
+    "source": "skills/blender-product-film/SKILL.md"
+  },
+  {
+    "id": "blender-product-film/prep-product",
+    "name": "Product from photo",
+    "skill": "blender-product-film",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Rebuilds a 3D product from one front photo (silhouette + label projection)",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "3D reconstruction",
+    "tsvg_demo": null,
+    "source": "skills/blender-product-film/scripts/prep_product.py"
+  },
+  {
+    "id": "blender-product-film/camera",
+    "name": "Product camera language",
+    "skill": "blender-product-film",
+    "kind": "transition",
+    "count": 7,
+    "summary": "hero dolly reveal, macro slide, orbit, crane, rack focus, static + light sweep, product spin",
+    "needs": [
+      "3d"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "All are real 3D camera/lighting moves; a light sweep over a still is the only 2D-fakeable one",
+    "tsvg_demo": null,
+    "source": "skills/blender-product-film/SKILL.md"
+  },
+  {
+    "id": "blender-product-film/finish-transitions",
+    "name": "Finish transitions",
+    "skill": "blender-product-film",
+    "kind": "transition",
+    "count": 5,
+    "summary": "cut, fade_black, crossfade, flash_white, dip_white between rendered shots",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Opacity tweens between scenes",
+    "tsvg_demo": null,
+    "source": "skills/blender-product-film/scripts/finish.py"
+  },
+  {
+    "id": "blender-product-film/title-reveals",
+    "name": "Title reveals",
+    "skill": "blender-product-film",
+    "kind": "effect",
+    "count": 4,
+    "summary": "Crisp 2D titles: rise, light_up (grey segments light one by one), wipe, fade",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens and clip reveals",
+    "tsvg_demo": null,
+    "source": "skills/blender-product-film/scripts/finish.py"
+  },
+  {
+    "id": "threejs-animation",
+    "name": "Three.js WebGL animation",
+    "skill": "threejs-animation",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Real-time 3D scenes: meshes, lights, GLTF clips, camera fly-throughs, instancing, R3F",
+    "needs": [
+      "3d"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Needs a WebGL renderer with meshes and lighting",
+    "tsvg_demo": null,
+    "source": "skills/threejs-animation/SKILL.md"
+  },
+  {
+    "id": "threejs-animation/gltf-clips",
+    "name": "GLTF clip playback and crossfade",
+    "skill": "threejs-animation",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Play and blend skeletal GLTF animation clips",
+    "needs": [
+      "3d"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Skinned 3D meshes",
+    "tsvg_demo": null,
+    "source": "skills/threejs-animation/SKILL.md"
+  },
+  {
+    "id": "threejs-animation/camera-flythrough",
+    "name": "Camera lerp / scroll-linked fly-through",
+    "skill": "threejs-animation",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Camera lerps along a path through a 3D scene, optionally scroll-driven",
+    "needs": [
+      "3d"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Real 3D camera; only 2.5D parallax possible",
+    "tsvg_demo": null,
+    "source": "skills/threejs-animation/SKILL.md"
+  },
+  {
+    "id": "threejs-animation/instancing",
+    "name": "Instanced object fields",
+    "skill": "threejs-animation",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Thousands of instanced meshes (tiles, forests, particle fields) animated per instance",
+    "needs": [
+      "3d"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "2D repeat fields native; 3D instanced meshes are not",
+    "tsvg_demo": null,
+    "source": "skills/threejs-animation/SKILL.md"
+  },
+  {
+    "id": "threejs-animation/postfx",
+    "name": "Bloom and depth of field",
+    "skill": "threejs-animation",
+    "kind": "effect",
+    "count": 2,
+    "summary": "EffectComposer bloom and DOF post-processing",
+    "needs": [
+      "3d"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Glow via blur copies native; DOF on 3D scenes not",
+    "tsvg_demo": null,
+    "source": "skills/threejs-animation/references/r3f-and-perf.md"
+  },
+  {
+    "id": "particle-system",
+    "name": "Particle system",
+    "skill": "particle-system",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Many small elements driven by per-particle forces: confetti, snow, smoke, flow fields, constellations",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Closed-form particles via repeat + rand + expressions are native; stateful force integration must be closed-form or precomputed",
+    "tsvg_demo": null,
+    "source": "skills/particle-system/SKILL.md"
+  },
+  {
+    "id": "particle-system/confetti",
+    "name": "Confetti burst",
+    "skill": "particle-system",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Burst of tumbling coloured confetti with gravity and drag",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "ballistic closed form per particle",
+    "tsvg_demo": "listicle-countdown",
+    "source": "skills/particle-system/references/particle-recipes.md"
+  },
+  {
+    "id": "particle-system/snow",
+    "name": "Snow",
+    "skill": "particle-system",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Continuous drifting snowfall with sway",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat with sin sway and wraparound",
+    "tsvg_demo": null,
+    "source": "skills/particle-system/references/particle-recipes.md"
+  },
+  {
+    "id": "particle-system/smoke",
+    "name": "Smoke",
+    "skill": "particle-system",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Soft rising, expanding, fading smoke puffs",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "blurred circles approximate; no volumetric density",
+    "tsvg_demo": null,
+    "source": "skills/particle-system/references/particle-recipes.md"
+  },
+  {
+    "id": "particle-system/mouse-attract",
+    "name": "Mouse attraction / repulsion",
+    "skill": "particle-system",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Particles react to the pointer",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "interactive input; no pointer in a video",
+    "tsvg_demo": null,
+    "source": "skills/particle-system/references/particle-recipes.md"
+  },
+  {
+    "id": "particle-system/flow-field",
+    "name": "Flow field / curl noise",
+    "skill": "particle-system",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Particles swirl along a noise flow field",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "paths must be precomputed into data()",
+    "tsvg_demo": null,
+    "source": "skills/particle-system/references/particle-recipes.md"
+  },
+  {
+    "id": "particle-system/constellation",
+    "name": "Connected-dot constellation",
+    "skill": "particle-system",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Drifting dots with lines between near neighbours",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "fixed pairs native; true per-frame nearest-neighbour links need precompute",
+    "tsvg_demo": null,
+    "source": "skills/particle-system/references/particle-recipes.md"
+  },
+  {
+    "id": "particle-system/gpu-points",
+    "name": "GPU points with life/respawn",
+    "skill": "particle-system",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Tens of thousands of points on the GPU",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "repeat works for hundreds-low thousands, not GPU scale",
+    "tsvg_demo": null,
+    "source": "skills/particle-system/references/particle-recipes.md"
+  },
+  {
+    "id": "shader-glsl",
+    "name": "GLSL fragment shader",
+    "skill": "shader-glsl",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Per-pixel GPU shaders for gradients, noise, plasma, SDF shapes, image transitions and post FX",
+    "needs": [
+      "shader"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "TSVG has no shader node; per-pixel computation is out of scope",
+    "tsvg_demo": null,
+    "source": "skills/shader-glsl/SKILL.md"
+  },
+  {
+    "id": "shader-glsl/cosine-palette",
+    "name": "Cosine-palette animated gradient",
+    "skill": "shader-glsl",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Inigo Quilez cosine palette full-screen colour flow",
+    "needs": [
+      "shader"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "approximated with animated linear/radial gradients",
+    "tsvg_demo": null,
+    "source": "skills/shader-glsl/SKILL.md"
+  },
+  {
+    "id": "shader-glsl/noise-fbm",
+    "name": "Noise / fbm / domain warp",
+    "skill": "shader-glsl",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Value, simplex and fractal noise, marble and fluid domain warping",
+    "needs": [
+      "shader"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "per-pixel noise",
+    "tsvg_demo": null,
+    "source": "skills/shader-glsl/SKILL.md"
+  },
+  {
+    "id": "shader-glsl/plasma-aurora",
+    "name": "Plasma / aurora background",
+    "skill": "shader-glsl",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Flowing plasma or aurora backgrounds",
+    "needs": [
+      "shader"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "blurred moving blobs and gradients approximate",
+    "tsvg_demo": null,
+    "source": "skills/shader-glsl/SKILL.md"
+  },
+  {
+    "id": "shader-glsl/sdf-shapes",
+    "name": "SDF shapes",
+    "skill": "shader-glsl",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Crisp resolution-independent circles, boxes, rounded shapes",
+    "needs": [
+      "shader"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "vector shapes are already resolution independent",
+    "tsvg_demo": null,
+    "source": "skills/shader-glsl/SKILL.md"
+  },
+  {
+    "id": "shader-glsl/dissolve",
+    "name": "Noise dissolve transition",
+    "skill": "shader-glsl",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Threshold noise to dissolve image A into B",
+    "needs": [
+      "shader"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "per-pixel threshold; a fixed mask image fade is the closest",
+    "tsvg_demo": null,
+    "source": "skills/shader-glsl/references/glsl-cookbook.md"
+  },
+  {
+    "id": "shader-glsl/displacement",
+    "name": "Displacement transition",
+    "skill": "shader-glsl",
+    "kind": "transition",
+    "count": 1,
+    "summary": "UVs pushed by a displacement map between images",
+    "needs": [
+      "shader"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "per-pixel UV displacement",
+    "tsvg_demo": null,
+    "source": "skills/shader-glsl/references/glsl-cookbook.md"
+  },
+  {
+    "id": "shader-glsl/glitch-ca",
+    "name": "Glitch + chromatic aberration",
+    "skill": "shader-glsl",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Row block shift and RGB channel split",
+    "needs": [
+      "shader"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "strip offsets and RGB copies with blend approximate",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/shader-glsl/references/glsl-cookbook.md"
+  }
+]

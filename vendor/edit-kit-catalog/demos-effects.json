@@ -1,0 +1,346 @@
+{
+ "anime-cel/reactions": {
+  "reel": "effects-1",
+  "t": 0
+ },
+ "anime-cel/fx/blur-band": {
+  "reel": "effects-1",
+  "t": 5
+ },
+ "anime-cel/fx/dramatic-zoom": {
+  "reel": "effects-1",
+  "t": 9
+ },
+ "anime-cel/fx/flash": {
+  "reel": "effects-1",
+  "t": 13
+ },
+ "anime-cel/fx/impact-frame": {
+  "reel": "effects-1",
+  "t": 17
+ },
+ "anime-cel/fx/petals": {
+  "reel": "effects-1",
+  "t": 21
+ },
+ "anime-cel/fx/smear": {
+  "reel": "effects-1",
+  "t": 26
+ },
+ "anime-cel/fx/sparkles": {
+  "reel": "effects-1",
+  "t": 30
+ },
+ "anime-cel/fx/speed-lines": {
+  "reel": "effects-1",
+  "t": 34
+ },
+ "blender-product-film/title-reveals": {
+  "reel": "effects-1",
+  "t": 38
+ },
+ "crayon-storybook/book-page": {
+  "reel": "effects-1",
+  "t": 43
+ },
+ "cut-the-curve/nudge-curve": {
+  "reel": "effects-1",
+  "t": 47
+ },
+ "embedded-captions/move-crosshair": {
+  "reel": "effects-1",
+  "t": 51.5
+ },
+ "embedded-captions/move-etch": {
+  "reel": "effects-1",
+  "t": 56
+ },
+ "fx/progress-bar": {
+  "reel": "effects-1",
+  "t": 60.5
+ },
+ "fx/glass-side-card": {
+  "reel": "effects-1",
+  "t": 64.5
+ },
+ "fx/glow-blobs-grid": {
+  "reel": "effects-1",
+  "t": 69
+ },
+ "fx/hearts-float": {
+  "reel": "effects-1",
+  "t": 73
+ },
+ "fx/hero-folder": {
+  "reel": "effects-1",
+  "t": 77
+ },
+ "fx/light-stage": {
+  "reel": "effects-1",
+  "t": 81.5
+ },
+ "fx/shimmer": {
+  "reel": "effects-1",
+  "t": 86
+ },
+ "fx/punch-cut": {
+  "reel": "effects-1",
+  "t": 90.5
+ },
+ "fx/red-x-chip": {
+  "reel": "effects-1",
+  "t": 95
+ },
+ "fx/smooth-zoom": {
+  "reel": "effects-1",
+  "t": 99
+ },
+ "fx/rise-fall": {
+  "reel": "effects-1",
+  "t": 103.5
+ },
+ "fx/status-card": {
+  "reel": "effects-1",
+  "t": 107.5
+ },
+ "fx/strike-through": {
+  "reel": "effects-1",
+  "t": 112
+ },
+ "fx/target-ring-avatars": {
+  "reel": "effects-1",
+  "t": 116
+ },
+ "fx/chat": {
+  "reel": "effects-1",
+  "t": 120
+ },
+ "fx/white-flash": {
+  "reel": "effects-1",
+  "t": 124.5
+ },
+ "fx/proof-post": {
+  "reel": "effects-1",
+  "t": 128.5
+ },
+ "fx/zoom-through": {
+  "reel": "effects-1",
+  "t": 133
+ },
+ "fx/tilt-dashboard": {
+  "reel": "effects-1",
+  "t": 137
+ },
+ "fx/cam-box": {
+  "reel": "effects-1",
+  "t": 141.5
+ },
+ "fx/word-behind-subject": {
+  "reel": "effects-1",
+  "t": 146.5
+ },
+ "fx/pip-showcase": {
+  "reel": "effects-1",
+  "t": 150.5
+ },
+ "paper-cutout/pop-up": {
+  "reel": "effects-1",
+  "t": 155.5
+ },
+ "pixel-art/weather": {
+  "reel": "effects-1",
+  "t": 160
+ },
+ "threejs-animation/postfx": {
+  "reel": "effects-1",
+  "t": 165
+ },
+ "shader-glsl/sdf-shapes": {
+  "reel": "effects-1",
+  "t": 169.5
+ },
+ "shader-glsl/cosine-palette": {
+  "reel": "effects-1",
+  "t": 174
+ },
+ "shader-glsl/plasma-aurora": {
+  "reel": "effects-1",
+  "t": 178.5
+ },
+ "motion-graphics/apple-money-count": {
+  "reel": "effects-2",
+  "t": 0
+ },
+ "motion-graphics/flag-borders": {
+  "reel": "effects-2",
+  "t": 4.5
+ },
+ "motion-graphics/geo-highlight": {
+  "reel": "effects-2",
+  "t": 8.5
+ },
+ "motion-graphics/motion-primitives": {
+  "reel": "effects-2",
+  "t": 13
+ },
+ "motion-graphics/pin-rollout": {
+  "reel": "effects-2",
+  "t": 18
+ },
+ "motion-graphics/shimmer-sweep": {
+  "reel": "effects-2",
+  "t": 22.5
+ },
+ "motion-graphics/spain-map": {
+  "reel": "effects-2",
+  "t": 26.5
+ },
+ "motion-graphics/texture-mask-text": {
+  "reel": "effects-2",
+  "t": 31
+ },
+ "motion-graphics/us-map": {
+  "reel": "effects-2",
+  "t": 35
+ },
+ "motion-graphics/vignette": {
+  "reel": "effects-2",
+  "t": 40.5
+ },
+ "motion-graphics/basemap-zoom": {
+  "reel": "effects-2",
+  "t": 44.5
+ },
+ "music-to-video/fx-blur-resolve": {
+  "reel": "effects-2",
+  "t": 49.5
+ },
+ "music-to-video/fx-color-grid-shuffle": {
+  "reel": "effects-2",
+  "t": 53.5
+ },
+ "music-to-video/fx-content-swap": {
+  "reel": "effects-2",
+  "t": 57.5
+ },
+ "music-to-video/fx-crash-zoom-in": {
+  "reel": "effects-2",
+  "t": 61
+ },
+ "music-to-video/fx-electric-arc": {
+  "reel": "effects-2",
+  "t": 64.5
+ },
+ "music-to-video/fx-flash-cut": {
+  "reel": "effects-2",
+  "t": 68.5
+ },
+ "music-to-video/fx-freeze-hold": {
+  "reel": "effects-2",
+  "t": 72
+ },
+ "music-to-video/fx-hard-cut": {
+  "reel": "effects-2",
+  "t": 76
+ },
+ "music-to-video/fx-hypercut-whip": {
+  "reel": "effects-2",
+  "t": 79.5
+ },
+ "music-to-video/fx-iris-open": {
+  "reel": "effects-2",
+  "t": 83
+ },
+ "music-to-video/fx-liquid-morph": {
+  "reel": "effects-2",
+  "t": 86.5
+ },
+ "music-to-video/fx-mask-reveal": {
+  "reel": "effects-2",
+  "t": 91
+ },
+ "music-to-video/fx-mosaic-pack": {
+  "reel": "effects-2",
+  "t": 95
+ },
+ "music-to-video/fx-negative-space-hold": {
+  "reel": "effects-2",
+  "t": 99
+ },
+ "music-to-video/fx-outline-to-fill": {
+  "reel": "effects-2",
+  "t": 103.5
+ },
+ "music-to-video/fx-palette-flip": {
+  "reel": "effects-2",
+  "t": 107.5
+ },
+ "music-to-video/fx-pixel-dissolve": {
+  "reel": "effects-2",
+  "t": 111.3
+ },
+ "music-to-video/fx-screen-shake": {
+  "reel": "effects-2",
+  "t": 115.3
+ },
+ "music-to-video/fx-slot-machine-reveal": {
+  "reel": "effects-2",
+  "t": 118.8
+ },
+ "music-to-video/fx-spotlight-sweep": {
+  "reel": "effects-2",
+  "t": 122.8
+ },
+ "music-to-video/fx-staggered-exit": {
+  "reel": "effects-2",
+  "t": 126.8
+ },
+ "music-to-video/fx-system-replace": {
+  "reel": "effects-2",
+  "t": 130.3
+ },
+ "music-to-video/fx-tile-mosaic": {
+  "reel": "effects-2",
+  "t": 134.3
+ },
+ "music-to-video/fx-word-grid-burst": {
+  "reel": "effects-2",
+  "t": 138.3
+ },
+ "music-to-video/fx-bg-flow-field": {
+  "reel": "effects-2",
+  "t": 142.8
+ },
+ "music-to-video/fx-dolly-zoom": {
+  "reel": "effects-2",
+  "t": 147.3
+ },
+ "music-to-video/fx-gooey-metaball": {
+  "reel": "effects-2",
+  "t": 151.3
+ },
+ "music-to-video/fx-text-spectral-rays": {
+  "reel": "effects-2",
+  "t": 155.8
+ },
+ "music-to-video/fx-text-wave-distort": {
+  "reel": "effects-2",
+  "t": 160.3
+ },
+ "pr-to-video/code-morph": {
+  "reel": "effects-2",
+  "t": 164.3
+ },
+ "pr-to-video/code-3d-extrude": {
+  "reel": "effects-2",
+  "t": 168.8
+ },
+ "pr-to-video/code-particle-assemble": {
+  "reel": "effects-2",
+  "t": 173.3
+ },
+ "pr-to-video/code-shader-dissolve": {
+  "reel": "effects-2",
+  "t": 177.8
+ }
+}

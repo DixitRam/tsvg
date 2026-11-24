@@ -1,0 +1,2552 @@
+[
+  {
+    "id": "edit",
+    "name": "Edit Kit front door",
+    "skill": "edit",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Router: checks setup, asks intake, picks one of 11 styles or a special look, then runs director.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "Equivalent: the tsvg skill + tsvg new (template pick) is the TSVG front door.",
+    "tsvg_demo": null,
+    "source": "skills/edit/SKILL.md"
+  },
+  {
+    "id": "fx",
+    "name": "Motion FX library (MotionKit + CreatorFX)",
+    "skill": "fx",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Shared HyperFrames/GSAP effects runtime, scaffolder, word timer and finalize encoder used by reels/youtube/saas.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "TSVG has its own primitives (tweens, keyframes, repeat, data); its effects are rated individually below as fx/*.",
+    "tsvg_demo": null,
+    "source": "skills/fx/SKILL.md"
+  },
+  {
+    "id": "theme",
+    "name": "Motion Theme",
+    "skill": "theme",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Picks palette and font pair from a brand kit, prompt or footage analysis; writes theme.json.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "TSVG has themes as an option; no footage colour analysis (would be a pre-step).",
+    "tsvg_demo": null,
+    "source": "skills/theme/SKILL.md"
+  },
+  {
+    "id": "sound",
+    "name": "Sound Design",
+    "skill": "sound",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "SFX on impact frames at -17 dB, soft music bed, Kokoro/ElevenLabs voiceover, -14 LUFS mix.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "TSVG already has narration per language, music and sfx on buses with mixes; loudness targets would be set per bus.",
+    "tsvg_demo": null,
+    "source": "skills/sound/SKILL.md"
+  },
+  {
+    "id": "qa",
+    "name": "Edit QA",
+    "skill": "qa",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Format, loudness, SFX sync and frame-by-frame visual checklist before delivery.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "TSVG equivalent: tsvg check (no encode, so format/keyframe checks are moot; loudness/sync checks partly).",
+    "tsvg_demo": null,
+    "source": "skills/qa/SKILL.md"
+  },
+  {
+    "id": "motion-doctrine",
+    "name": "Motion Doctrine (seam gate)",
+    "skill": "motion-doctrine",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Motion law: vector ledger, carriers, causal motion, no idle wobble, stillness before climax, Seam Gate verifier.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "Doctrine applies as authoring guidance to TSVG scenes; no TSVG seam verifier yet.",
+    "tsvg_demo": null,
+    "source": "skills/motion-doctrine/SKILL.md"
+  },
+  {
+    "id": "director",
+    "name": "Edit Director (raw clip / script / idea to finished edit)",
+    "skill": "director",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Intake, raw cut, words, theme, storyboard, build, sound and QA for any of 11 styles.",
+    "needs": [
+      "footage",
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Script/idea styles (SaaS, motion graphics, finance) work; raw-clip talking-head edits need a video node.",
+    "tsvg_demo": null,
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/creator-explainer",
+    "name": "Creator Explainer",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Talking head to camera with English key words, smooth zooms, PiP showcases, real UI beats.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Needs the speaker clip and raw cut; the key-word/UI-beat layer alone is native.",
+    "tsvg_demo": null,
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/saas",
+    "name": "SaaS / Tech Product",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Code-built promo: prompt bar, glass UI, 3D dashboard, counters, logo orbit, no footage.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "All vector UI, type and counters; 3D dashboard tilt is faked in 2.5D.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/motion-graphics-explainer",
+    "name": "Motion Graphics Explainer",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Faceless kinetic headlines, floating UI cards, list builds, colour flash cuts.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Pure type and shapes timed to voiceover word data.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/vox",
+    "name": "Vox Explainer",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Paper background, yellow/red, cut-out archival photos, squiggles, highlighter, map routes, Ken Burns.",
+    "needs": [
+      "script",
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Collage, highlighter, maps and Ken Burns are native; archival footage becomes stills.",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/ali-abdaal",
+    "name": "Ali Abdaal Clean",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Bright room talking head with pastel cards, serif titles, numbered list builds, soft blur cuts.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Speaker footage is the core; cards and list builds alone are native.",
+    "tsvg_demo": null,
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/real-estate",
+    "name": "Real Estate",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Agent talking head, luxury walkthrough or launch ad with giant words, counters, chips.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Built on property/agent footage; only the launch-ad card layer is native.",
+    "tsvg_demo": null,
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/construction",
+    "name": "Construction / Trades",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Site footage with timelapse, day counters, phase bars, blueprint draw-ons, before/after wipes.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Timelapse/site footage at the core; blueprint and counter graphics are native.",
+    "tsvg_demo": null,
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/gadzhi",
+    "name": "Gadzhi Cinematic",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Black/oxblood luxury business edit, chrome type, floating proof screenshots, whip zooms, grain.",
+    "needs": [
+      "footage",
+      "screenshots"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Talking-head footage plus depth blur; chrome type, screenshots and counters are native.",
+    "tsvg_demo": null,
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/bold-impact",
+    "name": "Bold Impact",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Dark motivation edit, yellow/red Montserrat caps, zoom every cut, emoji pops, B&W hits.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Hard-cut talking head; B&W hit is a grade on footage.",
+    "tsvg_demo": null,
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/podcast",
+    "name": "Podcast Clip",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Two-camera podcast cut on the speaker with lime numbers, name tags, quote cards.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Multi-camera speaker cutting needs video clips.",
+    "tsvg_demo": null,
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "director/finance",
+    "name": "Finance / Money",
+    "skill": "director",
+    "kind": "style",
+    "count": 1,
+    "summary": "Dark neon with price graph draw-on, money counters, % chips, comparison bars.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Faceless version is native; the reels variant over a talking head needs footage.",
+    "tsvg_demo": "market-recap",
+    "source": "skills/director/SKILL.md"
+  },
+  {
+    "id": "reels",
+    "name": "Vertical edit (Reels / TikTok / Shorts)",
+    "skill": "reels",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "9:16 talking-head edit: hook in 3 s, kinetic captions, chips, cards, smooth zooms, SFX on every pop.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Raw phone footage is the core; the vertical caption/chip layer is native (see social-short-vertical).",
+    "tsvg_demo": null,
+    "source": "skills/reels/SKILL.md"
+  },
+  {
+    "id": "reels/real-estate-agent-story",
+    "name": "Real Estate: Agent Story",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Agent to camera: giant word behind them, big numbers, service chips, red X, status card, target ring.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Needs agent footage and a cutout matte for word-behind.",
+    "tsvg_demo": null,
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/real-estate-luxury-walkthrough",
+    "name": "Real Estate: Luxury Walkthrough",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Gimbal and drone shots with thin white single words, script accents, new shot every 2 s.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Entirely moving footage of the property.",
+    "tsvg_demo": null,
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/real-estate-project-launch-ad",
+    "name": "Real Estate: Project Launch Ad",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Developer ad: location pin chip, ACTUAL SHOT tag, wide gradient words, specs end card with QR.",
+    "needs": [
+      "footage",
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Works with renders/photos as stills + camera moves; drone footage lost.",
+    "tsvg_demo": null,
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/construction-project-progress",
+    "name": "Construction: Project Progress",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Speed-ramped timelapse, DAY 01 to DAY 90 counter, phase bar, blueprint lines dissolving into footage.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Photo-per-day sequence + counters + blueprint draw-on works; real timelapse lost.",
+    "tsvg_demo": null,
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/construction-contractor-talk",
+    "name": "Construction: Contractor Talk",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Contractor to camera with bold captions, dimension lines snapping onto walls, permit ticks.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Talking head on site is the core.",
+    "tsvg_demo": null,
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/construction-renovation-before-after",
+    "name": "Construction: Renovation Before/After",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Before/after wipe slider with yellow handle, room labels, cost counter, hazard-stripe wipes.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Native with before/after photos; video walkthroughs become stills.",
+    "tsvg_demo": "before-after-slider",
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/bold-impact",
+    "name": "Bold Impact",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Dark grade, yellow/red Montserrat italic caps, zoom every cut, emoji pops, B&W punchline hits.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Hard-cut talking head and B&W grade on footage.",
+    "tsvg_demo": null,
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/ali-abdaal-clean",
+    "name": "Ali Abdaal Clean",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Pastel cards, Instrument Serif + Poppins, numbered list builds, glass tip cards, soft blur cuts.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Speaker footage core; card layer native.",
+    "tsvg_demo": null,
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/faceless-kinetic",
+    "name": "Faceless Kinetic",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Black or paper grid, one accent, kinetic headlines, floating UI cards, marquee, colour flash cuts.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "No footage; type, cards and flashes are all vector.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/podcast-clip",
+    "name": "Podcast Clip",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Near black, lime numbers, host CAPS / guest lowercase captions, cut on speaker, name tags.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Cutting between speaker cameras needs video.",
+    "tsvg_demo": null,
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "reels/finance",
+    "name": "Finance / Money",
+    "skill": "reels",
+    "kind": "style",
+    "count": 1,
+    "summary": "Dark neon, stock graph draw-on with leading dot, money counters, % chips, comparison bars.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Graphics native; over-speaker variant needs footage.",
+    "tsvg_demo": "market-recap",
+    "source": "skills/reels/references/presets.md"
+  },
+  {
+    "id": "youtube",
+    "name": "Horizontal YouTube edit",
+    "skill": "youtube",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "16:9 talking-head/interview edit with key words, impact zooms, real UI beats, PiP showcases, side cards.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Long-form footage edit; the graphic beats are native but the speaker needs a video node.",
+    "tsvg_demo": null,
+    "source": "skills/youtube/SKILL.md"
+  },
+  {
+    "id": "youtube/creator-explainer",
+    "name": "Creator Explainer",
+    "skill": "youtube",
+    "kind": "style",
+    "count": 1,
+    "summary": "Graphite stage, ice-cyan accent, serif lead + big key word, decoder text, hero folder, PiP fan.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Speaker footage core; every graphic beat (decode, folder, chat, posts) is native.",
+    "tsvg_demo": null,
+    "source": "skills/youtube/references/presets.md"
+  },
+  {
+    "id": "youtube/creator-light-studio",
+    "name": "Creator Light Studio",
+    "skill": "youtube",
+    "kind": "style",
+    "count": 1,
+    "summary": "Warm off-white blob stage, speaker in a tall rounded box, screen recording or recreated UI beside.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Speaker box and screen recording are video.",
+    "tsvg_demo": null,
+    "source": "skills/youtube/references/presets.md"
+  },
+  {
+    "id": "youtube/clean-talking-head",
+    "name": "Clean Talking Head",
+    "skill": "youtube",
+    "kind": "style",
+    "count": 1,
+    "summary": "Graded footage, vignette, grain, dark glass side cards: stars, graph, profile counter, chips.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Footage grade is pixel processing; cards native.",
+    "tsvg_demo": null,
+    "source": "skills/youtube/references/presets.md"
+  },
+  {
+    "id": "youtube/gadzhi-cinematic",
+    "name": "Gadzhi Cinematic",
+    "skill": "youtube",
+    "kind": "style",
+    "count": 1,
+    "summary": "Chrome/silver type, gold serif key words, floating proof screenshots, whip zooms, price rolls.",
+    "needs": [
+      "footage",
+      "screenshots"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Talking-head footage with depth blur.",
+    "tsvg_demo": null,
+    "source": "skills/youtube/references/presets.md"
+  },
+  {
+    "id": "youtube/vox-explainer",
+    "name": "Vox Explainer",
+    "skill": "youtube",
+    "kind": "style",
+    "count": 1,
+    "summary": "Paper #f2f0eb, yellow circles behind cut-out archival photos, squiggles, highlighter, map routes.",
+    "needs": [
+      "screenshots",
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Stills, highlighter, maps native; archival video clips lost.",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/youtube/references/presets.md"
+  },
+  {
+    "id": "youtube/documentary-collage",
+    "name": "Documentary Collage",
+    "skill": "youtube",
+    "kind": "style",
+    "count": 1,
+    "summary": "Lilac paper, B&W cut-out people, poster grids with barcodes, mask split reveals, light leaks.",
+    "needs": [
+      "screenshots",
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Collage with pre-cut PNGs native; light leaks approximated with gradients; footage lost.",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/youtube/references/presets.md"
+  },
+  {
+    "id": "youtube/remove-logo",
+    "name": "Background logo / watermark removal",
+    "skill": "youtube",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Patches a static logo or corner watermark out of tripod footage.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Pixel inpainting on footage.",
+    "tsvg_demo": null,
+    "source": "skills/youtube/scripts/remove_logo.py"
+  },
+  {
+    "id": "saas",
+    "name": "SaaS motion promo",
+    "skill": "saas",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Code-built product/agency promo from a prompt: prompt bar, glass UI, 3D dashboard, counters, logo orbit.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "No footage; all vector UI synced to voiceover words. 3D tilt is 2.5D.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/saas/SKILL.md"
+  },
+  {
+    "id": "saas/dark-neon",
+    "name": "Dark Neon",
+    "skill": "saas",
+    "kind": "style",
+    "count": 1,
+    "summary": "Near-black, one glow colour, drifting blur blobs, faint grid, glass UI, Inter Tight + serif italic.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Blur, gradients and glow are native; backdrop blur approximated.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/saas/SKILL.md"
+  },
+  {
+    "id": "saas/clean-saas-glass",
+    "name": "Clean SaaS Glass",
+    "skill": "saas",
+    "kind": "style",
+    "count": 1,
+    "summary": "Light #f7f9fd, pastel blobs, per-word blur text, 20 px glass cards, light/dark switch.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Glass cards approximated with blurred copies + clip; otherwise native.",
+    "tsvg_demo": null,
+    "source": "skills/saas/SKILL.md"
+  },
+  {
+    "id": "saas/crimson-brand-punch",
+    "name": "Crimson Brand Punch",
+    "skill": "saas",
+    "kind": "style",
+    "count": 1,
+    "summary": "Crimson gradient, white + gold Poppins 800, pill highlights, cursor selection box, hard cuts.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Gradients, pills, cursor and counters are vector.",
+    "tsvg_demo": null,
+    "source": "skills/saas/SKILL.md"
+  },
+  {
+    "id": "saas/character-explainer",
+    "name": "Character Explainer",
+    "skill": "saas",
+    "kind": "style",
+    "count": 1,
+    "summary": "One brand hue, rounded type, an SVG mascot that blinks and bobs, floating UI chips.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "SVG mascot with path morphs and expressions of time.",
+    "tsvg_demo": "flat-vector-science",
+    "source": "skills/saas/SKILL.md"
+  },
+  {
+    "id": "saas/before-after-words",
+    "name": "Before/after words",
+    "skill": "saas",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "\"Built in MINUTES, not WEEKS\": the old word struck through, the new one slammed in.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text + stroke draw-on.",
+    "tsvg_demo": null,
+    "source": "skills/saas/SKILL.md"
+  },
+  {
+    "id": "saas/stat-cards",
+    "name": "Stat cards",
+    "skill": "saas",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Glass cards with counters for real (or flagged placeholder) numbers.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Counters via expressions of time.",
+    "tsvg_demo": "dashboard-kpi-tour",
+    "source": "skills/saas/SKILL.md"
+  },
+  {
+    "id": "saas/hero-word-flash",
+    "name": "Hero word + flash",
+    "skill": "saas",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Giant glowing word (SELL.) landing with a white flash.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scale tween, glow via blur, white rect flash.",
+    "tsvg_demo": null,
+    "source": "skills/saas/SKILL.md"
+  },
+  {
+    "id": "fx/kinetic-captions",
+    "name": "Kinetic captions",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Serif italic lead words + one big glowing key word per phrase, each word blur-rises on its timestamp.",
+    "needs": [
+      "audio",
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Word timings precomputed into a data list.",
+    "tsvg_demo": "social-short-vertical",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/word-behind-subject",
+    "name": "Giant word behind the subject",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Huge word layered between footage and an AI cutout of the speaker.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Works with a still photo + cutout PNG; moving subject matte needs footage + AI segmentation.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/strike-through",
+    "name": "Strike-through on a negative word",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Ink line drawn through a word (HOPE, WEEKS).",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Rect/line scale tween.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/punch-cut",
+    "name": "Punch-in / punch-out cut",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Hard scale jumps on the camera wrapper with a slow push.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group scale keyframes; on footage it would need video.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/smooth-zoom",
+    "name": "Smooth impact zoom",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Eased push in, hold, ease out on impact lines.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Camera group transform.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/glass-side-card",
+    "name": "Glass side card",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Dark or light glass card slides in with a slight 3D turn.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Slide + per-axis scale for the turn; backdrop blur approximated.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/checklist-chips",
+    "name": "Checklist chips with ticks",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Chips pop on each spoken list item, tick path draws on.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Path draw via dashes.",
+    "tsvg_demo": "step-by-step-howto",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/red-x-chip",
+    "name": "Red X chip",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Chip with a red X for what you do NOT do.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector chip.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/status-card",
+    "name": "Status card",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "e.g. \"MLS · waiting...\" card that then gets crossed out.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector card + strike.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/counter",
+    "name": "Counter / price roll",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Rolling number for stats, followers, %.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text from an expression of time.",
+    "tsvg_demo": "infographic-stats",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/graph-draw-on",
+    "name": "Graph line draw-on + dot",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Line draws on with a leading dot.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Dash/clip reveal + data().",
+    "tsvg_demo": "line-chart-reveal",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/bar-chart-grow",
+    "name": "Bar chart grow",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Bars grow in staggered.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat/data bars.",
+    "tsvg_demo": "dashboard-kpi-tour",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/target-ring-avatars",
+    "name": "Target ring + avatars",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Concentric rings draw on, bullseye pops, avatar circles pop in.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Arcs + circles + images.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/hearts-float",
+    "name": "Hearts / emoji float",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Hearts or emoji drift up and fade.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat particles with noise.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/prompt-bar-click",
+    "name": "Prompt bar typing + cursor click",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Glass pill types a prompt, caret blinks, cursor glides and clicks Generate with a ripple.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Typewriter reveal + cursor path + ripple circle.",
+    "tsvg_demo": "screencast-cursor",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/tilt-dashboard",
+    "name": "3D tilted dashboard settles flat",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Dashboard panel in perspective settles flat, rows light on words.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "No true perspective; faked with skew/per-axis scale (2.5D).",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/zoom-through",
+    "name": "Zoom-through transition",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Scale + blur + fade through into the next scene.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group scale, blur and opacity.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/progress-steps",
+    "name": "Progress steps with ticks + %",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Track fills, 4 nodes tick on words, % counter, label flips to Ready.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector track + counters.",
+    "tsvg_demo": "step-by-step-howto",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/logo-orbit",
+    "name": "Logo orbit + wordmark sheen",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Logo lands, tool icons orbit, a sheen sweeps the wordmark through a mask.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Rotation groups + alpha mask sweep.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/white-flash",
+    "name": "White flash",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Full-frame white flash on a punchline.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Opacity on a rect.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/grain-vignette",
+    "name": "Grain + vignette",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Film grain texture and dark vignette.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Grain image with random offset each frame; radial gradient vignette.",
+    "tsvg_demo": "documentary-ken-burns",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/glow-blobs-grid",
+    "name": "Glow blobs + grid background",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Drifting blurred colour blobs over a faint grid.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Blurred circles with noise drift + repeat grid.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/key-word-entrances",
+    "name": "Key word entrances (lead, popIn, slam, blurRise, out)",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 5,
+    "summary": "Word-by-word serif lead lines and back-out pop / slam / blur-rise entrances and blur-up exits.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Tweens on scale, y, blur, opacity.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/fx/references/effects.md"
+  },
+  {
+    "id": "fx/decode",
+    "name": "Decoder text",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Letters scramble through glyphs then lock left to right.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "rand() glyph per letter until its lock time.",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/shimmer",
+    "name": "Metallic shimmer (gold / silver)",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Metallic gradient sweep across text.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Gradient + moving mask.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/hero-folder",
+    "name": "Hero folder",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Apple-style folder opens and fans out labelled papers; reused as a recurring hero object.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector folder; flap open as 2.5D scaleY.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/pip-showcase",
+    "name": "Picture-in-picture showcase",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Speaker shrinks to a ringed corner, example videos fly in as a 3D fan, focus ring hops.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Example clips and speaker become stills; fan is 2.5D.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/cam-box",
+    "name": "Camera box (light studio)",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Speaker eases into a tall rounded box beside a screen recording, back to full frame.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Box/clip native, but the speaker and screen recording are video.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/light-stage",
+    "name": "Light stage",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Soft blurred pastel blobs + dot grid, light or dark.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Blur + repeat dots.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/proof-post",
+    "name": "X / Threads proof post",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Real social posts rise in as cards with handles.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card with text + avatar image.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/chat",
+    "name": "WhatsApp-style chat",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Chat bubbles with typing dots for client feedback or DMs.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Bubbles timed by data list.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/progress-bar",
+    "name": "Glass progress bar",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Glass bar with fill and knob for \"start to end\".",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Rect fill + circle.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/rise-fall",
+    "name": "Soft rise / blur-up fall",
+    "skill": "fx",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Soft card entrance and blur-up exit.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Tweens.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/ui-menubar-clock",
+    "name": "Real UI beat: macOS menu-bar clock",
+    "skill": "fx",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Menu-bar clock reading 3 AM over a night or screen shot.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector menu bar + text.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/ui-render-error",
+    "name": "Real UI beat: export window + error dialog",
+    "skill": "fx",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Render queue/export window with the real error dialog for \"the render failed\".",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Recreated UI in vector or a screenshot image.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/ui-edit-timeline",
+    "name": "Real UI beat: editing timeline",
+    "skill": "fx",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Editor timeline with razor cut, graph editor curve, voice waveform.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector tracks; waveform from precomputed data.",
+    "tsvg_demo": null,
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "fx/ui-claude-code",
+    "name": "Real UI beat: Claude Code window",
+    "skill": "fx",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Terminal window with typed prompts and attachments, state from timeline time.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Typewriter text in a vector window.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/fx/references/creator-effects.md"
+  },
+  {
+    "id": "faceless-explainer",
+    "name": "Faceless explainer",
+    "skill": "faceless-explainer",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Text/topic to narrated explainer with invented visuals: typography, abstract graphics, diagrams, data-viz.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector visuals + baked TTS narration + captions from word data.",
+    "tsvg_demo": "flat-vector-science",
+    "source": "skills/faceless-explainer/SKILL.md"
+  },
+  {
+    "id": "faceless-explainer/concept-explainer",
+    "name": "Concept explainer",
+    "skill": "faceless-explainer",
+    "kind": "template",
+    "count": 1,
+    "summary": "Name the concept, reveal the mechanism layer by layer, land the implication.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Structure only; all visuals are invented vector.",
+    "tsvg_demo": "flat-vector-science",
+    "source": "skills/faceless-explainer/references/story-design.md"
+  },
+  {
+    "id": "faceless-explainer/how-to-process",
+    "name": "How-to / process",
+    "skill": "faceless-explainer",
+    "kind": "template",
+    "count": 1,
+    "summary": "3-6 ordered steps on one consistent visual stage, one move each.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Structure only; all visuals are invented vector.",
+    "tsvg_demo": "step-by-step-howto",
+    "source": "skills/faceless-explainer/references/story-design.md"
+  },
+  {
+    "id": "faceless-explainer/listicle",
+    "name": "Listicle",
+    "skill": "faceless-explainer",
+    "kind": "template",
+    "count": 1,
+    "summary": "Hook, N co-equal items (tips, mistakes, reasons), wrap.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Structure only; all visuals are invented vector.",
+    "tsvg_demo": "listicle-countdown",
+    "source": "skills/faceless-explainer/references/story-design.md"
+  },
+  {
+    "id": "faceless-explainer/story-explainer",
+    "name": "Story explainer",
+    "skill": "faceless-explainer",
+    "kind": "template",
+    "count": 1,
+    "summary": "Setup, tension, turn, resolution, lesson; case studies and histories.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Structure only; all visuals are invented vector.",
+    "tsvg_demo": "history-timeline",
+    "source": "skills/faceless-explainer/references/story-design.md"
+  },
+  {
+    "id": "faceless-explainer/crossfade",
+    "name": "Crossfade",
+    "skill": "faceless-explainer",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Opacity dissolve between frames.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scene group transforms, blur and opacity.",
+    "tsvg_demo": null,
+    "source": "skills/faceless-explainer/scripts/lib/transitions.json"
+  },
+  {
+    "id": "faceless-explainer/blur-crossfade",
+    "name": "Blur crossfade",
+    "skill": "faceless-explainer",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Dissolve with blur and slight scale; default for calm seams.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scene group transforms, blur and opacity.",
+    "tsvg_demo": null,
+    "source": "skills/faceless-explainer/scripts/lib/transitions.json"
+  },
+  {
+    "id": "faceless-explainer/push-slide",
+    "name": "Push slide",
+    "skill": "faceless-explainer",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Old frame pushed out, new pushed in (left/right/up/down).",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scene group transforms, blur and opacity.",
+    "tsvg_demo": null,
+    "source": "skills/faceless-explainer/scripts/lib/transitions.json"
+  },
+  {
+    "id": "faceless-explainer/zoom-through-frame",
+    "name": "Zoom-through (frame)",
+    "skill": "faceless-explainer",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Old scales up blurred and fades, new grows from 0.5.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scene group transforms, blur and opacity.",
+    "tsvg_demo": null,
+    "source": "skills/faceless-explainer/scripts/lib/transitions.json"
+  },
+  {
+    "id": "faceless-explainer/squeeze",
+    "name": "Squeeze",
+    "skill": "faceless-explainer",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Old compresses to a line on the left, new expands from the right.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scene group transforms, blur and opacity.",
+    "tsvg_demo": null,
+    "source": "skills/faceless-explainer/scripts/lib/transitions.json"
+  },
+  {
+    "id": "faceless-explainer/zoom-through-cut",
+    "name": "Zoom-through cut (within frame)",
+    "skill": "faceless-explainer",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Text accelerates toward viewer, hard cut at peak blur, next text grows into focus.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Eased tweens on scale/x/blur/opacity; per-word stagger via repeat.",
+    "tsvg_demo": null,
+    "source": "skills/faceless-explainer/references/cut-catalog.md"
+  },
+  {
+    "id": "faceless-explainer/inverse-zoom-through",
+    "name": "Inverse zoom-through",
+    "skill": "faceless-explainer",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Outgoing recedes; incoming arrives oversized and retracts: an arrival/payoff beat.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Eased tweens on scale/x/blur/opacity; per-word stagger via repeat.",
+    "tsvg_demo": null,
+    "source": "skills/faceless-explainer/references/cut-catalog.md"
+  },
+  {
+    "id": "faceless-explainer/cut-the-curve",
+    "name": "Cut the curve",
+    "skill": "faceless-explainer",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Velocity-matched x/y scene cut: same direction, mirrored power4 eases, partial travel + fade.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Eased tweens on scale/x/blur/opacity; per-word stagger via repeat.",
+    "tsvg_demo": null,
+    "source": "skills/faceless-explainer/references/cut-catalog.md"
+  },
+  {
+    "id": "faceless-explainer/waterfall-cut",
+    "name": "Waterfall cut",
+    "skill": "faceless-explainer",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Word-by-word cut-the-curve with staggered exits and an accelerating entry cascade.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Eased tweens on scale/x/blur/opacity; per-word stagger via repeat.",
+    "tsvg_demo": null,
+    "source": "skills/faceless-explainer/references/cut-catalog.md"
+  },
+  {
+    "id": "slideshow",
+    "name": "HyperFrames slideshow (navigable deck)",
+    "skill": "slideshow",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Presentation/pitch deck with discrete slides, fragments, branching hotspots and presenter mode; not an MP4.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Slides as chapters on one timeline; no click-to-advance holds, hotspots or presenter view.",
+    "tsvg_demo": "keynote-slideshow",
+    "source": "skills/slideshow/SKILL.md"
+  },
+  {
+    "id": "slideshow/fragments",
+    "name": "Fragment reveals",
+    "skill": "slideshow",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Hold points inside a slide where the deck pauses until the presenter advances.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Builds are native; pausing at hold points needs player support.",
+    "tsvg_demo": "keynote-slideshow",
+    "source": "skills/slideshow/SKILL.md"
+  },
+  {
+    "id": "slideshow/branching-hotspots",
+    "name": "Branching hotspots",
+    "skill": "slideshow",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Clickable regions on a slide jump to alternate slide sequences.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "TSVG is a linear timeline; no in-scene clickable branching (options only switch variants).",
+    "tsvg_demo": null,
+    "source": "skills/slideshow/SKILL.md"
+  },
+  {
+    "id": "slideshow/presenter-mode",
+    "name": "Presenter mode + speaker notes",
+    "skill": "slideshow",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Presenter view with per-slide notes never shown to the audience.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "No presenter view; narration per language is the closest substitute.",
+    "tsvg_demo": null,
+    "source": "skills/slideshow/SKILL.md"
+  },
+  {
+    "id": "slideshow/page-to-deck",
+    "name": "Convert a web page into a deck",
+    "skill": "slideshow",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Ports an existing page's design, motion and media into slide-to-slide transitions.",
+    "needs": [
+      "url",
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Needs the page as screenshots/vector rebuild; live page interactions lost.",
+    "tsvg_demo": null,
+    "source": "skills/slideshow/SKILL.md"
+  },
+  {
+    "id": "general-video",
+    "name": "General video (custom composition)",
+    "skill": "general-video",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Freeform multi-scene HyperFrames build when no specialised workflow fits; storyboard, scenes, audio, captions.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Vector/text/image scenes are native; footage remixes and shader blocks are not.",
+    "tsvg_demo": null,
+    "source": "skills/general-video/SKILL.md"
+  },
+  {
+    "id": "general-video/brand-sizzle-reel",
+    "name": "Brand / sizzle reel",
+    "skill": "general-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Fast brand montage of product shots, type and logo, cut to music.",
+    "needs": [
+      "footage",
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Stills + type + logo on a precomputed beat map; video clips lost.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/general-video/SKILL.md"
+  },
+  {
+    "id": "general-video/montage",
+    "name": "Montage",
+    "skill": "general-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Sequence of clips or photos cut to rhythm.",
+    "needs": [
+      "footage",
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Photo montage with Ken Burns native; video montage needs clips.",
+    "tsvg_demo": "documentary-ken-burns",
+    "source": "skills/general-video/SKILL.md"
+  },
+  {
+    "id": "general-video/static-loop",
+    "name": "Static loop",
+    "skill": "general-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Short seamless looping ambient graphic.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Expressions of time with repeat.",
+    "tsvg_demo": null,
+    "source": "skills/general-video/SKILL.md"
+  },
+  {
+    "id": "general-video/title-card",
+    "name": "Static title card",
+    "skill": "general-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "A designed title card, still or with a light entrance.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text + shapes.",
+    "tsvg_demo": null,
+    "source": "skills/general-video/SKILL.md"
+  },
+  {
+    "id": "general-video/footage-remix",
+    "name": "Footage remix",
+    "skill": "general-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Trim, splice and reorder existing footage with zoom/pan/crop on clips.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Core is cutting video clips.",
+    "tsvg_demo": null,
+    "source": "skills/general-video/SKILL.md"
+  },
+  {
+    "id": "general-video/freeform-multi-scene",
+    "name": "Freeform multi-scene piece",
+    "skill": "general-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Longer narrated multi-scene video built from blueprints and rules.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scenes, chapters, narration, transitions all native.",
+    "tsvg_demo": null,
+    "source": "skills/general-video/SKILL.md"
+  },
+  {
+    "id": "motion-graphics",
+    "name": "Motion graphic (short, design-led)",
+    "skill": "motion-graphics",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Under ~10 s unnarrated motion piece: kinetic type, stat, chart, logo sting, lower third, map, tweet, webpage.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector/text/image; transparent-overlay export not applicable (TSVG composites itself).",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/motion-graphics/SKILL.md"
+  },
+  {
+    "id": "motion-graphics/kinetic-type",
+    "name": "Kinetic typography",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Punchy line, quote or title where type and motion carry the message.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, emphasis glow/pulse.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/motion-graphics/categories/kinetic-type/module.md"
+  },
+  {
+    "id": "motion-graphics/stat",
+    "name": "Hero stat count-up",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Single hero number counts up with a ring fill, label after.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Counter + arc dash.",
+    "tsvg_demo": "infographic-stats",
+    "source": "skills/motion-graphics/categories/stat/module.md"
+  },
+  {
+    "id": "motion-graphics/charts",
+    "name": "Charts",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Bar, line, pie, race or % from data; one chart, one message.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "data() + repeat; soft-rank race.",
+    "tsvg_demo": "bar-chart-race",
+    "source": "skills/motion-graphics/categories/charts/module.md"
+  },
+  {
+    "id": "motion-graphics/logo-reveal",
+    "name": "Logo reveal / brand lockup",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Logo sting: draw-on or mask reveal, glow bloom, tagline, URL pill.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "SVG path draw-on or image mask.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/motion-graphics/categories/logo-reveal/module.md"
+  },
+  {
+    "id": "motion-graphics/lower-thirds",
+    "name": "Lower thirds / callouts / social overlays",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Name/title bars and callouts meant to sit over other footage.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Bars native; as an alpha overlay on someone else's footage it needs a video underneath.",
+    "tsvg_demo": "news-bulletin",
+    "source": "skills/motion-graphics/categories/lower-thirds/module.md"
+  },
+  {
+    "id": "motion-graphics/maps",
+    "name": "Animated maps",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Highlight regions, connect places, choropleth, pins, zoom to a location (vector or baked basemap lane).",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Vector lane native; satellite basemap fly-in becomes a still image with camera zoom.",
+    "tsvg_demo": "map-route",
+    "source": "skills/motion-graphics/categories/maps/module.md"
+  },
+  {
+    "id": "motion-graphics/webpage",
+    "name": "Webpage / UI animation",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Captured page with scroll-through, spotlight, cursor clicks, zoom-to-region, callouts.",
+    "needs": [
+      "url",
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Screenshot images + camera/clip/spotlight.",
+    "tsvg_demo": "product-screenshot-tour",
+    "source": "skills/motion-graphics/categories/webpage/module.md"
+  },
+  {
+    "id": "motion-graphics/news",
+    "name": "News article highlight",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Real article text with a marker band swept over the keyword, outlet logo, person cutout.",
+    "needs": [
+      "url",
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text + gradient band + images.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/news/module.md"
+  },
+  {
+    "id": "motion-graphics/tweet",
+    "name": "Animated tweet card",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Real post card slides in, text types on, metrics count up.",
+    "needs": [
+      "url",
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector card + avatar image + counters.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/tweet/module.md"
+  },
+  {
+    "id": "motion-graphics/asset-fusion",
+    "name": "Asset fusion (image becomes the chart)",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "A real photo's geometry becomes the data-viz: straw as gauge, glass as pie, ringed callouts.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Image + vector overlays at precomputed positions.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/asset-fusion/module.md"
+  },
+  {
+    "id": "motion-graphics/caption-kinetic-slam",
+    "name": "Caption block: caption-kinetic-slam",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Slam words in with impact.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-editorial-emphasis",
+    "name": "Caption block: caption-editorial-emphasis",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Editorial serif captions with emphasis words.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-clip-wipe",
+    "name": "Caption block: caption-clip-wipe",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Words revealed by clip wipes.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-gradient-fill",
+    "name": "Caption block: caption-gradient-fill",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Gradient fills sweeping through words.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-neon-glow",
+    "name": "Caption block: caption-neon-glow",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Glowing neon caption words.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-neon-accent",
+    "name": "Caption block: caption-neon-accent",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Neon accent highlight on key words.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-glitch-rgb",
+    "name": "Caption block: caption-glitch-rgb",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "RGB-split glitching caption words.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-matrix-decode",
+    "name": "Caption block: caption-matrix-decode",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Matrix-style decode into words.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-particle-burst",
+    "name": "Caption block: caption-particle-burst",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Words burst into/out of particles.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-weight-shift",
+    "name": "Caption block: caption-weight-shift",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Font weight animates across words.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Variable-font weight interpolation not supported; steps between weights.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-pill-karaoke",
+    "name": "Caption block: caption-pill-karaoke",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Pill highlight moves word by word (karaoke).",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": "lyric-karaoke",
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-highlight",
+    "name": "Caption block: caption-highlight",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Marker highlight behind spoken words.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-blend-difference",
+    "name": "Caption block: caption-blend-difference",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 1,
+    "summary": "Difference-blend type over the background.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-word tweens, blur glow, blend modes, repeat particles, rand glyphs.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/caption-other",
+    "name": "Other caption-* blocks",
+    "skill": "motion-graphics",
+    "kind": "style",
+    "count": 4,
+    "summary": "Remaining registry caption styles (17 total; 13 named above).",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Same primitives as the named caption blocks; unverified individually.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/data-chart",
+    "name": "data-chart block",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Animated bar + line chart, staggered reveal, value labels.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": "line-chart-reveal",
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/bar-chart-race",
+    "name": "bar-chart-race block",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Ranked bars race and reorder over time.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": "bar-chart-race",
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/apple-money-count",
+    "name": "apple-money-count block",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Finance $ counter with green flash and money burst.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/us-map",
+    "name": "us-map family (bubble / hex / flow)",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "US map with bubbles, hex tiles or flow arcs.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/world-map",
+    "name": "world-map block",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "World map with highlighted countries and data.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": "map-route",
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/spain-map",
+    "name": "spain-map block",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Spain regions map.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/geo-highlight",
+    "name": "geo-highlight",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "N countries filled in with labels and a border pulse.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/maps/module.md"
+  },
+  {
+    "id": "motion-graphics/geo-flow",
+    "name": "geo-flow",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "World arcs / hub network drawing on with a flyer.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": "map-route",
+    "source": "skills/motion-graphics/categories/maps/module.md"
+  },
+  {
+    "id": "motion-graphics/flag-borders",
+    "name": "flag-borders",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "A flag clipped into a country outline.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/maps/module.md"
+  },
+  {
+    "id": "motion-graphics/pin-rollout",
+    "name": "pin-rollout",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Pins drop with pulse rings across places.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/maps/module.md"
+  },
+  {
+    "id": "motion-graphics/basemap-zoom",
+    "name": "Basemap zoom-to-place (baked)",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Satellite/dark basemap flies from globe to a place, borders draw on over it.",
+    "needs": [
+      "url"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Map tiles become one baked still image; camera zoom on it loses tile detail at depth.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/maps/module.md"
+  },
+  {
+    "id": "motion-graphics/flowchart",
+    "name": "flowchart block",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Nodes and SVG connectors draw on.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": "flowchart-decision",
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/logo-outro",
+    "name": "logo-outro block",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Logo pieces assemble, glow bloom, tagline, URL pill.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/grain-overlay",
+    "name": "grain-overlay polish",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Film grain over the frame.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": "documentary-ken-burns",
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/vignette",
+    "name": "vignette polish",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Dark edge vignette.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/shimmer-sweep",
+    "name": "shimmer-sweep polish",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Light sweep across text or a logo.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/texture-mask-text",
+    "name": "texture-mask-text polish",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Image texture showing through text.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector paths, clips, masks, gradients and data().",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/shader-transitions",
+    "name": "Shader transitions (domain-warp, whip-pan, sdf-iris, glitch...)",
+    "skill": "motion-graphics",
+    "kind": "transition",
+    "count": 15,
+    "summary": "15+ GLSL shader transitions between scenes.",
+    "needs": [
+      "shader"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Whip-pan (blur) and iris (clip) are native; domain-warp and other GLSL looks are approximated.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/catalog-map.md"
+  },
+  {
+    "id": "motion-graphics/instagram-follow",
+    "name": "Instagram follow overlay",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Animated social/system overlay card with handle, metrics and avatar.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector card + avatar image + counters.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/lower-thirds/module.md"
+  },
+  {
+    "id": "motion-graphics/tiktok-follow",
+    "name": "TikTok follow overlay",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Animated social/system overlay card with handle, metrics and avatar.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector card + avatar image + counters.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/lower-thirds/module.md"
+  },
+  {
+    "id": "motion-graphics/yt-lower-third",
+    "name": "YouTube subscribe lower third",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Animated social/system overlay card with handle, metrics and avatar.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector card + avatar image + counters.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/lower-thirds/module.md"
+  },
+  {
+    "id": "motion-graphics/x-post",
+    "name": "X post card",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Animated social/system overlay card with handle, metrics and avatar.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector card + avatar image + counters.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/lower-thirds/module.md"
+  },
+  {
+    "id": "motion-graphics/reddit-card",
+    "name": "Reddit post card",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Animated social/system overlay card with handle, metrics and avatar.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector card + avatar image + counters.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/lower-thirds/module.md"
+  },
+  {
+    "id": "motion-graphics/spotify-card",
+    "name": "Spotify now-playing card",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Animated social/system overlay card with handle, metrics and avatar.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector card + avatar image + counters.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/lower-thirds/module.md"
+  },
+  {
+    "id": "motion-graphics/macos-notification",
+    "name": "macOS notification",
+    "skill": "motion-graphics",
+    "kind": "template",
+    "count": 1,
+    "summary": "Animated social/system overlay card with handle, metrics and avatar.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector card + avatar image + counters.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/lower-thirds/module.md"
+  },
+  {
+    "id": "motion-graphics/circle-highlight",
+    "name": "Ring / spotlight object in a photo",
+    "skill": "motion-graphics",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Radial wash, double ring, connector, label and corner brackets on a located object.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Image + arcs + mask wash; coordinates precomputed.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/samples/asset-fusion/_ref-circle-highlight.html"
+  },
+  {
+    "id": "motion-graphics/news-centered-emphasis",
+    "name": "News layout A: centered emphasis",
+    "skill": "motion-graphics",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "9:16 paper stage, outlet kicker, one centered serif sentence with keyword marker sweep.",
+    "needs": [
+      "url"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text + gradient band.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/news/module.md"
+  },
+  {
+    "id": "motion-graphics/news-full-article",
+    "name": "News layout B: full article",
+    "skill": "motion-graphics",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "16:9 outlet logo, date, multi-line headline highlight, dek and person cutout.",
+    "needs": [
+      "url",
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text, images and marker bands.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/news/module.md"
+  },
+  {
+    "id": "motion-graphics/dashboard-skeleton",
+    "name": "Charts: dashboard skeleton",
+    "skill": "motion-graphics",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Top bar with logo, 3-4 KPI count-up cards and one chart panel.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector cards + counters + data().",
+    "tsvg_demo": "dashboard-kpi-tour",
+    "source": "skills/motion-graphics/categories/charts/module.md"
+  },
+  {
+    "id": "motion-graphics/3d-page-scroll",
+    "name": "3D page scroll",
+    "skill": "motion-graphics",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Page tilted in perspective scrolls by.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Perspective faked with skew/scale.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/webpage/module.md"
+  },
+  {
+    "id": "motion-graphics/page-scroll-spotlight",
+    "name": "Page scroll + spotlight",
+    "skill": "motion-graphics",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Page scrolls, key regions spotlighted while the rest dims.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Image translate + mask dim.",
+    "tsvg_demo": "product-screenshot-tour",
+    "source": "skills/motion-graphics/categories/webpage/module.md"
+  },
+  {
+    "id": "motion-graphics/cursor-click-ripple",
+    "name": "Cursor click ripple",
+    "skill": "motion-graphics",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Cursor glides and clicks with a ripple.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Path + circle.",
+    "tsvg_demo": "screencast-cursor",
+    "source": "skills/motion-graphics/categories/webpage/module.md"
+  },
+  {
+    "id": "motion-graphics/coordinate-target-zoom",
+    "name": "Zoom to coordinate",
+    "skill": "motion-graphics",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Camera zooms to an exact element position.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Camera group transform.",
+    "tsvg_demo": "product-screenshot-tour",
+    "source": "skills/motion-graphics/categories/webpage/module.md"
+  },
+  {
+    "id": "motion-graphics/viewport-change",
+    "name": "Viewport change",
+    "skill": "motion-graphics",
+    "kind": "recipe",
+    "count": 1,
+    "summary": "Page reflows between viewport sizes.",
+    "needs": [
+      "screenshots"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Needs two screenshots; real reflow lost.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/categories/webpage/module.md"
+  },
+  {
+    "id": "motion-graphics/motion-primitives",
+    "name": "Motion vocabulary primitives",
+    "skill": "motion-graphics",
+    "kind": "effect",
+    "count": 17,
+    "summary": "Entry (slide, scale, fade, blur, typewriter, wave, bounce, slam), emphasis (pulse, shake, glow, colour) and exits.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "All are tweens/keyframes on transform, blur, opacity, colour.",
+    "tsvg_demo": null,
+    "source": "skills/motion-graphics/references/motion-vocabulary.md"
+  }
+]

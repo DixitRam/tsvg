@@ -7,3 +7,5 @@ dist/
 flutter/**/build/
 flutter/**/.dart_tool/
 vendor/Edit-Kit.zip
+*.preview.png
+*.preview-*.png

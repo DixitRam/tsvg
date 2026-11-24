@@ -188,6 +188,55 @@ Embed the player:
 
 <!-- styles:end -->
 
+## What can TSVG make? (Edit Kit catalogue)
+
+<!-- editkit:start -->
+The [Edit Kit](vendor/edit-kit) (41 Claude Code video skills) can make **776 kinds of video** across 41 skills (types, styles, recipes, transitions, effects). Rated against TSVG today:
+
+| ✅ native | ◐ partial | ✗ not yet | with a TSVG demo |
+|---|---|---|---|
+| **518** (67%) | **213** (27%) | **45** (6%) | 731 |
+
+Showcase reels (one chapter per entry): [captions-1](https://panth977.github.io/tsvg/gallery/#kit:captions-1) · [captions-2](https://panth977.github.io/tsvg/gallery/#kit:captions-2) · [effects-1](https://panth977.github.io/tsvg/gallery/#kit:effects-1) · [effects-2](https://panth977.github.io/tsvg/gallery/#kit:effects-2) · [looks-1](https://panth977.github.io/tsvg/gallery/#kit:looks-1) · [shotcraft-1](https://panth977.github.io/tsvg/gallery/#kit:shotcraft-1) · [shotcraft-2](https://panth977.github.io/tsvg/gallery/#kit:shotcraft-2) · [shotcraft-3](https://panth977.github.io/tsvg/gallery/#kit:shotcraft-3) · [shotcraft-4](https://panth977.github.io/tsvg/gallery/#kit:shotcraft-4) · [templates-1](https://panth977.github.io/tsvg/gallery/#kit:templates-1) · [transitions-1](https://panth977.github.io/tsvg/gallery/#kit:transitions-1) · [transitions-2](https://panth977.github.io/tsvg/gallery/#kit:transitions-2)
+
+▶ [Browse the whole catalogue](https://panth977.github.io/tsvg/gallery/edit-kit.html): every entry, why it is or isn't possible, and the TSVG demo to watch.
+
+| Skill | Kinds | ✅ | ◐ | ✗ |
+|---|---|---|---|---|
+| `anime-cel` | 24 | 23 | 1 | 0 |
+| `blender-product-film` | 18 | 9 | 0 | 9 |
+| `camera-arc` | 1 | 0 | 0 | 1 |
+| `crayon-storybook` | 12 | 4 | 8 | 0 |
+| `cut-the-curve` | 7 | 7 | 0 | 0 |
+| `director` | 12 | 2 | 3 | 7 |
+| `embedded-captions` | 62 | 11 | 50 | 1 |
+| `faceless-explainer` | 14 | 14 | 0 | 0 |
+| `fx` | 41 | 37 | 4 | 0 |
+| `general-video` | 7 | 3 | 3 | 1 |
+| `motion-graphics` | 93 | 72 | 21 | 0 |
+| `music-to-video` | 56 | 47 | 9 | 0 |
+| `oversized-cursor` | 1 | 1 | 0 | 0 |
+| `painted-animation` | 10 | 6 | 4 | 0 |
+| `paper-cutout` | 15 | 12 | 3 | 0 |
+| `particle-system` | 8 | 2 | 5 | 1 |
+| `pixel-art` | 17 | 7 | 10 | 0 |
+| `pr-to-video` | 37 | 34 | 3 | 0 |
+| `product-launch-video` | 11 | 11 | 0 | 0 |
+| `reels` | 12 | 1 | 4 | 7 |
+| `saas` | 8 | 8 | 0 | 0 |
+| `shader-glsl` | 8 | 1 | 3 | 4 |
+| `slideshow` | 5 | 0 | 3 | 2 |
+| `talking-head-recut` | 18 | 13 | 5 | 0 |
+| `threejs-animation` | 6 | 0 | 3 | 3 |
+| `video-clone` | 14 | 7 | 6 | 1 |
+| `video-shotcraft` | 170 | 132 | 38 | 0 |
+| `vox-director` | 52 | 26 | 24 | 2 |
+| `whiteboard` | 29 | 28 | 1 | 0 |
+| `youtube` | 8 | 0 | 2 | 6 |
+
+Tooling skills (no video of their own): `captions-overlay`, `cut-the-curve`, `edit`, `ffmpeg`, `figma`, `frontend-design`, `fx`, `motion-doctrine`, `qa`, `remotion-to-hyperframes`, `seam-craft`, `sound`, `theme`, `video-shotcraft`.
+<!-- editkit:end -->
+
 ## Voices
 
 `tsvg bake` records every `<say>` line in every language and writes a `<voices>` table (with content hashes, so only changed lines are re-recorded):

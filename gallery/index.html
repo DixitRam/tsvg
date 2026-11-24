@@ -33,7 +33,7 @@
 <body>
 <header>
   <h1>TSVG style gallery</h1>
-  <p>Common no-face explainer video styles, each a ~1-minute <a href="../spec/">TSVG</a> video: one small XML document, drawn live, with narration, captions, chapters and options. Click to play. <a href="https://github.com/Panth977/tsvg/tree/main/examples/styles">Sources</a> · <a href="../playground/">Playground</a></p>
+  <p>Common no-face explainer video styles, each a ~1-minute <a href="../spec/">TSVG</a> video: one small XML document, drawn live, with narration, captions, chapters and options. Click to play. <a href="https://github.com/Panth977/tsvg/tree/main/examples/styles">Sources</a> · <a href="../playground/">Playground</a> · <a href="edit-kit.html">Edit Kit catalogue</a></p>
 </header>
 <div class="bar" id="bar"><input id="q" placeholder="Filter styles…"></div>
 <main id="grid"></main>
@@ -54,17 +54,18 @@ function draw() {
     el.onclick = () => open(c); grid.appendChild(el);
   }
 }
-async function open(c) {
-  location.hash = c.id;
+async function open(c, seekTo) {
+  location.hash = c.hash || c.id;
   document.getElementById('title').textContent = c.title;
   document.getElementById('meta').textContent = c.category + ' · ' + Math.round(c.duration) + ' s · ' + (c.layouts || []).join(' / ');
-  document.getElementById('src').href = 'https://github.com/Panth977/tsvg/blob/main/examples/styles/' + c.id + '.tsvg';
+  document.getElementById('src').href = 'https://github.com/Panth977/tsvg/blob/main/' + (c.url ? c.url.replace('../', '') : 'examples/styles/' + c.id + '.tsvg');
   const portrait = (c.layouts || [])[0] === 'portrait' || ((c.layouts || []).includes('portrait') && innerWidth < innerHeight);
   stage.classList.toggle('portrait', portrait);
   stage.innerHTML = ''; if (player) player.pause();
   dlg.showModal();
   const pl = new TSVGPlayer(stage, {}); player = pl;
-  await pl.open('../examples/styles/' + c.id + '.tsvg');
+  await pl.open(c.url || '../examples/styles/' + c.id + '.tsvg');
+  if (seekTo) pl.seek(seekTo);
   if (player === pl) pl.play();
 }
 document.getElementById('close').onclick = () => dlg.close();
@@ -74,7 +75,10 @@ fetch('../examples/styles/catalog.json').then((r) => r.json()).then((list) => {
   items = list;
   for (const k of ['All', ...new Set(list.map((c) => c.category))]) { const b = document.createElement('button'); b.textContent = k; b.className = k === cat ? 'on' : ''; b.onclick = () => { cat = k; bar.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); draw(); }; bar.appendChild(b); }
   draw();
-  const id = location.hash.slice(1); const hit = items.find((c) => c.id === id); if (hit) open(hit);
+  const id = decodeURIComponent(location.hash.slice(1)); const hit = items.find((c) => c.id === id);
+  const kit = /^kit:([\w-]+)(?:@([\d.]+))?$/.exec(id); // Edit Kit showcase reel, optionally at a time: #kit:effects-1@12.5
+  if (hit) open(hit);
+  else if (kit) open({ id: kit[1], hash: id, url: '../examples/kit/' + kit[1] + '.tsvg', title: 'Edit Kit reel · ' + kit[1], category: 'Edit Kit catalogue', duration: 0, layouts: ['landscape'] }, kit[2] ? +kit[2] : 0);
 });
 </script>
 </body>

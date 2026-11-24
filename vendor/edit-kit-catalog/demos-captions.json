@@ -1,0 +1,202 @@
+{
+  "embedded-captions/arcade": {
+    "reel": "captions-1",
+    "t": 0
+  },
+  "embedded-captions/aurora": {
+    "reel": "captions-1",
+    "t": 5.2
+  },
+  "embedded-captions/biolume": {
+    "reel": "captions-1",
+    "t": 10.4
+  },
+  "embedded-captions/brush": {
+    "reel": "captions-1",
+    "t": 15.8
+  },
+  "embedded-captions/mode-cinematic": {
+    "reel": "captions-1",
+    "t": 21.2
+  },
+  "embedded-captions/direction-cinematic-noir": {
+    "reel": "captions-1",
+    "t": 26.6
+  },
+  "embedded-captions/scene-corner-column-crown": {
+    "reel": "captions-1",
+    "t": 31.6
+  },
+  "embedded-captions/cream": {
+    "reel": "captions-1",
+    "t": 37
+  },
+  "embedded-captions/editorial": {
+    "reel": "captions-1",
+    "t": 42.4
+  },
+  "embedded-captions/graffiti": {
+    "reel": "captions-1",
+    "t": 47.6
+  },
+  "embedded-captions/hologram": {
+    "reel": "captions-1",
+    "t": 53
+  },
+  "embedded-captions/ink": {
+    "reel": "captions-1",
+    "t": 58.4
+  },
+  "embedded-captions/inkwater": {
+    "reel": "captions-1",
+    "t": 63.4
+  },
+  "embedded-captions/laser": {
+    "reel": "captions-1",
+    "t": 69
+  },
+  "embedded-captions/lastpage": {
+    "reel": "captions-1",
+    "t": 74.4
+  },
+  "embedded-captions/direction-lyrical-poem-on-wall": {
+    "reel": "captions-1",
+    "t": 79.8
+  },
+  "embedded-captions/ordnance": {
+    "reel": "captions-1",
+    "t": 85.2
+  },
+  "embedded-captions/popup": {
+    "reel": "captions-1",
+    "t": 90.4
+  },
+  "embedded-captions/stardust": {
+    "reel": "captions-1",
+    "t": 95.8
+  },
+  "embedded-captions/mode-theme": {
+    "reel": "captions-1",
+    "t": 101.2
+  },
+  "embedded-captions/thunder": {
+    "reel": "captions-1",
+    "t": 106.6
+  },
+  "embedded-captions/transit": {
+    "reel": "captions-1",
+    "t": 112
+  },
+  "embedded-captions/scene-wall-embed": {
+    "reel": "captions-1",
+    "t": 117.4
+  },
+  "motion-graphics/caption-blend-difference": {
+    "reel": "captions-1",
+    "t": 122.6
+  },
+  "motion-graphics/caption-clip-wipe": {
+    "reel": "captions-1",
+    "t": 127.2
+  },
+  "motion-graphics/caption-editorial-emphasis": {
+    "reel": "captions-1",
+    "t": 131.8
+  },
+  "motion-graphics/caption-gradient-fill": {
+    "reel": "captions-1",
+    "t": 136.4
+  },
+  "motion-graphics/caption-highlight": {
+    "reel": "captions-1",
+    "t": 141
+  },
+  "motion-graphics/caption-kinetic-slam": {
+    "reel": "captions-1",
+    "t": 145.6
+  },
+  "motion-graphics/caption-matrix-decode": {
+    "reel": "captions-1",
+    "t": 150.2
+  },
+  "motion-graphics/caption-neon-accent": {
+    "reel": "captions-1",
+    "t": 155
+  },
+  "motion-graphics/caption-neon-glow": {
+    "reel": "captions-1",
+    "t": 159.6
+  },
+  "motion-graphics/caption-particle-burst": {
+    "reel": "captions-1",
+    "t": 164.2
+  },
+  "motion-graphics/caption-other": {
+    "reel": "captions-1",
+    "t": 169
+  },
+  "motion-graphics/caption-weight-shift": {
+    "reel": "captions-1",
+    "t": 174.2
+  },
+  "reels/construction-project-progress": {
+    "reel": "captions-2",
+    "t": 64.8
+  },
+  "reels/real-estate-project-launch-ad": {
+    "reel": "captions-2",
+    "t": 70.4
+  },
+  "saas/before-after-words": {
+    "reel": "captions-2",
+    "t": 44.8
+  },
+  "saas/clean-saas-glass": {
+    "reel": "captions-2",
+    "t": 49.6
+  },
+  "saas/crimson-brand-punch": {
+    "reel": "captions-2",
+    "t": 55
+  },
+  "saas/hero-word-flash": {
+    "reel": "captions-2",
+    "t": 60.4
+  },
+  "talking-head-recut/style-academic": {
+    "reel": "captions-2",
+    "t": 0
+  },
+  "talking-head-recut/style-audit": {
+    "reel": "captions-2",
+    "t": 5.2
+  },
+  "talking-head-recut/frame-clean": {
+    "reel": "captions-2",
+    "t": 10.4
+  },
+  "talking-head-recut/style-geom": {
+    "reel": "captions-2",
+    "t": 15
+  },
+  "talking-head-recut/frame-hairline": {
+    "reel": "captions-2",
+    "t": 20
+  },
+  "talking-head-recut/style-spotlight": {
+    "reel": "captions-2",
+    "t": 24.6
+  },
+  "talking-head-recut/layout-overlay": {
+    "reel": "captions-2",
+    "t": 29.6
+  },
+  "talking-head-recut/layout-pip": {
+    "reel": "captions-2",
+    "t": 34.6
+  },
+  "talking-head-recut/layout-stack": {
+    "reel": "captions-2",
+    "t": 39.8
+  }
+}

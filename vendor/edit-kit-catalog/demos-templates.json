@@ -1,0 +1,146 @@
+{
+ "director": {
+  "reel": "templates-1",
+  "t": 0
+ },
+ "fx/ui-edit-timeline": {
+  "reel": "templates-1",
+  "t": 25.5
+ },
+ "fx/ui-render-error": {
+  "reel": "templates-1",
+  "t": 31
+ },
+ "fx/ui-menubar-clock": {
+  "reel": "templates-1",
+  "t": 36
+ },
+ "general-video/freeform-multi-scene": {
+  "reel": "templates-1",
+  "t": 11
+ },
+ "general-video/static-loop": {
+  "reel": "templates-1",
+  "t": 21.5
+ },
+ "general-video/title-card": {
+  "reel": "templates-1",
+  "t": 17.5
+ },
+ "general-video": {
+  "reel": "templates-1",
+  "t": 6
+ },
+ "motion-graphics/tweet": {
+  "reel": "templates-1",
+  "t": 40.8
+ },
+ "motion-graphics/asset-fusion": {
+  "reel": "templates-1",
+  "t": 97
+ },
+ "motion-graphics/instagram-follow": {
+  "reel": "templates-1",
+  "t": 51.1
+ },
+ "motion-graphics/macos-notification": {
+  "reel": "templates-1",
+  "t": 70.1
+ },
+ "motion-graphics/news": {
+  "reel": "templates-1",
+  "t": 79.5
+ },
+ "motion-graphics/news-centered-emphasis": {
+  "reel": "templates-1",
+  "t": 85
+ },
+ "motion-graphics/news-full-article": {
+  "reel": "templates-1",
+  "t": 90.5
+ },
+ "motion-graphics/reddit-card": {
+  "reel": "templates-1",
+  "t": 74.7
+ },
+ "motion-graphics/circle-highlight": {
+  "reel": "templates-1",
+  "t": 102.8
+ },
+ "motion-graphics/spotify-card": {
+  "reel": "templates-1",
+  "t": 65.3
+ },
+ "motion-graphics/tiktok-follow": {
+  "reel": "templates-1",
+  "t": 55.9
+ },
+ "motion-graphics/x-post": {
+  "reel": "templates-1",
+  "t": 46.3
+ },
+ "motion-graphics/yt-lower-third": {
+  "reel": "templates-1",
+  "t": 60.5
+ },
+ "motion-graphics/3d-page-scroll": {
+  "reel": "templates-1",
+  "t": 108.3
+ },
+ "motion-graphics/viewport-change": {
+  "reel": "templates-1",
+  "t": 113.8
+ },
+ "music-to-video/held-text-strobe-burst": {
+  "reel": "templates-1",
+  "t": 125.1
+ },
+ "music-to-video/poster-tile-mosaic": {
+  "reel": "templates-1",
+  "t": 129.6
+ },
+ "music-to-video/roll-flipbook-word-cycle": {
+  "reel": "templates-1",
+  "t": 135.35
+ },
+ "music-to-video/split-anchor-word-slot": {
+  "reel": "templates-1",
+  "t": 139.85
+ },
+ "music-to-video/card-flyby": {
+  "reel": "templates-1",
+  "t": 145.25
+ },
+ "particle-system/snow": {
+  "reel": "templates-1",
+  "t": 156.25
+ },
+ "particle-system/constellation": {
+  "reel": "templates-1",
+  "t": 161.05
+ },
+ "particle-system/flow-field": {
+  "reel": "templates-1",
+  "t": 166.05
+ },
+ "particle-system/gpu-points": {
+  "reel": "templates-1",
+  "t": 171.05
+ },
+ "particle-system": {
+  "reel": "templates-1",
+  "t": 151.25
+ },
+ "particle-system/smoke": {
+  "reel": "templates-1",
+  "t": 176.05
+ },
+ "slideshow/page-to-deck": {
+  "reel": "templates-1",
+  "t": 118.8
+ },
+ "threejs-animation/instancing": {
+  "reel": "templates-1",
+  "t": 181.05
+ }
+}

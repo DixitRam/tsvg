@@ -1,0 +1,3010 @@
+[
+  {
+    "id": "embedded-captions",
+    "name": "Embedded captions on a talking-head clip",
+    "skill": "embedded-captions",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Captions burned into an existing talking-head video: verbatim rail plus a peak word composited behind the subject.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Core is captioning your own footage with subject matting and occlusion; TSVG cannot play the clip. The caption looks alone can be redone over a still.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/SKILL.md"
+  },
+  {
+    "id": "embedded-captions/mode-standard",
+    "name": "Standard caption mode",
+    "skill": "embedded-captions",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Default: clean verbatim lower-third rail plus one embed climax word behind the subject.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail is native text; embed-behind-subject needs a still plus a pre-cut subject PNG layered on top instead of a matted clip.",
+    "tsvg_demo": "social-short-vertical",
+    "source": "skills/embedded-captions/SKILL.md"
+  },
+  {
+    "id": "embedded-captions/mode-cinematic",
+    "name": "Cinematic caption mode",
+    "skill": "embedded-captions",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Pure embed: every caption composited into the scene behind the subject, depth-matched blur and light.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Only over a still with a pre-cut subject layer; footage, sampled light direction and live matte are lost.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/SKILL.md"
+  },
+  {
+    "id": "embedded-captions/mode-theme",
+    "name": "Theme caption mode",
+    "skill": "embedded-captions",
+    "kind": "mode",
+    "count": 1,
+    "summary": "Themed constitution: rail + apex + plate reactions (dim, punch, shake, grain) per theme DNA.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail/apex/shake/dim are group transforms and overlays; grade and grain of real footage approximated over a still.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/SKILL.md"
+  },
+  {
+    "id": "embedded-captions/cream",
+    "name": "cream captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "warm poetic light, words emerge and glow in a column embedded in the scene",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Type look and motion are native text; embedding behind the subject needs a still plus a pre-cut subject layer, not a matted clip.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/dna/cream.json"
+  },
+  {
+    "id": "embedded-captions/ink",
+    "name": "ink captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "letterpress words pressed into bright surfaces of the scene",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Type look and motion are native text; embedding behind the subject needs a still plus a pre-cut subject layer, not a matted clip.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/dna/ink.json"
+  },
+  {
+    "id": "embedded-captions/editorial",
+    "name": "editorial captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "lowercase italic serif captions gliding like pen strokes",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Type look and motion are native text; embedding behind the subject needs a still plus a pre-cut subject layer, not a matted clip.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/dna/editorial.json"
+  },
+  {
+    "id": "embedded-captions/keynote",
+    "name": "keynote captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "confident centred slide-like captions sitting inside the scene",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Type look and motion are native text; embedding behind the subject needs a still plus a pre-cut subject layer, not a matted clip.",
+    "tsvg_demo": "keynote-slideshow",
+    "source": "skills/embedded-captions/dna/keynote.json"
+  },
+  {
+    "id": "embedded-captions/documentary",
+    "name": "documentary captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "burn-in stillness: bone-coloured type on charcoal",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Type look and motion are native text; embedding behind the subject needs a still plus a pre-cut subject layer, not a matted clip.",
+    "tsvg_demo": "documentary-ken-burns",
+    "source": "skills/embedded-captions/dna/documentary.json"
+  },
+  {
+    "id": "embedded-captions/loud",
+    "name": "loud captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "percussive type that competes with the face, body in front",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Type look and motion are native text; embedding behind the subject needs a still plus a pre-cut subject layer, not a matted clip.",
+    "tsvg_demo": "social-short-vertical",
+    "source": "skills/embedded-captions/dna/loud.json"
+  },
+  {
+    "id": "embedded-captions/neon",
+    "name": "neon captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "captions styled as neon signage in the dark",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Type look and motion are native text; embedding behind the subject needs a still plus a pre-cut subject layer, not a matted clip.",
+    "tsvg_demo": "neon-glow",
+    "source": "skills/embedded-captions/dna/neon.json"
+  },
+  {
+    "id": "embedded-captions/glitch",
+    "name": "glitch captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "corrupted-feed RGB-split type",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "RGB split via offset copies + blend modes is native; footage behind the type must be a still.",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/embedded-captions/dna/glitch.json"
+  },
+  {
+    "id": "embedded-captions/chrome",
+    "name": "chrome captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "liquid-metal hero word with sheen sweeps",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Sheen = moving gradient through clipped text, native; footage behind must be a still.",
+    "tsvg_demo": "retro-synthwave",
+    "source": "skills/embedded-captions/dna/chrome.json"
+  },
+  {
+    "id": "embedded-captions/velocity",
+    "name": "velocity captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "every word arrives along its motion vector",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Type look and motion are native text; embedding behind the subject needs a still plus a pre-cut subject layer, not a matted clip.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/embedded-captions/dna/velocity.json"
+  },
+  {
+    "id": "embedded-captions/anchor",
+    "name": "anchor captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "quiet fade-up lower-third rail, apex settles behind subject with drawn underline",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "social-short-vertical",
+    "source": "skills/embedded-captions/themes/anchor.json"
+  },
+  {
+    "id": "embedded-captions/ordnance",
+    "name": "ordnance captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "stamped military rail, detonation apex, frame reacts",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/ordnance.json"
+  },
+  {
+    "id": "embedded-captions/terminal",
+    "name": "terminal captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "typed console panel, apex decodes from glyph noise",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/embedded-captions/themes/terminal.json"
+  },
+  {
+    "id": "embedded-captions/neonsign",
+    "name": "neonsign captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "warm neon tube rail, apex hand-written stroke by stroke in neon",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "neon-glow",
+    "source": "skills/embedded-captions/themes/neonsign.json"
+  },
+  {
+    "id": "embedded-captions/stardust",
+    "name": "stardust captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "accumulating poem; letters condense from dust and return to it",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Dust particles via repeat + noise; the in-scene embed needs a still + pre-cut subject.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/stardust.json"
+  },
+  {
+    "id": "embedded-captions/stomp",
+    "name": "stomp captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "full-frame hard-cut typographic takeover cards with a void before the drop",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/embedded-captions/themes/stomp.json"
+  },
+  {
+    "id": "embedded-captions/lastpage",
+    "name": "lastpage captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "manuscript rail; blurred future field resolves by rack-focus into the apex word",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rack-focus is blur, native; the blurred room needs a still instead of footage.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/lastpage.json"
+  },
+  {
+    "id": "embedded-captions/scoreboard",
+    "name": "scoreboard captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "split-flap chyron rail, departures-board apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "event-countdown",
+    "source": "skills/embedded-captions/themes/scoreboard.json"
+  },
+  {
+    "id": "embedded-captions/transit",
+    "name": "transit captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "amber dot-matrix LED departure strip, illumination-wipe apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/transit.json"
+  },
+  {
+    "id": "embedded-captions/vhs",
+    "name": "vhs captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "camcorder OSD rail, REC-freeze tracking-slam apex, red/cyan fringe",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "OSD, scanlines, fringe are vector; tape tracking warp of real footage approximated with band slices over a still.",
+    "tsvg_demo": "retro-synthwave",
+    "source": "skills/embedded-captions/themes/vhs.json"
+  },
+  {
+    "id": "embedded-captions/arcade",
+    "name": "arcade captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "8-bit arcade HUD rail, CRT scanlines, pixel-block boss-intro apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "HUD, scanlines, pixel blocks native; CRT treatment of real footage approximated.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/arcade.json"
+  },
+  {
+    "id": "embedded-captions/dossier",
+    "name": "dossier captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "typewriter hammered onto a manila case-file strip, rubber-stamp apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/embedded-captions/themes/dossier.json"
+  },
+  {
+    "id": "embedded-captions/laser",
+    "name": "laser captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "concert laser beams ignite each word, 6-beam laser-cage apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Beams are lines with blur/blend, native; lighting of the real subject is lost.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/laser.json"
+  },
+  {
+    "id": "embedded-captions/thunder",
+    "name": "thunder captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "rain-washed rail, sky flashes per word, branched lightning apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rain and bolts native (repeat, paths); storm grade of the clip needs a pre-graded still.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/thunder.json"
+  },
+  {
+    "id": "embedded-captions/hologram",
+    "name": "hologram captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "scanlined hologram projection plate, hologram-boot apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Scanlines, fringe, sweep native; projection over moving footage lost.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/hologram.json"
+  },
+  {
+    "id": "embedded-captions/biolume",
+    "name": "biolume captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "deep-sea abyss grade, words glow on like jellyfish, bloom apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Glow-on via blur + opacity native; abyss grade of footage needs a pre-graded still.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/biolume.json"
+  },
+  {
+    "id": "embedded-captions/aurora",
+    "name": "aurora captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "iridescent serif with drifting aurora sheen, silk-ribbon apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/aurora.json"
+  },
+  {
+    "id": "embedded-captions/spectrum",
+    "name": "spectrum captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "oscilloscope band with a live waveform, phosphor trace-write apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "podcast-audiogram",
+    "source": "skills/embedded-captions/themes/spectrum.json"
+  },
+  {
+    "id": "embedded-captions/papercut",
+    "name": "papercut captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "stop-motion paper chips placed on a kraft strip, papermat apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "paper-cutout",
+    "source": "skills/embedded-captions/themes/papercut.json"
+  },
+  {
+    "id": "embedded-captions/popup",
+    "name": "popup captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "pop-up book page, words hinge up, centerfold starburst apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/popup.json"
+  },
+  {
+    "id": "embedded-captions/chalkboard",
+    "name": "chalkboard captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "chalk band, words scribbled with dust puffs, chalkwrite apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "chalkboard-lesson",
+    "source": "skills/embedded-captions/themes/chalkboard.json"
+  },
+  {
+    "id": "embedded-captions/graffiti",
+    "name": "graffiti captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "marker words flick on, spray-tagged handstyle apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/graffiti.json"
+  },
+  {
+    "id": "embedded-captions/brush",
+    "name": "brush captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "washi paper band, sumi-e brush-wiped Mincho words, brush-gesture apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/brush.json"
+  },
+  {
+    "id": "embedded-captions/inkwater",
+    "name": "inkwater captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "three-row sumi ink rail, words bleed like ink in water, ink-drop bloom apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/themes/inkwater.json"
+  },
+  {
+    "id": "embedded-captions/ransom",
+    "name": "ransom captions",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "ransom-note collage of cut-out word chips, slam apex",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Rail and apex are vector/text, native; the talking-head clip underneath becomes a still or illustration.",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/embedded-captions/themes/ransom.json"
+  },
+  {
+    "id": "embedded-captions/move-typewriter",
+    "name": "typewriter caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Characters type on with a caret.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/move-word-fade-up",
+    "name": "word-fade-up caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Default: each word fades up a few pixels.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": "social-short-vertical",
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/move-word-pop",
+    "name": "word-pop caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Each word pops in with a scale overshoot.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": "social-short-vertical",
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/move-swipe-reveal",
+    "name": "swipe-reveal caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "A wipe mask reveals the line left to right.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/move-drop-and-settle",
+    "name": "drop-and-settle caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Words drop from above and settle with a small bounce.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/move-etch",
+    "name": "etch caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Letters etch in as if cut into the surface.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/move-crosshair",
+    "name": "crosshair caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "A crosshair locks onto the word before it appears.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/move-breathing-hold",
+    "name": "breathing-hold caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Held line gently breathes in scale and opacity.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": "quote-cards",
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/move-cascade",
+    "name": "cascade caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Words cascade in with a staggered offset.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/move-burn-in",
+    "name": "burn-in caption move",
+    "skill": "embedded-captions",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Words burn in from a hot glow to settled type.",
+    "needs": [
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text tweens, clips and blur; word timing from a data list.",
+    "tsvg_demo": "documentary-ken-burns",
+    "source": "skills/embedded-captions/references/motion-vocabulary.md"
+  },
+  {
+    "id": "embedded-captions/scene-wall-embed",
+    "name": "wall-embed scene template",
+    "skill": "embedded-captions",
+    "kind": "template",
+    "count": 1,
+    "summary": "Text printed onto a real wall behind the subject with perspective and overlay blend.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Overlay blend native; true perspective warp onto the surface is faked with skewed paths over a still.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/references/scene-types.md"
+  },
+  {
+    "id": "embedded-captions/scene-corner-column-crown",
+    "name": "corner-column-crown scene template",
+    "skill": "embedded-captions",
+    "kind": "template",
+    "count": 1,
+    "summary": "Caption column in a clean region beside the subject, optional crown climax line.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Native layout over a still; footage lost.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/references/scene-types.md"
+  },
+  {
+    "id": "embedded-captions/scene-portrait-header",
+    "name": "portrait-header scene template",
+    "skill": "embedded-captions",
+    "kind": "template",
+    "count": 1,
+    "summary": "Subject fills centre, captions live in a top banner (9:16).",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Native layout over a still or illustration; footage lost.",
+    "tsvg_demo": "social-short-vertical",
+    "source": "skills/embedded-captions/references/scene-types.md"
+  },
+  {
+    "id": "embedded-captions/direction-documentary-dignified",
+    "name": "documentary-dignified direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "Errol Morris / Frontline: restrained serif captions, slow burn-in.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Direction spec (mostly unshipped upstream); type look native, but it is composed over the speaker footage, which becomes a still.",
+    "tsvg_demo": "documentary-ken-burns",
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "embedded-captions/direction-cinematic-noir",
+    "name": "cinematic-noir direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "Se7en-style titles: scratchy, jittery, high-contrast type.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Direction spec (mostly unshipped upstream); type look native, but it is composed over the speaker footage, which becomes a still.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "embedded-captions/direction-tech-keynote-confident",
+    "name": "tech-keynote-confident direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "Apple-keynote clean sans, centred, confident fades.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Direction spec (mostly unshipped upstream); type look native, but it is composed over the speaker footage, which becomes a still.",
+    "tsvg_demo": "keynote-slideshow",
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "embedded-captions/direction-lyrical-poem-on-wall",
+    "name": "lyrical-poem-on-wall direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "Poem lines printed on the wall behind the speaker (memory-wall).",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Direction spec (mostly unshipped upstream); type look native, but it is composed over the speaker footage, which becomes a still.",
+    "tsvg_demo": null,
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "embedded-captions/direction-high-energy-vlog",
+    "name": "high-energy-vlog direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "Controlled Hormozi-style word pops with colour emphasis.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Direction spec (mostly unshipped upstream); type look native, but it is composed over the speaker footage, which becomes a still.",
+    "tsvg_demo": "social-short-vertical",
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "embedded-captions/direction-chapter-card",
+    "name": "chapter-card direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "Wes Anderson full-frame chapter cards between beats.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Full-frame text cards need no footage; native.",
+    "tsvg_demo": "swiss-minimal",
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "embedded-captions/direction-investigative-typewriter",
+    "name": "investigative-typewriter direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "60 Minutes / Frontline typewriter captions.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Direction spec (mostly unshipped upstream); type look native, but it is composed over the speaker footage, which becomes a still.",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "embedded-captions/direction-k-pop-lyric",
+    "name": "k-pop-lyric direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "Music-video typographic flex lyric captions.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Direction spec (mostly unshipped upstream); type look native, but it is composed over the speaker footage, which becomes a still.",
+    "tsvg_demo": "lyric-karaoke",
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "embedded-captions/direction-broadcast-dignified",
+    "name": "broadcast-dignified direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "BBC / NYT documentary lower thirds.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Direction spec (mostly unshipped upstream); type look native, but it is composed over the speaker footage, which becomes a still.",
+    "tsvg_demo": "news-bulletin",
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "embedded-captions/direction-conference-lower-third-killer",
+    "name": "conference-lower-third-killer direction",
+    "skill": "embedded-captions",
+    "kind": "style",
+    "count": 1,
+    "summary": "B2B conference lower thirds that are not lame.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Direction spec (mostly unshipped upstream); type look native, but it is composed over the speaker footage, which becomes a still.",
+    "tsvg_demo": "news-bulletin",
+    "source": "skills/embedded-captions/references/direction-catalog.md"
+  },
+  {
+    "id": "captions-overlay",
+    "name": "Captions overlay doctrine",
+    "skill": "captions-overlay",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Doctrine: every phrase is drop / rail / embed; captions overlay the film and never reserve a band.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "TSVG already overlays captions generated from narration; the drop/rail/embed split would be an authoring rule, not a feature.",
+    "tsvg_demo": null,
+    "source": "skills/captions-overlay/SKILL.md"
+  },
+  {
+    "id": "talking-head-recut",
+    "name": "Talking-head recut with graphic cards",
+    "skill": "talking-head-recut",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Your talking-head clip plays untouched while timed titles, lower-thirds, data callouts, quotes and PiP cards ride on it.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Cards are native vector/text synced to the transcript; the clip itself must become a still or portrait image with the original audio.",
+    "tsvg_demo": "podcast-audiogram",
+    "source": "skills/talking-head-recut/SKILL.md"
+  },
+  {
+    "id": "talking-head-recut/style-academic",
+    "name": "academic card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Warm paper, grid, serif, blue highlight cards.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": null,
+    "source": "skills/talking-head-recut/references/styles/academic.html"
+  },
+  {
+    "id": "talking-head-recut/style-editorial",
+    "name": "editorial card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Cream, coral block, big italic pull quote.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": "quote-cards",
+    "source": "skills/talking-head-recut/references/styles/editorial.html"
+  },
+  {
+    "id": "talking-head-recut/style-minimal",
+    "name": "minimal card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Pure black/white, huge type, generous space.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": "swiss-minimal",
+    "source": "skills/talking-head-recut/references/styles/minimal.html"
+  },
+  {
+    "id": "talking-head-recut/style-spotlight",
+    "name": "spotlight card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Dark purple gradient with glow, dramatic.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": null,
+    "source": "skills/talking-head-recut/references/styles/spotlight.html"
+  },
+  {
+    "id": "talking-head-recut/style-geom",
+    "name": "geom card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Chartreuse + hot pink + black colliding shapes.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": null,
+    "source": "skills/talking-head-recut/references/styles/geom.html"
+  },
+  {
+    "id": "talking-head-recut/style-whiteboard",
+    "name": "whiteboard card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Paper, Caveat handwriting, sketched borders.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": "whiteboard-drawing",
+    "source": "skills/talking-head-recut/references/styles/whiteboard.html"
+  },
+  {
+    "id": "talking-head-recut/style-audit",
+    "name": "audit card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Manila paper, justified serif, APPROVED stamp.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": null,
+    "source": "skills/talking-head-recut/references/styles/audit.html"
+  },
+  {
+    "id": "talking-head-recut/style-terminal",
+    "name": "terminal card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Dark monospace, ASCII border, prompt cursor.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/talking-head-recut/references/styles/terminal.html"
+  },
+  {
+    "id": "talking-head-recut/style-swiss",
+    "name": "swiss card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "White Helvetica, strict double rules, red accent.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": "swiss-minimal",
+    "source": "skills/talking-head-recut/references/styles/swiss.html"
+  },
+  {
+    "id": "talking-head-recut/style-xhs",
+    "name": "xhs card style",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Xiaohongshu cream + hot pink, chips, hashtags, like/comment row.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Card look is vector, text and gradients; only the clip under it must be a still.",
+    "tsvg_demo": "social-short-vertical",
+    "source": "skills/talking-head-recut/references/styles/xhs.html"
+  },
+  {
+    "id": "talking-head-recut/layout-split",
+    "name": "split layout",
+    "skill": "talking-head-recut",
+    "kind": "template",
+    "count": 1,
+    "summary": "50/50 speaker and card side by side (top/bottom in portrait).",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Layout and the video-rect tween are native group transforms; the video area holds a still image, not the clip.",
+    "tsvg_demo": "comparison-versus",
+    "source": "skills/talking-head-recut/references/layouts/split.html"
+  },
+  {
+    "id": "talking-head-recut/layout-stack",
+    "name": "stack layout",
+    "skill": "talking-head-recut",
+    "kind": "template",
+    "count": 1,
+    "summary": "Video on top ~52%, card below.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Layout and the video-rect tween are native group transforms; the video area holds a still image, not the clip.",
+    "tsvg_demo": null,
+    "source": "skills/talking-head-recut/references/layouts/stack.html"
+  },
+  {
+    "id": "talking-head-recut/layout-pip",
+    "name": "pip layout",
+    "skill": "talking-head-recut",
+    "kind": "template",
+    "count": 1,
+    "summary": "Card fills canvas, speaker in a rounded corner PiP.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Layout and the video-rect tween are native group transforms; the video area holds a still image, not the clip.",
+    "tsvg_demo": null,
+    "source": "skills/talking-head-recut/references/layouts/pip.html"
+  },
+  {
+    "id": "talking-head-recut/layout-overlay",
+    "name": "overlay layout",
+    "skill": "talking-head-recut",
+    "kind": "template",
+    "count": 1,
+    "summary": "Full-bleed video with a glass card floating at the bottom.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Layout and the video-rect tween are native group transforms; the video area holds a still image, not the clip.",
+    "tsvg_demo": null,
+    "source": "skills/talking-head-recut/references/layouts/overlay.html"
+  },
+  {
+    "id": "talking-head-recut/frame-clean",
+    "name": "clean video frame",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "No decoration around the video.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Static vector decoration around an image; native.",
+    "tsvg_demo": null,
+    "source": "skills/talking-head-recut/references/frames/clean.html"
+  },
+  {
+    "id": "talking-head-recut/frame-hairline",
+    "name": "hairline video frame",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "Double-stroke border with four viewfinder corner ticks.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Static vector decoration around an image; native.",
+    "tsvg_demo": null,
+    "source": "skills/talking-head-recut/references/frames/hairline.html"
+  },
+  {
+    "id": "talking-head-recut/frame-polaroid",
+    "name": "polaroid video frame",
+    "skill": "talking-head-recut",
+    "kind": "style",
+    "count": 1,
+    "summary": "White photo frame, Caveat label, blue washi tape.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Static vector decoration around an image; native.",
+    "tsvg_demo": "collage-newsroom",
+    "source": "skills/talking-head-recut/references/frames/polaroid.html"
+  },
+  {
+    "id": "music-to-video",
+    "name": "Beat-synced music video",
+    "skill": "music-to-video",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "Music track drives a lyric video, slideshow or kinetic promo; every cut, word and tile lands on the beat grid.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Typography and templates native; beat grid must be precomputed offline into data(); user video clips become stills.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/music-to-video/SKILL.md"
+  },
+  {
+    "id": "music-to-video/card-flyby",
+    "name": "card-flyby template",
+    "skill": "music-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Perspective column of cards rolls forward one per beat, accelerating into a held card.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Perspective depth column faked with scale/offset layering (2.5D); beat times as data.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/templates/card-flyby/index.html"
+  },
+  {
+    "id": "music-to-video/held-message-living-field",
+    "name": "held-message-living-field template",
+    "skill": "music-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "One word or mark held still over a soft colour-shifting blurred field.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Blurred gradient blobs + held text; native.",
+    "tsvg_demo": "meditation-breathing",
+    "source": "skills/music-to-video/references/templates/held-message-living-field/index.html"
+  },
+  {
+    "id": "music-to-video/held-text-strobe-burst",
+    "name": "held-text-strobe-burst template",
+    "skill": "music-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "A still word whose letters strobe through texture fills on a roll.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Texture images clipped by text, swapped per frame from data; native.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/templates/held-text-strobe-burst/index.html"
+  },
+  {
+    "id": "music-to-video/intro-kinetic-cascade",
+    "name": "intro-kinetic-cascade template",
+    "skill": "music-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Big editorial phrases revealed word by word, climaxing with a ringing icon.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Kinetic text + icon; beat anchors as data.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/music-to-video/references/templates/intro-kinetic-cascade/index.html"
+  },
+  {
+    "id": "music-to-video/logo-split-lockup-pulse",
+    "name": "logo-split-lockup-pulse template",
+    "skill": "music-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Two-part mark splits, a word lockup grows per onset, snaps shut and pulses.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group transforms + text; onsets as data.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/music-to-video/references/templates/logo-split-lockup-pulse/index.html"
+  },
+  {
+    "id": "music-to-video/poster-tile-mosaic",
+    "name": "poster-tile-mosaic template",
+    "skill": "music-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Packed mosaic of coloured tiles entering, recolouring and snake-filling on the beat.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat grid + data-driven colours; native.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/templates/poster-tile-mosaic/index.html"
+  },
+  {
+    "id": "music-to-video/roll-flipbook-word-cycle",
+    "name": "roll-flipbook-word-cycle template",
+    "skill": "music-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Centred word flips every 16th note through a list, then locks on a phrase.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Word swap from a data list per hit; native.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/templates/roll-flipbook-word-cycle/index.html"
+  },
+  {
+    "id": "music-to-video/split-anchor-word-slot",
+    "name": "split-anchor-word-slot template",
+    "skill": "music-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Held anchor words on the left, torn-paper slot cycling words on the right.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Torn paper as a path, text swaps, shake; native.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/templates/split-anchor-word-slot/index.html"
+  },
+  {
+    "id": "music-to-video/typewriter-phrase-keyword-shuffle",
+    "name": "typewriter-phrase-keyword-shuffle template",
+    "skill": "music-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Phrase types in per onset, then one keyword cycles typefaces on the beat.",
+    "needs": [
+      "audio"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Typewriter + font swap per beat from data; native.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/music-to-video/references/templates/typewriter-phrase-keyword-shuffle/index.html"
+  },
+  {
+    "id": "music-to-video/fx-hypercut-whip",
+    "name": "hypercut-whip",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "fast whip-pan hard cut between frames",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Slide + directional blur on groups.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/hypercut-whip/index.html"
+  },
+  {
+    "id": "music-to-video/fx-kinetic-letter-in",
+    "name": "kinetic-letter-in",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "per-letter kinetic entrance",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-letter text tweens.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/music-to-video/references/motion-primitives/kinetic-letter-in/index.html"
+  },
+  {
+    "id": "music-to-video/fx-braam-punch",
+    "name": "braam-punch",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "big impact scale + weight slam",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scale tween + font weight swap.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/music-to-video/references/motion-primitives/braam-punch/index.html"
+  },
+  {
+    "id": "music-to-video/fx-chromatic-split",
+    "name": "chromatic-split",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "RGB channel split glitch on a word",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Offset coloured copies with screen/multiply blend.",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/music-to-video/references/motion-primitives/chromatic-split/index.html"
+  },
+  {
+    "id": "music-to-video/fx-mask-reveal",
+    "name": "mask-reveal",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "clip-path mask wipe reveal",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Animated clip.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/mask-reveal/index.html"
+  },
+  {
+    "id": "music-to-video/fx-screen-shake",
+    "name": "screen-shake",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "camera / screen shake jitter",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "noise() on the root group transform.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/screen-shake/index.html"
+  },
+  {
+    "id": "music-to-video/fx-binary-decrypt",
+    "name": "binary-decrypt",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "scramble then decode text from binary to a word",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Character swaps from rand()/data per frame.",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/music-to-video/references/motion-primitives/binary-decrypt/index.html"
+  },
+  {
+    "id": "music-to-video/fx-dolly-zoom",
+    "name": "dolly-zoom",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "vertigo dolly zoom, scale vs perspective",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Opposing scale on foreground/background layers fakes it; no true perspective.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/dolly-zoom/index.html"
+  },
+  {
+    "id": "music-to-video/fx-iris-open",
+    "name": "iris-open",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "circular iris-open reveal",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Circle clip growing.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/iris-open/index.html"
+  },
+  {
+    "id": "music-to-video/fx-electric-arc",
+    "name": "electric-arc",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "electric arc / lightning accent",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Noisy path regenerated per frame + glow blur.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/electric-arc/index.html"
+  },
+  {
+    "id": "music-to-video/fx-neon-flicker",
+    "name": "neon-flicker",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "neon-sign flicker",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Opacity/blur flicker via rand().",
+    "tsvg_demo": "neon-glow",
+    "source": "skills/music-to-video/references/motion-primitives/neon-flicker/index.html"
+  },
+  {
+    "id": "music-to-video/fx-chrome-sweep",
+    "name": "chrome-sweep",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "metallic specular sweep across text",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Moving gradient clipped to text.",
+    "tsvg_demo": "retro-synthwave",
+    "source": "skills/music-to-video/references/motion-primitives/chrome-sweep/index.html"
+  },
+  {
+    "id": "music-to-video/fx-slot-machine-reveal",
+    "name": "slot-machine-reveal",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "slot-machine spin-to-land character reveal",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Clipped vertical text reels.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/slot-machine-reveal/index.html"
+  },
+  {
+    "id": "music-to-video/fx-liquid-morph",
+    "name": "liquid-morph",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "liquid / blob morph",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Path morphing.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/liquid-morph/index.html"
+  },
+  {
+    "id": "music-to-video/fx-gooey-metaball",
+    "name": "gooey-metaball",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "gooey metaball merge field",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "No blur+threshold filter; approximated with morphing blob paths.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/gooey-metaball/index.html"
+  },
+  {
+    "id": "music-to-video/fx-3d-card-flip",
+    "name": "3d-card-flip",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "3D card flip (rotateY)",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Faked with scaleX through zero and a face swap; no true perspective.",
+    "tsvg_demo": "flashcards-bilingual",
+    "source": "skills/music-to-video/references/motion-primitives/3d-card-flip/index.html"
+  },
+  {
+    "id": "music-to-video/fx-crash-zoom-in",
+    "name": "crash-zoom-in",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "violent crash zoom-in",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scale + blur on a group.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/crash-zoom-in/index.html"
+  },
+  {
+    "id": "music-to-video/fx-spotlight-sweep",
+    "name": "spotlight-sweep",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "spotlight / gradient sweep over text",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Radial gradient moving through a clip.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/spotlight-sweep/index.html"
+  },
+  {
+    "id": "music-to-video/fx-outline-to-fill",
+    "name": "outline-to-fill",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "stroke outline to solid fill",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Dash draw-on then fill opacity.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/outline-to-fill/index.html"
+  },
+  {
+    "id": "music-to-video/fx-counting-punch",
+    "name": "counting-punch",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "number count-up that punches and locks",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Expression-driven counter + scale punch.",
+    "tsvg_demo": "infographic-stats",
+    "source": "skills/music-to-video/references/motion-primitives/counting-punch/index.html"
+  },
+  {
+    "id": "music-to-video/fx-particle-burst",
+    "name": "particle-burst",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "particle explosion burst",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat particles with rand() vectors.",
+    "tsvg_demo": "listicle-countdown",
+    "source": "skills/music-to-video/references/motion-primitives/particle-burst/index.html"
+  },
+  {
+    "id": "music-to-video/fx-radial-burst-lines",
+    "name": "radial-burst-lines",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "radial speed-lines burst",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat of rotated lines.",
+    "tsvg_demo": "listicle-countdown",
+    "source": "skills/music-to-video/references/motion-primitives/radial-burst-lines/index.html"
+  },
+  {
+    "id": "music-to-video/fx-pixel-dissolve",
+    "name": "pixel-dissolve",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "pixelated dissolve",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat grid of squares as an alpha mask.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/pixel-dissolve/index.html"
+  },
+  {
+    "id": "music-to-video/fx-datamosh-smear",
+    "name": "datamosh-smear",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "datamosh / motion smear",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Real datamosh is pixel processing; approximated with sliced bands and blur.",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/music-to-video/references/motion-primitives/datamosh-smear/index.html"
+  },
+  {
+    "id": "music-to-video/fx-text-wave-distort",
+    "name": "text-wave-distort",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "wavy text distortion",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Per-letter sine wave native; continuous glyph displacement (SVG turbulence) not.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/text-wave-distort/index.html"
+  },
+  {
+    "id": "music-to-video/fx-bg-flow-field",
+    "name": "bg-flow-field",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "generative curl-noise background bed",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Particles following noise() via repeat; fewer particles than a canvas field.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/bg-flow-field/index.html"
+  },
+  {
+    "id": "music-to-video/fx-blur-resolve",
+    "name": "blur-resolve",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "blur-in to crisp focus, blur-out on the cut",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Blur tween.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/blur-resolve/index.html"
+  },
+  {
+    "id": "music-to-video/fx-chromatic-pressure",
+    "name": "chromatic-pressure",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "RGB split / digital tension on a transient",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Offset coloured copies + blend.",
+    "tsvg_demo": "glitch-tech",
+    "source": "skills/music-to-video/references/motion-primitive-catalog.md"
+  },
+  {
+    "id": "music-to-video/fx-color-grid-shuffle",
+    "name": "color-grid-shuffle",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "grid of cells recoloured per onset",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat grid + colour from data.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitive-catalog.md"
+  },
+  {
+    "id": "music-to-video/fx-content-swap",
+    "name": "content-swap",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "0 ms swap of stacked nodes on the beat",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Opacity steps from data.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitive-catalog.md"
+  },
+  {
+    "id": "music-to-video/fx-directional-fill",
+    "name": "directional-fill",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "directional wipe-fill sweeping across bars",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-axis scale tween.",
+    "tsvg_demo": "bar-chart-race",
+    "source": "skills/music-to-video/references/motion-primitives/directional-fill/index.html"
+  },
+  {
+    "id": "music-to-video/fx-flash-cut",
+    "name": "flash-cut",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "full-frame flash masking a state change",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "White rect opacity spike.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/flash-cut/index.html"
+  },
+  {
+    "id": "music-to-video/fx-freeze-hold",
+    "name": "freeze-hold",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "freeze the moving system and hold it",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Clamp time in expressions.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitive-catalog.md"
+  },
+  {
+    "id": "music-to-video/fx-hard-cut",
+    "name": "hard-cut",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "sample-accurate colour-block + word cut",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scene cut at a data time.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/hard-cut/index.html"
+  },
+  {
+    "id": "music-to-video/fx-mosaic-pack",
+    "name": "mosaic-pack",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "scattered tiles fly in and pack into a grid",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat tiles with keyed positions.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/mosaic-pack/index.html"
+  },
+  {
+    "id": "music-to-video/fx-negative-space-hold",
+    "name": "negative-space-hold",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "kill busy layers, hold one readable mark",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Opacity out + held text.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitive-catalog.md"
+  },
+  {
+    "id": "music-to-video/fx-overlay-pop",
+    "name": "overlay-pop",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "badge / lower-third pops over a base",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scale/opacity pop.",
+    "tsvg_demo": "news-bulletin",
+    "source": "skills/music-to-video/references/motion-primitive-catalog.md"
+  },
+  {
+    "id": "music-to-video/fx-palette-flip",
+    "name": "palette-flip",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "same layout re-skins via palette flips",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Colour expressions or theme switch at a time.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/palette-flip/index.html"
+  },
+  {
+    "id": "music-to-video/fx-staggered-exit",
+    "name": "staggered-exit",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "ordered cascade-out clearing the frame",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Staggered tweens via repeat index.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/staggered-exit/index.html"
+  },
+  {
+    "id": "music-to-video/fx-staggered-reveal",
+    "name": "staggered-reveal",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "ordered cascade-in of a stack / list",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Staggered tweens via repeat index.",
+    "tsvg_demo": "step-by-step-howto",
+    "source": "skills/music-to-video/references/motion-primitive-catalog.md"
+  },
+  {
+    "id": "music-to-video/fx-system-replace",
+    "name": "system-replace",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "hard-cut the whole visual system, boot the new one",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scene cut.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitive-catalog.md"
+  },
+  {
+    "id": "music-to-video/fx-text-spectral-rays",
+    "name": "text-spectral-rays",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "volumetric light rays cast by a wordmark",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Volumetric shader look approximated with gradient wedges + blur + blend.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/text-spectral-rays/index.html"
+  },
+  {
+    "id": "music-to-video/fx-tile-mosaic",
+    "name": "tile-mosaic",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "tiles revealed in a diagonal sweep assembling a poster",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat tiles clipping an image.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/tile-mosaic/index.html"
+  },
+  {
+    "id": "music-to-video/fx-typewriter-reveal",
+    "name": "typewriter-reveal",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "character / word type-on with caret",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Text typewriter reveal.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/music-to-video/references/motion-primitives/typewriter-reveal/index.html"
+  },
+  {
+    "id": "music-to-video/fx-value-counter",
+    "name": "value-counter",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "count-up that locks on a downbeat",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Expression counter.",
+    "tsvg_demo": "infographic-stats",
+    "source": "skills/music-to-video/references/motion-primitive-catalog.md"
+  },
+  {
+    "id": "music-to-video/fx-word-grid-burst",
+    "name": "word-grid-burst",
+    "skill": "music-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "grid of words revealed per onset, one refocused on a downbeat",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "repeat text grid + blur focus.",
+    "tsvg_demo": null,
+    "source": "skills/music-to-video/references/motion-primitives/word-grid-burst/index.html"
+  },
+  {
+    "id": "pr-to-video",
+    "name": "Pull request explainer video",
+    "skill": "pr-to-video",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "A GitHub PR becomes a narrated code-editorial video: diff typing on, runtime mechanism diagram, impact numbers, credits.",
+    "needs": [
+      "url",
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Code surfaces, diagrams, avatars as images, baked narration and music are all native; PR fetch happens before authoring.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/SKILL.md"
+  },
+  {
+    "id": "pr-to-video/changelog",
+    "name": "changelog PR archetype",
+    "skill": "pr-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Hook, 2-4 co-equal change items, ship/wrap: what shipped.",
+    "needs": [
+      "url"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Narrative arc over native code/diagram scenes.",
+    "tsvg_demo": "release-notes",
+    "source": "skills/pr-to-video/references/story-design.md"
+  },
+  {
+    "id": "pr-to-video/feature-reveal",
+    "name": "feature-reveal PR archetype",
+    "skill": "pr-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Outcome first, then the new code typing on and what it unlocks.",
+    "needs": [
+      "url"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Narrative arc over native code/diagram scenes.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/story-design.md"
+  },
+  {
+    "id": "pr-to-video/fix-explainer",
+    "name": "fix-explainer PR archetype",
+    "skill": "pr-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Symptom, broken behaviour animated, before/after fix, behaviour working.",
+    "needs": [
+      "url"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Narrative arc over native code/diagram scenes.",
+    "tsvg_demo": "qa-bug-walkthrough",
+    "source": "skills/pr-to-video/references/story-design.md"
+  },
+  {
+    "id": "pr-to-video/refactor-walkthrough",
+    "name": "refactor-walkthrough PR archetype",
+    "skill": "pr-to-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Old shape vs new shape, structure untangling, lines-removed payoff.",
+    "needs": [
+      "url"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Narrative arc over native code/diagram scenes.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/story-design.md"
+  },
+  {
+    "id": "pr-to-video/code-diff",
+    "name": "code-diff block",
+    "skill": "pr-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Unified diff in an editor: removed lines collapse red, added expand green.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Coloured text rows with staggered height tweens.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-morph",
+    "name": "code-morph block",
+    "skill": "pr-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "One snippet transforms into another, shared tokens glide.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Token text moved by keyed positions; leavers/enterers fade.",
+    "tsvg_demo": null,
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-typing",
+    "name": "code-typing block",
+    "skill": "pr-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Per-character typewriter with a gliding caret.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Typewriter text reveal.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-highlight",
+    "name": "code-highlight block",
+    "skill": "pr-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "A band sweeps one line while the rest dim.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Rect + opacity.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-scroll",
+    "name": "code-scroll block",
+    "skill": "pr-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Camera scrolls a long file to centre a target line.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group translate + clip.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-3d-extrude",
+    "name": "code-3d-extrude block",
+    "skill": "pr-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Code on a lit, bevelled 3D slab that rotates and settles (WebGL).",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "No real 3D lighting; faked with layered offset copies and gradient shading.",
+    "tsvg_demo": null,
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-particle-assemble",
+    "name": "code-particle-assemble block",
+    "skill": "pr-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "GPU particles fly to exact glyph pixels and resolve to syntax colour (WebGL).",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "Glyph pixel targets must be precomputed into data; fewer particles than GPU.",
+    "tsvg_demo": null,
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-shader-dissolve",
+    "name": "code-shader-dissolve block",
+    "skill": "pr-to-video",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Code compiles out of seeded noise with a moving dissolve front and edge glow (WebGL).",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "partial",
+    "tsvg_note": "GLSL noise approximated with a repeat-grid mask and glow blur.",
+    "tsvg_demo": null,
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-dark-plus",
+    "name": "VS Code dark-plus snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (dark-plus theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-light-plus",
+    "name": "VS Code light-plus snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (light-plus theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-dark-modern",
+    "name": "VS Code dark-modern snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (dark-modern theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-light-modern",
+    "name": "VS Code light-modern snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (light-modern theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-dark-2026",
+    "name": "VS Code dark-2026 snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (dark-2026 theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-light-2026",
+    "name": "VS Code light-2026 snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (light-2026 theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-monokai",
+    "name": "VS Code monokai snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (monokai theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-solarized-light",
+    "name": "VS Code solarized-light snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (solarized-light theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-visual-studio-dark",
+    "name": "VS Code visual-studio-dark snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (visual-studio-dark theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-visual-studio-light",
+    "name": "VS Code visual-studio-light snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (visual-studio-light theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-high-contrast",
+    "name": "VS Code high-contrast snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (high-contrast theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-high-contrast-light",
+    "name": "VS Code high-contrast-light snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "Full VS Code window (high-contrast-light theme): file tree, tabs, per-char typing, terminal running pytest.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector IDE chrome + token-coloured text; native.",
+    "tsvg_demo": "code-walkthrough",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-basic",
+    "name": "Apple Terminal basic snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (basic profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-clear-dark",
+    "name": "Apple Terminal clear-dark snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (clear-dark profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-clear-light",
+    "name": "Apple Terminal clear-light snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (clear-light profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-grass",
+    "name": "Apple Terminal grass snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (grass profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-homebrew",
+    "name": "Apple Terminal homebrew snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (homebrew profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-man-page",
+    "name": "Apple Terminal man-page snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (man-page profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-novel",
+    "name": "Apple Terminal novel snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (novel profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-ocean",
+    "name": "Apple Terminal ocean snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (ocean profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-pro",
+    "name": "Apple Terminal pro snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (pro profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-red-sands",
+    "name": "Apple Terminal red-sands snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (red-sands profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-silver-aerogel",
+    "name": "Apple Terminal silver-aerogel snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (silver-aerogel profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "pr-to-video/code-snippet-apple-terminal-solid-colors",
+    "name": "Apple Terminal solid-colors snippet",
+    "skill": "pr-to-video",
+    "kind": "style",
+    "count": 1,
+    "summary": "macOS Terminal.app window (solid-colors profile) typing a shell command.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Window chrome + typed mono text; native.",
+    "tsvg_demo": "terminal-cli-demo",
+    "source": "skills/pr-to-video/references/code-vocabulary.md"
+  },
+  {
+    "id": "product-launch-video",
+    "name": "Product launch / promo video",
+    "skill": "product-launch-video",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "A product URL or brief becomes a narrated launch promo: captured brand, UI screenshots, feature beats, CTA.",
+    "needs": [
+      "url",
+      "screenshots",
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Screenshots as images, brand tokens, kinetic type, TTS and music are native; any captured product video clips become stills.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/product-launch-video/SKILL.md"
+  },
+  {
+    "id": "product-launch-video/pas",
+    "name": "PAS launch arc",
+    "skill": "product-launch-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Hook, pain, agitation, solution tease, product intro, proof/demo, CTA.",
+    "needs": [
+      "url",
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Story arc over native scenes.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/product-launch-video/references/story-design.md"
+  },
+  {
+    "id": "product-launch-video/future-pacing",
+    "name": "Future Pacing launch arc",
+    "skill": "product-launch-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Imagine, name product, remove pain, mechanism, outcome, CTA.",
+    "needs": [
+      "url",
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Story arc over native scenes.",
+    "tsvg_demo": "pitch-deck-metrics",
+    "source": "skills/product-launch-video/references/story-design.md"
+  },
+  {
+    "id": "product-launch-video/demo-loop",
+    "name": "Demo Loop launch arc",
+    "skill": "product-launch-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Question, product intro, demo cycles, trust, CTA.",
+    "needs": [
+      "url",
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Story arc over native scenes.",
+    "tsvg_demo": "product-screenshot-tour",
+    "source": "skills/product-launch-video/references/story-design.md"
+  },
+  {
+    "id": "product-launch-video/bab",
+    "name": "Before-After-Bridge launch arc",
+    "skill": "product-launch-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Before, after tease, product bridge, steps, wow, CTA.",
+    "needs": [
+      "url",
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Story arc over native scenes.",
+    "tsvg_demo": "before-after-slider",
+    "source": "skills/product-launch-video/references/story-design.md"
+  },
+  {
+    "id": "product-launch-video/feature-benefit-cascade",
+    "name": "Feature-Benefit Cascade launch arc",
+    "skill": "product-launch-video",
+    "kind": "template",
+    "count": 1,
+    "summary": "Category hook, feature/benefit pairs, climax, CTA.",
+    "needs": [
+      "url",
+      "script"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Story arc over native scenes.",
+    "tsvg_demo": "promo-ad-spot",
+    "source": "skills/product-launch-video/references/story-design.md"
+  },
+  {
+    "id": "product-launch-video/transition-crossfade",
+    "name": "crossfade transition",
+    "skill": "product-launch-video",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Old scene fades out as the new fades in.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Opacity tween; native. Registry shared with pr-to-video.",
+    "tsvg_demo": "documentary-ken-burns",
+    "source": "skills/product-launch-video/scripts/lib/transitions.json"
+  },
+  {
+    "id": "product-launch-video/transition-blur-crossfade",
+    "name": "blur-crossfade transition",
+    "skill": "product-launch-video",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Crossfade with a blur, calm default.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Opacity + blur; native. Registry shared with pr-to-video.",
+    "tsvg_demo": null,
+    "source": "skills/product-launch-video/scripts/lib/transitions.json"
+  },
+  {
+    "id": "product-launch-video/transition-push-slide",
+    "name": "push-slide transition",
+    "skill": "product-launch-video",
+    "kind": "transition",
+    "count": 1,
+    "summary": "New scene pushes the old out left/right/up/down.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group translate; native. Registry shared with pr-to-video.",
+    "tsvg_demo": null,
+    "source": "skills/product-launch-video/scripts/lib/transitions.json"
+  },
+  {
+    "id": "product-launch-video/transition-zoom-through",
+    "name": "zoom-through transition",
+    "skill": "product-launch-video",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Old scales up past camera while the new arrives (scene seam).",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Scale + opacity + blur; native. Registry shared with pr-to-video.",
+    "tsvg_demo": null,
+    "source": "skills/product-launch-video/scripts/lib/transitions.json"
+  },
+  {
+    "id": "product-launch-video/transition-squeeze",
+    "name": "squeeze transition",
+    "skill": "product-launch-video",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Old compresses to a vertical line, new expands from it.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Per-axis scale; native. Registry shared with pr-to-video.",
+    "tsvg_demo": null,
+    "source": "skills/product-launch-video/scripts/lib/transitions.json"
+  },
+  {
+    "id": "oversized-cursor",
+    "name": "Oversized cursor eye-carrier",
+    "skill": "oversized-cursor",
+    "kind": "effect",
+    "count": 1,
+    "summary": "A huge macOS-style pointer walks the eye across UI scenes and clicks to ignite the next change.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Vector arrow path with transform tweens and click ripples.",
+    "tsvg_demo": "screencast-cursor",
+    "source": "skills/oversized-cursor/SKILL.md"
+  },
+  {
+    "id": "cut-the-curve",
+    "name": "Cut-the-curve technique catalogue",
+    "skill": "cut-the-curve",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Doctrine: cut at peak velocity, match direction and speed on both sides; parameters for 5 seams + 2 in-scene moves.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "TSVG has eases and group transforms to express all of it; no built-in velocity-matched seam preset yet.",
+    "tsvg_demo": null,
+    "source": "skills/cut-the-curve/SKILL.md"
+  },
+  {
+    "id": "cut-the-curve/zoom-through",
+    "name": "Zoom-Through",
+    "skill": "cut-the-curve",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Within-scene text swap pushing toward the viewer with Z blur.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group translate/scale, mirrored eases and blur; native.",
+    "tsvg_demo": null,
+    "source": "skills/cut-the-curve/SKILL.md"
+  },
+  {
+    "id": "cut-the-curve/inverse-zoom-through",
+    "name": "Inverse Zoom-Through",
+    "skill": "cut-the-curve",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Payoff beat: something bigger lands, moving away from the viewer.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group translate/scale, mirrored eases and blur; native.",
+    "tsvg_demo": null,
+    "source": "skills/cut-the-curve/SKILL.md"
+  },
+  {
+    "id": "cut-the-curve/cut-the-curve",
+    "name": "Cut the Curve",
+    "skill": "cut-the-curve",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Default scene boundary: cut at peak velocity with matched direction and speed.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group translate/scale, mirrored eases and blur; native.",
+    "tsvg_demo": null,
+    "source": "skills/cut-the-curve/SKILL.md"
+  },
+  {
+    "id": "cut-the-curve/waterfall-cut",
+    "name": "Waterfall Cut",
+    "skill": "cut-the-curve",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Word-by-word handoff between big-text beats along X.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group translate/scale, mirrored eases and blur; native.",
+    "tsvg_demo": null,
+    "source": "skills/cut-the-curve/SKILL.md"
+  },
+  {
+    "id": "cut-the-curve/rack-focus-blur-cut",
+    "name": "Rack-Focus Blur-Cut",
+    "skill": "cut-the-curve",
+    "kind": "transition",
+    "count": 1,
+    "summary": "Visible DSLR-style focus pull swapping states on the same surface.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group translate/scale, mirrored eases and blur; native.",
+    "tsvg_demo": null,
+    "source": "skills/cut-the-curve/SKILL.md"
+  },
+  {
+    "id": "cut-the-curve/waterfall-entry",
+    "name": "Waterfall Entry",
+    "skill": "cut-the-curve",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Staggered arrival cascade from below for title cards and openers.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group translate/scale, mirrored eases and blur; native.",
+    "tsvg_demo": "kinetic-typography",
+    "source": "skills/cut-the-curve/SKILL.md"
+  },
+  {
+    "id": "cut-the-curve/nudge-curve",
+    "name": "Nudge Curve",
+    "skill": "cut-the-curve",
+    "kind": "effect",
+    "count": 1,
+    "summary": "Slow-fast-slow three-phase group slide within a scene.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "native",
+    "tsvg_note": "Group translate/scale, mirrored eases and blur; native.",
+    "tsvg_demo": null,
+    "source": "skills/cut-the-curve/SKILL.md"
+  },
+  {
+    "id": "seam-craft",
+    "name": "Seam craft render doctrine",
+    "skill": "seam-craft",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Render-correctness rules for scene seams: stage ground colour, wrapper opacity, no white flash.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "TSVG composites scenes in one player with a scene background; white-flash class of bug does not arise from separate wrappers.",
+    "tsvg_demo": null,
+    "source": "skills/seam-craft/SKILL.md"
+  },
+  {
+    "id": "figma",
+    "name": "Figma import",
+    "skill": "figma",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Pull Figma assets, brand tokens, components and motion into a composition.",
+    "needs": [
+      "url"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "No Figma importer in TSVG; exported SVG paths and PNGs can be used by hand.",
+    "tsvg_demo": null,
+    "source": "skills/figma/SKILL.md"
+  },
+  {
+    "id": "ffmpeg",
+    "name": "FFmpeg processing",
+    "skill": "ffmpeg",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Format conversion, resizing, compression, audio extraction.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "TSVG needs no encoding; only audio prep (m4a) uses ffmpeg-like tooling at build time.",
+    "tsvg_demo": null,
+    "source": "skills/ffmpeg/SKILL.md"
+  },
+  {
+    "id": "frontend-design",
+    "name": "Frontend design guidance",
+    "skill": "frontend-design",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Design-direction doctrine: distinctive palettes and typography, no templated defaults.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "Applies equally to authoring TSVG styles; no TSVG feature needed.",
+    "tsvg_demo": null,
+    "source": "skills/frontend-design/SKILL.md"
+  },
+  {
+    "id": "remotion-to-hyperframes",
+    "name": "Remotion to HyperFrames port",
+    "skill": "remotion-to-hyperframes",
+    "kind": "tooling",
+    "count": 1,
+    "summary": "Translate Remotion React compositions to HyperFrames HTML + GSAP.",
+    "needs": [
+      "none"
+    ],
+    "tsvg": "n/a",
+    "tsvg_note": "No Remotion importer in TSVG; a port would be a manual rewrite to TSVG nodes.",
+    "tsvg_demo": null,
+    "source": "skills/remotion-to-hyperframes/SKILL.md"
+  },
+  {
+    "id": "camera-arc",
+    "name": "3D camera arc from a flat clip",
+    "skill": "camera-arc",
+    "kind": "video-type",
+    "count": 1,
+    "summary": "A flat clip gets a slow orbiting 3D camera move using per-frame AI depth and a clean background plate.",
+    "needs": [
+      "footage"
+    ],
+    "tsvg": "no",
+    "tsvg_note": "Needs footage, AI depth per pixel and a perspective GPU camera; TSVG can only fake parallax from hand-cut still layers.",
+    "tsvg_demo": null,
+    "source": "skills/camera-arc/SKILL.md"
+  }
+]

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Edit Kit × TSVG: every video, and whether TSVG can make it</title>
+<style>
+  :root{--bg:#0c0e13;--panel:#151922;--line:#262c39;--fg:#e9edf5;--muted:#97a1b5;--accent:#7aa2ff;--good:#5fd39a;--warn:#ffb35c;--bad:#ff6b6b}
+  *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--fg);font:14.5px/1.5 system-ui,-apple-system,sans-serif}
+  header{max-width:1300px;margin:0 auto;padding:22px 24px 4px} h1{margin:0;font-size:26px} header p{color:var(--muted);margin:6px 0}
+  a{color:var(--accent);text-decoration:none}
+  .stats{display:flex;gap:10px;flex-wrap:wrap;max-width:1300px;margin:8px auto;padding:0 24px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 16px;min-width:150px}
+  .stat b{display:block;font-size:26px} .stat span{color:var(--muted);font-size:12.5px}
+  .bar{display:flex;gap:6px;flex-wrap:wrap;max-width:1300px;margin:10px auto;padding:0 24px;align-items:center}
+  .bar button{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:20px;padding:4px 12px;cursor:pointer;font:inherit;font-size:13px}
+  .bar button.on{border-color:var(--accent);color:var(--accent)}
+  .bar input,.bar select{background:var(--panel);color:var(--fg);border:1px solid var(--line);border-radius:20px;padding:5px 12px;font:inherit}
+  .bar input{flex:1;min-width:200px}
+  table{width:calc(100% - 48px);max-width:1252px;margin:0 auto 60px;border-collapse:collapse}
+  th,td{text-align:left;vertical-align:top;padding:8px;border-bottom:1px solid var(--line);font-size:13.5px}
+  th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em;position:sticky;top:0;background:var(--bg)}
+  .r{font-weight:700;white-space:nowrap} .native{color:var(--good)} .partial{color:var(--warn)} .no{color:var(--bad)} .na{color:var(--muted)}
+  td.k{color:var(--muted);white-space:nowrap} code{font-size:12px;color:var(--muted)}
+  .demo{white-space:nowrap}
+  .reels{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;max-width:1300px;margin:10px auto;padding:0 24px}
+  .reels a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;color:var(--fg)}
+  .reels img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+  .reels span{display:block;padding:6px 10px;font-size:13px}
+  @media (max-width:760px){td:nth-child(3),th:nth-child(3),td:nth-child(6),th:nth-child(6){display:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Edit Kit × TSVG</h1>
+  <p>Every video the <a href="https://github.com/Panth977/tsvg/tree/main/vendor/edit-kit">Edit Kit</a> (41 Claude Code video skills) can make, and whether TSVG can make it today. ▶ opens a TSVG demo of that kind of video. <a href="./">Style gallery</a> · <a href="../spec/">Spec</a></p>
+</header>
+<div class="stats" id="stats"></div>
+<div class="reels" id="reels"></div>
+<div class="bar" id="bar"><input id="q" placeholder="Filter…"><select id="skill"><option value="">All skills</option></select></div>
+<table><thead><tr><th>Video</th><th>Skill</th><th>Kind</th><th>TSVG</th><th>Why / what's lost</th><th>Needs</th><th>Demo</th></tr></thead><tbody id="rows"></tbody></table>
+<script>
+let items = [], rating = 'all';
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const label = { native: '✅ native', partial: '◐ partial', no: '✗ not yet', 'n/a': 'tooling' };
+function draw() {
+  const q = document.getElementById('q').value.toLowerCase(), sk = document.getElementById('skill').value;
+  document.getElementById('rows').innerHTML = items.filter((x) => (rating === 'all' || x.tsvg === rating) && (!sk || x.skill === sk) && (!q || (x.name + x.summary + x.id + x.tsvg_note).toLowerCase().includes(q))).map((x) =>
+    `<tr><td><b>${esc(x.name)}</b>${x.count > 1 ? ` <span class="na">×${x.count}</span>` : ''}<br><span class="na">${esc(x.summary)}</span></td><td><code>${esc(x.skill)}</code></td><td class="k">${esc(x.kind)}</td>` +
+    `<td class="r ${x.tsvg === 'n/a' ? 'na' : x.tsvg}">${label[x.tsvg] || x.tsvg}</td><td>${esc(x.tsvg_note)}</td><td class="k">${esc((x.needs || []).join(', '))}</td>` +
+    `<td class="demo">${x.tsvg_demo ? `<a href="./#${esc(x.tsvg_demo)}">▶ ${esc(x.tsvg_demo)}</a>` : ''}${x.kit_demo ? `${x.tsvg_demo ? '<br>' : ''}<a href="./#kit:${esc(x.kit_demo.reel)}@${x.kit_demo.t}">▶ ${esc(x.kit_demo.reel)} · ${Math.floor(x.kit_demo.t / 60)}:${String(Math.floor(x.kit_demo.t % 60)).padStart(2, '0')}</a>` : ''}</td></tr>`).join('');
+}
+fetch('../vendor/edit-kit-catalog/catalog.json').then((r) => r.json()).then((list) => {
+  items = list; const v = list.filter((x) => x.tsvg !== 'n/a'); const n = (k) => v.filter((x) => x.tsvg === k).reduce((s, x) => s + (x.count || 1), 0); const total = v.reduce((s, x) => s + (x.count || 1), 0);
+  document.getElementById('stats').innerHTML = [['', total, 'kinds of video'], ['native', n('native'), 'TSVG can make today'], ['partial', n('partial'), 'TSVG with a compromise'], ['no', n('no'), 'need footage / 3D / shaders'], ['', v.filter((x) => x.tsvg_demo || x.kit_demo).reduce((s, x) => s + (x.count || 1), 0), 'have a TSVG demo']]
+    .map(([c, b, s]) => `<div class="stat"><b class="${c}">${b}</b><span>${s}</span></div>`).join('');
+  const reels = {}; for (const x of list) if (x.kit_demo) reels[x.kit_demo.reel] = (reels[x.kit_demo.reel] || 0) + 1;
+  document.getElementById('reels').innerHTML = Object.keys(reels).sort().map((r) => `<a href="./#kit:${esc(r)}"><img loading="lazy" src="../examples/kit/${esc(r)}.png" alt=""><span>▶ ${esc(r)} · ${reels[r]} entries</span></a>`).join('');
+  const bar = document.getElementById('bar');
+  for (const k of ['all', 'native', 'partial', 'no', 'n/a']) { const b = document.createElement('button'); b.textContent = k === 'all' ? 'All' : label[k]; b.className = k === rating ? 'on' : ''; b.onclick = () => { rating = k; bar.querySelectorAll('button').forEach((x) => x.classList.toggle('on', x === b)); draw(); }; bar.insertBefore(b, bar.firstChild.nextSibling ? bar.children[bar.children.length - 1] : null); }
+  const sel = document.getElementById('skill'); for (const s of [...new Set(list.map((x) => x.skill))]) { const o = document.createElement('option'); o.value = o.textContent = s; sel.appendChild(o); }
+  document.getElementById('q').oninput = draw; sel.onchange = draw; draw();
+});
+</script>
+</body>
+</html>

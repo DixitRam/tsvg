@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.2" title="Edit Kit effects in TSVG (2)" font="Inter">
+  <layouts><layout id="landscape" w="1920" h="1080"/></layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Music + sfx"/><choice id="quiet" label="Sfx only"/></option>
+    <option id="theme" label="Theme" default="dark"><choice id="dark" label="Dark"/></option>
+  </options>
+  <mixes><mix id="full" voice="1" music="0.3" sfx="0.75"/><mix id="quiet" voice="1" music="0" sfx="0.75"/></mixes>
+  <themes><theme id="dark" bg="#0c0e13" fg="#f2f4f8" muted="#8a93a6" accent="#7aa2ff"/></themes>
+  <assets>
+    <font family="Inter" src="fonts/Inter.ttf"/>
+    <font family="Anton" src="fonts/Anton.ttf"/>
+    <font family="Caveat" src="fonts/Caveat.ttf"/>
+    <font family="JetBrains Mono" src="fonts/JetBrainsMono.ttf"/>
+    <font family="Playfair Display" src="fonts/PlayfairDisplay.ttf"/>
+    <font family="Space Grotesk" src="fonts/SpaceGrotesk.ttf"/>
+    <font family="VT323" src="fonts/VT323.ttf"/>
+    <asset id="blip" src="audio/blip.m4a"/>
+    <asset id="bright" src="audio/bright.m4a"/>
+    <asset id="click" src="audio/click.m4a"/>
+    <asset id="ding" src="audio/ding.m4a"/>
+    <asset id="drone" src="audio/drone.m4a"/>
+    <asset id="pad" src="audio/pad.m4a"/>
+    <asset id="pop" src="audio/pop.m4a"/>
+    <asset id="pulse" src="audio/pulse.m4a"/>
+    <asset id="typing" src="audio/typing.m4a"/>
+    <asset id="whoosh" src="audio/whoosh.m4a"/>
+    <asset id="img-city" src="images/city.jpg"/>
+    <asset id="img-factory" src="images/factory.jpg"/>
+    <asset id="img-food" src="images/food.jpg"/>
+    <asset id="img-mountains" src="images/mountains.jpg"/>
+    <asset id="img-nebula" src="images/nebula.jpg"/>
+    <asset id="img-oldmap" src="images/oldmap.jpg"/>
+    <asset id="img-paper" src="images/paper.jpg"/>
+    <asset id="img-ui-github" src="images/ui-github.jpg"/>
+    <asset id="img-ui-phone-playground" src="images/ui-phone-playground.jpg"/>
+    <asset id="img-ui-playground" src="images/ui-playground.jpg"/>
+    <asset id="img-ui-spec" src="images/ui-spec.jpg"/>
+    <asset id="img-ui-taskmanager-login" src="images/ui-taskmanager-login.jpg"/>
+    <asset id="img-workspace" src="images/workspace.jpg"/>
+  </assets>
+  <defs>
+    <symbol id="person"><circle y="-150" r="78" fill="#1a1d26"/><path d="M -190 140 C -180 0 -110 -50 0 -50 C 110 -50 180 0 190 140 Z" fill="#1a1d26"/></symbol>
+    <clip id="fb-fr"><path d="M 563 392 L 755 196 L 1003 179 L 1357 351 L 1320 474 L 1270 589 L 1326 778 L 1047 843 L 1041 893 L 737 819 L 774 597 L 712 499 Z"/></clip>
+    <symbol id="pin"><path d="M 0 0 C -12 -20 -34 -38 -34 -62 A 34 34 0 1 1 34 -62 C 34 -38 12 -20 0 0 Z" fill="#ff4b55" stroke="#ffffff" sw="4"/><circle y="-62" r="12" fill="#ffffff"/></symbol>
+    <mask id="ss-logo"><circle x="-330" r="90" fill="#ffffff"/><circle x="-330" r="40" fill="#0b0d14"/><text x="-200" size="170" weight="800" fill="#ffffff" text="NOVA"/></mask>
+    <linear id="ss-bar" x1="-120" y1="0" x2="120" y2="0"><stop at="0" color="#ffffff" opacity="0"/><stop at="0.5" color="#ffffff" opacity="1"/><stop at="1" color="#ffffff" opacity="0"/></linear>
+    <clip id="sp-clip"><path d="M 585 220 L 691 170 L 872 180 L 1036 195 L 1200 205 L 1306 260 L 1405 260 L 1610 300 L 1610 350 L 1519 410 L 1421 440 L 1347 540 L 1323 600 L 1364 660 L 1306 710 L 1282 780 L 1208 810 L 1175 870 L 1060 870 L 978 880 L 888 940 L 831 860 L 740 820 L 773 740 L 749 690 L 781 640 L 732 570 L 781 510 L 790 440 L 839 380 L 806 345 L 683 355 L 617 340 L 585 260 Z"/></clip>
+    <mask id="tm-text"><text x="960" y="540" size="400" font="Anton" align="center" text="COSMOS"/></mask>
+    <radial id="vg" x="960" y="540" r="1150"><stop at="0.35" color="#000000" opacity="0"/><stop at="1" color="#000000" opacity="0.92"/></radial>
+    <data id="cg-pal" v="#ff3d5a, #ffd23f, #2bd9a8, #3d7bff, #111111, #f4f1ea"/>
+    <data id="cs-w" v="MAKE,BREAK,SHAKE,TAKE,WAKE,MAKE"/>
+    <data id="cs-c" v="#ff3d5a,#111111,#ffd23f,#3d7bff,#2bd9a8,#ff3d5a"/>
+    <data id="hc-bg" v="#ff3d5a,#111111,#f4f1ea,#3d7bff,#111111"/>
+    <data id="hc-fg" v="#111111,#ffffff,#ff3d5a,#ffffff,#ffd23f"/>
+    <data id="hc-w" v="ONE,TWO,THREE,FOUR,GO"/>
+    <clip id="io-c"><circle x="960" y="540" r="=1150*ease(clamp((T-(0.6))/(0.9),0,1),'io')"/></clip>
+    <clip id="mr-a"><rect x="0" y="0" w="=1920*ease(clamp((T-(0.5))/(0.9),0,1),'io')" h="1080"/></clip>
+    <clip id="mr-b"><rect x="0" y="0" w="=320*ease(clamp((T-(2))/(0.6),0,1),'io')" h="1080"/><rect x="320" y="0" w="=320*ease(clamp((T-(2.06))/(0.6),0,1),'io')" h="1080"/><rect x="640" y="0" w="=320*ease(clamp((T-(2.12))/(0.6),0,1),'io')" h="1080"/><rect x="960" y="0" w="=320*ease(clamp((T-(2.18))/(0.6),0,1),'io')" h="1080"/><rect x="1280" y="0" w="=320*ease(clamp((T-(2.24))/(0.6),0,1),'io')" h="1080"/><rect x="1600" y="0" w="=320*ease(clamp((T-(2.3))/(0.6),0,1),'io')" h="1080"/></clip>
+    <data id="mp-c" v="#ff3d5a,#ff7a3d,#ffd23f,#2bd9a8,#3d7bff,#8a5cff"/>
+    <data id="pf-bg" v="#f4f1ea,#111111,#ff3d5a,#1d3fbf"/>
+    <data id="pf-a" v="#ff3d5a,#ffd23f,#111111,#2bd9a8"/>
+    <data id="pf-fg" v="#111111,#f4f1ea,#f4f1ea,#ffd23f"/>
+    <mask id="pd-m"><group repeat="9" as="r"><rect repeat="16" x="=i*120" y="=r*120" w="121" h="121" fill="#000" opacity="=rand(i*31 + r*17) > ease(clamp((T-(0.8))/(1.6),0,1),'linear') ? 1 : 0"/></group></mask>
+    <clip id="slot-w"><rect x="-120" y="-140" w="240" h="280"/></clip>
+    <radial id="spot" x="=-700 + 1400*ease(clamp((T-(0.4))/(1.8),0,1),'io') - 700*ease(clamp((T-(2.4))/(0.9),0,1),'io')" y="0" r="420"><stop at="0" color="#ffffff"/><stop at="0.6" color="#d6c7a0"/><stop at="1" color="#2a2622"/></radial>
+    <clip id="tm-tile"><rect x="=c*160" y="=r*154.3" w="161" h="155"/></clip>
+    <data id="wg" v="LOUD,SOFT,FAST,SLOW,HIGH,LOW,BRIGHT,DARK,OPEN,SHUT,WARM,COLD,NEAR,FAR,LIGHT,HEAVY"/>
+    <linear id="ray" x1="0" y1="0" x2="900" y2="0"><stop at="0" color="#fff3c4" opacity="0.7"/><stop at="1" color="#ff9a3b" opacity="0"/></linear>
+    <linear id="slab" x1="0" y1="-300" x2="0" y2="300"><stop at="0" color="#2a3150"/><stop at="1" color="#121626"/></linear>
+    <data id="cpx" v="620,640,660,680,600,600,620,640,660,680,680,600,620,640,660,720,720,720,760,780,720,740,800,720,800,720,800,720,800,880,860,880,880,880,880,860,880,900,960,980,1000,1020,960,1040,960,1040,960,980,1000,1020,960,960,1140,1120,1100,1100,1100,1120,1140,1220,1240,1260,1260,1260,1240,1220"/>
+    <data id="cpy" v="380,380,380,380,400,420,440,440,440,460,480,500,500,500,500,380,400,420,420,420,440,440,440,460,460,480,480,500,500,380,420,420,440,460,480,500,500,500,400,400,400,400,420,420,440,440,460,460,460,460,480,500,380,400,420,440,460,480,500,380,400,420,440,460,480,500"/>
+    <data id="cpk" v="0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1"/>
+    <mask id="csd"><group repeat="12" as="r"><rect repeat="48" x="=i*40" y="=r*40" w="41" h="41" fill="#000" opacity="=i*40 + 260*rand(i*13 + r*29) &lt; (-200 + 2000*ease(clamp((T-(0.4))/(2.6),0,1),'linear')) ? 1 : 0"/></group></mask>
+  </defs>
+  <music src="bright" loop="1" vol="0.6"/>
+  <timeline>
+    <scene id="motion-graphics--apple-money-count" dur="4.5" chapter="apple-money-count block">
+      <sfx at="0.3" src="typing" vol="0.4"/><sfx at="2.3" src="ding"/>
+      <rect w="1920" h="1080" fill="#050806"/>
+      <circle x="960" y="520" r="=420*ease(clamp((T-(2.3))/(0.4),0,1),'out')" fill="#1fd66b" opacity="=0.35*(1 - clamp((T-(2.3))/(0.8),0,1))" blur="40"/>
+      <text x="960" y="520" size="200" weight="800" align="center" fill="=mix('#ffffff', '#1fd66b', clamp((T-(2.3))/(0.15),0,1) - clamp((T-(2.6))/(0.8),0,1)*0.6)" text="{'$' + fmt(floor(12480*ease(clamp((T-(0.3))/(2),0,1),'io')), 0)}"/>
+      <group x="960" y="520" at="2.3"><text repeat="26" x="=cos(i*2.4)*900*ease(clamp((T-(2.3))/(1.2),0,1),'out')" y="=sin(i*2.4)*520*ease(clamp((T-(2.3))/(1.2),0,1),'out') + 500*clamp((T-(2.3))/(1.6),0,1)^2" rot="=i*37 + T*200" size="=40 + 30*rand(i)" weight="800" fill="#1fd66b" opacity="=1 - clamp((T-(3.2))/(0.8),0,1)" text="$"/></group>
+      <text x="960" y="740" size="40" align="center" fill="#8fa59a" text="revenue this week"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="419" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="apple-money-count block"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--flag-borders" dur="4" chapter="flag-borders">
+      <sfx at="1.3" src="whoosh" vol="0.5"/>
+      <rect w="1920" h="1080" fill="#0e1320"/>
+        <group clip="url(#fb-fr)" opacity="=clamp((T-(1.3))/(0.01),0,1)"><rect x="560" y="150" w="=800*ease(clamp((T-(1.3))/(0.8),0,1),'io')" h="800" fill="#ffffff"/><rect x="560" y="150" w="=267*ease(clamp((T-(1.3))/(0.8),0,1),'io')" h="800" fill="#1f4fbf"/><rect x="1093" y="150" w="=267*ease(clamp((T-(1.7))/(0.4),0,1),'io')" h="800" fill="#e1323c"/></group>
+        <path d="M 563 392 L 755 196 L 1003 179 L 1357 351 L 1320 474 L 1270 589 L 1326 778 L 1047 843 L 1041 893 L 737 819 L 774 597 L 712 499 Z" stroke="#ffffff" sw="=5 + 4*max(0, sin((T - 2.3)*6))*(T > 2.3)*(T &lt; 3.4)" draw="=ease(clamp((T-(0.2))/(1.1),0,1),'io')"/>
+        <text x="960" y="980" size="56" weight="800" align="center" fill="#ffffff" text="France"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="flag-borders"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--geo-highlight" dur="4.5" chapter="geo-highlight">
+      <sfx at="0.6" src="pop"/><sfx at="1.2999999999999998" src="pop"/><sfx at="2" src="pop"/>
+      <rect w="1920" h="1080" fill="#0a1020"/><path d="M 723 243 L 885 206 L 900 367 L 749 329 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 885 206 L 1044 199 L 1046 384 L 900 367 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 1044 199 L 1199 231 L 1188 359 L 1046 384 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 594 317 L 749 329 L 738 497 L 596 499 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 749 329 L 900 367 L 877 462 L 738 497 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 900 367 L 1046 384 L 1014 436 L 877 462 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 1046 384 L 1188 359 L 1151 453 L 1014 436 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 1188 359 L 1328 323 L 1289 491 L 1151 453 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 596 499 L 738 497 L 700 558 L 564 567 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 738 497 L 877 462 L 838 589 L 700 558 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 877 462 L 1014 436 L 978 621 L 838 589 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 1014 436 L 1151 453 L 1122 615 L 978 621 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 1151 453 L 1289 491 L 1270 577 L 1122 615 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 1289 491 L 1429 503 L 1422 556 L 1270 577 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 700 558 L 838 589 L 820 720 L 672 744 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 838 589 L 978 621 L 973 684 L 820 720 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 978 621 L 1122 615 L 1129 680 L 973 684 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 1122 615 L 1270 577 L 1289 713 L 1129 680 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 1270 577 L 1422 556 L 1451 743 L 1289 713 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 820 720 L 973 684 L 1002 849 L 840 811 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 973 684 L 1129 680 L 1165 863 L 1002 849 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/><path d="M 1129 680 L 1289 713 L 1328 836 L 1165 863 Z" fill="#1d2638" stroke="#3b4a66" sw="3"/>
+        <path d="M 749 329 L 900 367 L 877 462 L 738 497 Z" fill="#ff8a3b" opacity="=ease(clamp((T-(0.6))/(0.3),0,1),'out')" stroke="#ffffff" sw="=3 + 6*max(0, sin((T - 0.6)*7))*(T > 0.6)*(T &lt; 1.5)"/><text x="815.9522830594705" y="413.78726138027946" size="34" weight="800" align="center" fill="#0a1020" opacity="=ease(clamp((T-(0.75))/(0.3),0,1),'out')" text="Alder"/><path d="M 1014 436 L 1151 453 L 1122 615 L 978 621 Z" fill="#5cc8ff" opacity="=ease(clamp((T-(1.2999999999999998))/(0.3),0,1),'out')" stroke="#ffffff" sw="=3 + 6*max(0, sin((T - 1.2999999999999998)*7))*(T > 1.2999999999999998)*(T &lt; 2.1999999999999997)"/><text x="1066.4603269385957" y="531.1865322639322" size="34" weight="800" align="center" fill="#0a1020" opacity="=ease(clamp((T-(1.4499999999999997))/(0.3),0,1),'out')" text="Brena"/><path d="M 973 684 L 1129 680 L 1165 863 L 1002 849 Z" fill="#b78cff" opacity="=ease(clamp((T-(2))/(0.3),0,1),'out')" stroke="#ffffff" sw="=3 + 6*max(0, sin((T - 2)*7))*(T > 2)*(T &lt; 2.9)"/><text x="1067.2904557621962" y="769.0837352781227" size="34" weight="800" align="center" fill="#0a1020" opacity="=ease(clamp((T-(2.15))/(0.3),0,1),'out')" text="Corvo"/>
+        <text x="960" y="110" size="52" weight="800" align="center" fill="#ffffff" text="3 markets launched"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="geo-highlight"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--motion-primitives" dur="5" chapter="Motion vocabulary primitives">
+      
+      <rect w="1920" h="1080" fill="#0e1117"/><rect x="140" y="145" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="330" y="240"><text size="64" weight="800" align="center" fill="#ffffff" x="=-300*(1 - ease(clamp((T-(0.3))/(0.5),0,1),'out'))" text="slide"/></group><rect x="560" y="145" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="750" y="240"><text size="64" weight="800" align="center" fill="#ffffff" scale="=ease(clamp((T-(0.55))/(0.5),0,1),'back')" text="scale"/></group><rect x="980" y="145" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="1170" y="240"><text size="64" weight="800" align="center" fill="#ffffff" opacity="=ease(clamp((T-(0.8))/(0.6),0,1),'io')" text="fade"/></group><rect x="1400" y="145" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="1590" y="240"><text size="64" weight="800" align="center" fill="#ffffff" blur="=16*(1 - ease(clamp((T-(1.05))/(0.6),0,1),'out'))" opacity="=clamp((T-(1.05))/(0.2),0,1)" text="blur"/></group><rect x="140" y="405" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="330" y="500"><text size="64" weight="800" align="center" fill="#ffffff" reveal="=clamp((T-(1.3))/(0.8),0,1)" text="typewriter"/></group><rect x="560" y="405" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="750" y="500"><text size="64" weight="800" align="center" fill="#ffffff" y="=-14*sin((T - 1.55)*8)*(T > 1.55)" text="wave"/></group><rect x="980" y="405" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="1170" y="500"><text size="64" weight="800" align="center" fill="#ffffff" y="=-120*abs(cos((T - 1.8)*7))*max(0, 1 - (T - 1.8)/1.1)*(T > 1.8)" text="bounce"/></group><rect x="1400" y="405" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="1590" y="500"><text size="64" weight="800" align="center" fill="#ffffff" scale="=3 - 2*ease(clamp((T-(2.05))/(0.18),0,1),'in')" opacity="=clamp((T-(2.05))/(0.05),0,1)" text="slam"/></group><rect x="140" y="665" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="330" y="760"><text size="64" weight="800" align="center" fill="#ffffff" scale="=1 + 0.12*abs(sin((T - 2.3)*6))*(T > 2.3)" text="pulse"/></group><rect x="560" y="665" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="750" y="760"><text size="64" weight="800" align="center" fill="#ffffff" x="=18*sin((T - 2.55)*60)*max(0, 1 - (T - 2.55)/0.6)*(T > 2.55)" text="shake"/></group><rect x="980" y="665" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="1170" y="760"><text size="64" weight="800" align="center"  shadow="0 0 30 #7aa2ff" fill="=mix('#ffffff', '#bcd0ff', clamp((T-(2.8))/(0.4),0,1))" text="glow"/></group><rect x="1400" y="665" w="380" h="200" r="22" fill="#161b26" stroke="#262d3d" sw="2"/><group x="1590" y="760"><text size="64" weight="800" align="center"  fill="=mix('#ffffff', '#ff6b9a', ease(clamp((T-(3.05))/(0.6),0,1),'out'))" text="colour"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="492" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="Motion vocabulary primitives"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--pin-rollout" dur="4.5" chapter="pin-rollout">
+      <sfx at="0.5" src="pop"/><sfx at="0.8" src="pop"/><sfx at="1.1" src="pop"/><sfx at="1.4" src="pop"/><sfx at="1.7" src="pop"/>
+      <image src="img-oldmap" w="1920" h="1080" opacity="0.55"/><rect w="1920" h="1080" fill="#0a0c14" opacity="0.45"/>
+        <circle repeat="2" x="700" y="380" r="=80*fract((T - 0.5 - i*0.5)/1.2)" stroke="#ff4b55" sw="4" opacity="=(T > 0.5 + i*0.5)*(1 - fract((T - 0.5 - i*0.5)/1.2))"/><use ref="pin" x="700" y="=380 - 400*(1 - ease(clamp((T-(0.5))/(0.45),0,1),'back'))" opacity="=clamp((T-(0.5))/(0.05),0,1)"/><circle repeat="2" x="980" y="330" r="=80*fract((T - 0.8 - i*0.5)/1.2)" stroke="#ff4b55" sw="4" opacity="=(T > 0.8 + i*0.5)*(1 - fract((T - 0.8 - i*0.5)/1.2))"/><use ref="pin" x="980" y="=330 - 400*(1 - ease(clamp((T-(0.8))/(0.45),0,1),'back'))" opacity="=clamp((T-(0.8))/(0.05),0,1)"/><circle repeat="2" x="1220" y="520" r="=80*fract((T - 1.1 - i*0.5)/1.2)" stroke="#ff4b55" sw="4" opacity="=(T > 1.1 + i*0.5)*(1 - fract((T - 1.1 - i*0.5)/1.2))"/><use ref="pin" x="1220" y="=520 - 400*(1 - ease(clamp((T-(1.1))/(0.45),0,1),'back'))" opacity="=clamp((T-(1.1))/(0.05),0,1)"/><circle repeat="2" x="860" y="640" r="=80*fract((T - 1.4 - i*0.5)/1.2)" stroke="#ff4b55" sw="4" opacity="=(T > 1.4 + i*0.5)*(1 - fract((T - 1.4 - i*0.5)/1.2))"/><use ref="pin" x="860" y="=640 - 400*(1 - ease(clamp((T-(1.4))/(0.45),0,1),'back'))" opacity="=clamp((T-(1.4))/(0.05),0,1)"/><circle repeat="2" x="1120" y="760" r="=80*fract((T - 1.7 - i*0.5)/1.2)" stroke="#ff4b55" sw="4" opacity="=(T > 1.7 + i*0.5)*(1 - fract((T - 1.7 - i*0.5)/1.2))"/><use ref="pin" x="1120" y="=760 - 400*(1 - ease(clamp((T-(1.7))/(0.45),0,1),'back'))" opacity="=clamp((T-(1.7))/(0.05),0,1)"/>
+        <text x="960" y="110" size="52" weight="800" align="center" fill="#ffffff" shadow="0 3 12 #000000" text="Five new stores"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="pin-rollout"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--shimmer-sweep" dur="4" chapter="shimmer-sweep polish">
+      <sfx at="1" src="ding" vol="0.4"/>
+      <rect w="1920" h="1080" fill="#0b0d14"/><group x="960" y="540"><group opacity="0.55"><circle x="-330" r="90" fill="#8d9bb8"/><circle x="-330" r="40" fill="#0b0d14"/><text x="-200" size="170" weight="800" fill="#8d9bb8" text="NOVA"/></group>
+        <group mask="url(#ss-logo)"><rect x="=-900 + 1700*ease(clamp((T-(1))/(1.2),0,1),'io')" y="-200" w="240" h="400" rot="20" fill="url(#ss-bar)"/></group></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="shimmer-sweep polish"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--spain-map" dur="4.5" chapter="spain-map block">
+      <sfx at="0.4" src="whoosh" vol="0.4"/>
+      <rect w="1920" h="1080" fill="#0c111c"/><path d="M 585 220 L 691 170 L 872 180 L 1036 195 L 1200 205 L 1306 260 L 1405 260 L 1610 300 L 1610 350 L 1519 410 L 1421 440 L 1347 540 L 1323 600 L 1364 660 L 1306 710 L 1282 780 L 1208 810 L 1175 870 L 1060 870 L 978 880 L 888 940 L 831 860 L 740 820 L 773 740 L 749 690 L 781 640 L 732 570 L 781 510 L 790 440 L 839 380 L 806 345 L 683 355 L 617 340 L 585 260 Z" fill="#1b2538"/>
+        <group clip="url(#sp-clip)"><rect x="527.1999999999999" y="140" w="262.4000000000001" h="220.00000000000028" fill="#2a4d8f" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(0.4))/(0.3),0,1),'out')"/><rect x="789.6" y="140" w="278.79999999999984" h="110.00000000000014" fill="#8fb4f0" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(0.55))/(0.3),0,1),'out')"/><rect x="1068.3999999999999" y="140" w="180.40000000000032" h="160.0000000000001" fill="#3a6fc4" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(0.7))/(0.3),0,1),'out')"/><rect x="1248.8000000000002" y="190" w="139.39999999999964" h="360.0000000000001" fill="#c6d9fa" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(0.85))/(0.3),0,1),'out')"/><rect x="1388.1999999999998" y="190" w="287.0000000000002" h="310.0000000000001" fill="#5b8fe0" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(1))/(0.3),0,1),'out')"/><rect x="789.6" y="250.00000000000014" w="459.20000000000016" h="260.0000000000001" fill="#2a4d8f" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(1.15))/(0.3),0,1),'out')"/><rect x="855.2" y="510.0000000000003" w="409.9999999999998" h="189.99999999999983" fill="#8fb4f0" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(1.2999999999999998))/(0.3),0,1),'out')"/><rect x="1265.1999999999998" y="500.0000000000001" w="123" h="250" fill="#3a6fc4" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(1.4500000000000002))/(0.3),0,1),'out')"/><rect x="724" y="510.0000000000003" w="131.20000000000005" h="239.99999999999983" fill="#c6d9fa" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(1.6))/(0.3),0,1),'out')"/><rect x="724" y="700.0000000000001" w="492" h="260.0000000000001" fill="#5b8fe0" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(1.75))/(0.3),0,1),'out')"/><rect x="1216" y="700.0000000000001" w="90.19999999999982" h="139.9999999999999" fill="#2a4d8f" stroke="#0c111c" sw="4" opacity="=ease(clamp((T-(1.9))/(0.3),0,1),'out')"/></group>
+        <path d="M 585 220 L 691 170 L 872 180 L 1036 195 L 1200 205 L 1306 260 L 1405 260 L 1610 300 L 1610 350 L 1519 410 L 1421 440 L 1347 540 L 1323 600 L 1364 660 L 1306 710 L 1282 780 L 1208 810 L 1175 870 L 1060 870 L 978 880 L 888 940 L 831 860 L 740 820 L 773 740 L 749 690 L 781 640 L 732 570 L 781 510 L 790 440 L 839 380 L 806 345 L 683 355 L 617 340 L 585 260 Z" stroke="#ffffff" sw="4"/>
+        <text x="724" y="250" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Galicia"/><text x="929" y="225" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Asturias"/><text x="1159" y="250" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Basque C."/><text x="1319" y="370" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Aragón"/><text x="1466" y="345" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Catalonia"/><text x="1019" y="380" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Castile-León"/><text x="1060" y="605" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Castile-La Mancha"/><text x="1327" y="625" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Valencia"/><text x="790" y="630" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Extremadura"/><text x="1052" y="830" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Andalusia"/><text x="1261" y="770" size="20" weight="700" align="center" fill="#ffffff" opacity="=ease(clamp((T-(2.2))/(0.4),0,1),'out')" text="Murcia"/>
+        <text x="1560" y="840" size="44" weight="800" align="center" fill="#ffffff" text="Spain · regions"/>
+      <group x="1577" y="1000" opacity="0.94"><rect w="315" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="157.5" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: simplified region shapes"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="spain-map block"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--texture-mask-text" dur="4" chapter="texture-mask-text polish">
+      
+      <rect w="1920" h="1080" fill="#050508"/><group mask="url(#tm-text)" opacity="=ease(clamp((T-(0.2))/(0.8),0,1),'out')"><image src="img-nebula" x="=-200 + 100*T" y="-100" w="2400" h="1300"/></group>
+        <text x="960" y="860" size="40" align="center" fill="#9aa3b8" text="image texture through the letters"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="433" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="texture-mask-text polish"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--us-map" dur="5.5" chapter="us-map family (bubble / hex / flow)">
+      <sfx at="1.4" src="pop"/><sfx at="3" src="whoosh" vol="0.4"/>
+      <rect w="1920" h="1080" fill="#0b1020"/>
+        <group x="420" y="200" scale="=ease(clamp((T-(0.1))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="AK"/></group><group x="1498" y="200" scale="=ease(clamp((T-(0.65))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="ME"/></group><group x="1057" y="286" scale="=ease(clamp((T-(0.45000000000000007))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="WI"/></group><group x="1449" y="286" scale="=ease(clamp((T-(0.65))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="VT"/></group><group x="1547" y="286" scale="=ease(clamp((T-(0.7000000000000001))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="NH"/></group><group x="518" y="372" scale="=ease(clamp((T-(0.25))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="WA"/></group><group x="616" y="372" scale="=ease(clamp((T-(0.30000000000000004))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="ID"/></group><group x="714" y="372" scale="=ease(clamp((T-(0.35))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="MT"/></group><group x="812" y="372" scale="=ease(clamp((T-(0.4))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="ND"/></group><group x="910" y="372" scale="=ease(clamp((T-(0.45000000000000007))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="MN"/></group><group x="1008" y="372" scale="=ease(clamp((T-(0.5))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="IL"/></group><group x="1106" y="372" scale="=ease(clamp((T-(0.55))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="MI"/></group><group x="1302" y="372" scale="=ease(clamp((T-(0.65))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="NY"/></group><group x="1400" y="372" scale="=ease(clamp((T-(0.7000000000000001))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="MA"/></group><group x="567" y="458" scale="=ease(clamp((T-(0.30000000000000004))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="OR"/></group><group x="665" y="458" scale="=ease(clamp((T-(0.35))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="NV"/></group><group x="763" y="458" scale="=ease(clamp((T-(0.4))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="WY"/></group><group x="861" y="458" scale="=ease(clamp((T-(0.45000000000000007))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="SD"/></group><group x="959" y="458" scale="=ease(clamp((T-(0.5))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="IA"/></group><group x="1057" y="458" scale="=ease(clamp((T-(0.55))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="IN"/></group><group x="1155" y="458" scale="=ease(clamp((T-(0.6))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="OH"/></group><group x="1253" y="458" scale="=ease(clamp((T-(0.65))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="PA"/></group><group x="1351" y="458" scale="=ease(clamp((T-(0.7000000000000001))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="NJ"/></group><group x="1449" y="458" scale="=ease(clamp((T-(0.75))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="CT"/></group><group x="1547" y="458" scale="=ease(clamp((T-(0.8))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="RI"/></group><group x="518" y="544" scale="=ease(clamp((T-(0.35))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="CA"/></group><group x="616" y="544" scale="=ease(clamp((T-(0.4))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="UT"/></group><group x="714" y="544" scale="=ease(clamp((T-(0.45000000000000007))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="CO"/></group><group x="812" y="544" scale="=ease(clamp((T-(0.5))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="NE"/></group><group x="910" y="544" scale="=ease(clamp((T-(0.55))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="MO"/></group><group x="1008" y="544" scale="=ease(clamp((T-(0.6))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="KY"/></group><group x="1106" y="544" scale="=ease(clamp((T-(0.65))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="WV"/></group><group x="1204" y="544" scale="=ease(clamp((T-(0.7000000000000001))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="VA"/></group><group x="1302" y="544" scale="=ease(clamp((T-(0.75))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="MD"/></group><group x="1400" y="544" scale="=ease(clamp((T-(0.8))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="DE"/></group><group x="665" y="630" scale="=ease(clamp((T-(0.45000000000000007))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="AZ"/></group><group x="763" y="630" scale="=ease(clamp((T-(0.5))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="NM"/></group><group x="861" y="630" scale="=ease(clamp((T-(0.55))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="KS"/></group><group x="959" y="630" scale="=ease(clamp((T-(0.6))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="AR"/></group><group x="1057" y="630" scale="=ease(clamp((T-(0.65))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="TN"/></group><group x="1155" y="630" scale="=ease(clamp((T-(0.7000000000000001))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="NC"/></group><group x="1253" y="630" scale="=ease(clamp((T-(0.75))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="SC"/></group><group x="1351" y="630" scale="=ease(clamp((T-(0.8))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="DC"/></group><group x="812" y="716" scale="=ease(clamp((T-(0.6))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="OK"/></group><group x="910" y="716" scale="=ease(clamp((T-(0.65))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="LA"/></group><group x="1008" y="716" scale="=ease(clamp((T-(0.7000000000000001))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="MS"/></group><group x="1106" y="716" scale="=ease(clamp((T-(0.75))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="AL"/></group><group x="1204" y="716" scale="=ease(clamp((T-(0.8))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="GA"/></group><group x="469" y="802" scale="=ease(clamp((T-(0.45000000000000007))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="HI"/></group><group x="861" y="802" scale="=ease(clamp((T-(0.65))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="TX"/></group><group x="1351" y="802" scale="=ease(clamp((T-(0.9))/(0.35),0,1),'back')"><path d="M 45 26 L 0 52 L -45 26 L -45 -26 L 0 -52 L 45 -26 Z" fill="#1e2a48" stroke="#33446e" sw="3"/><text x="0" y="0" size="22" weight="700" align="center" fill="#9fb0d8" text="FL"/></group>
+        <circle x="420" y="200" r="=27*ease(clamp((T-(1.4))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1498" y="200" r="=44*ease(clamp((T-(1.44))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1057" y="286" r="=32*ease(clamp((T-(1.48))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1449" y="286" r="=12*ease(clamp((T-(1.52))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1547" y="286" r="=17*ease(clamp((T-(1.5599999999999998))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="518" y="372" r="=39*ease(clamp((T-(1.5999999999999999))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="616" y="372" r="=41*ease(clamp((T-(1.64))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="714" y="372" r="=19*ease(clamp((T-(1.68))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="812" y="372" r="=11*ease(clamp((T-(1.72))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="910" y="372" r="=30*ease(clamp((T-(1.4))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1008" y="372" r="=44*ease(clamp((T-(1.44))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1106" y="372" r="=29*ease(clamp((T-(1.48))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1302" y="372" r="=11*ease(clamp((T-(1.52))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1400" y="372" r="=20*ease(clamp((T-(1.5599999999999998))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="567" y="458" r="=41*ease(clamp((T-(1.5999999999999999))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="665" y="458" r="=38*ease(clamp((T-(1.64))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="763" y="458" r="=16*ease(clamp((T-(1.68))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="861" y="458" r="=12*ease(clamp((T-(1.72))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="959" y="458" r="=33*ease(clamp((T-(1.4))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1057" y="458" r="=44*ease(clamp((T-(1.44))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1155" y="458" r="=26*ease(clamp((T-(1.48))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1253" y="458" r="=10*ease(clamp((T-(1.52))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1351" y="458" r="=23*ease(clamp((T-(1.5599999999999998))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1449" y="458" r="=43*ease(clamp((T-(1.5999999999999999))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1547" y="458" r="=36*ease(clamp((T-(1.64))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="518" y="544" r="=14*ease(clamp((T-(1.68))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="616" y="544" r="=14*ease(clamp((T-(1.72))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="714" y="544" r="=36*ease(clamp((T-(1.4))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="812" y="544" r="=43*ease(clamp((T-(1.44))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="910" y="544" r="=23*ease(clamp((T-(1.48))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1008" y="544" r="=10*ease(clamp((T-(1.52))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1106" y="544" r="=26*ease(clamp((T-(1.5599999999999998))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1204" y="544" r="=44*ease(clamp((T-(1.5999999999999999))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1302" y="544" r="=33*ease(clamp((T-(1.64))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1400" y="544" r="=12*ease(clamp((T-(1.68))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="665" y="630" r="=16*ease(clamp((T-(1.72))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="763" y="630" r="=38*ease(clamp((T-(1.4))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="861" y="630" r="=41*ease(clamp((T-(1.44))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="959" y="630" r="=20*ease(clamp((T-(1.48))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1057" y="630" r="=11*ease(clamp((T-(1.52))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1155" y="630" r="=29*ease(clamp((T-(1.5599999999999998))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1253" y="630" r="=44*ease(clamp((T-(1.5999999999999999))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1351" y="630" r="=30*ease(clamp((T-(1.64))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="812" y="716" r="=11*ease(clamp((T-(1.68))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="910" y="716" r="=19*ease(clamp((T-(1.72))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1008" y="716" r="=41*ease(clamp((T-(1.4))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1106" y="716" r="=39*ease(clamp((T-(1.44))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1204" y="716" r="=17*ease(clamp((T-(1.48))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="469" y="802" r="=12*ease(clamp((T-(1.52))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="861" y="802" r="=32*ease(clamp((T-(1.5599999999999998))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/><circle x="1351" y="802" r="=44*ease(clamp((T-(1.5999999999999999))/(0.5),0,1),'back')" fill="#ffb35c" opacity="=0.75*(1 - 0.6*clamp((T-(2.9))/(0.4),0,1))"/>
+        <path d="M 518 544 Q 910 152 1302 372" stroke="#5cf2ff" sw="6" draw="=ease(clamp((T-(3))/(0.9),0,1),'io')"/><path d="M 861 802 Q 934.5 152 1008 372" stroke="#5cf2ff" sw="6" draw="=ease(clamp((T-(3.2))/(0.9),0,1),'io')"/><path d="M 518 372 Q 934.5 152 1351 802" stroke="#5cf2ff" sw="6" draw="=ease(clamp((T-(3.4))/(0.9),0,1),'io')"/><path d="M 714 544 Q 959 324 1204 716" stroke="#5cf2ff" sw="6" draw="=ease(clamp((T-(3.6))/(0.9),0,1),'io')"/>
+        <text x="1560" y="900" size="40" weight="800" align="center" fill="#ffffff" text="=T &lt; 1.4 ? 'hex tiles' : (T &lt; 3 ? '+ bubbles' : '+ flows')"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="594" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="us-map family (bubble / hex / flow)"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--vignette" dur="4" chapter="vignette polish">
+      
+      <image src="img-factory" w="1920" h="1080"/><rect w="1920" h="1080" fill="url(#vg)" opacity="=ease(clamp((T-(0.8))/(1.2),0,1),'io')"/>
+        <text x="960" y="120" size="48" weight="800" align="center" fill="#ffffff" shadow="0 2 10 #000000" text="=T &lt; 0.8 ? 'no vignette' : 'vignette'"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="vignette polish"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="motion-graphics  ·  native"/>
+    </group>
+    </scene>
+    <scene id="motion-graphics--basemap-zoom" dur="5" chapter="Basemap zoom-to-place (baked)">
+      <sfx at="0.4" src="whoosh" vol="0.5"/><sfx at="3" src="pop"/>
+      <rect w="1920" h="1080" fill="#05070d"/>
+        <group x="1180" y="430" scale="=1 + 3*ease(clamp((T-(0.4))/(2.2),0,1),'io')"><group x="-1180" y="-430"><image src="img-oldmap" w="1920" h="1080"/><rect w="1920" h="1080" fill="#0b1020" opacity="0.35"/>
+          <path d="M 1110 380 L 1170 360 L 1240 390 L 1250 450 L 1200 500 L 1130 480 L 1100 430 Z" stroke="#ffd23f" sw="=4/(1 + 3*ease(clamp((T-(0.4))/(2.2),0,1),'io'))" draw="=ease(clamp((T-(2.4))/(0.8),0,1),'io')"/></group></group>
+        <group at="3.0" x="960" y="540" scale="=ease(clamp((T-(3))/(0.35),0,1),'back')"><circle r="18" fill="#ff4b55" stroke="#ffffff" sw="5"/><text x="0" y="-60" size="44" weight="800" align="center" fill="#ffffff" shadow="0 2 10 #000000" text="Harbour Town"/></group>
+      <group x="1326" y="1000" opacity="0.94"><rect w="566" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="283" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: one baked still image; detail softens at depth"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="506" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <circle x="33" y="37" r="16" fill="#00000000" stroke="#f5b942" sw="3.5"/><circle x="33" y="37" r="13" from="180" to="360" fill="#f5b942"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="Basemap zoom-to-place (baked)"/>
+      <text x="64" y="53" size="19" fill="#ffd27a" font="JetBrains Mono" text="motion-graphics  ·  partial"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-blur-resolve" dur="4" chapter="blur-resolve">
+      
+      <rect w="1920" h="1080" fill="#e9e4da"/><group x="960" y="540" blur="=30*(1 - ease(clamp((T-(0.3))/(1.3),0,1),'out')) + 30*ease(clamp((T-(3.2))/(0.6),0,1),'in')" opacity="=clamp((T-(0.2))/(0.3),0,1)"><text x="0" y="0" size="260" font="Anton" align="center" fill="#151515"  text="STILL HERE"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="blur-resolve"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-color-grid-shuffle" dur="4" chapter="color-grid-shuffle">
+      <sfx at="0.5" src="click" vol="0.6"/><sfx at="1" src="click" vol="0.6"/><sfx at="1.5" src="click" vol="0.6"/><sfx at="2" src="click" vol="0.6"/><sfx at="2.5" src="click" vol="0.6"/><sfx at="3" src="click" vol="0.6"/><sfx at="3.5" src="click" vol="0.6"/><sfx at="4" src="click" vol="0.6"/>
+      <group repeat="5" as="r"><rect repeat="8" x="=i*240" y="=r*216" w="240" h="216" fill="=data('cg-pal', floor(rand(i*7 + r*13 + floor(max(0, T - 0.5)/0.25)*3)*6))"/></group>
+        <group x="960" y="540"><text x="0" y="0" size="220" font="Anton" align="center" fill="#ffffff" shadow="0 0 0 #000" stroke="#111111" sw="10" text="ONSET"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="color-grid-shuffle"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-content-swap" dur="3.5" chapter="content-swap">
+      <sfx at="0.3" src="blip" vol="0.6"/><sfx at="0.8" src="blip" vol="0.6"/><sfx at="1.3" src="blip" vol="0.6"/><sfx at="1.8" src="blip" vol="0.6"/><sfx at="2.3" src="blip" vol="0.6"/><sfx at="2.8" src="blip" vol="0.6"/>
+      <rect w="1920" h="1080" fill="=data('cs-c', clamp(floor((T - 0.3)/0.5), 0, 5))"/>
+        <group x="960" y="540"><text size="320" font="Anton" align="center" fill="=data('cs-c', clamp(floor((T - 0.3)/0.5), 0, 5)) == '#ffd23f' ? '#111111' : '#ffffff'" text="{data('cs-w', clamp(floor((T - 0.3)/0.5), 0, 5))}"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="content-swap"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-crash-zoom-in" dur="3.5" chapter="crash-zoom-in">
+      <sfx at="1" src="whoosh"/>
+      <rect w="1920" h="1080" fill="#111"/><group x="=960 + 14*sin(T*70)*(T > 1.25)*max(0, 1 - (T-1.25)/0.4)" y="540" scale="=1 + 1.6*ease(clamp((T-(1))/(0.25),0,1),'in')" blur="=18*sin(clamp((T-(1))/(0.25),0,1)*PI)">
+        <circle r="300" fill="#ff3d5a"/><text x="0" y="0" size="220" font="Anton" align="center" fill="#ffffff"  text="DROP"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="crash-zoom-in"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-electric-arc" dur="4" chapter="electric-arc">
+      <sfx at="0.8" src="blip"/><sfx at="2" src="blip"/><sfx at="2.7" src="blip"/>
+      <rect w="1920" h="1080" fill="#05060f"/><circle x="360" y="540" r="40" fill="#2a3a66" stroke="#9fd8ff" sw="6"/><circle x="1560" y="540" r="40" fill="#2a3a66" stroke="#9fd8ff" sw="6"/>
+        <group opacity="=((T > 0.8)*(T &lt; 1.5) + (T > 2.0)*(T &lt; 2.35) + (T > 2.7))"><path d="='M 360 540' + ' L 480 ' + (540 + 160*(rand(floor(T*24)*7 + 1) - 0.5)*sin(0.10*PI)) + ' L 600 ' + (540 + 160*(rand(floor(T*24)*7 + 4) - 0.5)*sin(0.20*PI)) + ' L 720 ' + (540 + 160*(rand(floor(T*24)*7 + 7) - 0.5)*sin(0.30*PI)) + ' L 840 ' + (540 + 160*(rand(floor(T*24)*7 + 10) - 0.5)*sin(0.40*PI)) + ' L 960 ' + (540 + 160*(rand(floor(T*24)*7 + 13) - 0.5)*sin(0.50*PI)) + ' L 1080 ' + (540 + 160*(rand(floor(T*24)*7 + 16) - 0.5)*sin(0.60*PI)) + ' L 1200 ' + (540 + 160*(rand(floor(T*24)*7 + 19) - 0.5)*sin(0.70*PI)) + ' L 1320 ' + (540 + 160*(rand(floor(T*24)*7 + 22) - 0.5)*sin(0.80*PI)) + ' L 1440 ' + (540 + 160*(rand(floor(T*24)*7 + 25) - 0.5)*sin(0.90*PI)) + ' L 1560 540'" stroke="#5cc8ff" sw="22" blur="16" opacity="0.8"/><path d="='M 360 540' + ' L 480 ' + (540 + 160*(rand(floor(T*24)*7 + 1) - 0.5)*sin(0.10*PI)) + ' L 600 ' + (540 + 160*(rand(floor(T*24)*7 + 4) - 0.5)*sin(0.20*PI)) + ' L 720 ' + (540 + 160*(rand(floor(T*24)*7 + 7) - 0.5)*sin(0.30*PI)) + ' L 840 ' + (540 + 160*(rand(floor(T*24)*7 + 10) - 0.5)*sin(0.40*PI)) + ' L 960 ' + (540 + 160*(rand(floor(T*24)*7 + 13) - 0.5)*sin(0.50*PI)) + ' L 1080 ' + (540 + 160*(rand(floor(T*24)*7 + 16) - 0.5)*sin(0.60*PI)) + ' L 1200 ' + (540 + 160*(rand(floor(T*24)*7 + 19) - 0.5)*sin(0.70*PI)) + ' L 1320 ' + (540 + 160*(rand(floor(T*24)*7 + 22) - 0.5)*sin(0.80*PI)) + ' L 1440 ' + (540 + 160*(rand(floor(T*24)*7 + 25) - 0.5)*sin(0.90*PI)) + ' L 1560 540'" stroke="#e8fbff" sw="5"/><path d="='M 360 540' + ' L 480 ' + (540 + 160*(rand(floor(T*24)*13 + 1) - 0.5)*sin(0.10*PI)) + ' L 600 ' + (540 + 160*(rand(floor(T*24)*13 + 4) - 0.5)*sin(0.20*PI)) + ' L 720 ' + (540 + 160*(rand(floor(T*24)*13 + 7) - 0.5)*sin(0.30*PI)) + ' L 840 ' + (540 + 160*(rand(floor(T*24)*13 + 10) - 0.5)*sin(0.40*PI)) + ' L 960 ' + (540 + 160*(rand(floor(T*24)*13 + 13) - 0.5)*sin(0.50*PI)) + ' L 1080 ' + (540 + 160*(rand(floor(T*24)*13 + 16) - 0.5)*sin(0.60*PI)) + ' L 1200 ' + (540 + 160*(rand(floor(T*24)*13 + 19) - 0.5)*sin(0.70*PI)) + ' L 1320 ' + (540 + 160*(rand(floor(T*24)*13 + 22) - 0.5)*sin(0.80*PI)) + ' L 1440 ' + (540 + 160*(rand(floor(T*24)*13 + 25) - 0.5)*sin(0.90*PI)) + ' L 1560 540'" stroke="#9fd8ff" sw="2" opacity="0.7"/>
+        <rect w="1920" h="1080" fill="#5cc8ff" opacity="=0.08*rand(floor(T*24))"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="electric-arc"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-flash-cut" dur="3.5" chapter="flash-cut">
+      <sfx at="1.5" src="whoosh"/>
+      <rect w="1920" h="1080" fill="=T &lt; 1.6 ? '#ffd23f' : '#0b1a4a'"/>
+      <group x="960" y="540"><text size="300" font="Anton" align="center" fill="=T &lt; 1.6 ? '#111111' : '#ffffff'" text="=T &lt; 1.6 ? 'DAY' : 'NIGHT'"/></group>
+      <rect w="1920" h="1080" fill="#ffffff" opacity="=(T > 1.45)*clamp(min((T - 1.45)/0.1, 1 - (T - 1.6)/0.35), 0, 1)"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="flash-cut"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-freeze-hold" dur="4" chapter="freeze-hold">
+      <sfx at="1.8" src="click"/>
+      <rect w="1920" h="1080" fill="#14121f"/><circle repeat="14" x="=960 + (200 + 30*i)*cos(min(T, 1.8)*(1.5 + i*0.15) + i)" y="=540 + (120 + 20*i)*sin(min(T, 1.8)*(1.5 + i*0.15) + i)" r="=14 + i*2" fill="=mix('#ff6b9a', '#5cc8ff', i/13)"/>
+        <group at="1.8"><rect x="40" y="40" w="1840" h="1000" stroke="#ffffff" sw="6" fill="#ffffff00"/><text x="960" y="160" size="90" font="Anton" align="center" fill="#ffffff" text="FREEZE"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="freeze-hold"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-hard-cut" dur="3.5" chapter="hard-cut">
+      <sfx at="0" src="click"/><sfx at="0.6" src="click"/><sfx at="1.2" src="click"/><sfx at="1.7999999999999998" src="click"/><sfx at="2.4" src="click"/>
+      <rect w="1920" h="1080" fill="=data('hc-bg', clamp(floor(T/0.6), 0, 4))"/><rect x="=clamp(floor(T/0.6), 0, 4) % 2 == 0 ? 0 : 960" w="960" h="1080" fill="=data('hc-fg', clamp(floor(T/0.6), 0, 4))" opacity="0.15"/>
+        <group x="960" y="540"><text size="320" font="Anton" align="center" fill="=data('hc-fg', clamp(floor(T/0.6), 0, 4))" text="{data('hc-w', clamp(floor(T/0.6), 0, 4))}"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="hard-cut"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-hypercut-whip" dur="3.5" chapter="hypercut-whip">
+      <sfx at="1.2" src="whoosh"/>
+      <group x="=-2200*ease(clamp((T-(1.2))/(0.15),0,1),'in')" sx="=1 + 0.4*clamp((T-(1.2))/(0.15),0,1)" blur="=24*clamp((T-(1.2))/(0.15),0,1)" when="=T &lt; 1.3499999999999999"><image src="img-city" w="1920" h="1080"/><group x="960" y="540"><text x="0" y="0" size="260" font="Anton" align="center" fill="#ffffff" shadow="0 6 30 #000" text="CITY"/></group></group>
+        <group x="=2200*(1 - ease(clamp((T-(1.3499999999999999))/(0.15),0,1),'out'))" sx="=1.4 - 0.4*clamp((T-(1.3499999999999999))/(0.15),0,1)" blur="=24*(1 - clamp((T-(1.3499999999999999))/(0.15),0,1))" when="=T >= 1.3499999999999999"><image src="img-mountains" w="1920" h="1080"/><group x="960" y="540"><text x="0" y="0" size="260" font="Anton" align="center" fill="#ffffff" shadow="0 6 30 #000" text="WILD"/></group></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="hypercut-whip"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-iris-open" dur="3.5" chapter="iris-open">
+      <sfx at="0.6" src="whoosh" vol="0.5"/>
+      <rect w="1920" h="1080" fill="#000"/><group clip="url(#io-c)"><image src="img-mountains" w="1920" h="1080"/><group x="960" y="540"><text x="0" y="0" size="160" font="Anton" align="center" fill="#ffffff" shadow="0 6 30 #000" text="CHAPTER TWO"/></group></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="iris-open"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-liquid-morph" dur="4.5" chapter="liquid-morph">
+      <sfx at="0.4" src="whoosh" vol="0.3"/><sfx at="1.6" src="whoosh" vol="0.3"/><sfx at="2.8" src="whoosh" vol="0.3"/>
+      <rect w="1920" h="1080" fill="#0e0b1a"/><group x="960" y="540" rot="=T*20"><path fill="=mix(mix('#ff6b9a', '#5cc8ff', ease(clamp((T-(0.4))/(1),0,1),'out')), '#ffd23f', ease(clamp((T-(2.8))/(1),0,1),'out'))">
+        <keys prop="d" v="0.4:M 300 0 C 300 108 288 136 212 212 C 136 288 108 300 0 300 C -108 300 -136 288 -212 212 C -288 136 -300 108 -300 0 C -300 -108 -288 -136 -212 -212 C -136 -288 -108 -300 0 -300 C 108 -300 136 -288 212 -212 C 288 -136 300 -108 300 0 Z; 1.4:M 380 0 C 380 137 212 100 156 156 C 100 212 130 360 0 360 C -130 360 -90 192 -141 141 C -192 90 -380 137 -380 0 C -380 -137 -212 -100 -156 -156 C -100 -212 -130 -360 0 -360 C 130 -360 90 -192 141 -141 C 192 -90 380 -137 380 0 Z; 2.6:M 260 0 C 260 94 347 163 255 255 C 163 347 86 240 0 240 C -86 240 -181 385 -283 283 C -385 181 -220 79 -220 0 C -220 -79 -366 -172 -269 -269 C -172 -366 -94 -260 0 -260 C 94 -260 153 -327 240 -240 C 327 -153 260 -94 260 0 Z; 3.8:M 320 0 C 320 115 288 136 212 212 C 136 288 119 330 0 330 C -119 330 -131 279 -205 205 C -279 131 -320 115 -320 0 C -320 -115 -288 -136 -212 -212 C -136 -288 -119 -330 0 -330 C 119 -330 131 -279 205 -205 C 279 -131 320 -115 320 0 Z" ease="io"/></path></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="liquid-morph"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-mask-reveal" dur="4" chapter="mask-reveal">
+      <sfx at="0.5" src="whoosh" vol="0.5"/><sfx at="2" src="whoosh" vol="0.5"/>
+      <rect w="1920" h="1080" fill="#111"/><group clip="url(#mr-a)"><rect w="1920" h="1080" fill="#ff3d5a"/><group x="960" y="540"><text x="0" y="0" size="240" font="Anton" align="center" fill="#111111"  text="NEW SEASON"/></group></group>
+        <group clip="url(#mr-b)"><image src="img-city" w="1920" h="1080"/><group x="960" y="540"><text x="0" y="0" size="240" font="Anton" align="center" fill="#ffffff" shadow="0 6 30 #000" text="NEW SEASON"/></group></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="mask-reveal"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-mosaic-pack" dur="4" chapter="mosaic-pack">
+      <sfx at="0.3" src="whoosh" vol="0.5"/><sfx at="2" src="pop"/>
+      <rect w="1920" h="1080" fill="#0d0d10"/><rect repeat="24" x="=lerp(rand(i*3)*1800 - 100, 480 + (i % 6)*160, ease(clamp((T - 0.3 - rand(i)*0.5)/1.0, 0, 1), 'out'))" y="=lerp(rand(i*7)*1000 - 50, 260 + floor(i/6)*160, ease(clamp((T - 0.3 - rand(i)*0.5)/1.0, 0, 1), 'out'))" w="150" h="150" r="10" rot="=(1 - ease(clamp((T - 0.3 - rand(i)*0.5)/1.0, 0, 1), 'out'))*(rand(i*5) - 0.5)*180" fill="=data('mp-c', (i % 6 + floor(i/6)) % 6)"/>
+        <group x="960" y="540" opacity="=ease(clamp((T-(2))/(0.3),0,1),'out')"><text x="0" y="0" size="200" font="Anton" align="center" fill="#ffffff" stroke="#0d0d10" sw="12" text="PACKED"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="mosaic-pack"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-negative-space-hold" dur="4.5" chapter="negative-space-hold">
+      <sfx at="1.5" src="click"/>
+      <rect w="1920" h="1080" fill="#f4f1ea"/><group when="=T &lt; 1.5">
+        <rect repeat="30" x="=rand(i)*1800" y="=rand(i*3)*1000" w="=60 + 300*rand(i*5)" h="=20 + 140*rand(i*7)" fill="=i % 3 == 0 ? '#ff3d5a' : (i % 3 == 1 ? '#111111' : '#3d7bff')" rot="=T*40*(rand(i*9) - 0.5)"/>
+        <text repeat="8" x="=200 + rand(i*11)*1500" y="=100 + rand(i*13)*880" size="=60 + 80*rand(i)" font="Anton" fill="#111111" text="LOUD"/></group>
+      <text x="1380" y="760" size="56" font="Playfair Display" italic="1" fill="#111111" at="1.5" text="breathe."/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="negative-space-hold"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-outline-to-fill" dur="4" chapter="outline-to-fill">
+      <sfx at="1.6" src="pop"/>
+      <rect w="1920" h="1080" fill="#101014"/><group x="620" y="560"><path d="M 0 -320 L 82 -113 L 304 -99 L 133 43 L 188 259 L 0 140 L -188 259 L -133 43 L -304 -99 L -82 -113 Z" fill="#ffd23f" opacity="=ease(clamp((T-(1.6))/(0.3),0,1),'out')"/><path d="M 0 -320 L 82 -113 L 304 -99 L 133 43 L 188 259 L 0 140 L -188 259 L -133 43 L -304 -99 L -82 -113 Z" stroke="#ffd23f" sw="8" draw="=ease(clamp((T-(0.2))/(1.4),0,1),'io')"/></group>
+        <text x="1330" y="540" size="240" font="Anton" align="center" fill="=rgba(255, 210, 63, ease(clamp((T-(1.9))/(0.4),0,1),'out'))" stroke="#ffd23f" sw="6" text="STAR"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="outline-to-fill"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-palette-flip" dur="3.8" chapter="palette-flip">
+      <sfx at="1.1" src="click"/><sfx at="1.9000000000000001" src="click"/><sfx at="2.7" src="click"/>
+      <rect w="1920" h="1080" fill="=data('pf-bg', clamp(floor((T - 0.3)/0.8), 0, 3))"/><circle x="1380" y="540" r="300" fill="=data('pf-a', clamp(floor((T - 0.3)/0.8), 0, 3))"/>
+        <rect repeat="5" x="240" y="=320 + i*90" w="=200 + i*90" h="50" fill="=data('pf-fg', clamp(floor((T - 0.3)/0.8), 0, 3))"/>
+        <group x="660" y="860"><text size="120" font="Anton" align="center" fill="=data('pf-fg', clamp(floor((T - 0.3)/0.8), 0, 3))" text="SAME LAYOUT"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="palette-flip"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-pixel-dissolve" dur="4" chapter="pixel-dissolve">
+      <sfx at="0.8" src="typing" vol="0.3"/>
+      <image src="img-nebula" w="1920" h="1080"/><group mask="url(#pd-m)"><image src="img-city" w="1920" h="1080"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="pixel-dissolve"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-screen-shake" dur="3.5" chapter="screen-shake">
+      <sfx at="1" src="whoosh"/>
+      <rect w="1920" h="1080" fill="#111"/><group x="=40*(noise(T*40) - 0.5)*2*(T > 1.0)*max(0, 1 - (T - 1.0)/0.5)" y="=40*(noise(T*40 + 50) - 0.5)*2*(T > 1.0)*max(0, 1 - (T - 1.0)/0.5)" rot="=3*(noise(T*30 + 9) - 0.5)*(T > 1.0)*max(0, 1 - (T - 1.0)/0.5)">
+        <rect x="-40" y="-40" w="2000" h="1160" fill="#ff3d5a"/><rect repeat="6" x="=200 + i*260" y="700" w="180" h="=200 + 80*(i % 3)" fill="#111111"/>
+        <group x="960" y="420"><text x="0" y="0" size="300" font="Anton" align="center" fill="#ffffff"  text="BOOM"/></group></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="screen-shake"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-slot-machine-reveal" dur="4" chapter="slot-machine-reveal">
+      <sfx at="1.2" src="click"/><sfx at="1.5" src="click"/><sfx at="1.7999999999999998" src="click"/><sfx at="2.0999999999999996" src="click"/>
+      <rect w="1920" h="1080" fill="#1a0f2e"/><group x="555" y="540"><rect x="-120" y="-140" w="240" h="280" r="20" fill="#0b0716" stroke="#ffd23f" sw="6"/><group clip="url(#slot-w)"><group y="=-340*(32)*ease(clamp((T - 0.2)/1, 0, 1), 'out')">
+          <text repeat="34" y="=i*340" size="240" font="Anton" align="center" fill="#ffffff" text="{i % 10}"/></group></group></group><group x="825" y="540"><rect x="-120" y="-140" w="240" h="280" r="20" fill="#0b0716" stroke="#ffd23f" sw="6"/><group clip="url(#slot-w)"><group y="=-340*(40)*ease(clamp((T - 0.2)/1.3, 0, 1), 'out')">
+          <text repeat="42" y="=i*340" size="240" font="Anton" align="center" fill="#ffffff" text="{i % 10}"/></group></group></group><group x="1095" y="540"><rect x="-120" y="-140" w="240" h="280" r="20" fill="#0b0716" stroke="#ffd23f" sw="6"/><group clip="url(#slot-w)"><group y="=-340*(52)*ease(clamp((T - 0.2)/1.5999999999999999, 0, 1), 'out')">
+          <text repeat="54" y="=i*340" size="240" font="Anton" align="center" fill="#ffffff" text="{i % 10}"/></group></group></group><group x="1365" y="540"><rect x="-120" y="-140" w="240" h="280" r="20" fill="#0b0716" stroke="#ffd23f" sw="6"/><group clip="url(#slot-w)"><group y="=-340*(66)*ease(clamp((T - 0.2)/1.8999999999999997, 0, 1), 'out')">
+          <text repeat="68" y="=i*340" size="240" font="Anton" align="center" fill="#ffffff" text="{i % 10}"/></group></group></group>
+        <text x="960" y="200" size="64" weight="800" align="center" fill="#ffd23f" text="THE YEAR IS"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="slot-machine-reveal"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-spotlight-sweep" dur="4" chapter="spotlight-sweep">
+      
+      <rect w="1920" h="1080" fill="#0a0908"/><ellipse x="=260 + 1400*ease(clamp((T-(0.4))/(1.8),0,1),'io') - 700*ease(clamp((T-(2.4))/(0.9),0,1),'io')" y="900" rx="420" ry="70" fill="#fff3d0" opacity="0.15" blur="30"/>
+        <group x="960" y="540"><text size="240" font="Anton" align="center" fill="url(#spot)" text="HEADLINER"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="spotlight-sweep"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-staggered-exit" dur="3.5" chapter="staggered-exit">
+      <sfx at="1.5" src="whoosh" vol="0.5"/>
+      <rect w="1920" h="1080" fill="#f4f1ea"/><group x="300" y="=380 - 160*ease(clamp((T-(1.5))/(0.4),0,1),'in')" opacity="=1 - clamp((T-(1.6))/(0.3),0,1)"><rect w="420" h="200" r="18" fill="#ff3d5a"/><text x="210" y="100" size="80" font="Anton" align="center" fill="#ffffff" text="Intro"/></group><group x="760" y="=380 - 160*ease(clamp((T-(1.58))/(0.4),0,1),'in')" opacity="=1 - clamp((T-(1.6800000000000002))/(0.3),0,1)"><rect w="420" h="200" r="18" fill="#111111"/><text x="210" y="100" size="80" font="Anton" align="center" fill="#ffffff" text="Verse"/></group><group x="1220" y="=380 - 160*ease(clamp((T-(1.66))/(0.4),0,1),'in')" opacity="=1 - clamp((T-(1.76))/(0.3),0,1)"><rect w="420" h="200" r="18" fill="#3d7bff"/><text x="210" y="100" size="80" font="Anton" align="center" fill="#ffffff" text="Hook"/></group><group x="300" y="=640 - 160*ease(clamp((T-(1.74))/(0.4),0,1),'in')" opacity="=1 - clamp((T-(1.84))/(0.3),0,1)"><rect w="420" h="200" r="18" fill="#ff3d5a"/><text x="210" y="100" size="80" font="Anton" align="center" fill="#ffffff" text="Bridge"/></group><group x="760" y="=640 - 160*ease(clamp((T-(1.82))/(0.4),0,1),'in')" opacity="=1 - clamp((T-(1.9200000000000002))/(0.3),0,1)"><rect w="420" h="200" r="18" fill="#111111"/><text x="210" y="100" size="80" font="Anton" align="center" fill="#ffffff" text="Drop"/></group><group x="1220" y="=640 - 160*ease(clamp((T-(1.9))/(0.4),0,1),'in')" opacity="=1 - clamp((T-(2))/(0.3),0,1)"><rect w="420" h="200" r="18" fill="#3d7bff"/><text x="210" y="100" size="80" font="Anton" align="center" fill="#ffffff" text="Outro"/></group>
+        <text x="960" y="540" size="64" font="Playfair Display" italic="1" align="center" fill="#111111" at="2.4" text="cleared."/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="staggered-exit"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-system-replace" dur="4" chapter="system-replace">
+      <sfx at="1.8" src="click"/><sfx at="1.9" src="blip"/>
+      <group when="=T &lt; 1.8"><rect w="1920" h="1080" fill="#0a1a3f"/><group repeat="8" as="r"><circle repeat="14" x="=100 + i*130" y="=90 + r*130" r="=22 + 16*sin(T*4 + i*0.6 + r*0.8)" fill="#3d7bff"/></group></group>
+      <group when="=T >= 1.8"><rect w="1920" h="1080" fill="#ff7a1a"/><rect repeat="12" x="0" y="=i*90" w="=1920*ease(clamp((T-(1.8))/(0.25),0,1),'out')" h="44" fill="#111111" opacity="=(i % 2)*1"/>
+        <group x="960" y="540" scale="=ease(clamp((T-(1.9))/(0.3),0,1),'back')"><rect x="-560" y="-150" w="1120" h="300" fill="#f4f1ea"/><text x="0" y="0" size="220" font="Anton" align="center" fill="#111111"  text="SYSTEM B"/></group></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="system-replace"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-tile-mosaic" dur="4" chapter="tile-mosaic">
+      <sfx at="0.3" src="typing" vol="0.3"/>
+      <rect w="1920" h="1080" fill="#111"/><group repeat="7" as="r"><group repeat="12" as="c" clip="url(#tm-tile)" opacity="=clamp((T - 0.3 - (c + r)*0.08)/0.25, 0, 1)">
+        <group x="=c*160 + 80" y="=r*154 + 77" scale="=1.3 - 0.3*clamp((T - 0.3 - (c + r)*0.08)/0.35, 0, 1)"><image src="img-food" x="=-c*160 - 80" y="=-r*154 - 77" w="1920" h="1080"/></group></group></group>
+        <group x="960" y="540" opacity="=ease(clamp((T-(2.4))/(0.4),0,1),'out')"><text x="0" y="0" size="180" font="Anton" align="center" fill="#ffffff" shadow="0 6 30 #000" text="SUNDAY TABLE"/></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="tile-mosaic"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-word-grid-burst" dur="4.5" chapter="word-grid-burst">
+      <sfx at="2.4" src="ding" vol="0.5"/>
+      <rect w="1920" h="1080" fill="#0d0d12"/><group repeat="4" as="r"><group repeat="4" as="c" x="=300 + c*440" y="=230 + r*210" opacity="=(T > 0.3 + (r*4 + c)*0.12)*((T &lt; 2.4) + (T >= 2.4)*((r*4 + c) == 6 ? 1 : 0.25))" blur="=(T >= 2.4)*((r*4 + c) == 6 ? 0 : 10*clamp((T-(2.4))/(0.3),0,1))" scale="=(r*4 + c) == 6 ? 1 + 0.5*ease(clamp((T-(2.4))/(0.4),0,1),'back') : 1">
+        <text size="90" font="Anton" align="center" fill="=(r*4 + c) == 6 ? '#ffd23f' : '#ffffff'" text="{data('wg', r*4 + c)}"/></group></group>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="369" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="word-grid-burst"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="music-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-bg-flow-field" dur="4.5" chapter="bg-flow-field">
+      
+      <rect w="1920" h="1080" fill="#06070d"/><line repeat="360" x1="=fract(rand(i) + T*(0.03 + 0.03*rand(i*3)))*2000 - 40" y1="=rand(i*7)*1080 + 90*sin(fract(rand(i) + T*(0.03 + 0.03*rand(i*3)))*6 + rand(i*7)*5) + 60*(noise(i*0.3 + T*0.3) - 0.5)" x2="=fract(rand(i) + T*(0.03 + 0.03*rand(i*3)))*2000 - 4" y2="=rand(i*7)*1080 + 90*sin((fract(rand(i) + T*(0.03 + 0.03*rand(i*3))) + 0.018)*6 + rand(i*7)*5) + 60*(noise(i*0.3 + T*0.3) - 0.5)" stroke="=mix('#3d7bff', '#ff6b9a', rand(i*11))" sw="3" opacity="0.8"/>
+      <text x="960" y="540" size="120" font="Anton" align="center" fill="#ffffff" text="FLOW"/>
+      <group x="1200" y="1000" opacity="0.94"><rect w="692" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="346" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: noise() streamlines, 360 particles, not a per-pixel field"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <circle x="33" y="37" r="16" fill="#00000000" stroke="#f5b942" sw="3.5"/><circle x="33" y="37" r="13" from="180" to="360" fill="#f5b942"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="bg-flow-field"/>
+      <text x="64" y="53" size="19" fill="#ffd27a" font="JetBrains Mono" text="music-to-video  ·  partial"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-dolly-zoom" dur="4" chapter="dolly-zoom">
+      <sfx at="0.5" src="whoosh" vol="0.5"/>
+      <group x="960" y="520" scale="=1 + 0.9*ease(clamp((T-(0.5))/(2.4),0,1),'io')"><group x="-960" y="-520"><image src="img-city" w="1920" h="1080"/></group></group>
+      <use ref="person" x="960" y="1000" scale="=1.8 - 0.05*ease(clamp((T-(0.5))/(2.4),0,1),'io')"/>
+      <group x="1372" y="1000" opacity="0.94"><rect w="520" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="260" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: opposing layer scales, no true perspective"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <circle x="33" y="37" r="16" fill="#00000000" stroke="#f5b942" sw="3.5"/><circle x="33" y="37" r="13" from="180" to="360" fill="#f5b942"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="dolly-zoom"/>
+      <text x="64" y="53" size="19" fill="#ffd27a" font="JetBrains Mono" text="music-to-video  ·  partial"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-gooey-metaball" dur="4.5" chapter="gooey-metaball">
+      
+      <rect w="1920" h="1080" fill="#120b24"/><group x="960" y="540" fill="#ff6b9a">
+        <circle x="=-(380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))" r="170" fill="#ff6b9a"/><circle x="=(380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))" r="=150 + 20*max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330)" fill="#ff6b9a"/>
+        <path fill="#ff6b9a" opacity="=max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330) > 0.02 ? 1 : 0" d="='M ' + (-(380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))) + ' -' + (60 + 90*max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330)) + ' Q 0 ' + (-150*max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330)*max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330) + 10) + ' ' + (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io')) + ' -' + (60 + 90*max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330)) + ' L ' + (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io')) + ' ' + (60 + 90*max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330)) + ' Q 0 ' + (150*max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330)*max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330) - 10) + ' ' + (-(380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))) + ' ' + (60 + 90*max(0, 1 - (380*(1 - ease(clamp((T-(0.3))/(1.6),0,1),'io')) + 380*ease(clamp((T-(2.8))/(1.2),0,1),'io'))/330)) + ' Z'"/></group>
+      <group x="1291" y="1000" opacity="0.94"><rect w="601" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="300.5" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: no blur+threshold filter; neck path between blobs"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <circle x="33" y="37" r="16" fill="#00000000" stroke="#f5b942" sw="3.5"/><circle x="33" y="37" r="13" from="180" to="360" fill="#f5b942"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="gooey-metaball"/>
+      <text x="64" y="53" size="19" fill="#ffd27a" font="JetBrains Mono" text="music-to-video  ·  partial"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-text-spectral-rays" dur="4.5" chapter="text-spectral-rays">
+      
+      <rect w="1920" h="1080" fill="#070608"/><group x="960" y="520"><group blend="lighter" blur="10" opacity="=ease(clamp((T-(0.2))/(0.6),0,1),'out')">
+          <path repeat="28" rot="=atan2(300, (-500 + i*37) - (-700 + 1400*ease(clamp((T-(0.3))/(3.4),0,1),'io')))*57.3" d="M 0 -6 L 900 -60 L 900 60 L 0 6 Z" x="=-500 + i*37" y="0" fill="url(#ray)" opacity="=0.35 + 0.3*rand(i)"/></group>
+        <circle x="=(-700 + 1400*ease(clamp((T-(0.3))/(3.4),0,1),'io'))" y="-300" r="40" fill="#fff3c4" blur="14"/>
+        <text size="230" font="Anton" align="center" fill="#120f0a" stroke="#ffe2a6" sw="3" text="LUMEN"/></group>
+      <group x="1234" y="1000" opacity="0.94"><rect w="658" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="329" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: gradient wedges + blur in place of a volumetric shader"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <circle x="33" y="37" r="16" fill="#00000000" stroke="#f5b942" sw="3.5"/><circle x="33" y="37" r="13" from="180" to="360" fill="#f5b942"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="text-spectral-rays"/>
+      <text x="64" y="53" size="19" fill="#ffd27a" font="JetBrains Mono" text="music-to-video  ·  partial"/>
+    </group>
+    </scene>
+    <scene id="music-to-video--fx-text-wave-distort" dur="4" chapter="text-wave-distort">
+      
+      <rect w="1920" h="1080" fill="#0a1a3f"/><text x="510" y="=540 + 60*sin(T*4 - 0)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 0)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 0))" text="W"/><text x="610" y="=540 + 60*sin(T*4 - 0.6)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 0.6)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 0.6))" text="A"/><text x="710" y="=540 + 60*sin(T*4 - 1.2)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 1.2)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 1.2))" text="V"/><text x="810" y="=540 + 60*sin(T*4 - 1.7999999999999998)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 1.7999999999999998)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 1.7999999999999998))" text="E"/><text x="910" y="=540 + 60*sin(T*4 - 2.4)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 2.4)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 2.4))" text="L"/><text x="1010" y="=540 + 60*sin(T*4 - 3)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 3)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 3))" text="E"/><text x="1110" y="=540 + 60*sin(T*4 - 3.5999999999999996)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 3.5999999999999996)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 3.5999999999999996))" text="N"/><text x="1210" y="=540 + 60*sin(T*4 - 4.2)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 4.2)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 4.2))" text="G"/><text x="1310" y="=540 + 60*sin(T*4 - 4.8)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 4.8)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 4.8))" text="T"/><text x="1410" y="=540 + 60*sin(T*4 - 5.3999999999999995)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" rot="=8*cos(T*4 - 5.3999999999999995)*ease(clamp((T-(0.3))/(0.8),0,1),'out')" size="200" font="Anton" align="center" fill="=mix('#5cc8ff', '#ffffff', 0.5 + 0.5*sin(T*4 - 5.3999999999999995))" text="H"/>
+      <group x="1360" y="1000" opacity="0.94"><rect w="532" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="266" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: per-letter sine wave; no glyph displacement"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="380" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <circle x="33" y="37" r="16" fill="#00000000" stroke="#f5b942" sw="3.5"/><circle x="33" y="37" r="13" from="180" to="360" fill="#f5b942"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="text-wave-distort"/>
+      <text x="64" y="53" size="19" fill="#ffd27a" font="JetBrains Mono" text="music-to-video  ·  partial"/>
+    </group>
+    </scene>
+    <scene id="pr-to-video--code-morph" dur="4.5" chapter="code-morph block">
+      <sfx at="1.3" src="whoosh" vol="0.4"/>
+      <rect w="1920" h="1080" fill="#0f111a"/><rect x="300" y="250" w="1320" h="420" r="20" fill="#151826" stroke="#262b40" sw="2"/>
+        <text x="360" y="=360 - 30*ease(clamp((T-(1.3))/(1),0,1),'io')" size="56" font="JetBrains Mono" fill="#c792ea" opacity="=1 - clamp((T-(1.3))/(0.4),0,1)" text="function"/><text x="=lerp(662.4000000000001, 561.6, ease(clamp((T-(1.3))/(1),0,1),'io'))" y="=lerp(360, 360, ease(clamp((T-(1.3))/(1),0,1),'io'))" size="56" font="JetBrains Mono" fill="#82aaff" text="add"/><text x="=lerp(763.2, 763.2, ease(clamp((T-(1.3))/(1),0,1),'io'))" y="=lerp(360, 360, ease(clamp((T-(1.3))/(1),0,1),'io'))" size="56" font="JetBrains Mono" fill="#e6e9f0" text="(a, b)"/><text x="998.4" y="=360 - 30*ease(clamp((T-(1.3))/(1),0,1),'io')" size="56" font="JetBrains Mono" fill="#89ddff" opacity="=1 - clamp((T-(1.3))/(0.4),0,1)" text="{"/><text x="427.2" y="=449.6 - 30*ease(clamp((T-(1.3))/(1),0,1),'io')" size="56" font="JetBrains Mono" fill="#c792ea" opacity="=1 - clamp((T-(1.3))/(0.4),0,1)" text="return"/><text x="=lerp(662.4000000000001, 1099.2, ease(clamp((T-(1.3))/(1),0,1),'io'))" y="=lerp(449.6, 360, ease(clamp((T-(1.3))/(1),0,1),'io'))" size="56" font="JetBrains Mono" fill="#e6e9f0" text="a + b;"/><text x="360" y="=539.2 - 30*ease(clamp((T-(1.3))/(1),0,1),'io')" size="56" font="JetBrains Mono" fill="#89ddff" opacity="=1 - clamp((T-(1.3))/(0.4),0,1)" text="}"/><text x="360" y="=360 + 30*(1 - ease(clamp((T-(1.9))/(0.5),0,1),'out'))" size="56" font="JetBrains Mono" fill="#c792ea" opacity="=clamp((T-(1.9))/(0.4),0,1)" text="const"/><text x="696" y="=360 + 30*(1 - ease(clamp((T-(1.9))/(0.5),0,1),'out'))" size="56" font="JetBrains Mono" fill="#89ddff" opacity="=clamp((T-(1.9))/(0.4),0,1)" text="\="/><text x="998.4" y="=360 + 30*(1 - ease(clamp((T-(1.9))/(0.5),0,1),'out'))" size="56" font="JetBrains Mono" fill="#89ddff" opacity="=clamp((T-(1.9))/(0.4),0,1)" text="\=&gt;"/>
+        <text x="960" y="860" size="36" align="center" fill="#7d879c" text="shared tokens glide · leavers fade · enterers arrive"/>
+      
+      <group x="28" y="978" opacity="0.94">
+      <rect w="335" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <rect x="16" y="20" w="34" h="34" r="9" fill="#22b573"/><path d="M 24 37 L 31 44 L 43 29" stroke="#ffffff" sw="4.5"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="code-morph block"/>
+      <text x="64" y="53" size="19" fill="#8fe3b8" font="JetBrains Mono" text="pr-to-video  ·  native"/>
+    </group>
+    </scene>
+    <scene id="pr-to-video--code-3d-extrude" dur="4.5" chapter="code-3d-extrude block">
+      <sfx at="0.3" src="whoosh" vol="0.4"/>
+      <rect w="1920" h="1080" fill="#07080d"/><group x="960" y="540" rot="=-18*(1 - ease(clamp((T-(0.3))/(1.8),0,1),'io'))" scale="=0.8 + 0.2*ease(clamp((T-(0.3))/(1.8),0,1),'io')"><group sx="=0.75 + 0.25*ease(clamp((T-(0.3))/(1.8),0,1),'io')">
+        <rect repeat="14" x="=-700 + (14 - i)*2*(1 + 2*(1 - ease(clamp((T-(0.3))/(1.8),0,1),'io')))" y="=-300 + (14 - i)*3*(1 + 2*(1 - ease(clamp((T-(0.3))/(1.8),0,1),'io')))" w="1400" h="600" r="26" fill="=mix('#05060a', '#1c2238', i/14)"/>
+        <rect x="-700" y="-300" w="1400" h="600" r="26" fill="url(#slab)" stroke="#5a6aa8" sw="3"/>
+        <rect x="-700" y="-300" w="1400" h="8" r="4" fill="#9fb0ff" opacity="0.6"/>
+        <text x="-620" y="-200" size="46" font="JetBrains Mono" fill="#c792ea"  text="export function ship(build) {"/><text x="-620" y="-131" size="46" font="JetBrains Mono" fill="#e6e9f0"  text="  const tag = version(build);"/><text x="-620" y="-62" size="46" font="JetBrains Mono" fill="#82aaff"  text="  await publish(tag);"/><text x="-620" y="7" size="46" font="JetBrains Mono" fill="#e6e9f0"  text="  return tag;"/><text x="-620" y="76" size="46" font="JetBrains Mono" fill="#e6e9f0"  text="}"/></group></group>
+      <group x="1257" y="1000" opacity="0.94"><rect w="635" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="317.5" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: stacked offset copies + gradient shading, not lit 3D"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="390" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <circle x="33" y="37" r="16" fill="#00000000" stroke="#f5b942" sw="3.5"/><circle x="33" y="37" r="13" from="180" to="360" fill="#f5b942"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="code-3d-extrude block"/>
+      <text x="64" y="53" size="19" fill="#ffd27a" font="JetBrains Mono" text="pr-to-video  ·  partial"/>
+    </group>
+    </scene>
+    <scene id="pr-to-video--code-particle-assemble" dur="4.5" chapter="code-particle-assemble block">
+      <sfx at="0.3" src="typing" vol="0.3"/><sfx at="2.4" src="ding" vol="0.4"/>
+      <rect w="1920" h="1080" fill="#0b0d14"/><rect repeat="66" x="=lerp(rand(i*3)*1920, data('cpx', i), ease(clamp((T - 0.3 - rand(i)*0.6)/1.4, 0, 1), 'io'))" y="=lerp(rand(i*7)*1080, data('cpy', i), ease(clamp((T - 0.3 - rand(i)*0.6)/1.4, 0, 1), 'io'))" w="16" h="16" r="3" fill="=mix('#5a6380', data('cpk', i) == 1 ? '#c3e88d' : '#82aaff', ease(clamp((T - 0.3 - rand(i)*0.6)/1.4, 0, 1), 'io'))"/>
+        <text x="600" y="790" size="56" font="JetBrains Mono" fill="#7d879c" opacity="=ease(clamp((T-(2.4))/(0.5),0,1),'out')" text="await ship(build);"/>
+      <group x="1383" y="1000" opacity="0.94"><rect w="509" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="254.5" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: 66 particles to precomputed glyph targets"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="492" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <circle x="33" y="37" r="16" fill="#00000000" stroke="#f5b942" sw="3.5"/><circle x="33" y="37" r="13" from="180" to="360" fill="#f5b942"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="code-particle-assemble block"/>
+      <text x="64" y="53" size="19" fill="#ffd27a" font="JetBrains Mono" text="pr-to-video  ·  partial"/>
+    </group>
+    </scene>
+    <scene id="pr-to-video--code-shader-dissolve" dur="4.5" chapter="code-shader-dissolve block">
+      <sfx at="0.4" src="typing" vol="0.3"/>
+      <rect w="1920" h="1080" fill="#05060a"/><group mask="url(#csd)" y="300"><text x="160" y="60" size="52" font="JetBrains Mono" fill="#c792ea"  text="export function ship(build) {"/><text x="160" y="138" size="52" font="JetBrains Mono" fill="#e6e9f0"  text="  const tag = version(build);"/><text x="160" y="216" size="52" font="JetBrains Mono" fill="#82aaff"  text="  await publish(tag);"/><text x="160" y="294" size="52" font="JetBrains Mono" fill="#e6e9f0"  text="  return tag;"/><text x="160" y="372" size="52" font="JetBrains Mono" fill="#e6e9f0"  text="}"/></group>
+        <group y="300" blend="lighter"><group repeat="12" as="r"><rect repeat="48" x="=i*40" y="=r*40" w="40" h="40" fill="#5cf2ff" blur="6" opacity="=max(0, 1 - abs(i*40 + 260*rand(i*13 + r*29) - (-200 + 2000*ease(clamp((T-(0.4))/(2.6),0,1),'linear')))/90)*0.6"/></group></group>
+      <group x="1269" y="1000" opacity="0.94"><rect w="623" h="46" r="12" fill="#0b0d12d9" stroke="#f5b94255" sw="1.5"/>
+      <text x="311.5" y="23" size="22" italic="1" align="center" fill="#ffe2a6" font="Inter" text="TSVG: seeded grid mask + glow blur in place of GLSL noise"/></group>
+      <group x="28" y="978" opacity="0.94">
+      <rect w="463" h="74" r="14" fill="#0b0d12d9" stroke="#ffffff2a" sw="1.5"/>
+      <circle x="33" y="37" r="16" fill="#00000000" stroke="#f5b942" sw="3.5"/><circle x="33" y="37" r="13" from="180" to="360" fill="#f5b942"/>
+      <text x="64" y="25" size="26" weight="700" fill="#ffffff" font="Inter" text="code-shader-dissolve block"/>
+      <text x="64" y="53" size="19" fill="#ffd27a" font="JetBrains Mono" text="pr-to-video  ·  partial"/>
+    </group>
+    </scene>
+  </timeline>
+</tsvg>
