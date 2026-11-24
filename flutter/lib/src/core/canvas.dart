@@ -100,9 +100,12 @@ class DrawState {
 }
 
 class StrokeSpec {
-  const StrokeSpec(this.width, {this.roundCap = true, this.roundJoin = true, this.trim});
+  const StrokeSpec(this.width, {this.roundCap = true, this.roundJoin = true, this.trim, this.cap});
   final double width;
   final bool roundCap, roundJoin;
+
+  /// Line cap from the `cap` attribute ('round', 'butt', 'square'); null = [roundCap].
+  final String? cap;
 
   /// Path reveal (`draw`): stroke only the first [trim] × total length of each subpath.
   final double? trim;

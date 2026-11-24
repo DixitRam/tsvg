@@ -303,7 +303,12 @@ class FlutterTsvgCanvas extends TsvgCanvas {
     p
       ..style = ui.PaintingStyle.stroke
       ..strokeWidth = spec.width
-      ..strokeCap = spec.roundCap ? ui.StrokeCap.round : ui.StrokeCap.butt
+      ..strokeCap = switch (spec.cap) {
+        'butt' => ui.StrokeCap.butt,
+        'square' => ui.StrokeCap.square,
+        'round' => ui.StrokeCap.round,
+        _ => spec.roundCap ? ui.StrokeCap.round : ui.StrokeCap.butt,
+      }
       ..strokeJoin = spec.roundJoin ? ui.StrokeJoin.round : ui.StrokeJoin.miter;
     var path = shapeToPath(shape);
     if (spec.trim != null) {

@@ -513,7 +513,8 @@ LayoutItem boxOf(TsvgCanvas c, TsvgNode n, Env env) {
       final l = arrange(c, n, env);
       return LayoutItem(l.w, l.h, l.w * p('ax', 0), l.h * p('ay', 0));
   }
-  return LayoutItem(p('w', 0), p('h', 0), 0, 0);
+  final w = p('w', 0), h = p('h', 0);
+  return LayoutItem(w, h, w * p('ax', 0), h * p('ay', 0));
 }
 
 /// Places the children of a `<row>`, `<col>` or `<grid>` (port of `arrange`).
@@ -718,14 +719,17 @@ class _Walker {
       final f = paintOf(fillRaw, env);
       final s = sw > 0 ? paintOf(strokeRaw, env) : null;
       if (f != null) c.fill(shape, f, st);
-      if (s != null) c.stroke(shape, s, StrokeSpec(sw), f != null ? st.copyWith(noShadow: true) : st);
+      if (s != null) c.stroke(shape, s, StrokeSpec(sw, cap: toStr(p('cap', 'round'))), f != null ? st.copyWith(noShadow: true) : st);
     }
 
     switch (n.type) {
       case 'group':
       case 'use':
-        c.translate(pn('x', 0), pn('y', 0));
-        pivot(0, 0);
+        // a group/use with a box (w h) and an anchor (ax ay) is placed by that anchor (0.7): icons centred on x, y
+        final gw = n.a['ax'] != null ? pn('w', 0) * pn('ax', 0) : 0.0;
+        final gh = n.a['ay'] != null ? pn('h', 0) * pn('ay', 0) : 0.0;
+        c.translate(pn('x', 0) - gw, pn('y', 0) - gh);
+        pivot(gw, gh);
         clipTo();
         final List<TsvgNode> kids;
         if (n.type == 'use') {

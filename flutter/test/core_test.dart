@@ -501,6 +501,44 @@ console.log(JSON.stringify(exprs.map((x) => T.compile(x)(env))));''';
       expect([b.w, b.h], [20, 48 * 1.25 + 48], reason: 'two lines of "ab" / "cd" (recording canvas: 10 per char)');
     });
   });
+
+  group('0.7 charts additions', () {
+    test('nth()', () {
+      final d = parseTsvg('<tsvg><themes><theme id="dark" accent="#f80" fg="#fff"/></themes><timeline><scene dur="1"/></timeline></tsvg>');
+      final env = envFor(d);
+      expect(ev("nth('a | b | c', 1)", env), 'b');
+      expect(ev("nth('a | b | c', 4.7)", env), 'b', reason: 'floor then wrap');
+      expect(ev("nth('a | b | c', -1)", env), 'c', reason: 'negative wraps');
+      expect(ev(r"nth('$accent, #f00', 0)", env), '#f80', reason: r'$token resolves');
+      expect(ev(r"nth('$accent, #f00', 1)", env), '#f00');
+      expect(ev("nth('10, 20.5, x', 1)", env), 20.5, reason: 'numeric items are numbers');
+      expect(ev("nth('a, b | c', 0)", env), 'a, b', reason: '| wins over ,');
+    });
+    test('commas()', () {
+      expect(ev('commas(12840)'), '12,840');
+      expect(ev('commas(1234567.891, 1)'), '1,234,567.9');
+      expect(ev('commas(999)'), '999');
+      expect(ev('commas(-1234.5, 2)'), '-1,234.50');
+    });
+    test('group/use anchor places by ax/ay of w×h, pivot at the anchor', () {
+      final d = parseTsvg('''<tsvg><defs><symbol id="s"><rect w="10" h="10"/></symbol></defs><timeline><scene dur="1">
+        <group x="100" y="50" w="40" h="20" ax="0.5" ay="1" rot="90"><rect w="1" h="1"/></group>
+        <use ref="s" x="100" y="50" w="40" h="20" ax="0.25"/>
+        <group x="100" y="50" w="40" h="20"><rect w="1" h="1"/></group>
+      </scene></timeline></tsvg>''');
+      final rc = _TranslateLog();
+      renderFrame(rc, d, 0.5, defaultOptions(d), d.layouts.first);
+      // group: translate(x − w·ax, y − h·ay) then pivot translate(±anchor) around rotate
+      expect(rc.log.sublist(0, 4), [[80.0, 30.0], [20.0, 20.0], 'rot', [-20.0, -20.0]]);
+      expect(rc.log[4], [90.0, 50.0], reason: 'use: only ax given');
+      expect(rc.log[5], [100.0, 50.0], reason: 'no anchor: unchanged');
+      final env = makeEnv(d, const {}, d.layouts.first, 0);
+      final b = boxOf(RecordingCanvas(), d.scenes.first.nodes.first, env);
+      expect([b.w, b.h, b.ox, b.oy], [40, 20, 20, 20]);
+      final plain = boxOf(RecordingCanvas(), d.scenes.first.nodes[2], env);
+      expect([plain.ox, plain.oy], [0, 0]);
+    });
+  });
 }
 
 bool _numEq(Object? a, Object? b) {
@@ -517,4 +555,12 @@ bool _numEq(Object? a, Object? b) {
     return a.keys.every((k) => _numEq(a[k], b[k]));
   }
   return a == b;
+}
+
+class _TranslateLog extends RecordingCanvas {
+  final log = <Object>[];
+  @override
+  void translate(double dx, double dy) => log.add([dx, dy]);
+  @override
+  void rotate(double radians) => log.add('rot');
 }

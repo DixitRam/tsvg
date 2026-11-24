@@ -123,6 +123,13 @@ final Map<String, Object? Function(List<Object?> a)> builtins = {
     final d = _n(a, 1);
     return jsFixed(_n(a, 0), truthy(d) ? d.truncate() : 0);
   },
+  // 0.7: fixed decimals with thousands separators: 12840 → 12,840
+  'commas': (a) {
+    final d = _n(a, 1);
+    final parts = jsFixed(_n(a, 0), truthy(d) ? d.truncate() : 0).split('.');
+    final head = parts[0].replaceAll(RegExp(r'\B(?=(\d{3})+(?!\d))'), ',');
+    return parts.length > 1 && parts[1].isNotEmpty ? '$head.${parts[1]}' : head;
+  },
   'str': (a) => toStr(_a(a, 0)),
   'rgba': (a) =>
       'rgba(${numStr(jsRound(_n(a, 0)))},${numStr(jsRound(_n(a, 1)))},${numStr(jsRound(_n(a, 2)))},${_a(a, 3) == null ? '1' : toStr(a[3])})',
@@ -144,6 +151,20 @@ final Map<String, Object? Function(List<Object?> a)> builtins = {
   'fitw': (a) => jsMin([_n(a, 1), _n(a, 2) * _n(a, 0)]),
   'fith': (a) => jsMin([_n(a, 1) / _n(a, 0), _n(a, 2)]),
 };
+
+final RegExp _numericItem = RegExp(r'^-?[0-9]*\.?[0-9]+$');
+
+/// nth('a | b | c', i) or nth('\$accent, #f00', i): i-th item (index wraps);
+/// `\$tokens` resolve through the theme, numeric items become numbers.
+Object? _nth(List<Object?> vals, Env env) {
+  final sl = toStr(vals.isEmpty ? null : vals[0]);
+  final items = [for (final x in sl.split(sl.contains('|') ? '|' : ',')) x.trim()];
+  final i = vals.length > 1 ? toNum(vals[1]) : 0.0;
+  final fi = i.isFinite ? i.floorToDouble() : 0.0;
+  final it = items[(fi % items.length).toInt()];
+  if (it.startsWith(r'$')) return lookup(env, it);
+  return _numericItem.hasMatch(it) ? double.parse(it) : it;
+}
 
 /// `rand(seed)` = fract(sin(seed·12.9898 + 78.233)·43758.5453), with JS's sin.
 double rand01(double n) {
@@ -326,6 +347,7 @@ Expr compileExpr(String src) {
             if (host is! TsvgDataHost) throw TsvgError('unknown string @${toStr(vals.isEmpty ? null : vals[0])}');
             return host.stringOf(toStr(vals.isEmpty ? null : vals[0]), env);
           }
+          if (name == 'nth') return _nth(vals, env);
           if (name == 'cue' || name == 'cueEnd') {
             final sc = env.scene;
             final k = vals.isEmpty ? null : vals[0];
