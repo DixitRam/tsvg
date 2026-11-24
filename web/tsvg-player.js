@@ -121,6 +121,7 @@
         <canvas class="main"></canvas>
         <div class="cc"></div>
         <div class="ripple l">${svg('back')}<span>10 s</span></div><div class="ripple r"><span>10 s</span>${svg('fwd')}</div>
+        <div class="menu-bg"></div>
         <div class="ctl">
           <div class="scrim"></div>
           <div class="mid">
@@ -142,7 +143,6 @@
           </div>
         </div>
         <div class="zoomtag" title="Reset zoom"></div>
-        <div class="menu-bg"></div>
         <div class="menu" role="menu"></div>
         <div class="err"></div>
       </div>`;
