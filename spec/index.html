@@ -151,14 +151,15 @@
 
 <h3 id="timeline">3.6 Timeline</h3>
 <pre>&lt;music src="pad" [start="0"] [loop="1"] [vol="0.8"] [bus="music"] [when="…"]/&gt;
-&lt;timeline&gt;
-  &lt;scene id="intro" dur="7" [start="…"] [chapter="@ch1"]&gt;
+&lt;timeline [in="fade 0.5"]&gt;
+  &lt;scene id="intro" dur="7|auto" [start="…"] [chapter="@ch1"] [in="push 0.6 left"] [min pad gap]&gt;
     &lt;say at="0.6" text="@vo1" [speak="@vo1_say"] [src.en="clip.m4a"] [voice="…"] [when]/&gt;
     &lt;sfx at="0.3" src="whoosh" [vol] [bus="sfx"]/&gt;
     …nodes…
   &lt;/scene&gt;
 &lt;/timeline&gt;</pre>
 <p>Scenes play in order. Each starts where the previous one ended, unless it gives <code>start</code>. Time is continuous seconds. There is no frame rate in the file; engines draw at the display rate. A scene with <code>chapter</code> adds a chapter mark at its start. At or after the end of the video, the last scene holds its final frame.</p>
+<p><b>Transitions (0.6).</b> <code>&lt;scene in="push 0.6 left io"&gt;</code>: kind, seconds (0.6), direction (left), ease (io), in any order after the kind. <code>&lt;timeline in="fade 0.5"&gt;</code> sets it for every scene; <code>in="none"</code> turns it off; the first scene has none. Kinds: <code>fade slide push wipe zoom iris blur</code>. A transition plays over the first seconds of its scene; underneath, the previous scene keeps running (T past its end). Timing does not change.</p>
 <p><b>Auto timing (0.5).</b> <code>dur="auto"</code>: the scene lasts as long as its narration in the chosen language: the end of its last <code>&lt;say&gt;</code> + <code>pad</code> (0.8), at least <code>min</code> (2; may be an expression). In such a scene a <code>&lt;say&gt;</code> without <code>at</code> follows the previous line + <code>gap</code> (0.3); the first starts at 0.4. A line's length is its baked clip's (<code>&lt;voice dur&gt;</code> for that language), else its <code>dur</code>, else an estimate (0.42 s a word). <code>dur</code>, <code>start</code> and a say's or sfx's <code>at</code> also take variants (<code>dur.gu="9"</code>). So the timeline belongs to an option set: engines lay it out per option set (reference: <code>TSVG.forOptions(doc, opts)</code>), and a player's duration, chapters and audio follow the chosen language. Inside a scene, <code>cue('id')</code> / <code>cueEnd('id')</code> are the scene time at which that line starts / ends (<code>cue(0)</code> = the scene's first line), so animations can follow the voice: <code>at="=cue('v2')"</code>.</p>
 
 <h2 id="values">4. Attribute values</h2>
@@ -182,6 +183,7 @@
 <tr><td><code>line</code></td><td><code>x1 y1 x2 y2</code>, <code>draw</code> 0–1 (1). Stroke defaults to <code>fill</code> or <code>$fg</code>, width 4</td></tr>
 <tr><td><code>path</code></td><td><code>d</code> (SVG path data), <code>x y</code> offset, <code>draw</code> 0–1 (stroke reveal; fill only at 1)</td></tr>
 <tr><td><code>text</code></td><td><code>text x y size</code> (48) <code>weight</code> (400) <code>italic font</code> (family list) <code>align</code> left|center|right <code>maxw</code> (wrap width, 0 = none) <code>lh</code> (1.25) <code>reveal</code> 0–1. <code>y</code> is the vertical centre of the text block</td></tr>
+<tr><td></td><td><b>Rich text (0.6)</b>, when any of these is set: <code>rich="1"</code> markup <code>**bold**</code> <code>*italic*</code> <code>`code`</code> <code>==highlight==</code> (colour <code>hl</code>, default <code>$accent</code>) <code>[words]($accent)</code> or <code>[words](#e4572e)</code>, <code>\</code> escapes; <code>ls</code> letter spacing (layout units); <code>split="word|char|line"</code> + <code>stagger</code> (0.06 s): every unit runs the node's animations on its own clock (T0 + k·stagger, variables <code>u</code> <code>u_n</code>) and turns/scales about its own centre, while the node's own opacity/rot/scale/x/y stay at their attribute values; <code>path="M…"</code> lays one line along a path (relative to x,y; <code>offset</code> 0–1 slides it, <code>align</code> centres it), every letter turned with the path.</td></tr>
 <tr><td><code>image</code></td><td><code>src x y w h r ax ay fit</code> cover|contain|fill</td></tr>
 <tr><td><code>group</code></td><td><code>x y</code> + children</td></tr>
 <tr><td><code>use</code></td><td><code>ref</code> symbol id, <code>x y</code></td></tr>
@@ -306,7 +308,7 @@ tsvg test     [--update]         # golden frames + zip round trip</pre>
 
 <h2 id="future">15. Not yet</h2>
 <ul>
-    <li>Colour-matrix filters, text on a path, embedded raster video clips.</li>
+    <li>Colour-matrix filters, embedded raster video clips.</li>
   <li>Interactivity (choices, branches). TSVG is a video, not an app.</li>
 </ul>
 </main>

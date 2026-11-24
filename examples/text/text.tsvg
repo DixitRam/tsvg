@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TSVG 0.6: rich text (spans, highlight, code, colour), letter spacing, word/letter animation, text on a path, scene transitions. -->
+<tsvg version="0.6" title="Rich text + transitions">
+  <import src="tsvg:base" as="b" key="TSVG 0.6 · rich text + transitions"/>
+  <timeline in="fade 0.5">
+    <scene id="rich" dur="auto" min="6" chapter="Rich text">
+      <say text="Text can mix bold, italic, colour, highlights and code, inside one line that still wraps."/>
+      <b:heading text="Rich text"/>
+      <text x="=W/2" y="=H/2+40" size="56" size.portrait="46" maxw="1500" maxw.portrait="940" align="center" lh="1.45" rich="1" at="0.5"
+            text="One line can mix **bold**, *italic*, [colour]($accent2), ==highlights== and `code()`, and it still **wraps** at maxw like plain text.">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+      </text>
+    </scene>
+    <scene id="words" dur="auto" min="6" chapter="Word by word" in="push 0.7 left">
+      <say text="Split text into words or letters, and every piece runs the same animation, one after another."/>
+      <text x="=W/2" y="=H/2-140" size="96" size.portrait="72" weight="800" align="center" split="word" stagger="0.12" text="Every word arrives" at="0.3">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="y" from="=H/2-80" to="=H/2-140" dur="0.6" ease="back"/>
+      </text>
+      <text x="=W/2" y="=H/2+60" size="110" size.portrait="80" weight="800" align="center" split="char" stagger="0.05" fill="$accent" text="letter by letter" at="1.6">
+        <anim prop="scale" from="0" to="1" dur="0.5" ease="back"/><anim prop="rot" from="-30" to="0" dur="0.5"/>
+      </text>
+      <text x="=W/2" y="=H/2+220" y.portrait="=H/2+240" size="34" ls="14" weight="700" align="center" fill="$muted" text="LETTER SPACING" at="2.6"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+    </scene>
+    <scene id="path" dur="auto" min="6" chapter="Text on a path" in="iris 0.8">
+      <say text="Text can follow any path, and slide along it."/>
+      <path x="=W/2-700" x.portrait="=W/2-450" y="=H/2+40" d="M 0 100 C 350 -260 1050 460 1400 60" d.portrait="M 0 100 C 220 -260 680 460 900 60" fill="none" stroke="$line" sw="4" draw="0"><anim prop="draw" from="0" to="1" dur="1"/></path>
+      <text x="=W/2-700" x.portrait="=W/2-450" y="=H/2+40" path="M 0 100 C 350 -260 1050 460 1400 60" path.portrait="M 0 100 C 220 -260 680 460 900 60" size="54" size.portrait="44" weight="800" fill="$accent" text="text that follows a curve →" offset="=0.02 + 0.25*smooth(1, 5, T)" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+    <scene id="trans" dur="auto" min="5" chapter="Transitions" in="zoom 0.8">
+      <say text="And scenes can change with a fade, slide, push, wipe, zoom, iris or blur."/>
+      <b:heading text="Transitions"/>
+      <row x="=W/2" y="=H/2+60" ax="0.5" ay="0.5" gap="16" at="0.4">
+        <col repeat="7" as="k" pad="22" fill="$panel" r="16" at="=0.4 + k*0.15"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <text size="28" size.portrait="20" weight="700" text="=k == 0 ? 'fade' : k == 1 ? 'slide' : k == 2 ? 'push' : k == 3 ? 'wipe' : k == 4 ? 'zoom' : k == 5 ? 'iris' : 'blur'"/>
+        </col>
+      </row>
+    </scene>
+    <scene id="end" dur="auto" min="4" chapter="Wipe" in="wipe 0.7 right">
+      <say text="That was a wipe."/>
+      <text x="=W/2" y="=H/2" size="120" weight="800" align="center" split="word" stagger="0.2" rich="1" text="That was a **wipe**." at="0.4"><anim prop="opacity" from="0" to="1" dur="0.3"/><anim prop="scale" from="1.4" to="1" dur="0.5"/></text>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="say0" lang="en" src="voice/text/en/say0.db2242cc70.m4a" dur="5.70" hash="db2242cc70" engine="kokoro:af_heart"/>
+    <voice say="say1" lang="en" src="voice/text/en/say1.9212d6c71f.m4a" dur="6.10" hash="9212d6c71f" engine="kokoro:af_heart"/>
+    <voice say="say2" lang="en" src="voice/text/en/say2.78ae628b3b.m4a" dur="2.58" hash="78ae628b3b" engine="kokoro:af_heart"/>
+    <voice say="say3" lang="en" src="voice/text/en/say3.4da67bdaf9.m4a" dur="4.80" hash="4da67bdaf9" engine="kokoro:af_heart"/>
+    <voice say="say4" lang="en" src="voice/text/en/say4.1d43ead512.m4a" dur="1.00" hash="1d43ead512" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

@@ -6,7 +6,7 @@
 // thumbnails free, and what lets every native engine be tested against golden frames.
 (function (root) {
   'use strict';
-  const VERSION = '0.5';
+  const VERSION = '0.6';
 
   // ───────────────────────── XML (subset) ─────────────────────────
   // Elements, attributes, text, comments, <?…?>, <!…>, CDATA, the 5 named
@@ -53,7 +53,7 @@
   // symbols, gradients, fns) and document defaults. <r:title text="…"/> expands a component with props.
   // Expansion is static and happens before parse: flatten() turns a document with imports into plain TSVG
   // (packages carry the flattened main.tsvg, so every player plays them). Local components live in <defs>.
-  const PKG = '0.5.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
+  const PKG = '0.6.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
   const HEAD = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'music', 'backdrop', 'overlay'];
   const BUILTIN = new Set(['tsvg', 'layouts', 'layout', 'options', 'option', 'choice', 'mixes', 'mix', 'themes', 'theme', 'strings', 's', 'defs', 'fn', 'symbol', 'linear', 'radial', 'stop', 'clip', 'mask', 'data', 'assets', 'asset', 'font', 'voices', 'voice', 'music', 'backdrop', 'overlay', 'timeline', 'scene', 'say', 'sfx', 'anim', 'keys', 'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'import', 'component', 'prop', 'slot', 'each', 'if']);
   const needsLibs = (xml) => /<(import|component)\b/.test(xml);
@@ -487,6 +487,7 @@
       doc.sceneSrc.push(src);
     }
     doc.music = doc.audio.slice();
+    doc.timelineIn = (one('timeline') || {}).attrs ? one('timeline').attrs.in : undefined; // default transition for every scene
     const varied = (a, names) => Object.keys(a).some((k) => names.includes(k.split('.')[0]) && k.includes('.'));
     doc.timed = doc.sceneSrc.some((s) => s.a.dur === 'auto' || varied(s.a, ['dur', 'start']) || s.says.some((x) => varied(x.raw, ['at'])) || s.sfx.some((x) => varied(x, ['at'])));
     doc.rootDuration = r.attrs.duration;
@@ -542,7 +543,7 @@
       if (auto) dur = Math.round(Math.max(+num(s.a, 'min', 2), last + +num(s.a, 'pad', 0.8)) * 1000) / 1000;
       else { dur = +rawDur; if (!(dur > 0)) throw new Error('<scene id="' + s.id + '"> needs dur > 0 (or dur="auto")'); }
       for (const f of s.sfx) audio.push({ bus: f.bus || 'sfx', src: f.src, start: start + +num(f, 'at', 0), vol: +(f.vol || 1), when: f.when });
-      scenes.push({ id: s.id, start, dur, nodes: s.nodes, cues, line: s.line });
+      scenes.push({ id: s.id, start, dur, nodes: s.nodes, cues, line: s.line, trans: pick(s.a, 'in', env) != null ? pick(s.a, 'in', env) : doc.timelineIn });
       if (s.a.chapter) chapters.push({ t: start, label: s.a.chapter });
       cursor = Math.round((start + dur) * 1000) / 1000; duration = Math.max(duration, cursor);
     }
@@ -700,6 +701,122 @@
   }
   function textOf(n, env) { const raw = pick(n.a, 'text', env); return raw != null && NUMERIC.test(raw) ? raw : String(value(raw, env, env.doc) ?? ''); }
 
+  // ───────── rich text (0.6): spans, letter spacing, split into words/letters, text on a path ─────────
+  // rich="1": **bold**  *italic*  `code`  ==highlight==  [words]($accent)  (\ escapes). ls = letter spacing.
+  // split="word|char|line" stagger="0.06": each unit runs the node's anims on its own clock (T0 + k·stagger),
+  // with variables u (index) and u_n. path="M …" lays one line along a path (offset 0–1 slides it).
+  const isRich = (n) => n.a.rich != null || n.a.split != null || n.a.ls != null || n.a.path != null;
+  function parseRich(txt, on) {
+    if (!on) return [{ t: txt, b: 0, i: 0, code: 0, hl: 0, c: null }];
+    const runs = []; const st = { b: 0, i: 0, code: 0, hl: 0, c: null }; let cur = Object.assign({ t: '' }, st);
+    const push = () => { if (cur.t) runs.push(cur); cur = Object.assign({ t: '' }, st); };
+    for (let k = 0; k < txt.length; k++) {
+      const ch = txt[k], two = txt.slice(k, k + 2);
+      if (ch === '\\' && k + 1 < txt.length) { cur.t += txt[++k]; continue; }
+      if (st.code) { if (ch === '`') { push(); st.code = 0; cur = Object.assign({ t: '' }, st); } else cur.t += ch; continue; }
+      if (two === '**') { push(); st.b ^= 1; cur = Object.assign({ t: '' }, st); k++; continue; }
+      if (two === '==') { push(); st.hl ^= 1; cur = Object.assign({ t: '' }, st); k++; continue; }
+      if (ch === '*') { push(); st.i ^= 1; cur = Object.assign({ t: '' }, st); continue; }
+      if (ch === '`') { push(); st.code = 1; cur = Object.assign({ t: '' }, st); continue; }
+      if (ch === '[') { const m = /^\[([^\]]*)\]\(([^)]*)\)/.exec(txt.slice(k)); if (m) { push(); runs.push(Object.assign({}, st, { t: m[1], c: m[2] })); k += m[0].length - 1; continue; } }
+      cur.t += ch;
+    }
+    push(); return runs;
+  }
+  // lines of pieces (words, spaces) with x positions; widths include letter spacing
+  function richLayout(ctx, n, env, P, txt) {
+    const doc = env.doc; const size = P('size', 48), lh = P('lh', 1.25), maxw = P('maxw', 0), ls = P('ls', 0), weight = P('weight', 400);
+    const fams = String(P('font', '') || doc.font || '').split(',').map((f) => f.trim().replace(/^['"]|['"]$/g, '')).filter(Boolean);
+    const fontFor = (r) => (r.i || P('italic', 0) ? 'italic ' : '') + (r.b ? Math.max(700, +weight || 0) : weight) + ' ' + (r.code ? size * 0.9 : size) + 'px ' + (r.code ? "'JetBrains Mono', ui-monospace, Menlo, monospace" : fams.map((f) => "'" + f + "', ").join('') + FONT);
+    const hasLS = 'letterSpacing' in ctx;
+    const measure = (t, r) => { ctx.font = fontFor(r); if (hasLS) ctx.letterSpacing = ls + 'px'; return ctx.measureText(t).width + (hasLS ? 0 : ls * [...t].length); };
+    ctx.save();
+    const pieces = [];
+    for (const r of parseRich(txt, n.a.rich != null && n.a.rich !== '0')) for (const t of r.t.split(/(\n|[ \t]+)/)) if (t !== '') pieces.push({ t, r, nl: t === '\n', sp: /^[ \t]+$/.test(t) });
+    const lines = []; let cur = { pieces: [], w: 0 };
+    const end = () => { while (cur.pieces.length && cur.pieces[cur.pieces.length - 1].sp) cur.w -= cur.pieces.pop().w; lines.push(cur); cur = { pieces: [], w: 0 }; };
+    for (const pc of pieces) {
+      if (pc.nl) { end(); continue; }
+      pc.w = measure(pc.t, pc.r);
+      if (pc.sp && !cur.pieces.length) continue;
+      if (!pc.sp && maxw > 0 && cur.w + pc.w > maxw && cur.pieces.some((q) => !q.sp)) end();
+      pc.x = cur.w; cur.pieces.push(pc); cur.w += pc.w;
+    }
+    end();
+    ctx.restore();
+    return { lines, size, lh, ls, fontFor, measure, w: Math.max(0, ...lines.map((l) => l.w)), h: (lines.length - 1) * size * lh + size };
+  }
+  const pathCache = new Map();
+  function pathSampler(d) {
+    if (pathCache.has(d)) return pathCache.get(d);
+    let smp = null;
+    try { const el = document.createElementNS('http://www.w3.org/2000/svg', 'path'); el.setAttribute('d', d); const L = el.getTotalLength(); smp = { L, at: (s) => { const a = el.getPointAtLength(Math.max(0, Math.min(L, s))), b = el.getPointAtLength(Math.max(0, Math.min(L, s + 0.5))), c = s + 0.5 > L ? el.getPointAtLength(Math.max(0, s - 0.5)) : null; return { x: a.x, y: a.y, a: c ? Math.atan2(a.y - c.y, a.x - c.x) : Math.atan2(b.y - a.y, b.x - a.x) }; } }; } catch (e) {}
+    pathCache.set(d, smp); return smp;
+  }
+  function drawRichText(ctx, n, env, P, fill, stroke, sw, x, y) {
+    const doc = env.doc;
+    const txt = textOf(n, env); const L = richLayout(ctx, n, env, P, txt); const align = P('align', 'left');
+    const reveal = P('reveal', 1); let budget = reveal < 1 ? Math.round([...txt].length * reveal) : Infinity;
+    const hasLS = 'letterSpacing' in ctx; if (hasLS) ctx.letterSpacing = L.ls + 'px';
+    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    const colorOf = (r) => (r.c ? paintOf(ctx, String(value(r.c, env, doc)), env) : fill);
+    const hlFill = () => paintOf(ctx, String(value(P('hl', '$accent') || '#ff0', env, doc)), env, 0.35);
+    const glyphs = (t, r, gx, gy, paintFill) => {
+      ctx.font = L.fontFor(r);
+      if (!hasLS && L.ls) { let cx = gx; for (const ch of t) { if (stroke) ctx.strokeText(ch, cx, gy); if (paintFill) ctx.fillText(ch, cx, gy); cx += ctx.measureText(ch).width + L.ls; } return; }
+      if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = sw; ctx.lineJoin = 'round'; ctx.strokeText(t, gx, gy); }
+      if (paintFill) ctx.fillText(t, gx, gy);
+    };
+    const piece = (pc, px, py) => {
+      let t = pc.t; if (budget !== Infinity) { const cs = [...t]; if (budget <= 0) return; if (cs.length > budget) t = cs.slice(0, budget).join(''); budget -= cs.length; }
+      const w = t === pc.t ? pc.w : L.measure(t, pc.r);
+      if ((pc.r.hl || pc.r.code) && !pc.sp) { ctx.save(); ctx.fillStyle = pc.r.code ? paintOf(ctx, env.theme.panel || '#8883', env) : hlFill(); const p = new Path2D(); const hh = L.size * (pc.r.code ? 1.15 : 1.1); if (p.roundRect) p.roundRect(px - 6, py - hh / 2, w + 12, hh, 8); else p.rect(px - 6, py - hh / 2, w + 12, hh); ctx.fill(p); ctx.restore(); }
+      const f = colorOf(pc.r); if (f) ctx.fillStyle = f; glyphs(t, pc.r, px, py, !!f);
+    };
+    // text on a path: one line, each letter turned with the path
+    const pd = P('path', null);
+    if (pd) {
+      const smp = pathSampler(String(pd)); if (!smp) return;
+      const all = L.lines.flatMap((l) => l.pieces); const total = L.lines.reduce((a, l) => a + l.w, 0);
+      let s0 = P('offset', 0) * smp.L + (align === 'center' ? (smp.L - total) / 2 : align === 'right' ? smp.L - total : 0);
+      ctx.save(); ctx.translate(x, y);
+      for (const pc of all) for (const ch of [...pc.t]) {
+        if (budget !== Infinity && budget-- <= 0) break;
+        const cw = L.measure(ch, pc.r); const pt = smp.at(s0 + cw / 2); s0 += cw;
+        if (pc.sp) continue;
+        ctx.save(); ctx.translate(pt.x, pt.y); ctx.rotate(pt.a); const f = colorOf(pc.r); if (f) ctx.fillStyle = f; glyphs(ch, pc.r, -cw / 2, 0, !!f); ctx.restore();
+      }
+      ctx.restore(); return;
+    }
+    const y0 = y - ((L.lines.length - 1) * L.size * L.lh) / 2;
+    const lineX = (l) => (align === 'center' ? x - l.w / 2 : align === 'right' ? x - l.w : x);
+    const split = n.a.split;
+    if (!split) { L.lines.forEach((l, i) => { for (const pc of l.pieces) piece(pc, lineX(l) + pc.x, y0 + i * L.size * L.lh); }); return; }
+    // split: every unit gets its own clock and transform
+    const units = [];
+    L.lines.forEach((l, i) => {
+      const yy = y0 + i * L.size * L.lh;
+      if (split === 'line') { units.push({ pcs: l.pieces.map((pc) => ({ pc, dx: pc.x })), x: lineX(l), y: yy, w: l.w }); return; }
+      for (const pc of l.pieces) {
+        if (pc.sp) continue;
+        if (split === 'char') { let cx = 0; for (const ch of [...pc.t]) { const cw = L.measure(ch, pc.r); units.push({ pcs: [{ pc: Object.assign({}, pc, { t: ch, w: cw }), dx: 0 }], x: lineX(l) + pc.x + cx, y: yy, w: cw }); cx += cw; } }
+        else units.push({ pcs: [{ pc, dx: 0 }], x: lineX(l) + pc.x, y: yy, w: pc.w });
+      }
+    });
+    const stagger = P('stagger', 0.06); const T0 = env.vars.T0;
+    units.forEach((u, k) => {
+      const ue = Object.assign({}, env, { vars: Object.assign({}, env.vars, { T0: T0 + k * stagger, u: k, u_n: units.length }) });
+      const U = (name, d) => prop(n, name, ue, doc, d);
+      const op = U('opacity', 1); if (op <= 0) return;
+      ctx.save(); ctx.globalAlpha *= Math.min(1, op);
+      const cx = u.x + u.w / 2 + (U('x', 0) - x), cy = u.y + (U('y', 0) - y);
+      ctx.translate(cx, cy); const r = U('rot', 0); if (r) ctx.rotate((r * PI) / 180); const sc = U('scale', 1); if (sc !== 1) ctx.scale(sc, sc);
+      const f = U('fill', null); const uf = f != null ? paintOf(ctx, f, ue) : fill;
+      for (const { pc, dx } of u.pcs) { const save = fill; fill = uf; piece(pc, -u.w / 2 + dx, 0); fill = save; }
+      ctx.restore();
+    });
+  }
+
   // ───────── auto layout: <row>, <col>, <grid> ─────────
   // Children are placed by the container: no hand-computed x/y. A child's own x/y still offsets it (handy for
   // entrance animations). Sizes: rect/image/group/use/path w×h, circle 2r, ellipse 2rx×2ry, text measured
@@ -718,6 +835,7 @@
       case 'circle': { const r = P('r', 50); return { w: 2 * r, h: 2 * r, ox: r, oy: r }; }
       case 'ellipse': { const rx = P('rx', 50), ry = P('ry', rx); return { w: 2 * rx, h: 2 * ry, ox: rx, oy: ry }; }
       case 'text': {
+        if (isRich(n) && !n.a.path) { const L = richLayout(ctx, n, env, P, textOf(n, env)); const al = P('align', 'left'); return { w: L.w, h: L.h, ox: al === 'center' ? L.w / 2 : al === 'right' ? L.w : 0, oy: L.h / 2 }; }
         ctx.save(); ctx.font = fontOf(P, env.doc);
         const txt = textOf(n, env); const maxw = P('maxw', 0); const size = P('size', 48), lh = P('lh', 1.25);
         const lines = maxw > 0 ? wrap(ctx, txt, maxw) : txt.split('\n');
@@ -808,13 +926,15 @@
     const mask = pick(n.a, 'mask', env);
     if (mask && ctx.canvas && typeof ctx.canvas.getContext === 'function') return drawMasked(ctx, n, env, mask);
     const P = (name, d) => prop(n, name, env, doc, d);
-    const opacity = P('opacity', 1); if (opacity <= 0) return;
+    const unitAnims = n.type === 'text' && n.a.split != null; // split text runs opacity/scale/rot/x/y per unit, not on the whole
+    const S = unitAnims ? (name, d) => attr(n, name, env, doc, d) : P;
+    const opacity = S('opacity', 1); if (opacity <= 0) return;
     ctx.save();
     ctx.globalAlpha *= Math.min(1, opacity);
     const blend = pick(n.a, 'blend', env); if (blend) ctx.globalCompositeOperation = blend;
     const blur = P('blur', 0);
     if (blur > 0 && 'filter' in ctx) { const m = ctx.getTransform(); ctx.filter = 'blur(' + (blur * Math.sqrt(Math.abs(m.a * m.d - m.b * m.c))).toFixed(2) + 'px)'; }
-    const rot = P('rot', 0), scale = P('scale', 1), sx = P('sx', 1) * scale, sy = P('sy', 1) * scale;
+    const rot = S('rot', 0), scale = S('scale', 1), sx = S('sx', 1) * scale, sy = S('sy', 1) * scale;
     const fillRaw = P('fill', n.type === 'text' ? env.theme.fg || '#fff' : undefined);
     const strokeRaw = P('stroke'), sw = P('sw', 0);
     shadowOf(ctx, P('shadow'), env);
@@ -878,6 +998,7 @@
         break;
       }
       case 'text': {
+        if (isRich(n)) { const tx = S('x', 0), ty = S('y', 0); pivot(tx, ty); clipTo(); drawRichText(ctx, n, env, P, paintOf(ctx, fillRaw, env), sw > 0 ? paintOf(ctx, strokeRaw, env) : null, sw, tx, ty); break; }
         const rawText = pick(n.a, 'text', env);
         let txt = rawText != null && NUMERIC.test(rawText) ? rawText : String(value(rawText, env, doc) ?? '');
         const reveal = P('reveal', 1); if (reveal < 1) txt = [...txt].slice(0, Math.round([...txt].length * reveal)).join('');
@@ -933,6 +1054,32 @@
     return out;
   }
 
+  // ───────── scene transitions (0.6) ─────────
+  // <scene in="push 0.6 left io"> (kind, seconds, direction, ease) or <timeline in="fade"> for every scene.
+  // The transition plays over the first seconds of the scene; the previous scene keeps running underneath.
+  const TRANSITIONS = ['fade', 'slide', 'push', 'wipe', 'zoom', 'iris', 'blur', 'none'];
+  function transitionOf(sc, env) {
+    const raw = sc.trans; if (!raw) return null;
+    const p = String(value(raw, env, env.doc)).trim().split(/\s+/); if (!p[0] || p[0] === 'none') return null;
+    const num = p.slice(1).find((x) => NUMERIC.test(x)); const dir = p.slice(1).find((x) => ['left', 'right', 'up', 'down'].includes(x)); const ease = p.slice(1).find((x) => EASE[x]);
+    return { kind: p[0], dur: num != null ? +num : 0.6, dir: dir || 'left', ease: ease || 'io' };
+  }
+  function transition(ctx, tr, k, L, drawPrev, drawCur) {
+    const W = L.w, H = L.h; const v = { left: [-1, 0], right: [1, 0], up: [0, -1], down: [0, 1] }[tr.dir]; // where the old scene goes
+    const layer = (alpha, f, tf) => { ctx.save(); ctx.globalAlpha *= alpha; if (tf) tf(); f(); ctx.restore(); };
+    const around = (s) => () => { ctx.translate(W / 2, H / 2); ctx.scale(s, s); ctx.translate(-W / 2, -H / 2); };
+    switch (tr.kind) {
+      case 'fade': layer(1 - k, drawPrev); layer(k, drawCur); break;
+      case 'slide': layer(1, drawPrev); layer(1, drawCur, () => ctx.translate(-v[0] * W * (1 - k), -v[1] * H * (1 - k))); break;
+      case 'push': layer(1, drawPrev, () => ctx.translate(v[0] * W * k, v[1] * H * k)); layer(1, drawCur, () => ctx.translate(-v[0] * W * (1 - k), -v[1] * H * (1 - k))); break;
+      case 'wipe': layer(1, drawPrev); layer(1, drawCur, () => { const p = new Path2D(); if (v[0]) p.rect(v[0] < 0 ? W * (1 - k) : 0, 0, W * k, H); else p.rect(0, v[1] < 0 ? H * (1 - k) : 0, W, H * k); ctx.clip(p); }); break;
+      case 'zoom': layer(1 - k, drawPrev, around(1 + 0.25 * k)); layer(k, drawCur, around(0.85 + 0.15 * k)); break;
+      case 'iris': layer(1, drawPrev); layer(1, drawCur, () => { const p = new Path2D(); p.ellipse(W / 2, H / 2, Math.max(0.01, k * Math.hypot(W, H) / 2), Math.max(0.01, k * Math.hypot(W, H) / 2), 0, 0, 2 * PI); ctx.clip(p); }); break;
+      case 'blur': layer(1 - k, drawPrev, () => { if ('filter' in ctx) ctx.filter = 'blur(' + (24 * k * Math.sqrt(Math.abs(ctx.getTransform().a * ctx.getTransform().d))).toFixed(2) + 'px)'; }); layer(k, drawCur, () => { if ('filter' in ctx && k < 1) ctx.filter = 'blur(' + (24 * (1 - k) * Math.sqrt(Math.abs(ctx.getTransform().a * ctx.getTransform().d))).toFixed(2) + 'px)'; }); break;
+      default: drawCur();
+    }
+  }
+
   // draw the frame at time t; ctx already maps layout units (layout.w × layout.h) to the target
   function renderFrame(ctx, doc, t, opts, layout, images) {
     doc = forOptions(doc, opts);
@@ -941,12 +1088,15 @@
     ctx.fillStyle = paintOf(ctx, env.theme.bg || '#000', env); ctx.fillRect(0, 0, layout.w, layout.h);
     drawNodes(ctx, doc.backdrop, env);
     const last = doc.scenes[doc.scenes.length - 1];
-    for (const sc of doc.scenes) {
+    const drawScene = (sc, T) => drawNodes(ctx, sc.nodes, Object.assign({}, env, { scene: sc, vars: Object.assign({}, env.vars, { T, p: T / sc.dur, sdur: sc.dur }) }));
+    doc.scenes.forEach((sc, i) => {
       const active = (t >= sc.start && t < sc.start + sc.dur) || (sc === last && t >= sc.start + sc.dur);
-      if (!active) continue;
+      if (!active) return;
       const T = Math.min(t, sc.start + sc.dur - 1e-6) - sc.start;
-      drawNodes(ctx, sc.nodes, Object.assign({}, env, { scene: sc, vars: Object.assign({}, env.vars, { T, p: T / sc.dur, sdur: sc.dur }) }));
-    }
+      const tr = i > 0 ? transitionOf(sc, env) : null;
+      if (tr && T < tr.dur) { const prev = doc.scenes[i - 1]; transition(ctx, tr, (EASE[tr.ease] || EASE.io)(T / tr.dur), layout, () => drawScene(prev, prev.dur + T), () => drawScene(sc, T)); }
+      else drawScene(sc, T);
+    });
     drawNodes(ctx, doc.overlay, env);
     ctx.restore();
   }
@@ -990,13 +1140,13 @@
   const COMMON = ['x', 'y', 'fill', 'stroke', 'sw', 'opacity', 'rot', 'scale', 'sx', 'sy', 'shadow', 'clip', 'mask', 'blend', 'blur', 'dash', 'at', 'dur', 'when', 'only', 'repeat', 'as', 'id', 'grow'];
   const ATTRS = {
     rect: ['w', 'h', 'r', 'ax', 'ay'], circle: ['r', 'from', 'to', 'arc'], ellipse: ['rx', 'ry', 'from', 'to', 'arc'],
-    line: ['x1', 'y1', 'x2', 'y2', 'draw'], path: ['d', 'draw'], text: ['text', 'size', 'weight', 'italic', 'font', 'align', 'maxw', 'lh', 'reveal'],
+    line: ['x1', 'y1', 'x2', 'y2', 'draw'], path: ['d', 'draw'], text: ['text', 'size', 'weight', 'italic', 'font', 'align', 'maxw', 'lh', 'reveal', 'rich', 'ls', 'split', 'stagger', 'path', 'offset', 'hl'],
     image: ['src', 'w', 'h', 'r', 'ax', 'ay', 'fit'], group: ['w', 'h'], use: ['ref', 'w', 'h'],
     row: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r'], col: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r'], grid: ['w', 'h', 'ax', 'ay', 'gap', 'pad', 'align', 'justify', 'r', 'cols'],
   };
   const OTHER = {
     anim: ['prop', 'from', 'to', 'at', 'dur', 'ease'], keys: ['prop', 'v', 'ease'], say: ['at', 'text', 'speak', 'voice', 'dur', 'id', 'when', 'src'],
-    sfx: ['at', 'src', 'vol', 'bus', 'when'], scene: ['id', 'dur', 'start', 'chapter', 'min', 'pad', 'gap'], music: ['src', 'start', 'loop', 'vol', 'bus', 'when'],
+    sfx: ['at', 'src', 'vol', 'bus', 'when'], scene: ['id', 'dur', 'start', 'chapter', 'min', 'pad', 'gap', 'in'], music: ['src', 'start', 'loop', 'vol', 'bus', 'when'],
   };
   const CONTAINERS = new Set(['scene', 'group', 'backdrop', 'overlay', 'symbol', 'clip', 'mask']);
   const ROOT_KIDS = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'voices', 'music', 'backdrop', 'timeline', 'overlay'];
@@ -1047,6 +1197,8 @@
       if (el.name === 'anim' || el.name === 'keys') { const p = el.attrs.prop; const ok = parentType && (COMMON.concat(ATTRS[parentType] || [])); if (!p) errors.push(at(el) + 'needs prop="…"'); else if (ok && !ok.includes(p)) warnings.push(at(el) + 'prop "' + p + '" is not an attribute of <' + parentType + '>' + hint(p, ok)); }
       if ((el.name === 'image') && el.attrs.src && !doc.assets[el.attrs.src] && !/[/.]/.test(el.attrs.src)) errors.push(at(el) + 'src "' + el.attrs.src + '" is not an asset id' + hint(el.attrs.src, Object.keys(doc.assets)));
       if ((el.name === 'sfx' || el.name === 'music') && el.attrs.src && !doc.assets[el.attrs.src] && !/[/.]/.test(el.attrs.src)) errors.push(at(el) + 'src "' + el.attrs.src + '" is not an asset id' + hint(el.attrs.src, Object.keys(doc.assets)));
+      for (const k of Object.keys(el.attrs)) if (el.name === 'scene' && k.split('.')[0] === 'in') { const w = String(el.attrs[k]).trim().split(/\s+/)[0]; if (w && w[0] !== '=' && !TRANSITIONS.includes(w)) warnings.push(at(el) + k + ': unknown transition "' + w + '" (' + TRANSITIONS.join(' ') + ')' + hint(w, TRANSITIONS)); }
+      if (el.name === 'text' && el.attrs.split && !['word', 'char', 'line'].includes(el.attrs.split)) warnings.push(at(el) + 'split="' + el.attrs.split + '": use word, char or line' + hint(el.attrs.split, ['word', 'char', 'line']));
       if (el.name === 'use' && !doc.symbols[el.attrs.ref]) errors.push(at(el) + 'ref "' + el.attrs.ref + '": no <symbol> with that id' + hint(el.attrs.ref || '', Object.keys(doc.symbols)));
     };
     const walk = (el, container, inScene) => {

@@ -36,6 +36,8 @@ node ~/Dev/PROJECTS/TaskManager/workspaces/ws.mjs upload <workspace> <KEY> /tmp/
 - Animation: `<anim prop from to at dur ease/>` (times relative to the node's `at`), `<keys prop v="0:0; 1:100"/>`; eases are `linear in out io back elastic step`. Path `d` keys morph.
 - Text: `size` ≥ 34 for body, 64–110 for headings. Use `maxw` to wrap. `y` is the vertical centre of the block.
 - Layout without numbers: `<row>`, `<col>`, `<grid cols="3">` place their children (`gap pad align justify`, `grow="1"`, `fill r shadow` = a card). Use them instead of computing x/y.
+- Text: `rich="1"` → `**bold** *italic* \`code\` ==highlight== [word]($accent)`; `split="word|char"` + `stagger` animates piece by piece; `ls` letter spacing; `path="M…"` text on a curve.
+- Transitions: `<timeline in="fade 0.5">` or `<scene in="push 0.6 left">` (fade slide push wipe zoom iris blur).
 - Timing without numbers: `<scene dur="auto">` lasts as long as its narration in each language (+`pad`, ≥`min`); says without `at` follow each other; `at="=cue('v2')"` starts a node with that line.
 - Narration: one `<say at text="@voN"/>` per scene (or `dur="auto"`). Fixed `dur` ≥ clip length + 1 s (check warns otherwise). Use `speak="@x_say"` when the pronunciation must differ (e.g. "T. S. V. G.").
 - Gujarati: add `<choice id="gu" tts="sarvam:shubh"/>` and `gu="…"` on every string. make bakes it with Sarvam (`SARVAM_API_KEY` from `~/Dev/PROJECTS/Manager/packages/voice/sarvam/.env`; source it, never print it).

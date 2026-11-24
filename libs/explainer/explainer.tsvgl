@@ -40,8 +40,8 @@
     <symbol id="none"/>
   </defs>
 
-  <component id="title" props="title, kicker='', sub='', say='', dur=auto" doc="Opening: small kicker, big title with a hand-drawn underline.">
-    <scene id="%{_uid}" dur="%{dur}" min="5" chapter="%{title}">
+  <component id="title" props="title, kicker='', sub='', say='', dur=auto, in=push 0.6 left" doc="Opening: small kicker, big title with a hand-drawn underline.">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="5" chapter="%{title}">
       <if test="%{say}"><say id="%{say#}" at="0.5" text="%{say}"/></if>
       <if test="%{kicker}"><text x="=W/2" y="=H/2-150" y.portrait="=H/2-220" size="34" weight="700" align="center" fill="$accent" text="%{kicker}"><anim prop="opacity" from="0" to="1" dur="0.5"/></text></if>
       <text x="=W/2" y="=H/2-30" size="104" size.portrait="80" maxw="1600" maxw.portrait="940" weight="800" align="center" text="%{title}" at="0.2">
@@ -54,8 +54,8 @@
     </scene>
   </component>
 
-  <component id="point" props="text, kicker='', icon=idea, say='', dur=auto, chapter=''" doc="One big statement with an icon (idea warn heart clock check question none).">
-    <scene id="%{_uid}" dur="%{dur}" min="4.5" chapter="%{chapter|text}">
+  <component id="point" props="text, kicker='', icon=idea, say='', dur=auto, chapter='', in=push 0.6 left" doc="One big statement with an icon (idea warn heart clock check question none).">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="4.5" chapter="%{chapter|text}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <use ref="%{icon}" x="=W/2" y="=H/2-200" y.portrait="=H/2-300" scale="2.4">
         <anim prop="scale" from="0" to="2.4" dur="0.6" ease="back"/>
@@ -67,8 +67,8 @@
     </scene>
   </component>
 
-  <component id="chapter" props="n, title, say='', dur=auto" doc="Chapter divider: big number + title.">
-    <scene id="%{_uid}" dur="%{dur}" min="3" chapter="%{title}">
+  <component id="chapter" props="n, title, say='', dur=auto, in=push 0.6 left" doc="Chapter divider: big number + title.">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="3" chapter="%{title}">
       <if test="%{say}"><say id="%{say#}" at="0.3" text="%{say}"/></if>
       <rect x="0" y="0" w="=W" h="=H" fill="$accent"><anim prop="w" from="0" to="=W" dur="0.5" ease="io"/></rect>
       <text x="=W/2" y="=H/2-90" size="160" weight="800" align="center" fill="$bg" text="%{n}" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
@@ -76,8 +76,8 @@
     </scene>
   </component>
 
-  <component id="steps" props="title, items, say='', dur=auto, chapter=''" doc="Numbered steps that appear one by one along a line. items: a | b | c, each may be 'title :: detail'.">
-    <scene id="%{_uid}" dur="%{dur}" min="=2.5 + 1.3*%{items:count}" chapter="%{chapter|title}">
+  <component id="steps" props="title, items, say='', dur=auto, chapter='', in=push 0.6 left" doc="Numbered steps that appear one by one along a line. items: a | b | c, each may be 'title :: detail'.">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="=2.5 + 1.3*%{items:count}" chapter="%{chapter|title}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <b:heading text="%{title}"/>
       <each items="%{items}" as="it">
@@ -92,8 +92,8 @@
     </scene>
   </component>
 
-  <component id="stat" props="value, label, prefix='', suffix='', decimals=0, sub='', say='', dur=auto, chapter=''" doc="A big number that counts up, with a label.">
-    <scene id="%{_uid}" dur="%{dur}" min="5" chapter="%{chapter|label}">
+  <component id="stat" props="value, label, prefix='', suffix='', decimals=0, sub='', say='', dur=auto, chapter='', in=push 0.6 left" doc="A big number that counts up, with a label.">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="5" chapter="%{chapter|label}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <circle x="=W/2" y="=H/2-60" r="250" fill="none" stroke="$accent" sw="14" from="0" to="=360*ease(clamp(T/1.6, 0, 1), 'out')" arc="1" opacity="0.6"/>
       <text x="=W/2" y="=H/2-60" size="180" size.portrait="150" weight="800" align="center" fill="$fg" text="='%{prefix}' + fmt(%{value} * ease(clamp(T/1.6, 0, 1), 'out'), %{decimals}) + '%{suffix}'"/>
@@ -102,8 +102,8 @@
     </scene>
   </component>
 
-  <component id="quote" props="text, by='', say='', dur=auto, chapter='Quote'" doc="A pull quote with attribution.">
-    <scene id="%{_uid}" dur="%{dur}" min="6" chapter="%{chapter}">
+  <component id="quote" props="text, by='', say='', dur=auto, chapter='Quote', in=push 0.6 left" doc="A pull quote with attribution.">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="6" chapter="%{chapter}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <text x="=W/2-640" x.portrait="120" y="=H/2-200" y.portrait="=H/2-360" size="260" weight="800" fill="$accent" text="“" opacity="0.8"/>
       <text x="=W/2" y="=H/2" size="64" size.portrait="54" maxw="1400" maxw.portrait="900" weight="700" italic="1" align="center" lh="1.3" text="%{text}" reveal="0">
@@ -113,8 +113,8 @@
     </scene>
   </component>
 
-  <component id="picture" props="src, caption='', say='', dur=auto, chapter=''" doc="A full-bleed picture with a slow Ken Burns zoom and a caption.">
-    <scene id="%{_uid}" dur="%{dur}" min="5" chapter="%{chapter|caption}">
+  <component id="picture" props="src, caption='', say='', dur=auto, chapter='', in=push 0.6 left" doc="A full-bleed picture with a slow Ken Burns zoom and a caption.">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="5" chapter="%{chapter|caption}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <image src="%{src}" x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=W" h="=H" fit="cover" scale="=1.04 + 0.08 * T / sdur"/>
       <rect x="0" y="=H*0.62" w="=W" h="=H*0.38" fill="#0009"/>
@@ -122,8 +122,8 @@
     </scene>
   </component>
 
-  <component id="versus" props="left, right, ltext='', rtext='', title='', say='', dur=auto, chapter=''" doc="A versus card: two sides, each with a short line.">
-    <scene id="%{_uid}" dur="%{dur}" min="5" chapter="%{chapter|title|left}">
+  <component id="versus" props="left, right, ltext='', rtext='', title='', say='', dur=auto, chapter='', in=push 0.6 left" doc="A versus card: two sides, each with a short line.">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="5" chapter="%{chapter|title|left}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <if test="%{title}"><b:heading text="%{title}" y="140"/></if>
       <group x="=W*0.28" y="=H/2+30" x.portrait="=W/2" y.portrait="=H*0.33" at="0.5">
@@ -141,8 +141,8 @@
     </scene>
   </component>
 
-  <component id="outro" props="title, sub='', say='', dur=auto" doc="Closing card.">
-    <scene id="%{_uid}" dur="%{dur}" min="4" chapter="%{title}">
+  <component id="outro" props="title, sub='', say='', dur=auto, in=push 0.6 left" doc="Closing card.">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="4" chapter="%{title}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <circle x="=W/2" y="=H/2" r="=min(W,H)*0.36" fill="$accent" opacity="0.12"><anim prop="scale" from="0.6" to="1" dur="1.2" ease="out"/></circle>
       <text x="=W/2" y="=H/2-20" size="96" size.portrait="76" maxw="1500" maxw.portrait="920" weight="800" align="center" text="%{title}"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>

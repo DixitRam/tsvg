@@ -65,6 +65,13 @@ const o = { base: pathToFileURL(ROOT + 'tests/x.tsvg').href, libBase: pathToFile
   let rect = null; const ctx = { save() {}, restore() {}, translate() {}, fill() {}, stroke() {}, fillRect() {}, rotate() {}, scale() {}, getTransform: () => ({ a: 1, b: 0, c: 0, d: 1 }), setLineDash() {}, clip() {}, globalAlpha: 1 };
   ok(T.validate(x).ok, 'validate auto: ' + T.validate(x).errors[0]);
 }
+// rich text markup, transitions lint
+{
+  const d = T.parse('<tsvg><timeline in="fade"><scene dur="2"><text rich="1" text="a"/></scene><scene dur="2" in="zom 0.5"><text split="wrd" text="b"/></scene></timeline></tsvg>');
+  eq(d.scenes.map((s) => s.trans), ['fade', 'zom 0.5'], 'scene transitions (timeline default)');
+  const v = T.validate('<tsvg><timeline><scene dur="2"/><scene dur="2" in="zom 0.5"><text split="wrd" text="b"/></scene></timeline></tsvg>');
+  ok(v.warnings.some((w) => /unknown transition "zom".*did you mean "zoom"/.test(w)), 'transition lint'); ok(v.warnings.some((w) => /split="wrd"/.test(w)), 'split lint');
+}
 // every built-in library example checks clean
 for (const f of ['examples/libs/report.tsvg', 'examples/libs/explainer.tsvg', 'templates/report.tsvg']) {
   const x = readFileSync(ROOT + f, 'utf8'); const oo = Object.assign({}, o, { base: pathToFileURL(ROOT + f).href });

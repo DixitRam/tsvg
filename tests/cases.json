@@ -163,5 +163,44 @@
     "file": "examples/layout/layout.tsvg",
     "t": 26.5,
     "layout": "landscape"
+  },
+  {
+    "name": "text-rich",
+    "file": "examples/text/text.tsvg",
+    "t": 4,
+    "layout": "landscape"
+  },
+  {
+    "name": "text-split-mid",
+    "file": "examples/text/text.tsvg",
+    "t": 8.75,
+    "layout": "landscape"
+  },
+  {
+    "name": "text-path-portrait",
+    "file": "examples/text/text.tsvg",
+    "t": 17,
+    "layout": "portrait"
+  },
+  {
+    "name": "trans-push",
+    "file": "examples/text/text.tsvg",
+    "t": 7.25,
+    "layout": "landscape"
+  },
+  {
+    "name": "trans-iris-light",
+    "file": "examples/text/text.tsvg",
+    "t": 14.6,
+    "layout": "landscape",
+    "opts": {
+      "theme": "light"
+    }
+  },
+  {
+    "name": "trans-zoom",
+    "file": "examples/text/text.tsvg",
+    "t": 20.6,
+    "layout": "landscape"
   }
 ]

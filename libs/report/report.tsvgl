@@ -19,8 +19,8 @@
 <tsvglib name="report" version="1.0.0" params="key=''" doc="Ticket and work reports: title, lists (changes, checks, open items), screenshot with a highlight box, big number, before/after, code.">
   <import src="../base/base.tsvgl" as="b" key="%{key}"/>
 
-  <component id="title" props="title, sub='', say='', dur=auto" doc="Opening scene: gradient title + one-line subtitle.">
-    <scene id="%{_uid}" dur="%{dur}" min="5" chapter="%{title}">
+  <component id="title" props="title, sub='', say='', dur=auto, in=fade 0.45" doc="Opening scene: gradient title + one-line subtitle.">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="5" chapter="%{title}">
       <if test="%{say}"><say id="%{say#}" at="0.5" text="%{say}"/></if>
       <text x="=W/2" y="=H/2-50" size="96" size.portrait="72" maxw="1700" maxw.portrait="960" weight="800" align="center" text="%{title}" fill="url(#b:ink)">
         <anim prop="opacity" from="0" to="1" dur="0.7"/><anim prop="scale" from="0.94" to="1" dur="0.9" ease="back"/>
@@ -33,9 +33,9 @@
     </scene>
   </component>
 
-  <component id="list" props="title, items, kind=change, empty='Nothing open ✓', say='', dur=auto, chapter=''"
+  <component id="list" props="title, items, kind=change, empty='Nothing open ✓', say='', dur=auto, chapter='', in=fade 0.45"
              doc="Rows that appear one by one. kind: change (✓ panels) | check (✓) | open (!) | step (1 2 3) | no (✗). items: a | b | c, each may be 'title :: detail'.">
-    <scene id="%{_uid}" dur="%{dur}" min="=2.5 + 1.0*%{items:count}" chapter="%{chapter|title}">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="=2.5 + 1.0*%{items:count}" chapter="%{chapter|title}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <b:heading text="%{title}"/>
       <if test="%{items}">
@@ -49,9 +49,9 @@
             <if test="%{kind} == change"><use ref="b:tick" x="30" y="0"/></if>
             <if test="%{kind} == check"><use ref="b:tick" x="30" y="0"/></if>
             <if test="%{it.1}">
-              <text x="80" y="-20" size="38" size.portrait="34" weight="700" maxw="1360" maxw.portrait="800" fill="$fg" text="%{it.0}"/>
-              <text x="80" y="24" size="28" size.portrait="26" maxw="1360" maxw.portrait="800" fill="$muted" text="%{it.1}"/>
-              <else><text x="80" y="0" size="40" size.portrait="34" maxw="1360" maxw.portrait="800" fill="$fg" text="%{it.0}"/></else>
+              <text x="80" y="-20" size="38" size.portrait="34" weight="700" maxw="1360" maxw.portrait="800" fill="$fg" rich="1" text="%{it.0}"/>
+              <text x="80" y="24" size="28" size.portrait="26" maxw="1360" maxw.portrait="800" fill="$muted" rich="1" text="%{it.1}"/>
+              <else><text x="80" y="0" size="40" size.portrait="34" maxw="1360" maxw.portrait="800" fill="$fg" rich="1" text="%{it.0}"/></else>
             </if>
           </group>
         </each>
@@ -60,9 +60,9 @@
     </scene>
   </component>
 
-  <component id="shot" props="src, box='', caption='', say='', dur=auto, chapter='Where to look'"
+  <component id="shot" props="src, box='', caption='', say='', dur=auto, chapter='Where to look', in=fade 0.45"
              doc="A screenshot (fit inside the frame) with an optional highlight box: box='x y w h' as fractions of the image (0–1).">
-    <scene id="%{_uid}" dur="%{dur}" min="6" chapter="%{chapter}">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="6" chapter="%{chapter}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <group x="=W/2" y="=H/2-40" y.portrait="=H/2-60">
         <image src="%{src}" x="0" y="0" ax="0.5" ay="0.5" w="1500" h="860" w.portrait="1000" h.portrait="1300" r="16" shadow="0 24 60 #0009" fit="contain">
@@ -80,9 +80,9 @@
     </scene>
   </component>
 
-  <component id="stat" props="value, label, sub='', prefix='', suffix='', decimals=0, say='', dur=auto, chapter=''"
+  <component id="stat" props="value, label, sub='', prefix='', suffix='', decimals=0, say='', dur=auto, chapter='', in=fade 0.45"
              doc="One big number that counts up, with a label. value is a number.">
-    <scene id="%{_uid}" dur="%{dur}" min="5" chapter="%{chapter|label}">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="5" chapter="%{chapter|label}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <text x="=W/2" y="=H/2-60" size="220" size.portrait="180" weight="800" align="center" fill="url(#b:ink)"
             text="='%{prefix}' + fmt(%{value} * ease(clamp(T/1.6, 0, 1), 'out'), %{decimals}) + '%{suffix}'"/>
@@ -91,9 +91,9 @@
     </scene>
   </component>
 
-  <component id="compare" props="before, after, ltitle=Before, rtitle=After, title='', say='', dur=auto, chapter='Before / after'"
+  <component id="compare" props="before, after, ltitle=Before, rtitle=After, title='', say='', dur=auto, chapter='Before / after', in=fade 0.45"
              doc="Two panels side by side (stacked on portrait). before/after: items separated by |.">
-    <scene id="%{_uid}" dur="%{dur}" min="=3.5 + 0.5*(%{before:count} + %{after:count})" chapter="%{chapter}">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="=3.5 + 0.5*(%{before:count} + %{after:count})" chapter="%{chapter}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <if test="%{title}"><b:heading text="%{title}" y="130"/></if>
       <group x="=W/2-780" y="260" x.portrait="90" y.portrait="330" at="0.6">
@@ -111,9 +111,9 @@
     </scene>
   </component>
 
-  <component id="code" props="code, title='', file='', say='', dur=auto, chapter='Code'"
+  <component id="code" props="code, title='', file='', say='', dur=auto, chapter='Code', in=fade 0.45"
              doc="A code card that types itself line by line. code: lines separated by a new line (&amp;#10; in an attribute) or ‖.">
-    <scene id="%{_uid}" dur="%{dur}" min="=3 + 0.5*%{code:count}" chapter="%{chapter}">
+    <scene id="%{_uid}" dur="%{dur}" in="%{in}" min="=3 + 0.5*%{code:count}" chapter="%{chapter}">
       <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
       <if test="%{title}"><b:heading text="%{title}" y="120"/></if>
       <group x="=W/2-800" y="260" x.portrait="60" y.portrait="420">

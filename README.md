@@ -89,6 +89,20 @@ A library (`.tsvgl`) packages **components with props**, **styles** (themes, fon
 ```
 [▶ layout + timing demo](https://panth977.github.io/tsvg/playground/?doc=../examples/layout/layout.tsvg) · spec [§3.6](https://panth977.github.io/tsvg/spec/#timeline), [§5](https://panth977.github.io/tsvg/spec/#nodes)
 
+## Rich text, word-by-word, transitions (0.6)
+
+```xml
+<timeline in="fade 0.5">                                                  <!-- every scene fades in -->
+  <scene dur="auto" in="push 0.6 left">                                   <!-- fade slide push wipe zoom iris blur -->
+    <text rich="1" text="Mix **bold**, *italic*, [colour]($accent), ==highlights== and `code`"/>
+    <text split="word" stagger="0.12" text="Every word arrives"><anim prop="y" from="60" to="0" dur="0.5"/></text>
+    <text ls="14" text="LETTER SPACING"/>
+    <text path="M 0 100 C 350 -260 1050 460 1400 60" offset="=0.2*T" text="text on a curve"/>
+  </scene>
+</timeline>
+```
+[▶ rich text + transitions demo](https://panth977.github.io/tsvg/playground/?doc=../examples/text/text.tsvg)
+
 ## Quick start
 
 ```sh
@@ -106,10 +120,10 @@ Install or load from a CDN ([JSR: @panth977/tsvg](https://jsr.io/@panth977/tsvg)
 
 ```ts
 import { TSVGPlayer, TSVG, TSVGZip } from "jsr:@panth977/tsvg";            // Deno / bundlers (npx jsr add @panth977/tsvg)
-import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.5.0";     // any browser, no build
+import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.6.0";     // any browser, no build
 ```
 ```html
-<script src="https://esm.sh/jsr/@panth977/tsvg@0.5.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
+<script src="https://esm.sh/jsr/@panth977/tsvg@0.6.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
 ```
 
 Embed the player:
