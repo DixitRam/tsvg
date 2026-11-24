@@ -12,11 +12,11 @@ lib/
   tsvg_io.dart          dart:io helper (openTsvgFile), not for web
   src/core/             js.dart (JS value semantics) sin.dart (fdlibm sin for rand/noise) xml.dart expr.dart color.dart model.dart
                         path_data.dart canvas.dart (backend interface) render.dart audio.dart source.dart validate.dart
-  src/flutter/          painter.dart (Canvas backend, CustomPainter, offscreen render) media.dart (fonts, images)
-                        player.dart (controller + widget) audio_engine.dart loader.dart
+  src/flutter/          painter.dart (Canvas backend, CustomPainter, offscreen render) media.dart (fonts, images, posters)
+                        player.dart (controller + widget) audio_engine.dart video.dart (<video> overlays) loader.dart
 example/                app that plays assets/demo.tsvgz (macOS, web, Android, iOS)
 test/                   core_test (unit + cross-check against the JS engine), player_test, golden_test (vs web goldens),
-                        styles_smoke_test (the 60 examples/styles videos)
+                        styles_smoke_test (the 60 examples/styles videos), video_test (posters, clip nodes, overlay sync)
 ```
 
 ## Usage
@@ -86,7 +86,7 @@ On dart:io platforms `openTsvgFile(path)` (from `package:tsvg/tsvg_io.dart`) ope
 - **Visibility**: `at`, `dur`, `when`, `only`.
 - **Shapes**: rect (`ax/ay`, `r`), circle/ellipse (incl. `from/to` pie slices), line (`draw`), path
   (full SVG path data incl. arcs; `draw` reveals the first k×length of each subpath like Canvas2D dashes),
-  text, image, group, use/symbols; `rot`, `scale`, `opacity`, `blend` (all Canvas2D composite modes).
+  text, image, video, group, use/symbols; `rot`, `scale`, `opacity`, `blend` (all Canvas2D composite modes).
 - **Paint**: colours (hex/rgb/rgba/hsl/named), `url(#id)` linear and radial gradients in the node's user
   space (stop `opacity`, focal point), `clip="url(#id)"` (union of rect/circle/ellipse/path),
   `mask="url(#id)"` (alpha mask via `saveLayer` + `BlendMode.dstIn`, drawn in the node's space,
@@ -106,6 +106,12 @@ On dart:io platforms `openTsvgFile(path)` (from `package:tsvg/tsvg_io.dart`) ope
   greedy algorithm, `lh`, `reveal` (by code point), stroke + fill, gradients on text, Canvas2D
   `textBaseline = middle` (em-box middle). `<font>` assets are registered with `FontLoader`.
 - **Images**: `fit` cover/contain/fill, rounded `r`, placeholder box while loading.
+- **Video** (0.8): `<video src x y w h ax ay r fit start rate loop vol poster cliplen>` (default 1280×720, layout box
+  like an image); .mp4/.webm/.mov/.m4v assets are `video`, `<asset poster dur>`, a bare `<video src="a.mp4">`
+  registers its own asset. Clip time `ct = start + max(0, T − T0)·rate`, wrapped at the length (`cliplen` or the
+  asset's `dur`) with `loop="1"`, else clamped to length − 0.04 (`clipTime` in canvas.dart). The painter asks the
+  backend for a frame (`TsvgCanvas.videoFrame`); the Flutter canvas reports the node instead and draws the
+  **poster** (`tsvg pack` adds one per clip), else a grey box. Offscreen renders and goldens therefore show posters.
 - **Audio plan**: `<music>`, `<sfx>`, `<say>` with `<voices>` (`say|lang`), `src.<lang>`, `speak`, `when`, `<mix>` bus gains.
 - **Packages**: `.tsvgz` read/write (package:archive).
 - **validate()**: the reference's static checks, overlap/past-end warnings, and the dry run of every layout × option set.
@@ -148,6 +154,15 @@ emulator (API 35, software GPU): voice clips play at 1.41–1.53×, and at 1× a
 fall ~0.15–0.2 s behind about every second (the emulator's audio clock), so the engine resyncs often there; a real
 device was not available.
 
+**Video** (video_player): when the document has `<video>` clips the player does a dry render of each built frame
+(`collectTsvgVideos`: clip, clip time, box and the full canvas transform of every visible clip node) and overlays a
+`VideoPlayer` per clip node (key = node line + start + rate, as on the web) placed with a `Transform` of that
+matrix, clipped by `ClipRRect` (corner `r`) and the letterboxed frame, faded with `Opacity`. Sync as the web player:
+paused → seek when |drift| > 0.03 s; playing → play at clip rate × player speed, re-seek when drift > 0.3 s (+ the
+100 ms staleness of `value.position`); clips not drawn this frame pause; muted unless `vol` > 0 (then `vol` × the
+player volume). Scrub previews never touch the clips (posters only). Clip bytes go to a temp file on native, a
+`data:` URL on web; `TsvgPlayerController(enableVideo: false)` shows posters only.
+
 ## Mobile
 
 The example builds and plays on an Android emulator (API 35, arm64, `flutter run --release`) and on the iOS 18.1
@@ -169,6 +184,11 @@ On iOS the simulator's unified log has the audio lines: `xcrun simctl spawn <udi
   (no fallback at all in `flutter test`, where only loaded fonts exist). Two documents that register
   different files under the same family name share the first one (Flutter fonts are process-global).
 - Path data errors stop parsing at the bad command (like browsers) without reporting it.
+- **Video overlays sit on top of the painted frame**: shapes drawn after a clip in the same frame (a caption bar or
+  card over a clip) appear under the video while it plays (the poster under it is correct); `clip="url(#…)"`, masks,
+  blur, blend modes and shadows of a clip node are not applied to the overlay (rounded corners and opacity are).
+  Offscreen renders (`renderTsvgImage`, goldens) draw posters, not frames: `video-full` / `video-layout` are skipped.
+  The dry render doubles the paint cost per frame for documents with clips (only those).
 - No MP4 export from Flutter (use the CLI); no scrub-preview thumbnail strip caching (previews are drawn live).
 
 ## Conformance vs the web goldens

@@ -39,9 +39,14 @@ class TsvgFont {
 }
 
 class TsvgAsset {
-  const TsvgAsset(this.src, this.type);
+  const TsvgAsset(this.src, this.type, {this.poster, this.dur});
   final String? src;
-  final String type; // image | audio | font
+  final String type; // image | audio | font | video
+
+  /// `<video>` clips: a poster frame (jpg path) and the clip length in seconds
+  /// (`tsvg pack` adds both).
+  final String? poster;
+  final double? dur;
 }
 
 class TsvgVoice {
@@ -97,7 +102,7 @@ class TsvgAnim {
   final String? ease;
 }
 
-/// A drawable node: rect, circle, ellipse, line, path, text, image, group, use.
+/// A drawable node: rect, circle, ellipse, line, path, text, image, video, group, use.
 class TsvgNode {
   TsvgNode(this.type, this.a, {this.line = 0});
   final String type;
@@ -395,15 +400,17 @@ TsvgTiming timing(TsvgDoc doc, Map<String, String> opts) {
   return TsvgTiming(scenes, says, audio, chapters, duration);
 }
 
-const Set<String> shapeTypes = {'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'row', 'col', 'grid'};
+const Set<String> shapeTypes = {'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'video', 'group', 'use', 'row', 'col', 'grid'};
 
 /// Auto layout containers (0.5).
 const Set<String> layoutTypes = {'row', 'col', 'grid'};
 final RegExp _audioExt = RegExp(r'\.(ogg|opus|mp3|m4a|wav|aac|flac)$', caseSensitive: false);
 final RegExp _fontExt = RegExp(r'\.(ttf|otf|woff2?)$', caseSensitive: false);
+final RegExp _videoExt = RegExp(r'\.(mp4|webm|mov|m4v)$', caseSensitive: false);
 
-String guessType(String? src) =>
-    _audioExt.hasMatch(src ?? '') ? 'audio' : (_fontExt.hasMatch(src ?? '') ? 'font' : 'image');
+String guessType(String? src) => _audioExt.hasMatch(src ?? '')
+    ? 'audio'
+    : (_fontExt.hasMatch(src ?? '') ? 'font' : (_videoExt.hasMatch(src ?? '') ? 'video' : 'image'));
 
 List<TsvgKey> parseKeys(String s) => s
     .split(';')
@@ -441,9 +448,11 @@ TsvgDoc parseTsvg(String xml) {
     for (final c in el.children) {
       if (!shapeTypes.contains(c.name)) continue;
       final node = TsvgNode(c.name, c.attrs, line: c.line);
-      // <image src="path.png"> needs no <asset> (0.4)
+      // <image src="path.png"> / <video src="clip.mp4"> need no <asset> (0.4)
       final isrc = c.attrs['src'];
-      if (c.name == 'image' && isrc != null && !doc.assets.containsKey(isrc) && RegExp(r'[/.]').hasMatch(isrc)) doc.assets[isrc] = TsvgAsset(isrc, 'image');
+      if ((c.name == 'image' || c.name == 'video') && isrc != null && !doc.assets.containsKey(isrc) && RegExp(r'[/.]').hasMatch(isrc)) {
+        doc.assets[isrc] = TsvgAsset(isrc, c.name, poster: c.name == 'video' ? c.attrs['poster'] : null);
+      }
       for (final k in c.children) {
         if (k.name == 'anim') {
           node.anims.add(TsvgAnim.anim(k.attrs['prop'], k.attrs));
@@ -532,7 +541,8 @@ TsvgDoc parseTsvg(String xml) {
         style: _or(a.attrs['style'], 'normal'),
       ));
     } else if (a.name == 'asset') {
-      doc.assets[a.attrs['id'] ?? 'undefined'] = TsvgAsset(a.attrs['src'], _or(a.attrs['type'], guessType(a.attrs['src'])));
+      doc.assets[a.attrs['id'] ?? 'undefined'] = TsvgAsset(a.attrs['src'], _or(a.attrs['type'], guessType(a.attrs['src'])),
+          poster: a.attrs['poster'], dur: a.attrs['dur'] != null ? toNum(a.attrs['dur']) : null);
     }
   }
   for (final v in kids(one('voices') ?? r, 'voice')) {

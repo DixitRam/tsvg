@@ -45,6 +45,13 @@ void main() {
       await loadSystemFont('Apple Color Emoji', '/System/Library/Fonts/Apple Color Emoji.ttc');
       final sources = <String, (TsvgDoc, TsvgMedia)>{};
       for (final c in cases) {
+        // cases the web draws with real video frames: Flutter's painter only draws posters
+        if (((c['skip'] as List?) ?? const []).contains('flutter')) {
+          // ignore: avoid_print
+          print('skip ${c['name']}: not a Flutter case (skip: ${c['skip']})');
+          rows.add('| ${c['name']} | skipped (flutter) | | |');
+          continue;
+        }
         final file = c['file'] as String;
         if (!sources.containsKey(file)) {
           // documents with imports: play the flattened package, as players do (tsvg pack flattens)

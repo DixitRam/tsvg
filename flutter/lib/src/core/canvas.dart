@@ -1,6 +1,8 @@
 // The drawing backend interface. The core walks the document and resolves
 // every value; a backend only draws resolved geometry. The Flutter backend
 // draws on a dart:ui Canvas; the validator uses a recording no-op backend.
+import 'dart:math' as math;
+
 import 'color.dart';
 import 'path_data.dart';
 
@@ -176,10 +178,62 @@ abstract class TsvgCanvas {
   ImageSize? imageSize(String ref);
   void image(String ref, double x, double y, double w, double h, DrawState st);
 
+  /// A `<video>` clip node about to be drawn at [req] (web: the media layer's
+  /// `frame(ct, rate, vol, node)`). Returns an image ref holding the clip's
+  /// picture at `req.ct`, or null when none is ready (the core then draws the
+  /// poster, else a grey box). Backends that play clips elsewhere (the Flutter
+  /// player overlays) record the request here.
+  String? videoFrame(VideoRequest req) => null;
+
   /// Masks: [beginLayer] … node … [beginMask] … mask shapes … [restore] [restore].
   bool get supportsMasks => true;
   void beginLayer();
   void beginMask();
+}
+
+/// One `<video>` node as drawn in a frame: which clip, where in it, and its box
+/// in the current user space (x, y, w, h, corner radius r) under [st].
+class VideoRequest {
+  const VideoRequest({
+    required this.src,
+    required this.path,
+    required this.ct,
+    required this.rate,
+    required this.vol,
+    required this.key,
+    required this.x,
+    required this.y,
+    required this.w,
+    required this.h,
+    required this.r,
+    required this.fit,
+    required this.st,
+  });
+
+  /// The node's src (asset id or path) and the file path it resolves to.
+  final String src, path;
+
+  /// Clip time (s), clip rate, clip volume (0 = muted).
+  final double ct, rate, vol;
+
+  /// One clip per node (web: node line + start + rate): two nodes may show the same file at different times.
+  final String key;
+  final double x, y, w, h, r;
+  final String fit;
+  final DrawState st;
+}
+
+/// Clip time of a `<video>` node: `start + max(0, t − t0)·rate` (t = scene
+/// time T, t0 = the node's `at`, T0); wraps at
+/// [len] when [loop], else clamps to `len − 0.04` (when the length is known).
+double clipTime({required double start, required double rate, required double t, required double t0, required double len, required bool loop}) {
+  var ct = start + math.max(0.0, t - t0) * rate;
+  if (loop && len > 0) {
+    ct = ct.remainder(len); // JS %: keeps the dividend's sign
+  } else if (len > 0) {
+    ct = math.min(ct, len - 0.04);
+  }
+  return ct;
 }
 
 /// No-op backend for dry runs (the validator).

@@ -20,6 +20,7 @@ import '../core/source.dart';
 import 'audio_engine.dart';
 import 'media.dart';
 import 'painter.dart';
+import 'video.dart';
 
 String _fmtT(double s) {
   s = math.max(0, s);
@@ -30,12 +31,19 @@ String _fmtT(double s) {
 /// Playback state of one document. Owns the clock (a [Ticker]) and the audio,
 /// so it can be shared by several [TsvgPlayer] widgets (e.g. a fullscreen route).
 class TsvgPlayerController extends ChangeNotifier {
-  TsvgPlayerController({Map<String, String>? options, this.enableAudio = true}) : _initialOptions = options;
+  TsvgPlayerController({Map<String, String>? options, this.enableAudio = true, this.enableVideo = true})
+      : _initialOptions = options;
 
   final Map<String, String>? _initialOptions;
 
   /// Set false to never touch audio (tests, silent previews).
   final bool enableAudio;
+
+  /// Set false to show `<video>` clips as their posters only (no platform players).
+  final bool enableVideo;
+
+  /// The document's `<video>` clips (null when it has none): overlays the player keeps in sync.
+  TsvgVideoClips? videos;
 
   TsvgSource? source;
   TsvgDoc? doc;
@@ -88,6 +96,8 @@ class TsvgPlayerController extends ChangeNotifier {
       media?.dispose();
       await _audio?.dispose();
       _audio = null;
+      videos?.dispose();
+      videos = enableVideo && tsvgHasVideo(d) ? (TsvgVideoClips(src)..addListener(notifyListeners)) : null;
       source = src;
       doc = d;
       media = m;
@@ -297,6 +307,7 @@ class TsvgPlayerController extends ChangeNotifier {
     _ticker?.dispose();
     unawaited(_audio?.dispose());
     media?.dispose();
+    videos?.dispose();
     super.dispose();
   }
 }
@@ -697,20 +708,34 @@ class _TsvgPlayerState extends State<TsvgPlayer> {
     );
   }
 
-  Widget _frame(Size size) => RepaintBoundary(
-    child: CustomPaint(
-      size: size,
-      painter: TsvgFramePainter(
-        doc: c.doc!,
-        layout: c.layoutFor(size),
-        t: c.t,
-        options: c.options,
-        media: c.media,
-        zoom: c.zoom,
-        pan: c.pan,
+  Widget _frame(Size size) {
+    final layout = c.layoutFor(size);
+    final picture = RepaintBoundary(
+      child: CustomPaint(
+        size: size,
+        painter: TsvgFramePainter(
+          doc: c.doc!,
+          layout: layout,
+          t: c.t,
+          options: c.options,
+          media: c.media,
+          zoom: c.zoom,
+          pan: c.pan,
+        ),
       ),
-    ),
-  );
+    );
+    final clips = c.videos;
+    if (clips == null) return picture;
+    // <video> clips: the painter draws their posters; real players go on top,
+    // placed where this frame draws each clip node (see video.dart for the limits)
+    final draws = collectTsvgVideos(size,
+        doc: c.doc!, layout: layout, t: c.t, options: c.options, media: c.media, zoom: c.zoom, pan: c.pan);
+    clips.sync(draws, playing: c.playing, speed: c.rate, gain: c.gain);
+    final s = math.min(size.width / layout.w, size.height / layout.h) * c.zoom;
+    final frame = Rect.fromLTWH(
+        (size.width - layout.w * s) / 2 + c.pan.dx, (size.height - layout.h * s) / 2 + c.pan.dy, layout.w * s, layout.h * s);
+    return Stack(children: [picture, Positioned.fill(child: clips.overlay(draws, frame))]);
+  }
 
   Widget _stage(BuildContext context, Size size) {
     final doc = c.doc!;

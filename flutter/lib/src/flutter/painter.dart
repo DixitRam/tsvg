@@ -160,11 +160,35 @@ ui.Path _dash(ui.Path p, List<double> dash) {
   return out;
 }
 
+/// One visible `<video>` node in a frame: the request (clip, clip time, box)
+/// plus the full canvas transform at that point (logical pixels of the
+/// painted widget). [TsvgPlayer] overlays a real video there.
+class TsvgVideoDraw {
+  TsvgVideoDraw(this.req, this.transform);
+  final VideoRequest req;
+
+  /// Column-major 4×4 matrix (Canvas.getTransform) from the node's user space to the widget.
+  final Float64List transform;
+
+  /// Opacity of the node (group opacity, fades, transitions).
+  double get alpha => req.st.alpha;
+}
+
 /// [TsvgCanvas] over a dart:ui [Canvas].
 class FlutterTsvgCanvas extends TsvgCanvas {
-  FlutterTsvgCanvas(this.canvas, [this.media]);
+  FlutterTsvgCanvas(this.canvas, [this.media, this.videos]);
   final Canvas canvas;
   final TsvgMedia? media;
+
+  /// When set, every `<video>` node drawn is reported here (the painter itself
+  /// only draws posters: frames come from the player's overlays).
+  final List<TsvgVideoDraw>? videos;
+
+  @override
+  String? videoFrame(VideoRequest req) {
+    videos?.add(TsvgVideoDraw(req, canvas.getTransform()));
+    return null;
+  }
 
   static final Map<String, double> _widths = {};
   // per font: distance from the line top to where the "middle" baseline anchor sits
@@ -522,6 +546,7 @@ Object? paintTsvgFrame(
   double zoom = 1,
   Offset pan = Offset.zero,
   Color? background = const Color(0xff000000),
+  List<TsvgVideoDraw>? videos,
 }) {
   if (background != null) canvas.drawRect(Offset.zero & size, ui.Paint()..color = background);
   final s = math.min(size.width / layout.w, size.height / layout.h) * zoom;
@@ -533,7 +558,7 @@ Object? paintTsvgFrame(
   canvas.clipRect(Rect.fromLTWH(0, 0, layout.w, layout.h));
   Object? err;
   try {
-    renderFrame(FlutterTsvgCanvas(canvas, media), doc, t, options, layout);
+    renderFrame(FlutterTsvgCanvas(canvas, media, videos), doc, t, options, layout);
   } catch (e) {
     err = e;
   }
@@ -548,6 +573,29 @@ Object? paintTsvgFrame(
   }
   return err;
 }
+
+/// The `<video>` nodes visible in the frame [paintTsvgFrame] would draw with
+/// these arguments (a dry render into a throwaway picture), in draw order.
+List<TsvgVideoDraw> collectTsvgVideos(
+  Size size, {
+  required TsvgDoc doc,
+  required TsvgLayout layout,
+  required double t,
+  required Map<String, String> options,
+  TsvgMedia? media,
+  double zoom = 1,
+  Offset pan = Offset.zero,
+}) {
+  final out = <TsvgVideoDraw>[];
+  final rec = ui.PictureRecorder();
+  paintTsvgFrame(Canvas(rec), size,
+      doc: doc, layout: layout, t: t, options: options, media: media, zoom: zoom, pan: pan, background: null, videos: out);
+  rec.endRecording().dispose();
+  return out;
+}
+
+/// True when the document has `<video>` clips (players then overlay them).
+bool tsvgHasVideo(TsvgDoc doc) => doc.assets.values.any((a) => a.type == 'video');
 
 /// A [CustomPainter] for one frame.
 class TsvgFramePainter extends CustomPainter {

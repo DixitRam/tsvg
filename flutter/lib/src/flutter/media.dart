@@ -8,7 +8,8 @@ import '../core/audio.dart' show assetPath;
 import '../core/model.dart';
 import '../core/source.dart';
 
-/// Decoded images (by asset id and by path) and the fonts registered for a document.
+/// Decoded images (by asset id and by path, plus `<video>` poster frames) and
+/// the fonts registered for a document.
 class TsvgMedia extends ChangeNotifier {
   TsvgMedia(this.doc);
   final TsvgDoc doc;
@@ -61,23 +62,29 @@ class TsvgMedia extends ChangeNotifier {
 
   Future<void> _loadImages(TsvgSource source) async {
     final futures = <Future<void>>[];
-    for (final e in doc.assets.entries) {
-      if (e.value.type != 'image' || e.value.src == null) continue;
+    // images by id and path; <video> clips: their poster frame by path
+    final want = <(String, String)>[
+      for (final e in doc.assets.entries)
+        if (e.value.type == 'image' && e.value.src != null)
+          (e.key, e.value.src!)
+        else if (e.value.type == 'video' && (e.value.poster ?? '').isNotEmpty)
+          (e.value.poster!, e.value.poster!),
+    ];
+    for (final (id, src) in want) {
       futures.add(() async {
-        final src = e.value.src!;
         try {
           final img = _images[src] ?? await decode(await source.read(src));
           if (img == null) {
-            errors.add('image ${e.key}: $src not found');
+            errors.add('image $id: $src not found');
             return;
           }
           _images[src] = img;
-          _images[e.key] = img;
-          doc.aspects[src] = doc.aspects[e.key] = img.width / img.height;
+          _images[id] = img;
+          doc.aspects[src] = doc.aspects[id] = img.width / img.height;
           version++;
           notifyListeners();
         } catch (err) {
-          errors.add('image ${e.key}: $err');
+          errors.add('image $id: $err');
         }
       }());
     }

@@ -539,6 +539,57 @@ console.log(JSON.stringify(exprs.map((x) => T.compile(x)(env))));''';
       expect([plain.ox, plain.oy], [0, 0]);
     });
   });
+
+  group('0.8 video', () {
+    test('clipTime: start, rate, at, loop wrap, clamp', () {
+      double ct(double t, {double start = 0, double rate = 1, double t0 = 0, double len = 0, bool loop = false}) =>
+          clipTime(start: start, rate: rate, t: t, t0: t0, len: len, loop: loop);
+      expect(ct(3), 3);
+      expect(ct(3, start: 2), 5);
+      expect(ct(3, rate: 0.5), 1.5);
+      expect(ct(3, start: 2, rate: 0.5), 3.5);
+      expect(ct(3, t0: 1), 2, reason: 'counts from the node\'s at');
+      expect(ct(0.5, t0: 1, start: 2), 2, reason: 'before at: start');
+      expect(ct(9, len: 8, loop: true), closeTo(1, 1e-12), reason: 'loop wraps');
+      expect(ct(17, start: 1, len: 8, loop: true), closeTo(2, 1e-12));
+      expect(ct(9, len: 8), closeTo(7.96, 1e-12), reason: 'no loop: clamps to len − 0.04');
+      expect(ct(3, len: 8), 3);
+      expect(ct(20), 20, reason: 'unknown length: no clamp');
+      expect(ct(20, loop: true), 20, reason: 'loop needs a length');
+    });
+    test('parse: video assets, posters, lengths, auto assets', () {
+      final d = parseTsvg('''<tsvg><assets><asset id="a" src="c/a.mp4" poster="c/a.jpg" dur="8.5"/><asset id="m" src="b.MOV"/>
+        <asset id="i" src="x.png"/></assets><timeline><scene dur="4"><video src="c/b.webm" poster="c/b.jpg"/><video src="a"/></scene></timeline></tsvg>''');
+      expect([d.assets['a']!.type, d.assets['a']!.poster, d.assets['a']!.dur], ['video', 'c/a.jpg', 8.5]);
+      expect(d.assets['m']!.type, 'video');
+      expect(d.assets['i']!.type, 'image');
+      expect([d.assets['c/b.webm']!.type, d.assets['c/b.webm']!.poster], ['video', 'c/b.jpg'], reason: 'auto-registered');
+      expect(d.assets.containsKey('a'), isTrue);
+      expect(d.scenes.first.nodes.map((n) => n.type), ['video', 'video']);
+      expect(guessType('x.m4v'), 'video');
+      expect(guessType('x.m4a'), 'audio');
+    });
+    test('render: clip time per node, layout box, poster or grey box', () {
+      final d = parseTsvg('''<tsvg><assets><asset id="a" src="a.mp4" poster="a.jpg" dur="8"/></assets><timeline>
+        <scene dur="20"><video src="a" at="2" start="1" rate="2" x="10" y="20" w="320" h="180" r="12" fit="contain" vol="0.5"/>
+        <video src="a" loop="1"/>
+        <video src="a"/><video src="b.mp4" cliplen="4" loop="1" w="200" h="100"/></scene></timeline></tsvg>''');
+      final rc = _VideoLog({'a.jpg'});
+      renderFrame(rc, d, 5, defaultOptions(d), d.layouts.first);
+      expect([for (final r in rc.reqs) r.ct], [7, closeTo(5, 1e-12), 5, closeTo(1, 1e-12)]);
+      final r0 = rc.reqs.first;
+      expect([r0.x, r0.y, r0.w, r0.h, r0.r, r0.fit, r0.rate, r0.vol, r0.path], [10, 20, 320, 180, 12, 'contain', 2, 0.5, 'a.mp4']);
+      expect(rc.reqs[1].key != rc.reqs[2].key, isTrue, reason: 'one clip per node (line|start|rate, as on the web)');
+      expect([rc.reqs[2].w, rc.reqs[2].h], [1280, 720], reason: 'default 1280×720');
+      expect(rc.images.where((i) => i == 'a.jpg').length, 3, reason: 'poster drawn while no frame');
+      expect(rc.greys, 1, reason: 'no poster: grey box');
+      renderFrame(rc..reqs.clear(), d, 12, defaultOptions(d), d.layouts.first);
+      expect(rc.reqs[0].ct, closeTo(7.96, 1e-12), reason: 'clamped to the asset dur − 0.04');
+      final env = makeEnv(d, const {}, d.layouts.first, 0);
+      final b = boxOf(RecordingCanvas(), d.scenes.first.nodes[2], env);
+      expect([b.w, b.h], [1280, 720]);
+    });
+  });
 }
 
 bool _numEq(Object? a, Object? b) {
@@ -563,4 +614,26 @@ class _TranslateLog extends RecordingCanvas {
   void translate(double dx, double dy) => log.add([dx, dy]);
   @override
   void rotate(double radians) => log.add('rot');
+}
+
+class _VideoLog extends RecordingCanvas {
+  _VideoLog(this.posters);
+  final Set<String> posters;
+  final reqs = <VideoRequest>[];
+  final images = <String>[];
+  int greys = 0;
+  @override
+  String? videoFrame(VideoRequest req) {
+    reqs.add(req);
+    return null;
+  }
+
+  @override
+  ImageSize? imageSize(String ref) => posters.contains(ref) ? const ImageSize(16, 9) : null;
+  @override
+  void image(String ref, double x, double y, double w, double h, DrawState st) => images.add(ref);
+  @override
+  void fill(TsvgShape shape, TsvgPaint paint, DrawState st) {
+    if (paint is SolidPaint && shape is RectShape && paint.color.a < 0.5) greys++;
+  }
 }

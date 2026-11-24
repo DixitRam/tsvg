@@ -463,7 +463,7 @@ class LayoutResult {
   final List<LayoutItem> items;
 }
 
-const Set<String> _stretchable = {'rect', 'image', 'group', 'use', 'row', 'col', 'grid'};
+const Set<String> _stretchable = {'rect', 'image', 'video', 'group', 'use', 'row', 'col', 'grid'};
 
 /// Auto layout (0.5): `when=`/`only=` false takes a child out of the flow.
 bool inFlow(TsvgNode n, Env env) {
@@ -485,7 +485,8 @@ LayoutItem boxOf(TsvgCanvas c, TsvgNode n, Env env) {
   switch (n.type) {
     case 'rect':
     case 'image':
-      final w = p('w', 100), h = p('h', 100);
+    case 'video':
+      final w = p('w', n.type == 'video' ? 1280 : 100), h = p('h', n.type == 'video' ? 720 : 100);
       return LayoutItem(w, h, w * p('ax', 0), h * p('ay', 0));
     case 'circle':
       final r = p('r', 50);
@@ -829,31 +830,70 @@ class _Walker {
         for (var i = 0; i < lines.length; i++) {
           c.text(lines[i], x, y0 + i * size * lh, font, align, f, s, sw, st);
         }
+      case 'video':
+        // a clip plays from `start` at `rate` while the node is visible: clip time = start + (T − at)·rate (wraps when loop="1")
+        final src = n.a['src'] ?? '';
+        final asset = doc.assets[src];
+        final rate = pn('rate', 1);
+        final ct = clipTime(
+          start: pn('start', 0),
+          rate: rate,
+          t: toNum(env.vars['T']),
+          t0: toNum(env.vars['T0']),
+          len: pn('cliplen', asset?.dur ?? 0),
+          loop: truthy(p('loop', 0.0)),
+        );
+        final w = pn('w', 1280), h = pn('h', 720), x = pn('x', 0) - w * pn('ax', 0), y = pn('y', 0) - h * pn('ay', 0), r = pn('r', 0);
+        pivot(x + w / 2, y + h / 2);
+        clipTo();
+        final rr = r > 0 ? math.min(r, math.min(w.abs() / 2, h.abs() / 2)) : 0.0;
+        if (r > 0) c.clip([RectShape(x, y, w, h, rr)]);
+        final fit = toStr(p('fit', 'cover'));
+        // the media layer's picture at ct, else the poster (else a grey box)
+        final frame = c.videoFrame(VideoRequest(
+          src: src,
+          path: asset?.src ?? src,
+          ct: ct,
+          rate: rate,
+          vol: pn('vol', 0),
+          key: '${n.line}|${n.a['start']}|${n.a['rate']}',
+          x: x,
+          y: y,
+          w: w,
+          h: h,
+          r: rr,
+          fit: fit,
+          st: st,
+        ));
+        picture(frame ?? pick(n.a, 'poster', env) ?? asset?.poster ?? '', x, y, w, h, fit, st);
       case 'image':
-        final ref = n.a['src'] ?? '';
         final w = pn('w', 100), h = pn('h', 100), x = pn('x', 0) - w * pn('ax', 0), y = pn('y', 0) - h * pn('ay', 0), r = pn('r', 0);
         pivot(x + w / 2, y + h / 2);
         clipTo();
         if (r > 0) c.clip([RectShape(x, y, w, h, math.min(r, math.min(w.abs() / 2, h.abs() / 2)))]);
-        final img = c.imageSize(ref);
-        if (img != null) {
-          final fit = toStr(p('fit', 'cover'));
-          final iw = img.width, ih = img.height;
-          if (fit == 'fill' || iw == 0) {
-            c.image(ref, x, y, w, h, st);
-          } else {
-            final k = fit == 'contain' ? math.min(w / iw, h / ih) : math.max(w / iw, h / ih);
-            final dw = iw * k, dh = ih * k;
-            c.save();
-            c.clip([RectShape(x, y, w, h)]);
-            c.image(ref, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh, st);
-            c.restore();
-          }
-        } else {
-          c.fill(RectShape(x, y, w, h), const SolidPaint(Rgba(0x88, 0x88, 0x88, 0x44 / 255)), st);
-        }
+        picture(n.a['src'] ?? '', x, y, w, h, toStr(p('fit', 'cover')), st);
     }
     c.restore();
+  }
+
+  /// A picture (image, poster, video frame) fitted into a box (cover | contain | fill); a grey box while it isn't ready.
+  void picture(String ref, double x, double y, double w, double h, String fit, DrawState st) {
+    final img = ref.isEmpty ? null : c.imageSize(ref);
+    if (img == null) {
+      c.fill(RectShape(x, y, w, h), const SolidPaint(Rgba(0x88, 0x88, 0x88, 0x44 / 255)), st);
+      return;
+    }
+    final iw = img.width, ih = img.height;
+    if (fit == 'fill' || iw == 0) {
+      c.image(ref, x, y, w, h, st);
+    } else {
+      final k = fit == 'contain' ? math.min(w / iw, h / ih) : math.max(w / iw, h / ih);
+      final dw = iw * k, dh = ih * k;
+      c.save();
+      c.clip([RectShape(x, y, w, h)]);
+      c.image(ref, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh, st);
+      c.restore();
+    }
   }
 
   /// Rich / letter-spaced / split / path text (port of drawRichText).
