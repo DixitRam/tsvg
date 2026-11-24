@@ -1,0 +1,10 @@
+{
+  "name": "tsvg",
+  "version": "0.10.0",
+  "description": "Make videos as TSVG documents (XML that plays live, no rendering or encoding): write, check, preview and pack .tsvgz videos with the tsvg CLI.",
+  "author": { "name": "Panth977", "url": "https://github.com/Panth977" },
+  "homepage": "https://panth977.github.io/tsvg/",
+  "repository": "https://github.com/Panth977/tsvg",
+  "license": "MIT",
+  "keywords": ["video", "tsvg", "svg", "animation", "explainer", "narration"]
+}

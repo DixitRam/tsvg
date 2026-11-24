@@ -37,7 +37,8 @@
 | [`editor/`](editor) | Visual editor (`tsvg edit`) and live preview (`tsvg watch`) pages |
 | [`examples/demo/`](examples/demo) | The demo: 6 scenes, en + gu voices, gradients, masks, clip, shadow, fonts, a photo |
 | [`libs/`](libs) | Built-in libraries: `base`, `report`, `explainer`, `charts`, `icons`, `fx` (components + styles) |
-| [`skill/tsvg/SKILL.md`](skill/tsvg/SKILL.md) | Agent skill: how an AI agent writes, checks and ships a TSVG video |
+| [`skills/tsvg/SKILL.md`](skills/tsvg/SKILL.md) | Agent skill: how an AI agent writes, checks and ships a TSVG video |
+| [`.claude-plugin/`](.claude-plugin) | Claude Code plugin + marketplace manifests: install the skill and CLI with `/plugin` ([below](#claude-code-plugin)) |
 | [`tests/`](tests) | Conformance cases and golden frames |
 
 ## For agents (and people in a hurry)
@@ -49,7 +50,16 @@ tsvg make  my-report/my-report.tsvg  # check → bake voices → contact sheets 
 tsvg lib report                    # the components of a library, one line each
 tsvg styles                        # 60 style templates; tsvg new <dir> --style <id>
 ```
-No rendering or encoding: `make` takes seconds. The agent skill is in [`skill/tsvg/SKILL.md`](skill/tsvg/SKILL.md).
+No rendering or encoding: `make` takes seconds. The agent skill is in [`skills/tsvg/SKILL.md`](skills/tsvg/SKILL.md).
+
+### Claude Code plugin
+
+This repo is a Claude Code plugin marketplace. Install the skill and the CLI in one step:
+
+```
+/plugin install tsvg --marketplace Panth977/tsvg
+```
+(older Claude Code: `/plugin marketplace add Panth977/tsvg`, then `/plugin install tsvg@tsvg`). Then ask Claude for a video, e.g. "make a TSVG explaining our login flow". The first `check`/`make` runs `npm install` inside the plugin (playwright-core, uses your installed Chrome; set `TSVG_CHROME` for Chromium/Brave). Narration needs `ffmpeg` + Kokoro; without it, `make --no-bake` ships captions only.
 
 ## Libraries: write the content, import the look
 

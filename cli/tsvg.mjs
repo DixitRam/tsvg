@@ -333,7 +333,7 @@ async function make() {
   flags.o = [base]; await cmds.pack();
   console.log(`\nmade in ${((Date.now() - t0) / 1000).toFixed(0)}s · ${r.warnings.length} warning(s)`);
   console.log('look at:  ' + sheets.join('  '));
-  console.log('attach:   ' + resolve(base) + '   (e.g. node ~/Dev/PROJECTS/TaskManager/workspaces/ws.mjs upload <ws> <KEY> ' + resolve(base) + ')');
+  console.log('share:    ' + resolve(base) + '   (or one offline page: tsvg pack ' + relative(process.cwd(), src.path) + ' --html)');
 }
 // new <dir> [--style id | --template report]: a ready-to-edit .tsvg with its files copied in, no baked voices
 async function scaffold() {
