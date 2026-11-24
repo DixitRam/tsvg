@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.3" title="ORCH-78: video libraries">
+  <import src="tsvg:report" as="r" key="TSVG · tsvg:report"/>
+  <timeline>
+    <r:title title="Video libraries are live" sub="Import a style, write only the content" say="Phase one is done. Video libraries are live."/>
+    <r:list title="What changed" items="Import :: one line pulls in a library | Components :: tags with props, slots, if and each | Two libraries :: report and explainer" say="Three things changed."/>
+    <r:shot src="images/screenshot.jpg" box="0.08 0.1 0.42 0.4" caption="The import line" say="This is where to look."/>
+    <r:stat value="90" suffix="%" label="fewer lines to write" sub="15 lines instead of 150" say="Agents write about ninety percent less."/>
+    <r:compare before="150 lines of XML | Hand placed numbers" after="15 lines | Same look every time" say="Before and after."/>
+    <r:code file="report.tsvg" code="&lt;import src=&quot;tsvg:report&quot; as=&quot;r&quot;/&gt;&#10;&lt;r:title title=&quot;Hi&quot;/&gt;&#10;&#10;&lt;r:list items=&quot;a | b&quot;/&gt;" say="This is all it takes."/>
+    <r:list kind="check" title="How it was checked" items="tsvg check: 0 errors | Played in the browser" say="It was checked."/>
+    <r:list kind="open" title="Still open" items="" say="Nothing is open."/>
+  </timeline>
+
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="h1n8svrc" lang="en" src="voice/report/en/h1n8svrc.c8b2b5195a.m4a" dur="1.17" hash="c8b2b5195a" engine="kokoro:af_heart"/>
+    <voice say="h1smakx4" lang="en" src="voice/report/en/h1smakx4.0a7fcc73ab.m4a" dur="2.88" hash="0a7fcc73ab" engine="kokoro:af_heart"/>
+    <voice say="h1u9mwz2" lang="en" src="voice/report/en/h1u9mwz2.fb88fef76c.m4a" dur="1.30" hash="fb88fef76c" engine="kokoro:af_heart"/>
+    <voice say="h4qfykq" lang="en" src="voice/report/en/h4qfykq.bbdcd56313.m4a" dur="1.19" hash="bbdcd56313" engine="kokoro:af_heart"/>
+    <voice say="hc6jbap" lang="en" src="voice/report/en/hc6jbap.61df0152ef.m4a" dur="1.11" hash="61df0152ef" engine="kokoro:af_heart"/>
+    <voice say="hhg8zp1" lang="en" src="voice/report/en/hhg8zp1.822378b933.m4a" dur="1.26" hash="822378b933" engine="kokoro:af_heart"/>
+    <voice say="ho9o42k" lang="en" src="voice/report/en/ho9o42k.79aeace326.m4a" dur="2.26" hash="79aeace326" engine="kokoro:af_heart"/>
+    <voice say="ht52da2" lang="en" src="voice/report/en/ht52da2.9653625a39.m4a" dur="0.96" hash="9653625a39" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

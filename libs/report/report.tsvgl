@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  tsvg:report — ticket / work reports. One component = one scene; write the content, the library owns the look.
+
+    <tsvg version="0.3" title="ORCH-78: libraries">
+      <import src="tsvg:report" as="r" key="ORCH-78"/>
+      <timeline>
+        <r:title title="Libraries are live" sub="Import a style, write only the content" say="Here is what changed."/>
+        <r:list title="What changed" items="Imports | Components with props | Two libraries" say="Three things changed."/>
+        <r:shot src="images/screen.png" box="0.1 0.1 0.4 0.3" caption="The new import line" say="This is where to look."/>
+        <r:list kind="check" title="How it was checked" items="tsvg check: 0 errors | Played in Chrome and Safari" say="…"/>
+        <r:list kind="open" title="Still open" items="" say="Nothing is open."/>
+      </timeline>
+    </tsvg>
+
+  Lists: items separated by |. An item may carry a detail after :: ("Auto layout :: rows, columns, grids").
+  Every text prop takes @string ids for more languages (items="@c1 | @c2").
+-->
+<tsvglib name="report" version="1.0.0" params="key=''" doc="Ticket and work reports: title, lists (changes, checks, open items), screenshot with a highlight box, big number, before/after, code.">
+  <import src="../base/base.tsvgl" as="b" key="%{key}"/>
+
+  <component id="title" props="title, sub='', say='', dur=7" doc="Opening scene: gradient title + one-line subtitle.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{title}">
+      <if test="%{say}"><say id="%{say#}" at="0.5" text="%{say}"/></if>
+      <text x="=W/2" y="=H/2-50" size="96" size.portrait="72" maxw="1700" maxw.portrait="960" weight="800" align="center" text="%{title}" fill="url(#b:ink)">
+        <anim prop="opacity" from="0" to="1" dur="0.7"/><anim prop="scale" from="0.94" to="1" dur="0.9" ease="back"/>
+      </text>
+      <if test="%{sub}">
+        <text x="=W/2" y="=H/2+150" y.portrait="=H/2+230" size="38" maxw="1500" maxw.portrait="940" align="center" fill="$muted" text="%{sub}" at="0.8">
+          <anim prop="opacity" from="0" to="1" dur="0.6"/>
+        </text>
+      </if>
+    </scene>
+  </component>
+
+  <component id="list" props="title, items, kind=change, empty='Nothing open ✓', say='', dur=9, chapter=''"
+             doc="Rows that appear one by one. kind: change (✓ panels) | check (✓) | open (!) | step (1 2 3) | no (✗). items: a | b | c, each may be 'title :: detail'.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter|title}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <b:heading text="%{title}"/>
+      <if test="%{items}">
+        <each items="%{items}" as="it">
+          <group x="=W/2-720" x.portrait="90" y="=H/2 + 40 + (%{it_i} - (%{it_n}-1)/2) * (%{it_n} > 4 ? 120 : 150)" y.portrait="=H/2 + 40 + (%{it_i} - (%{it_n}-1)/2) * 200" at="=0.8 + %{it_i}*0.7">
+            <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="=W/2-750" from.portrait="60" to="=W/2-720" to.portrait="90" dur="0.5"/>
+            <if test="%{kind} == change"><rect x="-30" y="=%{it_n} > 4 ? -50 : -60" w="1500" w.portrait="930" h="=%{it_n} > 4 ? 100 : 120" r="22" fill="$panel"/></if>
+            <if test="%{kind} == step"><b:num n="%{it_1}" x="30"/></if>
+            <if test="%{kind} == open"><use ref="b:dot" x="30" y="0"/></if>
+            <if test="%{kind} == no"><use ref="b:cross" x="30" y="0"/></if>
+            <if test="%{kind} == change"><use ref="b:tick" x="30" y="0"/></if>
+            <if test="%{kind} == check"><use ref="b:tick" x="30" y="0"/></if>
+            <if test="%{it.1}">
+              <text x="80" y="-20" size="38" size.portrait="34" weight="700" maxw="1360" maxw.portrait="800" fill="$fg" text="%{it.0}"/>
+              <text x="80" y="24" size="28" size.portrait="26" maxw="1360" maxw.portrait="800" fill="$muted" text="%{it.1}"/>
+              <else><text x="80" y="0" size="40" size.portrait="34" maxw="1360" maxw.portrait="800" fill="$fg" text="%{it.0}"/></else>
+            </if>
+          </group>
+        </each>
+        <else><text x="=W/2" y="=H/2" size="44" align="center" fill="$good" text="%{empty}" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.5"/></text></else>
+      </if>
+    </scene>
+  </component>
+
+  <component id="shot" props="src, box='', caption='', say='', dur=9, chapter='Where to look'"
+             doc="A screenshot (fit inside the frame) with an optional highlight box: box='x y w h' as fractions of the image (0–1).">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <group x="=W/2" y="=H/2-40" y.portrait="=H/2-60">
+        <image src="%{src}" x="0" y="0" ax="0.5" ay="0.5" w="1500" h="860" w.portrait="1000" h.portrait="1300" r="16" shadow="0 24 60 #0009" fit="contain">
+          <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        </image>
+        <if test="%{box}">
+          <!-- the box follows the picture inside the frame (fit=contain): fw × fh is the drawn image -->
+          <rect x="=(num('%{box}',0) - 0.5) * fitw(aspect('%{src}'), portrait ? 1000 : 1500, portrait ? 1300 : 860)" y="=(num('%{box}',1) - 0.5) * fith(aspect('%{src}'), portrait ? 1000 : 1500, portrait ? 1300 : 860)"
+                w="=num('%{box}',2) * fitw(aspect('%{src}'), portrait ? 1000 : 1500, portrait ? 1300 : 860)" h="=num('%{box}',3) * fith(aspect('%{src}'), portrait ? 1000 : 1500, portrait ? 1300 : 860)" r="14" fill="none" stroke="$accent2" sw="6" at="1.5" shadow="0 0 24 $accent2">
+            <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="scale" from="1.15" to="1" dur="0.6" ease="back"/>
+          </rect>
+        </if>
+      </group>
+      <b:pill text="%{caption}" at="2"/>
+    </scene>
+  </component>
+
+  <component id="stat" props="value, label, sub='', prefix='', suffix='', decimals=0, say='', dur=7, chapter=''"
+             doc="One big number that counts up, with a label. value is a number.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter|label}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <text x="=W/2" y="=H/2-60" size="220" size.portrait="180" weight="800" align="center" fill="url(#b:ink)"
+            text="='%{prefix}' + fmt(%{value} * ease(clamp(T/1.6, 0, 1), 'out'), %{decimals}) + '%{suffix}'"/>
+      <text x="=W/2" y="=H/2+110" size="48" maxw="1500" maxw.portrait="940" weight="700" align="center" text="%{label}" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <if test="%{sub}"><text x="=W/2" y="=H/2+180" size="32" maxw="1500" maxw.portrait="940" align="center" fill="$muted" text="%{sub}" at="1"><anim prop="opacity" from="0" to="1" dur="0.5"/></text></if>
+    </scene>
+  </component>
+
+  <component id="compare" props="before, after, ltitle=Before, rtitle=After, title='', say='', dur=9, chapter='Before / after'"
+             doc="Two panels side by side (stacked on portrait). before/after: items separated by |.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <if test="%{title}"><b:heading text="%{title}" y="130"/></if>
+      <group x="=W/2-780" y="260" x.portrait="90" y.portrait="330" at="0.6">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <each items="%{before}" as="it"><if test="%{it_i} == 0"><rect x="0" y="0" w="740" w.portrait="900" h="=130 + %{it_n}*90" r="24" fill="$panel" stroke="$line" sw="2"/></if></each>
+        <text x="40" y="60" size="40" weight="800" fill="$muted" text="%{ltitle}"/>
+        <each items="%{before}" as="it"><group x="60" y="=150 + %{it_i}*90"><use ref="b:cross" x="0" y="0"/><text x="44" y="0" size="32" maxw="610" maxw.portrait="770" fill="$fg" text="%{it}"/></group></each>
+      </group>
+      <group x="=W/2+40" y="260" x.portrait="90" y.portrait="990" at="1.6">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="scale" from="0.96" to="1" dur="0.5"/>
+        <each items="%{after}" as="it"><if test="%{it_i} == 0"><rect x="0" y="0" w="740" w.portrait="900" h="=130 + %{it_n}*90" r="24" fill="$panel" stroke="$accent" sw="3"/></if></each>
+        <text x="40" y="60" size="40" weight="800" fill="$accent" text="%{rtitle}"/>
+        <each items="%{after}" as="it"><group x="60" y="=150 + %{it_i}*90"><use ref="b:tick" x="0" y="0"/><text x="44" y="0" size="32" maxw="610" maxw.portrait="770" fill="$fg" text="%{it}"/></group></each>
+      </group>
+    </scene>
+  </component>
+
+  <component id="code" props="code, title='', file='', say='', dur=9, chapter='Code'"
+             doc="A code card that types itself line by line. code: lines separated by a new line (&amp;#10; in an attribute) or ‖.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <if test="%{title}"><b:heading text="%{title}" y="120"/></if>
+      <group x="=W/2-800" y="260" x.portrait="60" y.portrait="420">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <each items="%{code}" sep="lines" keep="1" as="ln"><if test="%{ln_i} == 0"><rect x="0" y="0" w="1600" w.portrait="960" h="=120 + %{ln_n}*44" r="24" fill="$panel" stroke="$line" sw="2"/></if></each>
+        <circle x="40" y="36" r="9" fill="$bad"/><circle x="70" y="36" r="9" fill="$warn"/><circle x="100" y="36" r="9" fill="$good"/>
+        <text x="140" y="37" size="22" font="JetBrains Mono" fill="$muted" text="%{file}"/>
+        <each items="%{code}" sep="lines" keep="1" as="ln">
+          <text x="50" y="=100 + %{ln_i}*44" size="28" size.portrait="24" font="JetBrains Mono" fill="$fg" text="\%{ln}" at="=0.6 + %{ln_i}*0.35">
+            <anim prop="reveal" from="0" to="1" dur="0.35" ease="linear"/>
+          </text>
+        </each>
+      </group>
+    </scene>
+  </component>
+</tsvglib>

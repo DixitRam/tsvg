@@ -47,8 +47,9 @@
   <a href="#render">10. Rendering model</a>
   <a href="#player">11. Player requirements</a>
   <a href="#conf">12. Conformance</a>
-  <a href="#tools">13. Tools</a>
-  <a href="#future">14. Not in 0.1</a>
+  <a href="#libs">13. Libraries</a>
+  <a href="#tools">14. Tools</a>
+  <a href="#future">15. Not yet</a>
 </aside>
 <main>
 <h1><span>TSVG</span> 0.2.2: Timeseries Scalable Vector Graphics</h1>
@@ -250,11 +251,48 @@ atom    := number | 'string' | "string" | name | $token | name '(' args ')' | '(
 <h2 id="conf">12. Conformance</h2>
 <p><code>tests/cases.json</code> lists (file, t, options, layout, width). <code>tests/golden/*.png</code> are the reference frames from the web engine in Chrome. Engines render the same cases and compare per pixel (max channel difference &gt; 40/255 counts as off). The web engine must match its goldens exactly (0.3 % allowed). Other engines report their ratio; differences come mainly from font rasterisation and anti-aliasing.</p>
 
-<h2 id="tools">13. Tools</h2>
+<h2 id="libs">13. Libraries and components</h2>
+<p>A <b>library</b> (<code>.tsvgl</code>) packages reusable parts: <b>components</b> (tags with props), styles (themes, fonts, gradients, symbols, <code>&lt;fn&gt;</code>s, music, backdrop) and document defaults (layouts, options, mixes). A document imports it and writes only content, so the same props always give the same video, with a fraction of the markup.</p>
+<pre>&lt;tsvg version="0.3" title="ORCH-78"&gt;
+  &lt;import src="tsvg:report" as="r" key="ORCH-78"/&gt;          &lt;!-- params: key flows into the library --&gt;
+  &lt;timeline&gt;
+    &lt;r:title title="Libraries are live" say="Here is what changed."/&gt;
+    &lt;r:list title="What changed" items="Imports | Components :: tags with props" say="Two things changed."/&gt;
+  &lt;/timeline&gt;
+&lt;/tsvg&gt;</pre>
+<h3 id="import">13.1 Import</h3>
+<p><code>&lt;import src as …params/&gt;</code> is a direct child of <code>&lt;tsvg&gt;</code> (or of a library). <code>src</code> is <code>tsvg:&lt;name&gt;</code> (the built-in libraries of this engine release, served from <code>jsr.io/@panth977/tsvg/&lt;version&gt;/libs/</code>), <code>jsr:@scope/pkg@1.2.3/path.tsvgl</code>, a URL, or a path relative to the importing file. <code>as</code> is the prefix of its components (<code>&lt;r:title/&gt;</code>); other attributes set the library's <code>params</code>.</p>
+<h3 id="libfile">13.2 Library file</h3>
+<pre>&lt;tsvglib name="report" version="1.0.0" params="key=''" font="Inter" doc="…"&gt;
+  &lt;import src="../base/base.tsvgl" as="b" key="%{key}"/&gt;
+  &lt;layouts&gt;…  &lt;options&gt;…  &lt;mixes&gt;…  &lt;themes&gt;…  &lt;strings&gt;…  &lt;defs&gt;…  &lt;assets&gt;…  &lt;music/&gt;  &lt;backdrop&gt;…  &lt;overlay&gt;…
+  &lt;component id="title" props="title, sub='', say='', dur=7" doc="Opening scene"&gt; … &lt;/component&gt;
+&lt;/tsvglib&gt;</pre>
+<ul>
+  <li><b>Merging.</b> The document comes first, then its imports in order, then theirs. Layouts: the document's replace the library's. Options, mixes: merged by id (the first wins, so a document can redefine <code>lang</code> with more languages). Themes: merged by id, token by token (<code>&lt;theme id="dark" accent="#e4572e"/&gt;</code> changes one token). Music, backdrop, overlay: the library's only when the document has none. Fonts and assets nothing uses are dropped; <code>&lt;font only="gu"&gt;</code> ships only when a <code>gu</code> choice exists.</li>
+  <li><b>Names.</b> A library's ids (defs, fns, data, strings, assets) become <code>name__id</code>, so they never clash. Inside the library they keep their short names; anywhere, <code>alias:id</code> points into an import: <code>ref="b:tick"</code>, <code>fill="url(#b:ink)"</code>, <code>text="@b:hello"</code>, <code>src="b:pad"</code>, <code>s('b:x')</code>, <code>data('b:x', i)</code>.</li>
+  <li><b>Files.</b> Paths are relative to the library file. Packages carry them under <code>lib/</code>.</li>
+</ul>
+<h3 id="components">13.3 Components</h3>
+<p><code>props="a, b=default, c?"</code>: <code>a</code> is required, <code>b</code> has a default, <code>c</code> defaults to empty (or <code>&lt;prop name doc default/&gt;</code> children). A use is <code>&lt;alias:id prop="…"/&gt;</code>; components declared in the document's own <code>&lt;defs&gt;</code> are used by their bare id. The body is a template, expanded statically before parsing:</p>
+<table>
+<tr><td><code>%{p}</code></td><td>the prop's value (in any attribute or text). <code>%{a|b}</code>: <code>a</code>, or <code>b</code> when <code>a</code> is empty. <code>%{p#}</code>: a short stable hash of the value (e.g. <code>&lt;say id="%{say#}"&gt;</code>). <code>%{_uid}</code>: a stable id for this use.</td></tr>
+<tr><td>variants</td><td><code>title.gu="…"</code> on the use adds <code>.gu</code> variants to every attribute that uses <code>%{title}</code>.</td></tr>
+<tr><td><code>&lt;if test="%{p}"&gt;…&lt;else&gt;…&lt;/else&gt;&lt;/if&gt;</code></td><td>kept when the value is not empty, <code>0</code>, <code>false</code>, <code>no</code> or <code>none</code>; <code>test="%{kind} == step"</code> compares text; <code>not="…"</code> inverts.</td></tr>
+<tr><td><code>&lt;each items="%{items}" as="it" sep="|"&gt;</code></td><td>once per item (empty items skipped): <code>%{it}</code>, <code>%{it_i}</code> (0-based), <code>%{it_1}</code>, <code>%{it_n}</code>, <code>%{it_last}</code>; an item <code>title :: detail</code> gives <code>%{it.0}</code>, <code>%{it.1}</code> (or names with <code>fields="title,detail"</code>). <code>n="3"</code> counts instead; <code>sep="lines"</code> splits on new lines or ‖, <code>keep="1"</code> keeps blank items.</td></tr>
+<tr><td><code>&lt;slot/&gt;</code></td><td>the use's children; <code>&lt;slot name="x"/&gt;</code> takes the children marked <code>slot="x"</code>.</td></tr>
+</table>
+<p>A component may expand to scenes (used in <code>&lt;timeline&gt;</code>), to nodes (in a scene or group) or to other components. Errors name the use's line: unknown component or prop (with "did you mean"), missing prop, unknown param.</p>
+<h3 id="flatten">13.4 Flattening</h3>
+<p><code>TSVG.flatten(xml, libs)</code> turns a document with imports into plain TSVG; <code>TSVG.loadLibs(xml, {fetchText, base})</code> loads what it imports. Packages (<code>tsvg pack</code>, <code>tsvg make</code>) store the flattened document as <code>main.tsvg</code>, the original as <code>source.tsvg</code> and the library files under <code>lib/</code>, so every player plays them, offline. Players that load a <code>.tsvg</code> with imports flatten it themselves. <code>tsvg lib</code> lists the built-in libraries; <code>tsvg lib report</code> prints each component with its props.</p>
+<p>Built-in: <code>tsvg:base</code> (shared look), <code>tsvg:report</code> (title, list, shot, stat, compare, code), <code>tsvg:explainer</code> (title, point, chapter, steps, stat, quote, picture, versus, outro).</p>
+
+<h2 id="tools">14. Tools</h2>
 <pre>tsvg new      report            # start from the report template (or --style &lt;id&gt;; tsvg styles lists them)
 tsvg check    report.tsvg       # compiler: lint (unknown tags/attributes/variants, strings, tokens, refs, expressions) + off-frame/overlap text
 tsvg preview  report.tsvg       # contact sheet per layout: every scene + its narration line
 tsvg make     report.tsvg       # check → bake → check → preview → pack, in one step
+tsvg lib      [report]          # built-in libraries; with a name: its components and props
 tsvg validate demo.tsvg          # parse, references, translations, voice overlaps, dry run of every variant
 tsvg info     demo.tsvgz
 tsvg bake     demo.tsvg          # record every &lt;say&gt; per language (Kokoro, Sarvam), write &lt;voices&gt;
@@ -263,10 +301,10 @@ tsvg render   demo.tsvg -t 12 --lang gu --layout portrait -o frame.png
 tsvg export   demo.tsvg --lang gu --mix speech --layout portrait --captions -o demo.mp4
 tsvg test     [--update]         # golden frames + zip round trip</pre>
 
-<h2 id="future">14. Not in 0.1</h2>
+<h2 id="future">15. Not yet</h2>
 <ul>
   <li>Scene duration per language (e.g. <code>dur.gu</code>); for now, size scenes for the longest language.</li>
-  <li>Colour-matrix filters, text on a path, symbol parameters, embedded raster video clips.</li>
+  <li>Colour-matrix filters, text on a path, embedded raster video clips.</li>
   <li>Interactivity (choices, branches). TSVG is a video, not an app.</li>
 </ul>
 </main>

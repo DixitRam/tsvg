@@ -11,19 +11,21 @@ A TSVG video is one XML file. The player draws it live, with timeline, captions,
 
 ## The whole workflow (about 1 minute of tool time)
 ```sh
-tsvg new /tmp/<KEY>-report                 # report template + its fonts/audio/screenshot, ready to edit
-#   edit /tmp/<KEY>-report/<KEY>-report.tsvg: change the <strings> block (title, changes, verified, open, vo1…vo5)
-#   optional: replace images/screenshot.jpg with your screenshot, and set the highlight box (data id="box")
+tsvg new /tmp/<KEY>-report                 # report template on the tsvg:report library + a screenshot slot
+#   edit /tmp/<KEY>-report/<KEY>-report.tsvg: only the props of its 5 lines (title/sub, list items, shot, checks, open; say = narration)
+#   optional: replace images/screenshot.jpg with your screenshot and set box="x y w h" (fractions of the image)
 tsvg check /tmp/<KEY>-report/<KEY>-report.tsvg     # compiler: errors with line numbers + "did you mean"; off-frame / overlapping text
 tsvg make  /tmp/<KEY>-report/<KEY>-report.tsvg     # check → bake voices (Kokoro) → check → contact sheets → pack .tsvgz
 #   LOOK at the printed *.preview-*.png (one image shows every scene + its narration, per layout); fix and make again if needed
 node ~/Dev/PROJECTS/TaskManager/workspaces/ws.mjs upload <workspace> <KEY> /tmp/<KEY>-report/<KEY>-report.tsvgz   # → file id
 #   post the thread message with attachments: [id]
 ```
+- The template is library-based: `<import src="tsvg:report" as="r" key="KEY"/>` then one `<r:…/>` per scene. **Write props, not shapes.** More scene types: `tsvg lib report` (`stat`, `compare`, `code`, `list kind="step|no"`); explainers: `tsvg lib explainer` (`title point chapter steps stat quote picture versus outro`).
+- Lists: `items="a | b :: detail | c"`. Long narration? Raise the scene's `dur` (check warns when a line overruns).
 - `make` stops on errors. Fix what `check` prints (file:line), and run it again.
 - Warnings matter too: text running off the frame, overlapping text, or a narration line longer than its scene. Fix them.
 - Read the preview PNGs with your image tool before posting. Don't render single frames one by one.
-- Want a different look? Run `tsvg styles` to list the 60 style templates (product tour, code walkthrough, kanban status report, data story, whiteboard…), then `tsvg new <dir> --style <id>`.
+- Want a different look? `tsvg styles` lists 60 hand-written style templates; `tsvg new <dir> --style <id>`. The old strings-based report: `--template report-classic`.
 - To share as one file that plays anywhere without a player: `tsvg pack x.tsvg --html x.html`. Every `.tsvgz` also contains `index.html`.
 
 ## Writing the document
@@ -35,4 +37,5 @@ node ~/Dev/PROJECTS/TaskManager/workspaces/ws.mjs upload <workspace> <KEY> /tmp/
 - Text: `size` ≥ 34 for body, 64–110 for headings. Use `maxw` to wrap. `y` is the vertical centre of the block.
 - Narration: one `<say at text="@voN"/>` per scene. Scene `dur` ≥ clip length + 1 s (check warns otherwise). Use `speak="@x_say"` when the pronunciation must differ (e.g. "T. S. V. G.").
 - Gujarati: add `<choice id="gu" tts="sarvam:shubh"/>` and `gu="…"` on every string. make bakes it with Sarvam (`SARVAM_API_KEY` from `~/Dev/PROJECTS/Manager/packages/voice/sarvam/.env`; source it, never print it).
+- Your own reusable parts: `<defs><component id="card" props="title, sub=''">…%{title}…</component></defs>` then `<card title="…"/>`; or a library file (spec §13).
 - Spec: `~/Dev/PROJECTS/TSVG/spec/index.html` · examples: `~/Dev/PROJECTS/TSVG/examples/` · gallery: panth977.github.io/tsvg/gallery

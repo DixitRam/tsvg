@@ -158,6 +158,14 @@
 
     url(path) { return this.files[path] || new URL(path, this.base).href; }
     async load(xml) {
+      // imports / components: load the libraries (tsvg:<name> from jsr.io at this engine's version), flatten, serve their files
+      if (TSVG.needsLibs(xml)) {
+        const o = { base: this.base, fetchText: async (u) => { const r = await fetch(u); if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); } };
+        const libs = await TSVG.loadLibs(xml, o); const f = TSVG.flatten(xml, libs, o);
+        if (f.errors.length) throw new Error(f.errors[0]);
+        for (const [p, u] of Object.entries(f.files)) if (!this.files[p]) this.files[p] = u;
+        xml = f.xml;
+      }
       const doc = TSVG.parse(xml);
       this.doc = doc; this.opts = Object.assign(TSVG.defaults(doc), this.keepOpts(doc));
       for (const [id, a] of Object.entries(doc.assets)) {

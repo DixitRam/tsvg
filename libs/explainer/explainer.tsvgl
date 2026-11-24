@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  tsvg:explainer — short explainer videos (what / why / how). One component = one scene.
+
+    <tsvg version="0.3" title="How vaccines work">
+      <import src="tsvg:explainer" as="ex"/>
+      <timeline>
+        <ex:title title="How vaccines work" kicker="Explained in 60 seconds" say="How do vaccines actually work?"/>
+        <ex:point text="Your body learns from a harmless copy" icon="idea" say="…"/>
+        <ex:steps title="Three steps" items="Show :: a harmless piece | Learn :: the immune system trains | Remember :: memory cells stay" say="…"/>
+        <ex:stat value="95" suffix="%" label="fewer severe cases" say="…"/>
+        <ex:quote text="Prevention is better than cure." by="Desiderius Erasmus" say="…"/>
+        <ex:outro title="That's it" sub="Share it with someone curious" say="…"/>
+      </timeline>
+    </tsvg>
+-->
+<tsvglib name="explainer" version="1.0.0" params="key=''" font="Inter, Noto Sans Gujarati"
+         doc="Explainer videos: title, big point, numbered steps, chapter divider, stat, quote, picture with caption, versus, outro. Warm paper look (paper / ink themes).">
+  <import src="../base/base.tsvgl" as="b" key="%{key}"/>
+  <options>
+    <option id="theme" label="Theme" default="paper"><choice id="paper" label="Paper"/><choice id="ink" label="Ink"/></option>
+  </options>
+  <themes>
+    <theme id="paper" bg="#f4efe4" fg="#1d1b16" muted="#6b6558" panel="#fffaf0" line="#e0d6c2" accent="#e4572e" accent2="#2a6f97" good="#2f8f5b" warn="#d08c1d" bad="#c0392b" glow1="#e4572e" glow2="#2a6f97"/>
+    <theme id="ink"   bg="#15130f" fg="#f4efe4" muted="#a59d8c" panel="#211e18" line="#3a352b" accent="#ff7a4d" accent2="#6cb4dd" good="#5fd39a" warn="#f2b04a" bad="#ff6b6b" glow1="#ff7a4d" glow2="#6cb4dd"/>
+  </themes>
+  <backdrop>
+    <rect x="0" y="0" w="=W" h="=H" fill="$bg"/>
+    <path x="=W-260" y="120" d="M 0 0 C 60 -40 120 40 180 0" fill="none" stroke="$accent" sw="6" opacity="0.35"/>
+    <circle x="140" y="=H-140" r="60" fill="none" stroke="$accent2" sw="5" opacity="0.25"/>
+  </backdrop>
+  <defs>
+    <!-- simple line icons, 64 units wide, centred -->
+    <symbol id="idea"><path d="M 0 -26 C -16 -26 -24 -14 -24 -2 C -24 8 -16 14 -12 20 L 12 20 C 16 14 24 8 24 -2 C 24 -14 16 -26 0 -26 Z M -8 28 L 8 28" fill="none" stroke="$accent" sw="5"/></symbol>
+    <symbol id="warn"><path d="M 0 -26 L 28 24 L -28 24 Z M 0 -8 L 0 8 M 0 15 L 0 16" fill="none" stroke="$warn" sw="5"/></symbol>
+    <symbol id="heart"><path d="M 0 22 C -30 0 -28 -24 -12 -24 C -4 -24 0 -16 0 -12 C 0 -16 4 -24 12 -24 C 28 -24 30 0 0 22 Z" fill="none" stroke="$bad" sw="5"/></symbol>
+    <symbol id="clock"><circle r="26" fill="none" stroke="$accent2" sw="5"/><path d="M 0 -14 L 0 0 L 10 8" fill="none" stroke="$accent2" sw="5"/></symbol>
+    <symbol id="check"><circle r="26" fill="none" stroke="$good" sw="5"/><path d="M -11 0 L -3 9 L 12 -8" fill="none" stroke="$good" sw="5"/></symbol>
+    <symbol id="question"><circle r="26" fill="none" stroke="$accent2" sw="5"/><path d="M -8 -8 C -8 -18 8 -18 8 -8 C 8 0 0 0 0 8 M 0 15 L 0 16" fill="none" stroke="$accent2" sw="5"/></symbol>
+    <symbol id="none"/>
+  </defs>
+
+  <component id="title" props="title, kicker='', sub='', say='', dur=7" doc="Opening: small kicker, big title with a hand-drawn underline.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{title}">
+      <if test="%{say}"><say id="%{say#}" at="0.5" text="%{say}"/></if>
+      <if test="%{kicker}"><text x="=W/2" y="=H/2-150" y.portrait="=H/2-220" size="34" weight="700" align="center" fill="$accent" text="%{kicker}"><anim prop="opacity" from="0" to="1" dur="0.5"/></text></if>
+      <text x="=W/2" y="=H/2-30" size="104" size.portrait="80" maxw="1600" maxw.portrait="940" weight="800" align="center" text="%{title}" at="0.2">
+        <anim prop="opacity" from="0" to="1" dur="0.6"/><anim prop="y" from="=H/2" to="=H/2-30" dur="0.8" ease="back"/>
+      </text>
+      <path x="=W/2-300" y="=H/2+80" y.portrait="=H/2+150" d="M 0 0 C 150 -18 450 18 600 0" fill="none" stroke="$accent" sw="10" draw="0" at="0.9">
+        <anim prop="draw" from="0" to="1" dur="0.8"/>
+      </path>
+      <if test="%{sub}"><text x="=W/2" y="=H/2+170" y.portrait="=H/2+260" size="38" maxw="1400" maxw.portrait="920" align="center" fill="$muted" text="%{sub}" at="1.2"><anim prop="opacity" from="0" to="1" dur="0.6"/></text></if>
+    </scene>
+  </component>
+
+  <component id="point" props="text, kicker='', icon=idea, say='', dur=7, chapter=''" doc="One big statement with an icon (idea warn heart clock check question none).">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter|text}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <use ref="%{icon}" x="=W/2" y="=H/2-200" y.portrait="=H/2-300" scale="2.4">
+        <anim prop="scale" from="0" to="2.4" dur="0.6" ease="back"/>
+      </use>
+      <if test="%{kicker}"><text x="=W/2" y="=H/2-60" y.portrait="=H/2-120" size="32" weight="700" align="center" fill="$accent" text="%{kicker}" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.4"/></text></if>
+      <text x="=W/2" y="=H/2+60" size="72" size.portrait="60" maxw="1500" maxw.portrait="920" weight="800" align="center" text="%{text}" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+      </text>
+    </scene>
+  </component>
+
+  <component id="chapter" props="n, title, say='', dur=4" doc="Chapter divider: big number + title.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{title}">
+      <if test="%{say}"><say id="%{say#}" at="0.3" text="%{say}"/></if>
+      <rect x="0" y="0" w="=W" h="=H" fill="$accent"><anim prop="w" from="0" to="=W" dur="0.5" ease="io"/></rect>
+      <text x="=W/2" y="=H/2-90" size="160" weight="800" align="center" fill="$bg" text="%{n}" at="0.3"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+      <text x="=W/2" y="=H/2+70" size="64" size.portrait="54" maxw="1500" maxw.portrait="920" weight="800" align="center" fill="$bg" text="%{title}" at="0.5"><anim prop="opacity" from="0" to="1" dur="0.4"/></text>
+    </scene>
+  </component>
+
+  <component id="steps" props="title, items, say='', dur=10, chapter=''" doc="Numbered steps that appear one by one along a line. items: a | b | c, each may be 'title :: detail'.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter|title}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <b:heading text="%{title}"/>
+      <each items="%{items}" as="it">
+        <group x="=W/2 + (%{it_i} - (%{it_n}-1)/2) * min(520, 1700/%{it_n})" y="=H/2+40" x.portrait="=W/2" y.portrait="=H/2 + 60 + (%{it_i} - (%{it_n}-1)/2) * 300" at="=0.8 + %{it_i}*1.1">
+          <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="scale" from="0.8" to="1" dur="0.5" ease="back"/>
+          <circle r="54" fill="$accent"/>
+          <text x="0" y="2" size="52" weight="800" align="center" fill="$bg" text="%{it_1}"/>
+          <text x="0" y="110" size="38" weight="800" align="center" maxw="=min(480, 1600/%{it_n})" maxw.portrait="900" text="%{it.0}"/>
+          <if test="%{it.1}"><text x="0" y="170" size="28" align="center" maxw="=min(460, 1600/%{it_n})" maxw.portrait="860" fill="$muted" text="%{it.1}"/></if>
+        </group>
+      </each>
+    </scene>
+  </component>
+
+  <component id="stat" props="value, label, prefix='', suffix='', decimals=0, sub='', say='', dur=7, chapter=''" doc="A big number that counts up, with a label.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter|label}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <circle x="=W/2" y="=H/2-60" r="250" fill="none" stroke="$accent" sw="14" from="0" to="=360*ease(clamp(T/1.6, 0, 1), 'out')" arc="1" opacity="0.6"/>
+      <text x="=W/2" y="=H/2-60" size="180" size.portrait="150" weight="800" align="center" fill="$fg" text="='%{prefix}' + fmt(%{value} * ease(clamp(T/1.6, 0, 1), 'out'), %{decimals}) + '%{suffix}'"/>
+      <text x="=W/2" y="=H/2+260" size="46" maxw="1500" maxw.portrait="920" weight="700" align="center" text="%{label}" at="0.8"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+      <if test="%{sub}"><text x="=W/2" y="=H/2+330" size="30" maxw="1500" maxw.portrait="920" align="center" fill="$muted" text="%{sub}" at="1.2"><anim prop="opacity" from="0" to="1" dur="0.5"/></text></if>
+    </scene>
+  </component>
+
+  <component id="quote" props="text, by='', say='', dur=8, chapter='Quote'" doc="A pull quote with attribution.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <text x="=W/2-640" x.portrait="120" y="=H/2-200" y.portrait="=H/2-360" size="260" weight="800" fill="$accent" text="“" opacity="0.8"/>
+      <text x="=W/2" y="=H/2" size="64" size.portrait="54" maxw="1400" maxw.portrait="900" weight="700" italic="1" align="center" lh="1.3" text="%{text}" reveal="0">
+        <anim prop="reveal" from="0" to="1" dur="=min(3, sdur*0.4)" ease="linear"/>
+      </text>
+      <if test="%{by}"><text x="=W/2" y="=H/2+220" y.portrait="=H/2+360" size="34" align="center" fill="$muted" text="— %{by}" at="2.5"><anim prop="opacity" from="0" to="1" dur="0.5"/></text></if>
+    </scene>
+  </component>
+
+  <component id="picture" props="src, caption='', say='', dur=8, chapter=''" doc="A full-bleed picture with a slow Ken Burns zoom and a caption.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter|caption}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <image src="%{src}" x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=W" h="=H" fit="cover" scale="=1.04 + 0.08 * T / sdur"/>
+      <rect x="0" y="=H*0.62" w="=W" h="=H*0.38" fill="#0009"/>
+      <if test="%{caption}"><text x="=W/2" y="=H-150" y.portrait="=H-300" size="48" size.portrait="44" maxw="1600" maxw.portrait="940" weight="700" align="center" fill="#fff" text="%{caption}" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.5"/></text></if>
+    </scene>
+  </component>
+
+  <component id="versus" props="left, right, ltext='', rtext='', title='', say='', dur=8, chapter=''" doc="A versus card: two sides, each with a short line.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{chapter|title|left}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <if test="%{title}"><b:heading text="%{title}" y="140"/></if>
+      <group x="=W*0.28" y="=H/2+30" x.portrait="=W/2" y.portrait="=H*0.33" at="0.5">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="=W*0.2" to="=W*0.28" dur="0.6" ease="back"/>
+        <text x="0" y="0" size="84" weight="800" align="center" fill="$accent2" text="%{left}"/>
+        <text x="0" y="90" size="32" maxw="640" maxw.portrait="900" align="center" fill="$muted" text="%{ltext}"/>
+      </group>
+      <circle x="=W/2" y="=H/2+30" y.portrait="=H/2" r="56" fill="$fg" at="1"><anim prop="scale" from="0" to="1" dur="0.4" ease="back"/></circle>
+      <text x="=W/2" y="=H/2+32" y.portrait="=H/2+2" size="40" weight="800" align="center" fill="$bg" text="vs" at="1"/>
+      <group x="=W*0.72" y="=H/2+30" x.portrait="=W/2" y.portrait="=H*0.67" at="1.3">
+        <anim prop="opacity" from="0" to="1" dur="0.4"/><anim prop="x" from="=W*0.8" to="=W*0.72" dur="0.6" ease="back"/>
+        <text x="0" y="0" size="84" weight="800" align="center" fill="$accent" text="%{right}"/>
+        <text x="0" y="90" size="32" maxw="640" maxw.portrait="900" align="center" fill="$muted" text="%{rtext}"/>
+      </group>
+    </scene>
+  </component>
+
+  <component id="outro" props="title, sub='', say='', dur=6" doc="Closing card.">
+    <scene id="%{_uid}" dur="%{dur}" chapter="%{title}">
+      <if test="%{say}"><say id="%{say#}" at="0.4" text="%{say}"/></if>
+      <circle x="=W/2" y="=H/2" r="=min(W,H)*0.36" fill="$accent" opacity="0.12"><anim prop="scale" from="0.6" to="1" dur="1.2" ease="out"/></circle>
+      <text x="=W/2" y="=H/2-20" size="96" size.portrait="76" maxw="1500" maxw.portrait="920" weight="800" align="center" text="%{title}"><anim prop="opacity" from="0" to="1" dur="0.6"/></text>
+      <if test="%{sub}"><text x="=W/2" y="=H/2+100" size="36" maxw="1400" maxw.portrait="900" align="center" fill="$muted" text="%{sub}" at="0.7"><anim prop="opacity" from="0" to="1" dur="0.6"/></text></if>
+    </scene>
+  </component>
+</tsvglib>

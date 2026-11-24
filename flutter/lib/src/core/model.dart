@@ -149,6 +149,10 @@ class TsvgDoc implements TsvgDataHost {
   @override
   final Map<String, List<Object>> data = {};
 
+  /// Image aspect ratios (width / height) by asset id and path, filled in by the media loader.
+  @override
+  final Map<String, double> aspects = {};
+
   @override
   String stringOf(String id, Env env) => strOf(this, id, env);
   final Map<String, List<TsvgNode>> symbols = {};
@@ -213,6 +217,9 @@ TsvgDoc parseTsvg(String xml) {
     for (final c in el.children) {
       if (!shapeTypes.contains(c.name)) continue;
       final node = TsvgNode(c.name, c.attrs, line: c.line);
+      // <image src="path.png"> needs no <asset> (0.4)
+      final isrc = c.attrs['src'];
+      if (c.name == 'image' && isrc != null && !doc.assets.containsKey(isrc) && RegExp(r'[/.]').hasMatch(isrc)) doc.assets[isrc] = TsvgAsset(isrc, 'image');
       for (final k in c.children) {
         if (k.name == 'anim') {
           node.anims.add(TsvgAnim.anim(k.attrs['prop'], k.attrs));

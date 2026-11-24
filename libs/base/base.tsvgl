@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  tsvg:base — the shared look every built-in library starts from.
+  Document defaults (landscape + portrait, English, voice/music mixes, dark + light themes, Inter + JetBrains Mono,
+  a soft music bed, a quiet backdrop) and small parts: symbols, gradients and a few layout components.
+  Override anything in your own document: a <theme id="dark" accent="#e4572e"/> changes one token,
+  your own <layouts> replace these, an <option id="lang"> with more choices adds languages.
+-->
+<tsvglib name="base" version="1.0.0" font="Inter, Noto Sans Gujarati" params="key=''"
+         doc="Shared look: themes, fonts, music, backdrop, symbols (tick, dot, cross, arrow, num), heading/footer components.">
+  <layouts>
+    <layout id="landscape" w="1920" h="1080"/>
+    <layout id="portrait" w="1080" h="1920"/>
+  </layouts>
+  <options>
+    <option id="lang" label="Language" default="en"><choice id="en" label="English" tts="kokoro:af_heart"/></option>
+    <option id="mix" label="Audio" default="full"><choice id="full" label="Voice + music"/><choice id="speech" label="Speech only"/></option>
+    <option id="theme" label="Theme" default="dark"><choice id="dark" label="Dark"/><choice id="light" label="Light"/></option>
+  </options>
+  <mixes>
+    <mix id="full" voice="1" music="0.18" sfx="0.5"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <themes>
+    <theme id="dark"  bg="#0d1016" fg="#eef1f7" muted="#8a93a6" panel="#171c27" line="#273042" accent="#7aa2ff" accent2="#ff6b9a" good="#5fd39a" warn="#ffb35c" bad="#ff6b6b" glow1="#7aa2ff" glow2="#ff6b9a"/>
+    <theme id="light" bg="#f6f3ec" fg="#1b1e26" muted="#626a78" panel="#ffffff" line="#e2ddd2" accent="#2f5bea" accent2="#d6336c" good="#178a55" warn="#c2650f" bad="#c92a2a" glow1="#2f5bea" glow2="#d6336c"/>
+  </themes>
+  <assets>
+    <font family="Inter" src="../_shared/fonts/Inter.ttf"/>
+    <font family="JetBrains Mono" src="../_shared/fonts/JetBrainsMono.ttf"/>
+    <font family="Noto Sans Gujarati" src="../_shared/fonts/NotoSansGujarati.ttf" only="gu"/>
+    <asset id="pad" src="../_shared/audio/pad.m4a"/>
+    <asset id="blip" src="../_shared/audio/blip.m4a"/>
+    <asset id="whoosh" src="../_shared/audio/whoosh.m4a"/>
+    <asset id="pop" src="../_shared/audio/pop.m4a"/>
+    <asset id="ding" src="../_shared/audio/ding.m4a"/>
+    <asset id="typing" src="../_shared/audio/typing.m4a"/>
+  </assets>
+  <music src="pad" loop="1" vol="0.8"/>
+  <defs>
+    <linear id="ink" x1="0" y1="0" x2="1100" y2="0"><stop at="0" color="$accent"/><stop at="1" color="$accent2"/></linear>
+    <symbol id="tick"><circle r="18" fill="$good"/><path d="M -8 0 L -2 7 L 9 -6" fill="none" stroke="$bg" sw="4"/></symbol>
+    <symbol id="dot"><circle r="18" fill="$warn"/><text x="0" y="1" size="22" weight="800" align="center" fill="$bg" text="!"/></symbol>
+    <symbol id="cross"><circle r="18" fill="$bad"/><path d="M -6 -6 L 6 6 M 6 -6 L -6 6" fill="none" stroke="$bg" sw="4"/></symbol>
+    <symbol id="arrow"><circle r="18" fill="$accent"/><path d="M -7 0 L 7 0 M 2 -6 L 8 0 L 2 6" fill="none" stroke="$bg" sw="4"/></symbol>
+  </defs>
+  <backdrop>
+    <circle x="=W*0.9" y="=H*0.1" r="260" fill="$glow1" opacity="0.08"/>
+    <circle x="=W*0.05" y="=H*0.95" r="320" fill="$glow2" opacity="0.06"/>
+  </backdrop>
+  <overlay>
+    <text x="60" y="=H-44" size="24" fill="$muted" text="%{key}"/>
+  </overlay>
+
+  <!-- a numbered badge: <num n="2"/> -->
+  <component id="num" props="n, color=$accent, x=0, y=0" doc="Round number badge (steps, lists).">
+    <group x="%{x}" y="%{y}">
+      <circle r="26" fill="%{color}"/>
+      <text x="0" y="1" size="28" weight="800" align="center" fill="$bg" text="%{n}"/>
+    </group>
+  </component>
+  <!-- the title line most scenes start with -->
+  <component id="heading" props="text, y=150, size=64, at=0" doc="Centred scene heading that fades in.">
+    <text x="=W/2" y="%{y}" y.portrait="=%{y}+80" size="%{size}" size.portrait="=%{size}*0.85" maxw="1700" maxw.portrait="960" weight="800" align="center" text="%{text}" at="%{at}">
+      <anim prop="opacity" from="0" to="1" dur="0.5"/><anim prop="scale" from="0.97" to="1" dur="0.6"/>
+    </text>
+  </component>
+  <!-- a rounded caption pill near the bottom -->
+  <component id="pill" props="text, at=1.5" doc="Rounded caption pill near the bottom of the frame.">
+    <if test="%{text}">
+      <group x="=W/2" y="=H-120" y.portrait="=H-260" at="%{at}">
+        <anim prop="opacity" from="0" to="1" dur="0.5"/>
+        <rect x="-760" x.portrait="-480" y="-44" w="1520" w.portrait="960" h="88" r="44" fill="$panel"/>
+        <text x="0" y="0" size="32" maxw="1440" maxw.portrait="900" align="center" fill="$fg" text="%{text}"/>
+      </group>
+    </if>
+  </component>
+</tsvglib>

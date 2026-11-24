@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tsvg version="0.3" title="How vaccines work">
+  <import src="tsvg:explainer" as="ex"/>
+  <timeline>
+    <ex:title title="How vaccines work" kicker="Explained in a minute" sub="A short explainer" say="How do vaccines actually work?"/>
+    <ex:point text="Your body learns from a harmless copy" kicker="The idea" icon="idea" say="Your body learns from a harmless copy."/>
+    <ex:chapter n="1" title="The three steps" say="Here are the steps."/>
+    <ex:steps title="Three steps" items="Show :: a harmless piece | Learn :: the immune system trains | Remember :: memory cells stay" say="Show, learn, remember."/>
+    <ex:stat value="95" suffix="%" label="fewer severe cases" sub="in trials" say="Up to ninety five percent fewer severe cases."/>
+    <ex:quote text="Prevention is better than cure." by="Erasmus" say="Prevention is better than cure."/>
+    <ex:picture src="images/screenshot.jpg" caption="A picture with a slow zoom" say="Pictures get a slow zoom."/>
+    <ex:versus left="Vaccine" right="Infection" ltext="Safe practice run" rtext="The real, risky thing" say="A practice run versus the real thing."/>
+    <ex:outro title="That's it" sub="Share it with someone curious" say="That's it."/>
+  </timeline>
+
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="h174mnhv" lang="en" src="voice/explainer/en/h174mnhv.5b65957277.m4a" dur="1.73" hash="5b65957277" engine="kokoro:af_heart"/>
+    <voice say="h18w9b4n" lang="en" src="voice/explainer/en/h18w9b4n.835ce99896.m4a" dur="2.13" hash="835ce99896" engine="kokoro:af_heart"/>
+    <voice say="h194783x" lang="en" src="voice/explainer/en/h194783x.cb9f9c9a65.m4a" dur="1.11" hash="cb9f9c9a65" engine="kokoro:af_heart"/>
+    <voice say="h1idnm15" lang="en" src="voice/explainer/en/h1idnm15.67b8913aae.m4a" dur="1.51" hash="67b8913aae" engine="kokoro:af_heart"/>
+    <voice say="h1p2zjiu" lang="en" src="voice/explainer/en/h1p2zjiu.7271008df6.m4a" dur="2.07" hash="7271008df6" engine="kokoro:af_heart"/>
+    <voice say="h1pfpyh1" lang="en" src="voice/explainer/en/h1pfpyh1.0f49fdca92.m4a" dur="1.88" hash="0f49fdca92" engine="kokoro:af_heart"/>
+    <voice say="h1v2r18z" lang="en" src="voice/explainer/en/h1v2r18z.38e5534da8.m4a" dur="0.87" hash="38e5534da8" engine="kokoro:af_heart"/>
+    <voice say="hqqdmfd" lang="en" src="voice/explainer/en/hqqdmfd.4d494409a4.m4a" dur="2.65" hash="4d494409a4" engine="kokoro:af_heart"/>
+    <voice say="hv4s4td" lang="en" src="voice/explainer/en/hv4s4td.4b7585d439.m4a" dur="1.24" hash="4b7585d439" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

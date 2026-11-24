@@ -16,10 +16,10 @@
  * @example From a CDN, no build step
  * ```html
  * <script type="module">
- *   import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.3.4";
+ *   import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.4.0";
  * </script>
  * <!-- or as a classic script that defines window.TSVG, TSVGZip, TSVGPlayer -->
- * <script src="https://esm.sh/jsr/@panth977/tsvg@0.3.4/dist/tsvg.js?raw"></script>
+ * <script src="https://esm.sh/jsr/@panth977/tsvg@0.4.0/dist/tsvg.js?raw"></script>
  * ```
  * @module
  */
@@ -81,14 +81,31 @@ export interface TSVGValidation {
 }
 
 /** The engine core (also `window.TSVG` when loaded as a classic script). */
+/** Loaded libraries by URL (from {@link TSVGCore.loadLibs}). */
+// deno-lint-ignore no-explicit-any
+export type TSVGLibs = Record<string, any>;
+/** Where and how libraries load: `fetchText(url)` returns the file; `base` is the document's URL; `libBase` overrides where `tsvg:<name>` resolves. */
+export interface TSVGLibOptions { base?: string; libBase?: string; fetchText(url: string): Promise<string> }
+/** Result of {@link TSVGCore.flatten}: plain TSVG, the library files it needs (package path → URL), output line → source line. */
+export interface TSVGFlat { xml: string; files: Record<string, string>; lineMap: number[]; errors: string[] }
+
 export interface TSVGCore {
+  /** Format version. */
   VERSION: string;
-  /** Parse a `.tsvg` document (XML text). Throws on malformed documents. */
-  parse(xml: string): TSVGDocument;
+  /** Package version; `tsvg:<lib>` imports resolve to this release's libs on jsr.io. */
+  PKG: string;
+  /** Parse a `.tsvg` document (XML text). Throws on malformed documents. Documents with imports need `libs`. */
+  parse(xml: string, options?: { libs?: TSVGLibs } & Partial<TSVGLibOptions>): TSVGDocument;
+  /** True when the document has `<import>` or `<component>` (it needs {@link TSVGCore.flatten}). */
+  needsLibs(xml: string): boolean;
+  /** Load every library a document imports (and theirs). */
+  loadLibs(xml: string, options: TSVGLibOptions): Promise<TSVGLibs>;
+  /** Expand imports and components into plain TSVG. */
+  flatten(xml: string, libs?: TSVGLibs, options?: Partial<TSVGLibOptions>): TSVGFlat;
   /** Draw the frame at time `t` (seconds). `ctx` must already map layout units to the target. */
   renderFrame(ctx: CanvasRenderingContext2D, doc: TSVGDocument, t: number, opts: TSVGOptions, layout: TSVGLayout, images?: Record<string, CanvasImageSource>): void;
   /** Static checks plus a dry run of every frame sample under every option set and layout. */
-  validate(xml: string, options?: { files?: { has(path: string): boolean }; samples?: number }): TSVGValidation;
+  validate(xml: string, options?: { files?: { has(path: string): boolean }; samples?: number; libs?: TSVGLibs } & Partial<TSVGLibOptions>): TSVGValidation;
   sayLines(doc: TSVGDocument, opts: TSVGOptions): TSVGSayLine[];
   audioPlan(doc: TSVGDocument, opts: TSVGOptions): TSVGAudioPlan;
   /** Asset id or path → path inside the package. */

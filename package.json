@@ -1,6 +1,6 @@
 {
   "name": "tsvg",
-  "version": "0.3.4",
+  "version": "0.4.0",
   "description": "TSVG \u2014 Timeseries Scalable Vector Graphics: a vector video format with real video controls, languages, audio mixes, themes and layouts.",
   "license": "MIT",
   "bin": {
@@ -14,10 +14,11 @@
     "dist",
     "mod.ts",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "libs"
   ],
   "scripts": {
-    "test": "node cli/tsvg.mjs test",
+    "test": "node tests/unit.mjs && node cli/tsvg.mjs test",
     "test:update": "node cli/tsvg.mjs test --update",
     "validate": "node cli/tsvg.mjs validate examples/demo/demo.tsvg",
     "pack": "node cli/tsvg.mjs pack examples/demo/demo.tsvg -o dist/demo.tsvgz",

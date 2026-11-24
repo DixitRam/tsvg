@@ -5,6 +5,7 @@
 //   tsvg preview  <file>                         contact sheet PNG per layout (every scene + its narration)
 //   tsvg make     <file.tsvg>                    check → bake voices → check → preview sheets → pack .tsvgz (one step)
 //   tsvg styles                                  list the 60 style templates
+//   tsvg lib [name]                              the built-in libraries; with a name: its components and props
 //   tsvg validate <file.tsvg|.tsvgz>             static checks + dry run of every variant
 //   tsvg info     <file>                         duration, options, chapters, voices
 //   tsvg pack     <file.tsvg> [-o out.tsvgz] [--html [out.html]] [--no-preview]
@@ -23,7 +24,7 @@ import { spawn, spawnSync } from 'node:child_process';
 import { deflateRawSync, inflateRawSync } from 'node:zlib';
 import { createServer } from 'node:http';
 import { createRequire } from 'node:module';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(import.meta.url);
@@ -53,8 +54,26 @@ async function openSource(file) {
     return { kind: 'zip', path: abs, xml: Zip.text(files.get(Zip.MAIN)), get: (p) => (files.has(p) ? Buffer.from(files.get(p)) : null), has: (p) => files.has(p), list: () => [...files.keys()] };
   }
   const dir = dirname(abs);
-  return { kind: 'file', path: abs, dir, xml: bytes.toString('utf8'), get: (p) => (existsSync(join(dir, p)) ? readFileSync(join(dir, p)) : null), has: (p) => existsSync(join(dir, p)) && statSync(join(dir, p)).isFile() };
+  return withLibs({ kind: 'file', path: abs, dir, xml: bytes.toString('utf8'), get: (p) => (existsSync(join(dir, p)) ? readFileSync(join(dir, p)) : null), has: (p) => existsSync(join(dir, p)) && statSync(join(dir, p)).isFile() });
 }
+// libraries: tsvg:<name> = libs/ in this repo (the same files ship on jsr.io); relative paths and jsr:/https: imports load too.
+// The source keeps its imports; src.xml becomes the flattened document every other command works on,
+// src.lineMap maps its lines back to the source, and the library files are served next to the document's own.
+const LIBS_URL = pathToFileURL(join(ROOT, 'libs') + '/').href;
+const libOpts = (base) => ({ base, libBase: LIBS_URL, fetchText: async (u) => (u.startsWith('file:') ? readFileSync(fileURLToPath(u), 'utf8') : fetchOk(u).then((r) => r.text())) });
+async function fetchOk(u) { const r = await fetch(u); if (!r.ok) throw new Error('HTTP ' + r.status); return r; }
+async function withLibs(src) {
+  if (!TSVG.needsLibs(src.xml)) return src;
+  const o = libOpts(pathToFileURL(src.path).href);
+  let libs; try { libs = await TSVG.loadLibs(src.xml, o); } catch (e) { die(e.message); }
+  const f = TSVG.flatten(src.xml, libs, o);
+  Object.assign(src, { srcXml: src.xml, xml: f.xml, lineMap: f.lineMap, flatErrors: f.errors, libs });
+  const extra = {};
+  for (const [p, u] of Object.entries(f.files)) extra[p] = u.startsWith('file:') ? (existsSync(fileURLToPath(u)) ? readFileSync(fileURLToPath(u)) : null) : Buffer.from(await (await fetchOk(u)).arrayBuffer());
+  const g = src.get, h = src.has; src.get = (p) => extra[p] || g(p); src.has = (p) => !!extra[p] || h(p);
+  return src;
+}
+const srcLine = (src, m) => (src.lineMap ? m.replace(/\bline (\d+)\b/g, (x, n) => (src.lineMap[+n] ? 'line ' + src.lineMap[+n] : x)) : m);
 function referenced(doc) {
   const s = new Set();
   const add = (r) => { const p = TSVG.assetPath(doc, r); if (p && !/^(https?|data):/.test(p)) s.add(p); };
@@ -90,9 +109,11 @@ const cmds = {
   },
   async pack() {
     const src = await openSource(pos[0]); if (src.kind !== 'file') die('pack takes a .tsvg file');
+    if (src.flatErrors && src.flatErrors.length) { src.flatErrors.forEach((e) => console.error('ERROR ' + e)); die('fix errors before packing'); }
     const doc = TSVG.parse(src.xml);
-    const r = TSVG.validate(src.xml, { files: { has: src.has } }); if (!r.ok) { r.errors.forEach((e) => console.error('ERROR ' + e)); die('fix errors before packing'); }
+    const r = TSVG.validate(src.xml, { files: { has: src.has } }); if (!r.ok) { r.errors.forEach((e) => console.error('ERROR ' + srcLine(src, e))); die('fix errors before packing'); }
     const entries = [{ path: Zip.MAIN, data: src.xml }];
+    if (src.srcXml) entries.push({ path: 'source.tsvg', data: src.srcXml }); // the document as written (imports kept); main.tsvg is flattened
     for (const p of referenced(doc)) entries.push({ path: p, data: new Uint8Array(src.get(p)) });
     const deflateRaw = (b) => new Uint8Array(deflateRawSync(b, { level: 9 }));
     // --html out.html: one self-contained page (player + package inline) that plays offline in any browser
@@ -115,16 +136,42 @@ const cmds = {
     for (const p of src.list()) { if (p.includes('..')) die('unsafe path in package: ' + p); const f = join(out, p); mkdirSync(dirname(f), { recursive: true }); writeFileSync(f, src.get(p)); }
     console.log(out);
   },
-  bake, render, export: exportMp4, test, serve, check, preview, make, new: scaffold, styles,
+  bake, render, export: exportMp4, test, serve, check, preview, make, new: scaffold, styles, lib: libCmd, libs: libCmd,
 };
+// tsvg lib            the built-in libraries
+// tsvg lib <name|path|jsr:…>   its components and props, as one line each (what an agent needs to write with it)
+async function libCmd() {
+  const dir = join(ROOT, 'libs');
+  if (!pos[0]) {
+    for (const n of readdirSync(dir).filter((x) => !x.startsWith('_') && existsSync(join(dir, x, x + '.tsvgl')))) {
+      const L = TSVG.describeLib(await loadOne('tsvg:' + n));
+      console.log(`tsvg:${n.padEnd(12)} ${L.version.padEnd(7)} ${L.doc}\n${' '.repeat(18)}components: ${L.components.map((c) => c.id).join(', ')}`);
+    }
+    console.log('\nuse one:   <import src="tsvg:report" as="r"/>  …  <r:title title="…"/>      details: tsvg lib report');
+    return;
+  }
+  const L = TSVG.describeLib(await loadOne(pos[0]));
+  const as = flag('as', L.name === 'explainer' ? 'ex' : L.name[0]);
+  console.log(`<import src="${/^(tsvg|jsr|https?):|[/.]/.test(pos[0]) ? pos[0] : 'tsvg:' + pos[0]}" as="${as}"${L.params.map((p) => ` ${p.name}="${p.dflt || ''}"`).join('')}/>   ${L.name} ${L.version} · ${L.doc}\n`);
+  for (const c of L.components) {
+    const req = c.props.filter((p) => p.required).map((p) => `${p.name}="…"`); const opt = c.props.filter((p) => !p.required).map((p) => `${p.name}="${p.dflt}"`);
+    console.log(`<${as}:${c.id} ${req.join(' ')}${opt.length ? '  [' + opt.join(' ') + ']' : ''}/>\n    ${c.doc}`);
+  }
+}
+async function loadOne(src) {
+  const o = libOpts(pathToFileURL(resolve('x.tsvg')).href); const url = TSVG.libUrl(/^(tsvg|jsr|https?):|[/.]/.test(src) ? src : 'tsvg:' + src, o.base, o);
+  let text; try { text = await o.fetchText(url); } catch (e) { die('cannot load ' + src + ': ' + e.message); }
+  const libs = await TSVG.loadLibs(`<tsvg><import src="${url}"/></tsvg>`, o); return libs[url];
+}
 
 // ───────── agent tools: check (compiler), preview (contact sheet), make (one step), new (templates) ─────────
 const loc = (file, m) => { const k = /^line (\d+) /.exec(m); return k ? `${file}:${k[1]}: ` + m.slice(k[0].length) : `${file}: ` + m; };
 // static checks + a browser pass over every layout: text off the frame, text on top of text. Returns { errors, warnings }.
 async function runCheck(src, { fast = false, page } = {}) {
-  const r = TSVG.validate(src.xml, { files: { has: src.has } });
   const rel = relative(process.cwd(), src.path); const file = rel && !rel.startsWith('..') ? rel : src.path;
-  const errors = r.errors.map((m) => loc(file, m)), warnings = r.warnings.map((m) => loc(file, m));
+  if (src.flatErrors && src.flatErrors.length) return { errors: src.flatErrors.map((m) => loc(file, m)), warnings: [], doc: null };
+  const r = TSVG.validate(src.xml, { files: { has: src.has } });
+  const errors = r.errors.map((m) => loc(file, srcLine(src, m))), warnings = r.warnings.map((m) => loc(file, srcLine(src, m)));
   if (r.ok && !fast) {
     const own = !page; const br = own ? await browser(src) : { page };
     const doc = r.doc; const times = []; for (const sc of doc.scenes) times.push(sc.start + sc.dur * 0.5, sc.start + sc.dur * 0.9);
@@ -134,7 +181,8 @@ async function runCheck(src, { fast = false, page } = {}) {
       for (const b of res) {
         const key = b.kind + b.line + (b.line2 || '') + L.id; if (seen.has(key)) continue; seen.add(key);
         const when = ` (${L.id}${opts.lang ? ' ' + opts.lang : ''}, t=${b.t.toFixed(1)}s)`;
-        if (b.error) errors.push(loc(file, b.error) + when);
+        if (b.line && src.lineMap) b.line = src.lineMap[b.line] || b.line; if (b.line2 && src.lineMap) b.line2 = src.lineMap[b.line2] || b.line2;
+        if (b.error) errors.push(loc(file, srcLine(src, b.error)) + when);
         else if (b.kind === 'off') warnings.push(loc(file, `line ${b.line} text "${b.text}" runs off the ${b.where} edge by ${b.by} units${when}`));
         else warnings.push(loc(file, `line ${b.line} text "${b.text}" overlaps line ${b.line2} "${b.text2}"${when}`));
       }
@@ -195,7 +243,8 @@ async function scaffold() {
   const dir = resolve(name); if (existsSync(dir) && readdirSync(dir).length) die(dir + ' is not empty');
   mkdirSync(dir, { recursive: true });
   let xml = readFileSync(tplPath, 'utf8').replace(/\n?\s*<!-- written by `tsvg bake`[^\n]*-->/, '').replace(/\s*<voices\b[\s\S]*?<\/voices>/, '');
-  const doc = TSVG.parse(xml); const from = dirname(tplPath); let n = 0;
+  const from = dirname(tplPath); let n = 0;
+  const s0 = await withLibs({ kind: 'file', path: tplPath, dir: from, xml, get: () => null, has: () => false }); const doc = TSVG.parse(s0.xml);
   for (const p of referenced(doc)) { const f = join(from, p); if (!existsSync(f)) continue; mkdirSync(dirname(join(dir, p)), { recursive: true }); writeFileSync(join(dir, p), readFileSync(f)); n++; }
   const out = join(dir, basename(dir) + '.tsvg'); writeFileSync(out, xml);
   console.log(`${out}  (${n} files copied from ${style ? 'style ' + style : 'template ' + (flag('template') || 'report')})\nnext: edit it, then  tsvg check ${out}   →   tsvg make ${out}`);
@@ -284,12 +333,12 @@ async function bake() {
   const vdir = join(src.dir, 'voice', docName); // only this document's folder is cleaned
   if (existsSync(vdir)) for (const l of readdirSync(vdir)) for (const f of readdirSync(join(vdir, l))) { const p = `voice/${docName}/${l}/${f}`; if (!keep.has(p)) unlinkSync(join(src.dir, p)); }
   const block = '<voices>\n' + Object.entries(voices).sort().map(([k, v]) => { const [say, lang] = k.split('|'); return `    <voice say="${say}" lang="${lang}" src="${v.src}" dur="${(+v.dur).toFixed(2)}" hash="${v.hash}" engine="${v.engine}"/>`; }).join('\n') + '\n  </voices>';
-  let xml = src.xml;
+  let xml = src.srcXml || src.xml;
   if (/<voices\b[\s\S]*?<\/voices>|<voices\s*\/>/.test(xml)) xml = xml.replace(/<voices\b[\s\S]*?<\/voices>|<voices\s*\/>/, block);
   else xml = xml.replace(/\n?<\/tsvg>\s*$/, '\n\n  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->\n  ' + block + '\n</tsvg>\n');
   writeFileSync(src.path, xml);
   if (jobs.length) console.log('');
-  const r = TSVG.validate(xml, { files: { has: (p) => existsSync(join(src.dir, p)) } });
+  const s2 = await openSource(src.path); const r = TSVG.validate(s2.xml, { files: { has: s2.has } });
   for (const w of r.warnings.filter((w) => /overlaps|past the end/.test(w))) console.log('warn  ' + w);
   console.log(`bake: done · ${Object.keys(voices).length} clips in <voices>`);
 }

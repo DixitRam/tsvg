@@ -47,7 +47,15 @@ void main() {
       for (final c in cases) {
         final file = c['file'] as String;
         if (!sources.containsKey(file)) {
-          final src = await openTsvgFile('$repo/$file');
+          // documents with imports: play the flattened package, as players do (tsvg pack flattens)
+          var path = '$repo/$file';
+          if (File(path).readAsStringSync().contains('<import')) {
+            final out = '${outDir.path}/${file.split('/').last}z';
+            final r = await Process.run('node', ['$repo/cli/tsvg.mjs', 'pack', path, '-o', out, '--no-preview']);
+            expect(r.exitCode, 0, reason: '${r.stdout}${r.stderr}');
+            path = out;
+          }
+          final src = await openTsvgFile(path);
           final doc = parseTsvg(src.xml);
           final media = await TsvgMedia.load(doc, src);
           expect(media.errors, isEmpty, reason: media.errors.join('; '));

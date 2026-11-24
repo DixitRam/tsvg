@@ -48,6 +48,268 @@
     return els[0];
   }
 
+  // ───────────────────────── libraries & components ─────────────────────────
+  // <import src="tsvg:report" as="r" key="…"/> pulls in a library (.tsvgl): components, styles (themes, fonts,
+  // symbols, gradients, fns) and document defaults. <r:title text="…"/> expands a component with props.
+  // Expansion is static and happens before parse: flatten() turns a document with imports into plain TSVG
+  // (packages carry the flattened main.tsvg, so every player plays them). Local components live in <defs>.
+  const PKG = '0.4.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
+  const HEAD = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'music', 'backdrop', 'overlay'];
+  const BUILTIN = new Set(['tsvg', 'layouts', 'layout', 'options', 'option', 'choice', 'mixes', 'mix', 'themes', 'theme', 'strings', 's', 'defs', 'fn', 'symbol', 'linear', 'radial', 'stop', 'clip', 'mask', 'data', 'assets', 'asset', 'font', 'voices', 'voice', 'music', 'backdrop', 'overlay', 'timeline', 'scene', 'say', 'sfx', 'anim', 'keys', 'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'import', 'component', 'prop', 'slot', 'each', 'if']);
+  const needsLibs = (xml) => /<(import|component)\b/.test(xml);
+  function libBase(o) { return (o && o.libBase) || root.TSVG_LIB_BASE || 'https://jsr.io/@panth977/tsvg/' + PKG + '/libs/'; }
+  function libUrl(src, from, o) {
+    if (/^tsvg:/.test(src)) { const n = src.slice(5); return libBase(o) + n + '/' + n + '.tsvgl'; }
+    if (/^jsr:/.test(src)) { const m = /^jsr:(@[^/]+\/[^@/]+)@([^/]+)\/(.+)$/.exec(src); if (!m) throw new Error('jsr import must look like jsr:@scope/name@1.2.3/path.tsvgl, got ' + src); return 'https://jsr.io/' + m[1] + '/' + m[2] + '/' + m[3]; }
+    return new URL(src, from || (typeof location !== 'undefined' ? location.href : 'file:///')).href;
+  }
+  const cloneEl = (e) => ({ name: e.name, attrs: Object.assign({}, e.attrs), children: e.children.map(cloneEl), text: e.text, line: e.line });
+  function uidOf(s) { let h = 2166136261; for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0).toString(36); }
+  // props="a, b=default, c?" plus <prop name doc default required/> children
+  function propsOf(comp) {
+    const out = {};
+    for (const p of (comp.attrs.props || '').split(',').map((x) => x.trim()).filter(Boolean)) {
+      const m = /^([A-Za-z_][\w-]*)(\?)?(?:\s*=\s*(.*))?$/.exec(p); if (!m) continue;
+      out[m[1]] = { name: m[1], required: !m[2] && m[3] == null, dflt: m[3] != null ? m[3].trim().replace(/^(['"])(.*)\1$/, '$2') : m[2] ? '' : null, doc: '' };
+    }
+    for (const p of comp.children.filter((c) => c.name === 'prop')) out[p.attrs.name] = { name: p.attrs.name, required: p.attrs.required === '1' || (p.attrs.default == null && p.attrs.optional !== '1'), dflt: p.attrs.default != null ? p.attrs.default : p.attrs.optional === '1' ? '' : null, doc: p.attrs.doc || p.text.trim() };
+    return out;
+  }
+  // load every library a document imports (and theirs), once each. fetchText(url) → text.
+  async function loadLibs(xml, o) {
+    o = o || {}; const libs = {};
+    async function visit(tree, from) {
+      for (const im of tree.children.filter((c) => c.name === 'import')) {
+        if (!im.attrs.src) continue;
+        const url = libUrl(im.attrs.src, from, o); if (libs[url]) continue;
+        let text; try { text = await o.fetchText(url); } catch (e) { throw new Error('line ' + im.line + ' <import>: cannot load ' + im.attrs.src + ' (' + url + '): ' + e.message); }
+        let t; try { t = parseXML(text); } catch (e) { throw new Error('library ' + im.attrs.src + ': ' + e.message); }
+        if (t.name !== 'tsvglib') throw new Error('library ' + im.attrs.src + ': root element must be <tsvglib>');
+        libs[url] = prepareLib(t, url, o);
+        await visit(t, url);
+      }
+    }
+    await visit(parseXML(xml), o.base);
+    return libs;
+  }
+  // namespace a library's own ids (lib__id) so they never clash with the document's, and move its files under lib/
+  function prepareLib(t, url, o) {
+    const name = t.attrs.name || 'lib'; const P = name + '__';
+    const sec = (n) => t.children.filter((c) => c.name === n);
+    const ids = { defs: new Set(), fns: new Set(), data: new Set(), strings: new Set(), assets: new Set() };
+    for (const d of sec('defs')) for (const k of d.children) if (k.attrs.id && k.name !== 'component') { ids.defs.add(k.attrs.id); if (k.name === 'fn') ids.fns.add(k.attrs.id); if (k.name === 'data') ids.data.add(k.attrs.id); }
+    for (const s of sec('strings')) for (const k of s.children) if (k.attrs.id) ids.strings.add(k.attrs.id);
+    for (const a of sec('assets')) for (const k of a.children) if (k.name === 'asset' && k.attrs.id) ids.assets.add(k.attrs.id);
+    const files = {};
+    const base = libBase(o); const under = url.startsWith(base);
+    const relocate = (p) => { if (/^(https?|data):|^lib\//.test(p) || p.includes('%{')) return p; const abs = new URL(p, url).href; const rel = under && abs.startsWith(base) ? abs.slice(base.length) : name + '/' + abs.split('/').pop(); files['lib/' + rel] = abs; return 'lib/' + rel; };
+    const fnRe = ids.fns.size ? new RegExp('\\b(' + [...ids.fns].join('|') + ')\\s*\\(', 'g') : null;
+    const expr = (v) => {
+      v = v.replace(/\bs\(\s*(['"])([^'"]+)\1\s*\)/g, (m, q, id) => (ids.strings.has(id) ? 's(' + q + P + id + q + ')' : m));
+      v = v.replace(/\b(data|count)\(\s*(['"])([^'"]+)\2/g, (m, f, q, id) => (ids.data.has(id) ? f + '(' + q + P + id + q : m));
+      if (fnRe) v = v.replace(fnRe, (m, id) => P + id + '(');
+      return v;
+    };
+    const fix = (k, v, el) => {
+      const base0 = k.split('.')[0];
+      v = v.replace(/url\(#([\w-]+)\)/g, (m, id) => (ids.defs.has(id) ? 'url(#' + P + id + ')' : m));
+      if (base0 === 'ref' && ids.defs.has(v)) return P + v;
+      if ((base0 === 'src') && ids.assets.has(v)) return P + v;
+      if (v[0] === '@' && ids.strings.has(v.slice(1))) return '@' + P + v.slice(1);
+      if (v[0] === '=' || v.includes('{') || base0 === 'when') v = expr(v);
+      if (base0 === 'src' && (el.name === 'asset' || el.name === 'font' || el.name === 'music') && !ids.assets.has(v)) return relocate(v);
+      return v;
+    };
+    (function walk(el, inDefs) {
+      for (const [k, v] of Object.entries(el.attrs)) el.attrs[k] = fix(k, v, el);
+      if (el.name === 'fn' || el.name === 'data') el.text = expr(el.text);
+      if (inDefs && el.attrs.id && el.name !== 'component' && ids.defs.has(el.attrs.id)) el.attrs.id = P + el.attrs.id;
+      for (const c of el.children) walk(c, el.name === 'defs');
+    })(t, false);
+    for (const s of sec('strings')) for (const k of s.children) if (k.attrs.id) k.attrs.id = P + k.attrs.id;
+    for (const a of sec('assets')) for (const k of a.children) if (k.name === 'asset' && k.attrs.id) k.attrs.id = P + k.attrs.id;
+    const comps = {};
+    for (const c of t.children.concat(...sec('defs').map((d) => d.children))) if (c.name === 'component' && c.attrs.id) comps[c.attrs.id] = c;
+    const params = propsOf({ attrs: { props: t.attrs.params || '' }, children: [] });
+    return { name, url, tree: t, comps, params, files, ids, version: t.attrs.version || '', doc: t.attrs.doc || '' };
+  }
+  // the document (or a library) as a scope: its own components + the libraries it imports (by alias)
+  function scopeOf(tree, from, libs, o, errors, own, outer) {
+    const subP = (v) => (outer && v && v.indexOf('%{') >= 0 ? v.replace(/%\{([A-Za-z_][\w-]*)\}/g, (m, k) => (outer[k] != null ? outer[k] : m)) : v);
+    const ns = {};
+    for (const im of tree.children.filter((c) => c.name === 'import')) {
+      const url = libUrl(im.attrs.src || '', from, o); const lib = libs[url];
+      if (!lib) { errors.push('line ' + im.line + ' <import>: library ' + im.attrs.src + ' is not loaded (use TSVG.loadLibs, tsvg check or the player)'); continue; }
+      const as = im.attrs.as || lib.name; const vals = {};
+      for (const [k, p] of Object.entries(lib.params)) vals[k] = im.attrs[k] != null ? subP(im.attrs[k]) : p.dflt != null ? p.dflt : '';
+      for (const k of Object.keys(im.attrs)) if (!['src', 'as'].includes(k) && !lib.params[k]) errors.push('line ' + im.line + ' <import>: ' + lib.name + ' has no param "' + k + '"' + hint(k, Object.keys(lib.params)));
+      ns[as] = { lib, params: vals, im };
+    }
+    return { comps: own || {}, ns, from, lib: null };
+  }
+  // flatten: imports + components → plain TSVG. Returns { xml, files (package path → URL), lineMap (flat line → source line), errors }
+  function flatten(xml, libs, o) {
+    o = o || {}; libs = libs || {};
+    const errors = []; const files = {};
+    const r = typeof xml === 'string' ? parseXML(xml) : xml;
+    const ownComps = {};
+    for (const d of r.children.filter((c) => c.name === 'defs')) { for (const c of d.children) if (c.name === 'component') ownComps[c.attrs.id] = c; d.children = d.children.filter((c) => c.name !== 'component'); }
+    for (const c of r.children) if (c.name === 'component') ownComps[c.attrs.id] = c;
+    const docScope = scopeOf(r, o.base, libs, o, errors, ownComps);
+    // library scopes (cached), and each library's head merged into the document: earlier wins, the document first
+    const scopes = new Map();
+    // a library's scope depends on the params it was imported with (they flow into its own imports)
+    const libScope = (lib, params) => { const key = lib.url + '|' + JSON.stringify(params || {}); if (!scopes.has(key)) { const s = scopeOf(lib.tree, lib.url, libs, o, errors, lib.comps, params); s.lib = lib; s.params = params; scopes.set(key, s); } return scopes.get(key); };
+    const seen = new Set(); const order = [];
+    (function heads(scope) { for (const k of Object.values(scope.ns)) { if (seen.has(k.lib)) continue; seen.add(k.lib); order.push(k); heads(libScope(k.lib, k.params)); } })(docScope);
+    const secOf = (el, n) => el.children.find((c) => c.name === n);
+    for (const { lib, params } of order) {
+      Object.assign(files, lib.files);
+      const head = lib.tree.children.filter((c) => HEAD.includes(c.name)).map((c) => applyStatic([c], params, {}, [], errors, 0, lib.name)[0]).filter(Boolean);
+      for (const h of head) {
+        let mine = secOf(r, h.name);
+        if (h.name === 'music') { if (!r.children.some((c) => c.name === 'music')) r.children.push(h); continue; }
+        if (h.name === 'backdrop' || h.name === 'overlay') { if (!mine) r.children.push(h); continue; }
+        if (mine && h.name === 'layouts') continue; // the document's layouts replace the library's
+        if (!mine) { mine = { name: h.name, attrs: {}, children: [], text: '', line: 0 }; r.children.push(mine); }
+        if (h.name === 'themes') { // merge by id, token by token; the document's themes without a match borrow the library's first
+          for (const th of mine.children) { const from = h.children.find((x) => x.attrs.id === th.attrs.id) || h.children[0]; if (from) for (const [k, v] of Object.entries(from.attrs)) if (th.attrs[k] == null) th.attrs[k] = v; }
+          for (const lt of h.children) if (!mine.children.some((x) => x.attrs.id === lt.attrs.id)) mine.children.push(lt);
+          continue;
+        }
+        const have = new Set(mine.children.map((c) => c.attrs.id || c.attrs.family).filter(Boolean));
+        for (const c of h.children) { if (c.name === 'component') continue; const id = c.attrs.id || c.attrs.family; if (id && have.has(id)) continue; c.fromLib = true; mine.children.push(c); }
+      }
+      if (!r.attrs.font && lib.tree.attrs.font) r.attrs.font = lib.tree.attrs.font;
+    }
+    let count = 0;
+    const resolve = (name, scope) => {
+      const i = name.indexOf(':');
+      if (i < 0) { const c = scope.comps[name]; return c && !BUILTIN.has(name) ? { comp: c, scope, params: scope.params || {}, label: name } : null; }
+      const k = scope.ns[name.slice(0, i)]; if (!k) return null;
+      const id = name.slice(i + 1); const c = k.lib.comps[id];
+      if (!c) { errors.push('unknown component <' + name + '>: ' + k.lib.name + ' has ' + (Object.keys(k.lib.comps).join(', ') || 'none') + hint(id, Object.keys(k.lib.comps))); return { missing: true }; }
+      const s = libScope(k.lib, k.params); return { comp: c, scope: s, params: k.params, label: name };
+    };
+    // alias:id points into an imported library: ref="b:tick", url(#b:ink), @b:hello, src="b:pad", s('b:x'), data('b:x')
+    function nsRefs(el, scope) {
+      const P = (a, id) => { const k = scope.ns[a]; return k ? k.lib.name + '__' + id : null; };
+      for (const [k, v] of Object.entries(el.attrs)) {
+        // a library body may pick one of its own symbols by prop: ref="%{icon}" → lib__icon
+        if (scope.lib && k.split('.')[0] === 'ref' && scope.lib.ids.defs.has(v)) { el.attrs[k] = scope.lib.name + '__' + v; continue; }
+        if (v.indexOf(':') < 0) continue;
+        let w = v.replace(/url\(#([A-Za-z_][\w-]*):([\w-]+)\)/g, (m, a, id) => { const p = P(a, id); return p ? 'url(#' + p + ')' : m; });
+        w = w.replace(/\b(s|data|count)\(\s*(['"])([A-Za-z_][\w-]*):([^'"]+)\2/g, (m, f, q, a, id) => { const p = P(a, id); return p ? f + '(' + q + p + q : m; });
+        const base = k.split('.')[0]; const m = /^(@?)([A-Za-z_][\w-]*):([\w-]+)$/.exec(w);
+        if (m && (m[1] || base === 'ref' || base === 'src')) { const p = P(m[2], m[3]); if (p) w = m[1] + p; }
+        el.attrs[k] = w;
+      }
+    }
+    function expand(el, scope, depth) {
+      const out = [];
+      for (const c of el.children) {
+        if (c.done) { out.push(c); continue; }
+        if (c.name === 'import' || c.name === 'component') continue;
+        const hit = c.name.includes(':') || scope.comps[c.name] ? resolve(c.name, scope) : null;
+        if (hit && hit.missing) { errors[errors.length - 1] = 'line ' + c.line + ' ' + errors[errors.length - 1]; continue; }
+        if (!hit) { nsRefs(c, scope); if (c.name.includes(':')) errors.push('line ' + c.line + ' <' + c.name + '>: no import with as="' + c.name.split(':')[0] + '"' + hint(c.name.split(':')[0], Object.keys(scope.ns))); c.children = expand(c, scope, depth); out.push(c); continue; }
+        if (depth > 40) { errors.push('line ' + c.line + ' <' + c.name + '>: components nest too deep (a component that uses itself?)'); continue; }
+        if (++count > 20000) { errors.push('too many component expansions'); return out; }
+        const props = propsOf(hit.comp); const vals = Object.assign({}, hit.params); const variants = {};
+        for (const k of Object.keys(c.attrs)) {
+          const dot = k.indexOf('.'); const base = dot < 0 ? k : k.slice(0, dot);
+          if (base === 'slot' || base === 'id') continue;
+          if (!props[base]) { errors.push('line ' + c.line + ' <' + c.name + '>: unknown prop "' + base + '"' + hint(base, Object.keys(props)) + ' (props: ' + Object.keys(props).join(', ') + ')'); continue; }
+          if (dot >= 0) (variants[base] = variants[base] || {})[k.slice(dot + 1)] = c.attrs[k];
+        }
+        for (const p of Object.values(props)) {
+          if (c.attrs[p.name] != null) vals[p.name] = c.attrs[p.name];
+          else if (p.dflt != null) vals[p.name] = p.dflt;
+          else { errors.push('line ' + c.line + ' <' + c.name + '>: missing prop "' + p.name + '"' + (p.doc ? ' (' + p.doc + ')' : '')); vals[p.name] = ''; }
+        }
+        vals._uid = c.attrs.id || c.name.replace(':', '-') + '-' + uidOf(JSON.stringify(c.attrs) + (c.text || ''));
+        vals._line = String(c.line);
+        const slots = expand({ children: c.children }, scope, depth + 1).map((s) => { s.done = true; return s; });
+        const body = applyStatic(hit.comp.children.filter((x) => x.name !== 'prop'), vals, variants, slots, errors, c.line, c.name);
+        const res = expand({ children: body }, hit.scope, depth + 1);
+        const mark = (e) => { if (!e.done) { e.line = c.line; e.children.forEach(mark); } };
+        res.forEach(mark); out.push(...res);
+      }
+      return out;
+    }
+    r.children = r.children.filter((c) => c.name !== 'import' && c.name !== 'component');
+    r.children = expand(r, docScope, 0);
+    // drop library assets and fonts nothing uses (packages stay small); <font only="gu"> ships only with a gu choice
+    const used = []; const choices = new Set();
+    (function scan(e, skip) { if (skip) return; for (const [k, v] of Object.entries(e.attrs)) { used.push(v); if (e.name === 'choice' && k === 'id') choices.add(v); } used.push(e.text || ''); for (const c of e.children) scan(c, e.name === 'assets'); })(r, false);
+    const all = used.join('\n');
+    const uses = (id) => new RegExp('(^|[^\\w])' + id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '([^\\w]|$)').test(all);
+    for (const a of r.children.filter((c) => c.name === 'assets')) a.children = a.children.filter((c) => !c.fromLib || (c.name === 'font' ? uses(c.attrs.family) && (!c.attrs.only || c.attrs.only.split(/[ ,]+/).some((x) => choices.has(x))) : uses(c.attrs.id)));
+    for (const a of r.children.filter((c) => c.name === 'assets')) for (const c of a.children) delete c.attrs.only;
+    const lineMap = [0]; const xmlOut = serializeXML(r, lineMap);
+    return { xml: xmlOut, files, lineMap, errors, root: r };
+  }
+  // static template: %{prop} substitution, <if test>, <each items>, <slot>
+  function applyStatic(nodes, vals, variants, slots, errors, line, who) {
+    // %{p} = the prop's value; %{p#} = a short stable hash of it (ids that follow the content, e.g. say ids)
+    const sub = (s, v) => (s.indexOf('%{') < 0 ? s : s.replace(/%\{([A-Za-z_][\w.|-]*)(#)?\}/g, (m, k, h) => { const val = k.indexOf('|') < 0 ? v[k] : k.split('|').map((x) => v[x]).find((x) => x != null && x !== '') ?? v[k.split('|').pop()]; if (val == null) { errors.push('line ' + line + ' <' + who + '>: %{' + k + '} is not a prop here'); return ''; } return h ? 'h' + uidOf(val) : val; }));
+    const truthy = (s) => {
+      let m = /^([\s\S]*?)\s*(==|!=)\s*([\s\S]*)$/.exec(s); if (m) return (m[1].trim() === m[3].trim()) === (m[2] === '==');
+      return !['', '0', 'false', 'no', 'none'].includes(s.trim());
+    };
+    const out = [];
+    for (const n of nodes) {
+      if (n.name === 'slot') { const want = n.attrs.name || ''; for (const s of slots) if ((s.attrs.slot || '') === want) { delete s.attrs.slot; out.push(s); } continue; }
+      if (n.name === 'if') {
+        const ok = n.attrs.test != null ? truthy(sub(n.attrs.test, vals)) : n.attrs.not != null ? !truthy(sub(n.attrs.not, vals)) : true;
+        const kids = n.children.filter((c) => c.name !== 'else'); const els = n.children.find((c) => c.name === 'else');
+        out.push(...applyStatic(ok ? kids : els ? els.children : [], vals, variants, slots, errors, line, who)); continue;
+      }
+      if (n.name === 'each') {
+        const as = n.attrs.as || 'item'; const sep = n.attrs.sep || '|'; const fsep = n.attrs.fsep || '::';
+        const fields = (n.attrs.fields || '').split(',').map((x) => x.trim()).filter(Boolean);
+        const items = n.attrs.n != null ? Array.from({ length: Math.max(0, Math.min(1000, Math.floor(+sub(n.attrs.n, vals) || 0))) }, (_, i) => String(i))
+          : sub(n.attrs.items || '', vals).split(sep === 'lines' ? /\n|‖/ : sep).map((x) => (n.attrs.keep ? x.replace(/\s+$/, '') : x.trim())).filter((x, i, a) => (n.attrs.keep ? !(x === '' && (i === 0 || i === a.length - 1)) : x !== ''));
+        items.forEach((it, i) => {
+          const v = Object.assign({}, vals, { [as]: it, [as + '_i']: String(i), [as + '_1']: String(i + 1), [as + '_n']: String(items.length), [as + '_last']: i === items.length - 1 ? '1' : '0' });
+          const parts = it.split(fsep).map((x) => x.trim()); for (let j = 0; j < Math.max(4, parts.length); j++) v[as + '.' + j] = parts[j] != null ? parts[j] : ''; fields.forEach((f, j) => (v[as + '.' + f] = parts[j] != null ? parts[j] : ''));
+          out.push(...applyStatic(n.children, v, variants, slots, errors, line, who));
+        });
+        continue;
+      }
+      const c = { name: n.name, attrs: {}, children: [], text: sub(n.text || '', vals), line: n.line };
+      for (const [k, v] of Object.entries(n.attrs)) {
+        c.attrs[k] = sub(v, vals);
+        if (k.indexOf('.') < 0 && v.indexOf('%{') >= 0) for (const [p, vs] of Object.entries(variants)) if (v.indexOf('%{' + p + '}') >= 0) for (const [tag, val] of Object.entries(vs)) if (n.attrs[k + '.' + tag] == null) c.attrs[k + '.' + tag] = sub(v, Object.assign({}, vals, { [p]: val }));
+      }
+      c.children = applyStatic(n.children, vals, variants, slots, errors, line, who);
+      out.push(c);
+    }
+    return out;
+  }
+  // element tree → XML text; lineMap[outputLine] = the element's source line
+  function serializeXML(el, lineMap) {
+    const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;').replace(/\n/g, '&#10;');
+    const escT = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    let out = '<?xml version="1.0" encoding="UTF-8"?>\n'; let ln = 2;
+    const put = (s, srcLine) => { lineMap[ln] = srcLine || 0; out += s + '\n'; ln += 1 + (s.match(/\n/g) || []).length; };
+    (function w(e, ind) {
+      const a = Object.entries(e.attrs).map(([k, v]) => ' ' + k + '="' + esc(v) + '"').join('');
+      const text = e.text && e.text.trim() ? e.text : '';
+      if (!e.children.length && !text) return put(ind + '<' + e.name + a + '/>', e.line);
+      if (!e.children.length) return put(ind + '<' + e.name + a + '>' + escT(text.trim()) + '</' + e.name + '>', e.line);
+      put(ind + '<' + e.name + a + '>', e.line);
+      if (text) put(ind + '  ' + escT(text.trim()), e.line);
+      for (const c of e.children) w(c, ind + '  ');
+      put(ind + '</' + e.name + '>', e.line);
+    })(el, '');
+    return out;
+  }
+  // a library's components and props, for docs and `tsvg lib`
+  function describeLib(lib) {
+    return { name: lib.name, version: lib.version, doc: lib.doc, params: Object.values(lib.params), components: Object.entries(lib.comps).map(([id, c]) => ({ id, doc: c.attrs.doc || '', props: Object.values(propsOf(c)) })) };
+  }
+
   // ───────────────────────── expression language ─────────────────────────
   const PI = Math.PI;
   const EASE = {
@@ -70,6 +332,9 @@
     fract: (x) => x - Math.floor(x),
     ease: (k, name) => (EASE[name] || EASE.linear)(Math.min(1, Math.max(0, k))),
     fmt: (n, d) => Number(n).toFixed(d || 0),
+    // size of a picture of aspect a (w/h) fitted inside bw × bh (fit="contain")
+    fitw: (a, bw, bh) => Math.min(bw, bh * a), fith: (a, bw, bh) => Math.min(bw / a, bh),
+    num: (list, i) => { const p = String(list).trim().split(/[\s,]+/); return +p[((Math.floor(i) % p.length) + p.length) % p.length] || 0; }, // i-th number of "0.1 0.2 0.3"
     str: (x) => String(x),
     rgba: (r, g, b, a) => 'rgba(' + Math.round(r) + ',' + Math.round(g) + ',' + Math.round(b) + ',' + (a == null ? 1 : a) + ')',
     mix: (a, b, k) => lerpAny(a, b, k),
@@ -120,6 +385,7 @@
           return (env) => {
             const vals = args.map((a) => a(env));
             if (name === 's') return strOf(env.doc, String(vals[0]), env);
+            if (name === 'aspect') { const im = env.images && env.images[vals[0]]; const w = im && (im.naturalWidth || im.width), h = im && (im.naturalHeight || im.height); return w && h ? w / h : vals[1] != null ? vals[1] : 1.6; } // width / height of a loaded image
             if (name === 'data' || name === 'count') {
               const list = env.doc && env.doc.data[vals[0]]; if (!list) throw new Error('unknown data ' + vals[0]);
               if (name === 'count') return list.length;
@@ -165,8 +431,10 @@
   const AUDIO_EXT = /\.(ogg|opus|mp3|m4a|wav|aac|flac)$/i;
   const FONT_EXT = /\.(ttf|otf|woff2?)$/i;
 
-  function parse(xml) {
-    const r = parseXML(xml);
+  function parse(xml, o) {
+    let r;
+    if (typeof xml === 'string' && needsLibs(xml)) { const f = flatten(xml, o && o.libs, o); if (f.errors.length) throw new Error(f.errors[0]); r = f.root; }
+    else r = typeof xml === 'string' ? parseXML(xml) : xml;
     if (r.name !== 'tsvg') throw new Error('root element must be <tsvg>, found <' + r.name + '>');
     const kids = (el, name) => el.children.filter((c) => !name || c.name === name);
     const one = (name) => kids(r, name)[0];
@@ -226,6 +494,7 @@
       for (const c of el.children) {
         if (!SHAPES.has(c.name)) continue;
         const node = { type: c.name, a: c.attrs, anims: [], children: [], line: c.line };
+        if (c.name === 'image' && c.attrs.src && !doc.assets[c.attrs.src] && /[/.]/.test(c.attrs.src)) doc.assets[c.attrs.src] = { src: c.attrs.src, type: 'image' }; // <image src="path.png"> needs no <asset>
         for (const k of c.children) {
           if (k.name === 'anim') node.anims.push({ prop: k.attrs.prop, a: k.attrs });
           else if (k.name === 'keys') node.anims.push({ prop: k.attrs.prop, keys: parseKeys(k.attrs.v || k.text), ease: k.attrs.ease || 'io' });
@@ -586,7 +855,7 @@
     const vars = new Set(['t', 'T', 'T0', 'p', 'W', 'H', 'dur', 'sdur', 'portrait', 'layout', 'PI', 'true', 'false'].concat(doc.options.map((o) => o.id)));
     (function scan(el) { for (const c of el.children) { if (c.attrs.repeat != null) { const a = c.attrs.as || 'i'; vars.add(a); vars.add(a + '_n'); } scan(c); } })(r);
     for (const f of Object.values(doc.fnSrc)) for (const a of f.args) vars.add(a);
-    const fnNames = Object.keys(FNS).concat(Object.keys(doc.fns), ['data', 'count', 's']);
+    const fnNames = Object.keys(FNS).concat(Object.keys(doc.fns), ['data', 'count', 's', 'aspect']);
     const exprIssues = (src) => {
       const out = []; let toks; try { toks = tokenize(src); } catch (e) { return out; }
       toks.forEach((k, i) => {
@@ -641,7 +910,15 @@
     return { errors, warnings };
   }
 
-  function validate(xml, { files, samples = 4 } = {}) {
+  function validate(xml, vo = {}) {
+    const { files, samples = 4 } = vo;
+    if (needsLibs(xml)) { // imports/components: check the flattened document, report source lines
+      let f; try { f = flatten(xml, vo.libs, vo); } catch (e) { return { ok: false, errors: [e.message], warnings: [], doc: null }; }
+      if (f.errors.length) return { ok: false, errors: f.errors, warnings: [], doc: null };
+      const res = validate(f.xml, Object.assign({}, vo, { libs: null }));
+      const map = (m) => m.replace(/\bline (\d+)\b/g, (x, n) => (f.lineMap[+n] ? 'line ' + f.lineMap[+n] : x));
+      res.errors = res.errors.map(map); res.warnings = res.warnings.map(map); return res;
+    }
     const errors = [], warnings = [];
     let doc;
     try { doc = parse(xml); } catch (e) { return { ok: false, errors: [e.message], warnings, doc: null }; }
@@ -691,6 +968,6 @@
     root.Path2D = class { constructor() {} moveTo() {} lineTo() {} rect() {} roundRect() {} ellipse() {} closePath() {} addPath() {} };
   }
 
-  root.TSVG = { VERSION, lint, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
+  root.TSVG = { VERSION, PKG, needsLibs, loadLibs, flatten, serializeXML, describeLib, libUrl, lint, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.TSVG;
 })(typeof window !== 'undefined' ? window : globalThis);

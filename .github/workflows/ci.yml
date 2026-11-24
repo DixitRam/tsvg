@@ -11,6 +11,7 @@ jobs:
         with: { deno-version: v2.x }
       - run: node --check web/tsvg-core.js && node --check web/tsvg-player.js && node --check web/tsvg-zip.js
       - run: node cli/tsvg.mjs validate examples/demo/demo.tsvg && node cli/tsvg.mjs validate examples/features/features.tsvg
+      - run: node tests/unit.mjs && node cli/tsvg.mjs validate examples/libs/report.tsvg
       - run: node scripts/build-dist.mjs
       - run: deno check mod.ts
       - run: deno publish --dry-run --allow-dirty

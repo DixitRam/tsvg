@@ -48,12 +48,17 @@
 <script src="../web/tsvg-zip.js"></script>
 <script src="../web/tsvg-player.js"></script>
 <script>
+window.TSVG_LIB_BASE = new URL('../libs/', location.href).href; // tsvg:<lib> imports use this repo's libs/
+const docUrl = new URL(new URLSearchParams(location.search).get('doc') || '../examples/demo/demo.tsvg', location.href).href; // ?doc=../examples/libs/report.tsvg
 const frame = document.getElementById('frame'), src = document.getElementById('src'), msg = document.getElementById('msg');
-const player = new TSVGPlayer(frame, { base: new URL('../examples/demo/', location.href).href, onOptions: showOpts });
+const player = new TSVGPlayer(frame, { base: docUrl, onOptions: showOpts });
+const libOpts = { base: docUrl, fetchText: async (u) => { const r = await fetch(u); if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); } };
 let original = '';
 function showOpts(o) { document.getElementById('optline').textContent = Object.entries(o).map(([k, v]) => k + '=' + v).join(' · '); }
 async function apply() {
-  const r = TSVG.validate(src.value);
+  let libs = null;
+  if (TSVG.needsLibs(src.value)) { try { libs = await TSVG.loadLibs(src.value, libOpts); } catch (e) { msg.className = 'msg err'; msg.textContent = e.message; return; } }
+  const r = TSVG.validate(src.value, { libs, base: docUrl });
   msg.className = 'msg ' + (r.ok ? (r.warnings.length ? 'warn' : '') : 'err');
   msg.textContent = r.ok ? (r.warnings.length ? r.warnings.slice(0, 4).join('\n') : 'ok · ' + r.stats.duration + 's · ' + r.stats.variants + ' variants') : r.errors.slice(0, 4).join('\n');
   if (!r.doc) return;
@@ -65,7 +70,7 @@ async function boot() {
     const files = await TSVGZip.read(bytes); original = TSVGZip.text(files.get(TSVGZip.MAIN));
     await player.loadPackage(bytes);
   } else {
-    original = await (await fetch('../examples/demo/demo.tsvg')).text();
+    original = await (await fetch(docUrl)).text(); document.getElementById('name').textContent = docUrl.split('/').pop();
   }
   src.value = original; apply();
 }

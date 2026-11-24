@@ -12,6 +12,9 @@ abstract interface class TsvgDataHost {
 
   /// `s('id')` (0.2.2): the string in the current language.
   String stringOf(String id, Env env);
+
+  /// `aspect('src')` (0.4): width / height of a loaded image, by asset id or path.
+  Map<String, double> get aspects;
 }
 
 /// Evaluation environment of one node (see `makeEnv` in the reference).
@@ -109,6 +112,16 @@ final Map<String, Object? Function(List<Object?> a)> builtins = {
     return rand01(n.isNaN ? 0 : n);
   },
   'noise': (a) => noise1(_n(a, 0)),
+  // 0.4: i-th number of a "0.1 0.2 0.3" list (index wraps), and a picture of aspect a fitted inside bw × bh
+  'num': (a) {
+    final p = toStr(_a(a, 0)).trim().split(RegExp(r'[\s,]+'));
+    final i = _n(a, 1);
+    final k = i.isFinite ? (i.floorToDouble() % p.length).toInt() : 0;
+    final v = double.tryParse(p[k]);
+    return v == null || v.isNaN ? 0.0 : v;
+  },
+  'fitw': (a) => jsMin([_n(a, 1), _n(a, 2) * _n(a, 0)]),
+  'fith': (a) => jsMin([_n(a, 1) / _n(a, 0), _n(a, 2)]),
 };
 
 /// `rand(seed)` = fract(sin(seed·12.9898 + 78.233)·43758.5453), with JS's sin.
@@ -291,6 +304,11 @@ Expr compileExpr(String src) {
             final host = env.doc;
             if (host is! TsvgDataHost) throw TsvgError('unknown string @${toStr(vals.isEmpty ? null : vals[0])}');
             return host.stringOf(toStr(vals.isEmpty ? null : vals[0]), env);
+          }
+          if (name == 'aspect') {
+            final host = env.doc;
+            final v = host is TsvgDataHost ? host.aspects[toStr(vals.isEmpty ? null : vals[0])] : null;
+            return v ?? (vals.length > 1 ? toNum(vals[1]) : 1.6);
           }
           if (builtin != null) return builtin(vals);
           final f = env.fns[name];

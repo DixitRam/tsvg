@@ -115,5 +115,26 @@
     "file": "examples/features/features.tsvg",
     "t": 24.5,
     "layout": "landscape"
+  },
+  {
+    "name": "lib-report-list",
+    "file": "examples/libs/report.tsvg",
+    "t": 17,
+    "layout": "landscape"
+  },
+  {
+    "name": "lib-report-shot-portrait",
+    "file": "examples/libs/report.tsvg",
+    "t": 26,
+    "layout": "portrait"
+  },
+  {
+    "name": "lib-explainer-stat-ink",
+    "file": "examples/libs/explainer.tsvg",
+    "t": 31,
+    "layout": "landscape",
+    "opts": {
+      "theme": "ink"
+    }
   }
 ]

@@ -73,6 +73,7 @@ class TsvgMedia extends ChangeNotifier {
           }
           _images[src] = img;
           _images[e.key] = img;
+          doc.aspects[src] = doc.aspects[e.key] = img.width / img.height;
           version++;
           notifyListeners();
         } catch (err) {
