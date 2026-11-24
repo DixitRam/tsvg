@@ -26,6 +26,7 @@ import { deflateRawSync, inflateRawSync } from 'node:zlib';
 import { createServer } from 'node:http';
 import { createRequire } from 'node:module';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { detectBeats } from './beats.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(import.meta.url);
@@ -245,7 +246,7 @@ async function make() {
   const t0 = Date.now();
   let r = await runCheck(src0, { fast: true }); if (r.errors.length) { printIssues(r); die(`${r.errors.length} error(s): fix them and run make again`); }
   const doc0 = r.doc; const langs = (doc0.options.find((o) => o.id === 'lang') || { choices: [{ id: 'en' }] }).choices.map((c) => c.id);
-  const missing = langs.some((l) => TSVG.sayLines(doc0, Object.assign(TSVG.defaults(doc0), { lang: l })).some((x) => !x.clip));
+  const missing = langs.some((l) => TSVG.sayLines(doc0, Object.assign(TSVG.defaults(doc0), { lang: l })).some((x) => !x.clip)) || doc0.audio.some((a) => a.beats && !(doc0.data[a.beats] || []).length);
   if (missing && !flag('no-bake')) { console.log('· baking voices'); await bake(); }
   const src = await openSource(pos[0]); const { b, page } = await browser(src);
   r = await runCheck(src, { page }); printIssues(r);
@@ -356,6 +357,22 @@ async function bake() {
   if (existsSync(vdir)) for (const l of readdirSync(vdir)) for (const f of readdirSync(join(vdir, l))) { const p = `voice/${docName}/${l}/${f}`; if (!keep.has(p)) unlinkSync(join(src.dir, p)); }
   const block = '<voices>\n' + Object.entries(voices).sort().map(([k, v]) => { const [say, lang] = k.split('|'); return `    <voice say="${say}" lang="${lang}" src="${v.src}" dur="${(+v.dur).toFixed(2)}" hash="${v.hash}" engine="${v.engine}"/>`; }).join('\n') + '\n  </voices>';
   let xml = src.srcXml || src.xml;
+  // <music beats="id">: the music's beat grid as <data id="id"> (looped music repeats it to the end of the video)
+  for (const m of doc.audio.filter((a) => a.beats)) {
+    const path = TSVG.assetPath(doc, m.src); const bytes = src.get(path); if (!bytes) { console.log('warn  beats: no file ' + path); continue; }
+    const tag = createHash('sha1').update(bytes).digest('hex').slice(0, 10) + '@' + m.start;
+    if (new RegExp('<data id="' + m.beats + '"[^>]*from="' + tag + '"').test(xml) && !flag('force')) continue;
+    const tmpf = join(src.dir, '.tsvg-beats-' + process.pid + extname(path)); writeFileSync(tmpf, bytes);
+    let grid; try { grid = detectBeats(tmpf); } finally { rmSync(tmpf, { force: true }); }
+    const len = probeDur(join(src.dir, path)) || (existsSync(tmpf) ? 0 : 0); const total = Math.max(...TSVG.combos(doc).map((o) => TSVG.forOptions(doc, Object.assign(TSVG.defaults(doc), o)).duration), doc.duration);
+    const music = grid.length ? grid : []; const out = []; const L = music.length ? Math.max(music[music.length - 1] + 0.01, len || 0) : 0;
+    for (let k = 0; L && m.start + k * L < total + 1; k++) { for (const b of music) { const t = m.start + k * L + b; if (t <= total + 1) out.push(+t.toFixed(3)); } if (!m.loop) break; }
+    const el = `<data id="${m.beats}" from="${tag}" v="${out.join(', ')}"/>`;
+    if (new RegExp('<data id="' + m.beats + '"[^>]*/>').test(xml)) xml = xml.replace(new RegExp('<data id="' + m.beats + '"[^>]*/>'), el);
+    else if (/<defs>/.test(xml)) xml = xml.replace(/<defs>/, '<defs>\n    ' + el);
+    else xml = xml.replace(/(\n\s*)<timeline/, '$1<defs>$1  <!-- written by `tsvg bake`: the beat grid of the music -->$1  ' + el + '$1</defs>$1<timeline');
+    console.log(`bake: beats → <data id="${m.beats}"> ${out.length} beats (${music.length > 1 ? (60 / (music[1] - music[0])).toFixed(0) + ' bpm' : '?'})`);
+  }
   if (/<voices\b[\s\S]*?<\/voices>|<voices\s*\/>/.test(xml)) xml = xml.replace(/<voices\b[\s\S]*?<\/voices>|<voices\s*\/>/, block);
   else xml = xml.replace(/\n?<\/tsvg>\s*$/, '\n\n  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->\n  ' + block + '\n</tsvg>\n');
   writeFileSync(src.path, xml);
@@ -548,7 +565,9 @@ async function exportMp4() {
     const f = join(tmp, 'a' + i + extname(p)); writeFileSync(f, data);
     if (c.loop) inputs.push('-stream_loop', '-1'); inputs.push('-i', f);
     const k = inputs.filter((x) => x === '-i').length; const ms = Math.round(c.start * 1000);
-    chains.push(`[${k}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:${doc.duration - c.start},adelay=${ms}:all=1,volume=${gain.toFixed(3)}[a${k}]`);
+    // ducking (mix duck=…): the music bus dips under every spoken line
+    const duck = plan.mix.duck != null && plan.mix.duck < 1 && c.bus === 'music' ? TSVG.sayLines(doc, opts).filter((l) => l.clip).map((l) => `,volume=${(+plan.mix.duck).toFixed(3)}:enable='between(t,${Math.max(0, l.start - 0.1).toFixed(2)},${(l.start + l.dur + 0.15).toFixed(2)})'`).join('') : '';
+    chains.push(`[${k}:a]aresample=48000,aformat=channel_layouts=stereo,atrim=0:${doc.duration - c.start},adelay=${ms}:all=1,volume=${gain.toFixed(3)}${duck}[a${k}]`);
   });
   if (chains.length) {
     const labels = chains.map((c) => c.slice(c.lastIndexOf('['))).join('');

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- TSVG 0.9: colour grades (filter), skew, tsvg:fx (grain, vignette, scanlines, leaks, flash, glow, shake, beat),
+     a beat grid baked from the music (music beats="beats"), and ducking (mix duck=…). -->
+<tsvg version="0.9" title="Effects + beats">
+  <import src="tsvg:base" as="b" key="TSVG 0.9 · effects + beats"/>
+  <import src="tsvg:fx" as="fx"/>
+  <import src="tsvg:icons" as="i"/>
+  <mixes>
+    <mix id="full" voice="1" music="0.5" sfx="0.6" duck="0.3"/>
+    <mix id="speech" voice="1" music="0" sfx="0"/>
+  </mixes>
+  <assets>
+    <asset id="beat" src="audio/pulse.m4a"/>
+    <asset id="photo" src="images/city.jpg"/>
+    <asset id="clip" src="clips/fractal.mp4"/>
+  </assets>
+  <music src="beat" loop="1" vol="1" beats="beats"/>
+  <defs>
+    <!-- written by `tsvg bake`: the beat grid of the music -->
+    <data id="beats" from="baada42489@0" v="0.18, 0.68, 1.18, 1.68, 2.18, 2.68, 3.18, 3.68, 4.18, 4.68, 5.18, 5.68, 6.18, 6.68, 7.18, 7.68, 8.18, 8.68, 9.18, 9.68, 10.18, 10.68, 11.18, 11.68, 12.18, 12.68, 13.18, 13.68, 14.18, 14.68, 15.18, 15.68, 16.18, 16.68, 17.18, 17.68, 18.18, 18.68, 19.18, 19.68, 20.18, 20.68, 21.18, 21.68, 22.18, 22.68, 23.18, 23.68, 24.18, 24.68, 25.18, 25.68, 26.18, 26.68, 27.18, 27.68, 28.18, 28.68, 29.18, 29.68, 30.18, 30.68, 31.18, 31.68, 32.18, 32.68"/>
+  </defs>
+  <timeline in="fade 0.5">
+    <scene id="grade" dur="auto" min="7" chapter="Colour grades">
+      <say text="Filters grade anything: a photo fades from black and white into colour."/>
+      <image src="photo" x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=W" h="=H" fit="cover" filter="grayscale({1 - clamp((T - 1) / 3, 0, 1)}) contrast(1.1)"/>
+      <fx:vignette strength="0.8"/>
+      <text x="=W/2" y="=H-140" size="72" weight="800" align="center" fill="#fff" shadow="0 6 30 #000c" text="grayscale → colour" at="0.6"><anim prop="opacity" from="0" to="1" dur="0.5"/></text>
+    </scene>
+    <scene id="looks" dur="auto" min="7" chapter="Looks" in="push 0.6 left">
+      <say text="Or pick a look by name: mono, warm, vintage, punch, noir or cool."/>
+      <grid x="=W/2" y="=H/2" ax="0.5" ay="0.5" cols="3" cols.portrait="2" gap="24">
+        <col repeat="6" as="k" gap="10" align="center" at="=0.3 + k*0.15"><anim prop="opacity" from="0" to="1" dur="0.3"/>
+          <fx:grade look="none" filter="=nth('grayscale(1) contrast(1.1) | sepia(0.25) saturate(1.2) hue(-8) | sepia(0.55) contrast(0.9) saturate(0.8) brightness(1.05) | contrast(1.25) saturate(1.45) | grayscale(1) contrast(1.5) brightness(0.9) | saturate(1.1) hue(12) brightness(1.02)', k)">
+            <image src="photo" w="520" w.portrait="460" h="300" h.portrait="270" r="16" fit="cover"/>
+          </fx:grade>
+          <text size="28" weight="700" text="=nth('mono | warm | vintage | punch | noir | cool', k)"/>
+        </col>
+      </grid>
+    </scene>
+    <scene id="skew" dur="auto" min="6" chapter="Skew + glow" in="zoom 0.6">
+      <say text="Skew gives cards a sense of motion, and glow makes neon."/>
+      <grid x="=W/2" y="=H/2" ax="0.5" ay="0.5" cols="4" cols.portrait="2" gap="60" align="center" justify="center">
+        <rect repeat="3" as="k" w="300" h="380" r="24" fill="=nth('$accent, $accent2, $good', k)" skx="=-12 + 12 * sin(T * 2 + k)" at="=0.3 + k * 0.2"><anim prop="opacity" from="0" to="1" dur="0.3"/></rect>
+        <fx:glow color="#ff3cf0" radius="40"><text size="120" weight="800" fill="#ffd9fb" text="NEON" at="0.8"/></fx:glow>
+      </grid>
+      <fx:scanlines/>
+    </scene>
+    <scene id="beats" dur="auto" min="8" chapter="On the beat" in="iris 0.7">
+      <say text="The music's beat grid is baked into the file, so shapes can pulse on every beat."/>
+      <say text="And the music dips under the voice by itself."/>
+      <video src="clip" x="=W/2" y="=H/2" ax="0.5" ay="0.5" w="=W" h="=H" fit="cover" filter="saturate(0.6) brightness(0.55)"/>
+      <fx:beat beats="beats" amount="0.12" x="=W/2" y="=H/2">
+        <circle r="160" fill="none" stroke="#fff" sw="10"/>
+        <i:icon name="eighth-notes" size="140" color="#fff"/>
+      </fx:beat>
+      <circle repeat="16" as="k" x="=W/2 + cos(k / 16 * 2 * PI) * 330" y="=H/2 + sin(k / 16 * 2 * PI) * 330" r="=10 + 24 * pulse(t, 'beats', 0.2)" fill="=k % 2 ? $accent : $accent2"/>
+      <text x="=W/2" y="=H-120" size="40" weight="700" align="center" fill="#fff" text="beat {idx(t, 'beats')}"/>
+      <fx:grain/><fx:leak/>
+      <fx:flash at="0.5"/>
+    </scene>
+  </timeline>
+
+  <!-- written by `tsvg bake`: one recorded clip per <say> line and language -->
+  <voices>
+    <voice say="say0" lang="en" src="voice/fx/en/say0.93659c6539.m4a" dur="4.30" hash="93659c6539" engine="kokoro:af_heart"/>
+    <voice say="say1" lang="en" src="voice/fx/en/say1.8dc63905cc.m4a" dur="4.40" hash="8dc63905cc" engine="kokoro:af_heart"/>
+    <voice say="say2" lang="en" src="voice/fx/en/say2.af9404e10d.m4a" dur="3.40" hash="af9404e10d" engine="kokoro:af_heart"/>
+    <voice say="say3" lang="en" src="voice/fx/en/say3.b8dbfe9918.m4a" dur="4.60" hash="b8dbfe9918" engine="kokoro:af_heart"/>
+    <voice say="say4" lang="en" src="voice/fx/en/say4.9529094733.m4a" dur="2.43" hash="9529094733" engine="kokoro:af_heart"/>
+  </voices>
+</tsvg>

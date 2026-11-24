@@ -6,7 +6,7 @@
 // thumbnails free, and what lets every native engine be tested against golden frames.
 (function (root) {
   'use strict';
-  const VERSION = '0.8';
+  const VERSION = '0.9';
 
   // ───────────────────────── XML (subset) ─────────────────────────
   // Elements, attributes, text, comments, <?…?>, <!…>, CDATA, the 5 named
@@ -53,7 +53,7 @@
   // symbols, gradients, fns) and document defaults. <r:title text="…"/> expands a component with props.
   // Expansion is static and happens before parse: flatten() turns a document with imports into plain TSVG
   // (packages carry the flattened main.tsvg, so every player plays them). Local components live in <defs>.
-  const PKG = '0.8.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
+  const PKG = '0.9.0'; // package version: tsvg:<lib> resolves to this release's libs on jsr.io
   const HEAD = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'music', 'backdrop', 'overlay'];
   const BUILTIN = new Set(['tsvg', 'layouts', 'layout', 'options', 'option', 'choice', 'mixes', 'mix', 'themes', 'theme', 'strings', 's', 'defs', 'fn', 'symbol', 'linear', 'radial', 'stop', 'clip', 'mask', 'data', 'assets', 'asset', 'font', 'voices', 'voice', 'music', 'backdrop', 'overlay', 'timeline', 'scene', 'say', 'sfx', 'anim', 'keys', 'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'import', 'component', 'prop', 'slot', 'each', 'if']);
   const needsLibs = (xml) => /<(import|component|dict)\b/.test(xml);
@@ -432,6 +432,15 @@
               return name === 'cue' ? c.at : c.end;
             }
             if (name === 'aspect') { const im = env.images && env.images[vals[0]]; const w = im && (im.naturalWidth || im.width), h = im && (im.naturalHeight || im.height); return w && h ? w / h : vals[1] != null ? vals[1] : 1.6; } // width / height of a loaded image
+            // time lists (beats, cues): since(t, 'beats') seconds since the last time ≤ t, idx(t, 'beats') how many ≤ t,
+            // pulse(t, 'beats', decay) 1 on each time, fading with exp(-(t − last)/decay)
+            if (name === 'since' || name === 'idx' || name === 'pulse') {
+              const list = env.doc && env.doc.data[vals[1]]; if (!list) throw new Error('unknown data ' + vals[1]);
+              const t = +vals[0]; let lo = 0, hi = list.length; while (lo < hi) { const mid = (lo + hi) >> 1; if (+list[mid] <= t) lo = mid + 1; else hi = mid; }
+              if (name === 'idx') return lo;
+              const dt = lo ? t - +list[lo - 1] : Infinity;
+              return name === 'since' ? (lo ? dt : 1e9) : lo ? Math.exp(-dt / (vals[2] > 0 ? +vals[2] : 0.25)) : 0;
+            }
             if (name === 'data' || name === 'count') {
               const list = env.doc && env.doc.data[vals[0]]; if (!list) throw new Error('unknown data ' + vals[0]);
               if (name === 'count') return list.length;
@@ -515,7 +524,7 @@
       else if (a.name === 'asset') doc.assets[a.attrs.id] = { src: a.attrs.src, type: a.attrs.type || guessType(a.attrs.src), poster: a.attrs.poster, dur: a.attrs.dur != null ? +a.attrs.dur : undefined };
     }
     for (const v of kids(one('voices') || r, 'voice')) doc.voices[v.attrs.say + '|' + v.attrs.lang] = { src: v.attrs.src, dur: +v.attrs.dur || 0, hash: v.attrs.hash || '', engine: v.attrs.engine || '' };
-    for (const m of kids(r, 'music')) doc.audio.push({ bus: m.attrs.bus || 'music', src: m.attrs.src, start: +(m.attrs.start || 0), loop: m.attrs.loop === '1', vol: +(m.attrs.vol || 1), when: m.attrs.when });
+    for (const m of kids(r, 'music')) doc.audio.push({ bus: m.attrs.bus || 'music', src: m.attrs.src, start: +(m.attrs.start || 0), loop: m.attrs.loop === '1', vol: +(m.attrs.vol || 1), when: m.attrs.when, beats: m.attrs.beats });
     const bd = one('backdrop'); if (bd) doc.backdrop = buildNodes(bd);
     const ov = one('overlay'); if (ov) doc.overlay = buildNodes(ov);
     // the timeline is kept as written; timing() lays it out for one option set (scene lengths may follow the narration)
@@ -529,6 +538,7 @@
       doc.sceneSrc.push(src);
     }
     doc.music = doc.audio.slice();
+    for (const m of doc.music) if (m.beats && !doc.data[m.beats]) doc.data[m.beats] = []; // until tsvg bake writes the grid
     doc.timelineIn = (one('timeline') || {}).attrs ? one('timeline').attrs.in : undefined; // default transition for every scene
     const varied = (a, names) => Object.keys(a).some((k) => names.includes(k.split('.')[0]) && k.includes('.'));
     doc.timed = doc.sceneSrc.some((s) => s.a.dur === 'auto' || varied(s.a, ['dur', 'start']) || s.says.some((x) => varied(x.raw, ['at'])) || s.sfx.some((x) => varied(x, ['at'])));
@@ -633,7 +643,7 @@
     return v === undefined ? dflt : v;
   }
   // errors say where they happened: the attribute, then the element's line (added once, innermost first)
-  function where(e, ctx) { if (!(e instanceof Error)) e = new Error(String(e)); if (!e.tsvgAttr) { e.tsvgAttr = true; e.message = ctx + ': ' + e.message; } return e; }
+  function where(e, ctx) { if (!(e instanceof Error) || (typeof DOMException !== 'undefined' && e instanceof DOMException)) e = new Error(String(e && e.message || e)); if (!e.tsvgAttr) { e.tsvgAttr = true; e.message = ctx + ': ' + e.message; } return e; }
 
   function parseColor(c) {
     if (typeof c !== 'string') return null;
@@ -886,6 +896,16 @@
         return { w, h, ox: al === 'center' ? w / 2 : al === 'right' ? w : 0, oy: h / 2 };
       }
       case 'row': case 'col': case 'grid': { const L = arrange(ctx, n, env); return { w: L.w, h: L.h, ox: L.w * P('ax', 0), oy: L.h * P('ay', 0) }; }
+      case 'group': case 'use': {
+        // a group without w/h is as big as its children (0.9): wrappers like <fx:grade> keep their content's size
+        if (n.a.w == null && n.a.h == null) {
+          const kids = n.type === 'use' ? env.doc.symbols[n.a.ref] || [] : n.children; let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+          for (const c of kids) { if (!inFlow(c, env)) continue; const b = boxOf(ctx, c, env); const cx = +prop(c, 'x', env, env.doc, 0) || 0, cy = +prop(c, 'y', env, env.doc, 0) || 0; x0 = Math.min(x0, cx - b.ox); y0 = Math.min(y0, cy - b.oy); x1 = Math.max(x1, cx - b.ox + b.w); y1 = Math.max(y1, cy - b.oy + b.h); }
+          if (x0 === Infinity) return { w: 0, h: 0, ox: 0, oy: 0 };
+          return { w: x1 - x0, h: y1 - y0, ox: -x0, oy: -y0 };
+        }
+        const w = P('w', 0), h = P('h', 0); return { w, h, ox: w * P('ax', 0), oy: h * P('ay', 0) };
+      }
       default: { const w = P('w', 0), h = P('h', 0); return { w, h, ox: w * P('ax', 0), oy: h * P('ay', 0) }; }
     }
   }
@@ -951,7 +971,7 @@
   // repeat="n" [as="i"]: draw the node n times with i = 0…n-1 (and i_n = n) in its expressions
   function drawNode(ctx, n, parentEnv) {
     try { drawNodeIn(ctx, n, parentEnv); }
-    catch (e) { if (!(e instanceof Error)) e = new Error(String(e)); if (!e.tsvgLine && n.line) { e.tsvgLine = n.line; e.message = 'line ' + n.line + ' <' + n.type + '>: ' + e.message; } throw e; }
+    catch (e) { if (!(e instanceof Error) || Object.getOwnPropertyDescriptor(e, 'message') == null && typeof DOMException !== 'undefined' && e instanceof DOMException) e = new Error(String(e && e.message || e)); if (!e.tsvgLine && n.line) { e.tsvgLine = n.line; e.message = 'line ' + n.line + ' <' + n.type + '>: ' + e.message; } throw e; }
   }
   function drawNodeIn(ctx, n, parentEnv) {
     const r = n.a.repeat;
@@ -974,14 +994,17 @@
     ctx.save();
     ctx.globalAlpha *= Math.min(1, opacity);
     const blend = pick(n.a, 'blend', env); if (blend) ctx.globalCompositeOperation = blend;
-    const blur = P('blur', 0);
-    if (blur > 0 && 'filter' in ctx) { const m = ctx.getTransform(); ctx.filter = 'blur(' + (blur * Math.sqrt(Math.abs(m.a * m.d - m.b * m.c))).toFixed(2) + 'px)'; }
-    const rot = S('rot', 0), scale = S('scale', 1), sx = S('sx', 1) * scale, sy = S('sy', 1) * scale;
+    const blur = P('blur', 0); const filt = P('filter', null);
+    if ((blur > 0 || (filt && filt !== 'none')) && 'filter' in ctx) {
+      const m = ctx.getTransform(); const k = Math.sqrt(Math.abs(m.a * m.d - m.b * m.c));
+      ctx.filter = [blur > 0 ? 'blur(' + (blur * k).toFixed(2) + 'px)' : '', filt && filt !== 'none' ? cssFilter(String(filt), k) : ''].concat(ctx.filter && ctx.filter !== 'none' ? [ctx.filter] : []).filter(Boolean).join(' ');
+    }
+    const rot = S('rot', 0), scale = S('scale', 1), sx = S('sx', 1) * scale, sy = S('sy', 1) * scale, skx = S('skx', 0), sky = S('sky', 0);
     const fillRaw = P('fill', n.type === 'text' ? env.theme.fg || '#fff' : undefined);
     const strokeRaw = P('stroke'), sw = P('sw', 0);
     shadowOf(ctx, P('shadow'), env);
     const dash = P('dash'); if (dash && dash !== 'none') ctx.setLineDash(String(dash).trim().split(/[\s,]+/).map(Number));
-    const pivot = (px, py) => { if (rot || sx !== 1 || sy !== 1) { ctx.translate(px, py); if (rot) ctx.rotate((rot * PI) / 180); if (sx !== 1 || sy !== 1) ctx.scale(sx, sy); ctx.translate(-px, -py); } };
+    const pivot = (px, py) => { if (rot || sx !== 1 || sy !== 1 || skx || sky) { ctx.translate(px, py); if (rot) ctx.rotate((rot * PI) / 180); if (skx || sky) ctx.transform(1, Math.tan((sky * PI) / 180), Math.tan((skx * PI) / 180), 1, 0, 0); if (sx !== 1 || sy !== 1) ctx.scale(sx, sy); ctx.translate(-px, -py); } };
     const clipTo = () => {
       const c = pick(n.a, 'clip', env); if (!c) return;
       const m = /^url\(#([\w-]+)\)$/.exec(c); const shapes = m && doc.clips[m[1]]; if (!shapes) throw new Error('unknown clip ' + c);
@@ -1076,7 +1099,7 @@
         const w = P('w', 100), h = P('h', 100), x = P('x', 0) - w * P('ax', 0), y = P('y', 0) - h * P('ay', 0), r = P('r', 0);
         pivot(x + w / 2, y + h / 2); clipTo();
         if (r > 0) { const p = new Path2D(); p.roundRect(x, y, w, h, r); ctx.clip(p); }
-        if (img && (img.complete !== false)) {
+        if (img && img.complete !== false && (img.naturalWidth !== 0 || img.width)) { // a broken image draws the grey box
           const fit = P('fit', 'cover'); const iw = img.naturalWidth || img.width, ih = img.naturalHeight || img.height;
           if (fit === 'fill' || !iw) ctx.drawImage(img, x, y, w, h);
           else { const k = fit === 'contain' ? Math.min(w / iw, h / ih) : Math.max(w / iw, h / ih); const dw = iw * k, dh = ih * k; ctx.save(); ctx.beginPath(); ctx.rect(x, y, w, h); ctx.clip(); ctx.drawImage(img, x + (w - dw) / 2, y + (h - dh) / 2, dw, dh); ctx.restore(); }
@@ -1085,6 +1108,16 @@
       }
     }
     ctx.restore();
+  }
+  // filter="grayscale(1) sepia(.4) contrast(1.2) brightness(1.1) saturate(1.5) hue(30) invert(1) blur(4) opacity(.8)" (0.9):
+  // CSS filter functions in layout units; hue = degrees. Applies to the node (a group: each of its children).
+  const FILTERS = ['grayscale', 'sepia', 'contrast', 'brightness', 'saturate', 'hue', 'invert', 'blur', 'opacity'];
+  function cssFilter(f, k) {
+    return f.replace(/([a-z-]+)\(\s*(-?[0-9.]+)\s*(deg|px|%)?\s*\)/g, (m, name, v) => {
+      if (name === 'hue' || name === 'hue-rotate') return 'hue-rotate(' + v + 'deg)';
+      if (name === 'blur') return 'blur(' + (+v * k).toFixed(2) + 'px)';
+      return name + '(' + v + ')';
+    });
   }
   // a picture (image, video element, canvas) fitted into a box; a grey box while it isn't ready
   function drawPicture(ctx, img, x, y, w, h, fit) {
@@ -1189,6 +1222,14 @@
     for (const l of sayLines(doc, opts)) if (l.clip) clips.push({ bus: 'voice', src: l.clip, start: l.start, vol: 1 });
     return { mix, clips };
   }
+  // ducking (0.9): <mix id="full" voice="1" music="0.3" duck="0.35"> lowers the music bus to duck× while a line is
+  // spoken (0.25 s ramps either side). duckAt gives the factor at time t; players and exports apply it to the music bus.
+  function duckAt(doc, opts, t, lines) {
+    const mix = doc.mixes[opts.mix] || {}; const d = mix.duck; if (d == null || d >= 1) return 1;
+    let k = 0; const R = 0.25;
+    for (const l of lines || sayLines(doc, opts)) { if (!l.clip && !l.text) continue; const a = l.start, b = l.start + l.dur; const w = t < a ? 1 - (a - t) / R : t > b ? 1 - (t - b) / R : 1; if (w > k) k = w; if (k >= 1) break; }
+    return 1 - (1 - d) * Math.max(0, Math.min(1, k));
+  }
   // asset id or path → path inside the package
   function assetPath(doc, ref) { return ref && doc.assets[ref] ? doc.assets[ref].src : ref; }
 
@@ -1203,7 +1244,7 @@
   // Static checks + a dry run of every frame sample under every option set and layout
   // against a recording context (no canvas needed). files: Set of paths in the package (optional).
   // ───────── lint: static checks on the source, with line numbers and "did you mean" ─────────
-  const COMMON = ['x', 'y', 'fill', 'stroke', 'sw', 'cap', 'opacity', 'rot', 'scale', 'sx', 'sy', 'shadow', 'clip', 'mask', 'blend', 'blur', 'dash', 'at', 'dur', 'when', 'only', 'repeat', 'as', 'id', 'grow'];
+  const COMMON = ['x', 'y', 'fill', 'stroke', 'sw', 'cap', 'opacity', 'rot', 'scale', 'sx', 'sy', 'skx', 'sky', 'filter', 'shadow', 'clip', 'mask', 'blend', 'blur', 'dash', 'at', 'dur', 'when', 'only', 'repeat', 'as', 'id', 'grow'];
   const ATTRS = {
     rect: ['w', 'h', 'r', 'ax', 'ay'], circle: ['r', 'from', 'to', 'arc'], ellipse: ['rx', 'ry', 'from', 'to', 'arc'],
     line: ['x1', 'y1', 'x2', 'y2', 'draw'], path: ['d', 'draw'], text: ['text', 'size', 'weight', 'italic', 'font', 'align', 'maxw', 'lh', 'reveal', 'rich', 'ls', 'split', 'stagger', 'path', 'offset', 'hl'],
@@ -1212,7 +1253,7 @@
   };
   const OTHER = {
     anim: ['prop', 'from', 'to', 'at', 'dur', 'ease'], keys: ['prop', 'v', 'ease'], say: ['at', 'text', 'speak', 'voice', 'dur', 'id', 'when', 'src'],
-    sfx: ['at', 'src', 'vol', 'bus', 'when'], scene: ['id', 'dur', 'start', 'chapter', 'min', 'pad', 'gap', 'in'], music: ['src', 'start', 'loop', 'vol', 'bus', 'when'],
+    sfx: ['at', 'src', 'vol', 'bus', 'when'], scene: ['id', 'dur', 'start', 'chapter', 'min', 'pad', 'gap', 'in'], music: ['src', 'start', 'loop', 'vol', 'bus', 'when', 'beats'],
   };
   const CONTAINERS = new Set(['scene', 'group', 'backdrop', 'overlay', 'symbol', 'clip', 'mask']);
   const ROOT_KIDS = ['layouts', 'options', 'mixes', 'themes', 'strings', 'defs', 'assets', 'voices', 'music', 'backdrop', 'timeline', 'overlay'];
@@ -1228,7 +1269,7 @@
     const vars = new Set(['t', 'T', 'T0', 'p', 'W', 'H', 'dur', 'sdur', 'portrait', 'layout', 'PI', 'true', 'false'].concat(doc.options.map((o) => o.id)));
     (function scan(el) { for (const c of el.children) { if (c.attrs.repeat != null) { const a = c.attrs.as || 'i'; vars.add(a); vars.add(a + '_n'); } scan(c); } })(r);
     for (const f of Object.values(doc.fnSrc)) for (const a of f.args) vars.add(a);
-    const fnNames = Object.keys(FNS).concat(Object.keys(doc.fns), ['data', 'count', 's', 'aspect', 'cue', 'cueEnd', 'nth']);
+    const fnNames = Object.keys(FNS).concat(Object.keys(doc.fns), ['data', 'count', 's', 'aspect', 'cue', 'cueEnd', 'nth', 'since', 'idx', 'pulse']);
     const exprIssues = (src) => {
       const out = []; let toks; try { toks = tokenize(src); } catch (e) { return out; }
       toks.forEach((k, i) => {
@@ -1299,6 +1340,7 @@
     try { doc = parse(xml); } catch (e) { return { ok: false, errors: [e.message], warnings, doc: null }; }
     try { const l = lint(xml, doc); errors.push(...l.errors); warnings.push(...l.warnings); } catch (e) { warnings.push('lint failed: ' + e.message); }
     const langs = (doc.options.find((o) => o.id === 'lang') || { choices: [] }).choices.map((c) => c.id);
+    for (const m of doc.audio) if (m.beats && !doc.data[m.beats].length) warnings.push('music ' + m.src + ': no beat grid in <data id="' + m.beats + '"> yet (tsvg make bakes it)');
     for (const [id, s] of Object.entries(doc.strings)) for (const l of langs) if (s[l] == null) warnings.push('string @' + id + ' has no "' + l + '" text (falls back)');
     for (const o of doc.options) if (o.default && !o.choices.some((c) => c.id === o.default)) errors.push('option ' + o.id + ': default "' + o.default + '" is not a choice');
     const mixOpt = doc.options.find((o) => o.id === 'mix'); if (mixOpt) for (const c of mixOpt.choices) if (!doc.mixes[c.id]) errors.push('mix choice "' + c.id + '" has no <mix id="' + c.id + '">');
@@ -1336,13 +1378,13 @@
   function recordingContext() {
     const noop = () => {};
     const grad = { addColorStop: noop };
-    const ctx = { canvas: null, globalAlpha: 1, save: noop, restore: noop, translate: noop, rotate: noop, scale: noop, setTransform: noop, getTransform: () => ({ a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 }), fill: noop, stroke: noop, fillRect: noop, fillText: noop, strokeText: noop, clip: noop, rect: noop, beginPath: noop, drawImage: noop, setLineDash: noop, measureText: (s) => ({ width: String(s).length * 10 }), createLinearGradient: () => grad, createRadialGradient: () => grad };
+    const ctx = { canvas: null, globalAlpha: 1, save: noop, restore: noop, translate: noop, rotate: noop, scale: noop, transform: noop, setTransform: noop, getTransform: () => ({ a: 1, b: 0, c: 0, d: 1, e: 0, f: 0 }), fill: noop, stroke: noop, fillRect: noop, fillText: noop, strokeText: noop, clip: noop, rect: noop, beginPath: noop, drawImage: noop, setLineDash: noop, measureText: (s) => ({ width: String(s).length * 10 }), createLinearGradient: () => grad, createRadialGradient: () => grad };
     return ctx;
   }
   if (typeof root.Path2D === 'undefined') {
     root.Path2D = class { constructor() {} moveTo() {} lineTo() {} rect() {} roundRect() {} ellipse() {} closePath() {} addPath() {} };
   }
 
-  root.TSVG = { VERSION, PKG, forOptions, needsLibs, loadLibs, flatten, serializeXML, describeLib, libUrl, lint, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
+  root.TSVG = { VERSION, PKG, forOptions, duckAt, needsLibs, loadLibs, flatten, serializeXML, describeLib, libUrl, lint, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.TSVG;
 })(typeof window !== 'undefined' ? window : globalThis);

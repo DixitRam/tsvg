@@ -2209,8 +2209,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Needs AI video-to-video on footage and the original lip-synced performance; TSVG cannot play clips",
+    "tsvg": "partial",
+    "tsvg_note": "The original performance plays as a clip (0.8); AI video-to-video restyling is not in TSVG.",
     "tsvg_demo": null,
     "source": "skills/vox-director/SKILL.md"
   },

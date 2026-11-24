@@ -272,12 +272,20 @@
       if (!this.clipEls) return;
       const mix = (this.doc && this.doc.mixes[this.opts.mix]) || {};
       const gainOf = (b) => (mix[b] == null ? 1 : mix[b]);
+      this.duckK = null; // re-apply ducking on the next sync
       if (this.ac) for (const b in this.buses) this.buses[b].gain.setTargetAtTime(gainOf(b), this.ac.currentTime, 0.05);
       for (const ce of this.clipEls.values()) if (!ce.gain) ce.el.volume = Math.min(1, Math.max(0, (ce.clip.vol == null ? 1 : ce.clip.vol) * gainOf(ce.clip.bus) * out));
     }
     // keep every element where the timeline says it should be; called each frame while playing
     syncAudio(force) {
       if (!this.clipEls) return;
+      // ducking: the music bus dips while a line is spoken (mix duck=…)
+      const mix = (this.doc && this.doc.mixes[this.opts.mix]) || {};
+      if (mix.duck != null) {
+        if (!this.duckLines || this.duckKey !== JSON.stringify(this.opts)) { this.duckLines = TSVG.sayLines(this.doc, this.opts); this.duckKey = JSON.stringify(this.opts); }
+        const k = TSVG.duckAt(this.doc, this.opts, this.t, this.duckLines);
+        if (this.duckK == null || Math.abs(k - this.duckK) > 0.01) { this.duckK = k; const g = (mix.music == null ? 1 : mix.music) * k; if (this.ac && this.buses.music) this.buses.music.gain.setTargetAtTime(g, this.ac.currentTime, 0.04); for (const ce of this.clipEls.values()) if (!ce.gain && ce.clip.bus === 'music') ce.el.volume = Math.min(1, Math.max(0, (ce.clip.vol == null ? 1 : ce.clip.vol) * g * (this.muted ? 0 : this.volume))); }
+      }
       for (const ce of this.clipEls.values()) {
         const el = ce.el, c = ce.clip, d = el.duration, known = isFinite(d) && d > 0;
         let local = this.t - c.start; if (c.loop && known && local >= 0) local %= d;

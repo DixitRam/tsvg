@@ -247,5 +247,32 @@
     "skip": [
       "flutter"
     ]
+  },
+  {
+    "name": "fx-grade",
+    "file": "examples/fx/fx.tsvg",
+    "t": 2.2,
+    "layout": "landscape"
+  },
+  {
+    "name": "fx-looks",
+    "file": "examples/fx/fx.tsvg",
+    "t": 9.5,
+    "layout": "landscape"
+  },
+  {
+    "name": "fx-skew-portrait",
+    "file": "examples/fx/fx.tsvg",
+    "t": 15.5,
+    "layout": "portrait"
+  },
+  {
+    "name": "fx-beats",
+    "file": "examples/fx/fx.tsvg",
+    "t": 22.4,
+    "layout": "landscape",
+    "skip": [
+      "flutter"
+    ]
   }
 ]

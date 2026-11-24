@@ -115,8 +115,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Needs the speaker clip and raw cut; the key-word/UI-beat layer alone is native.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/director/SKILL.md"
   },
@@ -176,8 +176,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Speaker footage is the core; cards and list builds alone are native.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/director/SKILL.md"
   },
@@ -191,8 +191,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Built on property/agent footage; only the launch-ad card layer is native.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/director/SKILL.md"
   },
@@ -206,8 +206,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Timelapse/site footage at the core; blueprint and counter graphics are native.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/director/SKILL.md"
   },
@@ -222,8 +222,8 @@
       "footage",
       "screenshots"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Talking-head footage plus depth blur; chrome type, screenshots and counters are native.",
+    "tsvg": "partial",
+    "tsvg_note": "Footage, chrome type, screenshots and counters are native (0.8/0.9); depth blur is approximated with a blurred copy of the clip.",
     "tsvg_demo": null,
     "source": "skills/director/SKILL.md"
   },
@@ -237,8 +237,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Hard-cut talking head; B&W hit is a grade on footage.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/director/SKILL.md"
   },
@@ -252,8 +252,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Multi-camera speaker cutting needs video clips.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/director/SKILL.md"
   },
@@ -282,8 +282,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Raw phone footage is the core; the vertical caption/chip layer is native (see social-short-vertical).",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/reels/SKILL.md"
   },
@@ -297,8 +297,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Needs agent footage and a cutout matte for word-behind.",
+    "tsvg": "partial",
+    "tsvg_note": "Agent footage and captions are native (0.8); the word-behind-subject cutout needs a matte.",
     "tsvg_demo": null,
     "source": "skills/reels/references/presets.md"
   },
@@ -312,8 +312,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Entirely moving footage of the property.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/reels/references/presets.md"
   },
@@ -358,8 +358,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Talking head on site is the core.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/reels/references/presets.md"
   },
@@ -388,8 +388,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Hard-cut talking head and B&W grade on footage.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/reels/references/presets.md"
   },
@@ -403,8 +403,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Speaker footage core; card layer native.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/reels/references/presets.md"
   },
@@ -433,8 +433,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Cutting between speaker cameras needs video.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/reels/references/presets.md"
   },
@@ -463,8 +463,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Long-form footage edit; the graphic beats are native but the speaker needs a video node.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/youtube/SKILL.md"
   },
@@ -478,8 +478,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Speaker footage core; every graphic beat (decode, folder, chat, posts) is native.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/youtube/references/presets.md"
   },
@@ -493,8 +493,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Speaker box and screen recording are video.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/youtube/references/presets.md"
   },
@@ -508,8 +508,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Footage grade is pixel processing; cards native.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/youtube/references/presets.md"
   },
@@ -524,8 +524,8 @@
       "footage",
       "screenshots"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Talking-head footage with depth blur.",
+    "tsvg": "partial",
+    "tsvg_note": "Talking-head footage and graphics are native (0.8/0.9); depth blur is approximated.",
     "tsvg_demo": null,
     "source": "skills/youtube/references/presets.md"
   },
@@ -1625,8 +1625,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Core is cutting video clips.",
+    "tsvg": "native",
+    "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
     "tsvg_demo": null,
     "source": "skills/general-video/SKILL.md"
   },

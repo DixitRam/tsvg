@@ -355,8 +355,8 @@
   "needs": [
    "footage"
   ],
-  "tsvg": "no",
-  "tsvg_note": "Needs footage, AI depth per pixel and a perspective GPU camera; TSVG can only fake parallax from hand-cut still layers.",
+  "tsvg": "partial",
+  "tsvg_note": "Footage plays (video node, 0.8) and 2.5D parallax is native; per-pixel AI depth is not.",
   "tsvg_demo": null,
   "source": "skills/camera-arc/SKILL.md"
  },
@@ -672,6 +672,66 @@
   "source": "skills/cut-the-curve/SKILL.md"
  },
  {
+  "id": "director/ali-abdaal",
+  "name": "Ali Abdaal Clean",
+  "skill": "director",
+  "kind": "style",
+  "count": 1,
+  "summary": "Bright room talking head with pastel cards, serif titles, numbered list builds, soft blur cuts.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/director/SKILL.md"
+ },
+ {
+  "id": "director/bold-impact",
+  "name": "Bold Impact",
+  "skill": "director",
+  "kind": "style",
+  "count": 1,
+  "summary": "Dark motivation edit, yellow/red Montserrat caps, zoom every cut, emoji pops, B&W hits.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/director/SKILL.md"
+ },
+ {
+  "id": "director/construction",
+  "name": "Construction / Trades",
+  "skill": "director",
+  "kind": "style",
+  "count": 1,
+  "summary": "Site footage with timelapse, day counters, phase bars, blueprint draw-ons, before/after wipes.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/director/SKILL.md"
+ },
+ {
+  "id": "director/creator-explainer",
+  "name": "Creator Explainer",
+  "skill": "director",
+  "kind": "style",
+  "count": 1,
+  "summary": "Talking head to camera with English key words, smooth zooms, PiP showcases, real UI beats.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/director/SKILL.md"
+ },
+ {
   "id": "director/motion-graphics-explainer",
   "name": "Motion Graphics Explainer",
   "skill": "director",
@@ -684,6 +744,36 @@
   "tsvg": "native",
   "tsvg_note": "Pure type and shapes timed to voiceover word data.",
   "tsvg_demo": "kinetic-typography",
+  "source": "skills/director/SKILL.md"
+ },
+ {
+  "id": "director/podcast",
+  "name": "Podcast Clip",
+  "skill": "director",
+  "kind": "style",
+  "count": 1,
+  "summary": "Two-camera podcast cut on the speaker with lime numbers, name tags, quote cards.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/director/SKILL.md"
+ },
+ {
+  "id": "director/real-estate",
+  "name": "Real Estate",
+  "skill": "director",
+  "kind": "style",
+  "count": 1,
+  "summary": "Agent talking head, luxury walkthrough or launch ad with giant words, counters, chips.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
   "source": "skills/director/SKILL.md"
  },
  {
@@ -737,6 +827,22 @@
   "source": "skills/director/SKILL.md"
  },
  {
+  "id": "director/gadzhi",
+  "name": "Gadzhi Cinematic",
+  "skill": "director",
+  "kind": "style",
+  "count": 1,
+  "summary": "Black/oxblood luxury business edit, chrome type, floating proof screenshots, whip zooms, grain.",
+  "needs": [
+   "footage",
+   "screenshots"
+  ],
+  "tsvg": "partial",
+  "tsvg_note": "Footage, chrome type, screenshots and counters are native (0.8/0.9); depth blur is approximated with a blurred copy of the clip.",
+  "tsvg_demo": null,
+  "source": "skills/director/SKILL.md"
+ },
+ {
   "id": "director/vox",
   "name": "Vox Explainer",
   "skill": "director",
@@ -750,112 +856,6 @@
   "tsvg": "partial",
   "tsvg_note": "Collage, highlighter, maps and Ken Burns are native; archival footage becomes stills.",
   "tsvg_demo": "collage-newsroom",
-  "source": "skills/director/SKILL.md"
- },
- {
-  "id": "director/ali-abdaal",
-  "name": "Ali Abdaal Clean",
-  "skill": "director",
-  "kind": "style",
-  "count": 1,
-  "summary": "Bright room talking head with pastel cards, serif titles, numbered list builds, soft blur cuts.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Speaker footage is the core; cards and list builds alone are native.",
-  "tsvg_demo": null,
-  "source": "skills/director/SKILL.md"
- },
- {
-  "id": "director/bold-impact",
-  "name": "Bold Impact",
-  "skill": "director",
-  "kind": "style",
-  "count": 1,
-  "summary": "Dark motivation edit, yellow/red Montserrat caps, zoom every cut, emoji pops, B&W hits.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Hard-cut talking head; B&W hit is a grade on footage.",
-  "tsvg_demo": null,
-  "source": "skills/director/SKILL.md"
- },
- {
-  "id": "director/construction",
-  "name": "Construction / Trades",
-  "skill": "director",
-  "kind": "style",
-  "count": 1,
-  "summary": "Site footage with timelapse, day counters, phase bars, blueprint draw-ons, before/after wipes.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Timelapse/site footage at the core; blueprint and counter graphics are native.",
-  "tsvg_demo": null,
-  "source": "skills/director/SKILL.md"
- },
- {
-  "id": "director/creator-explainer",
-  "name": "Creator Explainer",
-  "skill": "director",
-  "kind": "style",
-  "count": 1,
-  "summary": "Talking head to camera with English key words, smooth zooms, PiP showcases, real UI beats.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Needs the speaker clip and raw cut; the key-word/UI-beat layer alone is native.",
-  "tsvg_demo": null,
-  "source": "skills/director/SKILL.md"
- },
- {
-  "id": "director/gadzhi",
-  "name": "Gadzhi Cinematic",
-  "skill": "director",
-  "kind": "style",
-  "count": 1,
-  "summary": "Black/oxblood luxury business edit, chrome type, floating proof screenshots, whip zooms, grain.",
-  "needs": [
-   "footage",
-   "screenshots"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Talking-head footage plus depth blur; chrome type, screenshots and counters are native.",
-  "tsvg_demo": null,
-  "source": "skills/director/SKILL.md"
- },
- {
-  "id": "director/podcast",
-  "name": "Podcast Clip",
-  "skill": "director",
-  "kind": "style",
-  "count": 1,
-  "summary": "Two-camera podcast cut on the speaker with lime numbers, name tags, quote cards.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Multi-camera speaker cutting needs video clips.",
-  "tsvg_demo": null,
-  "source": "skills/director/SKILL.md"
- },
- {
-  "id": "director/real-estate",
-  "name": "Real Estate",
-  "skill": "director",
-  "kind": "style",
-  "count": 1,
-  "summary": "Agent talking head, luxury walkthrough or launch ad with giant words, counters, chips.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Built on property/agent footage; only the launch-ad card layer is native.",
-  "tsvg_demo": null,
   "source": "skills/director/SKILL.md"
  },
  {
@@ -1336,6 +1336,21 @@
    "reel": "captions-1",
    "t": 42.4
   }
+ },
+ {
+  "id": "embedded-captions",
+  "name": "Embedded captions on a talking-head clip",
+  "skill": "embedded-captions",
+  "kind": "video-type",
+  "count": 1,
+  "summary": "Captions burned into an existing talking-head video: verbatim rail plus a peak word composited behind the subject.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "partial",
+  "tsvg_note": "Captions over your own footage are native (video node 0.8, rich/split text 0.6); subject matting/occlusion is not.",
+  "tsvg_demo": null,
+  "source": "skills/embedded-captions/SKILL.md"
  },
  {
   "id": "embedded-captions/glitch",
@@ -1887,21 +1902,6 @@
    "reel": "captions-1",
    "t": 117.4
   }
- },
- {
-  "id": "embedded-captions",
-  "name": "Embedded captions on a talking-head clip",
-  "skill": "embedded-captions",
-  "kind": "video-type",
-  "count": 1,
-  "summary": "Captions burned into an existing talking-head video: verbatim rail plus a peak word composited behind the subject.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Core is captioning your own footage with subject matting and occlusion; TSVG cannot play the clip. The caption looks alone can be redone over a still.",
-  "tsvg_demo": null,
-  "source": "skills/embedded-captions/SKILL.md"
  },
  {
   "id": "faceless-explainer/blur-crossfade",
@@ -2866,6 +2866,21 @@
   "source": "skills/fx/SKILL.md"
  },
  {
+  "id": "general-video/footage-remix",
+  "name": "Footage remix",
+  "skill": "general-video",
+  "kind": "template",
+  "count": 1,
+  "summary": "Trim, splice and reorder existing footage with zoom/pan/crop on clips.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/general-video/SKILL.md"
+ },
+ {
   "id": "general-video/freeform-multi-scene",
   "name": "Freeform multi-scene piece",
   "skill": "general-video",
@@ -2971,21 +2986,6 @@
   "tsvg": "partial",
   "tsvg_note": "Photo montage with Ken Burns native; video montage needs clips.",
   "tsvg_demo": "documentary-ken-burns",
-  "source": "skills/general-video/SKILL.md"
- },
- {
-  "id": "general-video/footage-remix",
-  "name": "Footage remix",
-  "skill": "general-video",
-  "kind": "template",
-  "count": 1,
-  "summary": "Trim, splice and reorder existing footage with zoom/pan/crop on clips.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Core is cutting video clips.",
-  "tsvg_demo": null,
   "source": "skills/general-video/SKILL.md"
  },
  {
@@ -6471,6 +6471,51 @@
   "source": "skills/qa/SKILL.md"
  },
  {
+  "id": "reels/ali-abdaal-clean",
+  "name": "Ali Abdaal Clean",
+  "skill": "reels",
+  "kind": "style",
+  "count": 1,
+  "summary": "Pastel cards, Instrument Serif + Poppins, numbered list builds, glass tip cards, soft blur cuts.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/reels/references/presets.md"
+ },
+ {
+  "id": "reels/bold-impact",
+  "name": "Bold Impact",
+  "skill": "reels",
+  "kind": "style",
+  "count": 1,
+  "summary": "Dark grade, yellow/red Montserrat italic caps, zoom every cut, emoji pops, B&W punchline hits.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/reels/references/presets.md"
+ },
+ {
+  "id": "reels/construction-contractor-talk",
+  "name": "Construction: Contractor Talk",
+  "skill": "reels",
+  "kind": "style",
+  "count": 1,
+  "summary": "Contractor to camera with bold captions, dimension lines snapping onto walls, permit ticks.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/reels/references/presets.md"
+ },
+ {
   "id": "reels/faceless-kinetic",
   "name": "Faceless Kinetic",
   "skill": "reels",
@@ -6484,6 +6529,51 @@
   "tsvg_note": "No footage; type, cards and flashes are all vector.",
   "tsvg_demo": "kinetic-typography",
   "source": "skills/reels/references/presets.md"
+ },
+ {
+  "id": "reels/podcast-clip",
+  "name": "Podcast Clip",
+  "skill": "reels",
+  "kind": "style",
+  "count": 1,
+  "summary": "Near black, lime numbers, host CAPS / guest lowercase captions, cut on speaker, name tags.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/reels/references/presets.md"
+ },
+ {
+  "id": "reels/real-estate-luxury-walkthrough",
+  "name": "Real Estate: Luxury Walkthrough",
+  "skill": "reels",
+  "kind": "style",
+  "count": 1,
+  "summary": "Gimbal and drone shots with thin white single words, script accents, new shot every 2 s.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/reels/references/presets.md"
+ },
+ {
+  "id": "reels",
+  "name": "Vertical edit (Reels / TikTok / Shorts)",
+  "skill": "reels",
+  "kind": "video-type",
+  "count": 1,
+  "summary": "9:16 talking-head edit: hook in 3 s, kinetic captions, chips, cards, smooth zooms, SFX on every pop.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/reels/SKILL.md"
  },
  {
   "id": "reels/construction-project-progress",
@@ -6535,6 +6625,21 @@
   "source": "skills/reels/references/presets.md"
  },
  {
+  "id": "reels/real-estate-agent-story",
+  "name": "Real Estate: Agent Story",
+  "skill": "reels",
+  "kind": "style",
+  "count": 1,
+  "summary": "Agent to camera: giant word behind them, big numbers, service chips, red X, status card, target ring.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "partial",
+  "tsvg_note": "Agent footage and captions are native (0.8); the word-behind-subject cutout needs a matte.",
+  "tsvg_demo": null,
+  "source": "skills/reels/references/presets.md"
+ },
+ {
   "id": "reels/real-estate-project-launch-ad",
   "name": "Real Estate: Project Launch Ad",
   "skill": "reels",
@@ -6553,111 +6658,6 @@
    "reel": "captions-2",
    "t": 70.4
   }
- },
- {
-  "id": "reels/ali-abdaal-clean",
-  "name": "Ali Abdaal Clean",
-  "skill": "reels",
-  "kind": "style",
-  "count": 1,
-  "summary": "Pastel cards, Instrument Serif + Poppins, numbered list builds, glass tip cards, soft blur cuts.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Speaker footage core; card layer native.",
-  "tsvg_demo": null,
-  "source": "skills/reels/references/presets.md"
- },
- {
-  "id": "reels/bold-impact",
-  "name": "Bold Impact",
-  "skill": "reels",
-  "kind": "style",
-  "count": 1,
-  "summary": "Dark grade, yellow/red Montserrat italic caps, zoom every cut, emoji pops, B&W punchline hits.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Hard-cut talking head and B&W grade on footage.",
-  "tsvg_demo": null,
-  "source": "skills/reels/references/presets.md"
- },
- {
-  "id": "reels/construction-contractor-talk",
-  "name": "Construction: Contractor Talk",
-  "skill": "reels",
-  "kind": "style",
-  "count": 1,
-  "summary": "Contractor to camera with bold captions, dimension lines snapping onto walls, permit ticks.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Talking head on site is the core.",
-  "tsvg_demo": null,
-  "source": "skills/reels/references/presets.md"
- },
- {
-  "id": "reels/podcast-clip",
-  "name": "Podcast Clip",
-  "skill": "reels",
-  "kind": "style",
-  "count": 1,
-  "summary": "Near black, lime numbers, host CAPS / guest lowercase captions, cut on speaker, name tags.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Cutting between speaker cameras needs video.",
-  "tsvg_demo": null,
-  "source": "skills/reels/references/presets.md"
- },
- {
-  "id": "reels/real-estate-agent-story",
-  "name": "Real Estate: Agent Story",
-  "skill": "reels",
-  "kind": "style",
-  "count": 1,
-  "summary": "Agent to camera: giant word behind them, big numbers, service chips, red X, status card, target ring.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Needs agent footage and a cutout matte for word-behind.",
-  "tsvg_demo": null,
-  "source": "skills/reels/references/presets.md"
- },
- {
-  "id": "reels/real-estate-luxury-walkthrough",
-  "name": "Real Estate: Luxury Walkthrough",
-  "skill": "reels",
-  "kind": "style",
-  "count": 1,
-  "summary": "Gimbal and drone shots with thin white single words, script accents, new shot every 2 s.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Entirely moving footage of the property.",
-  "tsvg_demo": null,
-  "source": "skills/reels/references/presets.md"
- },
- {
-  "id": "reels",
-  "name": "Vertical edit (Reels / TikTok / Shorts)",
-  "skill": "reels",
-  "kind": "video-type",
-  "count": 1,
-  "summary": "9:16 talking-head edit: hook in 3 s, kinetic captions, chips, cards, smooth zooms, SFX on every pop.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Raw phone footage is the core; the vertical caption/chip layer is native (see social-short-vertical).",
-  "tsvg_demo": null,
-  "source": "skills/reels/SKILL.md"
  },
  {
   "id": "remotion-to-hyperframes",
@@ -10462,6 +10462,21 @@
   }
  },
  {
+  "id": "vox-director/mode/a-roll",
+  "name": "A-roll (talking-head to collage)",
+  "skill": "vox-director",
+  "kind": "mode",
+  "count": 1,
+  "summary": "Restyles a real talking-head video into a paper-cutout sticker presenter in a collage world",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "partial",
+  "tsvg_note": "The original performance plays as a clip (0.8); AI video-to-video restyling is not in TSVG.",
+  "tsvg_demo": null,
+  "source": "skills/vox-director/SKILL.md"
+ },
+ {
   "id": "vox-director/theme/american-retro",
   "name": "American retro collage theme",
   "skill": "vox-director",
@@ -10804,21 +10819,6 @@
   }
  },
  {
-  "id": "vox-director/mode/a-roll",
-  "name": "A-roll (talking-head to collage)",
-  "skill": "vox-director",
-  "kind": "mode",
-  "count": 1,
-  "summary": "Restyles a real talking-head video into a paper-cutout sticker presenter in a collage world",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Needs AI video-to-video on footage and the original lip-synced performance; TSVG cannot play clips",
-  "tsvg_demo": null,
-  "source": "skills/vox-director/SKILL.md"
- },
- {
   "id": "vox-director/mode/host",
   "name": "Host mode (lip-synced presenter)",
   "skill": "vox-director",
@@ -11020,6 +11020,66 @@
   }
  },
  {
+  "id": "youtube/clean-talking-head",
+  "name": "Clean Talking Head",
+  "skill": "youtube",
+  "kind": "style",
+  "count": 1,
+  "summary": "Graded footage, vignette, grain, dark glass side cards: stars, graph, profile counter, chips.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/youtube/references/presets.md"
+ },
+ {
+  "id": "youtube/creator-explainer",
+  "name": "Creator Explainer",
+  "skill": "youtube",
+  "kind": "style",
+  "count": 1,
+  "summary": "Graphite stage, ice-cyan accent, serif lead + big key word, decoder text, hero folder, PiP fan.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/youtube/references/presets.md"
+ },
+ {
+  "id": "youtube/creator-light-studio",
+  "name": "Creator Light Studio",
+  "skill": "youtube",
+  "kind": "style",
+  "count": 1,
+  "summary": "Warm off-white blob stage, speaker in a tall rounded box, screen recording or recreated UI beside.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/youtube/references/presets.md"
+ },
+ {
+  "id": "youtube",
+  "name": "Horizontal YouTube edit",
+  "skill": "youtube",
+  "kind": "video-type",
+  "count": 1,
+  "summary": "16:9 talking-head/interview edit with key words, impact zooms, real UI beats, PiP showcases, side cards.",
+  "needs": [
+   "footage"
+  ],
+  "tsvg": "native",
+  "tsvg_note": "Footage plays inside scenes with the video node (0.8), graded with filter (0.9); the graphic layer was already native.",
+  "tsvg_demo": null,
+  "source": "skills/youtube/SKILL.md"
+ },
+ {
   "id": "youtube/documentary-collage",
   "name": "Documentary Collage",
   "skill": "youtube",
@@ -11033,6 +11093,22 @@
   "tsvg": "partial",
   "tsvg_note": "Collage with pre-cut PNGs native; light leaks approximated with gradients; footage lost.",
   "tsvg_demo": "collage-newsroom",
+  "source": "skills/youtube/references/presets.md"
+ },
+ {
+  "id": "youtube/gadzhi-cinematic",
+  "name": "Gadzhi Cinematic",
+  "skill": "youtube",
+  "kind": "style",
+  "count": 1,
+  "summary": "Chrome/silver type, gold serif key words, floating proof screenshots, whip zooms, price rolls.",
+  "needs": [
+   "footage",
+   "screenshots"
+  ],
+  "tsvg": "partial",
+  "tsvg_note": "Talking-head footage and graphics are native (0.8/0.9); depth blur is approximated.",
+  "tsvg_demo": null,
   "source": "skills/youtube/references/presets.md"
  },
  {
@@ -11065,81 +11141,5 @@
   "tsvg_note": "Pixel inpainting on footage.",
   "tsvg_demo": null,
   "source": "skills/youtube/scripts/remove_logo.py"
- },
- {
-  "id": "youtube/clean-talking-head",
-  "name": "Clean Talking Head",
-  "skill": "youtube",
-  "kind": "style",
-  "count": 1,
-  "summary": "Graded footage, vignette, grain, dark glass side cards: stars, graph, profile counter, chips.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Footage grade is pixel processing; cards native.",
-  "tsvg_demo": null,
-  "source": "skills/youtube/references/presets.md"
- },
- {
-  "id": "youtube/creator-explainer",
-  "name": "Creator Explainer",
-  "skill": "youtube",
-  "kind": "style",
-  "count": 1,
-  "summary": "Graphite stage, ice-cyan accent, serif lead + big key word, decoder text, hero folder, PiP fan.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Speaker footage core; every graphic beat (decode, folder, chat, posts) is native.",
-  "tsvg_demo": null,
-  "source": "skills/youtube/references/presets.md"
- },
- {
-  "id": "youtube/creator-light-studio",
-  "name": "Creator Light Studio",
-  "skill": "youtube",
-  "kind": "style",
-  "count": 1,
-  "summary": "Warm off-white blob stage, speaker in a tall rounded box, screen recording or recreated UI beside.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Speaker box and screen recording are video.",
-  "tsvg_demo": null,
-  "source": "skills/youtube/references/presets.md"
- },
- {
-  "id": "youtube/gadzhi-cinematic",
-  "name": "Gadzhi Cinematic",
-  "skill": "youtube",
-  "kind": "style",
-  "count": 1,
-  "summary": "Chrome/silver type, gold serif key words, floating proof screenshots, whip zooms, price rolls.",
-  "needs": [
-   "footage",
-   "screenshots"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Talking-head footage with depth blur.",
-  "tsvg_demo": null,
-  "source": "skills/youtube/references/presets.md"
- },
- {
-  "id": "youtube",
-  "name": "Horizontal YouTube edit",
-  "skill": "youtube",
-  "kind": "video-type",
-  "count": 1,
-  "summary": "16:9 talking-head/interview edit with key words, impact zooms, real UI beats, PiP showcases, side cards.",
-  "needs": [
-   "footage"
-  ],
-  "tsvg": "no",
-  "tsvg_note": "Long-form footage edit; the graphic beats are native but the speaker needs a video node.",
-  "tsvg_demo": null,
-  "source": "skills/youtube/SKILL.md"
  }
 ]

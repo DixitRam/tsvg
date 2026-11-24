@@ -38,6 +38,8 @@ node ~/Dev/PROJECTS/TaskManager/workspaces/ws.mjs upload <workspace> <KEY> /tmp/
 - Layout without numbers: `<row>`, `<col>`, `<grid cols="3">` place their children (`gap pad align justify`, `grow="1"`, `fill r shadow` = a card). Use them instead of computing x/y.
 - Charts and icons: `<import src="tsvg:charts" as="c"/>` → `<c:bars values="12, 30, 22" labels="Q1 | Q2 | Q3"/>` (also hbars line pie ring counter spark); `<import src="tsvg:icons" as="i"/>` → `<i:icon name="rocket" size="64" color="$accent" drawin="0.8"/>`; `tsvg icons <word>` finds icon names.
 - Footage: `<video src="clips/x.mp4" w h fit start rate loop vol/>` plays inside a scene like an image (seeks with the timeline). Keep clips short and small (H.264 mp4); packs carry them.
+- Looks: `filter="grayscale(1) contrast(1.2)"` on anything; `skx`/`sky` skew; `<import src="tsvg:fx" as="fx"/>` → `<fx:grain/> <fx:vignette/> <fx:leak/> <fx:flash at/>`, `<fx:grade look="vintage">…</fx:grade>`, `<fx:glow>`, `<fx:shake>`.
+- Music: `<music … beats="beats"/>` (make bakes a beat grid; `pulse(t,'beats',0.2)`, `<fx:beat>`), `<mix … duck="0.3"/>` dips music under the voice.
 - Text: `rich="1"` → `**bold** *italic* \`code\` ==highlight== [word]($accent)`; `split="word|char"` + `stagger` animates piece by piece; `ls` letter spacing; `path="M…"` text on a curve.
 - Transitions: `<timeline in="fade 0.5">` or `<scene in="push 0.6 left">` (fade slide push wipe zoom iris blur).
 - Timing without numbers: `<scene dur="auto">` lasts as long as its narration in each language (+`pad`, ≥`min`); says without `at` follow each other; `at="=cue('v2')"` starts a node with that line.

@@ -9,8 +9,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Core is captioning your own footage with subject matting and occlusion; TSVG cannot play the clip. The caption looks alone can be redone over a still.",
+    "tsvg": "partial",
+    "tsvg_note": "Captions over your own footage are native (video node 0.8, rich/split text 0.6); subject matting/occlusion is not.",
     "tsvg_demo": null,
     "source": "skills/embedded-captions/SKILL.md"
   },
@@ -3002,8 +3002,8 @@
     "needs": [
       "footage"
     ],
-    "tsvg": "no",
-    "tsvg_note": "Needs footage, AI depth per pixel and a perspective GPU camera; TSVG can only fake parallax from hand-cut still layers.",
+    "tsvg": "partial",
+    "tsvg_note": "Footage plays (video node, 0.8) and 2.5D parallax is native; per-pixel AI depth is not.",
     "tsvg_demo": null,
     "source": "skills/camera-arc/SKILL.md"
   }

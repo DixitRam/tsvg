@@ -85,8 +85,17 @@ const o = { base: pathToFileURL(ROOT + 'tests/x.tsvg').href, libBase: pathToFile
   const d = T.parse(x); const env = T.makeEnv(d, T.defaults(d), d.layouts[0], 0);
   eq([T.compile("nth('$a, $b', 3)")(env), T.compile("nth('x | y', 0)")(env), T.compile("nth('1, 2', 1)")(env), T.compile('commas(1234567.891, 1)')(env)], ['#222', 'x', 2, '1,234,567.9'], 'nth + commas');
 }
+// time lists, ducking, skew/filter lint
+{
+  const x = `<tsvg><options><option id="mix" default="m"><choice id="m"/></option></options><mixes><mix id="m" music="0.5" duck="0.2"/></mixes>
+    <defs><data id="b" v="1, 2, 3"/></defs><timeline><scene dur="10"><say at="2" dur="2" text="hi"/><rect skx="10" filter="grayscale(1)"/></scene></timeline></tsvg>`;
+  const d = T.parse(x); const env = T.makeEnv(d, T.defaults(d), d.layouts[0], 0); const c = (e) => +T.compile(e)(env).toFixed(4);
+  eq([c("since(2.5, 'b')"), c("idx(2.5, 'b')"), c("idx(0.5, 'b')"), c("pulse(2, 'b', 0.25)"), c("pulse(2.25, 'b', 0.25)"), c("pulse(0.5, 'b', 0.25)")], [0.5, 2, 0, 1, 0.3679, 0], 'since/idx/pulse');
+  const o = T.defaults(d); eq([T.duckAt(d, o, 3), T.duckAt(d, o, 1.875), T.duckAt(d, o, 5)].map((v) => +v.toFixed(4)), [0.2, 0.6, 1], 'duckAt inside / ramp / after');
+  ok(T.validate(x).warnings.every((w) => !/skx|filter/.test(w)), 'skx and filter are known attributes');
+}
 // every built-in library example checks clean
-for (const f of ['examples/libs/report.tsvg', 'examples/libs/explainer.tsvg', 'templates/report.tsvg', 'examples/charts/charts.tsvg']) {
+for (const f of ['examples/libs/report.tsvg', 'examples/libs/explainer.tsvg', 'templates/report.tsvg', 'examples/charts/charts.tsvg', 'examples/fx/fx.tsvg', 'examples/video/video.tsvg', 'examples/text/text.tsvg', 'examples/layout/layout.tsvg']) {
   const x = readFileSync(ROOT + f, 'utf8'); const oo = Object.assign({}, o, { base: pathToFileURL(ROOT + f).href });
   const libs = await T.loadLibs(x, oo); const v = T.validate(x, Object.assign({ libs }, oo)); ok(v.ok, f + ': ' + v.errors[0]);
 }

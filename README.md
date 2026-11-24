@@ -35,7 +35,7 @@
 | [`flutter/`](flutter) | Flutter engine and player widget |
 | [`playground/`](playground) | Edit a TSVG and watch it play |
 | [`examples/demo/`](examples/demo) | The demo: 6 scenes, en + gu voices, gradients, masks, clip, shadow, fonts, a photo |
-| [`libs/`](libs) | Built-in libraries: `base`, `report`, `explainer`, `charts`, `icons` (components + styles) |
+| [`libs/`](libs) | Built-in libraries: `base`, `report`, `explainer`, `charts`, `icons`, `fx` (components + styles) |
 | [`skill/tsvg/SKILL.md`](skill/tsvg/SKILL.md) | Agent skill: how an AI agent writes, checks and ships a TSVG video |
 | [`tests/`](tests) | Conformance cases and golden frames |
 
@@ -70,6 +70,7 @@ A library (`.tsvgl`) packages **components with props**, **styles** (themes, fon
 | --- | --- | --- |
 | `tsvg:report` | `title` `list` (change / check / open / step / no) `shot` `stat` `compare` `code` | [▶ report](https://panth977.github.io/tsvg/playground/?doc=../examples/libs/report.tsvg) |
 | `tsvg:explainer` | `title` `point` `chapter` `steps` `stat` `quote` `picture` `versus` `outro` | [▶ explainer](https://panth977.github.io/tsvg/playground/?doc=../examples/libs/explainer.tsvg) |
+| `tsvg:fx` | overlays `grain` `vignette` `scanlines` `leak` `flash`; wrappers `grade` (looks) `glow` `shake` `beat` | [▶ effects + beats](https://panth977.github.io/tsvg/playground/?doc=../examples/fx/fx.tsvg) |
 | `tsvg:charts` | `bars` `hbars` `line` `pie` (donut) `ring` `counter` `spark`: one tag with a list of numbers | [▶ charts + icons](https://panth977.github.io/tsvg/playground/?doc=../examples/charts/charts.tsvg) |
 | `tsvg:icons` | `icon`: 2,104 [Lucide](https://lucide.dev/icons) line icons (ISC), `<i:icon name="rocket" size="64" color="$accent" drawin="0.8"/>`; `tsvg icons rock` finds names | same |
 | `tsvg:base` | `num` `heading` `pill` + themes, fonts, music, symbols (`b:tick` `b:dot` `b:cross` `b:arrow`) | used by all |
@@ -117,6 +118,19 @@ A library (`.tsvgl`) packages **components with props**, **styles** (themes, fon
 ```
 Clips seek with the timeline, play at the player's speed, sit in layouts, take masks and transforms, and export frame-exact. `tsvg pack` adds a poster frame. [▶ video demo](https://panth977.github.io/tsvg/playground/?doc=../examples/video/video.tsvg)
 
+## Effects, grades, beats (0.9)
+
+```xml
+<import src="tsvg:fx" as="fx"/>
+<music src="beat" loop="1" beats="beats"/>            <!-- tsvg make bakes the beat grid into <data id="beats"> -->
+<mix id="full" voice="1" music="0.5" duck="0.3"/>     <!-- music dips under every spoken line -->
+<image src="photo" filter="grayscale({1 - clamp(T/3, 0, 1)}) contrast(1.1)"/>   <!-- any node: CSS-style filters -->
+<fx:grade look="vintage"><video src="clip"/></fx:grade>   <!-- mono noir warm cool vintage punch faded -->
+<fx:beat beats="beats" x="=W/2" y="=H/2"><circle r="160"/></fx:beat>   <circle r="=10 + 24*pulse(t, 'beats', 0.2)"/>
+<rect skx="-12"/>  <fx:grain/> <fx:vignette/> <fx:leak/> <fx:scanlines/> <fx:flash at="2"/> <fx:glow>…</fx:glow> <fx:shake at="1">…</fx:shake>
+```
+[▶ effects + beats demo](https://panth977.github.io/tsvg/playground/?doc=../examples/fx/fx.tsvg)
+
 ## Quick start
 
 ```sh
@@ -134,10 +148,10 @@ Install or load from a CDN ([JSR: @panth977/tsvg](https://jsr.io/@panth977/tsvg)
 
 ```ts
 import { TSVGPlayer, TSVG, TSVGZip } from "jsr:@panth977/tsvg";            // Deno / bundlers (npx jsr add @panth977/tsvg)
-import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.8.0";     // any browser, no build
+import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.9.0";     // any browser, no build
 ```
 ```html
-<script src="https://esm.sh/jsr/@panth977/tsvg@0.8.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
+<script src="https://esm.sh/jsr/@panth977/tsvg@0.9.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
 ```
 
 Embed the player:
@@ -264,7 +278,7 @@ The [Edit Kit](vendor/edit-kit) (41 Claude Code video skills) can make **776 kin
 
 | ✅ native | ◐ partial | ✗ not yet | with a TSVG demo |
 |---|---|---|---|
-| **518** (67%) | **213** (27%) | **45** (6%) | 731 |
+| **535** (69%) | **219** (28%) | **22** (3%) | 731 |
 
 Showcase reels (one chapter per entry): [captions-1](https://panth977.github.io/tsvg/gallery/#kit:captions-1) · [captions-2](https://panth977.github.io/tsvg/gallery/#kit:captions-2) · [effects-1](https://panth977.github.io/tsvg/gallery/#kit:effects-1) · [effects-2](https://panth977.github.io/tsvg/gallery/#kit:effects-2) · [looks-1](https://panth977.github.io/tsvg/gallery/#kit:looks-1) · [shotcraft-1](https://panth977.github.io/tsvg/gallery/#kit:shotcraft-1) · [shotcraft-2](https://panth977.github.io/tsvg/gallery/#kit:shotcraft-2) · [shotcraft-3](https://panth977.github.io/tsvg/gallery/#kit:shotcraft-3) · [shotcraft-4](https://panth977.github.io/tsvg/gallery/#kit:shotcraft-4) · [templates-1](https://panth977.github.io/tsvg/gallery/#kit:templates-1) · [transitions-1](https://panth977.github.io/tsvg/gallery/#kit:transitions-1) · [transitions-2](https://panth977.github.io/tsvg/gallery/#kit:transitions-2)
 
@@ -274,14 +288,14 @@ Showcase reels (one chapter per entry): [captions-1](https://panth977.github.io/
 |---|---|---|---|---|
 | `anime-cel` | 24 | 23 | 1 | 0 |
 | `blender-product-film` | 18 | 9 | 0 | 9 |
-| `camera-arc` | 1 | 0 | 0 | 1 |
+| `camera-arc` | 1 | 0 | 1 | 0 |
 | `crayon-storybook` | 12 | 4 | 8 | 0 |
 | `cut-the-curve` | 7 | 7 | 0 | 0 |
-| `director` | 12 | 2 | 3 | 7 |
-| `embedded-captions` | 62 | 11 | 50 | 1 |
+| `director` | 12 | 8 | 4 | 0 |
+| `embedded-captions` | 62 | 11 | 51 | 0 |
 | `faceless-explainer` | 14 | 14 | 0 | 0 |
 | `fx` | 41 | 37 | 4 | 0 |
-| `general-video` | 7 | 3 | 3 | 1 |
+| `general-video` | 7 | 4 | 3 | 0 |
 | `motion-graphics` | 93 | 72 | 21 | 0 |
 | `music-to-video` | 56 | 47 | 9 | 0 |
 | `oversized-cursor` | 1 | 1 | 0 | 0 |
@@ -291,7 +305,7 @@ Showcase reels (one chapter per entry): [captions-1](https://panth977.github.io/
 | `pixel-art` | 17 | 7 | 10 | 0 |
 | `pr-to-video` | 37 | 34 | 3 | 0 |
 | `product-launch-video` | 11 | 11 | 0 | 0 |
-| `reels` | 12 | 1 | 4 | 7 |
+| `reels` | 12 | 7 | 5 | 0 |
 | `saas` | 8 | 8 | 0 | 0 |
 | `shader-glsl` | 8 | 1 | 3 | 4 |
 | `slideshow` | 5 | 0 | 3 | 2 |
@@ -299,9 +313,9 @@ Showcase reels (one chapter per entry): [captions-1](https://panth977.github.io/
 | `threejs-animation` | 6 | 0 | 3 | 3 |
 | `video-clone` | 14 | 7 | 6 | 1 |
 | `video-shotcraft` | 170 | 132 | 38 | 0 |
-| `vox-director` | 52 | 26 | 24 | 2 |
+| `vox-director` | 52 | 26 | 25 | 1 |
 | `whiteboard` | 29 | 28 | 1 | 0 |
-| `youtube` | 8 | 0 | 2 | 6 |
+| `youtube` | 8 | 4 | 3 | 1 |
 
 Tooling skills (no video of their own): `captions-overlay`, `cut-the-curve`, `edit`, `ffmpeg`, `figma`, `frontend-design`, `fx`, `motion-doctrine`, `qa`, `remotion-to-hyperframes`, `seam-craft`, `sound`, `theme`, `video-shotcraft`.
 <!-- editkit:end -->

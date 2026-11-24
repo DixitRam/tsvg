@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  tsvg:fx — looks and effects as one tag: film grain, vignette, scanlines, light leaks, flashes, glow, shake,
+  colour grades and beat pulses. Overlays cover the whole frame (put them last in a scene, or in <overlay>);
+  wrappers take children (<fx:grade look="vintage">…</fx:grade>).
+    <import src="tsvg:fx" as="fx"/>
+    <fx:grain/> <fx:vignette strength="0.7"/> <fx:leak color="#ff9a3c"/> <fx:flash at="2"/>
+    <fx:grade look="mono"><image …/></fx:grade>   <fx:beat beats="beats"><circle r="80"/></fx:beat>
+-->
+<tsvglib name="fx" version="1.0.0" doc="Looks and effects: grain, vignette, scanlines, leak, flash (overlays); grade, glow, shake, beat (wrappers).">
+  <defs>
+    <radial id="vig" x="=W/2" y="=H/2" r="=max(W, H) * 0.75"><stop at="0.45" color="#000" opacity="0"/><stop at="1" color="#000" opacity="1"/></radial>
+  </defs>
+  <dict id="looks">
+    <e k="mono" v="grayscale(1) contrast(1.1)"/>
+    <e k="noir" v="grayscale(1) contrast(1.5) brightness(0.9)"/>
+    <e k="warm" v="sepia(0.25) saturate(1.2) hue(-8)"/>
+    <e k="cool" v="saturate(1.1) hue(12) brightness(1.02)"/>
+    <e k="vintage" v="sepia(0.55) contrast(0.9) saturate(0.8) brightness(1.05)"/>
+    <e k="punch" v="contrast(1.25) saturate(1.45)"/>
+    <e k="faded" v="contrast(0.8) saturate(0.7) brightness(1.1)"/>
+    <e k="invert" v="invert(1) hue(180)"/>
+    <e k="none" v="none"/>
+  </dict>
+
+  <component id="grain" props="amount=0.07, size=2.5, fps=12, count=900" doc="Film grain over the whole frame (light and dark specks, re-rolled fps times a second).">
+    <rect repeat="%{count}" as="g" x="=rand(g * 1.37 + floor(t * %{fps}) * 911) * W" y="=rand(g * 7.13 + floor(t * %{fps}) * 733) * H" w="%{size}" h="%{size}"
+          fill="=g % 2 ? '#fff' : '#000'" opacity="=rand(g * 3.31 + floor(t * %{fps}) * 97) * %{amount} * 2"/>
+  </component>
+  <component id="vignette" props="strength=0.6" doc="Darkened corners.">
+    <rect x="0" y="0" w="=W" h="=H" fill="url(#vig)" opacity="%{strength}"/>
+  </component>
+  <component id="scanlines" props="gap=6, opacity=0.14, roll=40" doc="CRT scanlines that roll slowly.">
+    <rect repeat="=ceil(H / %{gap}) + 1" as="k" x="0" y="=(k * %{gap} + t * %{roll}) % (H + %{gap}) - %{gap}" w="=W" h="=%{gap} / 2" fill="#000" opacity="%{opacity}"/>
+  </component>
+  <component id="leak" props="color=#ff9a3c, color2=#ff3c7a, amount=0.35, speed=0.4" doc="Drifting light leaks (screen-blended blurred blobs).">
+    <circle x="=W * (0.15 + 0.12 * sin(t * %{speed}))" y="=H * (0.2 + 0.1 * cos(t * %{speed} * 1.3))" r="=max(W, H) * 0.32" fill="%{color}" opacity="%{amount}" blur="140" blend="screen"/>
+    <circle x="=W * (0.88 + 0.08 * cos(t * %{speed} * 0.8))" y="=H * (0.85 + 0.1 * sin(t * %{speed}))" r="=max(W, H) * 0.26" fill="%{color2}" opacity="=%{amount} * 0.8" blur="140" blend="screen"/>
+  </component>
+  <component id="flash" props="at=0, color=#fff, dur=0.35, peak=0.85" doc="A full-frame flash at a moment (cuts, hits).">
+    <rect x="0" y="0" w="=W" h="=H" fill="%{color}" at="%{at}" dur="%{dur}"><anim prop="opacity" from="%{peak}" to="0" dur="%{dur}" ease="out"/></rect>
+  </component>
+  <component id="grade" props="look=none, filter=''" doc="A colour grade on its children: look = mono noir warm cool vintage punch faded invert none, or any filter string.">
+    <if test="%{filter}"><group filter="%{filter}"><slot/></group><else><group filter="%{looks[look]}"><slot/></group></else></if>
+  </component>
+  <component id="glow" props="color=$accent, radius=30" doc="A coloured glow around its children.">
+    <group shadow="0 0 %{radius} %{color}"><slot/></group>
+  </component>
+  <component id="shake" props="amount=12, speed=18, at=0, dur=0.6" doc="Shakes its children for dur seconds from at (impacts, alarms).">
+    <group x="=T &gt;= %{at} &amp;&amp; T &lt; %{at} + %{dur} ? (noise(T * %{speed}) - 0.5) * 2 * %{amount} * (1 - (T - %{at}) / %{dur}) : 0"
+           y="=T &gt;= %{at} &amp;&amp; T &lt; %{at} + %{dur} ? (noise(T * %{speed} + 50) - 0.5) * 2 * %{amount} * (1 - (T - %{at}) / %{dur}) : 0"><slot/></group>
+  </component>
+  <component id="beat" props="beats=beats, amount=0.08, decay=0.18, x=0, y=0" doc="Pulses its children (scale about x, y) on every beat of a beat grid (music beats=…).">
+    <group x="%{x}" y="%{y}" scale="=1 + %{amount} * pulse(t, '%{beats}', %{decay})"><slot/></group>
+  </component>
+</tsvglib>
