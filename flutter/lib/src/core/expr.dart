@@ -192,6 +192,32 @@ Object? _dataFn(String name, List<Object?> vals, Env env) {
   return list[(i.floorToDouble() % list.length).toInt()];
 }
 
+/// Time lists (0.9: beats, cues): `since(t, 'id')` seconds since the last time ≤ t (1e9 before the first),
+/// `idx(t, 'id')` how many times are ≤ t, `pulse(t, 'id', decay)` 1 on each time fading with
+/// exp(−(t − last) / decay) (decay ≤ 0 or missing = 0.25; 0 before the first).
+Object? _timeListFn(String name, List<Object?> vals, Env env) {
+  final host = env.doc;
+  final key = toStr(vals.length > 1 ? vals[1] : null);
+  final list = host is TsvgDataHost ? host.data[key] : null;
+  if (list == null) throw TsvgError('unknown data $key');
+  final t = toNum(vals.isEmpty ? null : vals[0]);
+  var lo = 0, hi = list.length;
+  while (lo < hi) {
+    final mid = (lo + hi) >> 1;
+    if (toNum(list[mid]) <= t) {
+      lo = mid + 1;
+    } else {
+      hi = mid;
+    }
+  }
+  if (name == 'idx') return lo.toDouble();
+  final dt = lo > 0 ? t - toNum(list[lo - 1]) : double.infinity;
+  if (name == 'since') return lo > 0 ? dt : 1e9;
+  if (lo == 0) return 0.0;
+  final dv = vals.length > 2 ? toNum(vals[2]) : double.nan;
+  return math.exp(-dt / (dv > 0 ? dv : 0.25));
+}
+
 class _Tok {
   _Tok(this.t, this.v);
   final String t; // num | id | str | op
@@ -341,6 +367,7 @@ Expr compileExpr(String src) {
         final builtin = builtins[name];
         return (env) {
           final vals = [for (final a in args) a(env)];
+          if (name == 'since' || name == 'idx' || name == 'pulse') return _timeListFn(name, vals, env);
           if (name == 'data' || name == 'count') return _dataFn(name, vals, env);
           if (name == 's') {
             final host = env.doc;

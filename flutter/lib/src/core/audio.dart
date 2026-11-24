@@ -80,3 +80,22 @@ AudioPlan audioPlan(TsvgDoc doc, Map<String, String> opts) {
 
 /// Asset id or path → path inside the package.
 String? assetPath(TsvgDoc doc, String? ref) => ref != null && doc.assets.containsKey(ref) ? doc.assets[ref]!.src : ref;
+
+/// Ducking (0.9): `<mix … duck="0.35">` lowers the music bus to duck× while a
+/// line is spoken, with 0.25 s ramps either side. The factor at time [t]
+/// (1 = no ducking); players apply it to the music bus. [lines] defaults to
+/// [sayLines] for [opts].
+double duckAt(TsvgDoc doc, Map<String, String> opts, double t, [List<SayLine>? lines]) {
+  final d = doc.mixes[opts['mix']]?['duck'];
+  if (d == null || d >= 1) return 1;
+  var k = 0.0;
+  const ramp = 0.25;
+  for (final l in lines ?? sayLines(doc, opts)) {
+    if (l.clip == null && l.text.isEmpty) continue;
+    final a = l.start, b = l.start + l.dur;
+    final w = t < a ? 1 - (a - t) / ramp : (t > b ? 1 - (t - b) / ramp : 1.0);
+    if (w > k) k = w;
+    if (k >= 1) break;
+  }
+  return 1 - (1 - d) * k.clamp(0.0, 1.0);
+}

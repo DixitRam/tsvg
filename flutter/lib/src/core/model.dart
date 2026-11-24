@@ -58,14 +58,17 @@ class TsvgVoice {
 
 /// A clip on an audio bus (from `<music>`, `<sfx>` or a baked `<say>`).
 class TsvgAudio {
-  TsvgAudio({required this.bus, required this.src, required this.start, this.loop = false, this.vol = 1, this.when});
+  TsvgAudio({required this.bus, required this.src, required this.start, this.loop = false, this.vol = 1, this.when, this.beats});
   final String bus;
   final String? src;
   final double start;
   final bool loop;
   final double vol;
   final String? when;
-  TsvgAudio copy() => TsvgAudio(bus: bus, src: src, start: start, loop: loop, vol: vol, when: when);
+
+  /// `<music beats="id">` (0.9): the `<data id>` holding the music's beat grid (written by tsvg bake).
+  final String? beats;
+  TsvgAudio copy() => TsvgAudio(bus: bus, src: src, start: start, loop: loop, vol: vol, when: when, beats: beats);
   @override
   String toString() => 'TsvgAudio($bus $src @$start${loop ? ' loop' : ''} vol=$vol)';
 }
@@ -562,6 +565,7 @@ TsvgDoc parseTsvg(String xml) {
       loop: m.attrs['loop'] == '1',
       vol: _plus(_or(m.attrs['vol'], '1')),
       when: m.attrs['when'],
+      beats: m.attrs['beats'],
     ));
   }
   final bd = one('backdrop');
@@ -587,6 +591,10 @@ TsvgDoc parseTsvg(String xml) {
     doc.sceneSrc.add(src);
   }
   doc.music.addAll(doc.audio);
+  for (final m in doc.music) {
+    final b = m.beats;
+    if (b != null && b.isNotEmpty && !doc.data.containsKey(b)) doc.data[b] = []; // until tsvg bake writes the grid
+  }
   doc.timelineIn = one('timeline')?.attrs['in']; // default transition for every scene
   bool varied(Map<String, String> a, List<String> names) =>
       a.keys.any((k) => names.contains(k.split('.').first) && k.contains('.'));

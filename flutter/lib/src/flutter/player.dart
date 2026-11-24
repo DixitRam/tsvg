@@ -119,6 +119,7 @@ class TsvgPlayerController extends ChangeNotifier {
   void _syncLines() {
     final d = doc;
     if (d == null) return;
+    _duckLines = null;
     lines = sayLines(d, options);
     final a = _audio;
     if (a != null) {
@@ -170,7 +171,19 @@ class TsvgPlayerController extends ChangeNotifier {
 
   /// Hard re-sync of every clip to the playhead (play, seek, option change).
   Future<void> _resyncAudio() async {
+    _applyDuck();
     await _audio?.sync(t, playing: playing);
+  }
+
+  List<SayLine>? _duckLines;
+
+  /// Ducking (0.9): the music bus follows [duckAt] while playing (mix duck=…).
+  void _applyDuck() {
+    final a = _audio, d = doc;
+    if (a == null || d == null) return;
+    if (d.mixes[options['mix']]?['duck'] == null) return a.setDuck(1);
+    // the document's own line timing, as the web player (captions may use the clips' real lengths)
+    a.setDuck(duckAt(d, options, t, _duckLines ??= sayLines(d, options)));
   }
 
   /// Drift / start statistics of the audio engine (null before audio loads).
@@ -193,7 +206,10 @@ class TsvgPlayerController extends ChangeNotifier {
     _last = elapsed;
     final prev = t;
     t += dt * rate;
-    if (prev != t) _audio?.update(t);
+    if (prev != t) {
+      _audio?.update(t);
+      _applyDuck();
+    }
     if (t >= duration) {
       t = duration;
       pause();

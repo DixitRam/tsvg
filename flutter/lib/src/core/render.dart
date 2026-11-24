@@ -513,10 +513,54 @@ LayoutItem boxOf(TsvgCanvas c, TsvgNode n, Env env) {
     case 'grid':
       final l = arrange(c, n, env);
       return LayoutItem(l.w, l.h, l.w * p('ax', 0), l.h * p('ay', 0));
+    case 'group':
+    case 'use':
+      // a group without w/h is as big as its children (0.9): wrappers like <fx:grade> keep their content's size
+      if (n.a['w'] == null && n.a['h'] == null) {
+        final kids = n.type == 'use' ? (doc.symbols[n.a['ref']] ?? const <TsvgNode>[]) : n.children;
+        var x0 = double.infinity, y0 = double.infinity, x1 = double.negativeInfinity, y1 = double.negativeInfinity;
+        for (final ch in kids) {
+          if (!inFlow(ch, env)) continue;
+          final b = boxOf(c, ch, env);
+          final cx = _orZero(toNum(prop(ch, 'x', env, doc, 0.0))), cy = _orZero(toNum(prop(ch, 'y', env, doc, 0.0)));
+          x0 = math.min(x0, cx - b.ox);
+          y0 = math.min(y0, cy - b.oy);
+          x1 = math.max(x1, cx - b.ox + b.w);
+          y1 = math.max(y1, cy - b.oy + b.h);
+        }
+        if (x0 == double.infinity) return LayoutItem(0, 0, 0, 0);
+        return LayoutItem(x1 - x0, y1 - y0, -x0, -y0);
+      }
   }
   final w = p('w', 0), h = p('h', 0);
   return LayoutItem(w, h, w * p('ax', 0), h * p('ay', 0));
 }
+
+/// JS `+v || 0`.
+double _orZero(double v) => v.isNaN ? 0 : v;
+
+/// `filter="grayscale(1) sepia(.4) contrast(1.2) brightness(1.1) saturate(1.5) hue(30) invert(1) blur(4) opacity(.8)"`
+/// (0.9): CSS filter functions in layout units, hue = hue-rotate in degrees; blur is scaled by [k] (device pixels
+/// per unit). Units (deg, px, %) are dropped like the reference. Null when Canvas2D would reject the list (a negative
+/// amount or radius); unsupported functions are skipped.
+List<FilterOp>? cssFilterOps(String f, double k) {
+  final out = <FilterOp>[];
+  for (final m in _filterFn.allMatches(f)) {
+    var name = m[1]!;
+    final v = double.tryParse(m[2]!);
+    if (v == null) return null;
+    if (name == 'hue') name = 'hue-rotate';
+    if (name != 'hue-rotate' && v < 0) return null;
+    if (name == 'blur') {
+      out.add(FilterOp('blur', double.parse(jsFixed(v * k, 2))));
+    } else if (filterMatrix(name, v) != null) {
+      out.add(FilterOp(name, v));
+    }
+  }
+  return out;
+}
+
+final RegExp _filterFn = RegExp(r'([a-z-]+)\(\s*(-?[0-9.]+)\s*(deg|px|%)?\s*\)');
 
 /// Places the children of a `<row>`, `<col>` or `<grid>` (port of `arrange`).
 LayoutResult arrange(TsvgCanvas c, TsvgNode n, Env env) {
@@ -686,8 +730,22 @@ class _Walker {
       blend: blend != null && blend.isNotEmpty ? blend : null,
     );
     final blur = pn('blur', 0);
-    if (blur > 0) st = st.copyWith(blur: double.parse(jsFixed(blur * c.deviceScale, 2)));
+    final filtRaw = p('filter');
+    final filt = truthy(filtRaw) ? toStr(filtRaw) : null;
+    if (blur > 0 || (filt != null && filt != 'none')) {
+      // Canvas2D: ctx.filter = own blur, own filter functions, then the inherited filter (an invalid list keeps the inherited one)
+      final k = c.deviceScale;
+      final own = filt != null && filt != 'none' ? cssFilterOps(filt, k) : const <FilterOp>[];
+      if (own != null) {
+        st = st.copyWith(filters: [
+          if (blur > 0) FilterOp('blur', double.parse(jsFixed(blur * k, 2))),
+          ...own,
+          ...st.filters,
+        ]);
+      }
+    }
     final rot = sn('rot', 0), scale = sn('scale', 1), sx = sn('sx', 1) * scale, sy = sn('sy', 1) * scale;
+    final skx = sn('skx', 0), sky = sn('sky', 0);
     final fillRaw = p('fill', n.type == 'text' ? (env.theme['fg'] ?? '#fff') : null);
     final strokeRaw = p('stroke');
     final sw = pn('sw', 0);
@@ -696,12 +754,14 @@ class _Walker {
     if (truthy(dashRaw) && dashRaw != 'none') {
       final d = _dashOf(toStr(dashRaw));
       // Canvas2D setLineDash: invalid lists are ignored, [] (or all zeros) = solid
-      if (d != null) st = DrawState(alpha: st.alpha, blend: st.blend, shadow: st.shadow, blur: st.blur, dash: d.isEmpty ? null : d);
+      if (d != null) st = DrawState(alpha: st.alpha, blend: st.blend, shadow: st.shadow, filters: st.filters, dash: d.isEmpty ? null : d);
     }
     void pivot(double px, double py) {
-      if (truthy(rot) || sx != 1 || sy != 1) {
+      if (truthy(rot) || sx != 1 || sy != 1 || truthy(skx) || truthy(sky)) {
         c.translate(px, py);
         if (truthy(rot)) c.rotate(rot * math.pi / 180);
+        // skew (0.9) after the rotation, before the scale: Canvas2D transform(1, tan(sky), tan(skx), 1, 0, 0)
+        if (truthy(skx) || truthy(sky)) c.skew(math.tan(skx * math.pi / 180), math.tan(sky * math.pi / 180));
         if (sx != 1 || sy != 1) c.scale(sx, sy);
         c.translate(-px, -py);
       }
@@ -753,7 +813,7 @@ class _Walker {
           paint(RectShape(0, 0, l.w, l.h, r > 0 ? math.max(0, math.min(r, math.min(l.w / 2, l.h / 2))) : 0));
         }
         // the card's shadow/dash are its own
-        final kidSt = DrawState(alpha: st.alpha, blend: st.blend, blur: st.blur);
+        final kidSt = DrawState(alpha: st.alpha, blend: st.blend, filters: st.filters);
         for (final it in l.items) {
           c.save();
           c.translate(it.x + it.ox, it.y + it.oy);
@@ -1090,7 +1150,7 @@ void _transition(TsvgCanvas c, TsvgTransition tr, double k, TsvgLayout l, void F
     c.save();
     if (tf != null) tf();
     final b = blur == null ? 0.0 : blur();
-    f(DrawState(alpha: alpha, blur: b > 0 ? b : 0));
+    f(DrawState(alpha: alpha, filters: b > 0 ? [FilterOp('blur', b)] : const []));
     c.restore();
   }
 

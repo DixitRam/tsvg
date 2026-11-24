@@ -193,8 +193,25 @@ class TsvgAudioEngine {
   void applyMix(Map<String, double> mix) {
     _mix = mix;
     for (final c in _clips.values) {
-      final g = (mix[c.spec.bus] ?? 1) * c.spec.vol * _master;
-      unawaited(c.player.setVolume(g.clamp(0.0, 1.0)).catchError((_) {}));
+      _applyVolume(c);
+    }
+  }
+
+  void _applyVolume(_Clip c) {
+    final g = (_mix[c.spec.bus] ?? 1) * c.spec.vol * _master * (c.spec.bus == 'music' ? _duck : 1);
+    unawaited(c.player.setVolume(g.clamp(0.0, 1.0)).catchError((_) {}));
+  }
+
+  double _duck = 1;
+
+  /// The music bus's ducking factor (0.9, [duckAt]); the player sets it every
+  /// frame. Changes under 0.01 are ignored (like the web player).
+  double get duck => _duck;
+  void setDuck(double k) {
+    if (k.isNaN || (k - _duck).abs() <= 0.01 && !(k == 1 && _duck != 1)) return;
+    _duck = k;
+    for (final c in _clips.values) {
+      if (c.spec.bus == 'music') _applyVolume(c);
     }
   }
 

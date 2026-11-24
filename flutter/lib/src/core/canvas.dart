@@ -76,28 +76,100 @@ class ShadowSpec {
   final Rgba color;
 }
 
+/// One CSS filter function (0.9 `filter`, Canvas2D `ctx.filter`): grayscale,
+/// sepia, contrast, brightness, saturate, hue-rotate (degrees), invert, opacity
+/// (amounts) or blur (standard deviation in device pixels).
+class FilterOp {
+  const FilterOp(this.name, this.v);
+  final String name;
+  final double v;
+  @override
+  String toString() => '$name($v)';
+}
+
+/// The CSS Filter Effects colour matrix of a colour filter function: 5×4,
+/// row-major (r g b a offset per output channel), offsets in 0–1 units, on
+/// unpremultiplied sRGB. Null for blur (not a colour filter) and unknown names.
+List<double>? filterMatrix(String name, double v) {
+  double c01(double x) => x.isNaN ? 0 : math.max(0.0, math.min(1.0, x));
+  switch (name) {
+    case 'grayscale':
+      final s = 1 - c01(v);
+      return [
+        0.2126 + 0.7874 * s, 0.7152 - 0.7152 * s, 0.0722 - 0.0722 * s, 0, 0, //
+        0.2126 - 0.2126 * s, 0.7152 + 0.2848 * s, 0.0722 - 0.0722 * s, 0, 0,
+        0.2126 - 0.2126 * s, 0.7152 - 0.7152 * s, 0.0722 + 0.9278 * s, 0, 0,
+        0, 0, 0, 1, 0,
+      ];
+    case 'sepia':
+      final s = 1 - c01(v);
+      return [
+        0.393 + 0.607 * s, 0.769 - 0.769 * s, 0.189 - 0.189 * s, 0, 0, //
+        0.349 - 0.349 * s, 0.686 + 0.314 * s, 0.168 - 0.168 * s, 0, 0,
+        0.272 - 0.272 * s, 0.534 - 0.534 * s, 0.131 + 0.869 * s, 0, 0,
+        0, 0, 0, 1, 0,
+      ];
+    case 'saturate':
+      final s = math.max(0.0, v);
+      return [
+        0.213 + 0.787 * s, 0.715 - 0.715 * s, 0.072 - 0.072 * s, 0, 0, //
+        0.213 - 0.213 * s, 0.715 + 0.285 * s, 0.072 - 0.072 * s, 0, 0,
+        0.213 - 0.213 * s, 0.715 - 0.715 * s, 0.072 + 0.928 * s, 0, 0,
+        0, 0, 0, 1, 0,
+      ];
+    case 'hue-rotate':
+      final a = v * math.pi / 180, cs = math.cos(a), sn = math.sin(a);
+      return [
+        0.213 + cs * 0.787 - sn * 0.213, 0.715 - cs * 0.715 - sn * 0.715, 0.072 - cs * 0.072 + sn * 0.928, 0, 0, //
+        0.213 - cs * 0.213 + sn * 0.143, 0.715 + cs * 0.285 + sn * 0.140, 0.072 - cs * 0.072 - sn * 0.283, 0, 0,
+        0.213 - cs * 0.213 - sn * 0.787, 0.715 - cs * 0.715 + sn * 0.715, 0.072 + cs * 0.928 + sn * 0.072, 0, 0,
+        0, 0, 0, 1, 0,
+      ];
+    case 'invert':
+      final a = c01(v), d = 1 - 2 * a;
+      return [d, 0, 0, 0, a, 0, d, 0, 0, a, 0, 0, d, 0, a, 0, 0, 0, 1, 0];
+    case 'brightness':
+      final a = math.max(0.0, v);
+      return [a, 0, 0, 0, 0, 0, a, 0, 0, 0, 0, 0, a, 0, 0, 0, 0, 0, 1, 0];
+    case 'contrast':
+      final a = math.max(0.0, v), o = 0.5 - 0.5 * a;
+      return [a, 0, 0, 0, o, 0, a, 0, 0, o, 0, 0, a, 0, o, 0, 0, 0, 1, 0];
+    case 'opacity':
+      final a = c01(v);
+      return [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, a, 0];
+  }
+  return null;
+}
+
+/// Applies a [filterMatrix] to an unpremultiplied colour (channels 0–1), clamped like Skia.
+List<double> applyFilterMatrix(List<double> m, double r, double g, double b, double a) => [
+      for (var i = 0; i < 4; i++)
+        math.max(0.0, math.min(1.0, m[i * 5] * r + m[i * 5 + 1] * g + m[i * 5 + 2] * b + m[i * 5 + 3] * a + m[i * 5 + 4])),
+    ];
+
 /// Canvas2D state that applies to every draw call: globalAlpha,
-/// globalCompositeOperation, the shadow and the blur filter.
+/// globalCompositeOperation, the shadow and the filter.
 class DrawState {
-  const DrawState({this.alpha = 1, this.blend, this.shadow, this.blur = 0, this.dash});
+  const DrawState({this.alpha = 1, this.blend, this.shadow, this.filters = const [], this.dash});
   final double alpha;
   final String? blend;
   final ShadowSpec? shadow;
 
-  /// Gaussian blur standard deviation in device pixels (Canvas2D
-  /// `filter = blur(Npx)`, fixed when the node set it); 0 = none.
-  final double blur;
+  /// Canvas2D `ctx.filter` (blur, 0.9 `filter`), fixed when a node set it, in
+  /// the order CSS applies them: the node's own blur, its filter functions,
+  /// then what it inherited. Blur radii are in device pixels. Empty = none.
+  final List<FilterOp> filters;
 
   /// Canvas2D line dash (`dash="a b …"`, 0.2.2), already normalised: even
   /// length, all finite and ≥ 0, not all zero. Null = solid.
   final List<double>? dash;
   static const DrawState plain = DrawState();
-  DrawState copyWith({double? alpha, String? blend, ShadowSpec? shadow, bool noShadow = false, double? blur, List<double>? dash}) =>
+  DrawState copyWith({double? alpha, String? blend, ShadowSpec? shadow, bool noShadow = false, List<FilterOp>? filters, List<double>? dash}) =>
       DrawState(
           alpha: alpha ?? this.alpha,
           blend: blend ?? this.blend,
           shadow: noShadow ? null : (shadow ?? this.shadow),
-          blur: blur ?? this.blur,
+          filters: filters ?? this.filters,
           dash: dash ?? this.dash);
 }
 
@@ -152,6 +224,9 @@ abstract class TsvgCanvas {
   void rotate(double radians);
   /// Scale by [sx] horizontally and [sy] (default [sx]) vertically.
   void scale(double sx, [double? sy]);
+
+  /// Canvas2D `transform(1, ky, kx, 1, 0, 0)` (0.9 `skx` / `sky`): x' = x + kx·y, y' = ky·x + y.
+  void skew(double kx, double ky);
 
   /// sqrt(|det|) of the current user → device transform (how many device
   /// pixels one layout unit covers). Used to fix `blur` in device pixels.
@@ -251,6 +326,8 @@ class RecordingCanvas extends TsvgCanvas {
   void rotate(double radians) {}
   @override
   void scale(double sx, [double? sy]) {}
+  @override
+  void skew(double kx, double ky) {}
   @override
   void clip(List<TsvgShape> shapes) {}
   @override

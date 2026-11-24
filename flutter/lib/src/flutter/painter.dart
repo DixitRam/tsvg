@@ -204,6 +204,8 @@ class FlutterTsvgCanvas extends TsvgCanvas {
   void rotate(double radians) => canvas.rotate(radians);
   @override
   void scale(double sx, [double? sy]) => canvas.scale(sx, sy ?? sx);
+  @override
+  void skew(double kx, double ky) => canvas.skew(kx, ky);
 
   @override
   double get deviceScale {
@@ -211,20 +213,41 @@ class FlutterTsvgCanvas extends TsvgCanvas {
     return math.sqrt((m[0] * m[5] - m[1] * m[4]).abs());
   }
 
-  /// Canvas2D `filter = blur(σ px)` applies per draw call, before compositing:
-  /// draw into a layer blurred by σ (device px), composite it with the blend mode.
+  /// Canvas2D `ctx.filter` (blur, 0.9 colour filters) applies per draw call,
+  /// before compositing: draw into a layer whose image filter runs the
+  /// functions in order (each colour matrix clamps, like Skia's filter chain),
+  /// then composite it with the blend mode.
   void _blurred(DrawState st, void Function(DrawState st) draw) {
-    if (!(st.blur > 0)) return draw(st);
-    // saveLayer image filters are scaled by the current transform, so convert
-    // device pixels back to user units
-    final k = deviceScale;
-    final sigma = k > 0 ? st.blur / k : st.blur;
-    final lp = ui.Paint()..imageFilter = ui.ImageFilter.blur(sigmaX: sigma, sigmaY: sigma, tileMode: TileMode.decal);
+    final f = _imageFilter(st.filters);
+    if (f == null) return draw(st);
+    final lp = ui.Paint()..imageFilter = f;
     final bm = _blend(st.blend);
     if (bm != null) lp.blendMode = bm;
     canvas.saveLayer(null, lp);
-    draw(DrawState(alpha: st.alpha, shadow: st.shadow));
+    draw(DrawState(alpha: st.alpha, shadow: st.shadow, dash: st.dash));
     canvas.restore();
+  }
+
+  ui.ImageFilter? _imageFilter(List<FilterOp> ops) {
+    ui.ImageFilter? out;
+    for (final op in ops) {
+      ui.ImageFilter? f;
+      if (op.name == 'blur') {
+        if (!(op.v > 0)) continue;
+        // saveLayer image filters are scaled by the current transform, so convert
+        // device pixels back to user units
+        final k = deviceScale;
+        final sigma = k > 0 ? op.v / k : op.v;
+        f = ui.ImageFilter.blur(sigmaX: sigma, sigmaY: sigma, tileMode: TileMode.decal);
+      } else {
+        final m = filterMatrix(op.name, op.v);
+        if (m == null) continue;
+        // Flutter's matrix offsets are in 0–255
+        f = ui.ColorFilter.matrix([for (var i = 0; i < 20; i++) i % 5 == 4 ? m[i] * 255 : m[i]]);
+      }
+      out = out == null ? f : ui.ImageFilter.compose(outer: f, inner: out);
+    }
+    return out;
   }
 
   @override
@@ -475,7 +498,8 @@ class FlutterTsvgCanvas extends TsvgCanvas {
   @override
   ImageSize? imageSize(String ref) {
     final img = media?.image(ref);
-    return img == null ? null : ImageSize(img.width.toDouble(), img.height.toDouble());
+    // a missing or broken (undecodable, empty) image is not ready: the core draws the grey box
+    return img == null || img.width == 0 || img.height == 0 ? null : ImageSize(img.width.toDouble(), img.height.toDouble());
   }
 
   @override

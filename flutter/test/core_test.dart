@@ -590,7 +590,105 @@ console.log(JSON.stringify(exprs.map((x) => T.compile(x)(env))));''';
       expect([b.w, b.h], [1280, 720]);
     });
   });
+  group('0.9 effects and beats', () {
+    const beatsDocXml = '''<tsvg><mixes><mix id="full" voice="1" music="0.5" duck="0.3"/><mix id="flat" music="1"/></mixes>
+      <options><option id="mix" default="full"><choice id="full"/><choice id="flat"/></option></options>
+      <music src="a.m4a" beats="b"/><music src="c.m4a" beats="e"/>
+      <defs><data id="b" v="0.5, 1, 2"/></defs>
+      <timeline><scene dur="6"><say text="Hi there" at="1" dur="2"/></scene></timeline></tsvg>''';
+    final beatsDoc = parseTsvg(beatsDocXml);
+    Object? bev(String src) => compileExpr(src)(envFor(beatsDoc));
+    test('since / idx / pulse on a time list', () {
+      expect([bev("idx(0.4, 'b')"), bev("idx(1, 'b')"), bev("idx(1.5, 'b')"), bev("idx(5, 'b')")], [0, 2, 2, 3]);
+      expect(bev("since(0.4, 'b')"), 1e9, reason: 'before the first time');
+      expect(bev("since(1.25, 'b')"), closeTo(0.25, 1e-12));
+      expect(bev("since(2, 'b')"), 0);
+      expect(bev("pulse(0.4, 'b', 0.5)"), 0);
+      expect(bev("pulse(1, 'b', 0.5)"), 1, reason: 'on a beat');
+      expect(bev("pulse(1.25, 'b', 0.5)"), closeTo(math.exp(-0.5), 1e-12));
+      expect(bev("pulse(1.25, 'b')"), closeTo(math.exp(-1), 1e-12), reason: 'default decay 0.25');
+      expect(bev("pulse(1.25, 'b', 0)"), closeTo(math.exp(-1), 1e-12), reason: 'decay ≤ 0 = 0.25');
+      // <music beats="e"> without <data id="e">: an empty list until tsvg bake writes the grid
+      expect(beatsDoc.data['e'], isEmpty);
+      expect([bev("idx(3, 'e')"), bev("since(3, 'e')"), bev("pulse(3, 'e')")], [0, 1e9, 0]);
+      expect(beatsDoc.audio.map((a) => a.beats), ['b', 'e']);
+      expect(() => bev("idx(1, 'nope')"), throwsA(isA<TsvgError>()));
+      expect(validate(beatsDocXml).warnings.any((w) => w.contains('no beat grid in <data id="e">')), isTrue);
+    });
+    test('duckAt: inside a line, ramps, no duck', () {
+      final lines = [SayLine(key: 'l', start: 1, dur: 2, text: 'Hi', speak: 'Hi', clip: null, lang: null)];
+      final o = {'mix': 'full'};
+      expect(duckAt(beatsDoc, o, 2, lines), closeTo(0.3, 1e-12), reason: 'inside a line');
+      expect(duckAt(beatsDoc, o, 0.9, lines), closeTo(1 - 0.7 * 0.6, 1e-12), reason: '0.1 s before: 60% into the ramp');
+      expect(duckAt(beatsDoc, o, 3.1, lines), closeTo(1 - 0.7 * 0.6, 1e-12), reason: '0.1 s after');
+      expect(duckAt(beatsDoc, o, 3.3, lines), 1, reason: 'after the ramp');
+      expect(duckAt(beatsDoc, o, 0.5, lines), 1, reason: 'before the ramp');
+      expect(duckAt(beatsDoc, {'mix': 'flat'}, 2, lines), 1, reason: 'no duck in the mix');
+      expect(duckAt(beatsDoc, o, 2, [SayLine(key: 'x', start: 1, dur: 2, text: '', speak: '', clip: null, lang: null)]), 1,
+          reason: 'a line with neither text nor clip does not duck');
+      expect(duckAt(beatsDoc, o, 2), closeTo(0.3, 1e-12), reason: 'lines from the document');
+    });
+    test('filter matrices and parsing', () {
+      final g = applyFilterMatrix(filterMatrix('grayscale', 1)!, 1, 0, 0, 1);
+      expect(g, [closeTo(0.2126, 1e-9), closeTo(0.2126, 1e-9), closeTo(0.2126, 1e-9), 1]);
+      expect(applyFilterMatrix(filterMatrix('grayscale', 0)!, 1, 0, 0, 1), [1, 0, 0, 1]);
+      expect(applyFilterMatrix(filterMatrix('invert', 1)!, 1, 0.25, 0, 1), [0, 0.75, 1, 1]);
+      expect(applyFilterMatrix(filterMatrix('contrast', 2)!, 0.75, 0.5, 0.25, 1), [1, 0.5, 0, 1]);
+      expect(applyFilterMatrix(filterMatrix('opacity', 0.5)!, 1, 1, 1, 1), [1, 1, 1, 0.5]);
+      final h = applyFilterMatrix(filterMatrix('hue-rotate', 360)!, 0.2, 0.4, 0.6, 1);
+      expect(h, [closeTo(0.2, 1e-9), closeTo(0.4, 1e-9), closeTo(0.6, 1e-9), 1]);
+      final ops = cssFilterOps('hue(30) blur(4px) grayscale(50%) drop-shadow(1px 2px red) sepia(.4)', 2)!;
+      expect(ops.map((o) => '${o.name} ${o.v}'), ['hue-rotate 30.0', 'blur 8.0', 'grayscale 50.0', 'sepia 0.4']);
+      expect(cssFilterOps('contrast(-1)', 1), isNull, reason: 'Canvas2D rejects the whole list');
+      expect(cssFilterOps('hue-rotate(-20deg)', 1)!.single.v, -20);
+    });
+    test('filter: own blur, own functions, then inherited (group → children)', () {
+      final d = parseTsvg('''<tsvg><timeline><scene dur="2">
+        <group filter="grayscale(1)" blur="2"><rect w="1" h="1" fill="#f00" blur="1" filter="hue(90)"/><rect w="1" h="1" fill="#f00"/></group>
+        <group filter="sepia(1)"><rect w="1" h="1" fill="#f00" filter="contrast(-1)"/></group>
+        <rect w="1" h="1" fill="#f00" filter="none"/></scene></timeline></tsvg>''');
+      final rc = _StateLog();
+      renderFrame(rc, d, 0.5, defaultOptions(d), d.layouts.first);
+      expect(rc.filters.skip(rc.filters.length - 4), [
+        'blur(1.0) hue-rotate(90.0) blur(2.0) grayscale(1.0)',
+        'blur(2.0) grayscale(1.0)',
+        'sepia(1.0)',
+        '',
+      ]);
+    });
+    test('skew: after the rotation, before the scale, about the pivot', () {
+      final d = parseTsvg('''<tsvg><timeline><scene dur="2"><rect w="100" h="100" rot="90" skx="45" sky="-45" sx="2"/>
+        <rect w="10" h="10" sky="30"/></scene></timeline></tsvg>''');
+      final rc = _TranslateLog();
+      renderFrame(rc, d, 0.5, defaultOptions(d), d.layouts.first);
+      expect(rc.log.sublist(0, 5), [[50.0, 50.0], 'rot', 'skew', 'scale', [-50.0, -50.0]]);
+      expect(rc.skews[0][0], closeTo(1, 1e-12));
+      expect(rc.skews[0][1], closeTo(-1, 1e-12));
+      expect(rc.skews[1][0], 0);
+      expect(rc.skews[1][1], closeTo(math.tan(math.pi / 6), 1e-12));
+    });
+    test('group auto-bounds: the union of its in-flow children', () {
+      final d = parseTsvg('''<tsvg><defs><symbol id="s"><rect x="-10" y="-10" w="20" h="20"/></symbol></defs><timeline><scene dur="2">
+        <group><rect x="10" y="20" w="30" h="40"/><circle r="5"/><rect x="500" w="1" h="1" when="0"/></group>
+        <use ref="s"/><group/><group w="40"><rect w="100" h="100"/></group>
+        <row><group><rect w="30" h="10" ax="0.5"/></group><rect w="5" h="5"/></row></scene></timeline></tsvg>''');
+      final env = makeEnv(d, const {}, d.layouts.first, 0);
+      List<double> box(int i) {
+        final b = boxOf(RecordingCanvas(), d.scenes.first.nodes[i], env);
+        return [b.w, b.h, b.ox, b.oy];
+      }
+
+      expect(box(0), [45, 65, 5, 5]);
+      expect(box(1), [20, 20, 10, 10], reason: 'use: its symbol');
+      expect(box(2), [0, 0, 0, 0], reason: 'empty');
+      expect(box(3), [40, 0, 0, 0], reason: 'w or h given: its own box');
+      final l = arrange(RecordingCanvas(), d.scenes.first.nodes[4], env);
+      expect([l.w, l.h], [35, 10]);
+      expect([l.items[0].x + l.items[0].ox, l.items[1].x], [15, 30], reason: 'the group is placed by its children');
+    });
+  });
 }
+
 
 bool _numEq(Object? a, Object? b) {
   if (a is num && b is num) return a == b || (a - b).abs() < 1e-12;
@@ -610,10 +708,25 @@ bool _numEq(Object? a, Object? b) {
 
 class _TranslateLog extends RecordingCanvas {
   final log = <Object>[];
+  final skews = <List<double>>[];
   @override
   void translate(double dx, double dy) => log.add([dx, dy]);
   @override
   void rotate(double radians) => log.add('rot');
+  @override
+  void skew(double kx, double ky) {
+    log.add('skew');
+    skews.add([kx, ky]);
+  }
+
+  @override
+  void scale(double sx, [double? sy]) => log.add('scale');
+}
+
+class _StateLog extends RecordingCanvas {
+  final filters = <String>[];
+  @override
+  void fill(TsvgShape shape, TsvgPaint paint, DrawState st) => filters.add(st.filters.join(' '));
 }
 
 class _VideoLog extends RecordingCanvas {

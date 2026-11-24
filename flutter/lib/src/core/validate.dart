@@ -28,6 +28,12 @@ ValidationResult validate(String xml, {bool Function(String path)? has, int samp
   }
   final langOpt = doc.options.where((o) => o.id == 'lang');
   final langs = langOpt.isEmpty ? <String>[] : [for (final c in langOpt.first.choices) c.id];
+  for (final m in doc.audio) {
+    final b = m.beats;
+    if (b != null && b.isNotEmpty && (doc.data[b]?.isEmpty ?? false)) {
+      warnings.add('music ${m.src}: no beat grid in <data id="$b"> yet (tsvg make bakes it)');
+    }
+  }
   doc.strings.forEach((id, s) {
     for (final l in langs) {
       if (s[l] == null) warnings.add('string @$id has no "$l" text (falls back)');
