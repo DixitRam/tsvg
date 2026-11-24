@@ -7,6 +7,7 @@
 //   tsvg styles                                  list the 60 style templates
 //   tsvg lib [name]                              the built-in libraries; with a name: its components and props
 //   tsvg icons [word]                            icon names in tsvg:icons
+//   tsvg captions <file> [--lang gu] [--srt] [-o out.vtt]   the narration as WebVTT / SRT
 //   tsvg validate <file.tsvg|.tsvgz>             static checks + dry run of every variant
 //   tsvg info     <file>                         duration, options, chapters, voices
 //   tsvg pack     <file.tsvg> [-o out.tsvgz] [--html [out.html]] [--no-preview]
@@ -129,6 +130,12 @@ const cmds = {
     for (const [p, b] of Object.entries(extraFiles)) entries.push({ path: p, data: new Uint8Array(b) });
     if (src.srcXml) entries.push({ path: 'source.tsvg', data: src.srcXml }); // the document as written (imports kept); main.tsvg is flattened
     for (const p of referenced(doc)) entries.push({ path: p, data: new Uint8Array(src.get(p)) });
+    // captions files (WebVTT) per language, for players and tools that read captions
+    const langOpt = doc.options.find((o) => o.id === 'lang');
+    for (const l of langOpt ? langOpt.choices.map((c) => c.id) : ['en']) if (TSVG.sayLines(doc, Object.assign(TSVG.defaults(doc), { lang: l })).length) entries.push({ path: 'captions/' + l + '.vtt', data: TSVG.captions(doc, { lang: l }) });
+    // smaller packages (default; --full keeps files as they are): font subsets, big pictures as WebP, duplicates once
+    if (!flag('full')) mainXml = shrink(entries, doc, mainXml, src);
+    entries[0].data = mainXml;
     const deflateRaw = (b) => new Uint8Array(deflateRawSync(b, { level: 9 }));
     // --html out.html: one self-contained page (player + package inline) that plays offline in any browser
     if (flag('html')) {
@@ -150,8 +157,65 @@ const cmds = {
     for (const p of src.list()) { if (p.includes('..')) die('unsafe path in package: ' + p); const f = join(out, p); mkdirSync(dirname(f), { recursive: true }); writeFileSync(f, src.get(p)); }
     console.log(out);
   },
-  bake, render, export: exportMp4, test, serve, check, preview, make, new: scaffold, styles, lib: libCmd, libs: libCmd, icons: iconsCmd,
+  bake, render, export: exportMp4, test, serve, check, preview, make, new: scaffold, styles, lib: libCmd, libs: libCmd, icons: iconsCmd, captions: captionsCmd,
 };
+// ───────── smaller packages ─────────
+// fonts → subset to every character the document can show (all strings in every language, literal texts, ASCII and
+// common punctuation, whole scripts its languages use); JPEG/PNG over 150 KB → WebP when that saves 20 %+;
+// identical files → one copy. References in main.tsvg follow. Returns the new main.tsvg.
+function shrink(entries, doc, xml, src) {
+  const before = entries.reduce((a, e) => a + (typeof e.data === 'string' ? e.data.length : e.data.length), 0);
+  const tmp = join(src.dir, '.tsvg-shrink-' + process.pid); mkdirSync(tmp, { recursive: true });
+  const notes = [];
+  try {
+    // characters
+    const chars = new Set();
+    const add = (t) => { for (const ch of String(t || '')) chars.add(ch.codePointAt(0)); };
+    for (const s of Object.values(doc.strings)) for (const v of Object.values(s)) add(v);
+    for (const m of xml.matchAll(/\b(?:text|chapter|title|label)(?:\.[\w-]+)?="([^"]*)"/g)) add(m[1].replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&#10;/g, '\n'));
+    for (let c = 0x20; c < 0x7f; c++) chars.add(c);
+    for (const c of '–—‘’“”…•·×÷±°™©®€£₹¥✓✗→←↑↓⇢★☆♪%‰′″') chars.add(c.codePointAt(0));
+    const langs = (doc.options.find((o) => o.id === 'lang') || { choices: [] }).choices.map((c) => c.id);
+    const SCRIPTS = { gu: [0x0a80, 0x0aff], hi: [0x0900, 0x097f], mr: [0x0900, 0x097f], bn: [0x0980, 0x09ff], ta: [0x0b80, 0x0bff], te: [0x0c00, 0x0c7f], kn: [0x0c80, 0x0cff], ml: [0x0d00, 0x0d7f], pa: [0x0a00, 0x0a7f] };
+    for (const l of langs) if (SCRIPTS[l]) { for (let c = SCRIPTS[l][0]; c <= SCRIPTS[l][1]; c++) chars.add(c); chars.add(0x0964); chars.add(0x0965); chars.add(0x200c); chars.add(0x200d); }
+    const uni = [...chars].sort((a, b) => a - b).map((c) => c.toString(16)).join(',');
+    const py = process.env.TSVG_PYTHON || join(process.env.HOME, '.cache/explainer-video/py/venv/bin/python');
+    const hasFT = spawnSync(py, ['-c', 'import fontTools'], { encoding: 'utf8' }).status === 0;
+    for (const e of entries) {
+      if (!/\.(ttf|otf)$/i.test(e.path)) continue;
+      if (!hasFT) { notes.push('fonts not subset (pip install fonttools)'); break; }
+      const i = join(tmp, 'in' + extname(e.path)), o = join(tmp, 'out' + extname(e.path)); writeFileSync(i, e.data);
+      const r = spawnSync(py, ['-m', 'fontTools.subset', i, '--unicodes=' + uni, '--layout-features=*', '--no-hinting', '--notdef-outline', '--name-IDs=*', '--output-file=' + o], { encoding: 'utf8' });
+      if (r.status === 0 && existsSync(o)) { const b = readFileSync(o); if (b.length < e.data.length) e.data = new Uint8Array(b); } else notes.push('subset failed: ' + e.path);
+    }
+    // pictures
+    for (const e of entries) {
+      if (!/\.(jpe?g|png)$/i.test(e.path) || e.path.endsWith('.poster.jpg') || e.data.length < 150 * 1024) continue;
+      const i = join(tmp, 'in' + extname(e.path)), o = join(tmp, 'out.webp'); writeFileSync(i, e.data);
+      const r = spawnSync('cwebp', ['-quiet', '-q', '82', '-alpha_q', '90', i, '-o', o], { encoding: 'utf8' });
+      if (r.status !== 0 || !existsSync(o)) continue;
+      const b = readFileSync(o); if (b.length > e.data.length * 0.8) continue;
+      const np = e.path.replace(/\.(jpe?g|png)$/i, '.webp'); if (entries.some((x) => x.path === np)) continue;
+      xml = xml.split('"' + e.path + '"').join('"' + np + '"'); e.path = np; e.data = new Uint8Array(b);
+    }
+    // duplicates
+    const seen = new Map();
+    for (let k = entries.length - 1; k >= 1; k--) {
+      const e = entries[k]; if (typeof e.data === 'string' || /\.(tsvg|vtt|html)$/.test(e.path)) continue;
+      const h = createHash('sha1').update(e.data).digest('hex');
+      if (seen.has(h)) { const keep = seen.get(h); xml = xml.split('"' + e.path + '"').join('"' + keep + '"'); entries.splice(k, 1); } else seen.set(h, e.path);
+    }
+  } finally { rmSync(tmp, { recursive: true, force: true }); }
+  const after = entries.reduce((a, e) => a + (typeof e.data === 'string' ? e.data.length : e.data.length), 0);
+  console.log(`pack: ${(before / 1024).toFixed(0)} KB of files → ${(after / 1024).toFixed(0)} KB (font subsets, WebP, duplicates; --full keeps them)` + (notes.length ? ' · ' + [...new Set(notes)].join(' · ') : ''));
+  return xml;
+}
+// tsvg captions <file> [--lang gu] [--srt] [-o out.vtt]: the narration as a captions file
+async function captionsCmd() {
+  const src = await openSource(pos[0]); const doc = TSVG.parse(src.xml); const o = optsFromFlags(doc);
+  const text = TSVG.captions(doc, o, flag('srt') ? 'srt' : 'vtt');
+  const out = flag('o'); if (out) { writeFileSync(out, text); console.log(out); } else process.stdout.write(text);
+}
 // tsvg icons [word]: icon names in tsvg:icons that contain the word
 function iconsCmd() {
   const names = [...readFileSync(join(ROOT, 'libs/icons/icons.tsvgl'), 'utf8').matchAll(/<e k="([^"]+)"/g)].map((m) => m[1]);

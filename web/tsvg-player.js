@@ -411,6 +411,8 @@
       const rows = [{ id: '__rate', label: 'Playback speed', cur: this.rate === 1 ? 'Normal' : this.rate + '×', choices: SPEEDS.map((r) => ({ id: String(r), label: r === 1 ? 'Normal' : r + '×' })), val: String(this.rate) },
         { id: '__cc', label: 'Captions', cur: this.cc ? 'On' : 'Off', choices: [{ id: 'on', label: 'On' }, { id: 'off', label: 'Off' }], val: this.cc ? 'on' : 'off' }];
       for (const o of this.doc.options) { const c = o.choices.find((x) => x.id === this.opts[o.id]); rows.push({ id: o.id, label: this.str(o.label), cur: c ? this.str(c.label) : this.opts[o.id], choices: o.choices.map((x) => ({ id: x.id, label: this.str(x.label) })), val: this.opts[o.id] }); }
+      // chapters (0.10): jump to any chapter from the menu
+      const chs = this.tl.chapters; if (chs.length > 1) { const cur = chs.filter((c) => c.t <= this.t + 1e-6).pop(); rows.unshift({ id: '__chapter', label: 'Chapters', cur: cur ? this.str(cur.label) : '', choices: chs.map((c, i) => ({ id: String(i), label: fmtT(c.t) + '  ' + this.str(c.label) })), val: cur ? String(chs.indexOf(cur)) : '' }); }
       if (this.doc.layouts.length > 1) rows.push({ id: '__layout', label: 'Layout', cur: this.layoutPref === 'auto' ? 'Auto' : this.layoutPref, choices: [{ id: 'auto', label: 'Auto (fit screen)' }].concat(this.doc.layouts.map((l) => ({ id: l.id, label: l.id + ' · ' + l.w + '×' + l.h }))), val: this.layoutPref });
       return rows;
     }
@@ -427,6 +429,7 @@
       if (g === '__layout') { this.layoutPref = c; this.zoom = 1; this.panX = this.panY = 0; }
       else if (g === '__rate') { this.setRate(+c); }
       else if (g === '__cc') { this.cc = c === 'on'; }
+      else if (g === '__chapter') { const ch = this.tl.chapters[+c]; if (ch) this.seek(ch.t); }
       else { this.opts[g] = c; this.t = Math.min(this.t, this.tl.duration); this.buildTicks(); this.syncLines(); if (g === 'mix') this.applyMix(); if (this.playing) this.ensureAudio().then(() => this.syncAudio(true)); }
       if (this.onOptions) this.onOptions(this.opts);
       this.renderMenu(); this.draw();

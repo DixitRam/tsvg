@@ -94,6 +94,12 @@ const o = { base: pathToFileURL(ROOT + 'tests/x.tsvg').href, libBase: pathToFile
   const o = T.defaults(d); eq([T.duckAt(d, o, 3), T.duckAt(d, o, 1.875), T.duckAt(d, o, 5)].map((v) => +v.toFixed(4)), [0.2, 0.6, 1], 'duckAt inside / ramp / after');
   ok(T.validate(x).warnings.every((w) => !/skx|filter/.test(w)), 'skx and filter are known attributes');
 }
+// captions files
+{
+  const d = T.parse('<tsvg><timeline><scene dur="5"><say at="0.5" dur="2.25" text="Hello there."/><say at="3" dur="1" text="Bye."/></scene></timeline></tsvg>');
+  eq(T.captions(d, {}), 'WEBVTT\n\n00:00:00.500 --> 00:00:02.750\nHello there.\n\n00:00:03.000 --> 00:00:04.000\nBye.\n', 'vtt');
+  eq(T.captions(d, {}, 'srt').split('\n').slice(0, 3), ['1', '00:00:00,500 --> 00:00:02,750', 'Hello there.'], 'srt');
+}
 // every built-in library example checks clean
 for (const f of ['examples/libs/report.tsvg', 'examples/libs/explainer.tsvg', 'templates/report.tsvg', 'examples/charts/charts.tsvg', 'examples/fx/fx.tsvg', 'examples/video/video.tsvg', 'examples/text/text.tsvg', 'examples/layout/layout.tsvg']) {
   const x = readFileSync(ROOT + f, 'utf8'); const oo = Object.assign({}, o, { base: pathToFileURL(ROOT + f).href });

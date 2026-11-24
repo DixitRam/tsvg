@@ -303,10 +303,14 @@ tsvg check    report.tsvg       # compiler: lint (unknown tags/attributes/varian
 tsvg preview  report.tsvg       # contact sheet per layout: every scene + its narration line
 tsvg make     report.tsvg       # check → bake → check → preview → pack, in one step
 tsvg lib      [report]          # built-in libraries; with a name: its components and props
+tsvg icons    money             # icon names in tsvg:icons (by name or tag)
+tsvg captions demo.tsvg --lang gu [--srt] -o gu.vtt   # the narration as WebVTT / SRT
+tsvg watch    demo.tsvg         # live preview: reloads on every save, keeps the position, shows errors
+tsvg edit     demo.tsvg         # visual editor: click to select, drag, edit attributes / props / strings, save
 tsvg validate demo.tsvg          # parse, references, translations, voice overlaps, dry run of every variant
 tsvg info     demo.tsvgz
 tsvg bake     demo.tsvg          # record every &lt;say&gt; per language (Kokoro, Sarvam), write &lt;voices&gt;
-tsvg pack     demo.tsvg -o demo.tsvgz
+tsvg pack     demo.tsvg -o demo.tsvgz   # flattened, + captions/&lt;lang&gt;.vtt, fonts subset to the characters used, big pictures as WebP (--full: as they are)
 tsvg render   demo.tsvg -t 12 --lang gu --layout portrait -o frame.png
 tsvg export   demo.tsvg --lang gu --mix speech --layout portrait --captions -o demo.mp4
 tsvg test     [--update]         # golden frames + zip round trip</pre>

@@ -1230,6 +1230,13 @@
     for (const l of lines || sayLines(doc, opts)) { if (!l.clip && !l.text) continue; const a = l.start, b = l.start + l.dur; const w = t < a ? 1 - (a - t) / R : t > b ? 1 - (t - b) / R : 1; if (w > k) k = w; if (k >= 1) break; }
     return 1 - (1 - d) * Math.max(0, Math.min(1, k));
   }
+  // WebVTT (or SRT) captions of the narration for one option set (0.10)
+  function captions(doc, opts, format) {
+    const ts = (t, sep) => { const ms = Math.round(t * 1000); const h = Math.floor(ms / 3600000), m = Math.floor(ms / 60000) % 60, s = Math.floor(ms / 1000) % 60; return String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0') + sep + String(ms % 1000).padStart(3, '0'); };
+    const lines = sayLines(doc, Object.assign(defaults(doc), opts)).sort((a, b) => a.start - b.start);
+    if (format === 'srt') return lines.map((l, i) => (i + 1) + '\n' + ts(l.start, ',') + ' --> ' + ts(l.start + l.dur, ',') + '\n' + l.text + '\n').join('\n');
+    return 'WEBVTT\n\n' + lines.map((l) => ts(l.start, '.') + ' --> ' + ts(l.start + l.dur, '.') + '\n' + l.text + '\n').join('\n');
+  }
   // asset id or path → path inside the package
   function assetPath(doc, ref) { return ref && doc.assets[ref] ? doc.assets[ref].src : ref; }
 
@@ -1385,6 +1392,6 @@
     root.Path2D = class { constructor() {} moveTo() {} lineTo() {} rect() {} roundRect() {} ellipse() {} closePath() {} addPath() {} };
   }
 
-  root.TSVG = { VERSION, PKG, forOptions, duckAt, needsLibs, loadLibs, flatten, serializeXML, describeLib, libUrl, lint, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
+  root.TSVG = { VERSION, PKG, forOptions, duckAt, captions, needsLibs, loadLibs, flatten, serializeXML, describeLib, libUrl, lint, parse, parseXML, compile, renderFrame, sayLines, audioPlan, assetPath, defaults, combos, validate, EASE, value, makeEnv };
   if (typeof module !== 'undefined' && module.exports) module.exports = root.TSVG;
 })(typeof window !== 'undefined' ? window : globalThis);
