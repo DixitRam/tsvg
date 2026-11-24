@@ -181,10 +181,19 @@ class TsvgAudioEngine {
     }
   }
 
+  double _master = 1;
+
+  /// The viewer's volume (0–1, 0 = muted): a master gain on top of the document mix.
+  double get master => _master;
+  void setMaster(double g) {
+    _master = g.clamp(0.0, 1.0);
+    applyMix(_mix);
+  }
+
   void applyMix(Map<String, double> mix) {
     _mix = mix;
     for (final c in _clips.values) {
-      final g = (mix[c.spec.bus] ?? 1) * c.spec.vol;
+      final g = (mix[c.spec.bus] ?? 1) * c.spec.vol * _master;
       unawaited(c.player.setVolume(g.clamp(0.0, 1.0)).catchError((_) {}));
     }
   }
