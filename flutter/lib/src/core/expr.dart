@@ -17,6 +17,19 @@ abstract interface class TsvgDataHost {
   Map<String, double> get aspects;
 }
 
+/// A `<say>` line's place inside its scene (scene-relative seconds), for `cue()` / `cueEnd()`.
+class TsvgCue {
+  const TsvgCue(this.at, this.end);
+  final double at, end;
+}
+
+/// A timed scene as seen by expressions: its id and its say cues, by key and by
+/// index among the enabled lines ("0", "1", …).
+abstract interface class TsvgCueHost {
+  String? get id;
+  Map<String, TsvgCue> get cues;
+}
+
 /// Evaluation environment of one node (see `makeEnv` in the reference).
 class Env {
   Env({
@@ -26,6 +39,7 @@ class Env {
     required this.tags,
     required this.fns,
     required this.vars,
+    this.scene,
   });
 
   /// The parsed document (typed as Object to keep this file free of model imports).
@@ -36,9 +50,16 @@ class Env {
   final Map<String, UserFn> fns;
   final Map<String, Object?> vars;
 
+  /// The scene being drawn (for `cue()` / `cueEnd()`); null outside scenes.
+  final TsvgCueHost? scene;
+
   /// Same env with [vars] replaced.
   Env withVars(Map<String, Object?> v) =>
-      Env(doc: doc, opts: opts, theme: theme, tags: tags, fns: fns, vars: v);
+      Env(doc: doc, opts: opts, theme: theme, tags: tags, fns: fns, vars: v, scene: scene);
+
+  /// Same env inside scene [s].
+  Env withScene(TsvgCueHost? s, Map<String, Object?> v) =>
+      Env(doc: doc, opts: opts, theme: theme, tags: tags, fns: fns, vars: v, scene: s);
 }
 
 typedef Expr = Object? Function(Env env);
@@ -304,6 +325,17 @@ Expr compileExpr(String src) {
             final host = env.doc;
             if (host is! TsvgDataHost) throw TsvgError('unknown string @${toStr(vals.isEmpty ? null : vals[0])}');
             return host.stringOf(toStr(vals.isEmpty ? null : vals[0]), env);
+          }
+          if (name == 'cue' || name == 'cueEnd') {
+            final sc = env.scene;
+            final k = vals.isEmpty ? null : vals[0];
+            final c = sc?.cues[toStr(k)];
+            if (c == null) {
+              throw TsvgError(sc != null
+                  ? 'no <say> "${toStr(k)}" in scene ${toStr(sc.id)} (cue takes a say id or 0, 1, …)'
+                  : '$name() works inside a scene');
+            }
+            return name == 'cue' ? c.at : c.end;
           }
           if (name == 'aspect') {
             final host = env.doc;

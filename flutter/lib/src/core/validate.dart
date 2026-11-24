@@ -79,6 +79,7 @@ ValidationResult validate(String xml, {bool Function(String path)? has, int samp
     }
   }
   for (final l in ls) {
+    final dl = forOptions(doc, {...defaultOptions(doc), 'lang': l}).duration;
     final lines = sayLines(doc, {...defaultOptions(doc), 'lang': l})..sort((a, b) => a.start.compareTo(b.start));
     for (var i = 0; i < lines.length; i++) {
       final ln = lines[i];
@@ -88,8 +89,8 @@ ValidationResult validate(String xml, {bool Function(String path)? has, int samp
       if (next != null && end > next.start + 0.05) {
         warnings.add('say ${ln.key} [$l] ends at ${jsFixed(end, 2)}s, overlaps ${next.key} at ${jsFixed(next.start, 2)}s');
       }
-      if (end > doc.duration + 0.05) {
-        warnings.add('say ${ln.key} [$l] runs past the end (${jsFixed(end, 2)}s > ${numStr(doc.duration)}s)');
+      if (end > dl + 0.05) {
+        warnings.add('say ${ln.key} [$l] runs past the end (${jsFixed(end, 2)}s > ${jsFixed(dl, 2)}s)');
       }
     }
   }
@@ -99,9 +100,10 @@ ValidationResult validate(String xml, {bool Function(String path)? has, int samp
   outer:
   for (final layout in doc.layouts) {
     for (final opts in sets.isNotEmpty ? sets : [<String, String>{}]) {
-      final n = samples * doc.scenes.length;
+      final v = forOptions(doc, {...defaultOptions(doc), ...opts});
+      final n = samples * v.scenes.length;
       for (var i = 0; i <= n; i++) {
-        final t = n == 0 ? 0.0 : doc.duration * i / n;
+        final t = n == 0 ? 0.0 : v.duration * i / n;
         try {
           renderFrame(ctx, doc, t, {...defaultOptions(doc), ...opts}, layout);
         } catch (e) {

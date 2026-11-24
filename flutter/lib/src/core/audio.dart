@@ -1,6 +1,4 @@
 // Audio plan: everything an engine needs to play sound for one option set.
-import 'dart:math' as math;
-
 import 'expr.dart';
 import 'js.dart';
 import 'model.dart';
@@ -38,9 +36,8 @@ class AudioPlan {
   final List<TsvgAudio> clips;
 }
 
-final RegExp _ws = RegExp(r'\s+');
-
 List<SayLine> sayLines(TsvgDoc doc, Map<String, String> opts) {
+  doc = forOptions(doc, opts);
   final env = makeEnv(doc, opts, doc.layouts.first, 0);
   final lang = opts['lang'];
   final out = <SayLine>[];
@@ -51,10 +48,7 @@ List<SayLine> sayLines(TsvgDoc doc, Map<String, String> opts) {
     final baked = doc.voices['${s.key}|$lang'];
     final srcLang = s.raw['src.$lang'];
     final clip = (srcLang != null && srcLang.isNotEmpty) ? srcLang : (baked?.src != null && baked!.src!.isNotEmpty ? baked.src : null);
-    final rawDur = s.raw['dur'];
-    final dur = baked != null && baked.dur > 0
-        ? baked.dur
-        : (rawDur != null && rawDur.isNotEmpty ? toNum(rawDur) : math.max(1.5, text.split(_ws).length * 0.42));
+    final dur = lineDur(doc, s.key, s.raw, lang, env);
     final sp = (s.raw['speak.$lang'] ?? '').isNotEmpty ? s.raw['speak.$lang'] : s.raw['speak'];
     out.add(SayLine(
       key: s.key,
@@ -71,6 +65,7 @@ List<SayLine> sayLines(TsvgDoc doc, Map<String, String> opts) {
 }
 
 AudioPlan audioPlan(TsvgDoc doc, Map<String, String> opts) {
+  doc = forOptions(doc, opts);
   final env = makeEnv(doc, opts, doc.layouts.first, 0);
   final mix = doc.mixes[opts['mix']] ?? const {'voice': 1.0, 'music': 1.0, 'sfx': 1.0};
   final clips = <TsvgAudio>[

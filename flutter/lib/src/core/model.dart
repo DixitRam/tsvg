@@ -1,7 +1,9 @@
 // TSVG document model and parser (port of `parse` in tsvg-core.js).
+import 'dart:math' as math;
+
 import 'expr.dart';
-import 'render.dart' show strOf;
 import 'js.dart';
+import 'render.dart' show strOf, makeEnv, value, pick, defaultOptions;
 import 'xml.dart';
 
 const String tsvgVersion = '0.2.2';
@@ -120,11 +122,46 @@ class TsvgGradient {
   final List<Map<String, String>> stops;
 }
 
-class TsvgScene {
-  const TsvgScene(this.id, this.start, this.dur, this.nodes);
+class TsvgScene implements TsvgCueHost {
+  const TsvgScene(this.id, this.start, this.dur, this.nodes, {this.cues = const {}, this.line = 0});
+  @override
   final String? id;
   final double start, dur;
   final List<TsvgNode> nodes;
+
+  /// Enabled `<say>` lines by key and by index ("0", "1", …), scene-relative.
+  @override
+  final Map<String, TsvgCue> cues;
+  final int line;
+}
+
+/// A `<say>` as written (its time is laid out by [timing]).
+class TsvgSaySrc {
+  const TsvgSaySrc(this.key, this.raw, this.scene);
+  final String key;
+  final Map<String, String> raw;
+  final String? scene;
+}
+
+/// A `<scene>` as written: attributes, nodes, its says and sfx.
+class TsvgSceneSrc {
+  TsvgSceneSrc(this.id, this.a, this.nodes, this.line);
+  final String? id;
+  final Map<String, String> a;
+  final List<TsvgNode> nodes;
+  final int line;
+  final List<TsvgSaySrc> says = [];
+  final List<Map<String, String>> sfx = [];
+}
+
+/// The timeline laid out for one option set.
+class TsvgTiming {
+  const TsvgTiming(this.scenes, this.says, this.audio, this.chapters, this.duration);
+  final List<TsvgScene> scenes;
+  final List<TsvgSay> says;
+  final List<TsvgAudio> audio;
+  final List<TsvgChapter> chapters;
+  final double duration;
 }
 
 class TsvgFnSrc {
@@ -171,10 +208,188 @@ class TsvgDoc implements TsvgDataHost {
   double duration = 0;
   final List<String> warnings = [];
 
+  /// The timeline as written; [timing] lays it out for one option set (0.5).
+  final List<TsvgSceneSrc> sceneSrc = [];
+
+  /// `<music>` clips (the audio before scene sfx are added).
+  final List<TsvgAudio> music = [];
+
+  /// True when the timing depends on the options (`dur="auto"`, `dur.gu`, `at.gu`…).
+  bool timed = false;
+
+  /// The root `duration` attribute, as written.
+  String? rootDuration;
+
+  /// [forOptions] cache: option values → timed view.
+  final Map<String, TsvgDoc> views = {};
+
   TsvgLayout layout(String? id) => layouts.firstWhere((l) => l.id == id, orElse: () => layouts.first);
 }
 
-const Set<String> shapeTypes = {'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use'};
+/// The document as timed for one option set: shares everything with [base]
+/// except the scenes, says, audio, chapters and duration.
+class _TsvgView extends TsvgDoc {
+  _TsvgView(this.base, this.tm);
+  final TsvgDoc base;
+  final TsvgTiming tm;
+  @override
+  List<TsvgScene> get scenes => tm.scenes;
+  @override
+  List<TsvgSay> get says => tm.says;
+  @override
+  List<TsvgAudio> get audio => tm.audio;
+  @override
+  List<TsvgChapter> get chapters => tm.chapters;
+  @override
+  double get duration => tm.duration;
+  @override
+  bool get timed => false;
+  @override
+  String get version => base.version;
+  @override
+  String get title => base.title;
+  @override
+  String get font => base.font;
+  @override
+  List<TsvgLayout> get layouts => base.layouts;
+  @override
+  List<TsvgOption> get options => base.options;
+  @override
+  Map<String, Map<String, double>> get mixes => base.mixes;
+  @override
+  Map<String, Map<String, String>> get themes => base.themes;
+  @override
+  Map<String, Map<String, String>> get strings => base.strings;
+  @override
+  Map<String, UserFn> get fns => base.fns;
+  @override
+  Map<String, TsvgFnSrc> get fnSrc => base.fnSrc;
+  @override
+  Map<String, List<Object>> get data => base.data;
+  @override
+  Map<String, double> get aspects => base.aspects;
+  @override
+  Map<String, List<TsvgNode>> get symbols => base.symbols;
+  @override
+  Map<String, TsvgGradient> get gradients => base.gradients;
+  @override
+  Map<String, List<TsvgNode>> get clips => base.clips;
+  @override
+  Map<String, List<TsvgNode>> get masks => base.masks;
+  @override
+  Map<String, TsvgAsset> get assets => base.assets;
+  @override
+  List<TsvgFont> get fonts => base.fonts;
+  @override
+  List<TsvgNode> get backdrop => base.backdrop;
+  @override
+  List<TsvgNode> get overlay => base.overlay;
+  @override
+  Map<String, TsvgVoice> get voices => base.voices;
+  @override
+  List<String> get warnings => base.warnings;
+  @override
+  List<TsvgSceneSrc> get sceneSrc => base.sceneSrc;
+  @override
+  List<TsvgAudio> get music => base.music;
+  @override
+  String? get rootDuration => base.rootDuration;
+}
+
+/// The document as timed for [opts] (the document itself when its timing does
+/// not depend on the options). Views are cached per option values.
+TsvgDoc forOptions(TsvgDoc doc, Map<String, String> opts) {
+  if (!doc.timed) return doc;
+  final key = doc.options.map((o) => opts[o.id] ?? '').join('|');
+  return doc.views[key] ??= _TsvgView(doc, timing(doc, {...defaultOptions(doc), ...opts}));
+}
+
+/// Length of a say line: the baked voice for [lang], else `dur`, else ~0.42 s a word (min 1.5).
+double lineDur(TsvgDoc doc, String key, Map<String, String> raw, String? lang, Env env) {
+  final baked = doc.voices['$key|${toStr(lang)}'];
+  if (baked != null && baked.dur > 0) return baked.dur;
+  final d = raw['dur'];
+  if (d != null && d.isNotEmpty) return toNum(d);
+  var text = '';
+  try {
+    text = toStr(value(raw['text'], env, doc));
+  } catch (_) {}
+  return math.max(1.5, text.split(RegExp(r'\s+')).length * 0.42);
+}
+
+double _ms(double v) => jsRound(v * 1000) / 1000;
+
+/// Scene starts/lengths, say and sfx times for one option set. `dur="auto"`: the
+/// scene lasts as long as its narration (+ pad, at least min); a `<say>` without
+/// `at` in such a scene follows the previous one (+ gap). Variants (`dur.gu`,
+/// `at.gu`) and values (`=expr`) work too.
+TsvgTiming timing(TsvgDoc doc, Map<String, String> opts) {
+  final env = makeEnv(doc, opts, doc.layouts.first, 0);
+  Object? num(Map<String, String> a, String k, Object? d) {
+    final raw = pick(a, k, env);
+    if (raw == null) return d;
+    try {
+      return value(raw, env, doc);
+    } on TsvgError catch (e) {
+      throw TsvgError('$k="$raw": ${e.message}');
+    }
+  }
+
+  final scenes = <TsvgScene>[], says = <TsvgSay>[], audio = [...doc.music], chapters = <TsvgChapter>[];
+  var cursor = 0.0, duration = 0.0;
+  for (final s in doc.sceneSrc) {
+    final start = toNum(num(s.a, 'start', cursor));
+    final rawDur = num(s.a, 'dur', null);
+    final auto = rawDur == 'auto';
+    final gap = toNum(num(s.a, 'gap', 0.3));
+    final cues = <String, TsvgCue>{};
+    double? prevEnd;
+    var last = 0.0, i = 0;
+    for (final x in s.says) {
+      final w = x.raw['when'];
+      final on = w == null || w.isEmpty || truthy(compiled(w.startsWith('=') ? w.substring(1) : w)(env));
+      final explicit = pick(x.raw, 'at', env);
+      final at = explicit != null ? toNum(value(explicit, env, doc)) : (auto ? (prevEnd == null ? 0.4 : prevEnd + gap) : 0.0);
+      final d = lineDur(doc, x.key, x.raw, opts['lang'], env);
+      says.add(TsvgSay(key: x.key, start: start + at, raw: x.raw, scene: s.id));
+      if (on) {
+        cues[x.key] = cues['$i'] = TsvgCue(at, at + d);
+        i++;
+        prevEnd = at + d;
+        last = math.max(last, at + d);
+      }
+    }
+    final double dur;
+    if (auto) {
+      dur = _ms(math.max(toNum(num(s.a, 'min', 2.0)), last + toNum(num(s.a, 'pad', 0.8))));
+    } else {
+      dur = toNum(rawDur);
+      if (!(dur > 0)) throw TsvgError('<scene id="${s.id}"> needs dur > 0 (or dur="auto")');
+    }
+    for (final f in s.sfx) {
+      audio.add(TsvgAudio(
+        bus: _or(f['bus'], 'sfx'),
+        src: f['src'],
+        start: start + toNum(num(f, 'at', 0.0)),
+        vol: _plus(_or(f['vol'], '1')),
+        when: f['when'],
+      ));
+    }
+    scenes.add(TsvgScene(s.id, start, dur, s.nodes, cues: cues, line: s.line));
+    final chapter = s.a['chapter'];
+    if (chapter != null && chapter.isNotEmpty) chapters.add(TsvgChapter(start, chapter));
+    cursor = _ms(start + dur);
+    duration = math.max(duration, cursor);
+  }
+  final rd = doc.rootDuration;
+  if (rd != null && rd.isNotEmpty) duration = _plus(rd);
+  return TsvgTiming(scenes, says, audio, chapters, duration);
+}
+
+const Set<String> shapeTypes = {'rect', 'circle', 'ellipse', 'line', 'path', 'text', 'image', 'group', 'use', 'row', 'col', 'grid'};
+
+/// Auto layout containers (0.5).
+const Set<String> layoutTypes = {'row', 'col', 'grid'};
 final RegExp _audioExt = RegExp(r'\.(ogg|opus|mp3|m4a|wav|aac|flac)$', caseSensitive: false);
 final RegExp _fontExt = RegExp(r'\.(ttf|otf|woff2?)$', caseSensitive: false);
 
@@ -228,7 +443,7 @@ TsvgDoc parseTsvg(String xml) {
           node.anims.add(TsvgAnim.keys(k.attrs['prop'], parseKeys(v != null && v.isNotEmpty ? v : k.text), k.attrs['ease'] ?? 'io'));
         }
       }
-      if (c.name == 'group') node.children = buildNodes(c);
+      if (c.name == 'group' || layoutTypes.contains(c.name)) node.children = buildNodes(c);
       out.add(node);
     }
     return out;
@@ -334,38 +549,41 @@ TsvgDoc parseTsvg(String xml) {
   if (bd != null) doc.backdrop = buildNodes(bd);
   final ov = one('overlay');
   if (ov != null) doc.overlay = buildNodes(ov);
-  var cursor = 0.0;
+  // the timeline is kept as written; timing() lays it out for one option set (scene lengths may follow the narration)
+  var sayN = 0;
   for (final sc in kids(one('timeline') ?? r, 'scene')) {
-    final start = sc.attrs['start'] != null ? _plus(sc.attrs['start']) : cursor;
-    final dur = _plus(sc.attrs['dur']);
-    if (!(dur > 0)) throw TsvgError('<scene id="${sc.attrs['id']}"> needs dur > 0');
-    doc.scenes.add(TsvgScene(sc.attrs['id'], start, dur, buildNodes(sc)));
-    final chapter = sc.attrs['chapter'];
-    if (chapter != null && chapter.isNotEmpty) doc.chapters.add(TsvgChapter(start, chapter));
+    final src = TsvgSceneSrc(sc.attrs['id'], sc.attrs, buildNodes(sc), sc.line);
     walk(sc, (el) {
       if (el.name == 'say') {
         final text = el.attrs['text'];
         final idAttr = el.attrs['id'];
         final key = idAttr != null && idAttr.isNotEmpty
             ? idAttr
-            : (text != null && text.startsWith('@') ? text.substring(1) : 'say${doc.says.length}');
-        doc.says.add(TsvgSay(key: key, start: start + _plus(_or(el.attrs['at'], '0')), raw: el.attrs, scene: sc.attrs['id']));
+            : (text != null && text.startsWith('@') ? text.substring(1) : 'say$sayN');
+        src.says.add(TsvgSaySrc(key, el.attrs, sc.attrs['id']));
+        sayN++;
       }
-      if (el.name == 'sfx') {
-        doc.audio.add(TsvgAudio(
-          bus: _or(el.attrs['bus'], 'sfx'),
-          src: el.attrs['src'],
-          start: start + _plus(_or(el.attrs['at'], '0')),
-          vol: _plus(_or(el.attrs['vol'], '1')),
-          when: el.attrs['when'],
-        ));
-      }
+      if (el.name == 'sfx') src.sfx.add(el.attrs);
     });
-    cursor = start + dur;
-    if (cursor > doc.duration) doc.duration = cursor;
+    doc.sceneSrc.add(src);
   }
-  final d = r.attrs['duration'];
-  if (d != null && d.isNotEmpty) doc.duration = _plus(d);
+  doc.music.addAll(doc.audio);
+  bool varied(Map<String, String> a, List<String> names) =>
+      a.keys.any((k) => names.contains(k.split('.').first) && k.contains('.'));
+  doc.timed = doc.sceneSrc.any((s) =>
+      s.a['dur'] == 'auto' ||
+      varied(s.a, ['dur', 'start']) ||
+      s.says.any((x) => varied(x.raw, ['at'])) ||
+      s.sfx.any((x) => varied(x, ['at'])));
+  doc.rootDuration = r.attrs['duration'];
+  final tm = timing(doc, defaultOptions(doc));
+  doc.audio
+    ..clear()
+    ..addAll(tm.audio);
+  doc.scenes.addAll(tm.scenes);
+  doc.says.addAll(tm.says);
+  doc.chapters.addAll(tm.chapters);
+  doc.duration = tm.duration;
   return doc;
 }
 

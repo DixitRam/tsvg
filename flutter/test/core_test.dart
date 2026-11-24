@@ -411,6 +411,60 @@ console.log(JSON.stringify(exprs.map((x) => T.compile(x)(env))));''';
       print('0.2 reference: $exact / ${exprs.length} bit-identical');
     }, skip: hasNode ? false : 'node not installed');
   });
+
+  group('0.5 timing and layout', () {
+    // same document and numbers as the "auto timing" block of tests/unit.mjs
+    const x = '''<tsvg><options><option id="lang" default="en"><choice id="en"/><choice id="gu"/></option></options>
+    <timeline><scene id="a" dur="auto" pad="1" min="2"><say id="v1" text="one"/><say id="v2" text="two"/><rect at="=cue('v2')" w="=cueEnd(0)"/></scene>
+    <scene id="b" dur="3" dur.gu="5" chapter="B"><sfx at="1" at.gu="2" src="a/b.m4a"/></scene></timeline>
+    <voices><voice say="v1" lang="en" src="v/1.m4a" dur="2"/><voice say="v2" lang="en" src="v/2.m4a" dur="1"/><voice say="v1" lang="gu" src="v/3.m4a" dur="4"/><voice say="v2" lang="gu" src="v/4.m4a" dur="3"/></voices></tsvg>''';
+    double r2(double v) => double.parse(v.toStringAsFixed(2));
+    test('auto timing', () {
+      final d = parseTsvg(x);
+      final en = forOptions(d, {'lang': 'en'}), gu = forOptions(d, {'lang': 'gu'});
+      expect(en.scenes.map((s) => [r2(s.start), r2(s.dur)]), [[0, 4.7], [4.7, 3]], reason: 'en timing: 0.4 + 2 + 0.3 + 1 + pad 1');
+      expect(gu.scenes.map((s) => [r2(s.start), r2(s.dur)]), [[0, 8.7], [8.7, 5]], reason: 'gu timing');
+      expect([r2(en.duration), r2(gu.duration)], [7.7, 13.7], reason: 'durations per language');
+      expect(gu.chapters.first.t, 8.7, reason: 'chapter follows');
+      expect(sayLines(d, {'lang': 'gu'}).map((l) => r2(l.start)), [0.4, 4.7], reason: 'say starts chained');
+      expect(audioPlan(d, {'lang': 'gu'}).clips.firstWhere((c) => c.bus == 'sfx').start, 10.7, reason: 'sfx at.gu');
+      expect(identical(forOptions(d, {'lang': 'gu'}), gu), isTrue, reason: 'views cached');
+      expect(parseTsvg('<tsvg><timeline><scene dur="2"/></timeline></tsvg>').timed, isFalse, reason: 'plain docs untouched');
+      final v = validate(x);
+      expect(v.ok, isTrue, reason: 'validate auto: ${v.errors.isEmpty ? '' : v.errors.first}');
+    });
+    test('cue() / cueEnd()', () {
+      final d = parseTsvg(x);
+      final en = forOptions(d, {'lang': 'en'});
+      final sc = en.scenes.first;
+      final env = makeEnv(en, {'lang': 'en'}, en.layouts.first, 0);
+      final inScene = env.withScene(sc, env.vars);
+      final rect = sc.nodes.single;
+      expect(toNum(attr(rect, 'at', inScene, en)), closeTo(2.7, 1e-9));
+      expect(toNum(attr(rect, 'w', inScene, en)), closeTo(2.4, 1e-9));
+      expect(compileExpr("cueEnd('v2')")(inScene), closeTo(3.7, 1e-9));
+      expect(() => compileExpr("cue('nope')")(inScene), throwsA(predicate((e) => '$e' == 'no <say> "nope" in scene a (cue takes a say id or 0, 1, …)')));
+      expect(() => compileExpr('cue(0)')(env), throwsA(predicate((e) => '$e' == 'cue() works inside a scene')));
+    });
+    test('row: gap, pad, justify, align', () {
+      LayoutResult lay(String justify) {
+        final d = parseTsvg('<tsvg><timeline><scene dur="1"><row w="500" h="100" gap="10" pad="20" align="center" justify="$justify">'
+            '<rect w="100" h="40"/><rect w="50" h="60" ax="0.5" ay="0.5"/><circle r="20"/><rect w="9" when="0"/></row></scene></timeline></tsvg>');
+        final env = makeEnv(d, const {}, d.layouts.first, 0);
+        return arrange(RecordingCanvas(), d.scenes.single.nodes.single, env);
+      }
+
+      final c = lay('center');
+      expect([c.w, c.h], [500, 100]);
+      expect(c.items.map((it) => [it.x, it.y, it.ox, it.oy]), [
+        [145, 30, 0, 0],
+        [255, 20, 25, 30],
+        [315, 30, 20, 20],
+      ]);
+      expect(lay('between').items.map((it) => it.x), [20, 255, 440]);
+      expect(lay('end').items.map((it) => it.x), [270, 380, 440]);
+    });
+  });
 }
 
 bool _numEq(Object? a, Object? b) {

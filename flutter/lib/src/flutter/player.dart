@@ -70,7 +70,13 @@ class TsvgPlayerController extends ChangeNotifier {
   void Function(Map<String, String> options)? onOptions;
 
   bool get ready => doc != null;
-  double get duration => doc?.duration ?? 0;
+  /// The document as timed for the current options (scene lengths may follow the narration's language).
+  TsvgDoc? get tl {
+    final d = doc;
+    return d == null ? null : forOptions(d, options);
+  }
+
+  double get duration => tl?.duration ?? 0;
   List<String> get audioErrors => _audio?.errors ?? const [];
 
   /// Loads a document and its fonts / images.
@@ -91,7 +97,7 @@ class TsvgPlayerController extends ChangeNotifier {
           if (options[o.id] != null && o.choices.any((c) => c.id == options[o.id])) o.id: options[o.id]!,
       };
       options = {...defaultOptions(d), ...?_initialOptions, ...keep};
-      t = math.min(t, d.duration);
+      t = math.min(t, duration);
       loadError = null;
       _syncLines();
     } catch (e) {
@@ -126,7 +132,7 @@ class TsvgPlayerController extends ChangeNotifier {
   Future<void> play() async {
     final d = doc;
     if (d == null || playing) return;
-    if (t >= d.duration - 0.05) t = 0;
+    if (t >= duration - 0.05) t = 0;
     playing = true;
     notifyListeners();
     // like the web player: load the clips first, then start the clock and the audio together
@@ -163,7 +169,7 @@ class TsvgPlayerController extends ChangeNotifier {
   void seek(double to) {
     final d = doc;
     if (d == null) return;
-    t = to.clamp(0.0, d.duration).toDouble();
+    t = to.clamp(0.0, duration).toDouble();
     if (playing) unawaited(_resyncAudio());
     notifyListeners();
   }
@@ -178,8 +184,8 @@ class TsvgPlayerController extends ChangeNotifier {
     final prev = t;
     t += dt * rate;
     if (prev != t) _audio?.update(t);
-    if (t >= d.duration) {
-      t = d.duration;
+    if (t >= duration) {
+      t = duration;
       pause();
       return;
     }
@@ -212,6 +218,7 @@ class TsvgPlayerController extends ChangeNotifier {
 
   void setOption(String id, String value) {
     options = {...options, id: value};
+    t = math.min(t, duration);
     _syncLines();
     if (id == 'mix') _audio?.applyMix(doc!.mixes[value] ?? const {'voice': 1, 'music': 1, 'sfx': 1});
     if (playing) {
@@ -271,7 +278,7 @@ class TsvgPlayerController extends ChangeNotifier {
 
   TsvgChapter? chapterAt(double at) {
     TsvgChapter? c;
-    for (final ch in doc?.chapters ?? const <TsvgChapter>[]) {
+    for (final ch in tl?.chapters ?? const <TsvgChapter>[]) {
       if (ch.t <= at + 1e-6) c = ch;
     }
     return c;
@@ -1321,7 +1328,7 @@ class _TimelineState extends State<_Timeline> {
                   children: [
                     Positioned(left: 0, right: 0, top: railTop, height: railH, child: _rail(const Color(0x40ffffff))),
                     Positioned(left: 0, width: w * k, top: railTop, height: railH, child: _rail(_accent)),
-                    for (final ch in c.doc!.chapters.where((ch) => ch.t > 0))
+                    for (final ch in c.tl!.chapters.where((ch) => ch.t > 0))
                       Positioned(
                         left: w * ch.t / d - 1,
                         top: 10,

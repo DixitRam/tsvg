@@ -269,6 +269,198 @@ List<String> wrapText(TsvgCanvas c, String txt, double maxw, FontSpec font) {
   return out;
 }
 
+/// The text of a text node: a numeric literal renders exactly as written ("01"), 0.2.2.
+String textOf(TsvgNode n, Env env) {
+  final raw = pick(n.a, 'text', env);
+  return raw != null && _numeric.hasMatch(raw) ? raw : toStr(value(raw, env, _doc(env)) ?? '');
+}
+
+/// A child placed by a `<row>`, `<col>` or `<grid>`: its box (w × h, origin
+/// offset ox/oy inside the box) and its top-left corner (x, y) in the container.
+class LayoutItem {
+  LayoutItem(this.w, this.h, this.ox, this.oy);
+  double w, h, ox, oy;
+  late TsvgNode node;
+  late Env env;
+  double grow = 0;
+  double x = 0, y = 0;
+}
+
+class LayoutResult {
+  const LayoutResult(this.w, this.h, this.items);
+  final double w, h;
+  final List<LayoutItem> items;
+}
+
+const Set<String> _stretchable = {'rect', 'image', 'group', 'use', 'row', 'col', 'grid'};
+
+/// Auto layout (0.5): `when=`/`only=` false takes a child out of the flow.
+bool inFlow(TsvgNode n, Env env) {
+  final w = pick(n.a, 'when', env);
+  if (w != null && !truthy(compiled(w.startsWith('=') ? w.substring(1) : w)(env))) return false;
+  final only = n.a['only'];
+  if (only != null && only.isNotEmpty) {
+    final want = only.split(RegExp(r'[ ,]+'));
+    if (!want.any(env.tags.contains)) return false;
+  }
+  return true;
+}
+
+/// The layout box of a node: rect/image w×h (origin ax/ay), circle 2r, ellipse
+/// 2rx×2ry, text measured (wrapped at maxw), containers their own size, the rest w×h (default 0).
+LayoutItem boxOf(TsvgCanvas c, TsvgNode n, Env env) {
+  final doc = _doc(env);
+  double p(String k, double d) => toNum(prop(n, k, env, doc, d));
+  switch (n.type) {
+    case 'rect':
+    case 'image':
+      final w = p('w', 100), h = p('h', 100);
+      return LayoutItem(w, h, w * p('ax', 0), h * p('ay', 0));
+    case 'circle':
+      final r = p('r', 50);
+      return LayoutItem(2 * r, 2 * r, r, r);
+    case 'ellipse':
+      final rx = p('rx', 50), ry = toNum(prop(n, 'ry', env, doc, rx));
+      return LayoutItem(2 * rx, 2 * ry, rx, ry);
+    case 'text':
+      final size = p('size', 48), lh = p('lh', 1.25), maxw = p('maxw', 0);
+      final font = fontSpecOf(prop(n, 'font', env, doc, ''), doc, size, prop(n, 'weight', env, doc, 400.0), truthy(prop(n, 'italic', env, doc, 0.0)));
+      final txt = textOf(n, env);
+      final lines = maxw > 0 ? wrapText(c, txt, maxw, font) : txt.split('\n');
+      final w = jsMax([0, for (final l in lines) c.measureText(l, font)]);
+      final h = (lines.length - 1) * size * lh + size;
+      final al = toStr(prop(n, 'align', env, doc, 'left'));
+      return LayoutItem(w, h, al == 'center' ? w / 2 : (al == 'right' ? w : 0), h / 2);
+    case 'row':
+    case 'col':
+    case 'grid':
+      final l = arrange(c, n, env);
+      return LayoutItem(l.w, l.h, l.w * p('ax', 0), l.h * p('ay', 0));
+  }
+  return LayoutItem(p('w', 0), p('h', 0), 0, 0);
+}
+
+/// Places the children of a `<row>`, `<col>` or `<grid>` (port of `arrange`).
+LayoutResult arrange(TsvgCanvas c, TsvgNode n, Env env) {
+  final doc = _doc(env);
+  Object? pv(String k, [Object? d]) => prop(n, k, env, doc, d);
+  final gap = toNum(pv('gap', 0.0)), pad = toNum(pv('pad', 0.0));
+  final align = toStr(pv('align', 'start')), justify = toStr(pv('justify', 'start'));
+  final items = <LayoutItem>[];
+  for (final ch in n.children) {
+    var reps = -1;
+    if (ch.a['repeat'] != null) {
+      final v = toNum(value(pick(ch.a, 'repeat', env), env, doc)).floorToDouble();
+      reps = v.isNaN ? 0 : math.min(1000.0, math.max(0.0, v)).toInt();
+    }
+    final as = ch.a['as'] ?? 'i';
+    final plain = reps < 0 ? ch : ch.withAttrs(Map.of(ch.a)..remove('repeat'));
+    for (var k = 0; k < math.max(1, reps); k++) {
+      if (reps == 0) break;
+      final e = reps < 0
+          ? env
+          : env.withVars(Map<String, Object?>.of(env.vars)
+            ..[as] = k.toDouble()
+            ..['${as}_n'] = reps.toDouble());
+      if (!inFlow(plain, e)) continue;
+      final g = toNum(prop(plain, 'grow', e, doc, 0.0));
+      items.add(boxOf(c, plain, e)
+        ..node = plain
+        ..env = e
+        ..grow = g.isNaN ? 0 : g);
+    }
+  }
+  final w0 = n.a['w'] != null ? toNum(pv('w')) : null, h0 = n.a['h'] != null ? toNum(pv('h')) : null;
+  bool stretchable(LayoutItem it) => _stretchable.contains(it.node.type);
+  void resize(LayoutItem it, String k, double v) {
+    if (!stretchable(it)) return;
+    if (k == 'w') {
+      it.w = v;
+      it.ox = v * toNum(prop(it.node, 'ax', it.env, doc, 0.0));
+    } else {
+      it.h = v;
+      it.oy = v * toNum(prop(it.node, 'ay', it.env, doc, 0.0));
+    }
+    it.node = it.node.withAttrs({...it.node.a, k: numStr(v)});
+  }
+
+  double inAlign(String mode, double room, double size) => mode == 'center' ? (room - size) / 2 : (mode == 'end' ? room - size : 0);
+  double W, H;
+  if (n.type == 'grid') {
+    final cf = toNum(pv('cols', 2.0));
+    final cols = cf.isFinite ? math.max(1, cf.floor()) : 1;
+    final rows = (items.length / cols).ceil();
+    final cellW = w0 != null ? (w0 - 2 * pad - gap * (cols - 1)) / cols : jsMax([0, for (final it in items) it.w]);
+    final rowH = <double>[
+      for (var r = 0; r < rows; r++)
+        h0 != null && items.isEmpty ? 0 : jsMax([0, for (final it in items.skip(r * cols).take(cols)) it.h]),
+    ];
+    if (h0 != null && rows > 0) {
+      final each = (h0 - 2 * pad - gap * (rows - 1)) / rows;
+      for (var r = 0; r < rows; r++) {
+        rowH[r] = each;
+      }
+    }
+    var top = pad;
+    for (var r = 0; r < rows; r++) {
+      for (var col = 0; col < cols; col++) {
+        final i = r * cols + col;
+        if (i >= items.length) break;
+        final it = items[i];
+        if (justify == 'stretch') resize(it, 'w', cellW);
+        if (align == 'stretch') resize(it, 'h', rowH[r]);
+        it.x = pad + col * (cellW + gap) + inAlign(justify, cellW, it.w);
+        it.y = top + inAlign(align, rowH[r], it.h);
+      }
+      top += rowH[r] + gap;
+    }
+    W = w0 ?? 2 * pad + cols * cellW + gap * (cols - 1);
+    H = h0 ?? 2 * pad + rowH.fold(0.0, (a, b) => a + b) + gap * math.max(0, rows - 1);
+  } else {
+    final row = n.type == 'row';
+    double main(LayoutItem it) => row ? it.w : it.h;
+    double cross(LayoutItem it) => row ? it.h : it.w;
+    final mk = row ? 'w' : 'h', ck = row ? 'h' : 'w';
+    final sumMain = items.fold(0.0, (a, it) => a + main(it)) + gap * math.max(0, items.length - 1);
+    final maxCross = jsMax([0, for (final it in items) cross(it)]);
+    W = w0 ?? (row ? sumMain + 2 * pad : maxCross + 2 * pad);
+    H = h0 ?? (row ? maxCross + 2 * pad : sumMain + 2 * pad);
+    final innerMain = (row ? W : H) - 2 * pad, innerCross = (row ? H : W) - 2 * pad;
+    var free = innerMain - sumMain;
+    final grows = items.fold(0.0, (a, it) => a + (stretchable(it) ? it.grow : 0));
+    if (free > 0 && grows > 0) {
+      for (final it in items) {
+        if (truthy(it.grow) && stretchable(it)) resize(it, mk, main(it) + free * it.grow / grows);
+      }
+      free = 0;
+    }
+    var pos = pad, step = gap;
+    if (justify == 'center') {
+      pos += free / 2;
+    } else if (justify == 'end') {
+      pos += free;
+    } else if (justify == 'between' && items.length > 1) {
+      step += free / (items.length - 1);
+    } else if (justify == 'around' && items.isNotEmpty) {
+      step += free / items.length;
+      pos += free / items.length / 2;
+    }
+    for (final it in items) {
+      if (align == 'stretch') resize(it, ck, innerCross);
+      final cp = pad + inAlign(align, innerCross, cross(it));
+      if (row) {
+        it.x = pos;
+        it.y = cp;
+      } else {
+        it.x = cp;
+        it.y = pos;
+      }
+      pos += main(it) + step;
+    }
+  }
+  return LayoutResult(W, H, items);
+}
+
 class _Walker {
   _Walker(this.c, this.doc);
   final TsvgCanvas c;
@@ -365,6 +557,25 @@ class _Walker {
           kids = n.children;
         }
         nodes(kids, env, st);
+      case 'row':
+      case 'col':
+      case 'grid':
+        final l = arrange(c, n, env);
+        c.translate(pn('x', 0) - l.w * pn('ax', 0), pn('y', 0) - l.h * pn('ay', 0));
+        pivot(l.w / 2, l.h / 2);
+        clipTo();
+        if ((truthy(fillRaw) && fillRaw != 'none') || (truthy(strokeRaw) && sw > 0)) {
+          final r = pn('r', 0);
+          paint(RectShape(0, 0, l.w, l.h, r > 0 ? math.max(0, math.min(r, math.min(l.w / 2, l.h / 2))) : 0));
+        }
+        // the card's shadow/dash are its own
+        final kidSt = DrawState(alpha: st.alpha, blend: st.blend, blur: st.blur);
+        for (final it in l.items) {
+          c.save();
+          c.translate(it.x + it.ox, it.y + it.oy);
+          node(it.node, it.env, kidSt);
+          c.restore();
+        }
       case 'rect':
         final w = pn('w', 100), h = pn('h', 100), x = pn('x', 0) - w * pn('ax', 0), y = pn('y', 0) - h * pn('ay', 0), r = pn('r', 0);
         pivot(x + w / 2, y + h / 2);
@@ -409,9 +620,7 @@ class _Walker {
           c.stroke(shape, s, StrokeSpec(sw, trim: draw < 1 ? draw : null), f != null ? st.copyWith(noShadow: true) : st);
         }
       case 'text':
-        // a numeric literal renders exactly as written ("01"), 0.2.2
-        final rawText = pick(n.a, 'text', env);
-        var txt = rawText != null && _numeric.hasMatch(rawText) ? rawText : toStr(value(rawText, env, doc) ?? '');
+        var txt = textOf(n, env);
         final reveal = pn('reveal', 1);
         if (reveal < 1) {
           final cps = txt.runes.toList();
@@ -482,6 +691,7 @@ class _Walker {
 /// Draws the frame at time [t]. The canvas must already map layout units
 /// (layout.w × layout.h) to the target.
 void renderFrame(TsvgCanvas canvas, TsvgDoc doc, double t, Map<String, String> opts, TsvgLayout layout) {
+  doc = forOptions(doc, opts);
   final env = makeEnv(doc, opts, layout, t);
   final w = _Walker(canvas, doc);
   canvas.save();
@@ -498,7 +708,7 @@ void renderFrame(TsvgCanvas canvas, TsvgDoc doc, double t, Map<String, String> o
         ..['T'] = T
         ..['p'] = T / sc.dur
         ..['sdur'] = sc.dur;
-      w.nodes(sc.nodes, env.withVars(vars), DrawState.plain);
+      w.nodes(sc.nodes, env.withScene(sc, vars), DrawState.plain);
     }
     w.nodes(doc.overlay, env, DrawState.plain);
   } finally {

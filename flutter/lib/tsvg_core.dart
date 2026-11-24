@@ -5,7 +5,7 @@ library;
 export 'src/core/audio.dart';
 export 'src/core/canvas.dart';
 export 'src/core/color.dart' show Rgba, cssColor, parseColor, lerpAny, withAlpha;
-export 'src/core/expr.dart' show Env, Expr, UserFn, compileExpr, compiled, lookup, ease, builtins;
+export 'src/core/expr.dart' show Env, TsvgCue, TsvgCueHost, Expr, UserFn, compileExpr, compiled, lookup, ease, builtins;
 export 'src/core/js.dart' show TsvgError, toNum, toStr, truthy;
 export 'src/core/model.dart';
 export 'src/core/path_data.dart';
