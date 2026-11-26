@@ -713,7 +713,8 @@ class _Walker {
     if (!visible(n, parentEnv)) return;
     final atRaw = n.a['at'];
     final env = parentEnv.withVars(Map<String, Object?>.of(parentEnv.vars)
-      ..['T0'] = atRaw != null ? toNum(value(pick(n.a, 'at', parentEnv), parentEnv, doc)) : parentEnv.vars['T0']);
+      ..['T0'] = atRaw != null ? toNum(value(pick(n.a, 'at', parentEnv), parentEnv, doc)) : parentEnv.vars['T0']
+      ..addAll(n.type == 'text' && (n.a['split'] ?? '').isNotEmpty ? {'u': 0.0, 'u_n': 1.0} : const {})); // whole-node reads of per-word attributes
     final mask = pick(n.a, 'mask', env);
     if (mask != null && mask.isNotEmpty && c.supportsMasks) return masked(n, env, parentSt, mask);
     Object? p(String name, [Object? d]) => prop(n, name, env, doc, d);
