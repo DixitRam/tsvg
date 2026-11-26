@@ -1,6 +1,6 @@
 ---
 name: tsvg
-description: Make a video as a TSVG document (.tsvg XML, packed as .tsvgz) that a player draws live, with no rendering to mp4 and no encoding. Use when the user asks for a TSVG, a .tsvg/.tsvgz file, or a lightweight narrated video, explainer, report, demo or animation that should play directly instead of being rendered; also when editing or fixing an existing .tsvg file. Workflow is tsvg new → edit the XML → tsvg check → tsvg make.
+description: Make a video as a TSVG document (.tsvg XML, packed as .tsvgz) that a player draws live, with no rendering to mp4 and no encoding. Use when the user asks for a TSVG, a .tsvg/.tsvgz file, or a lightweight narrated video, explainer, report, demo or animation that should play directly instead of being rendered; also when editing or fixing an existing .tsvg file. First asks which style to use (tech explainer, codebase explainer, or another the user names), then builds it with tsvg new → edit the XML → tsvg check → tsvg make.
 ---
 
 # TSVG: videos without rendering
@@ -22,17 +22,29 @@ R="<skill base dir>/../.."; [ -d "$R/node_modules/playwright-core" ] || npm inst
 ```
 It uses the installed Google Chrome. No Chrome? Set `TSVG_CHROME=/path/to/chromium`. Voices need `ffmpeg` and Kokoro (see Narration).
 
+## First: pick the style
+
+Every new video starts by asking the user **which style** it should be in. Ask one question (with the AskUserQuestion tool when you have it), offering:
+
+1. **Tech explainer** — a calm "why / how does X work" video for anyone (YouTube 16:9, Reels / Shorts 9:16, LinkedIn 1:1 from one file): cream paper, real logos in tiles, isometric props, green word-by-word captions. → Read `../tech-explainer/SKILL.md` (next to this skill) and follow it.
+2. **Codebase explainer** — how a feature in a codebase really works, for its dev team: `file:line` facts, real UI screenshots, the rows each step writes, an honest "In short" / checked-and-open ending; warm paper with one blue focus, or editor-dark. → Read `../codebase-explainer/SKILL.md` and follow it.
+3. **Other** (the user types it) — a style template from `$TSVG styles` (whiteboard, data story, product tour, terminal demo, news bulletin…), the task report (`$TSVG new` with no style), or their own description. → Pick the closest template, read its `examples/styles/<id>.tsvg`, start from it with `$TSVG new <dir> --style <id>`, and follow the rest of this skill.
+
+Skip the question only when the request already settles it: "explain how our login works in a video" → codebase explainer; "a reel / short about why X…" → tech explainer; a named style or an existing `.tsvg` to edit → that. Whatever the style, the result is a TSVG document made with this framework (`tsvg new → edit → check → make`), never a rendered mp4 or an HTML page unless the user asks for one.
+
 ## Workflow
 
 ```sh
 $TSVG new  out/my-video                  # report template on the tsvg:report library + a screenshot slot
-$TSVG styles                             # 60 hand-written style templates (product tour, code walkthrough, data story, whiteboard…)
+$TSVG styles                             # 62 hand-written style templates (product tour, code walkthrough, data story, whiteboard, tech explainer, codebase explainer…)
 $TSVG new  out/my-video --style <id>     # start from one of them
 #   edit out/my-video/my-video.tsvg
 $TSVG check out/my-video/my-video.tsvg   # compiler: errors as file:line + "did you mean"; off-frame and overlapping text
 $TSVG make  out/my-video/my-video.tsvg   # check → bake voices → check → preview sheets → my-video.tsvgz
 ```
 - **Libraries first: write props, not shapes.** The report template is `<import src="tsvg:report" as="r" key="KEY"/>` then one `<r:title|list|shot …/>` per scene, each with a `say`. `$TSVG lib` lists the libraries; `$TSVG lib report` / `$TSVG lib explainer` list their components and props (report: `title list shot stat compare code`; explainer: `title point chapter steps stat quote picture versus outro`). Lists: `items="a | b :: detail | c"`. Hand-written shapes only for what no component covers.
+- **Codebase explainers** for a dev team (how a feature really works, file:line facts, real UI, the rows each step writes, an honest ending; Oizom paper / editor-dark): use the **codebase-explainer** skill (same `tsvg:tech` library, wide stage).
+- **Tech explainers** ("why does X…", "how does X work", news explained; YouTube 16:9, Reels/Shorts 9:16, LinkedIn 1:1 from one document; green word-by-word captions, logo tiles, isometric props): use the **tech-explainer** skill and the `tsvg:tech` library.
 - `make` stops on errors. Fix what `check` prints and run again. Treat warnings as bugs too: text off the frame, overlapping text, a narration line longer than its scene.
 - **Look at the printed `*.preview*.png` contact sheets** (one per layout: every scene plus its narration) with the Read tool before you call it done. Don't render single frames one by one; use `$TSVG render file -t 12 -o f.png` only to inspect one moment.
 - Output: the `.tsvgz` (a zip carrying `index.html`; unzip and open it, it plays). For one self-contained page that plays offline in any browser: `$TSVG pack file.tsvg --html out.html`. Live preview while editing: `$TSVG serve <dir>` then open the `index.html` or the playground.
@@ -106,4 +118,4 @@ Common: `fill stroke sw opacity rot scale sx sy shadow="dx dy blur color" clip="
 **Craft.** One idea per scene. Build elements in with short staggered `anim`s (opacity + a small x/y/scale move) rather than everything at once. Use theme tokens, not raw colours, so light/dark both work. Keep `<backdrop>` subtle. Check both layouts in the contact sheets.
 
 ## Reference
-In the plugin root: `spec/index.html` (full spec), `libs/` (built-in libraries), `templates/report.tsvg` (library template; `report-classic.tsvg` is the hand-written one), `examples/demo/demo.tsvg` (every feature), `examples/features/`, `examples/styles/*.tsvg` (60 styles; `catalog.json` describes them). Read the closest style example before writing an unfamiliar kind of scene.
+In the plugin root: `spec/index.html` (full spec), `libs/` (built-in libraries), `templates/report.tsvg` (library template; `report-classic.tsvg` is the hand-written one), `examples/demo/demo.tsvg` (every feature), `examples/features/`, `examples/styles/*.tsvg` (62 styles; `catalog.json` describes them). Read the closest style example before writing an unfamiliar kind of scene.
