@@ -30,6 +30,8 @@
   <b>TSVG playground</b><span class="muted">Timeseries Scalable Vector Graphics 0.1</span>
   <span class="grow"></span>
   <a href="../spec/">Spec</a><a href="../gallery/">Gallery</a><a href="../gallery/edit-kit.html">Edit Kit catalogue</a><a href="https://github.com/Panth977/tsvg">GitHub</a>
+  <select id="ttsEngine" title="Voice engine (runs in this browser, nothing is sent to a server)"><option value="kokoro">Kokoro 82M (~90 MB, best)</option><option value="sanotts">sanoTTS (small, fast)</option></select>
+  <button id="tts" title="Speak every caption in this browser with the chosen engine and write &lt;voices&gt;">Voice from captions</button>
   <label class="btn">Open .tsvg / .tsvgz<input type="file" id="file" accept=".tsvg,.tsvgz,.xml,.zip" hidden></label>
 </header>
 <div class="play">
@@ -53,15 +55,15 @@ const docUrl = new URL(new URLSearchParams(location.search).get('doc') || '../ex
 const frame = document.getElementById('frame'), src = document.getElementById('src'), msg = document.getElementById('msg');
 const player = new TSVGPlayer(frame, { base: docUrl, onOptions: showOpts });
 const libOpts = { base: docUrl, fetchText: async (u) => { const r = await fetch(u); if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); } };
-let original = '';
+let original = '', lastDoc = null;
 function showOpts(o) { document.getElementById('optline').textContent = Object.entries(o).map(([k, v]) => k + '=' + v).join(' · '); }
 async function apply() {
-  let libs = null;
+  let libs = null; lastDoc = null;
   if (TSVG.needsLibs(src.value)) { try { libs = await TSVG.loadLibs(src.value, libOpts); } catch (e) { msg.className = 'msg err'; msg.textContent = e.message; return; } }
   const r = TSVG.validate(src.value, { libs, base: docUrl });
   msg.className = 'msg ' + (r.ok ? (r.warnings.length ? 'warn' : '') : 'err');
   msg.textContent = r.ok ? (r.warnings.length ? r.warnings.slice(0, 4).join('\n') : 'ok · ' + r.stats.duration + 's · ' + r.stats.variants + ' variants') : r.errors.slice(0, 4).join('\n');
-  if (!r.doc) return;
+  if (!r.doc) return; lastDoc = r.doc;
   try { await player.load(src.value); showOpts(player.opts); } catch (e) { msg.className = 'msg err'; msg.textContent = e.message; }
 }
 async function boot() {
@@ -88,6 +90,61 @@ document.getElementById('file').onchange = async (e) => {
   if (TSVGZip.isZip(b)) { await player.loadPackage(b); original = TSVGZip.text((await TSVGZip.read(b)).get(TSVGZip.MAIN)); src.value = original; apply(); }
   else { original = new TextDecoder().decode(b); src.value = original; apply(); }
 };
+// Voice from captions: speak each <say> (current language) in the browser with the chosen engine (Kokoro or sanoTTS),
+// serve the WAVs as blobs, write them into <voices> like `tsvg bake` does. Clips live for this tab only (tsvg bake makes files on disk).
+// Kokoro = same model + voice + hash as `tsvg bake` (kokoro:af_heart), so a later bake reuses the same tts/<hash>.wav paths.
+const SANO = 'https://cdn.jsdelivr.net/npm/sanotts-web@0.3.0/dist/', KOKORO = 'https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/+esm';
+const ENGINES = {
+  kokoro: { voice: 'af_heart', async load() {
+    const { KokoroTTS } = await import(KOKORO), gpu = !!navigator.gpu; // WebGPU wants fp32 (~310 MB); WASM runs q8 (~90 MB)
+    const t = await KokoroTTS.from_pretrained('onnx-community/Kokoro-82M-v1.0-ONNX', { dtype: gpu ? 'fp32' : 'q8', device: gpu ? 'webgpu' : 'wasm' });
+    return async (text) => { const a = await t.generate(text, { voice: 'af_heart' }); return { samples: a.audio, rate: a.sampling_rate }; }; // ponytail: one generate per caption line (~510 tokens max); stream() if lines get longer
+  } },
+  sanotts: { voice: 'heart', async load() {
+    const { SanoTTS } = await import(SANO + 'index.js'), t = await SanoTTS.load({ assetBase: SANO });
+    return async (text) => { const r = await t.synthesize(text, { voice: 'heart', maxSeconds: 30 }); return { samples: r.samples, rate: r.sampleRate }; }; // ponytail: 30 s per line is the nano runtime's cap
+  } },
+};
+const speakers = {};
+function wav(samples, rate) {
+  const b = new DataView(new ArrayBuffer(44 + samples.length * 2)), w = (o, t) => [...t].forEach((c, i) => b.setUint8(o + i, c.charCodeAt(0)));
+  w(0, 'RIFF'); b.setUint32(4, 36 + samples.length * 2, true); w(8, 'WAVEfmt '); b.setUint32(16, 16, true); b.setUint16(20, 1, true); b.setUint16(22, 1, true);
+  b.setUint32(24, rate, true); b.setUint32(28, rate * 2, true); b.setUint16(32, 2, true); b.setUint16(34, 16, true); w(36, 'data'); b.setUint32(40, samples.length * 2, true);
+  samples.forEach((v, i) => b.setInt16(44 + i * 2, Math.max(-1, Math.min(1, v)) * 0x7fff, true));
+  return new Blob([b], { type: 'audio/wav' });
+}
+async function sha1(t) { return [...new Uint8Array(await crypto.subtle.digest('SHA-1', new TextEncoder().encode(t)))].map((x) => x.toString(16).padStart(2, '0')).join(''); }
+async function voiceFromCaptions() {
+  const btn = document.getElementById('tts'); clearTimeout(deb); await apply(); if (!lastDoc) { msg.className = 'msg err'; msg.textContent = 'fix the errors first'; return; }
+  btn.disabled = true; msg.className = 'msg';
+  try {
+    const name = document.getElementById('ttsEngine').value, eng = ENGINES[name], ENGINE = name + ':' + eng.voice;
+    msg.textContent = `loading ${name} (first time downloads the model, then the browser caches it)…`;
+    const speak = speakers[name] = speakers[name] || await eng.load();
+    const doc = lastDoc, opts = Object.assign(TSVG.defaults(doc), player.opts), lang = opts.lang || 'en';
+    const lines = TSVG.sayLines(doc, opts), voices = Object.assign({}, doc.voices);
+    for (const k of Object.keys(voices)) if (k.endsWith('|' + lang)) delete voices[k];
+    let i = 0;
+    for (const l of lines) {
+      msg.textContent = `speaking ${++i}/${lines.length} (${lang}): ${l.speak}`;
+      const hash = (await sha1(name + '|' + eng.voice + '|' + l.speak)).slice(0, 10), path = 'tts/' + hash + '.wav'; // same as tsvg bake
+      let dur = player.files[path] && player.ttsDur && player.ttsDur[path]; // loadPackage() drops our blobs
+      if (!dur) {
+        const r = await speak(l.speak);
+        player.files[path] = URL.createObjectURL(wav(r.samples, r.rate));
+        dur = r.samples.length / r.rate; (player.ttsDur = player.ttsDur || {})[path] = dur;
+      }
+      voices[l.key + '|' + lang] = { src: path, dur, hash, engine: ENGINE };
+    }
+    const esc = (v) => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+    const block = '<voices>\n' + Object.entries(voices).sort().map(([k, v]) => { const [say, l] = k.split('|'); return `    <voice say="${esc(say)}" lang="${l}" src="${esc(v.src)}" dur="${(+v.dur).toFixed(2)}" hash="${v.hash}" engine="${v.engine}"/>`; }).join('\n') + '\n  </voices>';
+    const re = /<voices\b[\s\S]*?<\/voices>|<voices\s*\/>/;
+    src.value = re.test(src.value) ? src.value.replace(re, block) : src.value.replace(/\n?<\/tsvg>\s*$/, '\n\n  ' + block + '\n</tsvg>\n');
+    await apply();
+  } catch (e) { msg.className = 'msg err'; msg.textContent = 'voice: ' + e.message; }
+  btn.disabled = false;
+}
+document.getElementById('tts').onclick = voiceFromCaptions;
 boot();
 </script>
 </body>

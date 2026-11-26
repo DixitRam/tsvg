@@ -1237,8 +1237,9 @@ void renderFrame(TsvgCanvas canvas, TsvgDoc doc, double t, Map<String, String> o
   }
 }
 
-/// Option defaults: each option's `default`, else its first choice.
+/// Option defaults: each option's `default`, else its first choice. No lang option = English, as `tsvg bake` assumes.
 Map<String, String> defaultOptions(TsvgDoc doc) => {
+      'lang': 'en',
       for (final o in doc.options)
         if ((o.defaultValue ?? '').isNotEmpty || o.choices.isNotEmpty)
           o.id: (o.defaultValue ?? '').isNotEmpty ? o.defaultValue! : o.choices.first.id,

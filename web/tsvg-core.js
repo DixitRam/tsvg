@@ -1240,7 +1240,7 @@
   // asset id or path → path inside the package
   function assetPath(doc, ref) { return ref && doc.assets[ref] ? doc.assets[ref].src : ref; }
 
-  function defaults(doc) { const o = {}; for (const op of doc.options) o[op.id] = op.default || (op.choices[0] && op.choices[0].id); return o; }
+  function defaults(doc) { const o = { lang: 'en' }; for (const op of doc.options) o[op.id] = op.default || (op.choices[0] && op.choices[0].id); return o; } // no lang option = English, as tsvg bake assumes
   function combos(doc) {
     let out = [{}];
     for (const o of doc.options) { const next = []; for (const c of out) for (const ch of o.choices) next.push(Object.assign({}, c, { [o.id]: ch.id })); out = next; }
