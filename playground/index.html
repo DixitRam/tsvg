@@ -90,52 +90,16 @@ document.getElementById('file').onchange = async (e) => {
   if (TSVGZip.isZip(b)) { await player.loadPackage(b); original = TSVGZip.text((await TSVGZip.read(b)).get(TSVGZip.MAIN)); src.value = original; apply(); }
   else { original = new TextDecoder().decode(b); src.value = original; apply(); }
 };
-// Voice from captions: speak each <say> (current language) in the browser with the chosen engine (Kokoro or sanoTTS),
-// serve the WAVs as blobs, write them into <voices> like `tsvg bake` does. Clips live for this tab only (tsvg bake makes files on disk).
-// Kokoro = same model + voice + hash as `tsvg bake` (kokoro:af_heart), so a later bake reuses the same tts/<hash>.wav paths.
-const SANO = 'https://cdn.jsdelivr.net/npm/sanotts-web@0.3.0/dist/', KOKORO = 'https://cdn.jsdelivr.net/npm/kokoro-js@1.2.1/+esm';
-const ENGINES = {
-  kokoro: { voice: 'af_heart', async load() {
-    const { KokoroTTS } = await import(KOKORO), gpu = !!navigator.gpu; // WebGPU wants fp32 (~310 MB); WASM runs q8 (~90 MB)
-    const t = await KokoroTTS.from_pretrained('onnx-community/Kokoro-82M-v1.0-ONNX', { dtype: gpu ? 'fp32' : 'q8', device: gpu ? 'webgpu' : 'wasm' });
-    return async (text) => { const a = await t.generate(text, { voice: 'af_heart' }); return { samples: a.audio, rate: a.sampling_rate }; }; // ponytail: one generate per caption line (~510 tokens max); stream() if lines get longer
-  } },
-  sanotts: { voice: 'heart', async load() {
-    const { SanoTTS } = await import(SANO + 'index.js'), t = await SanoTTS.load({ assetBase: SANO });
-    return async (text) => { const r = await t.synthesize(text, { voice: 'heart', maxSeconds: 30 }); return { samples: r.samples, rate: r.sampleRate }; }; // ponytail: 30 s per line is the nano runtime's cap
-  } },
-};
-const speakers = {};
-function wav(samples, rate) {
-  const b = new DataView(new ArrayBuffer(44 + samples.length * 2)), w = (o, t) => [...t].forEach((c, i) => b.setUint8(o + i, c.charCodeAt(0)));
-  w(0, 'RIFF'); b.setUint32(4, 36 + samples.length * 2, true); w(8, 'WAVEfmt '); b.setUint32(16, 16, true); b.setUint16(20, 1, true); b.setUint16(22, 1, true);
-  b.setUint32(24, rate, true); b.setUint32(28, rate * 2, true); b.setUint16(32, 2, true); b.setUint16(34, 16, true); w(36, 'data'); b.setUint32(40, samples.length * 2, true);
-  samples.forEach((v, i) => b.setInt16(44 + i * 2, Math.max(-1, Math.min(1, v)) * 0x7fff, true));
-  return new Blob([b], { type: 'audio/wav' });
-}
-async function sha1(t) { return [...new Uint8Array(await crypto.subtle.digest('SHA-1', new TextEncoder().encode(t)))].map((x) => x.toString(16).padStart(2, '0')).join(''); }
+// Voice from captions: the player speaks each <say> (current language) in this browser with the chosen engine
+// (TSVGPlayer.generateVoices: Kokoro or sanoTTS, same model + voice + hash as `tsvg bake`); we write the clips into <voices>.
+// Clips live for this tab only (tsvg bake makes files on disk).
 async function voiceFromCaptions() {
   const btn = document.getElementById('tts'); clearTimeout(deb); await apply(); if (!lastDoc) { msg.className = 'msg err'; msg.textContent = 'fix the errors first'; return; }
-  btn.disabled = true; msg.className = 'msg';
+  btn.disabled = true; msg.className = 'msg'; msg.textContent = 'speaking every caption in this browser (progress in the player\'s Voice menu; the first run downloads the model)…';
   try {
-    const name = document.getElementById('ttsEngine').value, eng = ENGINES[name], ENGINE = name + ':' + eng.voice;
-    msg.textContent = `loading ${name} (first time downloads the model, then the browser caches it)…`;
-    const speak = speakers[name] = speakers[name] || await eng.load();
-    const doc = lastDoc, opts = Object.assign(TSVG.defaults(doc), player.opts), lang = opts.lang || 'en';
-    const lines = TSVG.sayLines(doc, opts), voices = Object.assign({}, doc.voices);
-    for (const k of Object.keys(voices)) if (k.endsWith('|' + lang)) delete voices[k];
-    let i = 0;
-    for (const l of lines) {
-      msg.textContent = `speaking ${++i}/${lines.length} (${lang}): ${l.speak}`;
-      const hash = (await sha1(name + '|' + eng.voice + '|' + l.speak)).slice(0, 10), path = 'tts/' + hash + '.wav'; // same as tsvg bake
-      let dur = player.files[path] && player.ttsDur && player.ttsDur[path]; // loadPackage() drops our blobs
-      if (!dur) {
-        const r = await speak(l.speak);
-        player.files[path] = URL.createObjectURL(wav(r.samples, r.rate));
-        dur = r.samples.length / r.rate; (player.ttsDur = player.ttsDur || {})[path] = dur;
-      }
-      voices[l.key + '|' + lang] = { src: path, dur, hash, engine: ENGINE };
-    }
+    player.openMenu('__voice');
+    const made = await player.generateVoices(document.getElementById('ttsEngine').value), lang = Object.keys(made)[0].split('|')[1];
+    const voices = Object.assign({}, lastDoc.voices); for (const k of Object.keys(voices)) if (k.endsWith('|' + lang)) delete voices[k]; Object.assign(voices, made);
     const esc = (v) => String(v).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
     const block = '<voices>\n' + Object.entries(voices).sort().map(([k, v]) => { const [say, l] = k.split('|'); return `    <voice say="${esc(say)}" lang="${l}" src="${esc(v.src)}" dur="${(+v.dur).toFixed(2)}" hash="${v.hash}" engine="${v.engine}"/>`; }).join('\n') + '\n  </voices>';
     const re = /<voices\b[\s\S]*?<\/voices>|<voices\s*\/>/;

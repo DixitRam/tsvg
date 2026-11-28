@@ -112,10 +112,14 @@ Common: `fill stroke sw opacity rot scale sx sy shadow="dx dy blur color" clip="
 
 **Narration.** One `<say text="@voN"/>` per scene; the text is also the caption. Keep each line to 1–3 short sentences. `<scene dur="auto">` lasts as long as its narration in each language (+`pad`, ≥`min`); says without `at` follow each other; `at="=cue('v2')"` starts a node with that line. With a fixed `dur`, make it ≥ clip length + 1 s. Use `speak="@x_say"` when pronunciation should differ from the caption (e.g. "T. S. V. G.").
 - `make` bakes voices with Kokoro (local) into `voice/<doc>/<lang>/` and writes `<voices>`. It needs `ffmpeg` and a Python with `kokoro-onnx soundfile` plus the model files (`kokoro-v1.0.onnx`, `voices-v1.0.bin` from github.com/thewh1teagle/kokoro-onnx releases). Point to them with `TSVG_PYTHON=<venv python>` and `TSVG_KOKORO_DIR=<model dir>`.
-- Not set up, and the user hasn't asked for voice? Run `$TSVG make file.tsvg --no-bake`: captions still show, timed at ~0.42 s per word, and the "no recorded clip yet" warnings are expected. Tell the user how to add voices; don't download the models without asking.
+- Not set up, and the user hasn't asked for voice? Run `$TSVG make file.tsvg --no-bake`: captions still show, timed at ~0.42 s per word, and the "no recorded clip yet" warnings are expected. Tell the user how to add voices; don't download the models without asking. Viewers can also make voices themselves: the player's mic button (Voice menu) generates every line in their browser with Kokoro or sanoTTS, or reads lines with a browser voice.
 - More languages: add `<choice id="gu" tts="sarvam:shubh"/>` and a `gu="…"` on every string (Sarvam needs `SARVAM_API_KEY`; never print it).
 
 **Craft.** One idea per scene. Build elements in with short staggered `anim`s (opacity + a small x/y/scale move) rather than everything at once. Use theme tokens, not raw colours, so light/dark both work. Keep `<backdrop>` subtle. Check both layouts in the contact sheets.
+
+## claude.ai (web, no CLI)
+
+People on claude.ai can't run the CLI or a server, so the video plays inside an artifact instead: the `tsvg-video` skill (`web-skill/`, built into `dist/tsvg-video.zip` by `npm run build`, uploaded in claude.ai → Settings → Capabilities → Skills) writes the document into a small HTML page that loads the player and the built-in libraries from `cdn.jsdelivr.net/npm/@dixitram/tsvg` (the only scripts an artifact may load; artifacts block every fetch). If a user asks for a video they can view on claude.ai, point them to that skill.
 
 ## Reference
 In the plugin root: `spec/index.html` (full spec), `libs/` (built-in libraries), `templates/report.tsvg` (library template; `report-classic.tsvg` is the hand-written one), `examples/demo/demo.tsvg` (every feature), `examples/features/`, `examples/styles/*.tsvg` (62 styles; `catalog.json` describes them). Read the closest style example before writing an unfamiliar kind of scene.
