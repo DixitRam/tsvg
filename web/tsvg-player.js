@@ -80,6 +80,11 @@
   [data-a=rate]{font-size:13px;font-weight:600;width:auto!important;padding:0 8px;border-radius:8px}
   .cc-on [data-a=cc]{box-shadow:inset 0 -3px 0 -1px #ff2d48}
   .narrow .wideonly,.wideonly.hidden,.row .hidden{display:none!important}
+  .toast{position:absolute;top:12px;left:50%;transform:translateX(-50%);display:none;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 24px);width:max-content;background:#1c1c1ef2;border-radius:12px;padding:8px 8px 8px 14px;font-size:13px;line-height:1.35;box-shadow:0 6px 24px #0008;pointer-events:auto;z-index:2}
+  .toast.on{display:flex}
+  .toast button{border-radius:8px;padding:6px 10px;font-size:13px;font-weight:600;background:#ffffff1f}
+  .toast button.go{background:#fff;color:#000}
+  .toast button.x{background:none;opacity:.7;padding:6px 8px}
   .menu .note{padding:8px 14px;font-size:12.5px;opacity:.75;line-height:1.4;white-space:normal;max-width:300px}
   .wide .narrowonly{display:none!important}
   .cc{position:absolute;left:50%;bottom:var(--ccb,16px);transform:translateX(-50%);width:max-content;max-width:86%;text-align:center;pointer-events:none;font-size:var(--ccs,16px);transition:bottom .2s}
@@ -147,6 +152,7 @@
         </div>
         <div class="zoomtag" title="Reset zoom"></div>
         <div class="menu" role="menu"></div>
+        <div class="toast" role="status"></div>
         <div class="err"></div>
       </div>`;
       host.appendChild(this.el);
@@ -328,7 +334,7 @@
     // join the document (scene timing follows them). Returns { 'key|lang': { src, dur, hash, engine } } (what tsvg bake writes).
     async generateVoices(name) {
       const eng = VOICE_ENGINES[name]; if (!eng || this.gen) return;
-      const lang = this.opts.lang || 'en', ENGINE = name + ':' + eng.voice, set = (msg) => { this.gen = { msg }; this.renderMenu(); };
+      const lang = this.opts.lang || 'en', ENGINE = name + ':' + eng.voice, set = (msg) => { this.gen = { msg }; this.renderMenu(); if (this._toast === 'gen') this.toast(msg); };
       this.genErr = null;
       try {
         set('Loading ' + eng.label + '…');
@@ -352,6 +358,31 @@
         this.renderMenu(); throw e;
       }
     }
+    // first play of a video with lines that have no clip: say how it will sound and offer a natural voice
+    async voiceHint() {
+      if (!this.controls || this._hinted || !this.lines.some((l) => !l.clip)) return; this._hinted = true;
+      const lang = this.opts.lang || 'en', has = root.speechSynthesis && speechSynthesis.getVoices().some((v) => v.lang.toLowerCase().startsWith(lang));
+      const msg = has ? 'Narration is read by your browser\'s voice.' : 'This device has no voice for the narration.';
+      if (await canDownload()) this.toast(msg, [['go', 'Natural voice', () => this.naturalVoice()], ['', 'More…', () => { this.toast(); this.openMenu('__voice'); }]]);
+      else this.toast(has ? msg : msg + ' Captions are on.', has ? [['', 'Choose voice', () => { this.toast(); this.openMenu('__voice'); }]] : [], 7000);
+    }
+    async naturalVoice() {
+      const was = this.playing; if (was) this.pause(); this._toast = 'gen'; this.toast('Loading voice…', []);
+      try { await this.generateVoices('sanotts'); this._toast = null; this.toast('Natural voice ready.', null, 2500); if (was) this.play(); }
+      catch (e) { this._toast = null; this.toast(this.genErr || String(e), [['', 'Choose voice', () => { this.toast(); this.openMenu('__voice'); }]], 9000); }
+    }
+    // toast(text, [[cls, label, fn]…], hideAfterMs): a small card at the top of the player; toast() hides it
+    toast(text, buttons, ms) {
+      const el = this.q('.toast'); clearTimeout(this._toastT);
+      if (text == null) { el.classList.remove('on'); return; }
+      if (buttons !== undefined || !el.classList.contains('on')) {
+        el.innerHTML = `<span class="t"></span>` + (buttons || []).map((b, i) => `<button class="${b[0]}" data-i="${i}">${esc(b[1])}</button>`).join('') + (ms ? '' : `<button class="x" data-i="x" aria-label="Dismiss">✕</button>`);
+        el.onclick = (e) => { e.stopPropagation(); const b = e.target.closest('button'); if (!b) return; if (b.dataset.i === 'x') return this.toast(); buttons[+b.dataset.i][2](); };
+        el.onpointerdown = (e) => e.stopPropagation();
+      }
+      el.querySelector('.t').textContent = text; el.classList.add('on');
+      if (ms) this._toastT = setTimeout(() => el.classList.remove('on'), ms);
+    }
     setVolume(v) { this.volume = Math.min(1, Math.max(0, v)); if (this.volume > 0) this.muted = false; this.applyMix(); this.ui(); }
     toggleMute() { this.muted = !this.muted; if (!this.muted && this.volume === 0) this.volume = 0.5; this.applyMix(); this.ui(); }
 
@@ -360,6 +391,7 @@
       if (this.t >= this.tl.duration - 0.05) this.t = 0;
       this.playing = true; this.p.classList.add('playing'); await this.ensureAudio();
       this.clock = performance.now(); this.syncAudio(true); this.loop(); this.ui(); this.showControls(false);
+      this.voiceHint();
     }
     pause() { this.playing = false; this.p.classList.remove('playing'); this.stopAudio(); this.ui(); this.showControls(true); }
     toggle() { this.playing ? this.pause() : this.play(); }
@@ -614,6 +646,9 @@
     for (let i = 0; i < samples.length; i++) b.setInt16(44 + i * 2, Math.max(-1, Math.min(1, samples[i])) * 0x7fff, true);
     return new Blob([b], { type: 'audio/wav' });
   }
+  // can this page download (voice models)? claude.ai artifacts block every fetch
+  let dl = null;
+  function canDownload() { return (dl = dl || fetch('https://cdn.jsdelivr.net/npm/sanotts-web@0.3.0/package.json', { method: 'HEAD' }).then((r) => r.ok, () => false)); }
   async function sha1(t) { return [...new Uint8Array(await crypto.subtle.digest('SHA-1', new TextEncoder().encode(t)))].map((x) => x.toString(16).padStart(2, '0')).join(''); }
   Player.voiceEngines = VOICE_ENGINES;
   root.TSVGPlayer = Player;

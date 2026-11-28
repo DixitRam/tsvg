@@ -33,7 +33,7 @@ The video is one TSVG XML document inside a small HTML artifact. The artifact lo
 </script>
 </body></html>
 ```
-   Keep both script tags at this exact version: `tsvg-libs.js` carries the built-in libraries (`tsvg:tech`, `tsvg:icons`, `tsvg:report`, `tsvg:explainer`, `tsvg:charts`, `tsvg:fx`) and their fonts. Then tell the user in one or two lines what the video covers and that they press play (narration uses their browser's voice; captions always show).
+   Keep both script tags at this exact version: `tsvg-libs.js` carries the built-in libraries (`tsvg:tech`, `tsvg:icons`, `tsvg:report`, `tsvg:explainer`, `tsvg:charts`, `tsvg:fx`) and their fonts. Then tell the user in one or two lines what the video covers and that they press play: on first play the player says how the narration will sound (browser voice) and, where the page can download, offers a natural voice; captions always show.
 
 ## What works inside an artifact (and what doesn't)
 

@@ -175,8 +175,8 @@ import { TSVGPlayer } from "https://esm.sh/jsr/@panth977/tsvg@0.10.0";     // an
 ```html
 <script src="https://esm.sh/jsr/@panth977/tsvg@0.10.0/dist/tsvg.js?raw"></script>  <!-- classic script: window.TSVG, TSVGZip, TSVGPlayer -->
 <!-- or from npm (jsdelivr; works inside claude.ai artifacts, + tsvg-libs.js bundles the built-in libraries):
-     <script src="https://cdn.jsdelivr.net/npm/@dixitram/tsvg@0.10.0/tsvg.js"></script>
-     <script src="https://cdn.jsdelivr.net/npm/@dixitram/tsvg@0.10.0/tsvg-libs.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@dixitram/tsvg@0.10.1/tsvg.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@dixitram/tsvg@0.10.1/tsvg-libs.js"></script>
      <script type="text/tsvg" data-play><tsvg …>…</tsvg></script>   (plays in place) -->
 ```
 

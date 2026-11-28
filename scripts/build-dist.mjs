@@ -10,6 +10,7 @@ const root = new URL('..', import.meta.url).pathname;
 const v = JSON.parse(readFileSync(root + 'deno.json', 'utf8')).version;
 const pkg = /const PKG = '([^']+)'/.exec(readFileSync(root + 'web/tsvg-core.js', 'utf8'))[1];
 if (pkg !== v) { console.error(`web/tsvg-core.js PKG ${pkg} != deno.json ${v}: bump both (tsvg:<lib> imports resolve to jsr.io/@panth977/tsvg/<PKG>/libs/)`); process.exit(1); }
+const NPM = '0.10.1'; // the npm package's own version: bump on every publish (npm never takes a version twice); v = engine
 const head = `/*! TSVG ${v} · Timeseries Scalable Vector Graphics · MIT · github.com/Panth977/tsvg */\n`;
 mkdirSync(root + 'dist', { recursive: true });
 
@@ -45,17 +46,17 @@ const files = {};
 writeFileSync(root + 'dist/tsvg-libs.js', head + 'var TSVG_FILES = Object.assign(globalThis.TSVG_FILES || {}, ' + JSON.stringify(files) + ');\nglobalThis.TSVG_FILES = TSVG_FILES;\n');
 
 writeFileSync(root + 'dist/package.json', JSON.stringify({
-  name: '@dixitram/tsvg', version: v, license: 'MIT',
+  name: '@dixitram/tsvg', version: NPM, license: 'MIT',
   description: 'TSVG player for the browser: one classic script, plus the built-in libraries bundled for pages that cannot fetch (claude.ai artifacts).',
   repository: { type: 'git', url: 'git+https://github.com/Panth977/tsvg.git' }, main: 'tsvg.js', files: ['tsvg.js', 'tsvg-libs.js', 'README.md'],
 }, null, 2) + '\n');
-writeFileSync(root + 'dist/README.md', `# @dixitram/tsvg ${v}
+writeFileSync(root + 'dist/README.md', `# @dixitram/tsvg ${NPM} (TSVG engine ${v})
 
 TSVG (Timeseries Scalable Vector Graphics) player as plain scripts. Spec and tools: https://github.com/Panth977/tsvg
 
 \`\`\`html
-<script src="https://cdn.jsdelivr.net/npm/@dixitram/tsvg@${v}/tsvg.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@dixitram/tsvg@${v}/tsvg-libs.js"></script> <!-- only if the video imports tsvg:<lib> -->
+<script src="https://cdn.jsdelivr.net/npm/@dixitram/tsvg@${NPM}/tsvg.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dixitram/tsvg@${NPM}/tsvg-libs.js"></script> <!-- only if the video imports tsvg:<lib> -->
 <script type="text/tsvg" data-play>
   <tsvg …>…</tsvg>
 </script>
@@ -66,7 +67,7 @@ TSVG (Timeseries Scalable Vector Graphics) player as plain scripts. Spec and too
 const sk = root + 'dist/skill/tsvg-video/'; rmSync(root + 'dist/skill', { recursive: true, force: true });
 const put = (p, data) => { mkdirSync(dirname(sk + p), { recursive: true }); writeFileSync(sk + p, data); };
 const rd = (p) => readFileSync(root + p, 'utf8');
-put('SKILL.md', rd('web-skill/SKILL.md').replaceAll('__VERSION__', v));
+put('SKILL.md', rd('web-skill/SKILL.md').replaceAll('__VERSION__', NPM));
 put('scripts/check.mjs', rd('web-skill/scripts/check.mjs'));
 put('scripts/tsvg-core.js', rd('web/tsvg-core.js'));
 for (const u of Object.keys(files)) if (u.endsWith('.tsvgl')) put('scripts/libs/' + u.slice(base.length), files[u]);
